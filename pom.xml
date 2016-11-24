@@ -55,6 +55,13 @@
             <!--<version>3.4</version>-->
         <!--</dependency>-->
 
+
+        <dependency>
+            <groupId>com.aspose</groupId>
+            <artifactId>aspose-slides</artifactId>
+            <version>16.10.0</version>
+        </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -176,6 +183,11 @@
             <snapshots>
                 <enabled>true</enabled>
             </snapshots>
+        </repository>
+
+        <repository>
+            <id>aspose-maven-repository</id>
+            <url>http://maven.aspose.com/repository/repo/</url>
         </repository>
     </repositories>
 

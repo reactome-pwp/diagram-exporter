@@ -1,4 +1,4 @@
-package org.reactome.server.tools.diagram.exporter.model;
+package org.reactome.server.tools.diagram.exporter.pptx.model;
 
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
@@ -6,13 +6,13 @@ package org.reactome.server.tools.diagram.exporter.model;
 
 public class PPTXShape {
 
-    public enum ShapeType { CIRCLE, DOUBLE_CIRCLE, BOX }
+    public enum ReactionShapeType { CIRCLE, DOUBLE_CIRCLE, BOX }
 
     private float x,y,w,h;
     private String text;
-    private ShapeType type;
+    private ReactionShapeType type;
 
-    public PPTXShape(double x, double y, double w, double h, String text, ShapeType type) {
+    public PPTXShape(double x, double y, double w, double h, String text, ReactionShapeType type) {
         this.x = (float)x;
         this.y = (float)y;
         this.w = (float)w;
@@ -61,11 +61,11 @@ public class PPTXShape {
         this.text = text;
     }
 
-    public ShapeType getType() {
+    public ReactionShapeType getType() {
         return type;
     }
 
-    public void setType(ShapeType type) {
+    public void setType(ReactionShapeType type) {
         this.type = type;
     }
 }

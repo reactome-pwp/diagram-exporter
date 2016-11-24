@@ -1,11 +1,11 @@
-package org.reactome.server.tools.diagram.exporter.model;
+package org.reactome.server.tools.diagram.exporter.pptx.model;
 
 import java.util.List;
 
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
  */
-public class Pathway {
+public class PathwayDiagram {
 
     private List<Note> notes;
     private List<Compartment> compartments;

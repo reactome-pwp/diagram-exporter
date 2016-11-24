@@ -1,4 +1,4 @@
-package org.reactome.server.tools.diagram.exporter.model;
+package org.reactome.server.tools.diagram.exporter.pptx.model;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ public class Reaction {
     private PPTXShape pptxShape;
     private PPTXSegment backboneInput;
     private PPTXSegment backboneOutput;
-    private List<Participant> participants;
-    private String reactionType; // maybe we should use an Enumeration or maybe we don't need and the render will deal with.
+    private List<PPTXNode> participants;
+    private String reactionType; // maybe we should use an Enumeration or maybe we don't need and the pptx will deal with.
 
 
     public PPTXSegment getBackboneInput() {
@@ -43,11 +43,11 @@ public class Reaction {
         this.id = id;
     }
 
-    public List<Participant> getParticipants() {
+    public List<PPTXNode> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(List<Participant> participants) {
+    public void setParticipants(List<PPTXNode> participants) {
         this.participants = participants;
     }
 
@@ -77,7 +77,7 @@ public class Reaction {
 
     public String  render(){
 
-        // take all parameters and render the reaction.
-        return "Please, PPT render a reaction!";
+        // take all parameters and pptx the reaction.
+        return "Please, PPT pptx a reaction!";
     }
 }
