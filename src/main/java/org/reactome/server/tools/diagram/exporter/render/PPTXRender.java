@@ -1,6 +1,6 @@
-package org.reactome.server.tools.render;
+package org.reactome.server.tools.diagram.exporter.render;
 
-import org.reactome.server.tools.model.Pathway;
+import org.reactome.server.tools.diagram.exporter.model.Pathway;
 
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>

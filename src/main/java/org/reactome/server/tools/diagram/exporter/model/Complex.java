@@ -1,10 +1,10 @@
-package org.reactome.server.tools.model;
+package org.reactome.server.tools.diagram.exporter.model;
 
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
  */
 
-public class EncapsulatedPathway extends PPTXNode {
+public class Complex extends PPTXNode {
 
     @Override
     public void render() {

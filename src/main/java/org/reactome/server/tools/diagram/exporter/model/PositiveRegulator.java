@@ -1,11 +1,9 @@
-package org.reactome.server.tools.model;
+package org.reactome.server.tools.diagram.exporter.model;
 
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
  */
-
-public class OtherEntity extends PPTXNode {
-
+public class PositiveRegulator extends Regulator {
     @Override
     public void render() {
 

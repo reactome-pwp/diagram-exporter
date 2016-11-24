@@ -1,12 +1,11 @@
-package org.reactome.server.tools.parser;
+package org.reactome.server.tools.diagram.exporter.parser;
 
 import org.reactome.server.tools.diagram.data.DiagramFactory;
 import org.reactome.server.tools.diagram.data.layout.*;
 import org.reactome.server.tools.diagram.data.layout.Shape;
-import org.reactome.server.tools.model.*;
-import org.reactome.server.tools.model.PPTXShape;
-import org.reactome.server.tools.model.Set;
-import org.reactome.server.tools.model.Stoichiometry;
+import org.reactome.server.tools.diagram.exporter.model.*;
+import org.reactome.server.tools.diagram.exporter.model.Set;
+import org.reactome.server.tools.diagram.exporter.model.Stoichiometry;
 
 import java.awt.*;
 import java.awt.geom.Point2D;

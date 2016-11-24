@@ -1,6 +1,5 @@
-package org.reactome.server.tools.model;
+package org.reactome.server.tools.diagram.exporter.model;
 
-import java.awt.Point;
 import java.awt.geom.Point2D;
 
 /**

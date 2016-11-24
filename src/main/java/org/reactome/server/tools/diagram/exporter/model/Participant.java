@@ -1,4 +1,4 @@
-package org.reactome.server.tools.model;
+package org.reactome.server.tools.diagram.exporter.model;
 
 import java.util.LinkedList;
 

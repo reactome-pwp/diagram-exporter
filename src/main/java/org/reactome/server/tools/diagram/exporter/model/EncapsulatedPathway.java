@@ -1,11 +1,10 @@
-package org.reactome.server.tools.model;
+package org.reactome.server.tools.diagram.exporter.model;
 
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
  */
 
-public class Chemical extends PPTXNode {
-
+public class EncapsulatedPathway extends PPTXNode {
 
     @Override
     public void render() {

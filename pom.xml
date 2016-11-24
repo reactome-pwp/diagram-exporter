@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.reactome.server.tools</groupId>
-    <artifactId>pptx-pg2</artifactId>
+    <artifactId>diagram-exporter</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
@@ -115,7 +115,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.reactome.server.tools.App</mainClass>
+                            <mainClass>org.reactome.server.tools.diagram.exporter.DiagramExporter</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

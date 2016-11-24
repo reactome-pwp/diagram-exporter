@@ -1,19 +1,18 @@
-package org.reactome.server.tools;
+package org.reactome.server.tools.diagram.exporter;
 
 import org.reactome.server.tools.diagram.data.DiagramFactory;
-import org.reactome.server.tools.diagram.data.exception.DeserializationException;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
-import org.reactome.server.tools.model.Pathway;
-import org.reactome.server.tools.parser.DiagramParser;
+import org.reactome.server.tools.diagram.exporter.model.Pathway;
+import org.reactome.server.tools.diagram.exporter.parser.DiagramParser;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * Hello world!
+ * Main class for the diagram exporter project
  */
-public class App {
+public class DiagramExporter {
+
     public static void main(String[] args) throws Exception{
         String json = new String(Files.readAllBytes(Paths.get("R-HSA-169911.json")));
         Diagram diagram = DiagramFactory.getDiagram(json);
@@ -22,4 +21,5 @@ public class App {
         System.out.println(pathway);
         System.out.println("Hello World!");
     }
+
 }
