@@ -29,23 +29,20 @@ public class PPTXReaction {
         this.reactionShape = PPTXShape.renderShape(edge.getReactionShape(), shapes);
 
         if (hasInputs()) {
-            //Input backbone
-            Segment segment = edge.getSegments().get(0);
+            Segment segment = edge.getSegments().get(0); //Input backbone
             if (onlyOneInputWithoutConnectors()) {
-                IAutoShape aux = nodesMap.get(edge.getInputs().get(0).getId()).getiAutoShape();
-                connect(shapes, aux, reactionShape);
+                IAutoShape input = nodesMap.get(edge.getInputs().get(0).getId()).getiAutoShape();
+                connect(shapes, input, reactionShape);
             } else {
                 createConnectorsFromInputs(shapes, segment.getFrom());
             }
         }
 
         if (hasOutputs()) {
-            //Output backbone
-            Segment segment = edge.getSegments().get(1);
-            //IAutoShape aux;
+            Segment segment = edge.getSegments().get(1); //Output backbone
             if (onlyOneOutputWithoutConnectors()) {
-                IAutoShape aux = nodesMap.get(edge.getOutputs().get(0).getId()).getiAutoShape();
-                connect(shapes, aux, reactionShape);
+                IAutoShape output = nodesMap.get(edge.getOutputs().get(0).getId()).getiAutoShape();
+                connect(shapes, output, reactionShape);
             } else {
                 createConnectorsToOutputs(shapes, segment.getTo());
             }
@@ -57,9 +54,9 @@ public class PPTXReaction {
         final IAutoShape backboneStart = shapes.addAutoShape(ShapeType.Ellipse, anchor.getX().floatValue(), anchor.getY().floatValue(), 1f, 1f);
         connect(shapes, reactionShape, backboneStart); //Drawing the backbone
         for (ReactionPart reactionPart : edge.getInputs()) {
-            PPTXNode target = nodesMap.get(reactionPart.getId());
+            PPTXNode input = nodesMap.get(reactionPart.getId());
             IAutoShape last = backboneStart;
-            for (Connector connector : target.getConnectors()) {
+            for (Connector connector : input.getConnectors()) {
                 IAutoShape step = backboneStart;
                 for (int i = 0; i < connector.getSegments().size() - 1; i++) {
                     Segment segment = connector.getSegments().get(i);
@@ -68,7 +65,7 @@ public class PPTXReaction {
                     step = last;
                 }
             }
-            connect(shapes, last, target.getiAutoShape());
+            connect(shapes, last, input.getiAutoShape());
         }
     }
 
@@ -76,9 +73,9 @@ public class PPTXReaction {
         final IAutoShape backboneEnd = shapes.addAutoShape(ShapeType.Ellipse, anchor.getX().floatValue(), anchor.getY().floatValue(), 1f, 1f);
         connect(shapes, reactionShape, backboneEnd); //Drawing the backbone
         for (ReactionPart reactionPart : edge.getOutputs()) {
-            PPTXNode target = nodesMap.get(reactionPart.getId());
+            PPTXNode output = nodesMap.get(reactionPart.getId());
             IAutoShape last = backboneEnd;
-            for (Connector connector : target.getConnectors()) {
+            for (Connector connector : output.getConnectors()) {
                 IAutoShape step = backboneEnd;
                 for (int i = 0; i < connector.getSegments().size() - 1; i++) {
                     Segment segment = connector.getSegments().get(i);
@@ -87,7 +84,7 @@ public class PPTXReaction {
                     step = last;
                 }
             }
-            connect(shapes, last, target.getiAutoShape());
+            connect(shapes, last, output.getiAutoShape());
         }
     }
 
