@@ -7,6 +7,7 @@ import org.reactome.server.tools.diagram.data.layout.Connector;
 import org.reactome.server.tools.diagram.data.layout.Node;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,6 +23,8 @@ public abstract class PPTXNode {
     private float width = 1;
     private float height = 1;
 
+    private Long reactomeId;
+    private String schemaClass;
     private String displayName;
     private List<Connector> connectors;
 
@@ -31,6 +34,9 @@ public abstract class PPTXNode {
     Stoichiometry stoichiometry;
 
     public PPTXNode(Node node) {
+        this.reactomeId = node.getReactomeId();
+        this.schemaClass = node.getSchemaClass();
+
         this.id = node.getId();
         this.x = node.getProp().getX().floatValue();
         this.y = node.getProp().getY().floatValue();
@@ -52,6 +58,14 @@ public abstract class PPTXNode {
         return connectors != null ? connectors : new LinkedList<>();
     }
 
+    public List<Connector> getConnectors(Long edgeId, String type) {
+        List<Connector> rtn = new ArrayList<>();
+        for (Connector connector : getConnectors()) {
+            if (connector.getEdgeId().equals(id) && connector.getType().equals(type)) rtn.add(connector);
+        }
+        return rtn;
+    }
+
     public abstract void render(IShapeCollection shapes);
 
     final void render(IShapeCollection shapes, int shapeType, int lineWidth, byte lineStyle, byte lineFillStyle, Color lineColor, byte shapeFillType, Color fillColor) {
@@ -66,5 +80,13 @@ public abstract class PPTXNode {
         lineFormat.getFillFormat().setFillType(lineFillStyle);
         lineFormat.getFillFormat().getSolidFillColor().setColor(lineColor);
 
+    }
+
+    @Override
+    public String toString() {
+        return schemaClass + "{" +
+                "id=" + reactomeId +
+                ", displayName='" + displayName + '\'' +
+                '}';
     }
 }

@@ -77,6 +77,9 @@ public class DiagramPresentation {
             case "SimpleEntity":
                 pptxNode = new Chemical(node);
                 break;
+            case "Pathway":
+                pptxNode = new EncapsulatedPathway(node);
+                break;
             default:
                 throw new IllegalArgumentException("Invalid schema class [" + node.getSchemaClass() + "]. Create the switch-case for the given class");
         }

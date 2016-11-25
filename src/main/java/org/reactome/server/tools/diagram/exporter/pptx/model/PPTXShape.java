@@ -4,6 +4,7 @@ import com.aspose.slides.IAutoShape;
 import com.aspose.slides.IGroupShape;
 import com.aspose.slides.IShapeCollection;
 import com.aspose.slides.ShapeType;
+import org.reactome.server.tools.diagram.data.layout.Coordinate;
 import org.reactome.server.tools.diagram.data.layout.Shape;
 
 /**
@@ -75,5 +76,26 @@ public class PPTXShape {
             default:
                 throw new RuntimeException(rctShape.getType() + " hasn't been recognised.");
         }
+    }
+
+    public static boolean touches(Shape shape, Coordinate c) {
+        Coordinate centre;
+        switch (shape.getType()) {
+            case "CIRCLE":
+            case "DOUBLE_CIRCLE":
+                centre = shape.getC();
+                return distance(centre, c) < shape.getR();
+            case "BOX":
+                Coordinate diff = shape.getB().minus(shape.getA());
+                centre = shape.getA().add(diff.divide(2.0));
+                return distance(centre, c) < diff.getX();
+            default:
+                throw new RuntimeException(shape.getType() + " hasn't been recognised.");
+        }
+    }
+
+    private static double distance(Coordinate c1, Coordinate c2) {
+        Coordinate diff = c2.minus(c1);
+        return Math.sqrt(diff.getX() * diff.getX() + diff.getY() * diff.getY());
     }
 }
