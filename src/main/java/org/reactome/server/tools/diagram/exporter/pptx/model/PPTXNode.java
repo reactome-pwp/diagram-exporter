@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * @author Antonio Fabregat <fabregat@ebi.ac.uk>
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
  */
 public abstract class PPTXNode {
@@ -28,7 +29,6 @@ public abstract class PPTXNode {
     protected IAutoShape iAutoShape;
     PPTXShape pptxShape;
     Stoichiometry stoichiometry;
-    LinkedList<PPTXSegment> segments; // or connectors
 
     public PPTXNode(Node node) {
         this.id = node.getId();
