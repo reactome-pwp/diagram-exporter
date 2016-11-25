@@ -61,7 +61,7 @@ public abstract class PPTXNode {
     public List<Connector> getConnectors(Long edgeId, String type) {
         List<Connector> rtn = new ArrayList<>();
         for (Connector connector : getConnectors()) {
-            if (connector.getEdgeId().equals(id) && connector.getType().equals(type)) rtn.add(connector);
+            if (connector.getEdgeId().equals(edgeId) && connector.getType().equals(type)) rtn.add(connector);
         }
         return rtn;
     }
