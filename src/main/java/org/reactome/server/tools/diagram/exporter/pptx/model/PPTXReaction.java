@@ -24,7 +24,7 @@ public class PPTXReaction {
     private IAutoShape backboneEnd;
 
     private IAutoShape reactionShape;
-    private Map<Connector, IAutoShape> catalystShapeMap = new HashMap<>();
+    private Map<Connector, IAutoShape> shapeMap = new HashMap<>();
 
     public PPTXReaction(Edge edge, Map<Long, PPTXNode> nodesMap) {
         this.edge = edge;
@@ -34,7 +34,7 @@ public class PPTXReaction {
     public void render(IShapeCollection shapes) {
 
         // It checks for all the shapes to be grouped and creates them in advance placing
-        // the main shape in reactionShape and the rest in the catalystShapeMap map
+        // the main shape in reactionShape and the rest in the shapeMap map
         createReactionShape(shapes);
 
         if (hasInputs()) {
@@ -58,6 +58,8 @@ public class PPTXReaction {
         if (hasCatalyst()) createConnectorsToCatalyst(shapes);
 
         if (hasActivators()) createConnectorsToActivator(shapes);
+
+        if (hasInhibitors()) createConnectorsToInhibitor(shapes);
 
     }
 
@@ -108,7 +110,7 @@ public class PPTXReaction {
                     connect(shapes, last, step);
                     last = step;
                 }
-                connect(shapes, last, catalystShapeMap.get(connector));
+                connect(shapes, last, shapeMap.get(connector));
             }
         }
     }
@@ -130,6 +132,23 @@ public class PPTXReaction {
         }
     }
 
+    private void createConnectorsToInhibitor(IShapeCollection shapes) {
+        for (ReactionPart reactionPart : edge.getInhibitors()) {
+            PPTXNode activator = nodesMap.get(reactionPart.getId());
+            IAutoShape last = activator.getiAutoShape();
+            for (Connector connector : activator.getConnectors()) {
+                if (!isType(connector, "INHIBITOR")) continue;
+                for (int i = 0; i < connector.getSegments().size() - 1; i++) {
+                    Segment segment = connector.getSegments().get(i);
+                    IAutoShape step = shapes.addAutoShape(ShapeType.Ellipse, segment.getTo().getX().floatValue(), segment.getTo().getY().floatValue(), 1f, 1f);
+                    connect(shapes, last, step);
+                    last = step;
+                }
+                connect(shapes, last, shapeMap.get(connector));
+            }
+        }
+    }
+
     private void createReactionShape(IShapeCollection shapes) {
         //Creates reaction shape
         IGroupShape groupShape = shapes.addGroupShape();
@@ -145,24 +164,30 @@ public class PPTXReaction {
                     if (!isType(connector, "CATALYST")) continue;
                     Shape shape = connector.getEndShape();
                     IAutoShape cs = PPTXShape.renderShape(groupShape, shape);
-                    catalystShapeMap.put(connector, cs);
+                    shapeMap.put(connector, cs);
                 }
             }
         }
 
-//        if (hasActivators()) {
-//            for (ReactionPart reactionPart : edge.getActivators()) {
-//                PPTXNode activator = nodesMap.get(reactionPart.getId());
-//                for (Connector connector : activator.getConnectors()) {
-//                    if (!isType(connector, "ACTIVATOR")) continue;
-//                    Shape shape = connector.getEndShape();
-//                    IAutoShape cs = PPTXShape.renderShape(groupShape, shape);
-//                    catalystShapeMap.put(connector, cs);
-//                }
-//            }
-//        }
+        //NOTE: Is better not to draw the Activators shape and use the "end-arrow" in the last segment instead
 
-        //TODO: Missing Inhibitors
+        if(hasInhibitors()){
+            for (ReactionPart reactionPart : edge.getInhibitors()) {
+                PPTXNode inhibitor = nodesMap.get(reactionPart.getId());
+                for (Connector connector : inhibitor.getConnectors()) {
+                    if (!isType(connector, "INHIBITOR")) continue;
+                    Shape shape = connector.getEndShape();
+                    IAutoShape a = groupShape.getShapes().addAutoShape(ShapeType.Ellipse, shape.getA().getX().floatValue(), shape.getA().getY().floatValue(), 1f, 1f);
+                    IAutoShape b = groupShape.getShapes().addAutoShape(ShapeType.Ellipse, shape.getB().getX().floatValue(), shape.getB().getY().floatValue(), 1f, 1f);
+                    Coordinate cc = connector.getSegments().get(connector.getSegments().size()-1).getTo();
+                    IAutoShape c = groupShape.getShapes().addAutoShape(ShapeType.Ellipse, cc.getX().floatValue(), cc.getY().floatValue(), 1f, 1f);
+                    shapeMap.put(connector, c);
+
+                    connect(shapes, a, c);
+                    connect(shapes, c, b);
+                }
+            }
+        }
     }
 
     /**
@@ -217,6 +242,14 @@ public class PPTXReaction {
         return false;
     }
 
+    private boolean onlyOneOutputWithoutConnectors() {
+        if (edge.getOutputs().size() == 1) {
+            List<Connector> connectors = nodesMap.get(edge.getOutputs().get(0).getId()).getConnectors(edge.getId(), "OUTPUT");
+            return connectors.isEmpty() || connectors.get(0).getSegments().isEmpty();
+        }
+        return false;
+    }
+
     private boolean hasInputs() {
         return edge.getInputs() != null && !edge.getInputs().isEmpty();
     }
@@ -237,11 +270,9 @@ public class PPTXReaction {
         return edge.getActivators() != null && !edge.getActivators().isEmpty();
     }
 
-    private boolean onlyOneOutputWithoutConnectors() {
-        if (edge.getOutputs().size() == 1) {
-            List<Connector> connectors = nodesMap.get(edge.getOutputs().get(0).getId()).getConnectors(edge.getId(), "OUTPUT");
-            return connectors.isEmpty() || connectors.get(0).getSegments().isEmpty();
-        }
-        return false;
+    private boolean hasInhibitors() {
+        return edge.getInhibitors() != null && !edge.getInhibitors().isEmpty();
     }
+
+
 }
