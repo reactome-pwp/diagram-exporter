@@ -3,11 +3,14 @@ package org.reactome.server.tools.diagram.exporter.pptx.model;
 import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Connector;
 import org.reactome.server.tools.diagram.data.layout.*;
+import org.reactome.server.tools.diagram.data.layout.Shape;
 
 import java.awt.Color;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @author Antonio Fabregat <fabregat@ebi.ac.uk>
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
  */
 
@@ -17,6 +20,7 @@ public class PPTXReaction {
     private Map<Long, PPTXNode> nodesMap;
 
     private IAutoShape reactionShape;
+    private Map<Long, IAutoShape> reactionShapeParts = new HashMap<>();
 
     public PPTXReaction(Edge edge, Map<Long, PPTXNode> nodesMap) {
         this.edge = edge;
@@ -25,14 +29,15 @@ public class PPTXReaction {
 
     public void render(IShapeCollection shapes) {
 
-        //Reaction shape
-        this.reactionShape = PPTXShape.renderShape(edge.getReactionShape(), shapes);
+        // It checks for all the shapes to be grouped and creates them in advance placing
+        // the main shape in reactionShape and the rest in the reactionShapeParts map
+        createReactionShape(shapes);
 
         if (hasInputs()) {
             Segment segment = edge.getSegments().get(0); //Input backbone
             if (onlyOneInputWithoutConnectors()) {
                 IAutoShape input = nodesMap.get(edge.getInputs().get(0).getId()).getiAutoShape();
-                connect(shapes, input, reactionShape);
+                connect(shapes, input, reactionShapeParts.get(edge.getId()));
             } else {
                 createConnectorsFromInputs(shapes, segment.getFrom());
             }
@@ -48,6 +53,9 @@ public class PPTXReaction {
             }
         }
 
+        if (hasCatalyst()) {
+            createConnectorsToCatalyst(shapes);
+        }
     }
 
     private void createConnectorsFromInputs(IShapeCollection shapes, Coordinate anchor) {
@@ -57,6 +65,7 @@ public class PPTXReaction {
             PPTXNode input = nodesMap.get(reactionPart.getId());
             IAutoShape last = backboneStart;
             for (Connector connector : input.getConnectors()) {
+                if (!connector.getType().equals("INPUT")) continue;
                 IAutoShape step = backboneStart;
                 for (int i = 0; i < connector.getSegments().size() - 1; i++) {
                     Segment segment = connector.getSegments().get(i);
@@ -76,6 +85,7 @@ public class PPTXReaction {
             PPTXNode output = nodesMap.get(reactionPart.getId());
             IAutoShape last = backboneEnd;
             for (Connector connector : output.getConnectors()) {
+                if (!connector.getType().equals("OUTPUT")) continue;
                 IAutoShape step = backboneEnd;
                 for (int i = 0; i < connector.getSegments().size() - 1; i++) {
                     Segment segment = connector.getSegments().get(i);
@@ -86,6 +96,45 @@ public class PPTXReaction {
             }
             connect(shapes, last, output.getiAutoShape());
         }
+    }
+
+    private void createConnectorsToCatalyst(IShapeCollection shapes) {
+        for (ReactionPart reactionPart : edge.getCatalysts()) {
+            PPTXNode catalyst = nodesMap.get(reactionPart.getId());
+            IAutoShape last = catalyst.getiAutoShape();
+            for (Connector connector : catalyst.getConnectors()) {
+                if (!connector.getType().equals("CATALYST")) continue;
+                for (int i = 0; i < connector.getSegments().size() - 1; i++) {
+                    Segment segment = connector.getSegments().get(i);
+                    IAutoShape step = shapes.addAutoShape(ShapeType.Ellipse, segment.getFrom().getX().floatValue(), segment.getFrom().getY().floatValue(), 1f, 1f);
+                    connect(shapes, last, step);
+                    last = step;
+                }
+                IAutoShape endShape = reactionShapeParts.get(reactionPart.getId());
+                connect(shapes, last, endShape);
+            }
+        }
+    }
+
+    private void createReactionShape(IShapeCollection shapes) {
+        IGroupShape groupShape = shapes.addGroupShape();
+
+        Shape rShape = edge.getReactionShape();
+        reactionShape = PPTXShape.renderShape(groupShape, rShape);
+        reactionShapeParts.put(edge.getId(), reactionShape);
+
+        if (hasCatalyst()) {
+            for (ReactionPart reactionPart : edge.getCatalysts()) {
+                PPTXNode catalyst = nodesMap.get(reactionPart.getId());
+                for (Connector connector : catalyst.getConnectors()) {
+                    Shape shape = connector.getEndShape();
+                    IAutoShape cs = PPTXShape.renderShape(groupShape, shape);
+                    reactionShapeParts.put(reactionPart.getId(), cs);
+                }
+            }
+        }
+
+        //TODO: Missing regulators
     }
 
     private void connect(IShapeCollection shapes, IShape start, IShape end) {
@@ -104,11 +153,15 @@ public class PPTXReaction {
     }
 
     private boolean hasInputs() {
-        return edge.getInputs().size() > 0;
+        return edge.getInputs() != null && !edge.getInputs().isEmpty();
     }
 
     private boolean hasOutputs() {
-        return edge.getOutputs().size() > 0;
+        return edge.getOutputs() != null && !edge.getOutputs().isEmpty();
+    }
+
+    private boolean hasCatalyst() {
+        return edge.getCatalysts() != null && !edge.getCatalysts().isEmpty();
     }
 
     private boolean onlyOneOutputWithoutConnectors() {
