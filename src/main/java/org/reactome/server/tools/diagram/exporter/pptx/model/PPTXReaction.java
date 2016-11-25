@@ -28,7 +28,7 @@ public class PPTXReaction {
         //Reaction shape
         this.reactionShape = PPTXShape.renderShape(edge.getReactionShape(), shapes);
 
-        if (edge.getSegments() != null) {
+        if (hasInputs()) {
             //Input backbone
             Segment segment = edge.getSegments().get(0);
             if (onlyOneInputWithoutConnectors()) {
@@ -37,20 +37,20 @@ public class PPTXReaction {
             } else {
                 createConnectorsFromInputs(shapes, segment.getFrom());
             }
+        }
 
-            if (hasOutputs()) {
-                //Output backbone
-                segment = edge.getSegments().get(1);
-                //IAutoShape aux;
-                if (onlyOneOutputWithoutConnectors()) {
-                    IAutoShape aux = nodesMap.get(edge.getOutputs().get(0).getId()).getiAutoShape();
-                    connect(shapes, aux, reactionShape);
-                } else {
-                    createConnectorsToOutputs(shapes, segment.getTo());
-                }
-
+        if (hasOutputs()) {
+            //Output backbone
+            Segment segment = edge.getSegments().get(1);
+            //IAutoShape aux;
+            if (onlyOneOutputWithoutConnectors()) {
+                IAutoShape aux = nodesMap.get(edge.getOutputs().get(0).getId()).getiAutoShape();
+                connect(shapes, aux, reactionShape);
+            } else {
+                createConnectorsToOutputs(shapes, segment.getTo());
             }
         }
+
     }
 
     private void createConnectorsFromInputs(IShapeCollection shapes, Coordinate anchor) {
@@ -104,6 +104,10 @@ public class PPTXReaction {
 
     private boolean onlyOneInputWithoutConnectors() {
         return edge.getInputs().size() == 1 && nodesMap.get(edge.getInputs().get(0).getId()).getConnectors().get(0).getSegments().isEmpty();
+    }
+
+    private boolean hasInputs() {
+        return edge.getInputs().size() > 0;
     }
 
     private boolean hasOutputs() {
