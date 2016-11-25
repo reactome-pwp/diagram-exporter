@@ -5,6 +5,7 @@ import com.aspose.slides.ISlide;
 import com.aspose.slides.Presentation;
 import com.aspose.slides.SaveFormat;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
+import org.reactome.server.tools.diagram.data.layout.Edge;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.exporter.pptx.model.*;
 
@@ -32,10 +33,16 @@ public class DiagramPresentation {
     public void export() {
 
         // TODO: Process compartments
+
         for (Node node : diagram.getNodes()) {
             PPTXNode pptxNode = getNode(node);
             nodesMap.put(pptxNode.getId(), pptxNode); //If two nodes share identifier, only the second one is kept >> NOTE: It shouldn't happen //TODO: Report?
             pptxNode.render(shapes);
+        }
+
+        for (Edge edge : diagram.getEdges()) {
+            PPTXReaction pptxReaction = new PPTXReaction(edge, nodesMap);
+            pptxReaction.render(shapes);
         }
     }
 

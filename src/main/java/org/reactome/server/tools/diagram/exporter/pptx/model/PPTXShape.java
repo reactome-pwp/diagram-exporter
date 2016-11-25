@@ -1,71 +1,43 @@
 package org.reactome.server.tools.diagram.exporter.pptx.model;
 
+import com.aspose.slides.IAutoShape;
+import com.aspose.slides.IShapeCollection;
+import com.aspose.slides.ShapeType;
+import org.reactome.server.tools.diagram.data.layout.Shape;
+
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
  */
 
 public class PPTXShape {
 
-    public enum ReactionShapeType { CIRCLE, DOUBLE_CIRCLE, BOX }
-
-    private float x,y,w,h;
-    private String text;
-    private ReactionShapeType type;
-
-    public PPTXShape(double x, double y, double w, double h, String text, ReactionShapeType type) {
-        this.x = (float)x;
-        this.y = (float)y;
-        this.w = (float)w;
-        this.h = (float)h;
-        this.text = text;
-        this.type = type;
-    }
-
-    public float getX() {
-        return x;
-    }
-
-    public void setX(float x) {
-        this.x = x;
-    }
-
-    public float getY() {
-        return y;
-    }
-
-    public void setY(float y) {
-        this.y = y;
-    }
-
-    public float getW() {
-        return w;
-    }
-
-    public void setW(float w) {
-        this.w = w;
-    }
-
-    public float getH() {
-        return h;
-    }
-
-    public void setH(float h) {
-        this.h = h;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public ReactionShapeType getType() {
-        return type;
-    }
-
-    public void setType(ReactionShapeType type) {
-        this.type = type;
+    public static IAutoShape renderShape(Shape rctShape, IShapeCollection shapes) {
+        switch (rctShape.getType()) {
+            case "CIRCLE":
+                return shapes.addAutoShape(
+                        ShapeType.Ellipse,
+                        rctShape.getC().getX().floatValue(),
+                        rctShape.getC().getY().floatValue(),
+                        rctShape.getR().floatValue(),
+                        rctShape.getR().floatValue()
+                );
+            case "DOUBLE_CIRCLE": //TODO: Please check how to do the double circle
+                return shapes.addAutoShape(
+                        ShapeType.Ellipse,
+                        rctShape.getC().getX().floatValue(),
+                        rctShape.getC().getY().floatValue(),
+                        rctShape.getR().floatValue(),
+                        rctShape.getR().floatValue()
+                );
+            case "BOX":
+                return shapes.addAutoShape(
+                        ShapeType.Rectangle,
+                        rctShape.getA().getX().floatValue(),
+                        rctShape.getA().getY().floatValue(),
+                        rctShape.getB().getX().floatValue() - rctShape.getA().getX().floatValue(),
+                        rctShape.getB().getY().floatValue() - rctShape.getA().getY().floatValue());
+            default:
+                throw new RuntimeException(rctShape.getType() + " hasn't been recognised.");
+        }
     }
 }

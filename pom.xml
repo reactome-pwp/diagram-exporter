@@ -7,7 +7,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>pptx-pg2</name>
+    <name>Diagram exporter</name>
 
     <description>Description of project pptx-pg2</description>
     <url>http://reactome.org</url>

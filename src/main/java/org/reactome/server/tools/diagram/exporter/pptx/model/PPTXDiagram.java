@@ -5,11 +5,11 @@ import java.util.List;
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
  */
-public class PathwayDiagram {
+public class PPTXDiagram {
 
     private List<Note> notes;
     private List<Compartment> compartments;
-    private List<Reaction> reactions;
+    private List<PPTXReaction> reactions;
 
     public List<Compartment> getCompartments() {
         return compartments;
@@ -27,11 +27,11 @@ public class PathwayDiagram {
         this.notes = notes;
     }
 
-    public List<Reaction> getReactions() {
+    public List<PPTXReaction> getReactions() {
         return reactions;
     }
 
-    public void setReactions(List<Reaction> reactions) {
+    public void setReactions(List<PPTXReaction> reactions) {
         this.reactions = reactions;
     }
 }
