@@ -31,3 +31,4 @@ local.properties
 *.launch
 
 *.lic
+*.lic.xml

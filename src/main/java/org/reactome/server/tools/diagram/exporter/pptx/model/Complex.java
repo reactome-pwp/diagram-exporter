@@ -1,9 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.pptx.model;
 
-import com.aspose.slides.FillType;
-import com.aspose.slides.IShapeCollection;
-import com.aspose.slides.LineStyle;
-import com.aspose.slides.ShapeType;
+import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Node;
 
 import java.awt.*;
@@ -30,5 +27,19 @@ public class Complex extends PPTXNode {
     @Override
     public void render(IShapeCollection shapes) {
         render(shapes, shapeType, lineWidth, lineStyle, lineFillStyle, lineColor, shapeFillType, fillColor);
+
+        IAdjustValueCollection adjustments = iAutoShape.getAdjustments();
+        IAdjustValue adjustValue = null;
+        if (adjustments != null && adjustments.size() > 0) {
+            adjustValue = iAutoShape.getAdjustments().get_Item(0);
+        }
+
+        if (adjustValue != null) {
+            // 0 to 50000 - Where 0 correspond to a value that will reduce the distance between two points such that a rectangle is formed
+            adjustValue.setRawValue(14822);
+
+            //0 to 0.833333
+            adjustValue.setAngleValue(0.2470333f);
+        }
     }
 }

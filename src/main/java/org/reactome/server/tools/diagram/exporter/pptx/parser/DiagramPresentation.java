@@ -1,14 +1,13 @@
 package org.reactome.server.tools.diagram.exporter.pptx.parser;
 
-import com.aspose.slides.IShapeCollection;
-import com.aspose.slides.ISlide;
-import com.aspose.slides.Presentation;
-import com.aspose.slides.SaveFormat;
+import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.Edge;
 import org.reactome.server.tools.diagram.data.layout.Node;
+import org.reactome.server.tools.diagram.exporter.DiagramExporter;
 import org.reactome.server.tools.diagram.exporter.pptx.model.*;
 
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,6 +46,9 @@ public class DiagramPresentation {
     }
 
     public void save(String path){
+        if(!isLicensed()) {
+            // TODO warn saving as evaluated version and license expired
+        }
         String fileName = path + diagram.getStableId() + ".pptx";
         presentation.save(fileName, SaveFormat.Pptx);
     }
@@ -84,5 +86,12 @@ public class DiagramPresentation {
                 throw new IllegalArgumentException("Invalid schema class [" + node.getSchemaClass() + "]. Create the switch-case for the given class");
         }
         return pptxNode;
+    }
+
+    private boolean isLicensed(){
+        InputStream is = DiagramExporter.class.getResourceAsStream("/Aspose.Slides.lic");
+        License license = new License();
+        license.setLicense(is);
+        return license.isLicensed();
     }
 }
