@@ -18,9 +18,15 @@
 
     <developers>
         <developer>
-            <id></id>
-            <name></name>
-            <email>@ebi.ac.uk</email>
+            <id>gviteri</id>
+            <name>Guilherme Viteri</name>
+            <email>gviteri@ebi.ac.uk</email>
+            <organization>http://www.ebi.ac.uk/</organization>
+        </developer>
+        <developer>
+            <id>amundo</id>
+            <name>Antonio Fabregat Mundo</name>
+            <email>amundo@ebi.ac.uk</email>
             <organization>http://www.ebi.ac.uk/</organization>
         </developer>
     </developers>
@@ -48,13 +54,6 @@
             <artifactId>diagram-reader</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-
-        <!--<dependency>-->
-            <!--<groupId>org.apache.commons</groupId>-->
-            <!--<artifactId>commons-lang3</artifactId>-->
-            <!--<version>3.4</version>-->
-        <!--</dependency>-->
-
 
         <dependency>
             <groupId>com.aspose</groupId>
@@ -188,6 +187,12 @@
         <repository>
             <id>aspose-maven-repository</id>
             <url>http://maven.aspose.com/repository/repo/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
         </repository>
     </repositories>
 
