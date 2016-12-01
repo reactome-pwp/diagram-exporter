@@ -20,13 +20,24 @@ public class Complex extends PPTXNode {
     private final Color lineColor = new Color(31, 136, 167);
     private final Color fillColor = new Color(171, 209, 227);
 
+    private IAutoShape invisibleShape;
+
     public Complex(Node node) {
         super(node);
+    }
+
+    public IAutoShape getInvisibleShape() {
+        return invisibleShape;
     }
 
     @Override
     public void render(IShapeCollection shapes) {
         render(shapes, shapeType, lineWidth, lineStyle, lineFillStyle, lineColor, shapeFillType, fillColor);
+
+        // TODO anchor point to the outter box
+        invisibleShape = iGroupShape.getShapes().addAutoShape(ShapeType.Rectangle, iAutoShape.getX(), iAutoShape.getY(), iAutoShape.getWidth(), iAutoShape.getHeight());
+        invisibleShape.getFillFormat().setFillType(FillType.NoFill);
+        invisibleShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
 
         IAdjustValueCollection adjustments = iAutoShape.getAdjustments();
         IAdjustValue adjustValue = null;
@@ -41,5 +52,8 @@ public class Complex extends PPTXNode {
             //0 to 0.833333
             adjustValue.setAngleValue(0.2470333f);
         }
+
+        iGroupShape.getShapes().reorder(iGroupShape.getShapes().size()-1, iAutoShape);
+
     }
 }
