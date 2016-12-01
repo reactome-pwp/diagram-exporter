@@ -1,5 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.pptx.parser;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.Edge;
@@ -30,6 +31,12 @@ public class DiagramPresentation {
     }
 
     public void export() {
+        if(!isLicensed()) {
+            // checking license before!
+            // TODO WARN ? ERROR? STOP PROCESSING ? saving as evaluated version and license expired
+            System.out.println("Missing Software License.");
+            System.exit(1); // does not make sense continue the process here - files will be all wrong :)
+        }
 
         // TODO: Process compartments
 
@@ -46,9 +53,6 @@ public class DiagramPresentation {
     }
 
     public void save(String path){
-        if(!isLicensed()) {
-            // TODO warn saving as evaluated version and license expired
-        }
         String fileName = path + diagram.getStableId() + ".pptx";
         presentation.save(fileName, SaveFormat.Pptx);
     }
@@ -89,7 +93,7 @@ public class DiagramPresentation {
     }
 
     private boolean isLicensed(){
-        InputStream is = DiagramExporter.class.getResourceAsStream("/Aspose.Slides.lic");
+        InputStream is = DiagramExporter.class.getResourceAsStream("/Aspose.Slidess.lic");
         License license = new License();
         license.setLicense(is);
         return license.isLicensed();
