@@ -93,15 +93,15 @@ public class PPTXShape {
                     box.addTextFrame(" ");
                     ITextFrame txtFrame = box.getTextFrame();
                     IParagraph iParagraph = txtFrame.getParagraphs().get_Item(0);
+                    iParagraph.getParagraphFormat().setMarginLeft(0.01f);
+                    iParagraph.getParagraphFormat().setMarginRight(0.01f);
+
                     IPortion portion = iParagraph.getPortions().get_Item(0);
                     portion.getPortionFormat().getFillFormat().setFillType(FillType.Solid);
                     portion.getPortionFormat().getFillFormat().getSolidFillColor().setColor(Color.black);
-                    portion.getPortionFormat().setFontHeight(10);
+                    portion.getPortionFormat().setFontHeight(6);
                     portion.getPortionFormat().setFontBold(NullableBool.True);
-                    // TODO: Set Margin is not working. Post in the forum
-                    iParagraph.getParagraphFormat().setMarginLeft(0.01f);
-                    iParagraph.getParagraphFormat().setMarginRight(0.01f);
-                    //portion.getCoordinates().setLocation(comp.getTextPosition().getX(), comp.getTextPosition().getY());
+
                     portion.setText(rctShape.getS());
                 }
                 return box;
@@ -113,15 +113,15 @@ public class PPTXShape {
     /**
      * Retrieve IAutoShape used as a support for drawing connectors, which are meant for connecting shapes only.
      *
-     * @return formatted IAutoShape - No line and No fill
+     * @return formatted IAutoShape - No line and No fill as part of group shape
      */
-    public static IAutoShape renderAuxiliarShape(IGroupShape group, Coordinate edgeCoordinate) {
+    public static IAutoShape renderAuxiliaryShape(IGroupShape group, Coordinate edgeCoordinate) {
         IAutoShape auxShape = group.getShapes().addAutoShape(
                                         ShapeType.Ellipse,
                                         edgeCoordinate.getX().floatValue(),
                                         edgeCoordinate.getY().floatValue(),
-                                        1f,
-                                        1f
+                                        0.1f,
+                                        0.1f
                                 );
 
         auxShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
@@ -134,15 +134,15 @@ public class PPTXShape {
      * Retrieve IAutoShape used as a support for drawing connectors, which are meant for connecting shapes only.
      *
      * @param shapes collection of shapes present in the Slides
-     * @return
+     * @return rendered IAutoShape as it is
      */
-    public static IAutoShape renderAuxiliarShape(IShapeCollection shapes, Coordinate edgeCoordinate) {
+    public static IAutoShape renderAuxiliaryShape(IShapeCollection shapes, Coordinate edgeCoordinate) {
         IAutoShape auxShape = shapes.addAutoShape(
                                     ShapeType.Ellipse,
                                     edgeCoordinate.getX().floatValue(),
                                     edgeCoordinate.getY().floatValue(),
-                                    1f,
-                                    1f
+                                    0.1f,
+                                    0.f
                                 );
 
         auxShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
