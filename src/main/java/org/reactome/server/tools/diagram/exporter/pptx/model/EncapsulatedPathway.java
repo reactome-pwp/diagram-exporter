@@ -17,10 +17,10 @@ public class EncapsulatedPathway extends PPTXNode {
     private final int shapeType = ShapeType.Rectangle;
     private final byte shapeFillType = FillType.Solid;
     private final byte lineFillStyle = FillType.Solid;
-    private final byte lineStyle = LineStyle.Single;
-    private final int lineWidth = 4;
-    private final Color lineColor = new Color(74, 149, 134);
-    private final Color fillColor = new Color(141, 199, 187);
+    private final byte lineStyle = LineStyle.ThinThin;
+    private final int lineWidth = 10;
+    private final Color lineColor = new Color(165, 215, 145);
+    private final Color fillColor = Color.WHITE;
 
     public EncapsulatedPathway(Node node) {
         super(node);
