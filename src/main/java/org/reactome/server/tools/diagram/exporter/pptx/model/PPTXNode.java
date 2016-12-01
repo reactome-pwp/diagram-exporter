@@ -1,8 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.pptx.model;
 
-import com.aspose.slides.IAutoShape;
-import com.aspose.slides.ILineFormat;
-import com.aspose.slides.IShapeCollection;
+import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Connector;
 import org.reactome.server.tools.diagram.data.layout.Node;
 
@@ -30,6 +28,8 @@ public abstract class PPTXNode {
 
     @SuppressWarnings("WeakerAccess")
     protected IAutoShape iAutoShape;
+    protected IGroupShape iGroupShape;
+
     PPTXShape pptxShape;
     Stoichiometry stoichiometry;
 
@@ -69,7 +69,8 @@ public abstract class PPTXNode {
     public abstract void render(IShapeCollection shapes);
 
     final void render(IShapeCollection shapes, int shapeType, int lineWidth, byte lineStyle, byte lineFillStyle, Color lineColor, byte shapeFillType, Color fillColor) {
-        iAutoShape = shapes.addAutoShape(shapeType, x, y, width, height);
+        iGroupShape = shapes.addGroupShape();
+        iAutoShape = iGroupShape.getShapes().addAutoShape(shapeType, x, y, width, height);
 
         iAutoShape.getFillFormat().setFillType(shapeFillType);
         iAutoShape.getFillFormat().getSolidFillColor().setColor(fillColor);
@@ -80,8 +81,23 @@ public abstract class PPTXNode {
         lineFormat.getFillFormat().setFillType(lineFillStyle);
         lineFormat.getFillFormat().getSolidFillColor().setColor(lineColor);
 
-    }
+        //Access ITextFrame associated with the AutoShape
+        iAutoShape.addTextFrame("");
 
+        ITextFrame txtFrame = iAutoShape.getTextFrame();
+
+        IParagraph iParagraph = txtFrame.getParagraphs().get_Item(0);
+        IPortion portion =  iParagraph.getPortions().get_Item(0);
+        //Add some text to the frame
+        portion.setText(displayName);
+        portion.getPortionFormat().setFontHeight(8);
+        portion.getPortionFormat().getHyperlinkManager().setExternalHyperlinkClick("http://www.reactome.org/content/detail/"+reactomeId); // that came with the example and I just added it :)
+
+        // TODO: Set Margin is not working. Post in the forum
+        iParagraph.getParagraphFormat().setMarginLeft(0.01f);
+        iParagraph.getParagraphFormat().setMarginRight(0.01f);
+
+    }
 
     @Override
     public String toString() {
