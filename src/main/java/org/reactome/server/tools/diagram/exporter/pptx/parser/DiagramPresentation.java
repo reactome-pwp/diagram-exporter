@@ -93,7 +93,7 @@ public class DiagramPresentation {
     }
 
     private boolean isLicensed(){
-        InputStream is = DiagramExporter.class.getResourceAsStream("/Aspose.Slidess.lic");
+        InputStream is = DiagramExporter.class.getResourceAsStream("/Aspose.Slides.lic");
         License license = new License();
         license.setLicense(is);
         return license.isLicensed();
