@@ -12,11 +12,9 @@ import java.nio.file.Paths;
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
  */
-
 public class PowerPointExporter {
 
     public static void export(String pathway, String path) {
-
         Diagram diagram = null;
         try {
             diagram = getDiagram(pathway);
@@ -30,8 +28,6 @@ public class PowerPointExporter {
         diagramPresentation.export();
         diagramPresentation.save(path);
     }
-
-
 
     private static Diagram getDiagram(String identifier) throws DeserializationException, IOException {
         String json = new String(Files.readAllBytes(Paths.get("/Users/reactome/diagram/static/" + identifier + ".json")));

@@ -3,8 +3,6 @@ package org.reactome.server.tools.diagram.exporter.pptx.model;
 import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Node;
 
-import java.awt.*;
-
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
  */
@@ -13,31 +11,25 @@ import java.awt.*;
 public class Complex extends PPTXNode {
 
     private final int shapeType = ShapeType.Octagon;
-    private final byte shapeFillType = FillType.Solid;
-    private final byte lineFillStyle = FillType.Solid;
-    private final byte lineStyle = LineStyle.Single;
-    private final int lineWidth = 4;
-    private final Color lineColor = new Color(31, 136, 167);
-    private final Color fillColor = new Color(171, 209, 227);
 
-    private IAutoShape invisibleShape;
+    // Shape that the connector will be connected. This is a simple rectangle with 4 anchor points only
+    private IAutoShape anchorShape;
 
     public Complex(Node node) {
         super(node);
     }
 
-    public IAutoShape getInvisibleShape() {
-        return invisibleShape;
+    public IAutoShape getAnchorShape() {
+        return anchorShape;
     }
 
     @Override
-    public void render(IShapeCollection shapes) {
-        render(shapes, shapeType, lineWidth, lineStyle, lineFillStyle, lineColor, shapeFillType, fillColor);
+    public void render(IShapeCollection shapes, ColourProfile colourProfile) {
+        render(shapes, shapeType, colourProfile.get(Complex.class));
 
-        // TODO anchor point to the outter box
-        invisibleShape = iGroupShape.getShapes().addAutoShape(ShapeType.Rectangle, iAutoShape.getX(), iAutoShape.getY(), iAutoShape.getWidth(), iAutoShape.getHeight());
-        invisibleShape.getFillFormat().setFillType(FillType.NoFill);
-        invisibleShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
+        anchorShape = iGroupShape.getShapes().addAutoShape(ShapeType.Rectangle, iAutoShape.getX(), iAutoShape.getY(), iAutoShape.getWidth(), iAutoShape.getHeight());
+        anchorShape.getFillFormat().setFillType(FillType.NoFill);
+        anchorShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
 
         IAdjustValueCollection adjustments = iAutoShape.getAdjustments();
         IAdjustValue adjustValue = null;
@@ -56,4 +48,5 @@ public class Complex extends PPTXNode {
         iGroupShape.getShapes().reorder(iGroupShape.getShapes().size()-1, iAutoShape);
 
     }
+
 }

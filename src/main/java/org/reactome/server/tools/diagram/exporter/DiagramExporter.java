@@ -16,8 +16,11 @@ public class DiagramExporter {
 //        PowerPointExporter.export("R-HSA-2990846", "/Users/reactome/diagram/exporter/");
 
         //Inhibitor
-        PowerPointExporter.export("R-HSA-177929", "/Users/reactome/diagram/exporter/");
+//        PowerPointExporter.export("R-HSA-177929", "/Users/reactome/diagram/exporter/");
 //        PowerPointExporter.export("R-MMU-177929", "/Users/reactome/diagram/exporter/");
+
+        // Gene
+        PowerPointExporter.export("R-HSA-69620", "/Users/reactome/diagram/exporter/");
 
         System.out.println("Diagram exported.");
     }

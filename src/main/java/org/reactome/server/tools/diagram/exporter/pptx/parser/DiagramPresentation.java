@@ -1,16 +1,15 @@
 package org.reactome.server.tools.diagram.exporter.pptx.parser;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import com.aspose.slides.*;
-import org.reactome.server.tools.diagram.data.layout.Diagram;
-import org.reactome.server.tools.diagram.data.layout.Edge;
-import org.reactome.server.tools.diagram.data.layout.Node;
+import org.reactome.server.tools.diagram.data.layout.*;
 import org.reactome.server.tools.diagram.exporter.DiagramExporter;
 import org.reactome.server.tools.diagram.exporter.pptx.model.*;
 
+import java.awt.*;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
@@ -20,6 +19,7 @@ public class DiagramPresentation {
     private Diagram diagram;
     private Presentation presentation;
     private IShapeCollection shapes;
+    private ColourProfile colourProfile;
 
     private Map<Long, PPTXNode> nodesMap = new HashMap<>();
 
@@ -28,31 +28,49 @@ public class DiagramPresentation {
         presentation = new Presentation();
         ISlide slide = presentation.getSlides().get_Item(0);
         shapes = slide.getShapes();
+        colourProfile = new StandardColourProfile();
     }
 
     public void export() {
-        if(!isLicensed()) {
+        if (!isLicensed()) {
             // checking license before!
             // TODO WARN ? ERROR? STOP PROCESSING ? saving as evaluated version and license expired
             System.out.println("Missing Software License.");
             System.exit(1); // does not make sense continue the process here - files will be all wrong :)
         }
 
-        // TODO: Process compartments
+        // Set slide size.
+        Dimension pageSize = new Dimension(diagram.getMaxX() + 70, diagram.getMaxY() + 70);
+        presentation.getSlideSize().setSize(pageSize);
 
+        // Render Compartments
+        for (Compartment compartment : diagram.getCompartments()) {
+            EntityCompartment entityCompartment = new EntityCompartment(compartment);
+            entityCompartment.render(shapes, colourProfile);
+        }
+
+        // Render Notes
+        for (Note note : diagram.getNotes()) {
+            CompartmentNote compartmentNote = new CompartmentNote(note);
+            compartmentNote.render(shapes);
+        }
+
+        // Render Nodes
         for (Node node : diagram.getNodes()) {
             PPTXNode pptxNode = getNode(node);
             nodesMap.put(pptxNode.getId(), pptxNode); //If two nodes share identifier, only the second one is kept >> NOTE: It shouldn't happen //TODO: Report?
-            pptxNode.render(shapes);
+            pptxNode.render(shapes, colourProfile);
         }
 
+        // Render Edges
         for (Edge edge : diagram.getEdges()) {
             PPTXReaction pptxReaction = new PPTXReaction(edge, nodesMap);
             pptxReaction.render(shapes);
         }
+
     }
 
-    public void save(String path){
+    public void save(String path) {
         String fileName = path + diagram.getStableId() + ".pptx";
         presentation.save(fileName, SaveFormat.Pptx);
     }
@@ -76,8 +94,15 @@ public class DiagramPresentation {
                 break;
             case "EntityWithAccessionedSequence":
                 pptxNode = new Protein(node);
+                if (Objects.equals(node.getRenderableClass(), "Gene")) {
+                    pptxNode = new Gene(node);
+                }
+                if (Objects.equals(node.getRenderableClass(), "RNA")) {
+                    pptxNode = new RNA(node);
+                }
                 break;
             case "GenomeEncodedEntity":
+            case "OtherEntity":
                 pptxNode = new OtherEntity(node);
                 break;
             case "SimpleEntity":
@@ -92,7 +117,7 @@ public class DiagramPresentation {
         return pptxNode;
     }
 
-    private boolean isLicensed(){
+    private boolean isLicensed() {
         InputStream is = DiagramExporter.class.getResourceAsStream("/Aspose.Slides.lic");
         License license = new License();
         license.setLicense(is);

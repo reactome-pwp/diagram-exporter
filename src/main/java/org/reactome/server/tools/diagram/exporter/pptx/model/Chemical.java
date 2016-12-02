@@ -1,12 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.pptx.model;
 
-import com.aspose.slides.FillType;
-import com.aspose.slides.IShapeCollection;
-import com.aspose.slides.LineStyle;
-import com.aspose.slides.ShapeType;
+import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Node;
-
-import java.awt.*;
 
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
@@ -19,16 +14,28 @@ public class Chemical extends PPTXNode {
     private final byte shapeFillType = FillType.Solid;
     private final byte lineFillStyle = FillType.Solid;
     private final byte lineStyle = LineStyle.Single;
-    private final int lineWidth = 4;
-    private final Color lineColor = new Color(133, 175, 117);
-    private final Color fillColor = new Color(165, 215, 145);
+    private final int lineWidth = 3;
+
+    // Shape that the connector will be connected. This is a simple rectangle with 4 anchor points only
+    private IAutoShape anchorShape;
 
     public Chemical(Node node) {
         super(node);
     }
 
+    public IAutoShape getAnchorShape() {
+        return anchorShape;
+    }
+
     @Override
-    public void render(IShapeCollection shapes) {
-        render(shapes, shapeType, lineWidth, lineStyle, lineFillStyle, lineColor, shapeFillType, fillColor);
+    public void render(IShapeCollection shapes, ColourProfile colors) {
+        render(shapes, shapeType, colors.get(Chemical.class));
+
+        anchorShape = iGroupShape.getShapes().addAutoShape(ShapeType.Rectangle, iAutoShape.getX(), iAutoShape.getY(), iAutoShape.getWidth(), iAutoShape.getHeight());
+        anchorShape.getFillFormat().setFillType(FillType.NoFill);
+        anchorShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
+
+        //reorder
+        iGroupShape.getShapes().reorder(iGroupShape.getShapes().size()-1, iAutoShape);
     }
 }

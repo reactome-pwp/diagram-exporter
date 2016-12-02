@@ -1,8 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.pptx.model;
 
-import com.aspose.slides.FillType;
 import com.aspose.slides.IShapeCollection;
-import com.aspose.slides.LineStyle;
 import com.aspose.slides.ShapeType;
 import org.reactome.server.tools.diagram.data.layout.Node;
 
@@ -16,10 +14,7 @@ import java.awt.*;
 public class OtherEntity extends PPTXNode {
 
     private final int shapeType = ShapeType.Rectangle;
-    private final byte shapeFillType = FillType.Solid;
-    private final byte lineFillStyle = FillType.Solid;
-    private final byte lineStyle = LineStyle.Single;
-    private final int lineWidth = 4;
+
     private final Color lineColor = new Color(74, 149, 134);
     private final Color fillColor = new Color(141, 199, 187);
 
@@ -28,7 +23,7 @@ public class OtherEntity extends PPTXNode {
     }
 
     @Override
-    public void render(IShapeCollection shapes) {
-        render(shapes, shapeType, lineWidth, lineStyle, lineFillStyle, lineColor, shapeFillType, fillColor);
+    public void render(IShapeCollection shapes, ColourProfile colourProfile) {
+        render(shapes, shapeType, colourProfile.get(OtherEntity.class));
     }
 }
