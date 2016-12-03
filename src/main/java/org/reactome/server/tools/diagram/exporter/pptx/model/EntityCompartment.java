@@ -40,10 +40,10 @@ public class EntityCompartment {
         lineFormat.setWidth(4);
         lineFormat.setStyle(LineStyle.Single);
         lineFormat.getFillFormat().setFillType(FillType.Solid);
-        lineFormat.getFillFormat().getSolidFillColor().setColor(new Color(253, 138, 61));
+        lineFormat.getFillFormat().getSolidFillColor().setColor(stylesheet.getLineColor());
         IFillFormat fillFormat = iAutoShape.getFillFormat();
         fillFormat.setFillType(FillType.Solid);
-        fillFormat.getSolidFillColor().setColor(new Color(245, 217, 188));
+        fillFormat.getSolidFillColor().setColor(stylesheet.getFillColor());
 
         if (insets != null) {
             insetAutoShape = shapes.addAutoShape(ShapeType.Rectangle, insets.getX().floatValue(), insets.getY().floatValue(), insets.getWidth().floatValue(), insets.getHeight().floatValue());
@@ -51,10 +51,10 @@ public class EntityCompartment {
             insetLineFormat.setWidth(4);
             insetLineFormat.setStyle(LineStyle.Single);
             insetLineFormat.getFillFormat().setFillType(FillType.Solid);
-            insetLineFormat.getFillFormat().getSolidFillColor().setColor(new Color(253, 138, 61));
+            insetLineFormat.getFillFormat().getSolidFillColor().setColor(stylesheet.getLineColor());
             IFillFormat insetFillFormat = insetAutoShape.getFillFormat();
             insetFillFormat.setFillType(FillType.Solid);
-            insetFillFormat.getSolidFillColor().setColor(new Color(240, 198, 154));
+            insetFillFormat.getSolidFillColor().setColor(stylesheet.getFillColor());
 
             insetAutoShape.getAutoShapeLock().setSelectLocked(true);
             insetAutoShape.getAutoShapeLock().setSizeLocked(true);

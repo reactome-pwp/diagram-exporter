@@ -29,6 +29,7 @@ public class StandardColourProfile extends ColourProfile {
                 fillColor = new Color(249, 245, 245);
                 break;
             case "Gene":
+                lineColor = null;
                 fillColor =  new Color(243, 209, 175);
                 break;
             case "OtherEntity":

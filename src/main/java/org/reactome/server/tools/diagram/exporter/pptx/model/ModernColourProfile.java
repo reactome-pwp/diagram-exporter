@@ -43,7 +43,7 @@ public class ModernColourProfile extends ColourProfile {
             case "Gene":
                 lineFillType = FillType.NoFill;
                 lineColor = null;
-                fillColor =  new Color(243, 209, 175);
+                fillColor =  Color.lightGray;
                 break;
             case "OtherEntity":
             case "Protein":

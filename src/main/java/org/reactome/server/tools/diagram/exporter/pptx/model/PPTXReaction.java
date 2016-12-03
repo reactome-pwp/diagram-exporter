@@ -126,7 +126,7 @@ public class PPTXReaction {
             IAutoShape last = activator.getiAutoShape();
             for (Connector connector : activator.getConnectors()) {
                 if (!isType(connector, "ACTIVATOR")) continue;
-                createReactionAttributes(shapes, connector, activator, last, reactionShape); // should be shapeMap.get(connector) ?
+                createReactionAttributes(shapes, connector, activator, last, shapeMap.get(connector)); // reactionShape
             }
         }
     }
@@ -187,8 +187,31 @@ public class PPTXReaction {
             }
         }
 
-        //NOTE: Is better not to draw the Activators shape and use the "end-arrow" in the last segment instead
-        // TODO: Could find any arrow shape for the Activators.
+        // NOTE 1: Is better not to draw the Activators shape and use the "end-arrow" in the last segment instead
+        // NOTE 2: Could find any arrow shape for the Activators.
+        if (hasActivators()) {
+            for (ReactionPart reactionPart : edge.getActivators()) {
+                PPTXNode activator = nodesMap.get(reactionPart.getId());
+                for (Connector connector : activator.getConnectors()) {
+                    if (!isType(connector, "ACTIVATOR")) continue;
+                    Shape shape = connector.getEndShape();
+                    IAutoShape a = PPTXShape.renderAuxiliaryShape(groupShape, shape.getA());
+                    IAutoShape b = PPTXShape.renderAuxiliaryShape(groupShape, shape.getB());
+                    IAutoShape c = PPTXShape.renderAuxiliaryShape(groupShape, shape.getC());
+
+                    drawSegment(shapes, a, b);
+                    drawSegment(shapes, b, c);
+                    drawSegment(shapes, c, a);
+
+                    float x = (a.getX() + c.getX()) / 2;
+                    float y = (a.getY() + c.getY()) / 2;
+                    IAutoShape centre = groupShape.getShapes().addAutoShape(ShapeType.Ellipse, x, y, 0.1f, 0.1f);
+                    centre.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
+                    centre.getFillFormat().setFillType(FillType.NoFill);
+                    shapeMap.put(connector, centre);
+                }
+            }
+        }
 
         if (hasInhibitors()) {
             for (ReactionPart reactionPart : edge.getInhibitors()) {
@@ -196,10 +219,11 @@ public class PPTXReaction {
                 for (Connector connector : inhibitor.getConnectors()) {
                     if (!isType(connector, "INHIBITOR")) continue;
                     Shape shape = connector.getEndShape();
-                    // TODO: There is a bug here if the activator is diagonal R-HSA-69620
-                    IAutoShape line = groupShape.getShapes().addAutoShape(ShapeType.Line, shape.getA().getX().floatValue(), shape.getA().getY().floatValue(), shape.getB().getX().floatValue() - shape.getA().getX().floatValue(), 0f);
-                    PPTXShape.setShapeStyle(line, new Stylesheet(1, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.NotDefined, null));
+                    // IMPORTANT: A line didn't work here. Has to be two connected shapes
+                    IAutoShape a = PPTXShape.renderAuxiliaryShape(groupShape, shape.getA());
+                    IAutoShape b = PPTXShape.renderAuxiliaryShape(groupShape, shape.getB());
                     IAutoShape centre = PPTXShape.renderAuxiliaryShape(groupShape, shape.getC());
+                    drawSegment(shapes, a, b);
                     shapeMap.put(connector, centre);
                 }
             }

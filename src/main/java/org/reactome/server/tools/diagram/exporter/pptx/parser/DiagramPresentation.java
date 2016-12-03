@@ -28,7 +28,7 @@ public class DiagramPresentation {
         presentation = new Presentation();
         ISlide slide = presentation.getSlides().get_Item(0);
         shapes = slide.getShapes();
-        colourProfile = new StandardColourProfile();
+        colourProfile = new ModernColourProfile();
     }
 
     public void export() {
