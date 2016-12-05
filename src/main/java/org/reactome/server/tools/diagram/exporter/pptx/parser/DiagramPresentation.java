@@ -7,6 +7,7 @@ import org.reactome.server.tools.diagram.exporter.pptx.model.*;
 
 import java.awt.*;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -44,6 +45,7 @@ public class DiagramPresentation {
         presentation.getSlideSize().setSize(pageSize);
 
         // Render Compartments
+        Collections.reverse(diagram.getCompartments());
         for (Compartment compartment : diagram.getCompartments()) {
             EntityCompartment entityCompartment = new EntityCompartment(compartment);
             entityCompartment.render(shapes, colourProfile);
