@@ -37,7 +37,7 @@ public class EntityCompartment {
 
         iAutoShape = shapes.addAutoShape(ShapeType.Rectangle, x, y, width, height);
         ILineFormat lineFormat = iAutoShape.getLineFormat();
-        lineFormat.setWidth(4);
+        lineFormat.setWidth(2);
         lineFormat.setStyle(LineStyle.Single);
         lineFormat.getFillFormat().setFillType(FillType.Solid);
         lineFormat.getFillFormat().getSolidFillColor().setColor(stylesheet.getLineColor());
@@ -48,7 +48,7 @@ public class EntityCompartment {
         if (insets != null) {
             insetAutoShape = shapes.addAutoShape(ShapeType.Rectangle, insets.getX().floatValue(), insets.getY().floatValue(), insets.getWidth().floatValue(), insets.getHeight().floatValue());
             ILineFormat insetLineFormat = insetAutoShape.getLineFormat();
-            insetLineFormat.setWidth(4);
+            insetLineFormat.setWidth(2);
             insetLineFormat.setStyle(LineStyle.Single);
             insetLineFormat.getFillFormat().setFillType(FillType.Solid);
             insetLineFormat.getFillFormat().getSolidFillColor().setColor(stylesheet.getLineColor());
@@ -56,10 +56,12 @@ public class EntityCompartment {
             insetFillFormat.setFillType(FillType.Solid);
             insetFillFormat.getSolidFillColor().setColor(stylesheet.getFillColor());
 
+            // testing locking the select for the compartments :)
             insetAutoShape.getAutoShapeLock().setSelectLocked(true);
             insetAutoShape.getAutoShapeLock().setSizeLocked(true);
         }
 
+        // testing locking the select for the compartments :)
         iAutoShape.getAutoShapeLock().setSelectLocked(true);
         iAutoShape.getAutoShapeLock().setSizeLocked(true);
 

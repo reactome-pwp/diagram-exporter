@@ -1,10 +1,13 @@
-package org.reactome.server.tools.diagram.exporter.pptx.model;
+package org.reactome.server.tools.diagram.exporter.pptx.util;
 
 import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Coordinate;
 import org.reactome.server.tools.diagram.data.layout.Shape;
+import org.reactome.server.tools.diagram.exporter.pptx.model.PPTXNode;
+import org.reactome.server.tools.diagram.exporter.pptx.model.Stylesheet;
 
 import java.awt.*;
+import java.util.Collection;
 
 import org.reactome.server.tools.diagram.data.layout.Shape;
 
@@ -17,7 +20,7 @@ import org.reactome.server.tools.diagram.data.layout.Shape;
  */
 public class PPTXShape {
 
-    static IAutoShape renderShape(IGroupShape group, Shape rctShape) {
+    public static IAutoShape renderShape(IGroupShape group, Shape rctShape) {
         switch (rctShape.getType()) {
             case "CIRCLE":
                 float correction = rctShape.getR().floatValue();
@@ -68,7 +71,7 @@ public class PPTXShape {
      *
      * @return formatted IAutoShape - No line and No fill as part of group shape
      */
-    static IAutoShape renderAuxiliaryShape(IGroupShape group, Coordinate edgeCoordinate) {
+    public static IAutoShape renderAuxiliaryShape(IGroupShape group, Coordinate edgeCoordinate) {
         IAutoShape auxShape = group.getShapes().addAutoShape(
                 ShapeType.Ellipse,
                 edgeCoordinate.getX().floatValue(),
@@ -79,6 +82,10 @@ public class PPTXShape {
 
         auxShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         auxShape.getFillFormat().setFillType(FillType.NoFill);
+//        auxShape.getFillFormat().setFillType(FillType.Solid);
+//        auxShape.getFillFormat().getSolidFillColor().setColor(Color.BLACK);
+
+//        group.reorder(shapes.size()-1, auxShape);
 
         return auxShape;
     }
@@ -89,22 +96,36 @@ public class PPTXShape {
      * @param shapes collection of shapes present in the Slides
      * @return rendered IAutoShape as it is
      */
-    static IAutoShape renderAuxiliaryShape(IShapeCollection shapes, Coordinate edgeCoordinate) {
+    public static IAutoShape renderAuxiliaryShape(IShapeCollection shapes, Coordinate edgeCoordinate) {
         IAutoShape auxShape = shapes.addAutoShape(
                 ShapeType.Ellipse,
                 edgeCoordinate.getX().floatValue(),
                 edgeCoordinate.getY().floatValue(),
                 0.1f,
-                0.f
+                0.1f
         );
 
         auxShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
-        auxShape.getFillFormat().setFillType(FillType.NoFill);
+        auxShape.getFillFormat().setFillType(FillType.Solid);
+        auxShape.getFillFormat().getSolidFillColor().setColor(Color.BLACK);
 
         return auxShape;
     }
 
-    static boolean touches(Shape shape, Coordinate c) {
+    /**
+     * Retrieve IAutoShape used as a support for drawing connectors, which are meant for connecting shapes only.
+     *
+     * @return rendered IAutoShape as it is
+     */
+    // TEST, remove if it is not in use
+    public static IAutoShape renderAuxiliaryShape(IGroupShape group, float x, float y) {
+        IAutoShape auxShape = group.getShapes().addAutoShape(ShapeType.Ellipse, x, y, 0.1f, 0.1f);
+        auxShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
+        auxShape.getFillFormat().setFillType(FillType.NoFill);
+        return auxShape;
+    }
+
+    public static boolean touches(Shape shape, Coordinate c) {
         Coordinate centre;
         switch (shape.getType()) {
             case "CIRCLE":
@@ -130,7 +151,7 @@ public class PPTXShape {
      *
      * @param shape        the given shape to apply the style
      */
-    static void setShapeStyle(IShape shape, Stylesheet stylesheet) {
+    public static void setShapeStyle(IShape shape, Stylesheet stylesheet) {
         // Fill properties
         shape.getFillFormat().setFillType(stylesheet.getShapeFillType());
         shape.getFillFormat().getSolidFillColor().setColor(stylesheet.getFillColor());
@@ -154,7 +175,7 @@ public class PPTXShape {
     /**
      * Helper method to ease set the Begin Arrow style
      */
-    static void setEndArrowShape(IShape shape, byte arrowHeadLength, byte arrowHeadStyle, byte arrowHeadWidth) {
+    public static void setEndArrowShape(IShape shape, byte arrowHeadLength, byte arrowHeadStyle, byte arrowHeadWidth) {
         shape.getLineFormat().setEndArrowheadLength(arrowHeadLength);
         shape.getLineFormat().setEndArrowheadStyle(arrowHeadStyle);
         shape.getLineFormat().setEndArrowheadWidth(arrowHeadWidth);
@@ -167,7 +188,7 @@ public class PPTXShape {
      * @param addHyperlink flag to add a hyperlink
      * @param stId identifier to build the link
      */
-    static void setTextFrame(IAutoShape shape,
+    public static void setTextFrame(IAutoShape shape,
                              String text,
                              double[] margins,
                              Color fontColor,
@@ -199,5 +220,65 @@ public class PPTXShape {
 
         portion.getPortionFormat().getFillFormat().getSolidFillColor().setColor(fontColor);
         portion.setText(text);
+    }
+
+    /**
+     * Render the Activator Shape. PowerPoint does not support the shape we need to achieve. So we are just
+     * following the coordinates of an arrow end shape.
+     *
+     * @return the centre shape to attach the anchor Point
+     */
+    public static IAutoShape renderActivatorShape(IShapeCollection shapes, IGroupShape groupShape, Shape shape) {
+        IAutoShape a = groupShape.getShapes().addAutoShape(
+                ShapeType.Ellipse,
+                shape.getA().getX().floatValue(),
+                shape.getA().getY().floatValue(),
+                0.1f,
+                0.1f
+        );
+        a.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
+        a.getFillFormat().setFillType(FillType.Solid);
+        a.getFillFormat().getSolidFillColor().setColor(Color.YELLOW);
+
+        IAutoShape b = groupShape.getShapes().addAutoShape(
+                ShapeType.Ellipse,
+                shape.getB().getX().floatValue(),
+                shape.getB().getY().floatValue(),
+                0.1f,
+                0.1f
+        );
+        b.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
+        b.getFillFormat().setFillType(FillType.Solid);
+        b.getFillFormat().getSolidFillColor().setColor(Color.RED);
+
+        IAutoShape c = groupShape.getShapes().addAutoShape(
+                ShapeType.Ellipse,
+                shape.getC().getX().floatValue(),
+                shape.getC().getY().floatValue(),
+                0.1f,
+                0.1f
+        );
+        c.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
+        c.getFillFormat().setFillType(FillType.Solid);
+        c.getFillFormat().getSolidFillColor().setColor(Color.BLUE);
+
+        SegmentUtil.drawSegment(shapes, a, b);
+        SegmentUtil.drawSegment(shapes, b, c);
+        SegmentUtil.drawSegment(shapes, c, a);
+
+        float x = (shape.getA().getX().floatValue() + shape.getC().getX().floatValue()) / 2f;
+        float y = (shape.getA().getY().floatValue() + shape.getC().getY().floatValue()) / 2f;
+
+        IAutoShape centre = renderAuxiliaryShape(groupShape, x, y);
+        centre.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
+        centre.getFillFormat().setFillType(FillType.NoFill);
+
+        return centre;
+    }
+
+    public static void reorder (IShapeCollection shapes, Collection<PPTXNode> nodes){
+        for (PPTXNode node : nodes) {
+            shapes.reorder(shapes.size() - 1, node.getiGroupShape());
+        }
     }
 }

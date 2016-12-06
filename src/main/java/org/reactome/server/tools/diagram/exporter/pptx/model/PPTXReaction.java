@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.*;
+import static org.reactome.server.tools.diagram.exporter.pptx.util.SegmentUtil.connect;
+import static org.reactome.server.tools.diagram.exporter.pptx.util.SegmentUtil.drawSegment;
+
 /**
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
@@ -86,7 +90,7 @@ public class PPTXReaction {
                 boolean hasSegments = false;
                 for (int i = 1; i < connector.getSegments().size(); i++) {
                     Segment segment = connector.getSegments().get(i);
-                    IAutoShape step = PPTXShape.renderAuxiliaryShape(shapes, segment.getFrom()); //shapes.addAutoShape(ShapeType.Ellipse, segment.getFrom().getX().floatValue(), segment.getFrom().getY().floatValue(), 1f, 1f);
+                    IAutoShape step = renderAuxiliaryShape(shapes, segment.getFrom()); //shapes.addAutoShape(ShapeType.Ellipse, segment.getFrom().getX().floatValue(), segment.getFrom().getY().floatValue(), 1f, 1f);
 
                     // As we are connecting from node to segment, then the first step should have the arrow.
                     if (i == 1) { // first step checks the anchor point
@@ -147,7 +151,7 @@ public class PPTXReaction {
         IAutoShape last = start; // not really need, just to make it is to understand
         for (int i = 0; i < connector.getSegments().size() - 1; i++) {
             Segment segment = connector.getSegments().get(i);
-            IAutoShape step = PPTXShape.renderAuxiliaryShape(shapes, segment.getTo());
+            IAutoShape step = renderAuxiliaryShape(shapes, segment.getTo());
             if (i == 0) { // first step checks the anchor point
                 connect(shapes, pptxNode, last, step, false);
             } else {
@@ -168,8 +172,8 @@ public class PPTXReaction {
         IGroupShape groupShape = shapes.addGroupShape();
         Shape rShape = edge.getReactionShape();
 
-        hiddenReactionShape = PPTXShape.renderAuxiliaryShape(groupShape, edge.getPosition());
-        reactionShape = PPTXShape.renderShape(groupShape, rShape);
+        hiddenReactionShape = renderAuxiliaryShape(groupShape, edge.getPosition());
+        reactionShape = renderShape(groupShape, rShape);
 
         createBackBone(shapes, rShape);
 
@@ -179,9 +183,9 @@ public class PPTXReaction {
                 for (Connector connector : catalyst.getConnectors()) {
                     if (!isType(connector, "CATALYST")) continue;
                     Shape shape = connector.getEndShape();
-                    IAutoShape catalystAnchorPoint = PPTXShape.renderAuxiliaryShape(groupShape, shape.getC());
-                    IAutoShape cs = PPTXShape.renderShape(groupShape, shape);
-                    PPTXShape.setShapeStyle(cs, new Stylesheet(1, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.Solid, Color.WHITE));
+                    IAutoShape catalystAnchorPoint = renderAuxiliaryShape(groupShape, shape.getC());
+                    IAutoShape cs = renderShape(groupShape, shape);
+                    setShapeStyle(cs, new Stylesheet(1, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.Solid, Color.WHITE));
                     shapeMap.put(connector, catalystAnchorPoint);
                 }
             }
@@ -195,19 +199,21 @@ public class PPTXReaction {
                 for (Connector connector : activator.getConnectors()) {
                     if (!isType(connector, "ACTIVATOR")) continue;
                     Shape shape = connector.getEndShape();
-                    IAutoShape a = PPTXShape.renderAuxiliaryShape(groupShape, shape.getA());
-                    IAutoShape b = PPTXShape.renderAuxiliaryShape(groupShape, shape.getB());
-                    IAutoShape c = PPTXShape.renderAuxiliaryShape(groupShape, shape.getC());
 
-                    drawSegment(shapes, a, b);
-                    drawSegment(shapes, b, c);
-                    drawSegment(shapes, c, a);
+                    IAutoShape centre = renderActivatorShape(shapes, groupShape, shape);
+//                    IAutoShape a = PPTXShape.renderAuxiliaryShape(groupShape, shape.getA());
+//                    IAutoShape b = PPTXShape.renderAuxiliaryShape(groupShape, shape.getB());
+//                    IAutoShape c = PPTXShape.renderAuxiliaryShape(groupShape, shape.getC());
 
-                    float x = (a.getX() + c.getX()) / 2;
-                    float y = (a.getY() + c.getY()) / 2;
-                    IAutoShape centre = groupShape.getShapes().addAutoShape(ShapeType.Ellipse, x, y, 0.1f, 0.1f);
-                    centre.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
-                    centre.getFillFormat().setFillType(FillType.NoFill);
+//                    drawSegment(shapes, a, b);
+//                    drawSegment(shapes, b, c);
+//                    drawSegment(shapes, c, a);
+
+//                    float x = (shape.getA().getX().floatValue() + shape.getC().getX().floatValue()) / 2f;
+//                    float y = (shape.getA().getY().floatValue() + shape.getC().getY().floatValue()) / 2f;
+//                    IAutoShape centre = groupShape.getShapes().addAutoShape(ShapeType.Ellipse, x, y, 0.1f, 0.1f);
+//                    centre.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
+//                    centre.getFillFormat().setFillType(FillType.NoFill);
                     shapeMap.put(connector, centre);
                 }
             }
@@ -220,9 +226,9 @@ public class PPTXReaction {
                     if (!isType(connector, "INHIBITOR")) continue;
                     Shape shape = connector.getEndShape();
                     // IMPORTANT: A line didn't work here. Has to be two connected shapes
-                    IAutoShape a = PPTXShape.renderAuxiliaryShape(groupShape, shape.getA());
-                    IAutoShape b = PPTXShape.renderAuxiliaryShape(groupShape, shape.getB());
-                    IAutoShape centre = PPTXShape.renderAuxiliaryShape(groupShape, shape.getC());
+                    IAutoShape a = renderAuxiliaryShape(groupShape, shape.getA());
+                    IAutoShape b = renderAuxiliaryShape(groupShape, shape.getB());
+                    IAutoShape centre = renderAuxiliaryShape(groupShape, shape.getC());
                     drawSegment(shapes, a, b);
                     shapeMap.put(connector, centre);
                 }
@@ -244,19 +250,19 @@ public class PPTXReaction {
      */
     private void createBackBone(IShapeCollection shapes, Shape rShape) {
         Coordinate start = edge.getSegments().get(0).getFrom();
-        if (PPTXShape.touches(rShape, start)) {
+        if (touches(rShape, start)) {
             backboneStart = hiddenReactionShape;
         } else {
-            backboneStart = PPTXShape.renderAuxiliaryShape(shapes, start);
+            backboneStart = renderAuxiliaryShape(shapes, start);
         }
         IAutoShape last = backboneStart;
         for (int i = 1; i < edge.getSegments().size(); i++) { //IMPORTANT: It starts in "1" because "0" has been taken above
             Coordinate step = edge.getSegments().get(i).getFrom();
-            if (PPTXShape.touches(rShape, step)) {
+            if (touches(rShape, step)) {
                 drawSegment(shapes, last, hiddenReactionShape);
                 last = hiddenReactionShape;
             } else {
-                IAutoShape backboneStep = PPTXShape.renderAuxiliaryShape(shapes, step);
+                IAutoShape backboneStep = renderAuxiliaryShape(shapes, step);
                 drawSegment(shapes, last, backboneStep);
                 last = backboneStep;
             }
@@ -264,62 +270,7 @@ public class PPTXReaction {
         backboneEnd = last; //The last one could either be an anchor point or the reactionShape itself, but that's not a problem at all!
     }
 
-    /**
-     * Draw segments can connect a shape to an auxiliary shape, a shape to a backbone start or end
-     * and an auxiliary shape to another auxiliary shape.
-     *
-     * @param shapes the collection of shapes present in the slide
-     * @param start  start node to be connected
-     * @param end    end node to be connected
-     */
-    // TODO: shall we call it drawSegment ?
-    private void drawSegment(IShapeCollection shapes, IShape start, IShape end) {
-        IConnector connector = shapes.addConnector(ShapeType.StraightConnector1, start.getX(), start.getY(), 1, 1, true);
-        PPTXShape.setShapeStyle(connector, new Stylesheet(1, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.NotDefined, null));
-        connector.setStartShapeConnectedTo(start);
-        connector.setEndShapeConnectedTo(end);
-    }
 
-    /**
-     * Connectors always go from Node to Backbone/Catalyst/ or Node to Auxiliary shape
-     * <p>
-     * In order to draw segments only please refer {@link #drawSegment(IShapeCollection, IShape, IShape)}
-     *
-     * @param shapes      the collection of shapes present in the slide
-     * @param pptxNode    instance PPTXNode, used for special cases like Chemicals or Complexes
-     * @param start       start point of a connector
-     * @param end         end point of a connector
-     * @param renderArrow flag to render an arrow and beginning of a connector
-     */
-    private void connect(IShapeCollection shapes, PPTXNode pptxNode, IShape start, IShape end, boolean renderArrow) {
-        IConnector connector = shapes.addConnector(ShapeType.StraightConnector1, start.getX(), start.getY(), 1, 1, true);
-        PPTXShape.setShapeStyle(connector, new Stylesheet(1, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.NotDefined, null));
-        if (renderArrow) {
-            // in this case, our direction is from NODE to backbone or segment, then the arrow
-            // should be in the NODE as begin arrow.
-            PPTXShape.setBeginArrowShape(connector, LineArrowheadLength.Long, LineArrowheadStyle.Triangle, LineArrowheadWidth.Wide);
-        }
-
-        // Some implementations of PPTXNode have an anchorShape shape to ease and beautify where the anchor point
-        // is attached
-        int anchorPoint;
-        if (pptxNode instanceof Complex) {
-            start = ((Complex) pptxNode).getAnchorShape();
-            anchorPoint = getAnchorPoint(start, end);
-        } else if (pptxNode instanceof Chemical) {
-            start = ((Chemical) pptxNode).getAnchorShape();
-            anchorPoint = getAnchorPoint(start, end);
-        } else if (pptxNode instanceof Gene) {
-            start = ((Gene) pptxNode).getAnchorShape();
-            anchorPoint = 1;
-        } else {
-            anchorPoint = getAnchorPoint(start, end);
-        }
-
-        connector.setStartShapeConnectedTo(start);
-        connector.setStartShapeConnectionSiteIndex(anchorPoint);
-        connector.setEndShapeConnectedTo(end);
-    }
 
     private boolean onlyOneInputWithoutConnectors() {
         if (edge.getInputs().size() == 1) {
@@ -361,17 +312,17 @@ public class PPTXReaction {
         return edge.getInhibitors() != null && !edge.getInhibitors().isEmpty();
     }
 
-    private int getAnchorPoint(IShape node, IShape backbone) {
-        boolean bottom = (node.getY() + node.getHeight()) <= (int) backbone.getY();
-        boolean top = (node.getY()) >= (int) backbone.getY();
-        boolean left = (int) backbone.getX() <= node.getX();
-        boolean right = (node.getX() + node.getHeight()) <= backbone.getX();
-
-        if (top) return 0;
-        if (left) return 1;
-        if (bottom) return 2;
-        if (right) return 3;
-
-        return 0;
-    }
+//    private int getAnchorPoint(IShape node, IShape backbone) {
+//        boolean bottom = (node.getY() + node.getHeight()) <= (int) backbone.getY();
+//        boolean top = (node.getY()) >= (int) backbone.getY();
+//        boolean left = (int) backbone.getX() <= node.getX();
+//        boolean right = (node.getX() + node.getHeight()) <= backbone.getX();
+//
+//        if (top) return 0;
+//        if (left) return 1;
+//        if (bottom) return 2;
+//        if (right) return 3;
+//
+//        return 0;
+//    }
 }

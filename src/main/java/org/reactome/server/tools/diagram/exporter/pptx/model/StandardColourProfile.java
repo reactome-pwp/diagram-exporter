@@ -42,6 +42,6 @@ public class StandardColourProfile extends ColourProfile {
                 throw new IllegalArgumentException("Color profile not found for class [" + _clazz.getSimpleName() + "]. Create the switch-case for the given class");
         }
 
-        return new Stylesheet(4, LineStyle.Single, FillType.Solid, lineColor, FillType.Solid, fillColor, fontColor);
+        return new Stylesheet(2, LineStyle.Single, FillType.Solid, lineColor, FillType.Solid, fillColor, fontColor);
     }
 }

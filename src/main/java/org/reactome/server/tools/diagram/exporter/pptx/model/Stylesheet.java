@@ -14,7 +14,33 @@ public class Stylesheet {
     private byte shapeFillType;
     private byte lineFillType;
     private byte lineStyle;
-    private int lineWidth;
+    private double lineWidth;
+
+    public Stylesheet(double lineWidth,
+                      byte lineStyle,
+                      byte lineFillType,
+                      Color lineColor,
+                      byte shapeFillType,
+                      Color fillColor) {
+        this.lineWidth = lineWidth;
+        this.lineStyle = lineStyle;
+        this.lineFillType = lineFillType;
+        this.lineColor = lineColor;
+        this.shapeFillType = shapeFillType;
+        this.fillColor = fillColor;
+    }
+
+    public Stylesheet(double lineWidth,
+                      byte lineStyle,
+                      byte lineFillType,
+                      Color lineColor,
+                      byte shapeFillType,
+                      Color fillColor,
+                      Color fontColor) {
+        this(lineWidth, lineStyle, lineFillType, lineColor, shapeFillType, fillColor);
+        //Font Color does work because of the Hyperlink. Even trying to set it in PP.
+        this.fontColor = fontColor;
+    }
 
     public Color getFillColor() {
         return fillColor;
@@ -32,7 +58,7 @@ public class Stylesheet {
         return lineStyle;
     }
 
-    public int getLineWidth() {
+    public double getLineWidth() {
         return lineWidth;
     }
 
@@ -42,30 +68,5 @@ public class Stylesheet {
 
     public Color getFontColor() {
         return fontColor;
-    }
-
-    public Stylesheet(int lineWidth,
-                      byte lineStyle,
-                      byte lineFillType,
-                      Color lineColor,
-                      byte shapeFillType,
-                      Color fillColor) {
-        this.lineWidth = lineWidth;
-        this.lineStyle = lineStyle;
-        this.lineFillType = lineFillType;
-        this.lineColor = lineColor;
-        this.shapeFillType = shapeFillType;
-        this.fillColor = fillColor;
-    }
-    public Stylesheet(int lineWidth,
-                      byte lineStyle,
-                      byte lineFillType,
-                      Color lineColor,
-                      byte shapeFillType,
-                      Color fillColor,
-                      Color fontColor) {
-        this(lineWidth, lineStyle, lineFillType,lineColor,shapeFillType,fillColor);
-        //Font Color does work because of the Hyperlink. Even trying to set it in PP.
-        this.fontColor = fontColor;
     }
 }

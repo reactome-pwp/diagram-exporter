@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.setShapeStyle;
+import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.setTextFrame;
+
 /**
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
@@ -20,8 +23,7 @@ public abstract class PPTXNode {
     @SuppressWarnings("WeakerAccess")
     protected IAutoShape iAutoShape;
     protected IGroupShape iGroupShape;
-    PPTXShape pptxShape;
-    Stoichiometry stoichiometry;
+    private Stoichiometry stoichiometry;
     private Long id;
     protected float x;
     protected float y;
@@ -31,6 +33,7 @@ public abstract class PPTXNode {
     private String schemaClass;
     protected String displayName;
     private List<Connector> connectors;
+
 
     public PPTXNode(Node node) {
         this.reactomeId = node.getReactomeId();
@@ -53,6 +56,10 @@ public abstract class PPTXNode {
         return iAutoShape;
     }
 
+    public IGroupShape getiGroupShape() {
+        return iGroupShape;
+    }
+
     public List<Connector> getConnectors() {
         return connectors != null ? connectors : new LinkedList<>();
     }
@@ -67,8 +74,8 @@ public abstract class PPTXNode {
         iGroupShape = shapes.addGroupShape();
         iAutoShape = iGroupShape.getShapes().addAutoShape(shapeType, x, y, width, height);
 
-        PPTXShape.setShapeStyle(iAutoShape, stylesheet);
-        PPTXShape.setTextFrame(iAutoShape, displayName, new double[]{0,0,0,0}, stylesheet.getFontColor(), 10, true, true, reactomeId);
+        setShapeStyle(iAutoShape, stylesheet);
+        setTextFrame(iAutoShape, displayName, new double[]{0,0,0,0}, stylesheet.getFontColor(), 10, true, true, reactomeId);
     }
 
     @Override

@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.reorder;
+
 /**
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
  */
@@ -69,6 +71,14 @@ public class DiagramPresentation {
             PPTXReaction pptxReaction = new PPTXReaction(edge, nodesMap);
             pptxReaction.render(shapes);
         }
+
+        // TODO Render Links
+//        for (Link link : diagram.getLinks()){
+//
+//        }
+
+        // REORDER SHAPES HERE IF NEEDED!
+        reorder(shapes, nodesMap.values());
 
     }
 

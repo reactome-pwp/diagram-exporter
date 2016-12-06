@@ -15,14 +15,14 @@ public class ModernColourProfile extends ColourProfile {
         byte shapeFillType = FillType.Solid;
         byte lineFillType = FillType.Solid;
         byte lineStyle = LineStyle.Single;
-        int lineWidth = 4;
+        double lineWidth = 1.25;
         Color lineColor;
         Color fillColor;
         Color fontColor = Color.BLUE;
 
         switch (_clazz.getSimpleName()) {
             case "Chemical":
-                lineWidth = 3;
+                lineWidth = 2;
                 lineColor = new Color(133, 175, 117);
                 fillColor = new Color(165, 215, 145);
                 break;
@@ -56,7 +56,7 @@ public class ModernColourProfile extends ColourProfile {
                 break;
             case "Set":
                 lineStyle = LineStyle.ThinThin;
-                lineWidth = 10;
+                lineWidth = 4.75;
                 lineColor = new Color(106, 106, 227);
                 fillColor = new Color(160, 187, 205);
                 break;
