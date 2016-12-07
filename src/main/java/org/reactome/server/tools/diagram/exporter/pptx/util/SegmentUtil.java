@@ -14,6 +14,10 @@ import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.set
 
 public class SegmentUtil {
 
+    public static void drawSegment(IShapeCollection shapes, IShape start, IShape end) {
+        drawSegment(shapes, start, end, false);
+    }
+
     /**
      * Draw segments can connect a shape to an auxiliary shape, a shape to a backbone start or end
      * and an auxiliary shape to another auxiliary shape.
@@ -22,13 +26,25 @@ public class SegmentUtil {
      * @param start  start node to be connected
      * @param end    end node to be connected
      */
-    public static void drawSegment(IShapeCollection shapes, IShape start, IShape end) {
+    public static void drawSegment(IShapeCollection shapes, IShape start, IShape end, boolean dashed) {
         IConnector connector = shapes.addConnector(ShapeType.StraightConnector1, start.getX(), start.getY(), 1, 1, true);
         setShapeStyle(connector, new Stylesheet(1, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.NotDefined, null));
         connector.setStartShapeConnectedTo(start);
         connector.getLineFormat().setCapStyle(LineCapStyle.Round);
         connector.setEndShapeConnectedTo(end);
+
+        if (dashed) {
+            connector.getLineFormat().getFillFormat().setFillType(FillType.Solid);
+            connector.getLineFormat().setDashStyle(LineDashStyle.Dash);
+            connector.getLineFormat().setStyle(LineStyle.Single);
+            connector.getLineFormat().setWidth(1.25);
+        }
+
         connector.reroute();
+    }
+
+    public static void connect(IShapeCollection shapes, PPTXNode pptxNode, IShape start, IShape end, boolean renderArrow) {
+        connect(shapes, pptxNode, start, end, renderArrow, false);
     }
 
     /**
@@ -42,7 +58,7 @@ public class SegmentUtil {
      * @param end         end point of a connector
      * @param renderArrow flag to render an arrow and beginning of a connector
      */
-    public static void connect(IShapeCollection shapes, PPTXNode pptxNode, IShape start, IShape end, boolean renderArrow) {
+    public static void connect(IShapeCollection shapes, PPTXNode pptxNode, IShape start, IShape end, boolean renderArrow, boolean dashed) {
         IConnector connector = shapes.addConnector(ShapeType.StraightConnector1, start.getX(), start.getY(), 1, 1, true);
         setShapeStyle(connector, new Stylesheet(1, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.NotDefined, null));
         connector.getLineFormat().setCapStyle(LineCapStyle.Round);
@@ -50,6 +66,13 @@ public class SegmentUtil {
             // in this case, our direction is from NODE to backbone or segment, then the arrow
             // should be in the NODE as begin arrow.
             setBeginArrowShape(connector, LineArrowheadLength.Long, LineArrowheadStyle.Triangle, LineArrowheadWidth.Wide);
+        }
+
+        if (dashed) {
+            connector.getLineFormat().getFillFormat().setFillType(FillType.Solid);
+            connector.getLineFormat().setDashStyle(LineDashStyle.Dash);
+            connector.getLineFormat().setStyle(LineStyle.Single);
+            connector.getLineFormat().setWidth(1.25);
         }
 
         // Some implementations of PPTXNode have an anchorShape shape to ease and beautify where the anchor point

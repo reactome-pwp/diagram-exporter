@@ -77,10 +77,11 @@ public class DiagramPresentation {
             pptxReaction.render(shapes);
         }
 
-        // TODO Render Links
-//        for (Link link : diagram.getLinks()){
-//
-//        }
+        // Render Links
+        for (Link link : diagram.getLinks()){
+            PPTXLink pptxLink = new PPTXLink(link, nodesMap);
+            pptxLink.render(shapes);
+        }
 
         // REORDER SHAPES HERE IF NEEDED!
         reorder(shapes, nodesMap.values());
