@@ -3,6 +3,7 @@ package org.reactome.server.tools.diagram.exporter.pptx.parser;
 import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.*;
 import org.reactome.server.tools.diagram.exporter.DiagramExporter;
+import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.pptx.model.*;
 
 import java.awt.*;
@@ -20,14 +21,18 @@ import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.reo
 public class DiagramPresentation {
 
     private Diagram diagram;
+    private DiagramProfile profile;
     private Presentation presentation;
     private IShapeCollection shapes;
+
+    //TODO: Use DiagramProfile instead
     private ColourProfile colourProfile;
 
     private Map<Long, PPTXNode> nodesMap = new HashMap<>();
 
-    public DiagramPresentation(Diagram diagram) {
+    public DiagramPresentation(Diagram diagram, DiagramProfile profile) {
         this.diagram = diagram;
+        this.profile = profile;
         presentation = new Presentation();
         ISlide slide = presentation.getSlides().get_Item(0);
         shapes = slide.getShapes();
