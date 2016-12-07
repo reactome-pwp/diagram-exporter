@@ -43,8 +43,26 @@ public class PPTXReaction {
 
         if (hasInputs()) {
             if (onlyOneInputWithoutConnectors()) {
-                IAutoShape input = nodesMap.get(edge.getInputs().get(0).getId()).getiAutoShape();
-                connect(shapes, nodesMap.get(edge.getInputs().get(0).getId()), input, backboneStart, false); // do not render arrow
+                PPTXNode inputNode = nodesMap.get(edge.getInputs().get(0).getId());
+                IAutoShape input = inputNode.getiAutoShape();
+
+                List<Connector> connectors = inputNode.getConnectors(edge.getId(), "INPUT");
+
+                PPTXStoichiometry stoich = renderStoichiometry(shapes, connectors.get(0).getStoichiometry());
+
+//                connectToStoich(shapes, inputNode, stoich, input, backboneStart, false);
+
+                if (stoich == null) {
+                    connect(shapes, nodesMap.get(edge.getInputs().get(0).getId()), input, backboneStart, false);
+                } else {
+                    connect(shapes, inputNode, input, stoich.getHiddenCenterShape(), false);
+                    drawSegment(shapes, stoich.getHiddenCenterShape(), hiddenReactionShape);
+                    reorder(shapes, stoich.getiGroupShape());
+                }
+
+//                IAutoShape input = nodesMap.get(edge.getInputs().get(0).getId()).getiAutoShape();
+//                connect(shapes, nodesMap.get(edge.getInputs().get(0).getId()), input, backboneStart, false); // do not render arrow
+
             } else {
                 createConnectorsFromInputs(shapes);
             }
@@ -80,36 +98,76 @@ public class PPTXReaction {
         }
     }
 
+    private PPTXStoichiometry renderStoichiometry(IShapeCollection shapes, Stoichiometry stoichiometry) {
+        PPTXStoichiometry ret = null;
+        // Stoichiometry may be present, but having value 1. In this case we don't render it.
+        if (stoichiometry != null && stoichiometry.getValue() > 1) {
+            ret = new PPTXStoichiometry(stoichiometry);
+            ret.render(shapes);
+        }
+        return ret;
+    }
+
     private void createConnectorsToOutputs(IShapeCollection shapes) {
         for (ReactionPart reactionPart : edge.getOutputs()) {
             PPTXNode output = nodesMap.get(reactionPart.getId());
             IAutoShape last = output.getiAutoShape();
             for (Connector connector : output.getConnectors()) {
                 if (!isType(connector, "OUTPUT")) continue;
-                boolean renderArrow = true;
                 boolean hasSegments = false;
+
+                PPTXStoichiometry stoich = renderStoichiometry(shapes, connector.getStoichiometry());
+
                 for (int i = 1; i < connector.getSegments().size(); i++) {
                     Segment segment = connector.getSegments().get(i);
                     IAutoShape step = renderAuxiliaryShape(shapes, segment.getFrom()); //shapes.addAutoShape(ShapeType.Ellipse, segment.getFrom().getX().floatValue(), segment.getFrom().getY().floatValue(), 1f, 1f);
 
-                    // As we are connecting from node to segment, then the first step should have the arrow.
+                    // As we are connecting from node to segment, then the first step should
+                    // have the arrow and stoichiometry
                     if (i == 1) { // first step checks the anchor point
-                        connect(shapes, output, last, step, renderArrow);
+                        // connect(shapes, output, last, step, renderArrow); previous impl.
+//                        if (stoich == null) {
+//                            connect(shapes, output, last, step, true);
+//                        } else {
+//                            connect(shapes, output, last, stoich.getHiddenCenterShape(), true);
+//                            drawSegment(shapes, stoich.getHiddenCenterShape(), step);
+//                            reorder(shapes, stoich.getiGroupShape());
+//                        }
+                        connectToStoich(shapes, output, stoich, last, step, true);
                     } else {
                         drawSegment(shapes, last, step);
                     }
 
                     last = step;
-                    renderArrow = false;
+                    //renderArrow = false;
                     hasSegments = true;
                 }
+
                 if (!hasSegments) {
                     // doesn't process segments, then take anchor point into consideration
-                    connect(shapes, output, last, backboneEnd, true);
+                    // connect(shapes, output, last, backboneEnd, true);
+//                    if (stoich == null) {
+//                        connect(shapes, output, last, backboneEnd, true);
+//                    } else {
+//                        connect(shapes, output, last, stoich.getHiddenCenterShape(), true);
+//                        drawSegment(shapes, stoich.getHiddenCenterShape(), backboneEnd);
+//                        reorder(shapes, stoich.getiGroupShape());
+//                    }
+                    connectToStoich(shapes, output, stoich, last, backboneEnd, true);
                 } else {
                     drawSegment(shapes, last, backboneEnd);
                 }
             }
+        }
+    }
+
+    public void connectToStoich(IShapeCollection shapes, PPTXNode node, PPTXStoichiometry stoich, IShape start, IShape end, boolean renderArrow){
+        if (stoich == null) {
+            connect(shapes, node, start, end, renderArrow);
+        } else {
+            connect(shapes, node, start, stoich.getHiddenCenterShape(), renderArrow);
+            drawSegment(shapes, stoich.getHiddenCenterShape(), end);
+            reorder(shapes, stoich.getiGroupShape());
         }
     }
 
@@ -146,22 +204,66 @@ public class PPTXReaction {
         }
     }
 
+//    private void createReactionAttributes(IShapeCollection shapes, Connector connector, PPTXNode pptxNode, IAutoShape start, IAutoShape end) {
+//        boolean hasSegments = false;
+//        IAutoShape last = start; // not really need, just to make it easy to understand
+//        for (int i = 0; i < connector.getSegments().size() - 1; i++) {
+//            Segment segment = connector.getSegments().get(i);
+//            IAutoShape step = renderAuxiliaryShape(shapes, segment.getTo());
+//            if (i == 0) { // first step checks the anchor point
+//                connect(shapes, pptxNode, last, step, false);
+//            } else {
+//                drawSegment(shapes, last, step);
+//            }
+//            last = step;
+//            hasSegments = true;
+//        }
+//        if (!hasSegments) {
+//            connect(shapes, pptxNode, last, end, false);
+//        } else {
+//            drawSegment(shapes, last, end);
+//        }
+//    }
+
+    /**
+     * Common method used to draw the segments for Input, Catalyst, Inhibitor and Activator as well as
+     * rendering the Stoichiometry, if also present.
+     */
     private void createReactionAttributes(IShapeCollection shapes, Connector connector, PPTXNode pptxNode, IAutoShape start, IAutoShape end) {
+        PPTXStoichiometry stoich = renderStoichiometry(shapes, connector.getStoichiometry());
+
         boolean hasSegments = false;
-        IAutoShape last = start; // not really need, just to make it is to understand
+        IAutoShape last = start; // not really need, just to make it easy to understand
         for (int i = 0; i < connector.getSegments().size() - 1; i++) {
             Segment segment = connector.getSegments().get(i);
             IAutoShape step = renderAuxiliaryShape(shapes, segment.getTo());
             if (i == 0) { // first step checks the anchor point
-                connect(shapes, pptxNode, last, step, false);
+//                if (stoich == null) {
+//                    connect(shapes, pptxNode, last, step, false);
+//                } else {
+//                    connect(shapes, pptxNode, last, stoich.getHiddenCenterShape(), false);
+//                    drawSegment(shapes, stoich.getHiddenCenterShape(), step);
+//                    reorder(shapes, stoich.getiGroupShape());
+//                }
+                connectToStoich(shapes, pptxNode, stoich, last, step, false);
+//                connect(shapes, pptxNode, last, step, false);
             } else {
                 drawSegment(shapes, last, step);
             }
             last = step;
             hasSegments = true;
         }
+
         if (!hasSegments) {
-            connect(shapes, pptxNode, last, end, false);
+//            connect(shapes, pptxNode, start, end, false);
+//            if (stoich == null) {
+//                connect(shapes, pptxNode, last, end, false);
+//            } else {
+//                connect(shapes, pptxNode, last, stoich.getHiddenCenterShape(), false);
+//                drawSegment(shapes, stoich.getHiddenCenterShape(), end);
+//                reorder(shapes, stoich.getiGroupShape());
+//            }
+            connectToStoich(shapes, pptxNode, stoich, last, end, false);
         } else {
             drawSegment(shapes, last, end);
         }
@@ -199,21 +301,7 @@ public class PPTXReaction {
                 for (Connector connector : activator.getConnectors()) {
                     if (!isType(connector, "ACTIVATOR")) continue;
                     Shape shape = connector.getEndShape();
-
                     IAutoShape centre = renderActivatorShape(shapes, groupShape, shape);
-//                    IAutoShape a = PPTXShape.renderAuxiliaryShape(groupShape, shape.getA());
-//                    IAutoShape b = PPTXShape.renderAuxiliaryShape(groupShape, shape.getB());
-//                    IAutoShape c = PPTXShape.renderAuxiliaryShape(groupShape, shape.getC());
-
-//                    drawSegment(shapes, a, b);
-//                    drawSegment(shapes, b, c);
-//                    drawSegment(shapes, c, a);
-
-//                    float x = (shape.getA().getX().floatValue() + shape.getC().getX().floatValue()) / 2f;
-//                    float y = (shape.getA().getY().floatValue() + shape.getC().getY().floatValue()) / 2f;
-//                    IAutoShape centre = groupShape.getShapes().addAutoShape(ShapeType.Ellipse, x, y, 0.1f, 0.1f);
-//                    centre.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
-//                    centre.getFillFormat().setFillType(FillType.NoFill);
                     shapeMap.put(connector, centre);
                 }
             }
@@ -271,7 +359,6 @@ public class PPTXReaction {
     }
 
 
-
     private boolean onlyOneInputWithoutConnectors() {
         if (edge.getInputs().size() == 1) {
             List<Connector> connectors = nodesMap.get(edge.getInputs().get(0).getId()).getConnectors(edge.getId(), "INPUT");
@@ -280,7 +367,7 @@ public class PPTXReaction {
         return false;
     }
 
-    private boolean onlyOneOutputWithoutConnectors() {
+    private boolean onlyOneOutputWithoutConnectors() { // TODO rename this to onlyOneOutputWithoutSegments ?
         if (edge.getOutputs().size() == 1) {
             List<Connector> connectors = nodesMap.get(edge.getOutputs().get(0).getId()).getConnectors(edge.getId(), "OUTPUT");
             return connectors.isEmpty() || connectors.get(0).getSegments().isEmpty();
@@ -312,17 +399,4 @@ public class PPTXReaction {
         return edge.getInhibitors() != null && !edge.getInhibitors().isEmpty();
     }
 
-//    private int getAnchorPoint(IShape node, IShape backbone) {
-//        boolean bottom = (node.getY() + node.getHeight()) <= (int) backbone.getY();
-//        boolean top = (node.getY()) >= (int) backbone.getY();
-//        boolean left = (int) backbone.getX() <= node.getX();
-//        boolean right = (node.getX() + node.getHeight()) <= backbone.getX();
-//
-//        if (top) return 0;
-//        if (left) return 1;
-//        if (bottom) return 2;
-//        if (right) return 3;
-//
-//        return 0;
-//    }
 }

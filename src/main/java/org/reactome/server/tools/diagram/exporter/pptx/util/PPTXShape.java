@@ -53,7 +53,6 @@ public class PPTXShape {
                         rctShape.getA().getY().floatValue(),
                         rctShape.getB().getX().floatValue() - rctShape.getA().getX().floatValue(),
                         rctShape.getB().getY().floatValue() - rctShape.getA().getY().floatValue());
-//                FillType.Solid, Color.WHITE, FillType.Solid, Color.BLACK, LineStyle.NotDefined, 1
                 setShapeStyle(box, new Stylesheet(1, LineStyle.NotDefined, FillType.Solid, Color.BLACK, FillType.Solid, Color.WHITE));
 
                 if (rctShape.getS() != null) {
@@ -82,11 +81,6 @@ public class PPTXShape {
 
         auxShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         auxShape.getFillFormat().setFillType(FillType.NoFill);
-//        auxShape.getFillFormat().setFillType(FillType.Solid);
-//        auxShape.getFillFormat().getSolidFillColor().setColor(Color.BLACK);
-
-//        group.reorder(shapes.size()-1, auxShape);
-
         return auxShape;
     }
 
@@ -108,7 +102,6 @@ public class PPTXShape {
         auxShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         auxShape.getFillFormat().setFillType(FillType.Solid);
         auxShape.getFillFormat().getSolidFillColor().setColor(Color.BLACK);
-
         return auxShape;
     }
 
@@ -117,7 +110,6 @@ public class PPTXShape {
      *
      * @return rendered IAutoShape as it is
      */
-    // TEST, remove if it is not in use
     public static IAutoShape renderAuxiliaryShape(IGroupShape group, float x, float y) {
         IAutoShape auxShape = group.getShapes().addAutoShape(ShapeType.Ellipse, x, y, 0.1f, 0.1f);
         auxShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
@@ -280,5 +272,8 @@ public class PPTXShape {
         for (PPTXNode node : nodes) {
             shapes.reorder(shapes.size() - 1, node.getiGroupShape());
         }
+    }
+    public static void reorder (IShapeCollection shapes, IGroupShape groupShape){
+        shapes.reorder(shapes.size() - 1, groupShape);
     }
 }

@@ -10,7 +10,7 @@ public class DiagramExporter {
     public static void main(String[] args) throws Exception{
 
         // To start with...
-//        PowerPointExporter.export("R-HSA-169911", "/Users/reactome/diagram/exporter/");
+        PowerPointExporter.export("R-HSA-169911", "/Users/reactome/diagram/exporter/");
 
         //Activator, simple diagram with long text to be place inside the shape
 //        PowerPointExporter.export("R-MMU-2990846", "/Users/reactome/diagram/exporter/");
@@ -19,14 +19,14 @@ public class DiagramExporter {
 //        PowerPointExporter.export("R-HSA-2990846", "/Users/reactome/diagram/exporter/");
 
         // Inhibitor
-//        PowerPointExporter.export("R-HSA-177929", "/Users/reactome/diagram/exporter/");
+        PowerPointExporter.export("R-HSA-177929", "/Users/reactome/diagram/exporter/");
 
         // Gene (CDKN1A Gene) and RNA (CDKN1A mRNA) Shape (also tricky diagram)
         // Also has few links, One activator and one inhibitor
-//        PowerPointExporter.export("R-HSA-69620", "/Users/reactome/diagram/exporter/");
+        PowerPointExporter.export("R-HSA-69620", "/Users/reactome/diagram/exporter/");
 
         // Mitophagy, multiple Compartments
-//        PowerPointExporter.export("R-HSA-5205647", "/Users/reactome/diagram/exporter/");
+        PowerPointExporter.export("R-HSA-5205647", "/Users/reactome/diagram/exporter/");
 
         // Multiple Compartments
         PowerPointExporter.export("R-HSA-1489509", "/Users/reactome/diagram/exporter/");

@@ -71,8 +71,6 @@ public class SegmentUtil {
         connector.setStartShapeConnectedTo(start);
         connector.setStartShapeConnectionSiteIndex(anchorPoint);
         connector.setEndShapeConnectedTo(end);
-
-//        connector.reroute();
     }
 
     private static int getAnchorPoint(IShape node, IShape backbone) {

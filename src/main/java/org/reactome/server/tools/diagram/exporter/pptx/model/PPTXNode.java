@@ -23,7 +23,6 @@ public abstract class PPTXNode {
     @SuppressWarnings("WeakerAccess")
     protected IAutoShape iAutoShape;
     protected IGroupShape iGroupShape;
-    private Stoichiometry stoichiometry;
     private Long id;
     protected float x;
     protected float y;
