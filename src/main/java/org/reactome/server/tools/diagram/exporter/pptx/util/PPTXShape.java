@@ -20,7 +20,7 @@ import org.reactome.server.tools.diagram.data.layout.Shape;
  */
 public class PPTXShape {
 
-    public static IAutoShape renderShape(IGroupShape group, Shape rctShape) {
+    public static IAutoShape renderShape(IGroupShape group, Shape rctShape, Stylesheet stylesheet) {
         switch (rctShape.getType()) {
             case "CIRCLE":
                 float correction = rctShape.getR().floatValue();
@@ -31,7 +31,7 @@ public class PPTXShape {
                         rctShape.getR().floatValue() + correction,
                         rctShape.getR().floatValue() + correction
                 );
-                setShapeStyle(circle, new Stylesheet(1, LineStyle.NotDefined, FillType.Solid, Color.BLACK, FillType.Solid, Color.BLACK));
+                setShapeStyle(circle, new Stylesheet().customStyle(1, LineStyle.NotDefined, FillType.Solid, Color.BLACK, FillType.Solid, Color.BLACK));
 
                 return circle;
             case "DOUBLE_CIRCLE": //TODO: Please check how to do the double circle
@@ -43,7 +43,7 @@ public class PPTXShape {
                         rctShape.getR().floatValue() + correction,
                         rctShape.getR().floatValue() + correction
                 );
-                setShapeStyle(dCircle, new Stylesheet(1, LineStyle.ThinThin, FillType.Solid, Color.BLACK,FillType.Solid, Color.BLACK));
+                setShapeStyle(dCircle, new Stylesheet().customStyle(1, LineStyle.ThinThin, FillType.Solid, Color.BLACK, FillType.Solid, Color.BLACK));
 
                 return dCircle;
             case "BOX":
@@ -53,10 +53,10 @@ public class PPTXShape {
                         rctShape.getA().getY().floatValue(),
                         rctShape.getB().getX().floatValue() - rctShape.getA().getX().floatValue(),
                         rctShape.getB().getY().floatValue() - rctShape.getA().getY().floatValue());
-                setShapeStyle(box, new Stylesheet(1, LineStyle.NotDefined, FillType.Solid, Color.BLACK, FillType.Solid, Color.WHITE));
+                setShapeStyle(box, new Stylesheet().customStyle(1, LineStyle.NotDefined, FillType.Solid, Color.BLACK, FillType.Solid, Color.WHITE));
 
                 if (rctShape.getS() != null) {
-                    setTextFrame(box, rctShape.getS(), new double[]{0,0,0,0}, Color.BLACK, 6, true, false, null);
+                    setTextFrame(box, rctShape.getS(), new double[]{0, 0, 0, 0}, Color.BLACK, 6, true, false, null);
                 }
 
                 return box;
@@ -141,7 +141,7 @@ public class PPTXShape {
     /**
      * Helper method to ease set the shape Style.
      *
-     * @param shape        the given shape to apply the style
+     * @param shape the given shape to apply the style
      */
     public static void setShapeStyle(IShape shape, Stylesheet stylesheet) {
         // Fill properties
@@ -153,6 +153,9 @@ public class PPTXShape {
         shape.getLineFormat().getFillFormat().getSolidFillColor().setColor(stylesheet.getLineColor());
         shape.getLineFormat().setStyle(stylesheet.getLineStyle());
         shape.getLineFormat().setWidth(stylesheet.getLineWidth());
+        shape.getLineFormat().setCapStyle(LineCapStyle.Round);
+
+        //shape.getLineFormat().setDashStyle(LineDashStyle.Dash);
     }
 
     /**
@@ -176,18 +179,18 @@ public class PPTXShape {
     /**
      * Helper method to ease set text properties, link, margin.
      *
-     * @param margins 0-top, 1-left, 2-bottom, 3-right
+     * @param margins      0-top, 1-left, 2-bottom, 3-right
      * @param addHyperlink flag to add a hyperlink
-     * @param stId identifier to build the link
+     * @param stId         identifier to build the link
      */
     public static void setTextFrame(IAutoShape shape,
-                             String text,
-                             double[] margins,
-                             Color fontColor,
-                             float fontHeight,
-                             boolean bold,
-                             boolean addHyperlink,
-                             Long stId) {
+                                    String text,
+                                    double[] margins,
+                                    Color fontColor,
+                                    float fontHeight,
+                                    boolean bold,
+                                    boolean addHyperlink,
+                                    Long stId) {
 
         shape.addTextFrame(" ");
 
@@ -204,7 +207,7 @@ public class PPTXShape {
         if (bold) portion.getPortionFormat().setFontBold(NullableBool.True);
 
         if (addHyperlink) {
-            if(stId != null && stId >= 0) { // Avoiding wrong links to be generated
+            if (stId != null && stId >= 0) { // Avoiding wrong links to be generated
                 // Having the link is not possible to change the font color
                 portion.getPortionFormat().getHyperlinkManager().setExternalHyperlinkClick("http://www.reactome.org/content/detail/" + stId);
             }
@@ -268,12 +271,13 @@ public class PPTXShape {
         return centre;
     }
 
-    public static void reorder (IShapeCollection shapes, Collection<PPTXNode> nodes){
+    public static void reorder(IShapeCollection shapes, Collection<PPTXNode> nodes) {
         for (PPTXNode node : nodes) {
             shapes.reorder(shapes.size() - 1, node.getiGroupShape());
         }
     }
-    public static void reorder (IShapeCollection shapes, IGroupShape groupShape){
+
+    public static void reorder(IShapeCollection shapes, IGroupShape groupShape) {
         shapes.reorder(shapes.size() - 1, groupShape);
     }
 }

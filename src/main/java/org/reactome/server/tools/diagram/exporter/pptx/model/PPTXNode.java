@@ -5,6 +5,7 @@ import com.aspose.slides.IGroupShape;
 import com.aspose.slides.IShapeCollection;
 import org.reactome.server.tools.diagram.data.layout.Connector;
 import org.reactome.server.tools.diagram.data.layout.Node;
+import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -33,7 +34,6 @@ public abstract class PPTXNode {
     protected String displayName;
     private List<Connector> connectors;
 
-
     public PPTXNode(Node node) {
         this.reactomeId = node.getReactomeId();
         this.schemaClass = node.getSchemaClass();
@@ -45,6 +45,7 @@ public abstract class PPTXNode {
         this.height = node.getProp().getHeight().floatValue();
         this.displayName = node.getDisplayName();
         this.connectors = node.getConnectors();
+
     }
 
     public Long getId() {
@@ -67,14 +68,14 @@ public abstract class PPTXNode {
         return getConnectors().stream().filter(connector -> Objects.equals(connector.getEdgeId(), edgeId) && Objects.equals(connector.getType(), type)).collect(Collectors.toList());
     }
 
-    public abstract void render(IShapeCollection shapes, ColourProfile colors);
+    public abstract void render(IShapeCollection shapes, DiagramProfile profile);
 
     final void render(IShapeCollection shapes, int shapeType, Stylesheet stylesheet) {
         iGroupShape = shapes.addGroupShape();
         iAutoShape = iGroupShape.getShapes().addAutoShape(shapeType, x, y, width, height);
 
         setShapeStyle(iAutoShape, stylesheet);
-        setTextFrame(iAutoShape, displayName, new double[]{0,0,0,0}, stylesheet.getFontColor(), 10, true, true, reactomeId);
+        setTextFrame(iAutoShape, displayName, new double[]{0,0,0,0}, stylesheet.getTextColor(), 10, true, true, reactomeId);
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Connector;
 import org.reactome.server.tools.diagram.data.layout.*;
 import org.reactome.server.tools.diagram.data.layout.Shape;
+import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
 
 import java.awt.Color;
 import java.util.HashMap;
@@ -30,16 +31,20 @@ public class PPTXReaction {
     private IAutoShape reactionShape;
     private IAutoShape hiddenReactionShape; // hidden behind the reactionShape
     private Map<Connector, IAutoShape> shapeMap = new HashMap<>();
+    private DiagramProfile profile;
 
-    public PPTXReaction(Edge edge, Map<Long, PPTXNode> nodesMap) {
+    public PPTXReaction(Edge edge, Map<Long, PPTXNode> nodesMap, DiagramProfile profile) {
         this.edge = edge;
         this.nodesMap = nodesMap;
+        this.profile = profile;
     }
 
     public void render(IShapeCollection shapes) {
+        Stylesheet stylesheet = new Stylesheet(profile.getReaction());
+
         // It checks for all the shapes to be grouped and creates them in advance placing
         // the main shape in reactionShape and the rest in the shapeMap map
-        IGroupShape reactionGroupShape = createReactionShape(shapes);
+        IGroupShape reactionGroupShape = createReactionShape(shapes, stylesheet);
 
         if (hasInputs()) {
             if (onlyOneInputWithoutConnectors()) {
@@ -50,8 +55,7 @@ public class PPTXReaction {
 
                 PPTXStoichiometry stoich = renderStoichiometry(shapes, connectors.get(0).getStoichiometry());
 
-//                connectToStoich(shapes, inputNode, stoich, input, backboneStart, false);
-
+                // we cannot reuse the connectToStoich
                 if (stoich == null) {
                     connect(shapes, nodesMap.get(edge.getInputs().get(0).getId()), input, backboneStart, false);
                 } else {
@@ -59,9 +63,6 @@ public class PPTXReaction {
                     drawSegment(shapes, stoich.getHiddenCenterShape(), hiddenReactionShape);
                     reorder(shapes, stoich.getiGroupShape());
                 }
-
-//                IAutoShape input = nodesMap.get(edge.getInputs().get(0).getId()).getiAutoShape();
-//                connect(shapes, nodesMap.get(edge.getInputs().get(0).getId()), input, backboneStart, false); // do not render arrow
 
             } else {
                 createConnectorsFromInputs(shapes);
@@ -103,7 +104,7 @@ public class PPTXReaction {
         // Stoichiometry may be present, but having value 1. In this case we don't render it.
         if (stoichiometry != null && stoichiometry.getValue() > 1) {
             ret = new PPTXStoichiometry(stoichiometry);
-            ret.render(shapes);
+            ret.render(shapes, profile);
         }
         return ret;
     }
@@ -125,34 +126,15 @@ public class PPTXReaction {
                     // As we are connecting from node to segment, then the first step should
                     // have the arrow and stoichiometry
                     if (i == 1) { // first step checks the anchor point
-                        // connect(shapes, output, last, step, renderArrow); previous impl.
-//                        if (stoich == null) {
-//                            connect(shapes, output, last, step, true);
-//                        } else {
-//                            connect(shapes, output, last, stoich.getHiddenCenterShape(), true);
-//                            drawSegment(shapes, stoich.getHiddenCenterShape(), step);
-//                            reorder(shapes, stoich.getiGroupShape());
-//                        }
                         connectToStoich(shapes, output, stoich, last, step, true);
                     } else {
                         drawSegment(shapes, last, step);
                     }
-
                     last = step;
-                    //renderArrow = false;
                     hasSegments = true;
                 }
 
                 if (!hasSegments) {
-                    // doesn't process segments, then take anchor point into consideration
-                    // connect(shapes, output, last, backboneEnd, true);
-//                    if (stoich == null) {
-//                        connect(shapes, output, last, backboneEnd, true);
-//                    } else {
-//                        connect(shapes, output, last, stoich.getHiddenCenterShape(), true);
-//                        drawSegment(shapes, stoich.getHiddenCenterShape(), backboneEnd);
-//                        reorder(shapes, stoich.getiGroupShape());
-//                    }
                     connectToStoich(shapes, output, stoich, last, backboneEnd, true);
                 } else {
                     drawSegment(shapes, last, backboneEnd);
@@ -161,6 +143,7 @@ public class PPTXReaction {
         }
     }
 
+    // TODO: Find a nice name to this method :)
     public void connectToStoich(IShapeCollection shapes, PPTXNode node, PPTXStoichiometry stoich, IShape start, IShape end, boolean renderArrow){
         if (stoich == null) {
             connect(shapes, node, start, end, renderArrow);
@@ -238,15 +221,7 @@ public class PPTXReaction {
             Segment segment = connector.getSegments().get(i);
             IAutoShape step = renderAuxiliaryShape(shapes, segment.getTo());
             if (i == 0) { // first step checks the anchor point
-//                if (stoich == null) {
-//                    connect(shapes, pptxNode, last, step, false);
-//                } else {
-//                    connect(shapes, pptxNode, last, stoich.getHiddenCenterShape(), false);
-//                    drawSegment(shapes, stoich.getHiddenCenterShape(), step);
-//                    reorder(shapes, stoich.getiGroupShape());
-//                }
                 connectToStoich(shapes, pptxNode, stoich, last, step, false);
-//                connect(shapes, pptxNode, last, step, false);
             } else {
                 drawSegment(shapes, last, step);
             }
@@ -255,27 +230,19 @@ public class PPTXReaction {
         }
 
         if (!hasSegments) {
-//            connect(shapes, pptxNode, start, end, false);
-//            if (stoich == null) {
-//                connect(shapes, pptxNode, last, end, false);
-//            } else {
-//                connect(shapes, pptxNode, last, stoich.getHiddenCenterShape(), false);
-//                drawSegment(shapes, stoich.getHiddenCenterShape(), end);
-//                reorder(shapes, stoich.getiGroupShape());
-//            }
             connectToStoich(shapes, pptxNode, stoich, last, end, false);
         } else {
             drawSegment(shapes, last, end);
         }
     }
 
-    private IGroupShape createReactionShape(IShapeCollection shapes) {
+    private IGroupShape createReactionShape(IShapeCollection shapes, Stylesheet stylesheet) {
         //Creates reaction shape
         IGroupShape groupShape = shapes.addGroupShape();
         Shape rShape = edge.getReactionShape();
 
         hiddenReactionShape = renderAuxiliaryShape(groupShape, edge.getPosition());
-        reactionShape = renderShape(groupShape, rShape);
+        reactionShape = renderShape(groupShape, rShape, stylesheet);
 
         createBackBone(shapes, rShape);
 
@@ -286,8 +253,8 @@ public class PPTXReaction {
                     if (!isType(connector, "CATALYST")) continue;
                     Shape shape = connector.getEndShape();
                     IAutoShape catalystAnchorPoint = renderAuxiliaryShape(groupShape, shape.getC());
-                    IAutoShape cs = renderShape(groupShape, shape);
-                    setShapeStyle(cs, new Stylesheet(1, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.Solid, Color.WHITE));
+                    IAutoShape cs = renderShape(groupShape, shape, stylesheet);
+                    setShapeStyle(cs, new Stylesheet().customStyle(1, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.Solid, Color.WHITE));
                     shapeMap.put(connector, catalystAnchorPoint);
                 }
             }

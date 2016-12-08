@@ -4,6 +4,7 @@ import com.aspose.slides.IAutoShape;
 import com.aspose.slides.IShapeCollection;
 import org.reactome.server.tools.diagram.data.layout.Link;
 import org.reactome.server.tools.diagram.data.layout.Segment;
+import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
 
 import java.util.Map;
 
@@ -34,7 +35,9 @@ public class PPTXLink {
         }
     }
 
-    public void render(IShapeCollection shapes) {
+    public void render(IShapeCollection shapes, DiagramProfile profile) {
+        Stylesheet stylesheet = new Stylesheet(profile.getLink());
+
         // There is only ONE input and ONE output in the link objects
         PPTXNode from = nodesMap.get(link.getInputs().get(0).getId());
         IAutoShape last = from.getiAutoShape();

@@ -28,7 +28,7 @@ public class SegmentUtil {
      */
     public static void drawSegment(IShapeCollection shapes, IShape start, IShape end, boolean dashed) {
         IConnector connector = shapes.addConnector(ShapeType.StraightConnector1, start.getX(), start.getY(), 1, 1, true);
-        setShapeStyle(connector, new Stylesheet(1, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.NotDefined, null));
+        setShapeStyle(connector, new Stylesheet().customStyle(1, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.NotDefined, null));
         connector.setStartShapeConnectedTo(start);
         connector.getLineFormat().setCapStyle(LineCapStyle.Round);
         connector.setEndShapeConnectedTo(end);
@@ -60,7 +60,7 @@ public class SegmentUtil {
      */
     public static void connect(IShapeCollection shapes, PPTXNode pptxNode, IShape start, IShape end, boolean renderArrow, boolean dashed) {
         IConnector connector = shapes.addConnector(ShapeType.StraightConnector1, start.getX(), start.getY(), 1, 1, true);
-        setShapeStyle(connector, new Stylesheet(1, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.NotDefined, null));
+        setShapeStyle(connector, new Stylesheet().customStyle(1, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.NotDefined, null));
         connector.getLineFormat().setCapStyle(LineCapStyle.Round);
         if (renderArrow) {
             // in this case, our direction is from NODE to backbone or segment, then the arrow
@@ -69,7 +69,7 @@ public class SegmentUtil {
         }
 
         if (dashed) {
-            connector.getLineFormat().getFillFormat().setFillType(FillType.Solid);
+//            connector.getLineFormat().getFillFormat().setFillType(FillType.Solid);
             connector.getLineFormat().setDashStyle(LineDashStyle.Dash);
             connector.getLineFormat().setStyle(LineStyle.Single);
             connector.getLineFormat().setWidth(1.25);

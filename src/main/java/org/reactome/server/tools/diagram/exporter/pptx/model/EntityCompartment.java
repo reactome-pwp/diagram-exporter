@@ -4,8 +4,7 @@ import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Bound;
 import org.reactome.server.tools.diagram.data.layout.Compartment;
 import org.reactome.server.tools.diagram.data.layout.Coordinate;
-
-import java.awt.*;
+import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
 
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
@@ -21,8 +20,9 @@ public class EntityCompartment {
     private String displayName;
     private Coordinate textPosition;
     private Bound insets = null;
+    private Stylesheet stylesheet;
 
-    public EntityCompartment(Compartment compartment) {
+    public EntityCompartment(Compartment compartment, DiagramProfile profile) {
         this.x = compartment.getProp().getX().floatValue();
         this.y = compartment.getProp().getY().floatValue();
         this.width = compartment.getProp().getWidth().floatValue();
@@ -30,60 +30,71 @@ public class EntityCompartment {
         this.displayName = compartment.getDisplayName();
         this.textPosition = compartment.getTextPosition();
         this.insets = compartment.getInsets();
+        stylesheet = new Stylesheet(profile.getCompartment(), FillType.Solid, FillType.Solid, LineStyle.Single);
     }
 
-    public void render(IShapeCollection shapes, ColourProfile colourProfile) {
-        Stylesheet stylesheet = colourProfile.get(EntityCompartment.class);
-
-        iAutoShape = shapes.addAutoShape(ShapeType.Rectangle, x, y, width, height);
+    public void render(IShapeCollection shapes) {
+        iAutoShape = shapes.addAutoShape(ShapeType.RoundCornerRectangle, x, y, width, height);
         ILineFormat lineFormat = iAutoShape.getLineFormat();
-        lineFormat.setWidth(2);
-        lineFormat.setStyle(LineStyle.Single);
-        lineFormat.getFillFormat().setFillType(FillType.Solid);
+        lineFormat.setWidth(stylesheet.getLineWidth());
+        lineFormat.setStyle(stylesheet.getLineStyle());
+        lineFormat.getFillFormat().setFillType(stylesheet.getLineFillType());
         lineFormat.getFillFormat().getSolidFillColor().setColor(stylesheet.getLineColor());
         IFillFormat fillFormat = iAutoShape.getFillFormat();
-        fillFormat.setFillType(FillType.Solid);
+        fillFormat.setFillType(stylesheet.getShapeFillType());
         fillFormat.getSolidFillColor().setColor(stylesheet.getFillColor());
 
         if (insets != null) {
-            insetAutoShape = shapes.addAutoShape(ShapeType.Rectangle, insets.getX().floatValue(), insets.getY().floatValue(), insets.getWidth().floatValue(), insets.getHeight().floatValue());
+            insetAutoShape = shapes.addAutoShape(ShapeType.RoundCornerRectangle, insets.getX().floatValue(), insets.getY().floatValue(), insets.getWidth().floatValue(), insets.getHeight().floatValue());
             ILineFormat insetLineFormat = insetAutoShape.getLineFormat();
-            insetLineFormat.setWidth(2);
-            insetLineFormat.setStyle(LineStyle.Single);
-            insetLineFormat.getFillFormat().setFillType(FillType.Solid);
+            insetLineFormat.setWidth(stylesheet.getLineWidth());
+            insetLineFormat.setStyle(stylesheet.getLineStyle());
+            insetLineFormat.getFillFormat().setFillType(stylesheet.getLineFillType());
             insetLineFormat.getFillFormat().getSolidFillColor().setColor(stylesheet.getLineColor());
             IFillFormat insetFillFormat = insetAutoShape.getFillFormat();
-            insetFillFormat.setFillType(FillType.Solid);
+            insetFillFormat.setFillType(stylesheet.getShapeFillType());
             insetFillFormat.getSolidFillColor().setColor(stylesheet.getFillColor());
 
-            // testing locking the select for the compartments :)
-            insetAutoShape.getAutoShapeLock().setSelectLocked(true);
-            insetAutoShape.getAutoShapeLock().setSizeLocked(true);
+            IAdjustValueCollection adjustments = insetAutoShape.getAdjustments();
+            IAdjustValue adjustValue = null;
+            if (adjustments != null && adjustments.size() > 0) {
+                adjustValue = insetAutoShape.getAdjustments().get_Item(0);
+            }
+
+            if (adjustValue != null) {
+                // 0 to 50000 - Where 0 correspond to a value that will reduce the distance between two points such that a rectangle is formed
+                adjustValue.setRawValue(3000);
+
+                //0 to 0.833333
+                adjustValue.setAngleValue(0.0333f);
+            }
         }
 
-        // testing locking the select for the compartments :)
-        iAutoShape.getAutoShapeLock().setSelectLocked(true);
-        iAutoShape.getAutoShapeLock().setSizeLocked(true);
+        IAdjustValueCollection adjustments = iAutoShape.getAdjustments();
+        IAdjustValue adjustValue = null;
+        if (adjustments != null && adjustments.size() > 0) {
+            adjustValue = iAutoShape.getAdjustments().get_Item(0);
+        }
 
+        if (adjustValue != null) {
+            // 0 to 50000 - Where 0 correspond to a value that will reduce the distance between two points such that a rectangle is formed
+            adjustValue.setRawValue(3000);
+
+            //0 to 0.833333
+            adjustValue.setAngleValue(0.0333f);
+        }
         addTextbox(shapes);
     }
 
-    // TODO create it in PPTXShape
     private void addTextbox(IShapeCollection shapes) {
         IAutoShape textBox = shapes.addAutoShape(ShapeType.Rectangle, textPosition.getX().floatValue(), textPosition.getY().floatValue(), 110, 50);
-        // line no fill , bg no fill
         textBox.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         textBox.getFillFormat().setFillType(FillType.NoFill);
-        // Add TextFrame to the Rectangle
         textBox.addTextFrame(" ");
-        // Accessing the text frame
-        ITextFrame txtFrame = textBox.getTextFrame();
-        // Create the Paragraph object for text frame
-        IParagraph para = txtFrame.getParagraphs().get_Item(0);
-        // Create Portion object for paragraph
-        IPortion portion = para.getPortions().get_Item(0);
+        IParagraph iParagraph = textBox.getTextFrame().getParagraphs().get_Item(0);
+        IPortion portion = iParagraph.getPortions().get_Item(0);
         portion.getPortionFormat().getFillFormat().setFillType(FillType.Solid);
-        portion.getPortionFormat().getFillFormat().getSolidFillColor().setColor(new Color(0, 0, 255));
+        portion.getPortionFormat().getFillFormat().getSolidFillColor().setColor(stylesheet.getTextColor());
         portion.getPortionFormat().setFontHeight(10);
         portion.getPortionFormat().setFontBold(NullableBool.True);
         portion.setText(displayName);

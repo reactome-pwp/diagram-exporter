@@ -11,7 +11,7 @@ public class DiagramExporter {
     public static void main(String[] args) throws Exception{
 
         //All the diagrams will be exported with the same colour profile
-        DiagramProfile profile = PowerPointExporter.getDiagramProfile("Modern");
+        DiagramProfile profile = PowerPointExporter.getDiagramProfile("Standard");
 
         // To start with...
         PowerPointExporter.export("R-HSA-169911", profile, "/Users/reactome/diagram/exporter/");

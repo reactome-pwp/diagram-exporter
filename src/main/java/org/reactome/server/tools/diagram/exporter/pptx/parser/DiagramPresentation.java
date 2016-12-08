@@ -24,10 +24,6 @@ public class DiagramPresentation {
     private DiagramProfile profile;
     private Presentation presentation;
     private IShapeCollection shapes;
-
-    //TODO: Use DiagramProfile instead
-    private ColourProfile colourProfile;
-
     private Map<Long, PPTXNode> nodesMap = new HashMap<>();
 
     public DiagramPresentation(Diagram diagram, DiagramProfile profile) {
@@ -36,13 +32,10 @@ public class DiagramPresentation {
         presentation = new Presentation();
         ISlide slide = presentation.getSlides().get_Item(0);
         shapes = slide.getShapes();
-        colourProfile = new ModernColourProfile();
     }
 
     public void export() {
         if (!isLicensed()) {
-            // checking license before!
-            // TODO WARN ? ERROR? STOP PROCESSING ? saving as evaluated version and license expired
             System.out.println("Missing Software License.");
             System.exit(1); // does not make sense continue the process here - files will be all wrong :)
         }
@@ -54,13 +47,13 @@ public class DiagramPresentation {
         // Render Compartments
         Collections.reverse(diagram.getCompartments());
         for (Compartment compartment : diagram.getCompartments()) {
-            EntityCompartment entityCompartment = new EntityCompartment(compartment);
-            entityCompartment.render(shapes, colourProfile);
+            EntityCompartment entityCompartment = new EntityCompartment(compartment, profile);
+            entityCompartment.render(shapes);
         }
 
         // Render Notes
         for (Note note : diagram.getNotes()) {
-            CompartmentNote compartmentNote = new CompartmentNote(note);
+            CompartmentNote compartmentNote = new CompartmentNote(note, profile);
             compartmentNote.render(shapes);
         }
 
@@ -68,22 +61,22 @@ public class DiagramPresentation {
         for (Node node : diagram.getNodes()) {
             PPTXNode pptxNode = getNode(node);
             nodesMap.put(pptxNode.getId(), pptxNode); //If two nodes share identifier, only the second one is kept >> NOTE: It shouldn't happen //TODO: Report?
-            pptxNode.render(shapes, colourProfile);
+            pptxNode.render(shapes, profile);
         }
 
         // Render Edges
         for (Edge edge : diagram.getEdges()) {
-            PPTXReaction pptxReaction = new PPTXReaction(edge, nodesMap);
+            PPTXReaction pptxReaction = new PPTXReaction(edge, nodesMap, profile);
             pptxReaction.render(shapes);
         }
 
         // Render Links
         for (Link link : diagram.getLinks()){
             PPTXLink pptxLink = new PPTXLink(link, nodesMap);
-            pptxLink.render(shapes);
+            pptxLink.render(shapes, profile);
         }
 
-        // REORDER SHAPES HERE IF NEEDED!
+        // REORDERING SHAPES: All nodes in the were brought to front
         reorder(shapes, nodesMap.values());
 
     }
@@ -108,7 +101,7 @@ public class DiagramPresentation {
             case "DefinedSet":
             case "CandidateSet":
             case "OpenSet":
-                pptxNode = new Set(node);
+                pptxNode = new EntitySet(node);
                 break;
             case "EntityWithAccessionedSequence":
                 pptxNode = new Protein(node);
@@ -135,6 +128,10 @@ public class DiagramPresentation {
         return pptxNode;
     }
 
+    /**
+     * Checking Software License
+     * @return true if the license is available and it is valid.
+     */
     private boolean isLicensed() {
         InputStream is = DiagramExporter.class.getResourceAsStream("/license/Aspose.Slides.lic");
         License license = new License();

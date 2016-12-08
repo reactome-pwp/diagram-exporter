@@ -1,12 +1,10 @@
 package org.reactome.server.tools.diagram.exporter.pptx.model;
 
-import com.aspose.slides.IAutoShape;
-import com.aspose.slides.IShapeCollection;
-import com.aspose.slides.ShapeType;
+import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeAttachment;
+import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
 
-import java.awt.*;
 import java.util.List;
 
 import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.setShapeStyle;
@@ -20,6 +18,9 @@ import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.set
 public class Protein extends PPTXNode {
 
     private final int shapeType = ShapeType.RoundCornerRectangle;
+    private byte shapeFillType = FillType.Solid;
+    private byte lineFillType = FillType.Solid;
+    private byte lineStyle = LineStyle.Single;
 
     protected List<NodeAttachment> nodeAttachments;
 
@@ -29,9 +30,9 @@ public class Protein extends PPTXNode {
     }
 
     @Override
-    public void render(IShapeCollection shapes, ColourProfile colourProfile) {
-        Stylesheet styling = colourProfile.get(Protein.class);
-        render(shapes, shapeType, styling);
+    public void render(IShapeCollection shapes, DiagramProfile profile) {
+        Stylesheet stylesheet = new Stylesheet(profile.getProtein(), shapeFillType, lineFillType, lineStyle);
+        render(shapes, shapeType, stylesheet);
 
         if(nodeAttachments!=null) {
             for (NodeAttachment nodeAttachment : nodeAttachments) {
@@ -42,10 +43,10 @@ public class Protein extends PPTXNode {
                         nodeAttachment.getShape().getB().getX().floatValue() - nodeAttachment.getShape().getA().getX().floatValue(),
                         nodeAttachment.getShape().getB().getY().floatValue() - nodeAttachment.getShape().getA().getY().floatValue());
 
-                setShapeStyle(box, styling);
+                setShapeStyle(box, stylesheet);
 
                 if (nodeAttachment.getLabel() != null) {
-                    setTextFrame(box, nodeAttachment.getLabel(), new double[]{0, 0, 0, 0}, Color.BLUE, 8, true, false, null);
+                    setTextFrame(box, nodeAttachment.getLabel(), new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 8, true, false, null);
                 }
 
                 // block the nodeattachments to be selected :)
