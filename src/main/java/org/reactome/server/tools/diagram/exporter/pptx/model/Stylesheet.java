@@ -1,5 +1,8 @@
 package org.reactome.server.tools.diagram.exporter.pptx.model;
 
+import com.aspose.slides.LineArrowheadLength;
+import com.aspose.slides.LineArrowheadStyle;
+import com.aspose.slides.LineArrowheadWidth;
 import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfileNode;
 
 import java.awt.*;
@@ -25,13 +28,19 @@ public class Stylesheet {
     private byte shapeFillType;
     private byte lineFillType;
     private byte lineStyle;
+    private byte lineDashStyle;
+
+    // arrow
+    private byte lineArrowheadLength = LineArrowheadLength.Long;
+    private byte lineArrowheadStyle = LineArrowheadStyle.Triangle;
+    private byte lineArrowheadWidth = LineArrowheadWidth.Wide;
 
     public Stylesheet() {
 
     }
 
     public Stylesheet(DiagramProfileNode profileInfo, byte shapeFillType, byte lineFillType, byte lineStyle) {
-        this.lineWidth = profileInfo.getLineWidth() != null ? Double.valueOf(profileInfo.getLineWidth()) * 2 : 2;
+        this.lineWidth = profileInfo.getLineWidth() != null ? Double.valueOf(profileInfo.getLineWidth()) * 2 : 1;
         this.lineColor = parseColor(profileInfo.getStroke());
         this.fillColor = parseColor(profileInfo.getFill());
         this.textColor = parseColor(profileInfo.getText());
@@ -50,23 +59,8 @@ public class Stylesheet {
         this(profileInfo, (byte) 0, (byte) 0, (byte) 0);
     }
 
-    /**
-     * Apply custom style.
-     * Mainly used in the connector or in the auxiliary shapes.
-     */
-    public Stylesheet customStyle(double lineWidth, byte lineStyle, byte lineFillType, Color lineColor, byte shapeFillType, Color fillColor) {
-        Stylesheet stylesheet = new Stylesheet();
-        stylesheet.setLineWidth(lineWidth);
-        stylesheet.setLineStyle(lineStyle);
-        stylesheet.setLineFillType(lineFillType);
-        stylesheet.setLineColor(lineColor);
-        stylesheet.setShapeFillType(shapeFillType);
-        stylesheet.setFillColor(fillColor);
-        return stylesheet;
-    }
-
     private static Color parseColor(String color) {
-        if(color == null) return null;
+        if (color == null) return null;
 
         if (color.startsWith("#")) {
             return hexToColor(color);
@@ -88,9 +82,25 @@ public class Stylesheet {
         Pattern c = Pattern.compile(rgbaRegex);
         Matcher m = c.matcher(input);
         if (m.matches()) {
-            return  new Color(Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)), (int)(Float.parseFloat(m.group(4)) * 255f));
+            return new Color(Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)), (int) (Float.parseFloat(m.group(4)) * 255f));
         }
         return null;
+    }
+
+    /**
+     * Apply custom style.
+     * Mainly used in the connector or in the auxiliary shapes.
+     */
+    public Stylesheet customStyle(double lineWidth, byte lineStyle, byte lineFillType, Color lineColor, byte shapeFillType, Color fillColor, byte lineDashStyle) {
+        Stylesheet stylesheet = new Stylesheet();
+        stylesheet.setLineWidth(lineWidth);
+        stylesheet.setLineStyle(lineStyle);
+        stylesheet.setLineFillType(lineFillType);
+        stylesheet.setLineColor(lineColor);
+        stylesheet.setShapeFillType(shapeFillType);
+        stylesheet.setFillColor(fillColor);
+        stylesheet.setLineDashStyle(lineDashStyle);
+        return stylesheet;
     }
 
     public Color getFadeOutFill() {
@@ -167,5 +177,41 @@ public class Stylesheet {
 
     public Color getTextColor() {
         return textColor;
+    }
+
+    public void setTextColor(Color textColor) {
+        this.textColor = textColor;
+    }
+
+    public byte getLineDashStyle() {
+        return lineDashStyle;
+    }
+
+    public void setLineDashStyle(byte lineDashStyle) {
+        this.lineDashStyle = lineDashStyle;
+    }
+
+    public byte getLineArrowheadLength() {
+        return lineArrowheadLength;
+    }
+
+    public void setLineArrowheadLength(byte lineArrowheadLength) {
+        this.lineArrowheadLength = lineArrowheadLength;
+    }
+
+    public byte getLineArrowheadStyle() {
+        return lineArrowheadStyle;
+    }
+
+    public void setLineArrowheadStyle(byte lineArrowheadStyle) {
+        this.lineArrowheadStyle = lineArrowheadStyle;
+    }
+
+    public byte getLineArrowheadWidth() {
+        return lineArrowheadWidth;
+    }
+
+    public void setLineArrowheadWidth(byte lineArrowheadWidth) {
+        this.lineArrowheadWidth = lineArrowheadWidth;
     }
 }

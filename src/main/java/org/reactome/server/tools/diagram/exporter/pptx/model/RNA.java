@@ -27,5 +27,7 @@ public class RNA extends PPTXNode {
     public void render(IShapeCollection shapes, DiagramProfile profile) {
         Stylesheet stylesheet = new Stylesheet(profile.getRna(), shapeFillType, lineFillType, lineStyle);
         render(shapes, shapeType, stylesheet);
+
+        // TODO Render a RNA shape
     }
 }

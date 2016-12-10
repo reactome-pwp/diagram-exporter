@@ -28,7 +28,6 @@ public class PPTXReaction {
     private IAutoShape backboneStart;
     private IAutoShape backboneEnd;
 
-    private IAutoShape reactionShape;
     private IAutoShape hiddenReactionShape; // hidden behind the reactionShape
     private Map<Connector, IAutoShape> shapeMap = new HashMap<>();
     private DiagramProfile profile;
@@ -40,7 +39,7 @@ public class PPTXReaction {
     }
 
     public void render(IShapeCollection shapes) {
-        Stylesheet stylesheet = new Stylesheet(profile.getReaction());
+        Stylesheet stylesheet = new Stylesheet(profile.getReaction(), FillType.Solid, FillType.Solid, LineStyle.Single);
 
         // It checks for all the shapes to be grouped and creates them in advance placing
         // the main shape in reactionShape and the rest in the shapeMap map
@@ -51,189 +50,58 @@ public class PPTXReaction {
                 PPTXNode inputNode = nodesMap.get(edge.getInputs().get(0).getId());
                 IAutoShape input = inputNode.getiAutoShape();
 
-                List<Connector> connectors = inputNode.getConnectors(edge.getId(), "INPUT");
+                Connector connector = inputNode.getConnectors(edge.getId(), "INPUT").get(0);
+                if (connector.getIsDisease() != null) {
+                    stylesheet.setLineColor(Color.RED);
+                }
+                if (connector.getIsFadeOut() != null) {
+                    stylesheet.setLineColor(stylesheet.getFadeOutStroke());
+                }
 
-                PPTXStoichiometry stoich = renderStoichiometry(shapes, connectors.get(0).getStoichiometry());
+                //TODO Check stoichiometry for disease
+                PPTXStoichiometry stoich = drawStoichiometry(shapes, connector.getStoichiometry(), stylesheet);
 
-                // we cannot reuse the connectToStoich
+                // we cannot reuse the connectToStoichiometry
                 if (stoich == null) {
-                    connect(shapes, nodesMap.get(edge.getInputs().get(0).getId()), input, backboneStart, false);
+                    connect(shapes, inputNode, input, backboneStart, false, stylesheet);
                 } else {
-                    connect(shapes, inputNode, input, stoich.getHiddenCenterShape(), false);
-                    drawSegment(shapes, stoich.getHiddenCenterShape(), hiddenReactionShape);
+                    connect(shapes, inputNode, input, stoich.getHiddenCenterShape(), false, stylesheet);
+                    drawSegment(shapes, stoich.getHiddenCenterShape(), hiddenReactionShape, stylesheet);
                     reorder(shapes, stoich.getiGroupShape());
                 }
 
             } else {
-                createConnectorsFromInputs(shapes);
+                createConnectorsFromInputs(shapes, stylesheet);
             }
         }
 
         if (hasOutputs()) {
             if (onlyOneOutputWithoutConnectors()) {
-                IAutoShape output = nodesMap.get(edge.getOutputs().get(0).getId()).getiAutoShape();
-                connect(shapes, nodesMap.get(edge.getOutputs().get(0).getId()), output, backboneEnd, true); // render Arrow,
+                PPTXNode outputNode = nodesMap.get(edge.getOutputs().get(0).getId());
+                IAutoShape output = outputNode.getiAutoShape();
+
+                Connector connector = outputNode.getConnectors(edge.getId(), "OUTPUT").get(0);
+                if (connector.getIsDisease() != null) {
+                    stylesheet.setLineColor(Color.RED);
+                }
+                if (connector.getIsFadeOut() != null) {
+                    stylesheet.setLineColor(stylesheet.getFadeOutStroke());
+                }
+
+                connect(shapes, outputNode, output, backboneEnd, true, stylesheet); // render Arrow,
             } else {
-                createConnectorsToOutputs(shapes);
+                createConnectorsToOutputs(shapes, stylesheet);
             }
         }
 
-        if (hasCatalyst()) createConnectorsToCatalyst(shapes);
+        if (hasCatalyst()) createConnectorsToCatalyst(shapes, stylesheet);
 
-        if (hasActivators()) createConnectorsToActivator(shapes);
+        if (hasActivators()) createConnectorsToActivator(shapes, stylesheet);
 
-        if (hasInhibitors()) createConnectorsToInhibitor(shapes);
+        if (hasInhibitors()) createConnectorsToInhibitor(shapes, stylesheet);
 
         // Bring reaction shape to front after rendering I/O/C/A/Inhibitors
         shapes.reorder(shapes.size() - 1, reactionGroupShape);
-    }
-
-    private void createConnectorsFromInputs(IShapeCollection shapes) {
-        for (ReactionPart reactionPart : edge.getInputs()) {
-            PPTXNode input = nodesMap.get(reactionPart.getId());
-            IAutoShape last = input.getiAutoShape();
-            for (Connector connector : input.getConnectors()) {
-                if (!isType(connector, "INPUT")) continue;
-                createReactionAttributes(shapes, connector, input, last, backboneStart);
-            }
-        }
-    }
-
-    private PPTXStoichiometry renderStoichiometry(IShapeCollection shapes, Stoichiometry stoichiometry) {
-        PPTXStoichiometry ret = null;
-        // Stoichiometry may be present, but having value 1. In this case we don't render it.
-        if (stoichiometry != null && stoichiometry.getValue() > 1) {
-            ret = new PPTXStoichiometry(stoichiometry);
-            ret.render(shapes, profile);
-        }
-        return ret;
-    }
-
-    private void createConnectorsToOutputs(IShapeCollection shapes) {
-        for (ReactionPart reactionPart : edge.getOutputs()) {
-            PPTXNode output = nodesMap.get(reactionPart.getId());
-            IAutoShape last = output.getiAutoShape();
-            for (Connector connector : output.getConnectors()) {
-                if (!isType(connector, "OUTPUT")) continue;
-                boolean hasSegments = false;
-
-                PPTXStoichiometry stoich = renderStoichiometry(shapes, connector.getStoichiometry());
-
-                for (int i = 1; i < connector.getSegments().size(); i++) {
-                    Segment segment = connector.getSegments().get(i);
-                    IAutoShape step = renderAuxiliaryShape(shapes, segment.getFrom()); //shapes.addAutoShape(ShapeType.Ellipse, segment.getFrom().getX().floatValue(), segment.getFrom().getY().floatValue(), 1f, 1f);
-
-                    // As we are connecting from node to segment, then the first step should
-                    // have the arrow and stoichiometry
-                    if (i == 1) { // first step checks the anchor point
-                        connectToStoich(shapes, output, stoich, last, step, true);
-                    } else {
-                        drawSegment(shapes, last, step);
-                    }
-                    last = step;
-                    hasSegments = true;
-                }
-
-                if (!hasSegments) {
-                    connectToStoich(shapes, output, stoich, last, backboneEnd, true);
-                } else {
-                    drawSegment(shapes, last, backboneEnd);
-                }
-            }
-        }
-    }
-
-    // TODO: Find a nice name to this method :)
-    public void connectToStoich(IShapeCollection shapes, PPTXNode node, PPTXStoichiometry stoich, IShape start, IShape end, boolean renderArrow){
-        if (stoich == null) {
-            connect(shapes, node, start, end, renderArrow);
-        } else {
-            connect(shapes, node, start, stoich.getHiddenCenterShape(), renderArrow);
-            drawSegment(shapes, stoich.getHiddenCenterShape(), end);
-            reorder(shapes, stoich.getiGroupShape());
-        }
-    }
-
-    private void createConnectorsToCatalyst(IShapeCollection shapes) {
-        for (ReactionPart reactionPart : edge.getCatalysts()) {
-            PPTXNode catalyst = nodesMap.get(reactionPart.getId());
-            IAutoShape last = catalyst.getiAutoShape();
-            for (Connector connector : catalyst.getConnectors()) {
-                if (!isType(connector, "CATALYST")) continue;
-                createReactionAttributes(shapes, connector, catalyst, last, shapeMap.get(connector));
-            }
-        }
-    }
-
-    private void createConnectorsToActivator(IShapeCollection shapes) {
-        for (ReactionPart reactionPart : edge.getActivators()) {
-            PPTXNode activator = nodesMap.get(reactionPart.getId());
-            IAutoShape last = activator.getiAutoShape();
-            for (Connector connector : activator.getConnectors()) {
-                if (!isType(connector, "ACTIVATOR")) continue;
-                createReactionAttributes(shapes, connector, activator, last, shapeMap.get(connector)); // reactionShape
-            }
-        }
-    }
-
-    private void createConnectorsToInhibitor(IShapeCollection shapes) {
-        for (ReactionPart reactionPart : edge.getInhibitors()) {
-            PPTXNode inhibitor = nodesMap.get(reactionPart.getId());
-            IAutoShape last = inhibitor.getiAutoShape();
-            for (Connector connector : inhibitor.getConnectors()) {
-                if (!isType(connector, "INHIBITOR")) continue;
-                createReactionAttributes(shapes, connector, inhibitor, last, shapeMap.get(connector));
-            }
-        }
-    }
-
-//    private void createReactionAttributes(IShapeCollection shapes, Connector connector, PPTXNode pptxNode, IAutoShape start, IAutoShape end) {
-//        boolean hasSegments = false;
-//        IAutoShape last = start; // not really need, just to make it easy to understand
-//        for (int i = 0; i < connector.getSegments().size() - 1; i++) {
-//            Segment segment = connector.getSegments().get(i);
-//            IAutoShape step = renderAuxiliaryShape(shapes, segment.getTo());
-//            if (i == 0) { // first step checks the anchor point
-//                connect(shapes, pptxNode, last, step, false);
-//            } else {
-//                drawSegment(shapes, last, step);
-//            }
-//            last = step;
-//            hasSegments = true;
-//        }
-//        if (!hasSegments) {
-//            connect(shapes, pptxNode, last, end, false);
-//        } else {
-//            drawSegment(shapes, last, end);
-//        }
-//    }
-
-    /**
-     * Common method used to draw the segments for Input, Catalyst, Inhibitor and Activator as well as
-     * rendering the Stoichiometry, if also present.
-     */
-    private void createReactionAttributes(IShapeCollection shapes, Connector connector, PPTXNode pptxNode, IAutoShape start, IAutoShape end) {
-        PPTXStoichiometry stoich = renderStoichiometry(shapes, connector.getStoichiometry());
-
-        boolean hasSegments = false;
-        IAutoShape last = start; // not really need, just to make it easy to understand
-        for (int i = 0; i < connector.getSegments().size() - 1; i++) {
-            Segment segment = connector.getSegments().get(i);
-            IAutoShape step = renderAuxiliaryShape(shapes, segment.getTo());
-            if (i == 0) { // first step checks the anchor point
-                connectToStoich(shapes, pptxNode, stoich, last, step, false);
-            } else {
-                drawSegment(shapes, last, step);
-            }
-            last = step;
-            hasSegments = true;
-        }
-
-        if (!hasSegments) {
-            connectToStoich(shapes, pptxNode, stoich, last, end, false);
-        } else {
-            drawSegment(shapes, last, end);
-        }
     }
 
     private IGroupShape createReactionShape(IShapeCollection shapes, Stylesheet stylesheet) {
@@ -242,20 +110,26 @@ public class PPTXReaction {
         Shape rShape = edge.getReactionShape();
 
         hiddenReactionShape = renderAuxiliaryShape(groupShape, edge.getPosition());
-        reactionShape = renderShape(groupShape, rShape, stylesheet);
+        if (edge.getIsDisease() != null) {
+            stylesheet.setLineColor(Color.RED);
+        }
+        if (edge.getIsFadeOut() != null) {
+            stylesheet.setLineColor(stylesheet.getFadeOutStroke());
+            stylesheet.setFillColor(stylesheet.getFadeOutFill());
+        }
 
-        createBackBone(shapes, rShape);
+        // rendering reaction shape, we don't need an instance of the shape itself, just rendering
+        // the most important is the hiddenReactionShape which is a centre shape for the reaction used to anchor.
+        renderShape(groupShape, rShape, stylesheet);
+
+        createBackBone(shapes, rShape, stylesheet);
 
         if (hasCatalyst()) {
             for (ReactionPart reactionPart : edge.getCatalysts()) {
                 PPTXNode catalyst = nodesMap.get(reactionPart.getId());
                 for (Connector connector : catalyst.getConnectors()) {
                     if (!isType(connector, "CATALYST")) continue;
-                    Shape shape = connector.getEndShape();
-                    IAutoShape catalystAnchorPoint = renderAuxiliaryShape(groupShape, shape.getC());
-                    IAutoShape cs = renderShape(groupShape, shape, stylesheet);
-                    setShapeStyle(cs, new Stylesheet().customStyle(1, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.Solid, Color.WHITE));
-                    shapeMap.put(connector, catalystAnchorPoint);
+                    drawCatalyst(shapeMap, groupShape, connector, stylesheet);
                 }
             }
         }
@@ -267,9 +141,7 @@ public class PPTXReaction {
                 PPTXNode activator = nodesMap.get(reactionPart.getId());
                 for (Connector connector : activator.getConnectors()) {
                     if (!isType(connector, "ACTIVATOR")) continue;
-                    Shape shape = connector.getEndShape();
-                    IAutoShape centre = renderActivatorShape(shapes, groupShape, shape);
-                    shapeMap.put(connector, centre);
+                    drawActivator(shapes, shapeMap, groupShape, connector, stylesheet);
                 }
             }
         }
@@ -279,13 +151,7 @@ public class PPTXReaction {
                 PPTXNode inhibitor = nodesMap.get(reactionPart.getId());
                 for (Connector connector : inhibitor.getConnectors()) {
                     if (!isType(connector, "INHIBITOR")) continue;
-                    Shape shape = connector.getEndShape();
-                    // IMPORTANT: A line didn't work here. Has to be two connected shapes
-                    IAutoShape a = renderAuxiliaryShape(groupShape, shape.getA());
-                    IAutoShape b = renderAuxiliaryShape(groupShape, shape.getB());
-                    IAutoShape centre = renderAuxiliaryShape(groupShape, shape.getC());
-                    drawSegment(shapes, a, b);
-                    shapeMap.put(connector, centre);
+                    drawInhibitor(shapes, shapeMap, groupShape, connector, stylesheet);
                 }
             }
         }
@@ -303,7 +169,7 @@ public class PPTXReaction {
      * @param shapes the collection of shapes where the backbone has to be added
      * @param rShape the reaction shape previously created
      */
-    private void createBackBone(IShapeCollection shapes, Shape rShape) {
+    private void createBackBone(IShapeCollection shapes, Shape rShape, Stylesheet stylesheet) {
         Coordinate start = edge.getSegments().get(0).getFrom();
         if (touches(rShape, start)) {
             backboneStart = hiddenReactionShape;
@@ -314,17 +180,145 @@ public class PPTXReaction {
         for (int i = 1; i < edge.getSegments().size(); i++) { //IMPORTANT: It starts in "1" because "0" has been taken above
             Coordinate step = edge.getSegments().get(i).getFrom();
             if (touches(rShape, step)) {
-                drawSegment(shapes, last, hiddenReactionShape);
+                drawSegment(shapes, last, hiddenReactionShape, stylesheet);
                 last = hiddenReactionShape;
             } else {
                 IAutoShape backboneStep = renderAuxiliaryShape(shapes, step);
-                drawSegment(shapes, last, backboneStep);
+                drawSegment(shapes, last, backboneStep, stylesheet);
                 last = backboneStep;
             }
         }
         backboneEnd = last; //The last one could either be an anchor point or the reactionShape itself, but that's not a problem at all!
     }
 
+    private void createConnectorsFromInputs(IShapeCollection shapes, Stylesheet stylesheet) {
+        for (ReactionPart reactionPart : edge.getInputs()) {
+            PPTXNode input = nodesMap.get(reactionPart.getId());
+            IAutoShape last = input.getiAutoShape();
+            for (Connector connector : input.getConnectors()) {
+                if (!isType(connector, "INPUT")) continue;
+                createReactionAttributes(shapes, connector, input, last, backboneStart, stylesheet);
+            }
+        }
+    }
+
+    private void createConnectorsToOutputs(IShapeCollection shapes, Stylesheet stylesheet) {
+        for (ReactionPart reactionPart : edge.getOutputs()) {
+            PPTXNode output = nodesMap.get(reactionPart.getId());
+            IAutoShape last = output.getiAutoShape();
+            for (Connector connector : output.getConnectors()) {
+                if (!isType(connector, "OUTPUT")) continue;
+                boolean hasSegments = false;
+
+                PPTXStoichiometry stoich = drawStoichiometry(shapes, connector.getStoichiometry(), stylesheet);
+
+                for (int i = 1; i < connector.getSegments().size(); i++) {
+                    Segment segment = connector.getSegments().get(i);
+                    IAutoShape step = renderAuxiliaryShape(shapes, segment.getFrom()); //shapes.addAutoShape(ShapeType.Ellipse, segment.getFrom().getX().floatValue(), segment.getFrom().getY().floatValue(), 1f, 1f);
+
+                    // As we are connecting from node to segment, then the first step should
+                    // have the arrow and stoichiometry
+                    if (i == 1) { // first step checks the anchor point
+                        connectToStoichiometry(shapes, output, stoich, last, step, true, stylesheet);
+                    } else {
+                        drawSegment(shapes, last, step, stylesheet);
+                    }
+                    last = step;
+                    hasSegments = true;
+                }
+
+                if (!hasSegments) {
+                    connectToStoichiometry(shapes, output, stoich, last, backboneEnd, true, stylesheet);
+                } else {
+                    drawSegment(shapes, last, backboneEnd, stylesheet);
+                }
+            }
+        }
+    }
+
+    private void createConnectorsToCatalyst(IShapeCollection shapes, Stylesheet stylesheet) {
+        for (ReactionPart reactionPart : edge.getCatalysts()) {
+            PPTXNode catalyst = nodesMap.get(reactionPart.getId());
+            IAutoShape last = catalyst.getiAutoShape();
+            for (Connector connector : catalyst.getConnectors()) {
+                if (!isType(connector, "CATALYST")) continue;
+                createReactionAttributes(shapes, connector, catalyst, last, shapeMap.get(connector), stylesheet);
+            }
+        }
+    }
+
+    private void createConnectorsToActivator(IShapeCollection shapes, Stylesheet stylesheet) {
+        for (ReactionPart reactionPart : edge.getActivators()) {
+            PPTXNode activator = nodesMap.get(reactionPart.getId());
+            IAutoShape last = activator.getiAutoShape();
+            for (Connector connector : activator.getConnectors()) {
+                if (!isType(connector, "ACTIVATOR")) continue;
+                createReactionAttributes(shapes, connector, activator, last, shapeMap.get(connector), stylesheet); // reactionShape
+            }
+        }
+    }
+
+    private void createConnectorsToInhibitor(IShapeCollection shapes, Stylesheet stylesheet) {
+        for (ReactionPart reactionPart : edge.getInhibitors()) {
+            PPTXNode inhibitor = nodesMap.get(reactionPart.getId());
+            IAutoShape last = inhibitor.getiAutoShape();
+            for (Connector connector : inhibitor.getConnectors()) {
+                if (!isType(connector, "INHIBITOR")) continue;
+                createReactionAttributes(shapes, connector, inhibitor, last, shapeMap.get(connector), stylesheet);
+            }
+        }
+    }
+
+    /**
+     * A connector may have stoichiometry value greater than 1, in these cases we should render the Stoichiometry
+     * box with the value and properly connect the segment to the stoichiometry shape. So, if stoichiometry is not present
+     * just render a normal connector, otherwise the segment goes from its start point to stoichiometry hiddenShape
+     * then hiddenShape to end node.
+     */
+    private void connectToStoichiometry(IShapeCollection shapes, PPTXNode node, PPTXStoichiometry stoich, IShape start, IShape end, boolean renderArrow, Stylesheet stylesheet) {
+        if (stoich == null) {
+            connect(shapes, node, start, end, renderArrow, stylesheet);
+        } else {
+            connect(shapes, node, start, stoich.getHiddenCenterShape(), renderArrow, stylesheet);
+            drawSegment(shapes, stoich.getHiddenCenterShape(), end, stylesheet);
+            reorder(shapes, stoich.getiGroupShape());
+        }
+    }
+
+    /**
+     * Common method used to draw the segments for Input, Catalyst, Inhibitor and Activator as well as
+     * rendering the Stoichiometry, if also present.
+     */
+    private void createReactionAttributes(IShapeCollection shapes, Connector connector, PPTXNode pptxNode, IAutoShape start, IAutoShape end, Stylesheet stylesheet) {
+        if (connector.getIsDisease() != null) {
+            stylesheet.setLineColor(Color.RED);
+        }
+        if (connector.getIsFadeOut() != null) {
+            stylesheet.setLineColor(stylesheet.getFadeOutStroke());
+        }
+
+        PPTXStoichiometry stoich = drawStoichiometry(shapes, connector.getStoichiometry(), stylesheet);
+
+        boolean hasSegments = false;
+        IAutoShape last = start; // not really need, just to make it easy to understand
+        for (int i = 0; i < connector.getSegments().size() - 1; i++) {
+            Segment segment = connector.getSegments().get(i);
+            IAutoShape step = renderAuxiliaryShape(shapes, segment.getTo());
+            if (i == 0) { // first step checks the anchor point
+                connectToStoichiometry(shapes, pptxNode, stoich, last, step, false, stylesheet);
+            } else {
+                drawSegment(shapes, last, step, stylesheet);
+            }
+            last = step;
+            hasSegments = true;
+        }
+
+        if (!hasSegments) {
+            connectToStoichiometry(shapes, pptxNode, stoich, last, end, false, stylesheet);
+        } else {
+            drawSegment(shapes, last, end, stylesheet);
+        }
+    }
 
     private boolean onlyOneInputWithoutConnectors() {
         if (edge.getInputs().size() == 1) {
@@ -334,7 +328,7 @@ public class PPTXReaction {
         return false;
     }
 
-    private boolean onlyOneOutputWithoutConnectors() { // TODO rename this to onlyOneOutputWithoutSegments ?
+    private boolean onlyOneOutputWithoutConnectors() {
         if (edge.getOutputs().size() == 1) {
             List<Connector> connectors = nodesMap.get(edge.getOutputs().get(0).getId()).getConnectors(edge.getId(), "OUTPUT");
             return connectors.isEmpty() || connectors.get(0).getSegments().isEmpty();

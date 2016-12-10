@@ -1,12 +1,11 @@
 package org.reactome.server.tools.diagram.exporter.pptx.model;
 
-import com.aspose.slides.IAutoShape;
-import com.aspose.slides.IGroupShape;
-import com.aspose.slides.IShapeCollection;
+import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Connector;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
 
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -24,15 +23,19 @@ public abstract class PPTXNode {
     @SuppressWarnings("WeakerAccess")
     protected IAutoShape iAutoShape;
     protected IGroupShape iGroupShape;
-    private Long id;
     protected float x;
     protected float y;
     protected float width = 1;
     protected float height = 1;
     protected Long reactomeId;
-    private String schemaClass;
     protected String displayName;
+    protected boolean isFadeOut;
+    private Long id;
+    private String schemaClass;
     private List<Connector> connectors;
+    private boolean isDisease;
+    private boolean isCrossed;
+    private boolean needDashedBorder;
 
     public PPTXNode(Node node) {
         this.reactomeId = node.getReactomeId();
@@ -45,7 +48,10 @@ public abstract class PPTXNode {
         this.height = node.getProp().getHeight().floatValue();
         this.displayName = node.getDisplayName();
         this.connectors = node.getConnectors();
-
+        this.isDisease = node.getIsDisease() == null ? false : node.getIsDisease();
+        this.isCrossed = node.getIsCrossed() == null ? false : node.getIsCrossed();
+        this.isFadeOut = node.getIsFadeOut() == null ? false : node.getIsFadeOut();
+        this.needDashedBorder = node.getNeedDashedBorder() == null ? false : node.getNeedDashedBorder();
     }
 
     public Long getId() {
@@ -74,8 +80,34 @@ public abstract class PPTXNode {
         iGroupShape = shapes.addGroupShape();
         iAutoShape = iGroupShape.getShapes().addAutoShape(shapeType, x, y, width, height);
 
+        if (isFadeOut) {
+            stylesheet.setFillColor(stylesheet.getFadeOutFill());
+            stylesheet.setLineColor(stylesheet.getFadeOutStroke());
+            stylesheet.setTextColor(stylesheet.getTextColor());
+        }
+
+        if (isCrossed) {
+            IAutoShape a = iGroupShape.getShapes().addAutoShape(ShapeType.Line, x, y, width, height);
+            IAutoShape b = iGroupShape.getShapes().addAutoShape(ShapeType.Line, x, y, width, height);
+            b.setRotation(2f * (float) Math.toDegrees(Math.atan2(width, height)));
+            stylesheet.setLineColor(Color.RED);
+            setShapeStyle(a, stylesheet);
+            setShapeStyle(b, stylesheet);
+        }
+
+        if (needDashedBorder) {
+            stylesheet.setLineStyle(LineStyle.ThinThin);
+            stylesheet.setLineWidth(3.5);
+            stylesheet.setLineDashStyle(LineDashStyle.Dash);
+        }
+
+        // has to be last one :)
+        if (isDisease) {
+            stylesheet.setLineColor(Color.RED);
+        }
+
         setShapeStyle(iAutoShape, stylesheet);
-        setTextFrame(iAutoShape, displayName, new double[]{0,0,0,0}, stylesheet.getTextColor(), 10, true, true, reactomeId);
+        setTextFrame(iAutoShape, displayName, new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 10, true, true, reactomeId);
     }
 
     @Override

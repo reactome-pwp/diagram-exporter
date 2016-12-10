@@ -33,7 +33,7 @@ public class Complex extends PPTXNode {
 
         render(shapes, shapeType, stylesheet);
 
-        anchorShape = iGroupShape.getShapes().addAutoShape(ShapeType.Rectangle, iAutoShape.getX(), iAutoShape.getY(), iAutoShape.getWidth(), iAutoShape.getHeight());
+        anchorShape = iGroupShape.getShapes().addAutoShape(ShapeType.Rectangle, iAutoShape.getX() - 2, iAutoShape.getY() - 2, iAutoShape.getWidth() + 2, iAutoShape.getHeight() + 2);
         anchorShape.getFillFormat().setFillType(FillType.NoFill);
         anchorShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
 
@@ -50,9 +50,5 @@ public class Complex extends PPTXNode {
             //0 to 0.833333
             adjustValue.setAngleValue(0.2470333f);
         }
-
-        iGroupShape.getShapes().reorder(iGroupShape.getShapes().size() - 1, iAutoShape);
-
     }
-
 }

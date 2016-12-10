@@ -8,34 +8,50 @@ import org.reactome.server.tools.diagram.exporter.pptx.PowerPointExporter;
  */
 public class DiagramExporter {
 
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
+        for (ColorProfiles colorProfile : ColorProfiles.values()) {
 
-        //All the diagrams will be exported with the same colour profile
-        DiagramProfile profile = PowerPointExporter.getDiagramProfile("Standard");
+            // All the diagrams will be exported with the same colour profile
+            DiagramProfile profile = PowerPointExporter.getDiagramProfile(colorProfile.name());
+            String path = "/Users/reactome/diagram/exporter/" + profile.getName() + "/";
 
-        // To start with...
-        PowerPointExporter.export("R-HSA-169911", profile, "/Users/reactome/diagram/exporter/");
+            // To start with...
+            PowerPointExporter.export("R-HSA-169911", profile, path);
 
-        //Activator, simple diagram with long text to be place inside the shape
-//        PowerPointExporter.export("R-MMU-2990846", profile, "/Users/reactome/diagram/exporter/");
+            //Activator, simple diagram with long text to be place inside the shape
+            PowerPointExporter.export("R-MMU-2990846", profile, path);
 
-        // Activator, nice diagram layout.
-//        PowerPointExporter.export("R-HSA-2990846", profile, "/Users/reactome/diagram/exporter/");
+            // Activator, nice diagram layout.
+            PowerPointExporter.export("R-HSA-2990846", profile, path);
 
-        // Inhibitor
-        PowerPointExporter.export("R-HSA-177929", profile, "/Users/reactome/diagram/exporter/");
+            // Inhibitor
+            PowerPointExporter.export("R-HSA-177929", profile, path);
 
-        // Gene (CDKN1A Gene) and RNA (CDKN1A mRNA) Shape (also tricky diagram)
-        // Also has few links, One activator and one inhibitor
-        PowerPointExporter.export("R-HSA-69620", profile, "/Users/reactome/diagram/exporter/");
+            // Gene (CDKN1A Gene) and RNA (CDKN1A mRNA) Shape (also tricky diagram)
+            // Also has few links, One activator and one inhibitor
+            PowerPointExporter.export("R-HSA-69620", profile, path);
 
-        // Mitophagy, multiple Compartments
-        PowerPointExporter.export("R-HSA-5205647", profile, "/Users/reactome/diagram/exporter/");
+            // Mitophagy, multiple Compartments
+            PowerPointExporter.export("R-HSA-5205647", profile, path);
 
-        // Multiple Compartments
-        PowerPointExporter.export("R-HSA-1489509", profile, "/Users/reactome/diagram/exporter/");
+            // Multiple Compartments
+            PowerPointExporter.export("R-HSA-1489509", profile, path);
 
-        System.out.println("Diagram exported.");
+            // Disease
+            PowerPointExporter.export("R-HSA-162909", profile, path);
+
+            // Crossed and Fade out
+            PowerPointExporter.export("R-HSA-5603041", profile, path);
+
+            PowerPointExporter.export("R-HSA-5603029", profile, path);
+
+            PowerPointExporter.export("R-HSA-1222556", profile, path);
+        }
+
+        System.out.println("Diagrams exported.");
     }
 
+    private enum ColorProfiles {
+        Standard, Modern
+    }
 }

@@ -18,11 +18,10 @@ import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.set
 public class Protein extends PPTXNode {
 
     private final int shapeType = ShapeType.RoundCornerRectangle;
+    protected List<NodeAttachment> nodeAttachments;
     private byte shapeFillType = FillType.Solid;
     private byte lineFillType = FillType.Solid;
     private byte lineStyle = LineStyle.Single;
-
-    protected List<NodeAttachment> nodeAttachments;
 
     public Protein(Node node) {
         super(node);
@@ -34,7 +33,7 @@ public class Protein extends PPTXNode {
         Stylesheet stylesheet = new Stylesheet(profile.getProtein(), shapeFillType, lineFillType, lineStyle);
         render(shapes, shapeType, stylesheet);
 
-        if(nodeAttachments!=null) {
+        if (nodeAttachments != null) {
             for (NodeAttachment nodeAttachment : nodeAttachments) {
                 IAutoShape box = iGroupShape.getShapes().addAutoShape(
                         ShapeType.Rectangle,

@@ -1,9 +1,10 @@
 package org.reactome.server.tools.diagram.exporter.pptx.util;
 
-import com.aspose.slides.*;
+import com.aspose.slides.IConnector;
+import com.aspose.slides.IShape;
+import com.aspose.slides.IShapeCollection;
+import com.aspose.slides.ShapeType;
 import org.reactome.server.tools.diagram.exporter.pptx.model.*;
-
-import java.awt.*;
 
 import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.setBeginArrowShape;
 import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.setShapeStyle;
@@ -14,10 +15,6 @@ import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.set
 
 public class SegmentUtil {
 
-    public static void drawSegment(IShapeCollection shapes, IShape start, IShape end) {
-        drawSegment(shapes, start, end, false);
-    }
-
     /**
      * Draw segments can connect a shape to an auxiliary shape, a shape to a backbone start or end
      * and an auxiliary shape to another auxiliary shape.
@@ -26,53 +23,33 @@ public class SegmentUtil {
      * @param start  start node to be connected
      * @param end    end node to be connected
      */
-    public static void drawSegment(IShapeCollection shapes, IShape start, IShape end, boolean dashed) {
+    public static void drawSegment(IShapeCollection shapes, IShape start, IShape end, Stylesheet stylesheet) {
         IConnector connector = shapes.addConnector(ShapeType.StraightConnector1, start.getX(), start.getY(), 1, 1, true);
-        setShapeStyle(connector, new Stylesheet().customStyle(1, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.NotDefined, null));
+        setShapeStyle(connector, stylesheet);
         connector.setStartShapeConnectedTo(start);
-        connector.getLineFormat().setCapStyle(LineCapStyle.Round);
         connector.setEndShapeConnectedTo(end);
-
-        if (dashed) {
-            connector.getLineFormat().getFillFormat().setFillType(FillType.Solid);
-            connector.getLineFormat().setDashStyle(LineDashStyle.Dash);
-            connector.getLineFormat().setStyle(LineStyle.Single);
-            connector.getLineFormat().setWidth(1.25);
-        }
-
         connector.reroute();
-    }
-
-    public static void connect(IShapeCollection shapes, PPTXNode pptxNode, IShape start, IShape end, boolean renderArrow) {
-        connect(shapes, pptxNode, start, end, renderArrow, false);
     }
 
     /**
      * Connectors always go from Node to Backbone/Catalyst/ or Node to Auxiliary shape
      * <p>
-     * In order to draw segments only please refer {@link #drawSegment(IShapeCollection, IShape, IShape)}
+     * In order to draw segments only please refer {@link #drawSegment(IShapeCollection, IShape, IShape, Stylesheet)}
      *
-     * @param shapes      the collection of shapes present in the slide
-     * @param pptxNode    instance PPTXNode, used for special cases like Chemicals or Complexes
-     * @param start       start point of a connector
-     * @param end         end point of a connector
-     * @param renderArrow flag to render an arrow and beginning of a connector
+     * @param shapes           the collection of shapes present in the slide
+     * @param pptxNode         instance PPTXNode, used for special cases like Chemicals or Complexes
+     * @param start            start point of a connector
+     * @param end              end point of a connector
+     * @param renderBeginArrow flag to render an arrow at the beginning of a connector
      */
-    public static void connect(IShapeCollection shapes, PPTXNode pptxNode, IShape start, IShape end, boolean renderArrow, boolean dashed) {
+    public static void connect(IShapeCollection shapes, PPTXNode pptxNode, IShape start, IShape end, boolean renderBeginArrow, Stylesheet stylesheet) {
         IConnector connector = shapes.addConnector(ShapeType.StraightConnector1, start.getX(), start.getY(), 1, 1, true);
-        setShapeStyle(connector, new Stylesheet().customStyle(1, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.NotDefined, null));
-        connector.getLineFormat().setCapStyle(LineCapStyle.Round);
-        if (renderArrow) {
+        setShapeStyle(connector, stylesheet);
+
+        if (renderBeginArrow) {
             // in this case, our direction is from NODE to backbone or segment, then the arrow
             // should be in the NODE as begin arrow.
-            setBeginArrowShape(connector, LineArrowheadLength.Long, LineArrowheadStyle.Triangle, LineArrowheadWidth.Wide);
-        }
-
-        if (dashed) {
-//            connector.getLineFormat().getFillFormat().setFillType(FillType.Solid);
-            connector.getLineFormat().setDashStyle(LineDashStyle.Dash);
-            connector.getLineFormat().setStyle(LineStyle.Single);
-            connector.getLineFormat().setWidth(1.25);
+            setBeginArrowShape(connector, stylesheet);
         }
 
         // Some implementations of PPTXNode have an anchorShape shape to ease and beautify where the anchor point
@@ -87,6 +64,9 @@ public class SegmentUtil {
         } else if (pptxNode instanceof Gene) {
             start = ((Gene) pptxNode).getAnchorShape();
             anchorPoint = 1;
+        } else if (pptxNode instanceof EncapsulatedPathway) {
+            start = ((EncapsulatedPathway) pptxNode).getAnchorShape();
+            anchorPoint = getAnchorPoint(start, end);
         } else {
             anchorPoint = getAnchorPoint(start, end);
         }
@@ -96,6 +76,17 @@ public class SegmentUtil {
         connector.setEndShapeConnectedTo(end);
     }
 
+    /**
+     * Define the anchor point of a connector based on the position of the node against
+     * the position of the backbone or the last auxiliary shape.
+     * Our shapes have 4 anchor points, even though the Octagon or the Ellipse have 8 anchor points
+     * we are grouping them inside a rectangle specially used for anchor points and to standardise them.
+     * p.s The indexes are in different sequence depends on the shape.
+     *
+     * @return an int where the anchor point index
+     * @see Complex#getAnchorShape()
+     * @see Chemical#getAnchorShape()
+     */
     private static int getAnchorPoint(IShape node, IShape backbone) {
         boolean bottom = (node.getY() + node.getHeight()) <= (int) backbone.getY();
         boolean top = (node.getY()) >= (int) backbone.getY();

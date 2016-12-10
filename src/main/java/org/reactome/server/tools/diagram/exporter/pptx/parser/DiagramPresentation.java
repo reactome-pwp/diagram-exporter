@@ -71,7 +71,7 @@ public class DiagramPresentation {
         }
 
         // Render Links
-        for (Link link : diagram.getLinks()){
+        for (Link link : diagram.getLinks()) {
             PPTXLink pptxLink = new PPTXLink(link, nodesMap);
             pptxLink.render(shapes, profile);
         }
@@ -114,6 +114,7 @@ public class DiagramPresentation {
                 break;
             case "GenomeEncodedEntity":
             case "OtherEntity":
+            case "Polymer":
                 pptxNode = new OtherEntity(node);
                 break;
             case "SimpleEntity":
@@ -130,6 +131,7 @@ public class DiagramPresentation {
 
     /**
      * Checking Software License
+     *
      * @return true if the license is available and it is valid.
      */
     private boolean isLicensed() {

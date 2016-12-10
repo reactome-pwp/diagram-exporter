@@ -1,13 +1,19 @@
 package org.reactome.server.tools.diagram.exporter.pptx.util;
 
 import com.aspose.slides.*;
+import org.reactome.server.tools.diagram.data.layout.Connector;
 import org.reactome.server.tools.diagram.data.layout.Coordinate;
 import org.reactome.server.tools.diagram.data.layout.Shape;
+import org.reactome.server.tools.diagram.data.layout.Stoichiometry;
 import org.reactome.server.tools.diagram.exporter.pptx.model.PPTXNode;
+import org.reactome.server.tools.diagram.exporter.pptx.model.PPTXStoichiometry;
 import org.reactome.server.tools.diagram.exporter.pptx.model.Stylesheet;
 
 import java.awt.*;
 import java.util.Collection;
+import java.util.Map;
+
+import static org.reactome.server.tools.diagram.exporter.pptx.util.SegmentUtil.drawSegment;
 
 import org.reactome.server.tools.diagram.data.layout.Shape;
 
@@ -31,10 +37,10 @@ public class PPTXShape {
                         rctShape.getR().floatValue() + correction,
                         rctShape.getR().floatValue() + correction
                 );
-                setShapeStyle(circle, new Stylesheet().customStyle(1, LineStyle.NotDefined, FillType.Solid, Color.BLACK, FillType.Solid, Color.BLACK));
+                setShapeStyle(circle, new Stylesheet().customStyle(1, LineStyle.NotDefined, FillType.Solid, stylesheet.getLineColor(), FillType.Solid, stylesheet.getFillColor(), stylesheet.getLineDashStyle()));
 
                 return circle;
-            case "DOUBLE_CIRCLE": //TODO: Please check how to do the double circle
+            case "DOUBLE_CIRCLE":
                 correction = rctShape.getR().floatValue();
                 IAutoShape dCircle = group.getShapes().addAutoShape(
                         ShapeType.Ellipse,
@@ -43,7 +49,7 @@ public class PPTXShape {
                         rctShape.getR().floatValue() + correction,
                         rctShape.getR().floatValue() + correction
                 );
-                setShapeStyle(dCircle, new Stylesheet().customStyle(1, LineStyle.ThinThin, FillType.Solid, Color.BLACK, FillType.Solid, Color.BLACK));
+                setShapeStyle(dCircle, new Stylesheet().customStyle(2.75, LineStyle.ThinThin, FillType.Solid, stylesheet.getLineColor(), FillType.Solid, Color.WHITE, stylesheet.getLineDashStyle()));
 
                 return dCircle;
             case "BOX":
@@ -53,10 +59,10 @@ public class PPTXShape {
                         rctShape.getA().getY().floatValue(),
                         rctShape.getB().getX().floatValue() - rctShape.getA().getX().floatValue(),
                         rctShape.getB().getY().floatValue() - rctShape.getA().getY().floatValue());
-                setShapeStyle(box, new Stylesheet().customStyle(1, LineStyle.NotDefined, FillType.Solid, Color.BLACK, FillType.Solid, Color.WHITE));
+                setShapeStyle(box, new Stylesheet().customStyle(1, LineStyle.NotDefined, FillType.Solid, stylesheet.getLineColor(), FillType.Solid, Color.WHITE, stylesheet.getLineDashStyle()));
 
                 if (rctShape.getS() != null) {
-                    setTextFrame(box, rctShape.getS(), new double[]{0, 0, 0, 0}, Color.BLACK, 6, true, false, null);
+                    setTextFrame(box, rctShape.getS(), new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 6, true, false, null);
                 }
 
                 return box;
@@ -155,16 +161,19 @@ public class PPTXShape {
         shape.getLineFormat().setWidth(stylesheet.getLineWidth());
         shape.getLineFormat().setCapStyle(LineCapStyle.Round);
 
-        //shape.getLineFormat().setDashStyle(LineDashStyle.Dash);
+        if (stylesheet.getLineDashStyle() > 0) {
+            shape.getLineFormat().setDashStyle(stylesheet.getLineDashStyle());
+            shape.getLineFormat().setCapStyle(LineCapStyle.Square);
+        }
     }
 
     /**
      * Helper method to ease set the Begin Arrow style
      */
-    static void setBeginArrowShape(IShape shape, byte arrowHeadLength, byte arrowHeadStyle, byte arrowHeadWidth) {
-        shape.getLineFormat().setBeginArrowheadLength(arrowHeadLength);
-        shape.getLineFormat().setBeginArrowheadStyle(arrowHeadStyle);
-        shape.getLineFormat().setBeginArrowheadWidth(arrowHeadWidth);
+    static void setBeginArrowShape(IShape shape, Stylesheet stylesheet) {
+        shape.getLineFormat().setBeginArrowheadLength(stylesheet.getLineArrowheadLength());
+        shape.getLineFormat().setBeginArrowheadStyle(stylesheet.getLineArrowheadStyle());
+        shape.getLineFormat().setBeginArrowheadWidth(stylesheet.getLineArrowheadWidth());
     }
 
     /**
@@ -192,7 +201,7 @@ public class PPTXShape {
                                     boolean addHyperlink,
                                     Long stId) {
 
-        shape.addTextFrame(" ");
+        shape.addTextFrame("");
 
         ITextFrame txtFrame = shape.getTextFrame();
         txtFrame.getTextFrameFormat().setMarginTop(margins[0]);
@@ -223,7 +232,7 @@ public class PPTXShape {
      *
      * @return the centre shape to attach the anchor Point
      */
-    public static IAutoShape renderActivatorShape(IShapeCollection shapes, IGroupShape groupShape, Shape shape) {
+    public static IAutoShape renderActivatorShape(IShapeCollection shapes, IGroupShape groupShape, Shape shape, Stylesheet stylesheet) {
         IAutoShape a = groupShape.getShapes().addAutoShape(
                 ShapeType.Ellipse,
                 shape.getA().getX().floatValue(),
@@ -257,9 +266,9 @@ public class PPTXShape {
         c.getFillFormat().setFillType(FillType.Solid);
         c.getFillFormat().getSolidFillColor().setColor(Color.BLUE);
 
-        SegmentUtil.drawSegment(shapes, a, b);
-        SegmentUtil.drawSegment(shapes, b, c);
-        SegmentUtil.drawSegment(shapes, c, a);
+        SegmentUtil.drawSegment(shapes, a, b, stylesheet);
+        SegmentUtil.drawSegment(shapes, b, c, stylesheet);
+        SegmentUtil.drawSegment(shapes, c, a, stylesheet);
 
         float x = (shape.getA().getX().floatValue() + shape.getC().getX().floatValue()) / 2f;
         float y = (shape.getA().getY().floatValue() + shape.getC().getY().floatValue()) / 2f;
@@ -269,6 +278,65 @@ public class PPTXShape {
         centre.getFillFormat().setFillType(FillType.NoFill);
 
         return centre;
+    }
+
+    /**
+     * Draw catalyst shape inside the group shape of a reaction
+     */
+    public static void drawCatalyst(Map<Connector, IAutoShape> shapeMap, IGroupShape groupShape, Connector connector, Stylesheet stylesheet) {
+        if (connector.getIsDisease() != null) {
+            stylesheet.setLineColor(Color.RED);
+        }
+
+        // set white filling for the catalyst, renderShape will render the catalyst properly based on the stylesheet
+        stylesheet.setFillColor(Color.WHITE);
+
+        Shape shape = connector.getEndShape();
+        IAutoShape catalystAnchorPoint = renderAuxiliaryShape(groupShape, shape.getC());
+        renderShape(groupShape, shape, stylesheet);
+        // even though renderShape sets style, we want to keep it generic than we set the catalyst white filling.
+//        setShapeStyle(cs, new Stylesheet().customStyle(1, LineStyle.Single, FillType.Solid, stylesheet.getLineColor(), FillType.Solid, Color.WHITE, (byte) 0));
+        shapeMap.put(connector, catalystAnchorPoint);
+    }
+
+    public static void drawActivator(IShapeCollection shapes, Map<Connector, IAutoShape> shapeMap, IGroupShape groupShape, Connector connector, Stylesheet stylesheet) {
+        if (connector.getIsDisease() != null) {
+            stylesheet.setLineColor(Color.RED);
+        }
+        Shape shape = connector.getEndShape();
+        IAutoShape centre = renderActivatorShape(shapes, groupShape, shape, stylesheet);
+        shapeMap.put(connector, centre);
+    }
+
+    /**
+     * Draw inhibitor line inside the group shape of a reaction.
+     * A line shape in power point isn't straight to control. Then we take the points provided by the JSON
+     * and connect them, calculate the centre and add a auxiliary shape.
+     * ShapeMap holds the shape where the connector (in this case type Inhibitor) will attach.
+     */
+    public static void drawInhibitor(IShapeCollection shapes, Map<Connector, IAutoShape> shapeMap, IGroupShape groupShape, Connector connector, Stylesheet stylesheet) {
+        if (connector.getIsDisease() != null) {
+            stylesheet.setLineColor(Color.RED);
+        }
+        Shape shape = connector.getEndShape();
+        // IMPORTANT: A line didn't work here. Has to be two connected shapes
+        IAutoShape a = renderAuxiliaryShape(groupShape, shape.getA());
+        IAutoShape b = renderAuxiliaryShape(groupShape, shape.getB());
+        IAutoShape centre = renderAuxiliaryShape(groupShape, shape.getC());
+        drawSegment(shapes, a, b, stylesheet);
+        shapeMap.put(connector, centre);
+    }
+
+    /**
+     * Draw (pptx)stoichiometry shape based on the stoichiometry object provided by the connector.
+     *
+     * @return null if stoichiometry is null or value 1, otherwise stoichiometry shape
+     */
+    public static PPTXStoichiometry drawStoichiometry(IShapeCollection shapes, Stoichiometry stoichiometry, Stylesheet stylesheet) {
+        // Stoichiometry may be present, but having value 1. In this case we don't render it.
+        if (stoichiometry == null || stoichiometry.getValue() == 1) return null;
+
+        return new PPTXStoichiometry(stoichiometry).render(shapes, stylesheet);
     }
 
     public static void reorder(IShapeCollection shapes, Collection<PPTXNode> nodes) {

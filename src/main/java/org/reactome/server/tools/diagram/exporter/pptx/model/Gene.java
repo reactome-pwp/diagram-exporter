@@ -35,16 +35,16 @@ public class Gene extends PPTXNode {
         iAutoShape = iGroupShape.getShapes().addAutoShape(shapeType, x, y + width / 2, width, height - 20);
 
         setShapeStyle(iAutoShape, stylesheet);
-        setTextFrame(iAutoShape, displayName, new double[]{0,0,0,0}, stylesheet.getTextColor(), 8, true, true, reactomeId);
+        setTextFrame(iAutoShape, displayName, new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 8, true, true, reactomeId);
 
-        IAutoShape topThickLine = iGroupShape.getShapes().addAutoShape(ShapeType.Line, iAutoShape.getX(), iAutoShape.getY(), iAutoShape.getWidth()-2, 0f);
-        setShapeStyle(topThickLine, new Stylesheet().customStyle(3, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.Solid, Color.BLACK));
+        IAutoShape topThickLine = iGroupShape.getShapes().addAutoShape(ShapeType.Line, iAutoShape.getX(), iAutoShape.getY(), iAutoShape.getWidth() - 2, 0f);
+        setShapeStyle(topThickLine, new Stylesheet().customStyle(3, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.Solid, Color.BLACK, stylesheet.getLineDashStyle()));
 
         IAutoShape verticalLine = iGroupShape.getShapes().addAutoShape(ShapeType.Line, iAutoShape.getX() + iAutoShape.getWidth() - 17, iAutoShape.getY() - 20, 0, 20);
-        setShapeStyle(verticalLine, new Stylesheet().customStyle(3, LineStyle.Single, FillType.Solid, Color.black, FillType.Solid, Color.black));
+        setShapeStyle(verticalLine, new Stylesheet().customStyle(3, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.Solid, Color.BLACK, stylesheet.getLineDashStyle()));
 
         anchorShape = iGroupShape.getShapes().addAutoShape(ShapeType.Line, verticalLine.getX() - 1, verticalLine.getY(), 20, 0);
-        setShapeStyle(anchorShape, new Stylesheet().customStyle(3, LineStyle.Single, FillType.Solid, Color.black, FillType.Solid, Color.black));
+        setShapeStyle(anchorShape, new Stylesheet().customStyle(3, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.Solid, Color.BLACK, stylesheet.getLineDashStyle()));
         setEndArrowShape(anchorShape, LineArrowheadWidth.Wide, LineArrowheadLength.Medium, LineArrowheadStyle.Triangle);
     }
 

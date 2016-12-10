@@ -5,7 +5,8 @@ import com.aspose.slides.IGroupShape;
 import com.aspose.slides.IShapeCollection;
 import org.reactome.server.tools.diagram.data.layout.Shape;
 import org.reactome.server.tools.diagram.data.layout.Stoichiometry;
-import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
+
+import java.awt.*;
 
 import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.*;
 
@@ -26,14 +27,17 @@ public class PPTXStoichiometry {
         this.value = stoichiometry.getValue();
     }
 
-    public void render(IShapeCollection shapes, DiagramProfile profile) {
-        Stylesheet stylesheet = new Stylesheet(profile.getStoichiometry());
+    public PPTXStoichiometry render(IShapeCollection shapes, Stylesheet stylesheet) {
+        stylesheet.setTextColor(Color.BLACK);
+
         iGroupShape = shapes.addGroupShape();
         float xCenter = (shape.getA().getX().floatValue() + shape.getB().getX().floatValue()) / 2;
         float yCenter = (shape.getA().getY().floatValue() + shape.getB().getY().floatValue()) / 2;
         hiddenCenterShape = renderAuxiliaryShape(iGroupShape, xCenter, yCenter);
         iAutoShape = renderShape(iGroupShape, shape, stylesheet);
-        setTextFrame(iAutoShape, value.toString(), new double[]{0,0,0,0}, stylesheet.getTextColor(), 8, true, false, null);
+        setTextFrame(iAutoShape, value.toString(), new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 8, true, false, null);
+
+        return this;
     }
 
     public IAutoShape getHiddenCenterShape() {

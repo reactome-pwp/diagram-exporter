@@ -36,8 +36,5 @@ public class Chemical extends PPTXNode {
         anchorShape = iGroupShape.getShapes().addAutoShape(ShapeType.Rectangle, iAutoShape.getX(), iAutoShape.getY(), iAutoShape.getWidth(), iAutoShape.getHeight());
         anchorShape.getFillFormat().setFillType(FillType.NoFill);
         anchorShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
-
-        //reorder
-        iGroupShape.getShapes().reorder(iGroupShape.getShapes().size() - 1, iAutoShape);
     }
 }

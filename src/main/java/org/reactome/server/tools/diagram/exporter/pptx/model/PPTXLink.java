@@ -1,7 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.pptx.model;
 
-import com.aspose.slides.IAutoShape;
-import com.aspose.slides.IShapeCollection;
+import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Link;
 import org.reactome.server.tools.diagram.data.layout.Segment;
 import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
@@ -20,6 +19,7 @@ public class PPTXLink {
     private Link link;
     private Map<Long, PPTXNode> nodesMap;
     private boolean dashed;
+    private boolean renderBeginArrow;
 
     public PPTXLink(Link link, Map<Long, PPTXNode> nodesMap) {
         this.link = link;
@@ -29,14 +29,25 @@ public class PPTXLink {
             case "EntitySetAndMemberLink":
             case "EntitySetAndEntitySetLink":
                 this.dashed = true;
+                this.renderBeginArrow = false;
                 break;
             default:
                 this.dashed = false;
+                this.renderBeginArrow = true;
         }
     }
 
     public void render(IShapeCollection shapes, DiagramProfile profile) {
-        Stylesheet stylesheet = new Stylesheet(profile.getLink());
+        Stylesheet stylesheet = new Stylesheet(profile.getLink(), FillType.Solid, FillType.Solid, LineStyle.Single);
+        stylesheet.setLineWidth(2);
+
+        stylesheet.setLineArrowheadLength(LineArrowheadLength.Long);
+        stylesheet.setLineArrowheadStyle(LineArrowheadStyle.Open);
+        stylesheet.setLineArrowheadWidth(LineArrowheadWidth.Wide);
+
+        if (dashed) {
+            stylesheet.setLineDashStyle(LineDashStyle.Dash);
+        }
 
         // There is only ONE input and ONE output in the link objects
         PPTXNode from = nodesMap.get(link.getInputs().get(0).getId());
@@ -44,16 +55,17 @@ public class PPTXLink {
         for (Segment segment : link.getSegments()) {
             IAutoShape step = renderAuxiliaryShape(shapes, segment.getFrom());
             if (from != null) {
-                connect(shapes, from, last, step, false, dashed);
+                connect(shapes, from, last, step, false, stylesheet);
             } else {
-                drawSegment(shapes, last, step, dashed);
+                drawSegment(shapes, last, step, stylesheet);
             }
             from = null;
             last = step;
         }
-        PPTXNode to = nodesMap.get(link.getOutputs().get(0).getId());
-        connect(shapes, to, last, to.getiAutoShape(), false, dashed);
 
-        //TODO: Render end-shape
+        PPTXNode to = nodesMap.get(link.getOutputs().get(0).getId());
+        // last segments connects the shape to the last auxiliary node,
+        // then we can reuse the connect method and use the beginArrow
+        connect(shapes, to, to.getiAutoShape(), last, renderBeginArrow, stylesheet);
     }
 }
