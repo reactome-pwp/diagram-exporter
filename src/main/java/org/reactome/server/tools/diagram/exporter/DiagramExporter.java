@@ -11,6 +11,8 @@ public class DiagramExporter {
     public static void main(String[] args) throws Exception {
         for (ColorProfiles colorProfile : ColorProfiles.values()) {
 
+//            if (colorProfile.name().equals("Modern")) continue;
+
             // All the diagrams will be exported with the same colour profile
             DiagramProfile profile = PowerPointExporter.getDiagramProfile(colorProfile.name());
             String path = "/Users/reactome/diagram/exporter/" + profile.getName() + "/";
@@ -18,7 +20,7 @@ public class DiagramExporter {
             // To start with...
             PowerPointExporter.export("R-HSA-169911", profile, path);
 
-            //Activator, simple diagram with long text to be place inside the shape
+            // Activator, simple diagram with long text to be place inside the shape
             PowerPointExporter.export("R-MMU-2990846", profile, path);
 
             // Activator, nice diagram layout.
@@ -42,10 +44,13 @@ public class DiagramExporter {
 
             // Crossed and Fade out
             PowerPointExporter.export("R-HSA-5603041", profile, path);
-
             PowerPointExporter.export("R-HSA-5603029", profile, path);
 
+            // Encapsulated Pathway
             PowerPointExporter.export("R-HSA-1222556", profile, path);
+
+            // Messy!
+            PowerPointExporter.export("R-HSA-388396", profile, path);
         }
 
         System.out.println("Diagrams exported.");

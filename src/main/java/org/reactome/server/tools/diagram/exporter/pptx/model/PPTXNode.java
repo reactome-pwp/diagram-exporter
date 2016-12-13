@@ -90,9 +90,10 @@ public abstract class PPTXNode {
             IAutoShape a = iGroupShape.getShapes().addAutoShape(ShapeType.Line, x, y, width, height);
             IAutoShape b = iGroupShape.getShapes().addAutoShape(ShapeType.Line, x, y, width, height);
             b.setRotation(2f * (float) Math.toDegrees(Math.atan2(width, height)));
-            stylesheet.setLineColor(Color.RED);
-            setShapeStyle(a, stylesheet);
-            setShapeStyle(b, stylesheet);
+            // Creating a red line style that is rendered on top of the node.
+            Stylesheet customStyle = new Stylesheet().customStyle(1, LineStyle.Single, FillType.Solid, Color.RED, FillType.Solid, Color.RED, (byte)0);
+            setShapeStyle(a, customStyle);
+            setShapeStyle(b, customStyle);
         }
 
         if (needDashedBorder) {

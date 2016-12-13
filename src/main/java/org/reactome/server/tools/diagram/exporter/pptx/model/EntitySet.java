@@ -18,6 +18,7 @@ public class EntitySet extends PPTXNode {
     private byte shapeFillType = FillType.Solid;
     private byte lineFillType = FillType.Solid;
     private byte lineStyle = LineStyle.ThinThin;
+    private double lineWidth = 3;
 
     public EntitySet(Node node) {
         super(node);
@@ -26,6 +27,7 @@ public class EntitySet extends PPTXNode {
     @Override
     public void render(IShapeCollection shapes, DiagramProfile profile) {
         Stylesheet stylesheet = new Stylesheet(profile.getEntityset(), shapeFillType, lineFillType, lineStyle);
+        stylesheet.setLineWidth(lineWidth);
         render(shapes, shapeType, stylesheet);
     }
 }

@@ -51,16 +51,9 @@ public class PPTXReaction {
                 IAutoShape input = inputNode.getiAutoShape();
 
                 Connector connector = inputNode.getConnectors(edge.getId(), "INPUT").get(0);
-                if (connector.getIsDisease() != null) {
-                    stylesheet.setLineColor(Color.RED);
-                }
-                if (connector.getIsFadeOut() != null) {
-                    stylesheet.setLineColor(stylesheet.getFadeOutStroke());
-                }
+                setConnectorStyle(connector, stylesheet);
 
-                //TODO Check stoichiometry for disease
                 PPTXStoichiometry stoich = drawStoichiometry(shapes, connector.getStoichiometry(), stylesheet);
-
                 // we cannot reuse the connectToStoichiometry
                 if (stoich == null) {
                     connect(shapes, inputNode, input, backboneStart, false, stylesheet);
@@ -69,7 +62,6 @@ public class PPTXReaction {
                     drawSegment(shapes, stoich.getHiddenCenterShape(), hiddenReactionShape, stylesheet);
                     reorder(shapes, stoich.getiGroupShape());
                 }
-
             } else {
                 createConnectorsFromInputs(shapes, stylesheet);
             }
@@ -81,12 +73,7 @@ public class PPTXReaction {
                 IAutoShape output = outputNode.getiAutoShape();
 
                 Connector connector = outputNode.getConnectors(edge.getId(), "OUTPUT").get(0);
-                if (connector.getIsDisease() != null) {
-                    stylesheet.setLineColor(Color.RED);
-                }
-                if (connector.getIsFadeOut() != null) {
-                    stylesheet.setLineColor(stylesheet.getFadeOutStroke());
-                }
+                setConnectorStyle(connector, stylesheet);
 
                 connect(shapes, outputNode, output, backboneEnd, true, stylesheet); // render Arrow,
             } else {
@@ -102,6 +89,7 @@ public class PPTXReaction {
 
         // Bring reaction shape to front after rendering I/O/C/A/Inhibitors
         shapes.reorder(shapes.size() - 1, reactionGroupShape);
+
     }
 
     private IGroupShape createReactionShape(IShapeCollection shapes, Stylesheet stylesheet) {
@@ -110,12 +98,12 @@ public class PPTXReaction {
         Shape rShape = edge.getReactionShape();
 
         hiddenReactionShape = renderAuxiliaryShape(groupShape, edge.getPosition());
-        if (edge.getIsDisease() != null) {
-            stylesheet.setLineColor(Color.RED);
-        }
         if (edge.getIsFadeOut() != null) {
             stylesheet.setLineColor(stylesheet.getFadeOutStroke());
             stylesheet.setFillColor(stylesheet.getFadeOutFill());
+        }
+        if (edge.getIsDisease() != null) {
+            stylesheet.setLineColor(Color.RED);
         }
 
         // rendering reaction shape, we don't need an instance of the shape itself, just rendering
@@ -290,12 +278,7 @@ public class PPTXReaction {
      * rendering the Stoichiometry, if also present.
      */
     private void createReactionAttributes(IShapeCollection shapes, Connector connector, PPTXNode pptxNode, IAutoShape start, IAutoShape end, Stylesheet stylesheet) {
-        if (connector.getIsDisease() != null) {
-            stylesheet.setLineColor(Color.RED);
-        }
-        if (connector.getIsFadeOut() != null) {
-            stylesheet.setLineColor(stylesheet.getFadeOutStroke());
-        }
+        setConnectorStyle(connector, stylesheet);
 
         PPTXStoichiometry stoich = drawStoichiometry(shapes, connector.getStoichiometry(), stylesheet);
 
@@ -317,6 +300,21 @@ public class PPTXReaction {
             connectToStoichiometry(shapes, pptxNode, stoich, last, end, false, stylesheet);
         } else {
             drawSegment(shapes, last, end, stylesheet);
+        }
+    }
+
+    /**
+     * Setting connector style in case it is "fadeOut" or "isDisease".
+     * It is not returning anything but change the line colors depends on the conditions.
+     */
+    private void setConnectorStyle(Connector connector, Stylesheet stylesheet) {
+        if (connector.getIsFadeOut() != null) {
+            stylesheet.setLineColor(stylesheet.getFadeOutStroke());
+        }
+        // disease has to be set after the fadeOut, then we make sure the red line is on top of the fadeOut
+        if (connector.getIsDisease() != null) {
+            stylesheet.setLineColor(Color.RED);
+            stylesheet.setTextColor(Color.RED);
         }
     }
 

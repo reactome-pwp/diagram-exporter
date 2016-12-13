@@ -8,10 +8,8 @@ import org.reactome.server.tools.diagram.exporter.pptx.model.*;
 
 import java.awt.*;
 import java.io.InputStream;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.List;
 
 import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.reorder;
 
@@ -65,8 +63,20 @@ public class DiagramPresentation {
         }
 
         // Render Edges
+        List<Edge> diseaseEdges = new ArrayList<>();
         for (Edge edge : diagram.getEdges()) {
-            PPTXReaction pptxReaction = new PPTXReaction(edge, nodesMap, profile);
+            // We don't process among all the edges later. This is done to make sure disease annotation is always on top.
+            if (edge.getIsDisease() != null) {
+                diseaseEdges.add(edge);
+            } else {
+                PPTXReaction pptxReaction = new PPTXReaction(edge, nodesMap, profile);
+                pptxReaction.render(shapes);
+            }
+        }
+
+        // Render disease edges
+        for (Edge diseaseEdge : diseaseEdges) {
+            PPTXReaction pptxReaction = new PPTXReaction(diseaseEdge, nodesMap, profile);
             pptxReaction.render(shapes);
         }
 

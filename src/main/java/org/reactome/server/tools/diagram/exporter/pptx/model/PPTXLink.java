@@ -42,7 +42,7 @@ public class PPTXLink {
         stylesheet.setLineWidth(2);
 
         stylesheet.setLineArrowheadLength(LineArrowheadLength.Long);
-        stylesheet.setLineArrowheadStyle(LineArrowheadStyle.Open);
+        stylesheet.setLineArrowheadStyle(LineArrowheadStyle.Triangle);
         stylesheet.setLineArrowheadWidth(LineArrowheadWidth.Wide);
 
         if (dashed) {
