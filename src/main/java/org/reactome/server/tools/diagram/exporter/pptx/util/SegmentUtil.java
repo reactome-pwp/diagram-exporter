@@ -47,13 +47,12 @@ public class SegmentUtil {
         setShapeStyle(connector, stylesheet);
 
         if (renderBeginArrow) {
-            // in this case, our direction is from NODE to backbone or segment, then the arrow
-            // should be in the NODE as begin arrow.
+            // in this case, our direction is from NODE to backbone or segment,
+            // then the arrow should be in the NODE as begin arrow.
             setBeginArrowShape(connector, stylesheet);
         }
 
-        // Some implementations of PPTXNode have an anchorShape shape to ease and beautify where the anchor point
-        // is attached
+        // Some implementations of PPTXNode have an anchorShape shape to ease and beautify where the anchor point is attached
         int anchorPoint;
         if (pptxNode instanceof Complex) {
             start = ((Complex) pptxNode).getAnchorShape();

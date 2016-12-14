@@ -39,6 +39,7 @@ public class PPTXLink {
 
     public void render(IShapeCollection shapes, DiagramProfile profile) {
         Stylesheet stylesheet = new Stylesheet(profile.getLink(), FillType.Solid, FillType.Solid, LineStyle.Single);
+        stylesheet.setFillColor(stylesheet.getLineColor()); // fill color is white in the profile
         stylesheet.setLineWidth(2);
 
         stylesheet.setLineArrowheadLength(LineArrowheadLength.Long);

@@ -92,15 +92,14 @@ public class Stylesheet {
      * Mainly used in the connector or in the auxiliary shapes.
      */
     public Stylesheet customStyle(double lineWidth, byte lineStyle, byte lineFillType, Color lineColor, byte shapeFillType, Color fillColor, byte lineDashStyle) {
-        Stylesheet stylesheet = new Stylesheet();
-        stylesheet.setLineWidth(lineWidth);
-        stylesheet.setLineStyle(lineStyle);
-        stylesheet.setLineFillType(lineFillType);
-        stylesheet.setLineColor(lineColor);
-        stylesheet.setShapeFillType(shapeFillType);
-        stylesheet.setFillColor(fillColor);
-        stylesheet.setLineDashStyle(lineDashStyle);
-        return stylesheet;
+        this.setLineWidth(lineWidth);
+        this.setLineStyle(lineStyle);
+        this.setLineFillType(lineFillType);
+        this.setLineColor(lineColor);
+        this.setShapeFillType(shapeFillType);
+        this.setFillColor(fillColor);
+        this.setLineDashStyle(lineDashStyle);
+        return this;
     }
 
     public Color getFadeOutFill() {

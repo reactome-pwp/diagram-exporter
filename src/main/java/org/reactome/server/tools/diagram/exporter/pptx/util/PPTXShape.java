@@ -270,17 +270,18 @@ public class PPTXShape {
     /**
      * Draw catalyst shape inside the group shape of a reaction
      */
-    public static void drawCatalyst(Map<Connector, IAutoShape> shapeMap, IGroupShape groupShape, Connector connector, Stylesheet stylesheet) {
+    public static void drawCatalyst(Map<Connector, IAutoShape> shapeMap, IGroupShape groupShape, Connector connector, Stylesheet s) {
+        Color auxShapeFillColor = Color.BLACK;
         if (connector.getIsDisease() != null) {
-            stylesheet.setLineColor(Color.RED);
+            s.setLineColor(Color.RED);
+            auxShapeFillColor = Color.RED;
         }
 
-        // set white filling for the catalyst, renderShape will render the catalyst properly based on the stylesheet
-        stylesheet.setFillColor(Color.WHITE);
-
         Shape shape = connector.getEndShape();
-        IAutoShape catalystAnchorPoint = renderAuxiliaryShape(groupShape, shape.getC(), stylesheet);
-        renderShape(groupShape, shape, stylesheet);
+        IAutoShape catalystAnchorPoint = renderAuxiliaryShape(groupShape, shape.getC(), new Stylesheet().customStyle(1, LineStyle.NotDefined, FillType.NotDefined, s.getLineColor(), FillType.Solid, auxShapeFillColor, s.getLineDashStyle()));
+
+        // set white filling for the catalyst, renderShape will render the catalyst properly based on the stylesheet
+        renderShape(groupShape, shape, new Stylesheet().customStyle(s.getLineWidth(), s.getLineStyle(), s.getLineFillType(), s.getLineColor(), s.getShapeFillType(), Color.WHITE, s.getLineDashStyle()));
         shapeMap.put(connector, catalystAnchorPoint);
     }
 
