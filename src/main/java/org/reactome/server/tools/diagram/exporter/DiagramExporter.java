@@ -11,7 +11,7 @@ public class DiagramExporter {
     public static void main(String[] args) throws Exception {
         for (ColorProfiles colorProfile : ColorProfiles.values()) {
 
-//            if (colorProfile.name().equals("Modern")) continue;
+//            if (!colorProfile.name().equals("Modern")) continue;
 
             // All the diagrams will be exported with the same colour profile
             DiagramProfile profile = PowerPointExporter.getDiagramProfile(colorProfile.name());

@@ -76,18 +76,21 @@ public class PPTXShape {
      *
      * @return formatted IAutoShape - No line and No fill as part of group shape
      */
-    public static IAutoShape renderAuxiliaryShape(IGroupShape group, Coordinate edgeCoordinate) {
-        IAutoShape auxShape = group.getShapes().addAutoShape(
-                ShapeType.Ellipse,
-                edgeCoordinate.getX().floatValue(),
-                edgeCoordinate.getY().floatValue(),
-                0.1f,
-                0.1f
-        );
+    public static IAutoShape renderAuxiliaryShape(IGroupShape group, Coordinate edgeCoordinate, Stylesheet stylesheet) {
+//        IAutoShape auxShape = group.getShapes().addAutoShape(
+//                ShapeType.Ellipse,
+//                edgeCoordinate.getX().floatValue(),
+//                edgeCoordinate.getY().floatValue(),
+//                2f,
+//                2f
+//        );
+//
+//        auxShape.getLineFormat().getFillFormat().setFillType(FillType.Solid);
+//        auxShape.getFillFormat().setFillType(FillType.Solid);
+//        auxShape.getFillFormat().getSolidFillColor().setColor(Color.BLACK);
 
-        auxShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
-        auxShape.getFillFormat().setFillType(FillType.NoFill);
-        return auxShape;
+        return renderAuxiliaryShape(group.getShapes(), edgeCoordinate, stylesheet);
+//        return auxShape;
     }
 
     /**
@@ -96,18 +99,18 @@ public class PPTXShape {
      * @param shapes collection of shapes present in the Slides
      * @return rendered IAutoShape as it is
      */
-    public static IAutoShape renderAuxiliaryShape(IShapeCollection shapes, Coordinate edgeCoordinate) {
+    public static IAutoShape renderAuxiliaryShape(IShapeCollection shapes, Coordinate edgeCoordinate, Stylesheet stylesheet) {
         IAutoShape auxShape = shapes.addAutoShape(
                 ShapeType.Ellipse,
                 edgeCoordinate.getX().floatValue(),
                 edgeCoordinate.getY().floatValue(),
-                0.1f,
-                0.1f
+                2f,
+                2f
         );
 
         auxShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         auxShape.getFillFormat().setFillType(FillType.Solid);
-        auxShape.getFillFormat().getSolidFillColor().setColor(Color.BLACK);
+        auxShape.getFillFormat().getSolidFillColor().setColor(stylesheet.getFillColor());
         return auxShape;
     }
 
@@ -117,7 +120,7 @@ public class PPTXShape {
      * @return rendered IAutoShape as it is
      */
     public static IAutoShape renderAuxiliaryShape(IGroupShape group, float x, float y) {
-        IAutoShape auxShape = group.getShapes().addAutoShape(ShapeType.Ellipse, x, y, 0.1f, 0.1f);
+        IAutoShape auxShape = group.getShapes().addAutoShape(ShapeType.Ellipse, x, y, 2f, 2f);
         auxShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         auxShape.getFillFormat().setFillType(FillType.NoFill);
         return auxShape;
@@ -234,37 +237,34 @@ public class PPTXShape {
      */
     public static IAutoShape renderActivatorShape(IShapeCollection shapes, IGroupShape groupShape, Shape shape, Stylesheet stylesheet) {
         IAutoShape a = groupShape.getShapes().addAutoShape(
-                ShapeType.Ellipse,
+                ShapeType.Line,
                 shape.getA().getX().floatValue(),
                 shape.getA().getY().floatValue(),
                 0.1f,
                 0.1f
         );
         a.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
-        a.getFillFormat().setFillType(FillType.Solid);
-        a.getFillFormat().getSolidFillColor().setColor(Color.YELLOW);
+        a.getFillFormat().setFillType(FillType.NoFill);
 
         IAutoShape b = groupShape.getShapes().addAutoShape(
-                ShapeType.Ellipse,
+                ShapeType.Line,
                 shape.getB().getX().floatValue(),
                 shape.getB().getY().floatValue(),
                 0.1f,
                 0.1f
         );
         b.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
-        b.getFillFormat().setFillType(FillType.Solid);
-        b.getFillFormat().getSolidFillColor().setColor(Color.RED);
+        b.getFillFormat().setFillType(FillType.NoFill);
 
         IAutoShape c = groupShape.getShapes().addAutoShape(
-                ShapeType.Ellipse,
+                ShapeType.Line,
                 shape.getC().getX().floatValue(),
                 shape.getC().getY().floatValue(),
                 0.1f,
                 0.1f
         );
         c.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
-        c.getFillFormat().setFillType(FillType.Solid);
-        c.getFillFormat().getSolidFillColor().setColor(Color.BLUE);
+        c.getFillFormat().setFillType(FillType.NoFill);
 
         SegmentUtil.drawSegment(shapes, a, b, stylesheet);
         SegmentUtil.drawSegment(shapes, b, c, stylesheet);
@@ -292,7 +292,7 @@ public class PPTXShape {
         stylesheet.setFillColor(Color.WHITE);
 
         Shape shape = connector.getEndShape();
-        IAutoShape catalystAnchorPoint = renderAuxiliaryShape(groupShape, shape.getC());
+        IAutoShape catalystAnchorPoint = renderAuxiliaryShape(groupShape, shape.getC(), stylesheet);
         renderShape(groupShape, shape, stylesheet);
         // even though renderShape sets style, we want to keep it generic than we set the catalyst white filling.
 //        setShapeStyle(cs, new Stylesheet().customStyle(1, LineStyle.Single, FillType.Solid, stylesheet.getLineColor(), FillType.Solid, Color.WHITE, (byte) 0));
@@ -320,9 +320,36 @@ public class PPTXShape {
         }
         Shape shape = connector.getEndShape();
         // IMPORTANT: A line didn't work here. Has to be two connected shapes
-        IAutoShape a = renderAuxiliaryShape(groupShape, shape.getA());
-        IAutoShape b = renderAuxiliaryShape(groupShape, shape.getB());
-        IAutoShape centre = renderAuxiliaryShape(groupShape, shape.getC());
+//        IAutoShape a = renderAuxiliaryShape(groupShape, shape.getA(), stylesheet);
+        IAutoShape a = groupShape.getShapes().addAutoShape(
+                ShapeType.Line,
+                shape.getA().getX().floatValue(),
+                shape.getA().getY().floatValue(),
+                0.1f,
+                0.1f
+        );
+        a.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
+        a.getFillFormat().setFillType(FillType.NoFill);
+//        IAutoShape b = renderAuxiliaryShape(groupShape, shape.getB(), stylesheet);
+        IAutoShape b = groupShape.getShapes().addAutoShape(
+                ShapeType.Line,
+                shape.getB().getX().floatValue(),
+                shape.getB().getY().floatValue(),
+                0.1f,
+                0.1f
+        );
+        b.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
+        b.getFillFormat().setFillType(FillType.NoFill);
+//        IAutoShape centre = renderAuxiliaryShape(groupShape, shape.getC(), stylesheet);
+        IAutoShape centre = groupShape.getShapes().addAutoShape(
+                ShapeType.Line,
+                shape.getC().getX().floatValue(),
+                shape.getC().getY().floatValue(),
+                0.1f,
+                0.1f
+        );
+        centre.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
+        centre.getFillFormat().setFillType(FillType.NoFill);
         drawSegment(shapes, a, b, stylesheet);
         shapeMap.put(connector, centre);
     }

@@ -53,7 +53,7 @@ public class PPTXLink {
         PPTXNode from = nodesMap.get(link.getInputs().get(0).getId());
         IAutoShape last = from.getiAutoShape();
         for (Segment segment : link.getSegments()) {
-            IAutoShape step = renderAuxiliaryShape(shapes, segment.getFrom());
+            IAutoShape step = renderAuxiliaryShape(shapes, segment.getFrom(), stylesheet);
             if (from != null) {
                 connect(shapes, from, last, step, false, stylesheet);
             } else {

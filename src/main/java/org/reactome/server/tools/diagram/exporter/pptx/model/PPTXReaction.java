@@ -40,6 +40,8 @@ public class PPTXReaction {
 
     public void render(IShapeCollection shapes) {
         Stylesheet stylesheet = new Stylesheet(profile.getReaction(), FillType.Solid, FillType.Solid, LineStyle.Single);
+        stylesheet.setFillColor(Color.black); // fill color is white in the profile
+        stylesheet.setTextColor(Color.black); // text color is white in the profile
 
         // It checks for all the shapes to be grouped and creates them in advance placing
         // the main shape in reactionShape and the rest in the shapeMap map
@@ -97,13 +99,15 @@ public class PPTXReaction {
         IGroupShape groupShape = shapes.addGroupShape();
         Shape rShape = edge.getReactionShape();
 
-        hiddenReactionShape = renderAuxiliaryShape(groupShape, edge.getPosition());
+        hiddenReactionShape = renderAuxiliaryShape(groupShape, edge.getPosition(), stylesheet);
         if (edge.getIsFadeOut() != null) {
             stylesheet.setLineColor(stylesheet.getFadeOutStroke());
             stylesheet.setFillColor(stylesheet.getFadeOutFill());
         }
         if (edge.getIsDisease() != null) {
             stylesheet.setLineColor(Color.RED);
+            stylesheet.setFillColor(Color.RED);
+            stylesheet.setTextColor(Color.RED);
         }
 
         // rendering reaction shape, we don't need an instance of the shape itself, just rendering
@@ -162,7 +166,7 @@ public class PPTXReaction {
         if (touches(rShape, start)) {
             backboneStart = hiddenReactionShape;
         } else {
-            backboneStart = renderAuxiliaryShape(shapes, start);
+            backboneStart = renderAuxiliaryShape(shapes, start, stylesheet);
         }
         IAutoShape last = backboneStart;
         for (int i = 1; i < edge.getSegments().size(); i++) { //IMPORTANT: It starts in "1" because "0" has been taken above
@@ -171,7 +175,7 @@ public class PPTXReaction {
                 drawSegment(shapes, last, hiddenReactionShape, stylesheet);
                 last = hiddenReactionShape;
             } else {
-                IAutoShape backboneStep = renderAuxiliaryShape(shapes, step);
+                IAutoShape backboneStep = renderAuxiliaryShape(shapes, step, stylesheet);
                 drawSegment(shapes, last, backboneStep, stylesheet);
                 last = backboneStep;
             }
@@ -202,7 +206,7 @@ public class PPTXReaction {
 
                 for (int i = 1; i < connector.getSegments().size(); i++) {
                     Segment segment = connector.getSegments().get(i);
-                    IAutoShape step = renderAuxiliaryShape(shapes, segment.getFrom()); //shapes.addAutoShape(ShapeType.Ellipse, segment.getFrom().getX().floatValue(), segment.getFrom().getY().floatValue(), 1f, 1f);
+                    IAutoShape step = renderAuxiliaryShape(shapes, segment.getFrom(), stylesheet); //shapes.addAutoShape(ShapeType.Ellipse, segment.getFrom().getX().floatValue(), segment.getFrom().getY().floatValue(), 1f, 1f);
 
                     // As we are connecting from node to segment, then the first step should
                     // have the arrow and stoichiometry
@@ -286,7 +290,7 @@ public class PPTXReaction {
         IAutoShape last = start; // not really need, just to make it easy to understand
         for (int i = 0; i < connector.getSegments().size() - 1; i++) {
             Segment segment = connector.getSegments().get(i);
-            IAutoShape step = renderAuxiliaryShape(shapes, segment.getTo());
+            IAutoShape step = renderAuxiliaryShape(shapes, segment.getTo(), stylesheet);
             if (i == 0) { // first step checks the anchor point
                 connectToStoichiometry(shapes, pptxNode, stoich, last, step, false, stylesheet);
             } else {
@@ -314,6 +318,7 @@ public class PPTXReaction {
         // disease has to be set after the fadeOut, then we make sure the red line is on top of the fadeOut
         if (connector.getIsDisease() != null) {
             stylesheet.setLineColor(Color.RED);
+            stylesheet.setFillColor(Color.RED);
             stylesheet.setTextColor(Color.RED);
         }
     }

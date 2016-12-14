@@ -24,7 +24,7 @@ public class SegmentUtil {
      * @param end    end node to be connected
      */
     public static void drawSegment(IShapeCollection shapes, IShape start, IShape end, Stylesheet stylesheet) {
-        IConnector connector = shapes.addConnector(ShapeType.StraightConnector1, start.getX(), start.getY(), 1, 1, true);
+        IConnector connector = shapes.addConnector(ShapeType.StraightConnector1, start.getX(), start.getY(), 10, 10);
         setShapeStyle(connector, stylesheet);
         connector.setStartShapeConnectedTo(start);
         connector.setEndShapeConnectedTo(end);
@@ -43,7 +43,7 @@ public class SegmentUtil {
      * @param renderBeginArrow flag to render an arrow at the beginning of a connector
      */
     public static void connect(IShapeCollection shapes, PPTXNode pptxNode, IShape start, IShape end, boolean renderBeginArrow, Stylesheet stylesheet) {
-        IConnector connector = shapes.addConnector(ShapeType.StraightConnector1, start.getX(), start.getY(), 1, 1, true);
+        IConnector connector = shapes.addConnector(ShapeType.StraightConnector1, start.getX(), start.getY(), 10, 10);
         setShapeStyle(connector, stylesheet);
 
         if (renderBeginArrow) {
@@ -72,8 +72,9 @@ public class SegmentUtil {
         }
 
         connector.setStartShapeConnectedTo(start);
-        connector.setStartShapeConnectionSiteIndex(anchorPoint);
         connector.setEndShapeConnectedTo(end);
+        connector.reroute(); // it takes the shortest possible path between the shapes it connect.
+        connector.setStartShapeConnectionSiteIndex(anchorPoint); // after rerouting we set the start based on our method getAnchorPoint
     }
 
     /**
