@@ -3,16 +3,16 @@ package org.reactome.server.tools.diagram.exporter.common.profiles.factory;
 /**
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
  */
-public class DiagramProfileException extends Exception {
+public class DiagramJsonException extends Exception {
 
     @SuppressWarnings("UnusedDeclaration")
-    public DiagramProfileException() {
+    public DiagramJsonException() {
     }
 
-    public DiagramProfileException(String message, Throwable cause) {
+    public DiagramJsonException(String message, Throwable cause) {
         super(message, cause);
     }
-    public DiagramProfileException(String message) {
+    public DiagramJsonException(String message) {
         super(message);
     }
 }

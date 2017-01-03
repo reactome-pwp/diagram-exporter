@@ -5,9 +5,12 @@ import org.reactome.server.tools.diagram.data.DiagramFactory;
 import org.reactome.server.tools.diagram.data.exception.DeserializationException;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.exporter.DiagramExporter;
+import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileFactory;
 import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
+import org.reactome.server.tools.diagram.exporter.pptx.exception.DiagramExporterException;
+import org.reactome.server.tools.diagram.exporter.pptx.exception.LicenseException;
 import org.reactome.server.tools.diagram.exporter.pptx.parser.DiagramPresentation;
 
 import java.io.IOException;
@@ -20,28 +23,39 @@ import java.nio.file.Paths;
  */
 public class PowerPointExporter {
 
-    public static void export(String pathway, DiagramProfile profile, String path) {
-        Diagram diagram = null;
+    public static void export(String pathway, String profileName, String path) throws DiagramExporterException {
         try {
-            diagram = getDiagram(pathway);
-        } catch (DeserializationException | IOException e) {
-            System.err.println("Oops! We have a problem!"); //TODO: log this and recover?
-            e.printStackTrace();
-            System.exit(1);
+            Diagram diagram = getDiagram(pathway);
+            DiagramProfile profile = getDiagramProfile(profileName);
+
+            DiagramPresentation diagramPresentation = new DiagramPresentation(diagram, profile);
+            diagramPresentation.export();
+            diagramPresentation.save(path);
+        } catch (LicenseException e) {
+            throw new DiagramExporterException(e);
+        } catch (DiagramProfileException | DiagramJsonException e) {
+            throw new DiagramExporterException(e.getMessage());
         }
-
-        DiagramPresentation diagramPresentation = new DiagramPresentation(diagram, profile);
-        diagramPresentation.export();
-        diagramPresentation.save(path);
     }
 
-    public static DiagramProfile getDiagramProfile(String name) throws DiagramProfileException, IOException {
+    public static DiagramProfile getDiagramProfile(String name) throws DiagramProfileException {
         InputStream is = DiagramExporter.class.getResourceAsStream("/profiles/" + name + ".json");
-        return DiagramProfileFactory.getModelObject(IOUtils.toString(is));
+        try {
+            return DiagramProfileFactory.getModelObject(IOUtils.toString(is));
+        } catch (IOException e) {
+            throw new DiagramProfileException("Could not read diagram color profile " + name);
+        }
     }
 
-    private static Diagram getDiagram(String identifier) throws DeserializationException, IOException {
-        String json = new String(Files.readAllBytes(Paths.get("/Users/reactome/diagram/static/" + identifier + ".json")));
-        return DiagramFactory.getDiagram(json);
+    private static Diagram getDiagram(String pathway) throws DiagramJsonException {
+        if (!pathway.endsWith(".json")) pathway += ".json";
+        try {
+            String json = new String(Files.readAllBytes(Paths.get(pathway)));
+            return DiagramFactory.getDiagram(json);
+        } catch (DeserializationException e) {
+            throw new DiagramJsonException("Could not deserialize diagram json for pathway " + pathway);
+        } catch (IOException e) {
+            throw new DiagramJsonException("Could not read diagram profile for pathway " + pathway);
+        }
     }
 }

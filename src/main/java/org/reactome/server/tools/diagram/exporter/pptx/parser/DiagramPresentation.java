@@ -4,6 +4,7 @@ import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.*;
 import org.reactome.server.tools.diagram.exporter.DiagramExporter;
 import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
+import org.reactome.server.tools.diagram.exporter.pptx.exception.LicenseException;
 import org.reactome.server.tools.diagram.exporter.pptx.model.*;
 
 import java.awt.*;
@@ -32,10 +33,9 @@ public class DiagramPresentation {
         shapes = slide.getShapes();
     }
 
-    public void export() {
+    public void export() throws LicenseException {
         if (!isLicensed()) {
-            System.out.println("Missing Software License.");
-            System.exit(1); // does not make sense continue the process here - files will be all wrong :)
+            throw new LicenseException();
         }
 
         // Set slide size.
@@ -91,9 +91,9 @@ public class DiagramPresentation {
 
     }
 
-    public void save(String path) {
-        String fileName = path + diagram.getStableId() + ".pptx";
-        presentation.save(fileName, SaveFormat.Pptx);
+    public void save(String fullPath) {
+        // full path already contains the file name and the extension.
+        presentation.save(fullPath, SaveFormat.Pptx);
     }
 
     /**
