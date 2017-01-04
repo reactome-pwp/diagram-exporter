@@ -14,7 +14,7 @@ public class DiagramExporter {
     public static void main(String[] args) throws Exception {
         for (ColorProfiles colorProfile : ColorProfiles.values()) {
             for (String stId : getStId()) {
-                String outputPath = "/Users/reactome/diagram/exporter/" + colorProfile.name() + "/" + stId;
+                String outputPath = "/Users/reactome/diagram/exporter/" + colorProfile.name() + "/" + stId + ".pptx";
                 PowerPointExporter.export("/Users/reactome/diagram/static/" + stId, colorProfile.name(), outputPath);
             }
         }
