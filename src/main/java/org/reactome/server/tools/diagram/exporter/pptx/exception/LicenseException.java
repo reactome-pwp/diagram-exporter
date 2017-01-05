@@ -7,6 +7,6 @@ package org.reactome.server.tools.diagram.exporter.pptx.exception;
 public class LicenseException extends Exception {
 
     public LicenseException() {
-        super("ERROR-10100 Could export to Power Point. Please contact help@reactome.org and provide the given error code");
+        super("Could not export to Power Point. Service is unavailable.");
     }
 }
