@@ -2,6 +2,7 @@ package org.reactome.server.tools.diagram.exporter;
 
 import org.reactome.server.tools.diagram.exporter.pptx.PowerPointExporter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,10 @@ public class DiagramExporter {
     public static void main(String[] args) throws Exception {
         for (ColorProfiles colorProfile : ColorProfiles.values()) {
             for (String stId : getStId()) {
-                String outputPath = "/Users/reactome/diagram/exporter/" + colorProfile.name() + "/" + stId + ".pptx";
-                PowerPointExporter.export("/Users/reactome/diagram/static/" + stId, colorProfile.name(), outputPath);
+                File path = new File("/Users/reactome/diagram/exporter/" + colorProfile.name());
+                if(!path.exists()) path.mkdirs();
+                String outputFile = path.getPath() + "/" + stId + ".pptx";
+                PowerPointExporter.export("/Users/reactome/diagram/static/" + stId, colorProfile.name(), outputFile);
             }
         }
         System.out.println("Diagrams exported.");
