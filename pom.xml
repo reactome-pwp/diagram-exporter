@@ -32,7 +32,6 @@
     </developers>
 
     <properties>
-        <logback.version>1.1.6</logback.version>
         <junit.version>4.12</junit.version>
 
         <!--build-->
@@ -72,7 +71,7 @@
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
+            <version>LATEST</version>
         </dependency>
 
         <dependency>
@@ -109,15 +108,15 @@
                     <target>${jdk.version}</target>
                 </configuration>
             </plugin>
-            <!--<plugin>-->
-                <!--<artifactId>maven-jar-plugin</artifactId>-->
-                <!--<version>${maven.jar.version}</version>-->
-                <!--<configuration>-->
-                    <!--<excludes>-->
-                        <!--<exclude>**/logback.xml</exclude>-->
-                    <!--</excludes>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
+            <plugin>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/logback.xml</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
 
             <!-- Generate jar with dependencies -->
             <plugin>
