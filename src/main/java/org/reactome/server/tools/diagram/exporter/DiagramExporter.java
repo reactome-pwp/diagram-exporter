@@ -13,6 +13,8 @@ public class DiagramExporter {
 
     // TODO Convert this Class to a TEST Class
     public static void main(String[] args) throws Exception {
+        // Because the graph-core is not a dependency of this project and won't be, then once the files are exported
+        // we won't create the dbVersion folder. This class is for testing only.
         for (ColorProfiles colorProfile : ColorProfiles.values()) {
             for (String stId : getStId()) {
                 File path = new File("/Users/reactome/diagram/exporter/" + colorProfile.name());
