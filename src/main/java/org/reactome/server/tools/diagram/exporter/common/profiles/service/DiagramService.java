@@ -24,7 +24,7 @@ public class DiagramService {
      * @throws DiagramJsonDeserializationException, DiagramProfileException, DiagramJsonNotFoundException, LicenseException
      */
     public File exportToPPTX(String diagramJsonFullpath, String profileName, String outputPath) throws DiagramJsonDeserializationException, DiagramProfileException, DiagramJsonNotFoundException, LicenseException {
-        PowerPointExporter.export(diagramJsonFullpath, profileName, outputPath);
+        PowerPointExporter.export(diagramJsonFullpath, profileName.toLowerCase(), outputPath);
         return new File(outputPath);
     }
 }

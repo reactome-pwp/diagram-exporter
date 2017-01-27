@@ -17,10 +17,10 @@ public class DiagramExporter {
         // we won't create the dbVersion folder. This class is for testing only.
         for (ColorProfiles colorProfile : ColorProfiles.values()) {
             for (String stId : getStId()) {
-                File path = new File("/Users/reactome/diagram/exporter/" + colorProfile.name());
+                File path = new File("/Users/reactome/diagram/exporter/" + colorProfile.name().toLowerCase());
                 if(!path.exists()) path.mkdirs();
                 String outputFile = path.getPath() + "/" + stId + ".pptx";
-                PowerPointExporter.export("/Users/reactome/diagram/static/" + stId, colorProfile.name(), outputFile);
+                PowerPointExporter.export("/Users/reactome/diagram/static/" + stId, colorProfile.name().toLowerCase(), outputFile);
             }
         }
         System.out.println("Diagrams exported.");
