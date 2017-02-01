@@ -28,7 +28,6 @@ public class PPTXShape {
     public static IAutoShape renderShape(IGroupShape group, Shape rctShape, Stylesheet stylesheet, Adjustment adjustment) {
         switch (rctShape.getType()) {
             case "CIRCLE":
-//                float correction = rctShape.getR().floatValue();
                 NodeProperties npC = NodePropertiesFactory.transform(NodePropertiesFactory.get(rctShape.getC().getX().floatValue(), rctShape.getC().getY().floatValue(), rctShape.getR().floatValue(), rctShape.getR().floatValue()), adjustment.getFactor(), adjustment.getCoordinate());
                 float correction = npC.getWidth().floatValue();
                 IAutoShape circle = group.getShapes().addAutoShape(
@@ -42,7 +41,6 @@ public class PPTXShape {
                 circle.getAutoShapeLock().setSizeLocked(true);
                 return circle;
             case "DOUBLE_CIRCLE":
-//                correction = rctShape.getR().floatValue();
                 NodeProperties npDC = NodePropertiesFactory.transform(NodePropertiesFactory.get(rctShape.getC().getX().floatValue(), rctShape.getC().getY().floatValue(), rctShape.getR().floatValue(), rctShape.getR().floatValue()), adjustment.getFactor(), adjustment.getCoordinate());
                 correction = npDC.getWidth().floatValue();
                 IAutoShape dCircle = group.getShapes().addAutoShape(
@@ -262,10 +260,8 @@ public class PPTXShape {
         SegmentUtil.drawSegment(shapes, b, c, stylesheet);
         SegmentUtil.drawSegment(shapes, c, a, stylesheet);
 
-//        float x = (shape.getA().getX().floatValue() + shape.getC().getX().floatValue()) / 2f;
-//        float y = (shape.getA().getY().floatValue() + shape.getC().getY().floatValue()) / 2f;
-        float x = (npA.getX().floatValue() + npC.getX().floatValue()) / 2f;
-        float y = (npA.getY().floatValue() + npC.getY().floatValue()) / 2f;
+        float x = (shape.getA().getX().floatValue() + shape.getC().getX().floatValue()) / 2f;
+        float y = (shape.getA().getY().floatValue() + shape.getC().getY().floatValue()) / 2f;
 
         IAutoShape centre = renderAuxiliaryShape(groupShape, x, y, adjustment);
         centre.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
