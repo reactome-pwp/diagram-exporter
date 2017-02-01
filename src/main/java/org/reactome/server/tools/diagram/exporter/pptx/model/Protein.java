@@ -48,11 +48,13 @@ public class Protein extends PPTXNode {
                         np.getWidth().floatValue(),
                         np.getHeight().floatValue()
                 );
-
                 setShapeStyle(box, stylesheet);
 
+                if(nodeAttachment.getDescription() != null) {
+                    box.setName(nodeAttachment.getDescription());
+                }
                 if (nodeAttachment.getLabel() != null) {
-                    setTextFrame(box, nodeAttachment.getLabel(), new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 8, true, false, null);
+                    setTextFrame(box, nodeAttachment.getLabel(), new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 8, true, false, null, adjustment);
                 }
 
                 // block the nodeattachments to be selected :)

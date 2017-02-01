@@ -35,7 +35,7 @@ public class Gene extends PPTXNode {
         iAutoShape = iGroupShape.getShapes().addAutoShape(shapeType, x, y + width / 2, width, height - 20);
 
         setShapeStyle(iAutoShape, stylesheet);
-        setTextFrame(iAutoShape, displayName, new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 8, true, true, reactomeId);
+        setTextFrame(iAutoShape, displayName, new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 8, true, true, reactomeId, adjustment);
 
         IAutoShape topThickLine = iGroupShape.getShapes().addAutoShape(ShapeType.Line, iAutoShape.getX(), iAutoShape.getY(), iAutoShape.getWidth() - 2, 0f);
         setShapeStyle(topThickLine, new Stylesheet().customStyle(3, LineStyle.Single, FillType.Solid, Color.BLACK, FillType.Solid, Color.BLACK, stylesheet.getLineDashStyle()));

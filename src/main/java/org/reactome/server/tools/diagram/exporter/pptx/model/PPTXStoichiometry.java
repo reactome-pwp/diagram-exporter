@@ -33,7 +33,7 @@ public class PPTXStoichiometry {
         float yCenter = (shape.getA().getY().floatValue() + shape.getB().getY().floatValue()) / 2;
         hiddenCenterShape = renderAuxiliaryShape(iGroupShape, xCenter, yCenter, adjustment);
         iAutoShape = renderShape(iGroupShape, shape, stylesheet, adjustment);
-        setTextFrame(iAutoShape, value.toString(), new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 8, true, false, null);
+        setTextFrame(iAutoShape, value.toString(), new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 8, true, false, null, adjustment);
         iGroupShape.getGroupShapeLock().setSizeLocked(true);
         return this;
     }

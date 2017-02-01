@@ -66,7 +66,7 @@ public class PPTXShape {
                 setShapeStyle(box, new Stylesheet().customStyle(1, LineStyle.NotDefined, FillType.Solid, stylesheet.getLineColor(), FillType.Solid, Color.WHITE, stylesheet.getLineDashStyle()));
                 box.getAutoShapeLock().setSizeLocked(true);
                 if (rctShape.getS() != null) {
-                    setTextFrame(box, rctShape.getS(), new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 6, true, false, null);
+                    setTextFrame(box, rctShape.getS(), new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 6, true, false, null, adjustment);
                 }
                 return box;
             default:
@@ -189,7 +189,8 @@ public class PPTXShape {
                                     float fontHeight,
                                     boolean bold,
                                     boolean addHyperlink,
-                                    Long stId) {
+                                    Long stId,
+                                    Adjustment adjustment) {
 
         shape.addTextFrame("");
 
@@ -200,7 +201,7 @@ public class PPTXShape {
         txtFrame.getTextFrameFormat().setMarginRight(margins[3]);
 
         IPortion portion = txtFrame.getParagraphs().get_Item(0).getPortions().get_Item(0);
-        portion.getPortionFormat().setFontHeight(fontHeight);
+        portion.getPortionFormat().setFontHeight(((float)(fontHeight * adjustment.getFactor())));
         portion.getPortionFormat().getFillFormat().setFillType(FillType.Solid);
 
         if (bold) portion.getPortionFormat().setFontBold(NullableBool.True);

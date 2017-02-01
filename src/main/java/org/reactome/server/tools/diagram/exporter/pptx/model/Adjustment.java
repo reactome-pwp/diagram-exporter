@@ -30,10 +30,10 @@ public class Adjustment {
             if (factorHeight < factorWidth) {
                 factor = factorHeight;
                 slideHeight = slideHeight * factorHeight;
-                slideWidth = slideWidth * factorHeight; // test
+//                slideWidth = slideWidth * factorHeight; // test
             } else {
                 factor = factorWidth;
-                slideHeight = slideHeight * factorWidth; // test
+//                slideHeight = slideHeight * factorWidth; // test ( then we need the Coordinate :) )
                 slideWidth = slideWidth * factorWidth;
             }
         }

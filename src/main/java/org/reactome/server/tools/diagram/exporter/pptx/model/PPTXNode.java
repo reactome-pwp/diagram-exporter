@@ -83,8 +83,9 @@ public abstract class PPTXNode {
 
     final void render(IShapeCollection shapes, int shapeType, Stylesheet stylesheet) {
         iGroupShape = shapes.addGroupShape();
+        iGroupShape.setName("[GROUP] Node");
         iAutoShape = iGroupShape.getShapes().addAutoShape(shapeType, x, y, width, height);
-
+        iAutoShape.setName(displayName);
         if (isFadeOut) {
             stylesheet.setFillColor(stylesheet.getFadeOutFill());
             stylesheet.setLineColor(stylesheet.getFadeOutStroke());
@@ -113,7 +114,7 @@ public abstract class PPTXNode {
         }
 
         setShapeStyle(iAutoShape, stylesheet);
-        setTextFrame(iAutoShape, displayName, new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 10, true, true, reactomeId);
+        setTextFrame(iAutoShape, displayName, new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 10, true, true, reactomeId, adjustment);
     }
 
     @Override

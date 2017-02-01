@@ -39,7 +39,9 @@ public class EntityCompartment {
 
     public void render(IShapeCollection shapes) {
         iGroupShape = shapes.addGroupShape();
+        iGroupShape.setName("[Group] Compartment");
         IAutoShape iAutoShape = iGroupShape.getShapes().addAutoShape(ShapeType.RoundCornerRectangle, x, y, width, height);
+        iAutoShape.setName(displayName);
         ILineFormat lineFormat = iAutoShape.getLineFormat();
         lineFormat.setWidth(stylesheet.getLineWidth());
         lineFormat.setStyle(stylesheet.getLineStyle());
@@ -52,6 +54,7 @@ public class EntityCompartment {
         if (insets != null) {
             NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(insets.getX().floatValue(), insets.getY().floatValue(), insets.getWidth().floatValue(), insets.getHeight().floatValue()), adjustment.getFactor(), adjustment.getCoordinate());
             IAutoShape insetAutoShape = iGroupShape.getShapes().addAutoShape(ShapeType.RoundCornerRectangle, np.getX().floatValue(), np.getY().floatValue(), np.getWidth().floatValue(), np.getHeight().floatValue());
+            insetAutoShape.setName("comparment inset");
             ILineFormat insetLineFormat = insetAutoShape.getLineFormat();
             insetLineFormat.setWidth(stylesheet.getLineWidth());
             insetLineFormat.setStyle(stylesheet.getLineStyle());
@@ -95,6 +98,7 @@ public class EntityCompartment {
     private void addTextbox() {
         NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(textPosition.getX().floatValue(), textPosition.getY().floatValue(), 110, 50), adjustment.getFactor(), adjustment.getCoordinate());
         IAutoShape textBox = iGroupShape.getShapes().addAutoShape(ShapeType.Rectangle, np.getX().floatValue(), np.getY().floatValue(), np.getWidth().floatValue(), np.getHeight().floatValue());
+        textBox.setName("TextBox");
         textBox.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         textBox.getFillFormat().setFillType(FillType.NoFill);
         textBox.addTextFrame(" ");
@@ -102,7 +106,7 @@ public class EntityCompartment {
         IPortion portion = iParagraph.getPortions().get_Item(0);
         portion.getPortionFormat().getFillFormat().setFillType(FillType.Solid);
         portion.getPortionFormat().getFillFormat().getSolidFillColor().setColor(stylesheet.getTextColor());
-        portion.getPortionFormat().setFontHeight(10);
+        portion.getPortionFormat().setFontHeight((float)(10*adjustment.getFactor()));
         portion.getPortionFormat().setFontBold(NullableBool.True);
         portion.setText(displayName);
     }
