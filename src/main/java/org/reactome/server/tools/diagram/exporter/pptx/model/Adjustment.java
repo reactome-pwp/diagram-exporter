@@ -20,8 +20,8 @@ public class Adjustment {
     private Coordinate coordinate;
 
     public Adjustment(Diagram diagram) {
-        slideWidth = (diagram.getMaxX().doubleValue() - diagram.getMinX().doubleValue()) + 70;
-        slideHeight = (diagram.getMaxY().doubleValue() - diagram.getMinY().doubleValue()) + 70;
+        slideWidth = diagram.getMaxX().doubleValue() + 70;
+        slideHeight = diagram.getMaxY().doubleValue() + 70;
 
         // size exceeded, calculate the factor
         if (slideWidth > MAX_WIDTH || slideHeight > MAX_HEIGHT) {
