@@ -3,6 +3,8 @@ package org.reactome.server.tools.diagram.exporter.pptx.model;
 import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Connector;
 import org.reactome.server.tools.diagram.data.layout.Node;
+import org.reactome.server.tools.diagram.data.layout.NodeProperties;
+import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
 
 import java.awt.*;
@@ -36,16 +38,19 @@ public abstract class PPTXNode {
     private boolean isDisease;
     private boolean isCrossed;
     private boolean needDashedBorder;
+    protected Adjustment adjustment;
 
-    public PPTXNode(Node node) {
+    public PPTXNode(Node node, Adjustment adjustment) {
         this.reactomeId = node.getReactomeId();
         this.schemaClass = node.getSchemaClass();
+        this.adjustment = adjustment;
 
+        NodeProperties nodeProperties = NodePropertiesFactory.transform(node.getProp(), adjustment.getFactor(), adjustment.getCoordinate());
         this.id = node.getId();
-        this.x = node.getProp().getX().floatValue();
-        this.y = node.getProp().getY().floatValue();
-        this.width = node.getProp().getWidth().floatValue();
-        this.height = node.getProp().getHeight().floatValue();
+        this.x = nodeProperties.getX().floatValue();
+        this.y = nodeProperties.getY().floatValue();
+        this.width = nodeProperties.getWidth().floatValue();
+        this.height = nodeProperties.getHeight().floatValue();
         this.displayName = node.getDisplayName();
         this.connectors = node.getConnectors();
         this.isDisease = node.getIsDisease() == null ? false : node.getIsDisease();

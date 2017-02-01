@@ -18,8 +18,8 @@ public class EncapsulatedPathway extends PPTXNode {
     private byte lineFillType = FillType.Solid;
     private byte lineStyle = LineStyle.Single;
 
-    public EncapsulatedPathway(Node node) {
-        super(node);
+    public EncapsulatedPathway(Node node, Adjustment adjustment) {
+        super(node, adjustment);
     }
 
     @Override

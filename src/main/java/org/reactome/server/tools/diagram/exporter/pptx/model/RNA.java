@@ -19,8 +19,8 @@ public class RNA extends PPTXNode {
     private byte lineFillType = FillType.Solid;
     private byte lineStyle = LineStyle.Single;
 
-    public RNA(Node node) {
-        super(node);
+    public RNA(Node node, Adjustment adjustment) {
+        super(node, adjustment);
     }
 
     @Override

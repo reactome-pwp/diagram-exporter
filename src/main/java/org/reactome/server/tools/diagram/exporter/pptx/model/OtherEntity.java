@@ -19,8 +19,8 @@ public class OtherEntity extends PPTXNode {
     private byte lineFillType = FillType.Solid;
     private byte lineStyle = LineStyle.Single;
 
-    public OtherEntity(Node node) {
-        super(node);
+    public OtherEntity(Node node, Adjustment adjustment) {
+        super(node, adjustment);
     }
 
     @Override

@@ -20,8 +20,8 @@ public class EntitySet extends PPTXNode {
     private byte lineStyle = LineStyle.ThinThin;
     private double lineWidth = 3;
 
-    public EntitySet(Node node) {
-        super(node);
+    public EntitySet(Node node, Adjustment adjustment) {
+        super(node, adjustment);
     }
 
     @Override

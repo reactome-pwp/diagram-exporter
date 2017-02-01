@@ -19,19 +19,22 @@ public class PPTXStoichiometry {
 
     private Integer value;
     private Shape shape;
+    private Adjustment adjustment;
 
-    public PPTXStoichiometry(Stoichiometry stoichiometry) {
+    public PPTXStoichiometry(Stoichiometry stoichiometry, Adjustment adjustment) {
         this.shape = stoichiometry.getShape();
         this.value = stoichiometry.getValue();
+        this.adjustment = adjustment;
     }
 
     public PPTXStoichiometry render(IShapeCollection shapes, Stylesheet stylesheet) {
         iGroupShape = shapes.addGroupShape();
         float xCenter = (shape.getA().getX().floatValue() + shape.getB().getX().floatValue()) / 2;
         float yCenter = (shape.getA().getY().floatValue() + shape.getB().getY().floatValue()) / 2;
-        hiddenCenterShape = renderAuxiliaryShape(iGroupShape, xCenter, yCenter);
-        iAutoShape = renderShape(iGroupShape, shape, stylesheet);
+        hiddenCenterShape = renderAuxiliaryShape(iGroupShape, xCenter, yCenter, adjustment);
+        iAutoShape = renderShape(iGroupShape, shape, stylesheet, adjustment);
         setTextFrame(iAutoShape, value.toString(), new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 8, true, false, null);
+        iGroupShape.getGroupShapeLock().setSizeLocked(true);
         return this;
     }
 

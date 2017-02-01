@@ -20,10 +20,12 @@ public class PPTXLink {
     private Map<Long, PPTXNode> nodesMap;
     private boolean dashed;
     private boolean renderBeginArrow;
+    private Adjustment adjustment;
 
-    public PPTXLink(Link link, Map<Long, PPTXNode> nodesMap) {
+    public PPTXLink(Link link, Map<Long, PPTXNode> nodesMap, Adjustment adjustment) {
         this.link = link;
         this.nodesMap = nodesMap;
+        this.adjustment = adjustment;
 
         switch (link.getRenderableClass()) {
             case "EntitySetAndMemberLink":
@@ -54,7 +56,7 @@ public class PPTXLink {
         PPTXNode from = nodesMap.get(link.getInputs().get(0).getId());
         IAutoShape last = from.getiAutoShape();
         for (Segment segment : link.getSegments()) {
-            IAutoShape step = renderAuxiliaryShape(shapes, segment.getFrom(), stylesheet);
+            IAutoShape step = renderAuxiliaryShape(shapes, segment.getFrom(), stylesheet, adjustment);
             if (from != null) {
                 connect(shapes, from, last, step, false, stylesheet);
             } else {

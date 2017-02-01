@@ -19,8 +19,8 @@ public class Complex extends PPTXNode {
     // Shape that the connector will be connected. This is a simple rectangle with 4 anchor points only
     private IAutoShape anchorShape;
 
-    public Complex(Node node) {
-        super(node);
+    public Complex(Node node, Adjustment adjustment) {
+        super(node, adjustment);
     }
 
     public IAutoShape getAnchorShape() {

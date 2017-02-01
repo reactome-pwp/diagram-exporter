@@ -2,7 +2,9 @@ package org.reactome.server.tools.diagram.exporter.pptx.model;
 
 import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Coordinate;
+import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.Note;
+import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
 
 /**
@@ -15,17 +17,22 @@ public class CompartmentNote {
     private String displayName;
     private Coordinate textPosition;
     private Stylesheet stylesheet;
+    private Adjustment adjustment;
 
-    public CompartmentNote(Note note, DiagramProfile profile) {
-        this.width = note.getProp().getWidth().floatValue();
-        this.height = note.getProp().getHeight().floatValue();
+    public CompartmentNote(Note note, DiagramProfile profile, Adjustment adjustment) {
+        NodeProperties nodeProperties = NodePropertiesFactory.transform(note.getProp(), adjustment.getFactor(), adjustment.getCoordinate());
+
+        this.width = nodeProperties.getWidth().floatValue();
+        this.height = nodeProperties.getHeight().floatValue();
         this.displayName = note.getDisplayName();
         this.textPosition = note.getTextPosition();
         this.stylesheet = new Stylesheet(profile.getNote());
+        this.adjustment = adjustment;
     }
 
     public void render(IShapeCollection shapes) {
-        IAutoShape iAutoShape = shapes.addAutoShape(ShapeType.Rectangle, textPosition.getX().floatValue(), textPosition.getY().floatValue(), width, height);
+        NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(textPosition.getX().floatValue(), textPosition.getY().floatValue(), width, height), adjustment.getFactor(), adjustment.getCoordinate());
+        IAutoShape iAutoShape = shapes.addAutoShape(ShapeType.Rectangle, np.getX().floatValue(), np.getY().floatValue(), np.getWidth().floatValue(), np.getHeight().floatValue());
         iAutoShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         iAutoShape.getFillFormat().setFillType(FillType.NoFill);
         iAutoShape.addTextFrame(" ");

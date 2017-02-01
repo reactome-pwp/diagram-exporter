@@ -23,8 +23,8 @@ public class Gene extends PPTXNode {
     // Shape that the connector will be connected. This is a simple line with 2 anchor points only
     private IAutoShape anchorShape;
 
-    public Gene(Node node) {
-        super(node);
+    public Gene(Node node, Adjustment adjustment) {
+        super(node, adjustment);
     }
 
     @Override

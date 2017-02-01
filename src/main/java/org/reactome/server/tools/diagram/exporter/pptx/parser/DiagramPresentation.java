@@ -38,26 +38,28 @@ public class DiagramPresentation {
             throw new LicenseException();
         }
 
+        Adjustment adjustment = new Adjustment(diagram);
+
         // Set slide size.
-        Dimension pageSize = new Dimension(diagram.getMaxX() + 70, diagram.getMaxY() + 70);
+        Dimension pageSize = new Dimension(adjustment.getSlideWidth(), adjustment.getSlideHeight());
         presentation.getSlideSize().setSize(pageSize);
 
         // Render Compartments
         Collections.reverse(diagram.getCompartments());
         for (Compartment compartment : diagram.getCompartments()) {
-            EntityCompartment entityCompartment = new EntityCompartment(compartment, profile);
+            EntityCompartment entityCompartment = new EntityCompartment(compartment, profile, adjustment);
             entityCompartment.render(shapes);
         }
 
         // Render Notes
         for (Note note : diagram.getNotes()) {
-            CompartmentNote compartmentNote = new CompartmentNote(note, profile);
+            CompartmentNote compartmentNote = new CompartmentNote(note, profile, adjustment);
             compartmentNote.render(shapes);
         }
 
         // Render Nodes
         for (Node node : diagram.getNodes()) {
-            PPTXNode pptxNode = getNode(node);
+            PPTXNode pptxNode = getNode(node, adjustment);
             nodesMap.put(pptxNode.getId(), pptxNode); //If two nodes share identifier, only the second one is kept >> NOTE: It shouldn't happen //TODO: Report?
             pptxNode.render(shapes, profile);
         }
@@ -69,20 +71,20 @@ public class DiagramPresentation {
             if (edge.getIsDisease() != null) {
                 diseaseEdges.add(edge);
             } else {
-                PPTXReaction pptxReaction = new PPTXReaction(edge, nodesMap, profile);
+                PPTXReaction pptxReaction = new PPTXReaction(edge, nodesMap, profile, adjustment);
                 pptxReaction.render(shapes);
             }
         }
 
         // Render disease edges
         for (Edge diseaseEdge : diseaseEdges) {
-            PPTXReaction pptxReaction = new PPTXReaction(diseaseEdge, nodesMap, profile);
+            PPTXReaction pptxReaction = new PPTXReaction(diseaseEdge, nodesMap, profile, adjustment);
             pptxReaction.render(shapes);
         }
 
         // Render Links
         for (Link link : diagram.getLinks()) {
-            PPTXLink pptxLink = new PPTXLink(link, nodesMap);
+            PPTXLink pptxLink = new PPTXLink(link, nodesMap, adjustment);
             pptxLink.render(shapes, profile);
         }
 
@@ -102,36 +104,36 @@ public class DiagramPresentation {
      * @param node a diagram layout node
      * @return instance of PPTXNode
      */
-    private PPTXNode getNode(Node node) {
+    private PPTXNode getNode(Node node, Adjustment adjustment) {
         PPTXNode pptxNode;
         switch (node.getSchemaClass()) {
             case "Complex":
-                pptxNode = new Complex(node);
+                pptxNode = new Complex(node, adjustment);
                 break;
             case "DefinedSet":
             case "CandidateSet":
             case "OpenSet":
-                pptxNode = new EntitySet(node);
+                pptxNode = new EntitySet(node, adjustment);
                 break;
             case "EntityWithAccessionedSequence":
-                pptxNode = new Protein(node);
+                pptxNode = new Protein(node, adjustment);
                 if (Objects.equals(node.getRenderableClass(), "Gene")) {
-                    pptxNode = new Gene(node);
+                    pptxNode = new Gene(node, adjustment);
                 }
                 if (Objects.equals(node.getRenderableClass(), "RNA")) {
-                    pptxNode = new RNA(node);
+                    pptxNode = new RNA(node, adjustment);
                 }
                 break;
             case "GenomeEncodedEntity":
             case "OtherEntity":
             case "Polymer":
-                pptxNode = new OtherEntity(node);
+                pptxNode = new OtherEntity(node, adjustment);
                 break;
             case "SimpleEntity":
-                pptxNode = new Chemical(node);
+                pptxNode = new Chemical(node, adjustment);
                 break;
             case "Pathway":
-                pptxNode = new EncapsulatedPathway(node);
+                pptxNode = new EncapsulatedPathway(node, adjustment);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid schema class [" + node.getSchemaClass() + "]. Create the switch-case for the given class");
