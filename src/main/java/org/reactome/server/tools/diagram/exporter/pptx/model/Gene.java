@@ -32,6 +32,7 @@ public class Gene extends PPTXNode {
         Stylesheet stylesheet = new Stylesheet(profile.getGene(), shapeFillType, lineFillType, lineStyle);
 
         iGroupShape = shapes.addGroupShape();
+        iGroupShape.setName("[GROUP] Gene");
         iAutoShape = iGroupShape.getShapes().addAutoShape(shapeType, x, y + width / 2, width, height - 20);
 
         setShapeStyle(iAutoShape, stylesheet);

@@ -20,7 +20,7 @@ public class CompartmentNote {
     private Adjustment adjustment;
 
     public CompartmentNote(Note note, DiagramProfile profile, Adjustment adjustment) {
-        NodeProperties nodeProperties = NodePropertiesFactory.transform(note.getProp(), adjustment.getFactor(), adjustment.getCoordinate());
+        NodeProperties nodeProperties = NodePropertiesFactory.transform(note.getProp(), adjustment.getFactor(), adjustment.getPanning());
 
         this.width = nodeProperties.getWidth().floatValue();
         this.height = nodeProperties.getHeight().floatValue();
@@ -31,8 +31,9 @@ public class CompartmentNote {
     }
 
     public void render(IShapeCollection shapes) {
-        NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(textPosition.getX().floatValue(), textPosition.getY().floatValue(), width, height), adjustment.getFactor(), adjustment.getCoordinate());
+        NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(textPosition.getX().floatValue(), textPosition.getY().floatValue(), width, height), adjustment.getFactor(), adjustment.getPanning());
         IAutoShape iAutoShape = shapes.addAutoShape(ShapeType.Rectangle, np.getX().floatValue(), np.getY().floatValue(), np.getWidth().floatValue(), np.getHeight().floatValue());
+        iAutoShape.setName(displayName);
         iAutoShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         iAutoShape.getFillFormat().setFillType(FillType.NoFill);
         iAutoShape.addTextFrame(" ");

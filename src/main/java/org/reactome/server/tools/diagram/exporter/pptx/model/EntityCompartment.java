@@ -25,7 +25,7 @@ public class EntityCompartment {
     private Adjustment adjustment;
 
     public EntityCompartment(Compartment compartment, DiagramProfile profile, Adjustment adjustment) {
-        NodeProperties nodeProperties = NodePropertiesFactory.transform(compartment.getProp(), adjustment.getFactor(), adjustment.getCoordinate());
+        NodeProperties nodeProperties = NodePropertiesFactory.transform(compartment.getProp(), adjustment.getFactor(), adjustment.getPanning());
         this.x = nodeProperties.getX().floatValue();
         this.y = nodeProperties.getY().floatValue();
         this.width = nodeProperties.getWidth().floatValue();
@@ -52,9 +52,9 @@ public class EntityCompartment {
         fillFormat.getSolidFillColor().setColor(stylesheet.getFillColor());
 
         if (insets != null) {
-            NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(insets.getX().floatValue(), insets.getY().floatValue(), insets.getWidth().floatValue(), insets.getHeight().floatValue()), adjustment.getFactor(), adjustment.getCoordinate());
+            NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(insets.getX().floatValue(), insets.getY().floatValue(), insets.getWidth().floatValue(), insets.getHeight().floatValue()), adjustment.getFactor(), adjustment.getPanning());
             IAutoShape insetAutoShape = iGroupShape.getShapes().addAutoShape(ShapeType.RoundCornerRectangle, np.getX().floatValue(), np.getY().floatValue(), np.getWidth().floatValue(), np.getHeight().floatValue());
-            insetAutoShape.setName("comparment inset");
+            insetAutoShape.setName("Compartment inset");
             ILineFormat insetLineFormat = insetAutoShape.getLineFormat();
             insetLineFormat.setWidth(stylesheet.getLineWidth());
             insetLineFormat.setStyle(stylesheet.getLineStyle());
@@ -96,7 +96,7 @@ public class EntityCompartment {
     }
 
     private void addTextbox() {
-        NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(textPosition.getX().floatValue(), textPosition.getY().floatValue(), 110, 50), adjustment.getFactor(), adjustment.getCoordinate());
+        NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(textPosition.getX().floatValue(), textPosition.getY().floatValue(), 110, 50), adjustment.getFactor(), adjustment.getPanning());
         IAutoShape textBox = iGroupShape.getShapes().addAutoShape(ShapeType.Rectangle, np.getX().floatValue(), np.getY().floatValue(), np.getWidth().floatValue(), np.getHeight().floatValue());
         textBox.setName("TextBox");
         textBox.getLineFormat().getFillFormat().setFillType(FillType.NoFill);

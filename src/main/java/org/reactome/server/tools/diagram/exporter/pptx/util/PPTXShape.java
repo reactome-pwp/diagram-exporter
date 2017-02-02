@@ -28,7 +28,7 @@ public class PPTXShape {
     public static IAutoShape renderShape(IGroupShape group, Shape rctShape, Stylesheet stylesheet, Adjustment adjustment) {
         switch (rctShape.getType()) {
             case "CIRCLE":
-                NodeProperties npC = NodePropertiesFactory.transform(NodePropertiesFactory.get(rctShape.getC().getX().floatValue(), rctShape.getC().getY().floatValue(), rctShape.getR().floatValue(), rctShape.getR().floatValue()), adjustment.getFactor(), adjustment.getCoordinate());
+                NodeProperties npC = NodePropertiesFactory.transform(NodePropertiesFactory.get(rctShape.getC().getX().floatValue(), rctShape.getC().getY().floatValue(), rctShape.getR().floatValue(), rctShape.getR().floatValue()), adjustment.getFactor(), adjustment.getPanning());
                 float correction = npC.getWidth().floatValue();
                 IAutoShape circle = group.getShapes().addAutoShape(
                         ShapeType.Ellipse,
@@ -41,7 +41,7 @@ public class PPTXShape {
                 circle.getAutoShapeLock().setSizeLocked(true);
                 return circle;
             case "DOUBLE_CIRCLE":
-                NodeProperties npDC = NodePropertiesFactory.transform(NodePropertiesFactory.get(rctShape.getC().getX().floatValue(), rctShape.getC().getY().floatValue(), rctShape.getR().floatValue(), rctShape.getR().floatValue()), adjustment.getFactor(), adjustment.getCoordinate());
+                NodeProperties npDC = NodePropertiesFactory.transform(NodePropertiesFactory.get(rctShape.getC().getX().floatValue(), rctShape.getC().getY().floatValue(), rctShape.getR().floatValue(), rctShape.getR().floatValue()), adjustment.getFactor(), adjustment.getPanning());
                 correction = npDC.getWidth().floatValue();
                 IAutoShape dCircle = group.getShapes().addAutoShape(
                         ShapeType.Ellipse,
@@ -56,7 +56,7 @@ public class PPTXShape {
             case "BOX":
                 float w = rctShape.getB().getX().floatValue() - rctShape.getA().getX().floatValue();
                 float h = rctShape.getB().getY().floatValue() - rctShape.getA().getY().floatValue();
-                NodeProperties npBOX = NodePropertiesFactory.transform(NodePropertiesFactory.get(rctShape.getA().getX().floatValue(), rctShape.getA().getY().floatValue(), w, h), adjustment.getFactor(), adjustment.getCoordinate());
+                NodeProperties npBOX = NodePropertiesFactory.transform(NodePropertiesFactory.get(rctShape.getA().getX().floatValue(), rctShape.getA().getY().floatValue(), w, h), adjustment.getFactor(), adjustment.getPanning());
                 IAutoShape box = group.getShapes().addAutoShape(
                         ShapeType.Rectangle,
                         npBOX.getX().floatValue(),
@@ -90,7 +90,7 @@ public class PPTXShape {
      * @return rendered IAutoShape as it is
      */
     public static IAutoShape renderAuxiliaryShape(IShapeCollection shapes, Coordinate edgeCoordinate, Stylesheet stylesheet, Adjustment adjustment) {
-        NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(edgeCoordinate.getX().floatValue(), edgeCoordinate.getY().floatValue(), 2, 2), adjustment.getFactor(), adjustment.getCoordinate());
+        NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(edgeCoordinate.getX().floatValue(), edgeCoordinate.getY().floatValue(), 2, 2), adjustment.getFactor(), adjustment.getPanning());
         IAutoShape auxShape = shapes.addAutoShape(ShapeType.Ellipse, np.getX().floatValue(), np.getY().floatValue(), np.getWidth().floatValue(), np.getHeight().floatValue());
         auxShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         auxShape.getFillFormat().setFillType(FillType.Solid);
@@ -105,7 +105,7 @@ public class PPTXShape {
      * @return rendered IAutoShape as it is
      */
     public static IAutoShape renderAuxiliaryShape(IGroupShape group, float x, float y, Adjustment adjustment) {
-        NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(x, y, 2, 2), adjustment.getFactor(), adjustment.getCoordinate());
+        NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(x, y, 2, 2), adjustment.getFactor(), adjustment.getPanning());
         IAutoShape auxShape = group.getShapes().addAutoShape(ShapeType.Ellipse, np.getX().floatValue(), np.getY().floatValue(), np.getWidth().floatValue(), np.getHeight().floatValue());
         auxShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         auxShape.getFillFormat().setFillType(FillType.NoFill);
@@ -224,7 +224,7 @@ public class PPTXShape {
      * @return the centre shape to attach the anchor Point
      */
     private static IAutoShape renderActivatorShape(IShapeCollection shapes, IGroupShape groupShape, Shape shape, Stylesheet stylesheet, Adjustment adjustment) {
-        NodeProperties npA = NodePropertiesFactory.transform(NodePropertiesFactory.get(shape.getA().getX().floatValue(), shape.getA().getY().floatValue(), 0.1f, 0.1f), adjustment.getFactor(), adjustment.getCoordinate());
+        NodeProperties npA = NodePropertiesFactory.transform(NodePropertiesFactory.get(shape.getA().getX().floatValue(), shape.getA().getY().floatValue(), 0.1f, 0.1f), adjustment.getFactor(), adjustment.getPanning());
         IAutoShape a = groupShape.getShapes().addAutoShape(
                 ShapeType.Line,
                 npA.getX().floatValue(),
@@ -235,7 +235,7 @@ public class PPTXShape {
         a.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         a.getFillFormat().setFillType(FillType.NoFill);
 
-        NodeProperties npB = NodePropertiesFactory.transform(NodePropertiesFactory.get(shape.getB().getX().floatValue(), shape.getB().getY().floatValue(), 0.1f, 0.1f), adjustment.getFactor(), adjustment.getCoordinate());
+        NodeProperties npB = NodePropertiesFactory.transform(NodePropertiesFactory.get(shape.getB().getX().floatValue(), shape.getB().getY().floatValue(), 0.1f, 0.1f), adjustment.getFactor(), adjustment.getPanning());
         IAutoShape b = groupShape.getShapes().addAutoShape(
                 ShapeType.Line,
                 npB.getX().floatValue(),
@@ -246,7 +246,7 @@ public class PPTXShape {
         b.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         b.getFillFormat().setFillType(FillType.NoFill);
 
-        NodeProperties npC = NodePropertiesFactory.transform(NodePropertiesFactory.get(shape.getC().getX().floatValue(), shape.getC().getY().floatValue(), 0.1f, 0.1f), adjustment.getFactor(), adjustment.getCoordinate());
+        NodeProperties npC = NodePropertiesFactory.transform(NodePropertiesFactory.get(shape.getC().getX().floatValue(), shape.getC().getY().floatValue(), 0.1f, 0.1f), adjustment.getFactor(), adjustment.getPanning());
         IAutoShape c = groupShape.getShapes().addAutoShape(
                 ShapeType.Line,
                 npC.getX().floatValue(),
@@ -310,7 +310,7 @@ public class PPTXShape {
         }
         Shape shape = connector.getEndShape();
         // IMPORTANT: A line didn't work here. Has to be two connected shapes
-        NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(shape.getA().getX().floatValue(), shape.getA().getY().floatValue(), 0.1f, 0.1f), adjustment.getFactor(), adjustment.getCoordinate());
+        NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(shape.getA().getX().floatValue(), shape.getA().getY().floatValue(), 0.1f, 0.1f), adjustment.getFactor(), adjustment.getPanning());
         IAutoShape a = groupShape.getShapes().addAutoShape(
                 ShapeType.Line,
                 np.getX().floatValue(),
@@ -321,7 +321,7 @@ public class PPTXShape {
         a.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         a.getFillFormat().setFillType(FillType.NoFill);
 
-        np = NodePropertiesFactory.transform(NodePropertiesFactory.get(shape.getB().getX().floatValue(), shape.getB().getY().floatValue(), 0.1f, 0.1f), adjustment.getFactor(), adjustment.getCoordinate());
+        np = NodePropertiesFactory.transform(NodePropertiesFactory.get(shape.getB().getX().floatValue(), shape.getB().getY().floatValue(), 0.1f, 0.1f), adjustment.getFactor(), adjustment.getPanning());
         IAutoShape b = groupShape.getShapes().addAutoShape(
                 ShapeType.Line,
                 np.getX().floatValue(),
@@ -332,7 +332,7 @@ public class PPTXShape {
         b.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         b.getFillFormat().setFillType(FillType.NoFill);
 
-        np = NodePropertiesFactory.transform(NodePropertiesFactory.get(shape.getC().getX().floatValue(), shape.getC().getY().floatValue(), 0.1f, 0.1f), adjustment.getFactor(), adjustment.getCoordinate());
+        np = NodePropertiesFactory.transform(NodePropertiesFactory.get(shape.getC().getX().floatValue(), shape.getC().getY().floatValue(), 0.1f, 0.1f), adjustment.getFactor(), adjustment.getPanning());
         IAutoShape centre = groupShape.getShapes().addAutoShape(
                 ShapeType.Line,
                 np.getX().floatValue(),

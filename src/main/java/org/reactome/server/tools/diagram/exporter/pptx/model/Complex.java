@@ -34,6 +34,7 @@ public class Complex extends PPTXNode {
         render(shapes, shapeType, stylesheet);
 
         anchorShape = iGroupShape.getShapes().addAutoShape(ShapeType.Rectangle, iAutoShape.getX() - 2, iAutoShape.getY() - 2, iAutoShape.getWidth() + 2, iAutoShape.getHeight() + 2);
+        anchorShape.setName("Auxiliary Shape");
         anchorShape.getFillFormat().setFillType(FillType.NoFill);
         anchorShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
 

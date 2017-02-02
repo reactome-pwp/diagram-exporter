@@ -44,6 +44,7 @@ public class EncapsulatedPathway extends PPTXNode {
         render(shapes, shapeType, stylesheet);
 
         anchorShape = iGroupShape.getShapes().addAutoShape(ShapeType.Rectangle, iAutoShape.getX() - 5, iAutoShape.getY() - 5, iAutoShape.getWidth() + 12, iAutoShape.getHeight() + 12);
+        anchorShape.setName("Auxiliary Shape");
         anchorShape.getFillFormat().setFillType(FillType.NoFill);
         anchorShape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
 

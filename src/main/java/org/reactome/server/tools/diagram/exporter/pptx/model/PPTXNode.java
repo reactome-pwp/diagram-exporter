@@ -45,7 +45,7 @@ public abstract class PPTXNode {
         this.schemaClass = node.getSchemaClass();
         this.adjustment = adjustment;
 
-        NodeProperties nodeProperties = NodePropertiesFactory.transform(node.getProp(), adjustment.getFactor(), adjustment.getCoordinate());
+        NodeProperties nodeProperties = NodePropertiesFactory.transform(node.getProp(), adjustment.getFactor(), adjustment.getPanning());
         this.id = node.getId();
         this.x = nodeProperties.getX().floatValue();
         this.y = nodeProperties.getY().floatValue();

@@ -40,7 +40,7 @@ public class Protein extends PPTXNode {
                 float w = nodeAttachment.getShape().getB().getX().floatValue() - nodeAttachment.getShape().getA().getX().floatValue();
                 float h = nodeAttachment.getShape().getB().getY().floatValue() - nodeAttachment.getShape().getA().getY().floatValue();
                 NodeProperties nodeProp = NodePropertiesFactory.get(nodeAttachment.getShape().getA().getX().floatValue(), nodeAttachment.getShape().getA().getY().floatValue(), w, h);
-                NodeProperties np = NodePropertiesFactory.transform(nodeProp, adjustment.getFactor(), adjustment.getCoordinate());
+                NodeProperties np = NodePropertiesFactory.transform(nodeProp, adjustment.getFactor(), adjustment.getPanning());
                 IAutoShape box = iGroupShape.getShapes().addAutoShape(
                         ShapeType.Rectangle,
                         np.getX().floatValue(),
