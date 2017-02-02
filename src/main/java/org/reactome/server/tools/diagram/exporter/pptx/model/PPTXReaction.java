@@ -165,7 +165,8 @@ public class PPTXReaction {
      * @param rShape the reaction shape previously created
      */
     private void createBackBone(IShapeCollection shapes, Shape rShape, Stylesheet stylesheet) {
-        Coordinate start = edge.getSegments().get(0).getFrom();
+        Coordinate start = edge.getSegments().isEmpty() ? edge.getPosition() : edge.getSegments().get(0).getFrom();
+
         if (touches(rShape, start)) {
             backboneStart = hiddenReactionShape;
         } else {

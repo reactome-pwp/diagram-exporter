@@ -13,6 +13,8 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramP
  */
 public class EntityCompartment {
 
+    private final static float TEXT_HEIGHT = 15;
+    private final static float CHAR_WIDTH = 10;
     private IGroupShape iGroupShape;
     private float x;
     private float y;
@@ -92,12 +94,12 @@ public class EntityCompartment {
             //0 to 0.833333
             adjustValue.setAngleValue(0.0333f);
         }
-        addTextbox();
     }
 
-    private void addTextbox() {
-        NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(textPosition.getX().floatValue(), textPosition.getY().floatValue(), 110, 50), adjustment.getFactor(), adjustment.getPanning());
-        IAutoShape textBox = iGroupShape.getShapes().addAutoShape(ShapeType.Rectangle, np.getX().floatValue(), np.getY().floatValue(), np.getWidth().floatValue(), np.getHeight().floatValue());
+    public void renderText(IShapeCollection shapes) {
+        float width = (float) (displayName.length() * CHAR_WIDTH * adjustment.getFactor());
+        NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(textPosition.getX().floatValue(), textPosition.getY().floatValue(), width, TEXT_HEIGHT * adjustment.getFactor()), adjustment.getFactor(), adjustment.getPanning());
+        IAutoShape textBox = shapes.addAutoShape(ShapeType.Rectangle, np.getX().floatValue(), np.getY().floatValue(), np.getWidth().floatValue(), np.getHeight().floatValue());
         textBox.setName("TextBox");
         textBox.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         textBox.getFillFormat().setFillType(FillType.NoFill);
@@ -106,7 +108,7 @@ public class EntityCompartment {
         IPortion portion = iParagraph.getPortions().get_Item(0);
         portion.getPortionFormat().getFillFormat().setFillType(FillType.Solid);
         portion.getPortionFormat().getFillFormat().getSolidFillColor().setColor(stylesheet.getTextColor());
-        portion.getPortionFormat().setFontHeight((float)(10*adjustment.getFactor()));
+        portion.getPortionFormat().setFontHeight((float) (8 * adjustment.getFactor()));
         portion.getPortionFormat().setFontBold(NullableBool.True);
         portion.setText(displayName);
     }

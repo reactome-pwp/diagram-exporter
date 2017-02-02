@@ -45,11 +45,16 @@ public class DiagramPresentation {
         presentation.getSlideSize().setSize(pageSize);
 
         // Render Compartments
-        Collections.reverse(diagram.getCompartments());
+        List<EntityCompartment> compartments = new ArrayList<>();
         for (Compartment compartment : diagram.getCompartments()) {
             EntityCompartment entityCompartment = new EntityCompartment(compartment, profile, adjustment);
+            compartments.add(entityCompartment);
             entityCompartment.render(shapes);
         }
+        for (EntityCompartment entityCompartment : compartments) {
+            entityCompartment.renderText(shapes);
+        }
+        compartments.clear();
 
         // Render Notes
         for (Note note : diagram.getNotes()) {
