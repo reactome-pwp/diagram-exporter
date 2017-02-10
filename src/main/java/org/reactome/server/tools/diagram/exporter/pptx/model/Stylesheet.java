@@ -42,6 +42,7 @@ public class Stylesheet {
     private Color diseaseColor;
     private Color flagColor;
     private Color selectionColor;
+    private double selectionLineWidth = 3;
 
     public Stylesheet() {
 
@@ -254,6 +255,10 @@ public class Stylesheet {
 
     public Color getSelectionColor() {
         return selectionColor;
+    }
+
+    public double getSelectionLineWidth() {
+        return selectionLineWidth;
     }
 
     private DiagramProfileNode getProfileNode(DiagramProfile profile, String type){

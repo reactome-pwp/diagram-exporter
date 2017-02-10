@@ -49,10 +49,12 @@ public class PPTXReaction {
         stylesheet.setTextColor(Color.black); // text color is white in the profile
 
         if (selected) {
+            // if the reaction is selected, every element that belongs to the reaction will be styled as 'selected'!
+            // changing in the stylesheet object implies.
             stylesheet.setLineFillType(FillType.Solid);
             stylesheet.setLineStyle(LineStyle.Single);
             stylesheet.setLineColor(stylesheet.getSelectionColor());
-            stylesheet.setLineWidth(3);
+            stylesheet.setLineWidth(stylesheet.getSelectionLineWidth());
         }
 
         // It checks for all the shapes to be grouped and creates them in advance placing

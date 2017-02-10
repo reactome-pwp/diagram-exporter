@@ -122,7 +122,7 @@ public abstract class PPTXNode {
 
         // the selection override the disease color.
         if (selected) {
-            stylesheet.setLineWidth(3.5);
+            stylesheet.setLineWidth(stylesheet.getSelectionLineWidth());
             stylesheet.setLineFillType(FillType.Solid);
             stylesheet.setLineColor(stylesheet.getSelectionColor());
         }
