@@ -9,8 +9,7 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramP
 
 import java.util.List;
 
-import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.setShapeStyle;
-import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.setTextFrame;
+import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.*;
 
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
@@ -19,20 +18,21 @@ import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.set
 @SuppressWarnings("ALL")
 public class Protein extends PPTXNode {
 
+    private static final String PROFILE_TYPE = "protein";
     private final int shapeType = ShapeType.RoundCornerRectangle;
     protected List<NodeAttachment> nodeAttachments;
     private byte shapeFillType = FillType.Solid;
     private byte lineFillType = FillType.Solid;
     private byte lineStyle = LineStyle.Single;
 
-    public Protein(Node node, Adjustment adjustment) {
-        super(node, adjustment);
+    public Protein(Node node, Adjustment adjustment, boolean flag, boolean select) {
+        super(node, adjustment, flag, select);
         this.nodeAttachments = node.getNodeAttachments();
     }
 
     @Override
     public void render(IShapeCollection shapes, DiagramProfile profile) {
-        Stylesheet stylesheet = new Stylesheet(profile.getProtein(), shapeFillType, lineFillType, lineStyle);
+        Stylesheet stylesheet = new Stylesheet(profile, PROFILE_TYPE, shapeFillType, lineFillType, lineStyle);
         render(shapes, shapeType, stylesheet);
 
         if (nodeAttachments != null) {
@@ -55,6 +55,10 @@ public class Protein extends PPTXNode {
                 }
                 if (nodeAttachment.getLabel() != null) {
                     setTextFrame(box, nodeAttachment.getLabel(), new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 8, true, false, null, adjustment);
+                }
+
+                if (selected) {
+                    setSelectedStyle(box, stylesheet);
                 }
 
                 // block the nodeattachments to be selected :)

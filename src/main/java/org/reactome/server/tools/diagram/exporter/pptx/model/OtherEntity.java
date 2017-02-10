@@ -14,17 +14,18 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramP
 @SuppressWarnings("ALL")
 public class OtherEntity extends PPTXNode {
 
+    private static final String PROFILE_TYPE = "otherentity";
     private final int shapeType = ShapeType.Rectangle;
     private byte shapeFillType = FillType.Solid;
     private byte lineFillType = FillType.Solid;
     private byte lineStyle = LineStyle.Single;
 
-    public OtherEntity(Node node, Adjustment adjustment) {
-        super(node, adjustment);
+    public OtherEntity(Node node, Adjustment adjustment, boolean flag, boolean select) {
+        super(node, adjustment, flag, select);
     }
 
     @Override
     public void render(IShapeCollection shapes, DiagramProfile profile) {
-        render(shapes, shapeType, new Stylesheet(profile.getOtherentity(), shapeFillType, lineFillType, lineStyle));
+        render(shapes, shapeType, new Stylesheet(profile, PROFILE_TYPE, shapeFillType, lineFillType, lineStyle));
     }
 }

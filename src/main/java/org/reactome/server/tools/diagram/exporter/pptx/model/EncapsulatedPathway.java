@@ -12,21 +12,22 @@ import java.awt.*;
 
 public class EncapsulatedPathway extends PPTXNode {
 
+    private static final String PROFILE_TYPE = "processnode";
     private final int shapeType = ShapeType.Rectangle;
     private IAutoShape anchorShape;
     private byte shapeFillType = FillType.Solid;
     private byte lineFillType = FillType.Solid;
     private byte lineStyle = LineStyle.Single;
 
-    public EncapsulatedPathway(Node node, Adjustment adjustment) {
-        super(node, adjustment);
+    public EncapsulatedPathway(Node node, Adjustment adjustment, boolean flag, boolean select) {
+        super(node, adjustment, flag, select);
     }
 
     @Override
     public void render(IShapeCollection shapes, DiagramProfile profile) {
         // Rendering the EnsapsulatedPathway slightly different from the PWB
         // Line color is coming from the profile, but the filling of EncapsulatedPathway is always white.
-        Stylesheet stylesheet = new Stylesheet(profile.getProcessnode(), shapeFillType, lineFillType, lineStyle);
+        Stylesheet stylesheet = new Stylesheet(profile, PROFILE_TYPE, shapeFillType, lineFillType, lineStyle);
         // LineWidth is not present in the profile, so create a thick line (width=10)
         stylesheet.setLineWidth(10);
         // Line color is the fill color provided by the profile.

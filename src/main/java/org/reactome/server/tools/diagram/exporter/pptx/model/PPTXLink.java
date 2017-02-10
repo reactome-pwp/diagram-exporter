@@ -16,6 +16,7 @@ import static org.reactome.server.tools.diagram.exporter.pptx.util.SegmentUtil.d
  */
 public class PPTXLink {
 
+    private static final String PROFILE_TYPE = "link";
     private Link link;
     private Map<Long, PPTXNode> nodesMap;
     private boolean dashed;
@@ -40,7 +41,7 @@ public class PPTXLink {
     }
 
     public void render(IShapeCollection shapes, DiagramProfile profile) {
-        Stylesheet stylesheet = new Stylesheet(profile.getLink(), FillType.Solid, FillType.Solid, LineStyle.Single);
+        Stylesheet stylesheet = new Stylesheet(profile, PROFILE_TYPE, FillType.Solid, FillType.Solid, LineStyle.Single);
         stylesheet.setFillColor(stylesheet.getLineColor()); // fill color is white in the profile
         stylesheet.setLineWidth(2);
 

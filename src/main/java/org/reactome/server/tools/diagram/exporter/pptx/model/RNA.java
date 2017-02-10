@@ -14,18 +14,19 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramP
 @SuppressWarnings("ALL")
 public class RNA extends PPTXNode {
 
+    private static final String PROFILE_TYPE = "rna";
     private final int shapeType = ShapeType.Rectangle;
     private byte shapeFillType = FillType.Solid;
     private byte lineFillType = FillType.Solid;
     private byte lineStyle = LineStyle.Single;
 
-    public RNA(Node node, Adjustment adjustment) {
-        super(node, adjustment);
+    public RNA(Node node, Adjustment adjustment, boolean flag, boolean select) {
+        super(node, adjustment, flag, select);
     }
 
     @Override
     public void render(IShapeCollection shapes, DiagramProfile profile) {
-        Stylesheet stylesheet = new Stylesheet(profile.getRna(), shapeFillType, lineFillType, lineStyle);
+        Stylesheet stylesheet = new Stylesheet(profile, PROFILE_TYPE, shapeFillType, lineFillType, lineStyle);
         render(shapes, shapeType, stylesheet);
 
         // TODO Render a RNA shape

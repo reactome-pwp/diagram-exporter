@@ -3,6 +3,8 @@ package org.reactome.server.tools.diagram.exporter.pptx.model;
 import com.aspose.slides.LineArrowheadLength;
 import com.aspose.slides.LineArrowheadStyle;
 import com.aspose.slides.LineArrowheadWidth;
+import com.aspose.slides.LineCapStyle;
+import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfileNode;
 
 import java.awt.*;
@@ -29,17 +31,24 @@ public class Stylesheet {
     private byte lineFillType;
     private byte lineStyle;
     private byte lineDashStyle;
+    private byte lineCapStyle = LineCapStyle.Round;
 
     // arrow
     private byte lineArrowheadLength = LineArrowheadLength.Long;
     private byte lineArrowheadStyle = LineArrowheadStyle.Triangle;
     private byte lineArrowheadWidth = LineArrowheadWidth.Wide;
 
+    // decorators
+    private Color diseaseColor;
+    private Color flagColor;
+    private Color selectionColor;
+
     public Stylesheet() {
 
     }
 
-    public Stylesheet(DiagramProfileNode profileInfo, byte shapeFillType, byte lineFillType, byte lineStyle) {
+    public Stylesheet(DiagramProfile profile, String type, byte shapeFillType, byte lineFillType, byte lineStyle) {
+        DiagramProfileNode profileInfo = getProfileNode(profile, type);
         this.lineWidth = profileInfo.getLineWidth() != null ? Double.valueOf(profileInfo.getLineWidth()) * 2 : 1;
         this.lineColor = parseColor(profileInfo.getStroke());
         this.fillColor = parseColor(profileInfo.getFill());
@@ -53,10 +62,13 @@ public class Stylesheet {
         this.shapeFillType = shapeFillType;
         this.lineFillType = lineFillType;
         this.lineStyle = lineStyle;
+        this.diseaseColor = parseColor(profile.getProperties().getDisease());
+        this.flagColor = parseColor(profile.getProperties().getFlag());
+        this.selectionColor = parseColor(profile.getProperties().getSelection());
     }
 
-    public Stylesheet(DiagramProfileNode profileInfo) {
-        this(profileInfo, (byte) 0, (byte) 0, (byte) 0);
+    public Stylesheet(DiagramProfile profile, String type) {
+        this(profile, type, (byte) 0, (byte) 0, (byte) 0);
     }
 
     private static Color parseColor(String color) {
@@ -91,7 +103,7 @@ public class Stylesheet {
      * Apply custom style.
      * Mainly used in the connector or in the auxiliary shapes.
      */
-    public Stylesheet customStyle(double lineWidth, byte lineStyle, byte lineFillType, Color lineColor, byte shapeFillType, Color fillColor, byte lineDashStyle) {
+    public Stylesheet customStyle(double lineWidth, byte lineStyle, byte lineFillType, Color lineColor, byte shapeFillType, Color fillColor, byte lineDashStyle, byte lineCapStyle) {
         this.setLineWidth(lineWidth);
         this.setLineStyle(lineStyle);
         this.setLineFillType(lineFillType);
@@ -99,8 +111,18 @@ public class Stylesheet {
         this.setShapeFillType(shapeFillType);
         this.setFillColor(fillColor);
         this.setLineDashStyle(lineDashStyle);
+        this.setLineCapStyle(lineCapStyle);
         return this;
     }
+
+    /**
+     * Apply custom style.
+     * Mainly used in the connector or in the auxiliary shapes.
+     */
+    public Stylesheet customStyle(double lineWidth, byte lineStyle, byte lineFillType, Color lineColor, byte shapeFillType, Color fillColor, byte lineDashStyle) {
+        return customStyle(lineWidth, lineStyle, lineFillType, lineColor, shapeFillType, fillColor, lineDashStyle, this.lineCapStyle);
+    }
+
 
     public Color getFadeOutFill() {
         return fadeOutFill;
@@ -212,5 +234,66 @@ public class Stylesheet {
 
     public void setLineArrowheadWidth(byte lineArrowheadWidth) {
         this.lineArrowheadWidth = lineArrowheadWidth;
+    }
+
+    public byte getLineCapStyle() {
+        return lineCapStyle;
+    }
+
+    public void setLineCapStyle(byte lineCapStyle) {
+        this.lineCapStyle = lineCapStyle;
+    }
+
+    public Color getDiseaseColor() {
+        return diseaseColor;
+    }
+
+    public Color getFlagColor() {
+        return flagColor;
+    }
+
+    public Color getSelectionColor() {
+        return selectionColor;
+    }
+
+    private DiagramProfileNode getProfileNode(DiagramProfile profile, String type){
+        switch (type.toLowerCase()){
+            case "attachment":
+                return profile.getAttachment();
+            case "chemical":
+                return profile.getChemical();
+            case "compartment":
+                return profile.getCompartment();
+            case "complex":
+                return profile.getComplex();
+            case "entity":
+                return profile.getEntity();
+            case "entityset":
+                return profile.getEntityset();
+            case "flowline":
+                return profile.getFlowline();
+            case "gene":
+                return profile.getGene();
+            case "interactor":
+                return profile.getInteractor();
+            case "link":
+                return profile.getLink();
+            case "note":
+                return profile.getNote();
+            case "otherentity":
+                return profile.getOtherentity();
+            case "processnode":
+                return profile.getProcessnode();
+            case "protein":
+                return profile.getProtein();
+            case "reaction":
+                return profile.getReaction();
+            case "rna":
+                return profile.getRna();
+            case "stoichiometry":
+                return profile.getStoichiometry();
+            default:
+                throw new IllegalArgumentException("Type " + type + " is not found in the JSON Profile.");
+        }
     }
 }

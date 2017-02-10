@@ -24,17 +24,21 @@ public class DiagramPresentation {
     private Presentation presentation;
     private IShapeCollection shapes;
     private Map<Long, PPTXNode> nodesMap = new HashMap<>();
+    private Decorator decorator;
+    private boolean allowEvaluation;
 
-    public DiagramPresentation(Diagram diagram, DiagramProfile profile) {
+    public DiagramPresentation(Diagram diagram, DiagramProfile profile, Decorator decorator, boolean allowEvaluation) {
         this.diagram = diagram;
         this.profile = profile;
         presentation = new Presentation();
         ISlide slide = presentation.getSlides().get_Item(0);
         shapes = slide.getShapes();
+        this.decorator = decorator;
+        this.allowEvaluation = allowEvaluation;
     }
 
     public void export() throws LicenseException {
-        if (!isLicensed()) {
+        if (!isLicensed() && !allowEvaluation) {
             throw new LicenseException();
         }
 
@@ -64,7 +68,9 @@ public class DiagramPresentation {
 
         // Render Nodes
         for (Node node : diagram.getNodes()) {
-            PPTXNode pptxNode = getNode(node, adjustment);
+            boolean flag = decorator != null && decorator.getFlags().contains(node.getReactomeId());
+            boolean selected = decorator != null && decorator.getSelected().contains(node.getReactomeId());
+            PPTXNode pptxNode = getNode(node, adjustment, flag, selected);
             nodesMap.put(pptxNode.getId(), pptxNode); //If two nodes share identifier, only the second one is kept >> NOTE: It shouldn't happen //TODO: Report?
             pptxNode.render(shapes, profile);
         }
@@ -72,18 +78,20 @@ public class DiagramPresentation {
         // Render Edges
         List<Edge> diseaseEdges = new ArrayList<>();
         for (Edge edge : diagram.getEdges()) {
+            boolean selected = decorator != null && decorator.getSelected().contains(edge.getReactomeId());
             // We don't process among all the edges later. This is done to make sure disease annotation is always on top.
             if (edge.getIsDisease() != null) {
                 diseaseEdges.add(edge);
             } else {
-                PPTXReaction pptxReaction = new PPTXReaction(edge, nodesMap, profile, adjustment);
+                PPTXReaction pptxReaction = new PPTXReaction(edge, nodesMap, profile, adjustment, selected);
                 pptxReaction.render(shapes);
             }
         }
 
         // Render disease edges
         for (Edge diseaseEdge : diseaseEdges) {
-            PPTXReaction pptxReaction = new PPTXReaction(diseaseEdge, nodesMap, profile, adjustment);
+            boolean selected = decorator != null && decorator.getSelected().contains(diseaseEdge.getReactomeId());
+            PPTXReaction pptxReaction = new PPTXReaction(diseaseEdge, nodesMap, profile, adjustment, selected);
             pptxReaction.render(shapes);
         }
 
@@ -99,6 +107,14 @@ public class DiagramPresentation {
     }
 
     public void save(String fullPath) {
+        IDocumentProperties dp = presentation.getDocumentProperties();
+        dp.setAuthor("reactome.org");
+        dp.setTitle(diagram.getStableId());
+
+        if(decorator.isDecorated()){
+            fullPath = fullPath + Decorator.EXTENSION;
+        }
+
         // full path already contains the file name and the extension.
         presentation.save(fullPath, SaveFormat.Pptx);
     }
@@ -109,36 +125,36 @@ public class DiagramPresentation {
      * @param node a diagram layout node
      * @return instance of PPTXNode
      */
-    private PPTXNode getNode(Node node, Adjustment adjustment) {
+    private PPTXNode getNode(Node node, Adjustment adjustment, boolean flag, boolean selected) {
         PPTXNode pptxNode;
         switch (node.getSchemaClass()) {
             case "Complex":
-                pptxNode = new Complex(node, adjustment);
+                pptxNode = new Complex(node, adjustment, flag, selected);
                 break;
             case "DefinedSet":
             case "CandidateSet":
             case "OpenSet":
-                pptxNode = new EntitySet(node, adjustment);
+                pptxNode = new EntitySet(node, adjustment, flag, selected);
                 break;
             case "EntityWithAccessionedSequence":
-                pptxNode = new Protein(node, adjustment);
+                pptxNode = new Protein(node, adjustment, flag, selected);
                 if (Objects.equals(node.getRenderableClass(), "Gene")) {
-                    pptxNode = new Gene(node, adjustment);
+                    pptxNode = new Gene(node, adjustment, flag, selected);
                 }
                 if (Objects.equals(node.getRenderableClass(), "RNA")) {
-                    pptxNode = new RNA(node, adjustment);
+                    pptxNode = new RNA(node, adjustment, flag, selected);
                 }
                 break;
             case "GenomeEncodedEntity":
             case "OtherEntity":
             case "Polymer":
-                pptxNode = new OtherEntity(node, adjustment);
+                pptxNode = new OtherEntity(node, adjustment, flag, selected);
                 break;
             case "SimpleEntity":
-                pptxNode = new Chemical(node, adjustment);
+                pptxNode = new Chemical(node, adjustment, flag, selected);
                 break;
             case "Pathway":
-                pptxNode = new EncapsulatedPathway(node, adjustment);
+                pptxNode = new EncapsulatedPathway(node, adjustment, flag, selected);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid schema class [" + node.getSchemaClass() + "]. Create the switch-case for the given class");

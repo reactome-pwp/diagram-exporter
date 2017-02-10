@@ -11,6 +11,7 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileFactory;
 import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.pptx.exception.LicenseException;
+import org.reactome.server.tools.diagram.exporter.pptx.model.Decorator;
 import org.reactome.server.tools.diagram.exporter.pptx.parser.DiagramPresentation;
 
 import java.io.IOException;
@@ -23,13 +24,25 @@ import java.nio.file.Paths;
  */
 public class PowerPointExporter {
 
-    public static void export(String pathway, String profileName, String path) throws DiagramJsonDeserializationException, DiagramJsonNotFoundException, DiagramProfileException, LicenseException {
+    /**
+     * This method allows a powerpoint to be generated for those who are using the library and does not have
+     * software license. An evaluation version will be created and the program won't fail.
+     */
+    public static void export(String pathway, String profileName, String path, Decorator decorator, boolean allowEvaluation) throws DiagramJsonDeserializationException, DiagramJsonNotFoundException, DiagramProfileException, LicenseException {
         Diagram diagram = getDiagram(pathway);
         DiagramProfile profile = getDiagramProfile(profileName);
 
-        DiagramPresentation diagramPresentation = new DiagramPresentation(diagram, profile);
+        DiagramPresentation diagramPresentation = new DiagramPresentation(diagram, profile, decorator, allowEvaluation);
         diagramPresentation.export();
         diagramPresentation.save(path);
+    }
+
+    /**
+     * Forcing the program to be executed under a valid license
+     */
+    public static void export(String pathway, String profileName, String path, Decorator decorator) throws DiagramJsonDeserializationException, DiagramJsonNotFoundException, DiagramProfileException, LicenseException {
+        // running on licensed version
+        export(pathway, profileName, path, decorator, false);
     }
 
     public static DiagramProfile getDiagramProfile(String name) throws DiagramProfileException {

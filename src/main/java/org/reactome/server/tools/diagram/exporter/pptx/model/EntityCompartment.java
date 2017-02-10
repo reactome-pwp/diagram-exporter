@@ -13,6 +13,7 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramP
  */
 public class EntityCompartment {
 
+    private static final String PROFILE_TYPE = "compartment";
     private final static float TEXT_HEIGHT = 15;
     private final static float CHAR_WIDTH = 10;
     private IGroupShape iGroupShape;
@@ -35,7 +36,7 @@ public class EntityCompartment {
         this.displayName = compartment.getDisplayName();
         this.textPosition = compartment.getTextPosition();
         this.insets = compartment.getInsets();
-        stylesheet = new Stylesheet(profile.getCompartment(), FillType.Solid, FillType.Solid, LineStyle.Single);
+        stylesheet = new Stylesheet(profile, PROFILE_TYPE, FillType.Solid, FillType.Solid, LineStyle.Single);
         this.adjustment = adjustment;
     }
 

@@ -13,6 +13,7 @@ import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.*;
  */
 public class PPTXStoichiometry {
 
+    private static final String PROFILE_TYPE = "stoichiometry";
     private IGroupShape iGroupShape;
     private IAutoShape iAutoShape;
     private IAutoShape hiddenCenterShape; // hidden behind the stoichiometry shape

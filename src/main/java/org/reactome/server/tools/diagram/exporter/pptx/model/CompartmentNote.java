@@ -10,8 +10,8 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramP
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
  */
-
 public class CompartmentNote {
+    private static final String PROFILE_TYPE = "note";
     private float width = 1;
     private float height = 1;
     private String displayName;
@@ -21,12 +21,11 @@ public class CompartmentNote {
 
     public CompartmentNote(Note note, DiagramProfile profile, Adjustment adjustment) {
         NodeProperties nodeProperties = NodePropertiesFactory.transform(note.getProp(), adjustment.getFactor(), adjustment.getPanning());
-
         this.width = nodeProperties.getWidth().floatValue();
         this.height = nodeProperties.getHeight().floatValue();
         this.displayName = note.getDisplayName();
         this.textPosition = note.getTextPosition();
-        this.stylesheet = new Stylesheet(profile.getNote());
+        this.stylesheet = new Stylesheet(profile, PROFILE_TYPE);
         this.adjustment = adjustment;
     }
 

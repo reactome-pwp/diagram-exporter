@@ -22,6 +22,7 @@ import static org.reactome.server.tools.diagram.exporter.pptx.util.SegmentUtil.d
  */
 public class PPTXReaction {
 
+    private static final String PROFILE_TYPE = "reaction";
     private Edge edge;
     private Map<Long, PPTXNode> nodesMap;
 
@@ -32,23 +33,31 @@ public class PPTXReaction {
     private Map<Connector, IAutoShape> shapeMap = new HashMap<>();
     private DiagramProfile profile;
     private Adjustment adjustment;
+    private boolean selected;
 
-    public PPTXReaction(Edge edge, Map<Long, PPTXNode> nodesMap, DiagramProfile profile, Adjustment adjustment) {
+    public PPTXReaction(Edge edge, Map<Long, PPTXNode> nodesMap, DiagramProfile profile, Adjustment adjustment, boolean selected) {
         this.edge = edge;
         this.nodesMap = nodesMap;
         this.profile = profile;
         this.adjustment = adjustment;
+        this.selected = selected;
     }
 
     public void render(IShapeCollection shapes) {
-        Stylesheet stylesheet = new Stylesheet(profile.getReaction(), FillType.Solid, FillType.Solid, LineStyle.Single);
+        Stylesheet stylesheet = new Stylesheet(profile, PROFILE_TYPE, FillType.Solid, FillType.Solid, LineStyle.Single);
         stylesheet.setFillColor(Color.black); // fill color is white in the profile
         stylesheet.setTextColor(Color.black); // text color is white in the profile
+
+        if (selected) {
+            stylesheet.setLineFillType(FillType.Solid);
+            stylesheet.setLineStyle(LineStyle.Single);
+            stylesheet.setLineColor(stylesheet.getSelectionColor());
+            stylesheet.setLineWidth(3);
+        }
 
         // It checks for all the shapes to be grouped and creates them in advance placing
         // the main shape in reactionShape and the rest in the shapeMap map
         IGroupShape reactionGroupShape = createReactionShape(shapes, stylesheet);
-
         if (hasInputs()) {
             if (onlyOneInputWithoutConnectors()) {
                 PPTXNode inputNode = nodesMap.get(edge.getInputs().get(0).getId());
@@ -107,9 +116,9 @@ public class PPTXReaction {
             stylesheet.setFillColor(stylesheet.getFadeOutFill());
         }
         if (edge.getIsDisease() != null) {
-            stylesheet.setLineColor(Color.RED);
-            stylesheet.setFillColor(Color.RED);
-            stylesheet.setTextColor(Color.RED);
+            stylesheet.setLineColor(stylesheet.getDiseaseColor());
+            stylesheet.setFillColor(stylesheet.getDiseaseColor());
+            stylesheet.setTextColor(stylesheet.getDiseaseColor());
         }
 
         // rendering reaction shape, we don't need an instance of the shape itself, just rendering
@@ -172,6 +181,7 @@ public class PPTXReaction {
         } else {
             backboneStart = renderAuxiliaryShape(shapes, start, stylesheet, adjustment);
         }
+
         IAutoShape last = backboneStart;
         for (int i = 1; i < edge.getSegments().size(); i++) { //IMPORTANT: It starts in "1" because "0" has been taken above
             Coordinate step = edge.getSegments().get(i).getFrom();

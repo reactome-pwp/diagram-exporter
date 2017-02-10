@@ -13,8 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.setShapeStyle;
-import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.setTextFrame;
+import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.*;
 
 /**
  * @author Antonio Fabregat <fabregat@ebi.ac.uk>
@@ -39,8 +38,10 @@ public abstract class PPTXNode {
     private boolean isCrossed;
     private boolean needDashedBorder;
     protected Adjustment adjustment;
+    protected boolean flag;
+    protected boolean selected;
 
-    public PPTXNode(Node node, Adjustment adjustment) {
+    public PPTXNode(Node node, Adjustment adjustment, boolean flag, boolean selected) {
         this.reactomeId = node.getReactomeId();
         this.schemaClass = node.getSchemaClass();
         this.adjustment = adjustment;
@@ -57,6 +58,8 @@ public abstract class PPTXNode {
         this.isCrossed = node.getIsCrossed() == null ? false : node.getIsCrossed();
         this.isFadeOut = node.getIsFadeOut() == null ? false : node.getIsFadeOut();
         this.needDashedBorder = node.getNeedDashedBorder() == null ? false : node.getNeedDashedBorder();
+        this.flag = flag;
+        this.selected = selected;
     }
 
     public Long getId() {
@@ -108,9 +111,20 @@ public abstract class PPTXNode {
             stylesheet.setLineDashStyle(LineDashStyle.Dash);
         }
 
-        // has to be last one :)
+        // it has to be last one :)
         if (isDisease) {
-            stylesheet.setLineColor(Color.RED);
+            stylesheet.setLineColor(stylesheet.getDiseaseColor());
+        }
+
+        if (flag) {
+            setFlaggingStyle(iGroupShape, stylesheet);
+        }
+
+        // the selection override the disease color.
+        if (selected) {
+            stylesheet.setLineWidth(3.5);
+            stylesheet.setLineFillType(FillType.Solid);
+            stylesheet.setLineColor(stylesheet.getSelectionColor());
         }
 
         setShapeStyle(iAutoShape, stylesheet);

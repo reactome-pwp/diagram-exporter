@@ -2,9 +2,11 @@ package org.reactome.server.tools.diagram.exporter;
 
 import org.apache.commons.io.FileUtils;
 import org.reactome.server.tools.diagram.exporter.pptx.PowerPointExporter;
+import org.reactome.server.tools.diagram.exporter.pptx.model.Decorator;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,12 +20,30 @@ public class DiagramExporter {
         // we won't create the dbVersion folder. This class is for testing only.
         for (ColorProfiles colorProfile : ColorProfiles.values()) {
             for (String stId : getStId()) {
-                File path = new File("/Users/reactome/diagram/exporter/" + colorProfile.name().toLowerCase());
+                File path = new File("/Users/reactome/Reactome/diagram/exporter/" + colorProfile.name().toLowerCase());
                 if (!path.exists()) path.mkdirs();
                 String outputFile = path.getPath() + "/" + stId + ".pptx";
-                PowerPointExporter.export("/Users/reactome/diagram/static/" + stId, colorProfile.name().toLowerCase(), outputFile);
+                PowerPointExporter.export("/Users/reactome/Reactome/diagram/static/" + stId, colorProfile.name().toLowerCase(), outputFile, null);
             }
         }
+        System.out.println("Diagrams exported.");
+    }
+
+    // TODO Convert this Class to a TEST Class
+    public static void main3(String[] args) throws Exception {
+        if (args == null || args.length == 0 ) return;
+        String colorProfile = args[0].toLowerCase();
+        for (int i = 1; i < args.length; i++) {
+            String stId = args[i];
+            File path = new File("/Users/reactome/Reactome/diagram/exporter/" + colorProfile);
+            if (!path.exists()) path.mkdirs();
+            String outputFile = path.getPath() + "/" + stId + ".pptx";
+            PowerPointExporter.export("/Users/reactome/Reactome/diagram/static/" + stId, colorProfile, outputFile, null);
+
+            //gui's machine
+            FileUtils.copyFile(new File(outputFile), new File("/Volumes/gviteri/exporter/"+stId + ".pptx"));
+        }
+
         System.out.println("Diagrams exported.");
     }
 
@@ -33,13 +53,11 @@ public class DiagramExporter {
         String colorProfile = args[0].toLowerCase();
         for (int i = 1; i < args.length; i++) {
             String stId = args[i];
-            File path = new File("/Users/reactome/diagram/exporter/" + colorProfile);
+            File path = new File("/Users/reactome/Reactome/diagram/exporter/" + colorProfile);
             if (!path.exists()) path.mkdirs();
             String outputFile = path.getPath() + "/" + stId + ".pptx";
-            PowerPointExporter.export("/Users/reactome/diagram/static/" + stId, colorProfile, outputFile);
-
-            //gui's machine
-            FileUtils.copyFile(new File(outputFile), new File("/Volumes/gviteri/exporter/"+stId + ".pptx"));
+            Decorator decorator = new Decorator(Arrays.asList(8852316L,3786256L), Arrays.asList(8852354L,8852316L,182558L,29358L,68374L,113582L,69604L,69591L));
+            PowerPointExporter.export("/Users/reactome/Reactome/diagram/static/" + stId, colorProfile, outputFile, decorator);
         }
 
         System.out.println("Diagrams exported.");

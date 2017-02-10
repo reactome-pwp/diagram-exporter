@@ -14,19 +14,20 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramP
 @SuppressWarnings("ALL")
 public class EntitySet extends PPTXNode {
 
+    private static final String PROFILE_TYPE = "entityset";
     private final int shapeType = ShapeType.RoundCornerRectangle;
     private byte shapeFillType = FillType.Solid;
     private byte lineFillType = FillType.Solid;
     private byte lineStyle = LineStyle.ThinThin;
     private double lineWidth = 3;
 
-    public EntitySet(Node node, Adjustment adjustment) {
-        super(node, adjustment);
+    public EntitySet(Node node, Adjustment adjustment, boolean flag, boolean select) {
+        super(node, adjustment, flag, select);
     }
 
     @Override
     public void render(IShapeCollection shapes, DiagramProfile profile) {
-        Stylesheet stylesheet = new Stylesheet(profile.getEntityset(), shapeFillType, lineFillType, lineStyle);
+        Stylesheet stylesheet = new Stylesheet(profile, PROFILE_TYPE, shapeFillType, lineFillType, lineStyle);
         stylesheet.setLineWidth(lineWidth);
         render(shapes, shapeType, stylesheet);
     }

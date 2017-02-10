@@ -1,1 +1,2 @@
-Project: pptx-pg2
+Diagram Exporter
+=====================

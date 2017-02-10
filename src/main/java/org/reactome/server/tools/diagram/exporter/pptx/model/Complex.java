@@ -4,6 +4,8 @@ import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
 
+import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.setSelectedStyle;
+
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
  */
@@ -11,6 +13,7 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramP
 @SuppressWarnings("ALL")
 public class Complex extends PPTXNode {
 
+    private static final String PROFILE_TYPE = "complex";
     private final int shapeType = ShapeType.Octagon;
     byte shapeFillType = FillType.Solid;
     byte lineFillType = FillType.Solid;
@@ -19,8 +22,8 @@ public class Complex extends PPTXNode {
     // Shape that the connector will be connected. This is a simple rectangle with 4 anchor points only
     private IAutoShape anchorShape;
 
-    public Complex(Node node, Adjustment adjustment) {
-        super(node, adjustment);
+    public Complex(Node node, Adjustment adjustment, boolean flag, boolean selected) {
+        super(node, adjustment, flag, selected);
     }
 
     public IAutoShape getAnchorShape() {
@@ -29,7 +32,7 @@ public class Complex extends PPTXNode {
 
     @Override
     public void render(IShapeCollection shapes, DiagramProfile profile) {
-        Stylesheet stylesheet = new Stylesheet(profile.getComplex(), shapeFillType, lineFillType, lineStyle);
+        Stylesheet stylesheet = new Stylesheet(profile, PROFILE_TYPE, shapeFillType, lineFillType, lineStyle);
 
         render(shapes, shapeType, stylesheet);
 
@@ -50,6 +53,10 @@ public class Complex extends PPTXNode {
 
             //0 to 0.833333
             adjustValue.setAngleValue(0.2470333f);
+        }
+
+        if (selected) {
+            setSelectedStyle(iAutoShape, stylesheet);
         }
     }
 }

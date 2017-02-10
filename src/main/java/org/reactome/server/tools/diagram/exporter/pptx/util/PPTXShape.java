@@ -149,12 +149,32 @@ public class PPTXShape {
         shape.getLineFormat().getFillFormat().getSolidFillColor().setColor(stylesheet.getLineColor());
         shape.getLineFormat().setStyle(stylesheet.getLineStyle());
         shape.getLineFormat().setWidth(stylesheet.getLineWidth());
-        shape.getLineFormat().setCapStyle(LineCapStyle.Round);
+        shape.getLineFormat().setCapStyle(stylesheet.getLineCapStyle());
 
         if (stylesheet.getLineDashStyle() > 0) {
             shape.getLineFormat().setDashStyle(stylesheet.getLineDashStyle());
             shape.getLineFormat().setCapStyle(LineCapStyle.Square);
         }
+    }
+
+    /**
+     * Helper method to ease set the flagging style of a group shape
+     */
+    public static void setFlaggingStyle(IShape shape, Stylesheet stylesheet) {
+        IEffectFormat iEffectFormat = shape.getEffectFormat();
+        iEffectFormat.enableGlowEffect();
+        iEffectFormat.getGlowEffect().getColor().setColor(stylesheet.getFlagColor());
+        iEffectFormat.getGlowEffect().setRadius(7);
+    }
+
+    /**
+     * Helper method to ease set the selection style of an autoshape.
+     */
+    public static void setSelectedStyle(IAutoShape shape, Stylesheet stylesheet) {
+        shape.getLineFormat().getFillFormat().setFillType(FillType.Solid);
+        shape.getLineFormat().setStyle(LineStyle.Single);
+        shape.getLineFormat().getFillFormat().getSolidFillColor().setColor(stylesheet.getSelectionColor());
+        shape.getLineFormat().setWidth(3);
     }
 
     /**
@@ -201,7 +221,7 @@ public class PPTXShape {
         txtFrame.getTextFrameFormat().setMarginRight(margins[3]);
 
         IPortion portion = txtFrame.getParagraphs().get_Item(0).getPortions().get_Item(0);
-        portion.getPortionFormat().setFontHeight(((float)(fontHeight * adjustment.getFactor())));
+        portion.getPortionFormat().setFontHeight(((float) (fontHeight * adjustment.getFactor())));
         portion.getPortionFormat().getFillFormat().setFillType(FillType.Solid);
 
         if (bold) portion.getPortionFormat().setFontBold(NullableBool.True);
