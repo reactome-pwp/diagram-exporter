@@ -36,7 +36,7 @@ public class PowerPointExporter {
         InputStream is = DiagramExporter.class.getResourceAsStream("/profiles/" + name + ".json");
         try {
             if(is == null) throw new DiagramProfileException("Could not read diagram color profile " + name);
-            return DiagramProfileFactory.getModelObject(IOUtils.toString(is));
+            return DiagramProfileFactory.getModelObject(IOUtils.toString(is, "UTF-8"));
         } catch (IOException e) {
             throw new DiagramProfileException("Could not read diagram color profile " + name);
         }
