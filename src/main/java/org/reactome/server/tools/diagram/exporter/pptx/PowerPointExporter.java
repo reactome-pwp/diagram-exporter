@@ -44,7 +44,7 @@ public class PowerPointExporter {
     }
 
     public static DiagramProfile getDiagramProfile(String name) throws DiagramProfileException {
-        logger.info("Getting profile {}", name);
+        logger.info("Getting Profile [{}]", name);
         InputStream is = DiagramExporter.class.getResourceAsStream("/profiles/" + name + ".json");
         try {
             if (is == null) {
