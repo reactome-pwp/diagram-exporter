@@ -7,7 +7,7 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>Diagram exporter</name>
+    <name>Diagram Exporter</name>
 
     <description>Description of project pptx-pg2</description>
     <url>http://reactome.org</url>
@@ -141,6 +141,7 @@
                             <mainClass>org.reactome.server.tools.diagram.exporter.DiagramExporter</mainClass>
                         </manifest>
                     </archive>
+                    <finalName>diagram-exporter</finalName>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
