@@ -5,7 +5,6 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
 import org.reactome.server.tools.diagram.exporter.pptx.PowerPointExporter;
-import org.reactome.server.tools.diagram.exporter.pptx.exception.LicenseException;
 import org.reactome.server.tools.diagram.exporter.pptx.model.Decorator;
 
 import java.io.File;
@@ -18,14 +17,15 @@ import java.util.stream.Collectors;
  */
 public class DiagramExporter {
 
-    public static void main(String[] args) throws JSAPException, LicenseException, DiagramProfileException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
-        // Program Arguments -h, -p, -u, -k
+    public static void main(String[] args) throws JSAPException, DiagramProfileException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
+        // Program Arguments -i, -p, -o, -j, -f and -s
         SimpleJSAP jsap = new SimpleJSAP(DiagramExporter.class.getName(), "Export a given diagram to Power Point",
                 new Parameter[]{
-                        new FlaggedOption("stId",         JSAP.STRING_PARSER, "R-HSA-69620", JSAP.REQUIRED,     'i', "stId",          "Stable Identifier of the diagram"),
-                        new FlaggedOption("colorProfile", JSAP.STRING_PARSER, "Modern",      JSAP.NOT_REQUIRED, 'p', "color profile", "The color profile"),
-                        new FlaggedOption("outputFolder", JSAP.STRING_PARSER, null,          JSAP.REQUIRED,     'o', "output",        "The output folder"),
-                        new FlaggedOption("staticFolder", JSAP.STRING_PARSER, null,          JSAP.REQUIRED,     'j', "static",        "The static json's folder")
+                        new FlaggedOption("stId",          JSAP.STRING_PARSER, null,     JSAP.REQUIRED,     'i', "stId",           "Stable Identifier of the diagram"),
+                        new FlaggedOption("colourProfile", JSAP.STRING_PARSER, "Modern", JSAP.NOT_REQUIRED, 'p', "colourProfile",  "The colour profile [Modern or Standard]"),
+                        new FlaggedOption("outputFolder",  JSAP.STRING_PARSER, null,     JSAP.REQUIRED,     'o', "output",         "The output folder"),
+                        new FlaggedOption("staticFolder",  JSAP.STRING_PARSER, null,     JSAP.REQUIRED,     'j', "static",         "The static json's folder"),
+                        new FlaggedOption("license",       JSAP.STRING_PARSER, null,     JSAP.NOT_REQUIRED, 'l', "license",        "Software License folder"),
                 }
         );
 
@@ -42,17 +42,24 @@ public class DiagramExporter {
         JSAPResult config = jsap.parse(args);
         if (jsap.messagePrinted()) System.exit(1);
 
-        String colorProfile = config.getString("colorProfile");
+        String staticFolder = config.getString("staticFolder");
+        String colourProfile = config.getString("colourProfile");
         String stId = config.getString("stId");
-        File path = new File(config.getString("outputFolder") + colorProfile);
-        if (!path.exists()) path.mkdirs();
-        String outputFile = path.getPath() + "/" + stId + ".pptx";
+        String lic = config.getString("license");
+
+        // Already concatenated to colourProfile
+        File outputFolder = new File(config.getString("outputFolder") + "/" + colourProfile);
+        if (!outputFolder.exists()) outputFolder.mkdirs();
+
         List<Long> flgs = Arrays.stream(config.getLongArray("flg")).boxed().collect(Collectors.toList());
         List<Long> sels = Arrays.stream(config.getLongArray("sel")).boxed().collect(Collectors.toList());
         Decorator decorator = new Decorator(flgs, sels);
-        PowerPointExporter.export(config.getString("staticFolder") + stId, colorProfile, outputFile, decorator);
 
-        System.out.println("Diagrams exported.");
+        File finalPptx = PowerPointExporter.export(stId, staticFolder, colourProfile, outputFolder.getPath(), decorator, lic);
 
+        File friendlyName = new File(outputFolder.getPath(), stId + ".pptx");
+        finalPptx.renameTo(friendlyName);
+
+        System.out.println("Diagram exporter: " + finalPptx);
     }
 }
