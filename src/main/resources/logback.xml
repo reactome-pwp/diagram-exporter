@@ -12,14 +12,13 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>./logs/pptx-pg2.log</file>
+        <file>./logs/diagram-exporter.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <fileNamePattern>./logs/pptx-pg2-%i-log.zip</fileNamePattern>
+            <fileNamePattern>./logs/diagram-exporter-%i-log.zip</fileNamePattern>
             <minIndex>1</minIndex>
             <maxIndex>3</maxIndex>
         </rollingPolicy>
-        <triggeringPolicy
-                class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <maxFileSize>10MB</maxFileSize>
         </triggeringPolicy>
         <encoder>
@@ -27,8 +26,12 @@
         </encoder>
     </appender>
 
-    <root level="INFO">
-        <appender-ref ref="FILE" />
+    <logger name="infoLogger" level="INFO" additivity="false">
+        <appender-ref ref="FILE"/>
+    </logger>
+
+    <root level="ERROR">
+        <appender-ref ref="STDOUT" />
     </root>
 
 </configuration>
