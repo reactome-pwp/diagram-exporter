@@ -36,7 +36,7 @@ public class PowerPointExporter {
         logger.info("Initialising the exporter to PowerPoint");
         logger.debug("Initialising the exporter to PowerPoint. Diagram [{}], Profile [{}] and Decorators [flg:{}, sel: {}]", stId, profileName, decorator.getFlags(), decorator.getSelected());
         Diagram diagram = getDiagram(staticFolder, stId);
-        DiagramProfile profile = getDiagramProfile(profileName);
+        DiagramProfile profile = getDiagramProfile(profileName.toLowerCase());
 
         DiagramPresentation diagramPresentation = new DiagramPresentation(diagram, profile, decorator);
         diagramPresentation.export();
