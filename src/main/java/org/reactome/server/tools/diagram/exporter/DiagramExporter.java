@@ -25,7 +25,7 @@ public class DiagramExporter {
                         new FlaggedOption("colourProfile", JSAP.STRING_PARSER, "Modern", JSAP.NOT_REQUIRED, 'p', "colourProfile",  "The colour profile [Modern or Standard]"),
                         new FlaggedOption("outputFolder",  JSAP.STRING_PARSER, null,     JSAP.REQUIRED,     'o', "output",         "The output folder"),
                         new FlaggedOption("staticFolder",  JSAP.STRING_PARSER, null,     JSAP.REQUIRED,     'j', "static",         "The static json's folder"),
-                        new FlaggedOption("license",       JSAP.STRING_PARSER, null,     JSAP.NOT_REQUIRED, 'l', "license",        "Software License folder"),
+                        new FlaggedOption("license",       JSAP.STRING_PARSER, null,     JSAP.NOT_REQUIRED, 'l', "license",        "Software License file"),
                 }
         );
 
@@ -47,7 +47,6 @@ public class DiagramExporter {
         String stId = config.getString("stId");
         String lic = config.getString("license");
 
-        // Already concatenated to colourProfile
         File outputFolder = new File(config.getString("outputFolder") + "/" + colourProfile);
         if (!outputFolder.exists()) outputFolder.mkdirs();
 
