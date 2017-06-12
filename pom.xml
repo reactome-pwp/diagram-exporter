@@ -9,7 +9,7 @@
 
     <name>Diagram Exporter</name>
 
-    <description>Description of project pptx-pg2</description>
+    <description>Export Pathway diagram into PowerPoint.</description>
     <url>http://reactome.org</url>
     <organization>
         <name>The European Bioinformatics Institute</name>
