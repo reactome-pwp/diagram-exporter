@@ -33,7 +33,7 @@
 
     <properties>
         <diagram.reader.version>1.1.0</diagram.reader.version>
-        <aspose.version>16.12.0</aspose.version>
+        <aspose.version>17.7</aspose.version>
         <logback.version>1.1.10</logback.version>
         <commons.io.version>2.5</commons.io.version>
         <jasp.version>2.1</jasp.version>
@@ -63,6 +63,7 @@
             <groupId>com.aspose</groupId>
             <artifactId>aspose-slides</artifactId>
             <version>${aspose.version}</version>
+            <classifier>jdk16</classifier>
         </dependency>
 
         <dependency>
