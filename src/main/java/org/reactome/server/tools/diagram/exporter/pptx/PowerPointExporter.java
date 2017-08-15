@@ -4,12 +4,11 @@ import org.apache.commons.io.IOUtils;
 import org.reactome.server.tools.diagram.data.DiagramFactory;
 import org.reactome.server.tools.diagram.data.exception.DeserializationException;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
+import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.DiagramExporter;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
-import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileFactory;
-import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.pptx.model.Decorator;
 import org.reactome.server.tools.diagram.exporter.pptx.parser.DiagramPresentation;
 import org.slf4j.Logger;
@@ -43,7 +42,7 @@ public class PowerPointExporter {
         return diagramPresentation.save(outputFolder, stId, license);
     }
 
-    public static DiagramProfile getDiagramProfile(String name) throws DiagramProfileException {
+    public static DiagramProfile getDiagramProfile(String name) throws DiagramProfileException, DiagramJsonDeserializationException {
         logger.info("Getting Profile [{}]", name);
         InputStream is = DiagramExporter.class.getResourceAsStream("/profiles/" + name + ".json");
         try {
@@ -51,8 +50,12 @@ public class PowerPointExporter {
                 logger.error("Could not read diagram color profile {}", name);
                 throw new DiagramProfileException("Could not read diagram color profile " + name);
             }
-            return DiagramProfileFactory.getModelObject(IOUtils.toString(is, "UTF-8"));
-        } catch (IOException e) {
+//            return DiagramProfileFactory.getModelObject(IOUtils.toString(is, "UTF-8"));
+            return DiagramFactory.getProfile(IOUtils.toString(is, "UTF-8"));
+        } catch (DeserializationException e) {
+            logger.error("Could not deserialize diagram color profile {}", name);
+            throw new DiagramJsonDeserializationException("Could not deserialize diagram color profile " + name);
+        }catch (IOException e) {
             logger.error("Could not read diagram color profile {}", name);
             throw new DiagramProfileException("Could not read diagram color profile " + name);
         }

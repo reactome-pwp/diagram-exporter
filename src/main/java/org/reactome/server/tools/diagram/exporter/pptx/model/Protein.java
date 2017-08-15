@@ -5,7 +5,7 @@ import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeAttachment;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
-import org.reactome.server.tools.diagram.exporter.common.profiles.model.DiagramProfile;
+import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
 
 import java.util.List;
 

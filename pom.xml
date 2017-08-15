@@ -4,7 +4,7 @@
 
     <groupId>org.reactome.server.tools</groupId>
     <artifactId>diagram-exporter</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Diagram Exporter</name>
@@ -32,7 +32,7 @@
     </developers>
 
     <properties>
-        <diagram.reader.version>1.0.0</diagram.reader.version>
+        <diagram.reader.version>1.1.0</diagram.reader.version>
         <aspose.version>16.12.0</aspose.version>
         <logback.version>1.1.10</logback.version>
         <commons.io.version>2.5</commons.io.version>
