@@ -13,7 +13,7 @@ public class GeneRenderer extends AbstractRenderer {
 	}
 
 	@Override
-	public void draw(AdvancedGraphics2D graphics, DiagramObject item) {
+	public void drawBorder(AdvancedGraphics2D graphics, DiagramObject item) {
 		graphics.drawGene((Node) item);
 	}
 

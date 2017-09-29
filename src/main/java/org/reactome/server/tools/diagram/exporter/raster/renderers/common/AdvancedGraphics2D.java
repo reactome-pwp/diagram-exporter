@@ -10,7 +10,6 @@ import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -41,7 +40,7 @@ public class AdvancedGraphics2D {
 				RenderingHints.KEY_TEXT_ANTIALIASING,
 				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 		this.factor = factor;
-		getGraphics().setFont(new Font("arial", Font.BOLD, (int) (9 * this.factor)));
+		getGraphics().setFont(ColorProfile.DEFAULT_FONT);
 	}
 
 	/**
@@ -357,7 +356,7 @@ public class AdvancedGraphics2D {
 						}
 						line.append(part);
 					} else {
-							lines.add(line.toString().trim());
+						lines.add(line.toString().trim());
 						line = new StringBuilder(part);
 					}
 				}
@@ -536,4 +535,46 @@ public class AdvancedGraphics2D {
 		graphics.drawRect((int) x, (int) y, (int) w, (int) h);
 	}
 
+	public void drawBone(NodeProperties prop) {
+		final Shape bone = getBoneShape(prop, RendererProperties.RNA_LOOP_WIDTH);
+		graphics.draw(bone);
+	}
+
+	public void fillBone(NodeProperties prop) {
+		final Shape bone = getBoneShape(prop, RendererProperties.RNA_LOOP_WIDTH);
+		graphics.fill(bone);
+	}
+
+	private Shape getBoneShape(NodeProperties properties, double loopWidth) {
+		final double x = factor * properties.getX();
+		final double y = factor * properties.getY();
+		final double width = factor * properties.getWidth();
+		final double height = factor * properties.getHeight();
+		double right = x + width;
+		double bottom = y + height;
+		final Path2D path = new GeneralPath();
+
+		double xAux = x + loopWidth;
+		double yAux = y + loopWidth / 2;
+		path.moveTo(xAux, yAux);
+		xAux = right - loopWidth;
+		path.lineTo(xAux, yAux);
+		yAux = y + height / 2;
+		path.quadTo(right, y, right, yAux);
+
+		xAux = right - loopWidth;
+		yAux = bottom - loopWidth / 2;
+		path.quadTo(right, bottom, xAux, yAux);
+
+		xAux = x + loopWidth;
+		path.lineTo(xAux, yAux);
+		yAux = y + height / 2;
+		path.quadTo(x, bottom, x, yAux);
+
+		xAux = x + loopWidth;
+		yAux = y + loopWidth / 2;
+		path.quadTo(x, y, xAux, yAux);
+		path.closePath();
+		return path;
+	}
 }

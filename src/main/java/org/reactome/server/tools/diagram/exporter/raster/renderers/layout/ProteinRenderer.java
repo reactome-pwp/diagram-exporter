@@ -7,7 +7,7 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.Render
 
 public class ProteinRenderer extends NodeAbstractRenderer {
 	@Override
-	public void draw(AdvancedGraphics2D graphics, DiagramObject item) {
+	public void drawBorder(AdvancedGraphics2D graphics, DiagramObject item) {
 		final Node node = (Node) item;
 		if (node.getNeedDashedBorder() != null && node.getNeedDashedBorder()) {
 			graphics.drawRoundedRectangle(node.getProp(),

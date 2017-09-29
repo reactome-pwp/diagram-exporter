@@ -14,7 +14,7 @@ public class ProcessNodeRenderer extends NodeAbstractRenderer {
 	private static final Paint INNER_COLOR = new Color(254, 253, 255);
 
 	@Override
-	public void draw(AdvancedGraphics2D graphics, DiagramObject item) {
+	public void drawBorder(AdvancedGraphics2D graphics, DiagramObject item) {
 		final Node node = (Node) item;
 		graphics.drawRectangle(node.getProp());
 

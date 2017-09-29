@@ -1,22 +1,17 @@
 package org.reactome.server.tools.diagram.exporter.pptx;
 
-import org.reactome.server.tools.diagram.data.DiagramFactory;
-import org.reactome.server.tools.diagram.data.exception.DeserializationException;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
-import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileFactory;
+import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.pptx.model.Decorator;
 import org.reactome.server.tools.diagram.exporter.pptx.parser.DiagramPresentation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
@@ -32,26 +27,12 @@ public class PowerPointExporter {
     public static File export(String stId, String staticFolder, String profileName, String outputFolder, Decorator decorator, String license) throws DiagramJsonDeserializationException, DiagramJsonNotFoundException, DiagramProfileException {
         logger.info("Initialising the exporter to PowerPoint");
         logger.debug("Initialising the exporter to PowerPoint. Diagram [{}], Profile [{}] and Decorators [flg:{}, sel: {}]", stId, profileName, decorator.getFlags(), decorator.getSelected());
-        Diagram diagram = getDiagram(staticFolder, stId);
-        DiagramProfile profile = DiagramProfileFactory.getDiagramProfile(profileName.toLowerCase());
+        Diagram diagram = ResourcesFactory.getDiagram(staticFolder, stId);
+        DiagramProfile profile = ResourcesFactory.getDiagramProfile(profileName.toLowerCase());
 
         DiagramPresentation diagramPresentation = new DiagramPresentation(diagram, profile, decorator);
         diagramPresentation.export();
         return diagramPresentation.save(outputFolder, stId, license);
     }
 
-    private static Diagram getDiagram(String staticFolder, String stId) throws DiagramJsonDeserializationException, DiagramJsonNotFoundException {
-        String pathway = staticFolder + "/" + stId + ".json";
-        logger.info("Getting diagram JSON {}", pathway);
-        try {
-            String json = new String(Files.readAllBytes(Paths.get(pathway)));
-            return DiagramFactory.getDiagram(json);
-        } catch (DeserializationException e) {
-            logger.error("Could not deserialize diagram json for pathway {}", pathway);
-            throw new DiagramJsonDeserializationException("Could not deserialize diagram json for pathway " + pathway);
-        } catch (IOException e) {
-            logger.error("Could not read diagram json for pathway {}", pathway);
-            throw new DiagramJsonNotFoundException("Could not read diagram json for pathway " + pathway);
-        }
-    }
 }

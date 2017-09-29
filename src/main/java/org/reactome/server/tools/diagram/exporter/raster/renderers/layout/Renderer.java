@@ -11,7 +11,7 @@ public interface Renderer {
 	 * @param graphics where to draw
 	 * @param item     what to draw
 	 */
-	void draw(AdvancedGraphics2D graphics, DiagramObject item);
+	void drawBorder(AdvancedGraphics2D graphics, DiagramObject item);
 
 	/**
 	 * Draws text

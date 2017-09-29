@@ -14,7 +14,7 @@ public abstract class AbstractRenderer implements Renderer {
 	 *
 	 * @param item item to render
 	 */
-	public void draw(AdvancedGraphics2D graphics, DiagramObject item) {
+	public void drawBorder(AdvancedGraphics2D graphics, DiagramObject item) {
 	}
 
 	/**

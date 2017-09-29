@@ -1,5 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
+import org.reactome.server.tools.diagram.data.layout.Shadow;
 import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.pptx.model.Stylesheet;
 import org.reactome.server.tools.diagram.exporter.raster.RenderType;
@@ -12,6 +13,8 @@ import java.util.regex.Pattern;
 
 public class ColorProfile {
 
+	public static Font SHADOWS_FONT;
+	public static Font DEFAULT_FONT;
 	public static Stroke HALO_STROKE;
 	public static Stroke DEFAULT_LINE_STROKE;
 	public static Stroke DEFAULT_BORDER_STROKE;
@@ -37,6 +40,8 @@ public class ColorProfile {
 		SELECTION_STROKE = new BasicStroke((float) (3 * factor), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
 		HALO_STROKE = new BasicStroke((float) (6 * factor), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
 		THICK_BORDER = new BasicStroke((float) (3 * factor), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
+		SHADOWS_FONT = new Font("arial", Font.BOLD, (int) (24 * factor));
+		DEFAULT_FONT = new Font("arial", Font.BOLD, (int) (9 * factor));
 	}
 
 	public static Paint getLineColor(DiagramProfile profile, String renderingClass, RenderType renderType) {
@@ -158,5 +163,14 @@ public class ColorProfile {
 			return new Color(Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)), (int) (Float.parseFloat(m.group(4)) * 255f));
 		}
 		return null;
+	}
+
+	public static Paint getShadowFill(Shadow shadow) {
+		final Color color = parseColor(shadow.getColour());
+		return new Color(color.getRed(), color.getGreen(), color.getBlue(), 50);
+	}
+
+	public static Paint getShadowLine(Shadow shadow) {
+		return parseColor(shadow.getColour());
 	}
 }

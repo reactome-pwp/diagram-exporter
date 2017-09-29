@@ -16,8 +16,10 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.Render
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.*;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -102,41 +104,42 @@ public class ImageRenderer {
 		textReactions();
 		flags();
 		notes();
+		shadows();
 		return graphics.getImage();
 	}
 
 
 	private double getMinY(Diagram diagram, double defaultValue) {
-		return Stream.of(diagram.getLinks(), diagram.getCompartments(), diagram.getNodes())
-				.flatMap(Collection::stream)
-				.map(o -> (DiagramObject) o)
+		return streamObjects(diagram)
 				.mapToDouble(DiagramObject::getMinY)
 				.min().orElse(defaultValue);
 	}
 
 	private double getMinX(Diagram diagram, double defaultValue) {
-		final DiagramObject diagramObject = Stream.of(diagram.getLinks(), diagram.getCompartments(), diagram.getNodes())
-				.flatMap(Collection::stream)
-				.map(o -> (DiagramObject) o)
-				.min(Comparator.comparing(DiagramObject::getMinX))
-				.orElse(null);
-		return diagramObject.getMinX();
+		return streamObjects(diagram)
+				.mapToDouble(DiagramObject::getMinX)
+				.min().orElse(defaultValue);
 	}
 
 	private double getMaxX(Diagram diagram, double defaultValue) {
-		return Stream.of(diagram.getLinks(), diagram.getCompartments(), diagram.getNodes())
-				.flatMap(Collection::stream)
-				.map(o -> (DiagramObject) o)
+		return streamObjects(diagram)
 				.mapToDouble(DiagramObject::getMaxX)
 				.max().orElse(defaultValue);
 	}
 
 	private double getMaxY(Diagram diagram, double defaultValue) {
-		return Stream.of(diagram.getLinks(), diagram.getCompartments(), diagram.getNodes())
-				.flatMap(Collection::stream)
-				.map(o -> (DiagramObject) o)
+		return streamObjects(diagram)
 				.mapToDouble(DiagramObject::getMaxY)
 				.max().orElse(defaultValue);
+	}
+
+	private Stream<DiagramObject> streamObjects(Diagram diagram) {
+		return Stream.of(
+				diagram.getLinks(),
+				diagram.getCompartments(),
+				diagram.getNodes(),
+				diagram.getShadows())
+				.flatMap(Collection::stream);
 	}
 
 
@@ -149,13 +152,10 @@ public class ImageRenderer {
 				renderer.fill(graphics, compartment));
 		graphics.getGraphics().setPaint(getLineColor(profile, renderingClass, RenderType.NORMAL));
 		diagram.getCompartments().forEach(compartment ->
-				renderer.draw(graphics, compartment));
+				renderer.drawBorder(graphics, compartment));
 		graphics.getGraphics().setPaint(getTextColor(profile, renderingClass, RenderType.NORMAL));
 		diagram.getCompartments().forEach(compartment ->
 				renderer.drawText(graphics, compartment));
-
-//		System.out.printf("> Drawing %d notes\n", diagram.getNotes().size());
-//		diagram.getNotes().forEach(note -> System.out.println(" - " + note.getDisplayName()));
 	}
 
 	private void selectReactionSegments() {
@@ -188,7 +188,7 @@ public class ImageRenderer {
 		graphics.getGraphics().setStroke(HALO_STROKE);
 		graphics.getGraphics().setPaint(getProfileColor(profile, "halo"));
 		index.getHaloNodes().forEach(item ->
-				RendererFactory.get(item.getRenderableClass()).draw(graphics, item));
+				RendererFactory.get(item.getRenderableClass()).drawBorder(graphics, item));
 	}
 
 	private void haloReactions() {
@@ -197,7 +197,7 @@ public class ImageRenderer {
 		index.getHaloEdges().forEach(reaction -> {
 			final EdgeAbstractRenderer renderer = (EdgeAbstractRenderer)
 					RendererFactory.get(reaction.getRenderableClass());
-			renderer.draw(graphics, reaction);
+			renderer.drawBorder(graphics, reaction);
 			renderer.drawSegments(graphics, reaction);
 		});
 		final ConnectorRenderer connectorRenderer = new ConnectorRenderer();
@@ -223,7 +223,7 @@ public class ImageRenderer {
 			final Renderer renderer = RendererFactory.get(renderingClass);
 			subitems.forEach((renderType, objects) -> {
 				graphics.getGraphics().setPaint(getLineColor(profile, renderingClass, renderType));
-				objects.forEach(diagramObject -> renderer.draw(graphics, diagramObject));
+				objects.forEach(diagramObject -> renderer.drawBorder(graphics, diagramObject));
 			});
 		});
 	}
@@ -232,7 +232,7 @@ public class ImageRenderer {
 		graphics.getGraphics().setStroke(SELECTION_STROKE);
 		graphics.getGraphics().setPaint(getProfileColor(profile, "selection"));
 		index.getSelectedNodes().forEach(node ->
-				RendererFactory.get(node.getRenderableClass()).draw(graphics, node));
+				RendererFactory.get(node.getRenderableClass()).drawBorder(graphics, node));
 	}
 
 	private void textNodes() {
@@ -253,22 +253,12 @@ public class ImageRenderer {
 				graphics.getGraphics().setPaint(getLineColor(profile, renderingClass, renderType));
 				edges.forEach(edge -> renderer.drawSegments(graphics, edge));
 			});
-
 		});
-		index.getClassifiedNodes().forEach((renderingClass, items) ->
-				items.forEach((renderType, nodes) -> {
-					graphics.getGraphics().setPaint(getLineColor(profile, "Reaction", renderType));
-					nodes.stream()
-							.map(Node::getConnectors)
-							.flatMap(Collection::stream)
-							.forEach(connector -> connectorRenderer.drawSegments(graphics, connector));
+		index.getClassifiedConnectors().forEach((renderingClass, items) ->
+				items.forEach((renderType, connectors) -> {
+					graphics.getGraphics().setPaint(getLineColor(profile, renderingClass, renderType));
+					connectors.forEach(connector -> connectorRenderer.drawSegments(graphics, connector));
 				}));
-//		graphics.getGraphics().setPaint(getLineColor(profile, "Reaction", RenderType.NORMAL));
-//		diagram.getNodes().stream()
-//				.map(Node::getConnectors)
-//				.flatMap(Collection::stream)
-//				.forEach(connector ->
-//						connectorRenderer.drawSegments(graphics, connector));
 	}
 
 	private void textReactions() {
@@ -348,14 +338,15 @@ public class ImageRenderer {
 			final EdgeAbstractRenderer renderer = (EdgeAbstractRenderer) RendererFactory.get(renderingClass);
 			items.forEach((renderType, edges) -> {
 				graphics.getGraphics().setPaint(getLineColor(profile, renderingClass, renderType));
-				edges.forEach(edge -> renderer.draw(graphics, edge));
+				edges.forEach(edge -> renderer.drawBorder(graphics, edge));
 			});
 		});
-		graphics.getGraphics().setPaint(getLineColor(profile, "Reaction", RenderType.NORMAL));
-		diagram.getNodes().stream()
-				.map(Node::getConnectors)
-				.flatMap(Collection::stream)
-				.forEach(connector -> connectorRenderer.draw(graphics, connector));
+		index.getClassifiedConnectors().forEach((renderingClass, items) -> {
+			items.forEach((renderType, connectors) -> {
+				graphics.getGraphics().setPaint(getLineColor(profile, renderingClass, renderType));
+				connectors.forEach(connector -> connectorRenderer.draw(graphics, connector));
+			});
+		});
 	}
 
 	public void setFixedMargin(boolean fixedMargin) {
@@ -365,15 +356,15 @@ public class ImageRenderer {
 	private void flags() {
 		graphics.getGraphics().setStroke(ColorProfile.SELECTION_STROKE);
 		graphics.getGraphics().setPaint(ColorProfile.getProfileColor(profile, "flag"));
-		index.getFlags().forEach(item ->
-				RendererFactory.get(item.getRenderableClass()).draw(graphics, item));
+		index.getFlagNodes().forEach(item ->
+				RendererFactory.get(item.getRenderableClass()).drawBorder(graphics, item));
 	}
 
 	private void selectReactionBorders() {
 		graphics.getGraphics().setStroke(DEFAULT_LINE_STROKE);
 		graphics.getGraphics().setPaint(getProfileColor(profile, "selection"));
 		index.getSelectedReactions().forEach(reaction ->
-				RendererFactory.get(reaction.getRenderableClass()).draw(graphics, reaction));
+				RendererFactory.get(reaction.getRenderableClass()).drawBorder(graphics, reaction));
 		index.getSelectedConnectors().forEach(connector ->
 				connectorRenderer.draw(graphics, connector));
 	}
@@ -385,8 +376,25 @@ public class ImageRenderer {
 		graphics.getGraphics().setPaint(getFillColor(profile, renderingClass, RenderType.NORMAL));
 		diagram.getNotes().forEach(note -> renderer.fill(graphics, note));
 		graphics.getGraphics().setPaint(getLineColor(profile, renderingClass, RenderType.NORMAL));
-		diagram.getNotes().forEach(note -> renderer.draw(graphics, note));
+		diagram.getNotes().forEach(note -> renderer.drawBorder(graphics, note));
 		graphics.getGraphics().setPaint(getTextColor(profile, renderingClass, RenderType.NORMAL));
 		diagram.getNotes().forEach(note -> renderer.drawText(graphics, note));
+	}
+
+	DiagramIndex getIndex() {
+		return index;
+	}
+
+	private void shadows() {
+		graphics.getGraphics().setFont(ColorProfile.SHADOWS_FONT);
+		diagram.getShadows().forEach(shadow -> {
+			final Paint shadowFill = ColorProfile.getShadowFill(shadow);
+			final Paint shadowLine = ColorProfile.getShadowLine(shadow);
+			graphics.getGraphics().setPaint(shadowFill);
+			RendererFactory.get(shadow.getRenderableClass()).fill(graphics, shadow);
+			graphics.getGraphics().setPaint(shadowLine);
+			RendererFactory.get(shadow.getRenderableClass()).drawBorder(graphics, shadow);
+			RendererFactory.get(shadow.getRenderableClass()).drawText(graphics, shadow);
+		});
 	}
 }

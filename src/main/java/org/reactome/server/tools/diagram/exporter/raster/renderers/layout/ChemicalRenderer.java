@@ -7,7 +7,7 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.Advanc
 public class ChemicalRenderer extends NodeAbstractRenderer {
 
 	@Override
-	public void draw(AdvancedGraphics2D graphics, DiagramObject item) {
+	public void drawBorder(AdvancedGraphics2D graphics, DiagramObject item) {
 		final Node node = (Node) item;
 		graphics.drawOval(node.getProp());
 		if (node.getIsCrossed() != null)

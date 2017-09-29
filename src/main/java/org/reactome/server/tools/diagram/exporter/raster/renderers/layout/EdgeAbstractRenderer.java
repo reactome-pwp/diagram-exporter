@@ -21,7 +21,7 @@ public class EdgeAbstractRenderer extends AbstractRenderer {
 	}
 
 	@Override
-	public void draw(AdvancedGraphics2D graphics, DiagramObject item) {
+	public void drawBorder(AdvancedGraphics2D graphics, DiagramObject item) {
 		final Edge edge = (Edge) item;
 		drawShape(graphics, edge.getEndShape());
 		drawShape(graphics, edge.getReactionShape());

@@ -11,16 +11,16 @@ import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
+import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
+import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
-import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileFactory;
 import org.reactome.server.tools.diagram.exporter.pptx.model.Decorator;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
@@ -50,14 +50,19 @@ public class ImageExporterTest extends TestCase {
 
 	public void test() {
 		final List<String> pathways = Arrays.asList(
-//				"R-HSA-1362409",  // Mithocondrial iron-sulfur cluster biogenesis
-//				"R-HSA-169911",  // Regulation of apoptosis
-//				"R-HSA-68874",  // M/G1 Transition
-//				"R-HSA-211945",  // Phase I -   Functionlaization of compounds
-//				"R-HSA-109581",  // Apoptosis
-//				"R-HSA-391251",  // Protein folding
-//				"R-HSA-6796648",  // TP53 Regulates Transcription of DNA Repair Genes
-				"R-HSA-5638302"
+				"R-HSA-1362409",  // Mithocondrial iron-sulfur cluster biogenesis
+				"R-HSA-169911",  // Regulation of apoptosis
+				"R-HSA-68874",  // M/G1 Transition
+				"R-HSA-211945",  // Phase I -   Functionlaization of compounds
+				"R-HSA-109581",  // Apoptosis
+				"R-HSA-391251",  // Protein folding
+				"R-HSA-6796648",  // TP53 Regulates Transcription of DNA Repair Genes
+				"R-HSA-5638302",
+				"R-HSA-1474244",
+				"R-HSA-4839726",
+				"R-HSA-8963743",
+				"R-HSA-8935690"
+
 		);
 		pathways.forEach(this::render);
 
@@ -65,7 +70,7 @@ public class ImageExporterTest extends TestCase {
 
 	private void render(String stId) {
 		try {
-			final DiagramProfile profile = getProfile("modern");
+			final DiagramProfile profile = ResourcesFactory.getDiagramProfile("modern");
 			final Diagram diagram = getDiagram(stId);
 			final Graph graph = getGraph(stId);
 
@@ -80,13 +85,16 @@ public class ImageExporterTest extends TestCase {
 			assertNotNull(profile);
 			assertNotNull(decorator);
 			assertNotNull(graph);
-//			assertEquals("Standard", profile.getName());
-
-			final BufferedImage image = new ImageRenderer(diagram, graph, profile, decorator).render(2);
 
 			// JPEG, PNG, GIF, BMP and WBMP
-			new File("diagrams").mkdirs();
-			ImageExport.save(image, "png", stId);
+			final String format = "png";
+			final String diagramFolder = new File("cache").getAbsolutePath();
+			final String output = new File("diagrams").getAbsolutePath();
+			try {
+				ImageExporter.export(stId, diagramFolder, "modern", output, decorator, format, 1);
+			} catch (DiagramJsonNotFoundException e) {
+				e.printStackTrace();
+			}
 
 		} catch (IOException | DeserializationException e) {
 			logger.log(Level.SEVERE, "Can't read render", e);
@@ -109,12 +117,18 @@ public class ImageExporterTest extends TestCase {
 	private Graph getGraph(String stId) throws IOException, DeserializationException {
 		final File cached = new File("cache", stId + ".graph.json");
 		if (!cached.exists()) {
-			System.out.println("saving graph of " + stId);
-			cached.getParentFile().mkdirs();
-			final URL url = new URL(host + stId + ".graph.json");
-			final ReadableByteChannel rbc = Channels.newChannel(url.openStream());
-			final FileOutputStream fos = new FileOutputStream(cached);
-			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+			try {
+				System.out.println("saving graph of " + stId);
+				cached.getParentFile().mkdirs();
+				final URL url = new URL(host + stId + ".graph.json");
+				final ReadableByteChannel rbc = Channels.newChannel(url.openStream());
+				final FileOutputStream fos = new FileOutputStream(cached);
+				fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+			} catch (FileNotFoundException e) {
+				System.err.println(stId + " does not exist");
+				return null;
+			}
+
 		}
 		final String json = IOUtils.toString(cached.toURI(), Charset.defaultCharset());
 		return DiagramFactory.getGraph(json);
@@ -124,19 +138,20 @@ public class ImageExporterTest extends TestCase {
 	private Diagram getDiagram(String stId) throws IOException, DeserializationException {
 		final File cached = new File("cache", stId + ".json");
 		if (!cached.exists()) {
-			cached.getParentFile().mkdirs();
-			System.out.println("saving diagram of " + stId);
-			final URL url = new URL(host + stId + ".json");
-			final ReadableByteChannel rbc = Channels.newChannel(url.openStream());
-			final FileOutputStream fos = new FileOutputStream(cached);
-			fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+			try {
+				cached.getParentFile().mkdirs();
+				System.out.println("saving diagram of " + stId);
+				final URL url = new URL(host + stId + ".json");
+				final ReadableByteChannel rbc = Channels.newChannel(url.openStream());
+				final FileOutputStream fos = new FileOutputStream(cached);
+				fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+			} catch (FileNotFoundException e) {
+				System.err.println(stId + " does not exist");
+				return null;
+			}
 		}
 		final String json = IOUtils.toString(cached.toURI(), Charset.defaultCharset());
 		return DiagramFactory.getDiagram(json);
-	}
-
-	private DiagramProfile getProfile(String name) throws DiagramProfileException, DiagramJsonDeserializationException {
-		return DiagramProfileFactory.getDiagramProfile(name);
 	}
 
 

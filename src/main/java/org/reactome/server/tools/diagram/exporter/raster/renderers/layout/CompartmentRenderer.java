@@ -22,7 +22,7 @@ public class CompartmentRenderer extends AbstractRenderer {
 	}
 
 	@Override
-	public void draw(AdvancedGraphics2D graphics, DiagramObject item) {
+	public void drawBorder(AdvancedGraphics2D graphics, DiagramObject item) {
 		final Compartment compartment = (Compartment) item;
 		graphics.drawRoundedRectangle(compartment.getProp(),
 				RendererProperties.ROUND_RECT_ARC_WIDTH,

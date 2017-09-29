@@ -16,7 +16,7 @@ public class ComplexRenderer extends NodeAbstractRenderer {
 	}
 
 	@Override
-	public void draw(AdvancedGraphics2D graphics, DiagramObject item) {
+	public void drawBorder(AdvancedGraphics2D graphics, DiagramObject item) {
 		final Node node = (Node) item;
 		graphics.drawCornedRectangle(node.getProp(),
 				RendererProperties.COMPLEX_RECT_ARC_WIDTH,

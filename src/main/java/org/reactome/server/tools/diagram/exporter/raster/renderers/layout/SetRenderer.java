@@ -9,7 +9,7 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.Render
 public class SetRenderer extends NodeAbstractRenderer {
 
 	@Override
-	public void draw(AdvancedGraphics2D graphics, DiagramObject item) {
+	public void drawBorder(AdvancedGraphics2D graphics, DiagramObject item) {
 		final Node node = (Node) item;
 		graphics.drawRoundedRectangle(node.getProp(),
 				RendererProperties.ROUND_RECT_ARC_WIDTH,
