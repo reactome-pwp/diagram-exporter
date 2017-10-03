@@ -8,6 +8,7 @@ import org.reactome.server.tools.diagram.exporter.raster.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.RenderType;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class DiagramIndex {
@@ -24,7 +25,7 @@ public class DiagramIndex {
 	private Set<Edge> selectedReactions;
 	private Set<Connector> selectedConnectors;
 	private Set<DiagramObject> flagNodes;
-	private Set<Edge> haloEdges;
+	private Set<Edge> haloReactions;
 	private Set<DiagramObject> haloNodes;
 	private Set<Connector> haloConnectors;
 	private Map<String, Map<RenderType, Set<Node>>> classifiedNodes;
@@ -39,10 +40,7 @@ public class DiagramIndex {
 		this.decorator = decorator;
 		this.analysisType = analysisType;
 		createIndexes();
-		// This is be faster than collecting each list separately
-		// because you iterate only once through the list
-		// But the code is mor messy
-		collectEverything();
+		collect();
 	}
 
 	private void createIndexes() {
@@ -61,62 +59,30 @@ public class DiagramIndex {
 				.forEach(item -> graphIndex.put(item.getDbId(), item));
 	}
 
-	private void collectEverything() {
-		selectedReactions = new HashSet<>();
-		selectedNodes = new HashSet<>();
-		selectedConnectors = new HashSet<>();
-		flagNodes = new HashSet<>();
-		flagReactions = new HashSet<>();
-		flagConnectors = new HashSet<>();
-		haloEdges = new HashSet<>();
-		haloNodes = new HashSet<>();
-		haloConnectors = new HashSet<>();
-		classifiedReactions = new HashMap<>();
+	private void collect() {
+		classifyNodes();
+		classifyReactions();
+		if (decorator != null) {
+			selectNodes();
+			selectReactions();
+		}
+	}
+
+	private void classifyNodes() {
 		classifiedNodes = new HashMap<>();
+		classifiedNodes = diagram.getNodes().stream()
+				.collect(Collectors.groupingBy(Node::getRenderableClass,
+						Collectors.groupingBy(this::getRenderType, Collectors.toSet())));
+	}
+
+	private void classifyReactions() {
+		classifiedReactions = new HashMap<>();
 		classifiedConnectors = new HashMap<>();
-		collectNodes();
-		collectReactionsAndConnectors();
-	}
-
-	private void collectNodes() {
-		diagram.getNodes().forEach(node -> {
-			// Select node
-			if (decorator.getSelected().contains(node.getReactomeId())) {
-				selectedNodes.add(node);
-				haloNodes.add(node);
-				node.getConnectors().forEach(connector -> {
-					final Edge reaction = (Edge) diagramIndex.get(connector.getEdgeId());
-					haloEdge(reaction, false);
-				});
-			}
-			// Flag node
-			if (decorator.getFlags().contains(node.getReactomeId()))
-				flagNodes.add(node);
-			// Classify node by renderingClass/renderType
-			classifiedNodes.putIfAbsent(node.getRenderableClass(), new HashMap<>());
-			final Map<RenderType, Set<Node>> map = classifiedNodes.get(node.getRenderableClass());
-			final RenderType renderType = getRenderType(node, analysisType);
-			map.putIfAbsent(renderType, new HashSet<>());
-			map.get(renderType).add(node);
-		});
-	}
-
-	private void collectReactionsAndConnectors() {
 		diagram.getEdges().forEach(reaction -> {
-			// Select edge
-			if (decorator.getSelected().contains(reaction.getReactomeId())) {
-				selectedReactions.add(reaction);
-				haloEdge(reaction, true);
-			}
-			// Flag edge
-			if (decorator.getFlags().contains(reaction.getReactomeId())) {
-				flagReactions.add(reaction);
-				flagReaction(reaction);
-			}
 			// Classify edges by renderingClass/renderType
 			classifiedReactions.putIfAbsent(reaction.getRenderableClass(), new HashMap<>());
 			final Map<RenderType, Set<Edge>> reactions = classifiedReactions.get(reaction.getRenderableClass());
-			final RenderType renderType = getRenderType(reaction, analysisType);
+			final RenderType renderType = getRenderType(reaction);
 			reactions.putIfAbsent(renderType, new HashSet<>());
 			reactions.get(renderType).add(reaction);
 			// Classify connectors by renderingClass/renderType
@@ -132,6 +98,49 @@ public class DiagramIndex {
 		});
 	}
 
+
+	private void selectNodes() {
+		selectedNodes = new HashSet<>();
+		haloNodes = new HashSet<>();
+		flagNodes = new HashSet<>();
+		haloReactions = new HashSet<>();
+		haloConnectors = new HashSet<>();
+		diagram.getNodes().forEach(node -> {
+			// Select node
+			if (decorator.getSelected().contains(node.getReactomeId())) {
+				selectedNodes.add(node);
+				haloNodes.add(node);
+				node.getConnectors().forEach(connector -> {
+					final Edge reaction = (Edge) diagramIndex.get(connector.getEdgeId());
+					haloEdge(reaction, false);
+				});
+			}
+			// Flag node
+			if (decorator.getFlags().contains(node.getReactomeId()))
+				flagNodes.add(node);
+		});
+	}
+
+	private void selectReactions() {
+		selectedReactions = new HashSet<>();
+		selectedConnectors = new HashSet<>();
+		flagReactions = new HashSet<>();
+		flagConnectors = new HashSet<>();
+		diagram.getEdges().forEach(reaction -> {
+			// Select edge
+			if (decorator.getSelected().contains(reaction.getReactomeId())) {
+				selectedReactions.add(reaction);
+				haloEdge(reaction, true);
+			}
+			// Flag edge
+			if (decorator.getFlags().contains(reaction.getReactomeId())) {
+				flagReactions.add(reaction);
+				flagReaction(reaction);
+			}
+		});
+	}
+
+
 	/**
 	 * Adds the reaction to the haloReaction set, participating nodes to
 	 * haloNodes and participating connectors to haloConnectors
@@ -142,7 +151,7 @@ public class DiagramIndex {
 	 *                      selectedConnectors as well
 	 */
 	private void haloEdge(Edge reaction, boolean withSelection) {
-		haloEdges.add(reaction);
+		haloReactions.add(reaction);
 		streamParticipants(reaction)
 				.forEach(node -> {
 					haloNodes.add(node);
@@ -168,7 +177,8 @@ public class DiagramIndex {
 				edge.getInhibitors(), edge.getInputs(), edge.getOutputs())
 				.filter(Objects::nonNull)
 				.flatMap(Collection::stream)
-				.map(part -> (Node) diagramIndex.get(part.getId()));
+				.map(part -> diagramIndex.get(part.getId()))
+				.map(Node.class::cast);
 	}
 
 	private void flagReaction(Edge reaction) {
@@ -176,12 +186,10 @@ public class DiagramIndex {
 		streamParticipants(reaction).forEach(node ->
 				node.getConnectors().stream()
 						.filter(connector -> connector.getEdgeId().equals(reaction.getId()))
-						.forEach(connector -> {
-							flagConnectors.add(connector);
-						}));
+						.forEach(flagConnectors::add));
 	}
 
-	private RenderType getRenderType(DiagramObject item, AnalysisType analysisType) {
+	private RenderType getRenderType(DiagramObject item) {
 		if (item.getIsFadeOut() != null)
 			return RenderType.FADE_OUT;
 		final boolean isDisease = item.getIsDisease() != null;
@@ -275,7 +283,7 @@ public class DiagramIndex {
 
 	}
 
-	public Set<Edge> getHaloEdges() {
-		return haloEdges;
+	public Set<Edge> getHaloReactions() {
+		return haloReactions;
 	}
 }

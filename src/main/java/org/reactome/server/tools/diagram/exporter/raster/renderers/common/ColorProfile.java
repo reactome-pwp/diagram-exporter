@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 public class ColorProfile {
 
+	private final static Pattern RGBA = Pattern.compile("^rgba\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*((0.[1-9])|[01])\\s*\\)$");
 	public static Font SHADOWS_FONT;
 	public static Font DEFAULT_FONT;
 	public static Stroke HALO_STROKE;
@@ -20,7 +21,6 @@ public class ColorProfile {
 	public static Stroke DEFAULT_BORDER_STROKE;
 	public static Stroke SELECTION_STROKE;
 	public static Stroke THICK_BORDER;
-
 	/**
 	 * rendering classes colors
 	 */
@@ -44,6 +44,16 @@ public class ColorProfile {
 		DEFAULT_FONT = new Font("arial", Font.BOLD, (int) (9 * factor));
 	}
 
+	/**
+	 * Computes the color of the "stroke" property for the given
+	 * renderingClass based on the renderType
+	 *
+	 * @param profile        the profile to extract the color from
+	 * @param renderingClass the class of the object to paint
+	 * @param renderType     the render type to choose between normal, light,
+	 *                       fadeout or disease
+	 * @return a Paint with a proper color for drawing lines
+	 */
 	public static Paint getLineColor(DiagramProfile profile, String renderingClass, RenderType renderType) {
 		final Stylesheet styleSheet = getStyleSheet(profile, renderingClass);
 		switch (renderType) {
@@ -66,6 +76,16 @@ public class ColorProfile {
 		}
 	}
 
+	/**
+	 * Computes the color of the "fill" property for the given renderingClass
+	 * based on the renderType
+	 *
+	 * @param profile        the profile to extract the color from
+	 * @param renderingClass the class of the object to paint
+	 * @param renderType     the render type to choose between normal, light or
+	 *                       fadeout
+	 * @return a Paint with a proper color for drawing lines
+	 */
 	public static Paint getFillColor(DiagramProfile profile, String renderingClass, RenderType renderType) {
 		final Stylesheet styleSheet = getStyleSheet(profile, renderingClass);
 		switch (renderType) {
@@ -89,13 +109,23 @@ public class ColorProfile {
 		}
 	}
 
+	/**
+	 * Computes the shape of the "stroke" to be applied to a line in the diagram
+	 *
+	 * @param profile        the profile to extract the stroke
+	 * @param renderingClass the class of the object to paint
+	 * @param renderType     the render type
+	 * @return a computed stroke for your needs
+	 */
+
 	public static Stroke getStroke(DiagramProfile profile, String renderingClass, RenderType renderType) {
-		switch (renderType) {
-			case HIT_INTERACTORS:
-				return THICK_BORDER;
-			default:
-				return DEFAULT_LINE_STROKE;
-		}
+		throw new UnsupportedOperationException("Use ColorProfile constants instead, i.e. ColorProfile.DEFAULT_LINE_STROKE");
+//		switch (renderType) {
+//			case HIT_INTERACTORS:
+//				return THICK_BORDER;
+//			default:
+//				return DEFAULT_LINE_STROKE;
+//		}
 	}
 
 	public static Paint getTextColor(DiagramProfile profile, String renderingClass, RenderType renderType) {
@@ -131,6 +161,13 @@ public class ColorProfile {
 		properties.putIfAbsent(profile.getName(), map);
 	}
 
+	/**
+	 * Gets a color from the properties
+	 *
+	 * @param profile
+	 * @param type
+	 * @return
+	 */
 	public static Paint getProfileColor(DiagramProfile profile, String type) {
 		if (!properties.containsKey(profile.getName()))
 			addProfile(profile);
@@ -155,22 +192,23 @@ public class ColorProfile {
 	}
 
 	private static Color rgbaToColor(String input) {
-		String rgbaRegex = "^rgba\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*((0.[1-9])|[01])\\s*\\)$";
-
-		Pattern c = Pattern.compile(rgbaRegex);
-		Matcher m = c.matcher(input);
+		final Matcher m = RGBA.matcher(input);
 		if (m.matches()) {
-			return new Color(Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)), (int) (Float.parseFloat(m.group(4)) * 255f));
+			return new Color(Integer.parseInt(m.group(1)),
+					Integer.parseInt(m.group(2)),
+					Integer.parseInt(m.group(3)),
+					(int) (Float.parseFloat(m.group(4)) * 255f));
 		}
 		return null;
 	}
 
 	public static Paint getShadowFill(Shadow shadow) {
 		final Color color = parseColor(shadow.getColour());
-		return new Color(color.getRed(), color.getGreen(), color.getBlue(), 50);
+		return new Color(color.getRed(), color.getGreen(), color.getBlue(), 20);
 	}
 
 	public static Paint getShadowLine(Shadow shadow) {
-		return parseColor(shadow.getColour());
+		final Color color = parseColor(shadow.getColour());
+		return new Color(color.getRed(), color.getGreen(), color.getBlue(), 200);
 	}
 }

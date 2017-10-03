@@ -47,7 +47,7 @@ public class ImageRenderer {
 
 
 	/**
-	 * Creates a ImageRenderer with specific ddiagram, graph, profile and
+	 * Creates a ImageRenderer with specific diagram, graph, profile and
 	 * decorators.
 	 *
 	 * @param diagram   diagram to render
@@ -75,10 +75,10 @@ public class ImageRenderer {
 		ColorProfile.setFactor(factor);
 
 		// Bounds are recalculated reading nodes, we don't trust diagram bounds
-		final double minX = getMinX(diagram, 0);
-		final double maxX = getMaxX(diagram, 0);
-		final double minY = getMinY(diagram, 0);
-		final double maxY = getMaxY(diagram, 0);
+		final double minX = getMinX();
+		final double maxX = getMaxX();
+		final double minY = getMinY();
+		final double maxY = getMaxY();
 //		System.out.printf("%f, %f, %f, %f\n", minX, minY, maxX, maxY);
 
 		final int width = Double.valueOf(factor * (maxX - minX) + 2 * margin).intValue();
@@ -88,52 +88,65 @@ public class ImageRenderer {
 		final double y = minY * factor;
 		graphics = new AdvancedGraphics2D(width, height, factor, x, y, margin);
 
-		compartments();
-		haloReactions();
-		haloNodes();
-		drawReactionSegments();
-		selectReactionSegments();
-		fillReactions();
-		drawReactions();
-		selectReactionShapes();
-		selectReactionBorders();
-		fillNodes();
-		drawNodes();
-		selectNodes();
-		textNodes();
-		textReactions();
-		flags();
-		notes();
-		shadows();
+		if (decorator == null) {
+			compartments();
+			shadows();
+			drawReactionSegments();
+			fillReactions();
+			drawReactions();
+			fillNodes();
+			drawNodes();
+			textNodes();
+			textReactions();
+			notes();
+		} else {
+			compartments();
+			shadows();
+			haloReactions();
+			haloNodes();
+			drawReactionSegments();
+			selectReactionSegments();
+			fillReactions();
+			drawReactions();
+			selectReactionShapes();
+			selectReactionBorders();
+			fillNodes();
+			drawNodes();
+			selectNodes();
+			textNodes();
+			textReactions();
+			flags();
+			notes();
+		}
 		return graphics.getImage();
 	}
 
 
-	private double getMinY(Diagram diagram, double defaultValue) {
-		return streamObjects(diagram)
+	private double getMinY() {
+		return streamObjects()
 				.mapToDouble(DiagramObject::getMinY)
-				.min().orElse(defaultValue);
+				.min().orElse(0);
 	}
 
-	private double getMinX(Diagram diagram, double defaultValue) {
-		return streamObjects(diagram)
+	private double getMinX() {
+		return streamObjects()
 				.mapToDouble(DiagramObject::getMinX)
-				.min().orElse(defaultValue);
+				.min().orElse(0);
 	}
 
-	private double getMaxX(Diagram diagram, double defaultValue) {
-		return streamObjects(diagram)
+	private double getMaxX() {
+		return streamObjects()
 				.mapToDouble(DiagramObject::getMaxX)
-				.max().orElse(defaultValue);
+				.max().orElse(0);
 	}
 
-	private double getMaxY(Diagram diagram, double defaultValue) {
-		return streamObjects(diagram)
+	private double getMaxY() {
+		return streamObjects()
 				.mapToDouble(DiagramObject::getMaxY)
-				.max().orElse(defaultValue);
+				.max().orElse(0);
 	}
 
-	private Stream<DiagramObject> streamObjects(Diagram diagram) {
+	private Stream<DiagramObject> streamObjects() {
 		return Stream.of(
 				diagram.getLinks(),
 				diagram.getCompartments(),
@@ -142,12 +155,11 @@ public class ImageRenderer {
 				.flatMap(Collection::stream);
 	}
 
-
 	private void compartments() {
 		final String renderingClass = "Compartment";
 		final Renderer renderer = RendererFactory.get(renderingClass);
 		graphics.getGraphics().setPaint(getFillColor(profile, renderingClass, RenderType.NORMAL));
-		graphics.getGraphics().setStroke(getStroke(profile, renderingClass, RenderType.NORMAL));
+		graphics.getGraphics().setStroke(ColorProfile.DEFAULT_BORDER_STROKE);
 		diagram.getCompartments().forEach(compartment ->
 				renderer.fill(graphics, compartment));
 		graphics.getGraphics().setPaint(getLineColor(profile, renderingClass, RenderType.NORMAL));
@@ -194,7 +206,7 @@ public class ImageRenderer {
 	private void haloReactions() {
 		graphics.getGraphics().setStroke(HALO_STROKE);
 		graphics.getGraphics().setPaint(ColorProfile.getProfileColor(profile, "halo"));
-		index.getHaloEdges().forEach(reaction -> {
+		index.getHaloReactions().forEach(reaction -> {
 			final EdgeAbstractRenderer renderer = (EdgeAbstractRenderer)
 					RendererFactory.get(reaction.getRenderableClass());
 			renderer.drawBorder(graphics, reaction);
@@ -379,10 +391,6 @@ public class ImageRenderer {
 		diagram.getNotes().forEach(note -> renderer.drawBorder(graphics, note));
 		graphics.getGraphics().setPaint(getTextColor(profile, renderingClass, RenderType.NORMAL));
 		diagram.getNotes().forEach(note -> renderer.drawText(graphics, note));
-	}
-
-	DiagramIndex getIndex() {
-		return index;
 	}
 
 	private void shadows() {

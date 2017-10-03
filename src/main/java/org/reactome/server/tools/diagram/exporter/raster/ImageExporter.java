@@ -8,7 +8,6 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
 import org.reactome.server.tools.diagram.exporter.pptx.model.Decorator;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -17,7 +16,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 public class ImageExporter {
@@ -64,9 +62,8 @@ public class ImageExporter {
 		final long render = startSave - startRender;
 		final long save = end - startSave;
 		long elements = countElements(diagram);
-		long paintCalls = contPaintCalls(renderer.getIndex(), diagram);
-		printline("diagram", "elements", "paint calls", "pre-process", "rendering", "saving");
-		printline(stId, elements, paintCalls, pre, render, save);
+		final long size = image.getWidth() * image.getHeight();
+		printline(stId, size, elements, pre + render);
 		return file;
 	}
 
@@ -76,62 +73,6 @@ public class ImageExporter {
 				+ diagram.getCompartments().size()
 				+ diagram.getNotes().size()
 				+ diagram.getShadows().size();
-	}
-
-	private static long contPaintCalls(DiagramIndex index, Diagram diagram) {
-		final AtomicLong graphicCalls = new AtomicLong();
-		index.getClassifiedNodes().forEach((rClass, map) ->
-				map.forEach((renderType, nodes) ->
-						nodes.forEach(node -> {
-							// fill, border, text
-							graphicCalls.addAndGet(3);
-						})));
-		index.getClassifiedReactions().forEach((rClass, map) ->
-				map.forEach((renderType, edges) -> {
-					edges.forEach(edge -> {
-						// fill, border, text
-						graphicCalls.addAndGet(3);
-						graphicCalls.addAndGet(edge.getSegments().size());
-					});
-				}));
-		index.getClassifiedConnectors().forEach((rClass, map) ->
-				map.forEach((renderType, connectors) -> {
-					connectors.forEach(connector -> {
-						// fill, border, text
-						graphicCalls.addAndGet(3);
-						graphicCalls.addAndGet(connector.getSegments().size());
-					});
-				}));
-		index.getSelectedReactions().forEach(edge -> {
-			graphicCalls.addAndGet(2);  // fill, border
-			graphicCalls.addAndGet(edge.getSegments().size());
-		});
-		index.getSelectedConnectors().forEach(connector -> {
-			graphicCalls.addAndGet(2);  // fill, border
-			graphicCalls.addAndGet(connector.getSegments().size());
-		});
-		// only border
-		graphicCalls.addAndGet(index.getSelectedNodes().size());
-		graphicCalls.addAndGet(index.getHaloNodes().size());
-		index.getHaloEdges().forEach(edge -> {
-			graphicCalls.addAndGet(1); // border
-			graphicCalls.addAndGet(edge.getSegments().size());
-		});
-		index.getHaloConnectors().forEach(connector -> {
-			graphicCalls.addAndGet(1); // border
-			graphicCalls.addAndGet(connector.getSegments().size());
-		});
-		graphicCalls.addAndGet(index.getHaloNodes().size());
-		index.getFlagConnectors().forEach(connector -> {
-			graphicCalls.addAndGet(1);  // border
-			graphicCalls.addAndGet(connector.getSegments().size());
-		});
-		index.getFlagReactions().forEach(connector -> {
-			graphicCalls.addAndGet(1);  // border
-			graphicCalls.addAndGet(connector.getSegments().size());
-		});
-		diagram.getShadows().forEach(shadow -> graphicCalls.addAndGet(3));
-		return graphicCalls.longValue();
 	}
 
 	private static void printline(Object... objects) {

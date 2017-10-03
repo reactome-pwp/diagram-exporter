@@ -4,7 +4,6 @@ import org.reactome.server.tools.diagram.data.layout.Bound;
 import org.reactome.server.tools.diagram.data.layout.Coordinate;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
-import org.reactome.server.tools.diagram.exporter.raster.shapes.ShapeFactory;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;
@@ -32,7 +31,7 @@ public class AdvancedGraphics2D {
 	 * Creates a AdvancedGraphics2D that will draw into graphics using factor*
 	 */
 	public AdvancedGraphics2D(double width, double height, double factor, double x, double y, double margin) {
-		this.image = new BufferedImage((int) width, (int) height, BufferedImage.TYPE_4BYTE_ABGR);
+		this.image = new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_ARGB);
 		this.graphics = image.createGraphics();
 		graphics.translate(margin, margin);
 		graphics.translate((int) -x, (int) -y);
@@ -41,6 +40,34 @@ public class AdvancedGraphics2D {
 				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 		this.factor = factor;
 		getGraphics().setFont(ColorProfile.DEFAULT_FONT);
+	}
+
+	private static Polygon cornedRectangle(int x, int y, int width, int height,
+	                                       int cornerWidth, int cornerHeight) {
+		final int[] xs = new int[]{
+				x + cornerWidth,
+				x + width - cornerWidth,
+				x + width,
+				x + width,
+				x + width - cornerWidth,
+				x + cornerWidth,
+				x,
+				x,
+				x + cornerWidth
+		};
+		final int[] ys = new int[]{
+				y,
+				y,
+				y + cornerHeight,
+				y + height - cornerHeight,
+				y + height,
+				y + height,
+				y + height - cornerHeight,
+				y + cornerHeight,
+				y
+		};
+
+		return new Polygon(xs, ys, xs.length);
 	}
 
 	/**
@@ -148,8 +175,9 @@ public class AdvancedGraphics2D {
 	 */
 	public void drawCornedRectangle(NodeProperties properties,
 	                                double cornerWidth, double cornerHeight) {
-		drawCornedRectangle(properties.getX(), properties.getY(), properties.getWidth(),
-				properties.getHeight(), cornerWidth, cornerHeight);
+		drawCornedRectangle(properties.getX(), properties.getY(),
+				properties.getWidth(), properties.getHeight(),
+				cornerWidth, cornerHeight);
 	}
 
 	/**
@@ -171,7 +199,7 @@ public class AdvancedGraphics2D {
 		final int intH = Double.valueOf(h * factor).intValue();
 		final int intCW = Double.valueOf(cornerWidth * factor).intValue();
 		final int intCH = Double.valueOf(cornerHeight * factor).intValue();
-		final Polygon rectangle = ShapeFactory.cornedRectangle(intX, intY,
+		final Polygon rectangle = cornedRectangle(intX, intY,
 				intW, intH, intCW, intCH);
 		getGraphics().drawPolygon(rectangle);
 	}
@@ -266,15 +294,15 @@ public class AdvancedGraphics2D {
 	}
 
 	public void drawText(String text, double x, double y, double width, double height, double padding) {
-		final double scaledX = factor * x;
-		final double scaledY = factor * y;
-		final double scaledW = factor * width;
-		final double scaledH = factor * height;
+		final double scaledX = factor * (x + padding);
+		final double scaledY = factor * (y + padding);
+		final double scaledW = factor * (width - 2 * padding);
+		final double scaledH = factor * (height - 2 * padding);
 		final double centerX = scaledX + scaledW * 0.5;
 		final double centerY = scaledY + scaledH * 0.5;
 
 		double availableWidth = scaledW;
-		availableWidth -= 2 * padding;
+//		availableWidth -= 2 * padding;
 
 		final int textWidth = getGraphics().getFontMetrics().charsWidth(text.toCharArray(), 0, text.length());
 
@@ -293,11 +321,11 @@ public class AdvancedGraphics2D {
 			final Font old = graphics.getFont();
 			graphics.setFont(font);
 			final int textHeight = lines.size() * getGraphics().getFontMetrics().getHeight();
-			final double yOffset = (scaledH - textHeight) * 0.5;
+			final double yOffset = (scaledH - textHeight) * 0.5 + scaledY + graphics.getFontMetrics().getAscent();
 			for (int i = 0; i < lines.size(); i++) {
 				final String line = lines.get(i);
 				final int lineWidth = getGraphics().getFontMetrics().charsWidth(line.toCharArray(), 0, line.length());
-				final int base = (int) (yOffset + scaledY + (i + 1) * getGraphics().getFontMetrics().getHeight());
+				final int base = (int) (yOffset + (i) * getGraphics().getFontMetrics().getHeight());
 				int left = (int) (centerX - 0.5 * lineWidth);
 				getGraphics().drawString(line, left, base);
 			}
@@ -369,6 +397,16 @@ public class AdvancedGraphics2D {
 		else return null;
 	}
 
+	/**
+	 * Will split a word by any character in WORD_SPLIT_CHARS
+	 * <pre>{':', '.', '-', ',', ')', '/', '+'}</pre>
+	 * the split characters are inserted as the last character of the fragment
+	 *
+	 * For instance <pre>splitWord("p-T402-PAK2(213-524))</pre> will result in
+	 * <pre>{"p-", "T402-", "PAK2(", "213-", "524)"}</pre>
+	 * @param word
+	 * @return
+	 */
 	private List<String> splitWord(String word) {
 		final List<String> parts = new LinkedList<>();
 		int start = 0;
@@ -378,7 +416,8 @@ public class AdvancedGraphics2D {
 				start = i + 1;
 			}
 		}
-		parts.add(word.substring(start));
+		final String end = word.substring(start);
+		if (!end.isEmpty()) parts.add(end);
 		return parts;
 	}
 
@@ -436,7 +475,7 @@ public class AdvancedGraphics2D {
 		final int intH = Double.valueOf(height * factor).intValue();
 		final int intCW = Double.valueOf(arcWidth * factor).intValue();
 		final int intCH = Double.valueOf(arcHeight * factor).intValue();
-		final Polygon rectangle = ShapeFactory.cornedRectangle(intX, intY,
+		final Polygon rectangle = cornedRectangle(intX, intY,
 				intW, intH, intCW, intCH);
 		getGraphics().fillPolygon(rectangle);
 	}
@@ -449,7 +488,7 @@ public class AdvancedGraphics2D {
 		fillRect(prop.getX(), prop.getY(), prop.getWidth(), prop.getHeight());
 	}
 
-	private void fillRect(double x, double y, double width, double height) {
+	public void fillRect(double x, double y, double width, double height) {
 		getGraphics().fillRect(
 				(int) (factor * x),
 				(int) (factor * y),
