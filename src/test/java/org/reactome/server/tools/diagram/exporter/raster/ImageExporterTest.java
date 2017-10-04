@@ -2,15 +2,12 @@ package org.reactome.server.tools.diagram.exporter.raster;
 
 
 import org.apache.commons.io.IOUtils;
-import org.junit.Ignore;
+import org.apache.commons.io.output.NullOutputStream;
 import org.junit.Test;
 import org.reactome.server.tools.diagram.data.DiagramFactory;
 import org.reactome.server.tools.diagram.data.exception.DeserializationException;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
-import org.reactome.server.tools.diagram.data.layout.Diagram;
-import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
-import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
@@ -23,25 +20,32 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class ImageExporterTest {
 
-	private static final String host = "http://reactome.org/download/current/diagram/";
-	private final Logger logger = Logger.getLogger(getClass().getName());
+	private static final String host = "http://reactomerelease.oicr.on.ca/download/current/diagram/";
+	private static final File DIAGRAMS_FOLDER = new File("/media/pascual/Disco1TB/reactome/diagrams");
+	private static final File IMAGES_FOLDER = new File("/media/pascual/Disco1TB/reactome/images");
 
-
-	@Ignore
+	@Test
 	public void testPerformance() {
 		final List<String> pathways = getLines(new File("all-pathways.txt"));
 		if (pathways != null) {
+			Collections.shuffle(pathways);
+			// Warm up with 5 diagrams
 			pathways.stream()
 					.filter(this::exists)
-					.forEach(this::render);
+					.limit(5)
+					.forEach(s -> render(s, "png", null, false, false));
+			pathways.stream()
+					.filter(this::exists)
+					.limit(1000)
+					.forEach(s -> render(s, "png", null, false, true));
 		}
 	}
 
@@ -71,30 +75,14 @@ public class ImageExporterTest {
 
 	@Test
 	public void testSelection() {
-		try {
-			final String stId = "R-HSA-169911";// Regulation of apoptosis
-			final DiagramProfile profile = ResourcesFactory.getDiagramProfile("modern");
-			final Diagram diagram = getDiagram(stId);
-			final Graph graph = getGraph(stId);
-			final List<Long> selected = getIdsFor("A1A4S6", graph);
-			final List<Long> analysis = getIdsFor("Q13177", graph);
-			final List<Long> flags = getIdsFor("O60313", graph);
-			selected.add(211734L);
-			final Decorator decorator = new Decorator(flags, selected, analysis);
-
-			final String format = "png";
-			final String diagramFolder = new File("cache").getAbsolutePath();
-			final String output = new File("diagrams").getAbsolutePath();
-			try {
-				ImageExporter.export(stId, diagramFolder, "modern", output, decorator, format, 1);
-			} catch (DiagramJsonNotFoundException e) {
-				e.printStackTrace();
-			}
-
-		} catch (DiagramProfileException | DiagramJsonDeserializationException | IOException e) {
-			e.printStackTrace();
-		}
-
+		final String stId = "R-HSA-169911";// Regulation of apoptosis
+		final Graph graph = getGraph(stId);
+		final List<Long> selected = getIdsFor("A1A4S6", graph);
+		final List<Long> analysis = getIdsFor("Q13177", graph);
+		final List<Long> flags = getIdsFor("O60313", graph);
+		selected.add(211734L);
+		final Decorator decorator = new Decorator(flags, selected, analysis);
+		render(stId, "png", decorator, true, false);
 	}
 
 	@Test
@@ -114,7 +102,7 @@ public class ImageExporterTest {
 				"R-SPO-8854691"
 		);
 		// This is a list of the diagrams that do take more time per element
-		pathways.forEach(this::render);
+		pathways.forEach(stId -> render(stId, "png", null, true, false));
 	}
 
 	@Test
@@ -132,37 +120,36 @@ public class ImageExporterTest {
 				"R-HSA-4839726",
 				"R-HSA-8963743",
 				"R-HSA-8935690",
-				"R-HSA-448424"
+				"R-HSA-448424",
+				"R-HSA-72312"
 		);
-		pathways.forEach(this::render);
+		pathways.forEach(stId -> render(stId, "png", null, true, false));
 	}
 
-	private void render(String stId) {
+	/**
+	 * This method is a real use case from the server side.
+	 *
+	 * @param stId      diagram stId
+	 * @param format    image format: JPEG, PNG, GIF, BMP and WBMP
+	 * @param decorator selections and flags
+	 * @param save      if true, diagram will be saved to a file in diagrams
+	 */
+	private void render(String stId, String format, Decorator decorator, boolean save, boolean debug) {
+		// Put json files in local
+		if (!download(stId)) return;
 		try {
-			final Diagram diagram = getDiagram(stId);
-			if (diagram == null) return;
-			final Graph graph = getGraph(stId);
-			if (graph == null) return;
-
-			// JPEG, PNG, GIF, BMP and WBMP
-			final String format = "png";
-			final String diagramFolder = new File("cache").getAbsolutePath();
-			final String output = new File("diagrams").getAbsolutePath();
-			try {
-				ImageExporter.export(stId, diagramFolder, "modern", output, null, format, 1);
-//				new File("diagrams/" + stId + ".png").delete();
-//				new File("cache/" + stId + ".graph.json").delete();
-//				new File("cache/" + stId + ".json").delete();
-			} catch (DiagramJsonNotFoundException e) {
-				e.printStackTrace();
-			}
-		} catch (IOException e) {
-			logger.log(Level.SEVERE, "Can't read render", e);
-		} catch (DiagramProfileException e) {
-			logger.log(Level.SEVERE, "Can't read profile", e);
-		} catch (DiagramJsonDeserializationException e) {
-			logger.log(Level.SEVERE, "Can't read diagram", e);
+			// Create the output stream
+			final OutputStream outputStream = save
+					? new FileOutputStream(new File(IMAGES_FOLDER, stId + "." + format))
+					: NullOutputStream.NULL_OUTPUT_STREAM;
+			// Call to service
+			ImageExporter.export(stId, DIAGRAMS_FOLDER.getAbsolutePath(),
+					"modern", decorator, format, outputStream, 1, true);
+		} catch (DiagramJsonNotFoundException | DiagramProfileException
+				| DiagramJsonDeserializationException | IOException e) {
+			e.printStackTrace();
 		}
+
 	}
 
 	private List<Long> getIdsFor(String prot, Graph graph) {
@@ -174,44 +161,38 @@ public class ImageExporterTest {
 				.collect(Collectors.toList());
 	}
 
+	private boolean download(String stId) {
+		for (String extension : Arrays.asList(".json", ".graph.json")) {
+			final File file = new File(DIAGRAMS_FOLDER, stId + extension);
+			if (!file.exists()) {
+				file.getParentFile().mkdirs();
+				try {
+					final URL url = new URL(host + stId + extension);
+					final ReadableByteChannel rbc = Channels.newChannel(url.openStream());
+					final FileOutputStream fos = new FileOutputStream(file);
+					fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+					fos.flush();
+				} catch (IOException e) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
 	private Graph getGraph(String stId) {
-		final File cached = new File("cache", stId + ".graph.json");
+		if (!download(stId))
+			return null;
 		try {
-			if (!cached.exists()) {
-//				System.out.println("saving graph of " + stId);
-				cached.getParentFile().mkdirs();
-				final URL url = new URL(host + stId + ".graph.json");
-				final ReadableByteChannel rbc = Channels.newChannel(url.openStream());
-				final FileOutputStream fos = new FileOutputStream(cached);
-				fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-				fos.flush();
-			}
-			final String json = IOUtils.toString(cached.toURI(), Charset.defaultCharset());
+			final File file = new File(DIAGRAMS_FOLDER, stId + ".graph.json");
+			final String json = IOUtils.toString(file.toURI(), Charset.defaultCharset());
 			return DiagramFactory.getGraph(json);
-		} catch (IOException | DeserializationException e) {
-		}
-		return null;
-	}
-
-
-	private Diagram getDiagram(String stId) {
-		final File cached = new File("cache", stId + ".json");
-		try {
-			if (!cached.exists()) {
-				cached.getParentFile().mkdirs();
-//				System.out.println("saving diagram of " + stId);
-				final URL url = new URL(host + stId + ".json");
-				final ReadableByteChannel rbc = Channels.newChannel(url.openStream());
-				final FileOutputStream fos = new FileOutputStream(cached);
-				fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-				fos.flush();
-			}
-			final String json = IOUtils.toString(cached.toURI(), Charset.defaultCharset());
-			return DiagramFactory.getDiagram(json);
 		} catch (DeserializationException | IOException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
+
 }
 
 

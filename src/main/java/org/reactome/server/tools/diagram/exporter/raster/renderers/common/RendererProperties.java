@@ -33,7 +33,7 @@ public class RendererProperties {
 		RNA_LOOP_WIDTH = 16 * factor;
 		GENE_SYMBOL_PAD = 4 * factor;
 		GENE_SYMBOL_WIDTH = 50 * factor;
-		SEPARATION = 2 * factor;
+		SEPARATION = 4 * factor;
 		PROCESS_NODE_INSET_WIDTH = 10 * factor;
 		NODE_TEXT_PADDING = 5 * factor;
 		WIDGET_FONT_SIZE = 9 * factor;
