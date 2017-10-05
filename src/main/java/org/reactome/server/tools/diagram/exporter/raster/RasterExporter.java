@@ -3,11 +3,11 @@ package org.reactome.server.tools.diagram.exporter.raster;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
+import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
-import org.reactome.server.tools.diagram.exporter.pptx.model.Decorator;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,11 +16,19 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.*;
+import java.util.logging.FileHandler;
+import java.util.logging.Formatter;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class ImageExporter {
+/**
+ *
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
+public class RasterExporter {
 	private static final Logger logger = Logger.getLogger("log");
+
 	static {
 		try {
 			final FileHandler fileHandler = new FileHandler("log.txt");
@@ -39,7 +47,7 @@ public class ImageExporter {
 	}
 
 
-	public static void save(BufferedImage image, String format, OutputStream outputStream) throws IOException {
+	private static void save(BufferedImage image, String format, OutputStream outputStream) throws IOException {
 		if (format.equalsIgnoreCase("jpeg")) {
 			final BufferedImage jImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_INT_RGB);
 			jImage.getGraphics().drawImage(image, 0, 0, Color.WHITE, null);
@@ -57,7 +65,8 @@ public class ImageExporter {
 	 * <code>
 	 * <pre>
 	 *     URL url = new URL("http://host.com/");
-	 *     HttpUrlConnection connection = (HttpUrlConnection) url.openConnection();
+	 *     HttpUrlConnection connection = (HttpUrlConnection)
+	 * url.openConnection();
 	 *     connection.setDoOutput(true);  // your url must support writing
 	 *     OutputStream = connection.getOutputStream();
 	 * </pre>
@@ -75,10 +84,14 @@ public class ImageExporter {
 	 * @param diagramFolder static for the diagram json
 	 * @param profileName   Color profile name
 	 * @param output        output stream. Image will be written here
-	 * @param decorator     class that holds the flagged and the selected elements into two different lists.
-	 * @param factor        quality of output image. Factor represents the number of pixels per points in the diagram
-	 * @param fileExtension output format: JPEG, PNG, GIF, BMP and WBMP. Case insensitive
-	 * @param debug         if true, times will be measured and printed to System.out
+	 * @param decorator     class that holds the flagged and the selected
+	 *                      elements into two different lists.
+	 * @param factor        quality of output image. Factor represents the
+	 *                      number of pixels per points in the diagram
+	 * @param fileExtension output format: JPEG, PNG, GIF, BMP and WBMP. Case
+	 *                      insensitive
+	 * @param debug         if true, times will be measured and printed to
+	 *                      System.out
 	 */
 	public static void export(String stId, String diagramFolder,
 	                          String profileName, Decorator decorator,
@@ -106,7 +119,8 @@ public class ImageExporter {
 	 * <code>
 	 * <pre>
 	 *     URL url = new URL("http://host.com/");
-	 *     HttpUrlConnection connection = (HttpUrlConnection) url.openConnection();
+	 *     HttpUrlConnection connection = (HttpUrlConnection)
+	 * url.openConnection();
 	 *     connection.setDoOutput(true);  // your url must support writing
 	 *     OutputStream = connection.getOutputStream();
 	 * </pre>
@@ -124,9 +138,12 @@ public class ImageExporter {
 	 * @param diagramFolder static for the diagram json
 	 * @param profileName   Color profile name
 	 * @param output        output stream. Image will be written here
-	 * @param decorator     class that holds the flagged and the selected elements into two different lists.
-	 * @param factor        quality of output image. Factor represents the number of pixels per points in the diagram
-	 * @param fileExtension output format: JPEG, PNG, GIF, BMP and WBMP. Case insensitive
+	 * @param decorator     class that holds the flagged and the selected
+	 *                      elements into two different lists.
+	 * @param factor        quality of output image. Factor represents the
+	 *                      number of pixels per points in the diagram
+	 * @param fileExtension output format: JPEG, PNG, GIF, BMP and WBMP. Case
+	 *                      insensitive
 	 */
 	public static void export(String stId, String diagramFolder,
 	                          String profileName, Decorator decorator,

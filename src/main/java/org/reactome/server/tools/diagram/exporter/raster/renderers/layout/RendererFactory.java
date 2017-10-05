@@ -30,7 +30,7 @@ public class RendererFactory {
 		renderers.put("Entity", new OtherEntityRenderer());
 		renderers.put("EntitySet", new SetRenderer());
 		renderers.put("ProcessNode", new ProcessNodeRenderer());
-		renderers.put("FlowLine", new FlowlineRenderer());
+		renderers.put("FlowLine", new FlowLineRenderer());
 		renderers.put("Interaction", new InteractionRenderer());
 		renderers.put("RNA", new RnaRenderer());
 		renderers.put("Gene", new GeneRenderer());

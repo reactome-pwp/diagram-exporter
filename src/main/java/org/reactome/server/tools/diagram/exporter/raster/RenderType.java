@@ -1,5 +1,8 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
+/**
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public enum RenderType {
 	FADE_OUT,
 

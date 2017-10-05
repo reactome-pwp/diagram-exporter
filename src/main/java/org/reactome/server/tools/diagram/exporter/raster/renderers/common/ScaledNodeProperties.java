@@ -2,6 +2,13 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 
+// TODO: what about an interface that already scales, returns ints and accept both NodeProperties and Bound
+
+/**
+ * Wrapper for NodeProperties that returns values scaled.
+ *
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class ScaledNodeProperties implements NodeProperties {
 
 	private final double scale;

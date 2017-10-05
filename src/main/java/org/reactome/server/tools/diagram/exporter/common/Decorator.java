@@ -1,4 +1,4 @@
-package org.reactome.server.tools.diagram.exporter.pptx.model;
+package org.reactome.server.tools.diagram.exporter.common;
 
 import java.util.HashSet;
 import java.util.List;

@@ -4,6 +4,7 @@ import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledNodeProperties;
 
 import java.awt.*;
@@ -12,9 +13,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class ProcessNodeRenderer extends NodeAbstractRenderer {
-
-	private static final double PADDING = 10;
 
 	private static final Paint INNER_COLOR = new Color(254, 253, 255);
 
@@ -46,16 +48,17 @@ public class ProcessNodeRenderer extends NodeAbstractRenderer {
 	}
 
 	@Override
-	protected void text(AdvancedGraphics2D graphics, Paint textColor, Collection<Node> nodes) {
+	protected void text(AdvancedGraphics2D graphics, Paint textColor, Collection<? extends DiagramObject> items) {
+		final Collection<Node> compartments = (Collection<Node>) items;
 		graphics.getGraphics().setPaint(textColor);
-		nodes.forEach(node -> graphics.drawText(node, PADDING));
+		compartments.forEach(node -> graphics.drawText(node, RendererProperties.PROCESS_NODE_INSET_WIDTH));
 	}
 
 	private Shape inner(AdvancedGraphics2D graphics, Node node) {
 		final NodeProperties properties = new ScaledNodeProperties(node.getProp(), graphics.getFactor());
-		return new Rectangle2D.Double(properties.getX() + PADDING,
-				properties.getY() + PADDING,
-				properties.getWidth() - 2 * PADDING,
-				properties.getHeight() - 2 * PADDING);
+		return new Rectangle2D.Double(properties.getX() + RendererProperties.PROCESS_NODE_INSET_WIDTH,
+				properties.getY() + RendererProperties.PROCESS_NODE_INSET_WIDTH,
+				properties.getWidth() - 2 * RendererProperties.PROCESS_NODE_INSET_WIDTH,
+				properties.getHeight() - 2 * RendererProperties.PROCESS_NODE_INSET_WIDTH);
 	}
 }

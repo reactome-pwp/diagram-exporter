@@ -7,6 +7,11 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.Advanc
 import java.awt.*;
 import java.util.Collection;
 
+/**
+ * Notes only contain text.
+ *
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class NoteRenderer extends AbstractRenderer {
 
 

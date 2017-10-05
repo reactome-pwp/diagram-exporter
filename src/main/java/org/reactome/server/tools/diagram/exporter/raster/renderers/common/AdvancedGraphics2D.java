@@ -1,8 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
-import org.reactome.server.tools.diagram.data.layout.Coordinate;
-import org.reactome.server.tools.diagram.data.layout.Node;
-import org.reactome.server.tools.diagram.data.layout.NodeProperties;
+import org.reactome.server.tools.diagram.data.layout.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -15,6 +13,8 @@ import java.util.List;
  * shared figures, such as corned rectangles or ovals, this class offers common
  * methods to easily draw them. It has to be initialized with a factor, so every
  * time a draw method is used, shapes are properly scaled.
+ *
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class AdvancedGraphics2D {
 
@@ -47,7 +47,8 @@ public class AdvancedGraphics2D {
 	 * ScaledNodeProperties prop = new ScaledNodeProperties(properties, factor)
 	 * </pre>
 	 * </code>
-	 * And, as Graphics only work with ints, you should also cast values to int.
+	 * And, as Graphics only work with ints, you should also cast values to
+	 * int.
 	 * We provide a decorator for that, the IntNodeProperties:
 	 * <code>
 	 * <pre>
@@ -58,7 +59,8 @@ public class AdvancedGraphics2D {
 	 * You can nest both decorators:
 	 * <code>
 	 * <pre>
-	 * IntNodeProperties prop = new IntNodeProperties(new ScaledNodeProperties(properties, factor));
+	 * IntNodeProperties prop = new IntNodeProperties(new
+	 * ScaledNodeProperties(properties, factor));
 	 * int scaledX = prop.intX;
 	 * </pre>
 	 * </code>
@@ -134,15 +136,75 @@ public class AdvancedGraphics2D {
 		getGraphics().drawString(text, leftX, baseY);
 	}
 
+	/**
+	 * Magic method that displays text in the assigned space. If the text does
+	 * not fit in one line, it is split in several lines. If the font size is
+	 * very large, it is lower until the text fits. Each line is centered to
+	 * the box and the whole text is vertically centered. By default the
+	 * vertical centering is natural, i.e. text is centered at hyphens (-)
+	 * height the center of the box. This is a little big higher than strict
+	 * center and is visually better for large texts. A padding of
+	 * RenderedProperties.NODE_TEXT_PADDING is added by default.
+	 *
+	 * @param text   text to write
+	 * @param x      top left corner x coordinate
+	 * @param y      top left corner y coordinate
+	 * @param width  max width for text. A 2 * padding will be subtracted to
+	 *               this width
+	 * @param height max height for text. A 2 * padding will be subtracted to
+	 *               this height
+	 */
 	public void drawText(String text, double x, double y, double width, double height) {
-		drawText(text, x, y, width, height, RendererProperties.NODE_TEXT_PADDING);
+		drawText(text, x, y, width, height, RendererProperties.NODE_TEXT_PADDING, true);
 	}
 
+	/**
+	 * Displays text in the assigned space. If the text does not fit in one
+	 * line, it is split in several lines. If the font size is very large, it is
+	 * lower until the text fits. Each line is centered to the box and the whole
+	 * text is vertically centered. By default the vertical centering is
+	 * natural, i.e. text is centered at hyphens (-) height the center of the
+	 * box. This is a little big higher than strict center and is visually
+	 * better for large texts.
+	 *
+	 * @param text    text to write
+	 * @param x       top left corner x coordinate
+	 * @param y       top left corner y coordinate
+	 * @param width   max width for text. A 2 * padding will be subtracted to
+	 *                this width
+	 * @param height  max height for text. A 2 * padding will be subtracted to
+	 *                this height
+	 * @param padding minimum space from borders to text
+	 */
 	public void drawText(String text, double x, double y, double width, double height, double padding) {
-		final double scaledX = factor * (x + padding);
-		final double scaledY = factor * (y + padding);
-		final double scaledW = factor * (width - 2 * padding);
-		final double scaledH = factor * (height - 2 * padding);
+		drawText(text, x, y, width, height, padding, true);
+	}
+
+	/**
+	 * Displays text in the assigned space. If the text does not fit in one
+	 * line, it is split in several lines. If the font size is very large, it is
+	 * lower until the text fits. Each line is centered to the box and the whole
+	 * text is vertically centered. By default the vertical centering is
+	 * natural, i.e. text is centered at hyphens (-) height the center of the
+	 * box. For smaller texts, such us symbols or numbers, you can set
+	 * naturalCentering to false.
+	 *
+	 * @param text            text to write
+	 * @param x               top left corner x coordinate
+	 * @param y               top left corner y coordinate
+	 * @param width           max width for text. A 2 * padding will be
+	 *                        subtracted to this width
+	 * @param height          max height for text. A 2 * padding will be
+	 *                        subtracted to this height
+	 * @param padding         minimum space from borders to text
+	 * @param naturalCentered if true, text is vertically aligned to hyphens
+	 *                        (-), otherwise, it is centered to text center
+	 */
+	public void drawText(String text, double x, double y, double width, double height, double padding, boolean naturalCentered) {
+		final double scaledX = factor * (x) + padding;
+		final double scaledY = factor * (y) + padding;
+		final double scaledW = factor * (width) - 2 * padding;
+		final double scaledH = factor * (height) - 2 * padding;
 		final double centerX = scaledX + scaledW * 0.5;
 
 		Font font = getGraphics().getFont();
@@ -151,8 +213,12 @@ public class AdvancedGraphics2D {
 			font = font.deriveFont((float) font.getSize() - 1);
 		final Font old = graphics.getFont();
 		graphics.setFont(font);
-		final int textHeight = lines.size() * getGraphics().getFontMetrics().getHeight();
-		final double yOffset = scaledY + (scaledH - textHeight) * 0.5 + graphics.getFontMetrics().getAscent();
+		final int textHeight = lines.size() * graphics.getFontMetrics().getHeight();
+		double yOffset = scaledY + (scaledH - textHeight) * 0.5;
+		if (naturalCentered)
+			yOffset += graphics.getFontMetrics().getAscent();
+		else yOffset += (graphics.getFontMetrics().getHeight());
+//		else yOffset += 0.5 * (graphics.getFontMetrics().getAscent() + graphics.getFontMetrics().getDescent());
 		for (int i = 0; i < lines.size(); i++) {
 			final String line = lines.get(i);
 			final int lineWidth = getGraphics().getFontMetrics().charsWidth(line.toCharArray(), 0, line.length());
@@ -169,13 +235,13 @@ public class AdvancedGraphics2D {
 	 *
 	 * @param node
 	 */
-	public void drawText(Node node) {
+	public void drawText(NodeCommon node) {
 		drawText(node.getDisplayName(), node.getProp().getX(),
 				node.getProp().getY(), node.getProp().getWidth(),
 				node.getProp().getHeight());
 	}
 
-	public void drawText(Node node, double padding) {
+	public void drawText(NodeCommon node, double padding) {
 		drawText(node.getDisplayName(), node.getProp().getX(),
 				node.getProp().getY(), node.getProp().getWidth(),
 				node.getProp().getHeight(), padding);
@@ -186,6 +252,7 @@ public class AdvancedGraphics2D {
 	 * @param availableHeight
 	 * @param text
 	 * @param font
+	 *
 	 * @return
 	 */
 	private List<String> fit(double availableWidth, double availableHeight, String text, Font font) {
@@ -232,6 +299,7 @@ public class AdvancedGraphics2D {
 	 * <pre>{"p-", "T402-", "PAK2(", "213-", "524)"}</pre>
 	 *
 	 * @param word
+	 *
 	 * @return
 	 */
 	private List<String> splitWord(String word) {

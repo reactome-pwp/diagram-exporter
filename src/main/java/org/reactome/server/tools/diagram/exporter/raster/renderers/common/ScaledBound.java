@@ -2,6 +2,11 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
 import org.reactome.server.tools.diagram.data.layout.Bound;
 
+/**
+ * Wrapper for Bound that returns the values scaled.
+ *
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class ScaledBound implements Bound {
 
 	private final double scale;

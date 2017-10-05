@@ -2,6 +2,12 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
 import org.reactome.server.tools.diagram.data.layout.Bound;
 
+/**
+ * Decorator for Bound. It will add intX, intY, intWidth and intHeight, so you
+ * don't need to cast them outside.
+ *
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class IntBound implements Bound {
 
 	private Bound bound;

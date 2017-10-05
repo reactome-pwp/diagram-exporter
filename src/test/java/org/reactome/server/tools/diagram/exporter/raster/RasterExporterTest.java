@@ -11,7 +11,7 @@ import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
-import org.reactome.server.tools.diagram.exporter.pptx.model.Decorator;
+import org.reactome.server.tools.diagram.exporter.common.Decorator;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -23,13 +23,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class ImageExporterTest {
+public class RasterExporterTest {
 
 	private static final String host = "http://reactomerelease.oicr.on.ca/download/current/diagram/";
-	private static final File DIAGRAMS_FOLDER = new File("/media/pascual/Disco1TB/reactome/diagrams");
+	private static final File DIAGRAMS_FOLDER = new File("/media/pascual/Disco1TB/reactome/diagram");
 	private static final File IMAGES_FOLDER = new File("/media/pascual/Disco1TB/reactome/images");
 
 	@Test
@@ -41,11 +40,37 @@ public class ImageExporterTest {
 			pathways.stream()
 					.filter(this::exists)
 					.limit(5)
-					.forEach(s -> render(s, "png", null, false, false));
+					.forEach(s -> new RendererInvoker(s)
+							.setDebug(false)
+							.render());
 			pathways.stream()
 					.filter(this::exists)
 					.limit(1000)
-					.forEach(s -> render(s, "png", null, false, true));
+					.forEach(s -> new RendererInvoker(s).render());
+		}
+	}
+
+	@Test
+	public void testPerformanceMaxResolution() {
+		final double maxResolution = 10;
+		final List<String> pathways = getLines(new File("all-pathways.txt"));
+		if (pathways != null) {
+			Collections.shuffle(pathways);
+			// Warm up with 5 diagrams
+			pathways.stream()
+					.filter(this::exists)
+					.limit(5)
+					.forEach(s -> new RendererInvoker(s)
+							.setDebug(false)
+							.setFactor(maxResolution)
+							.render());
+			pathways.stream()
+					.filter(this::exists)
+					.limit(200)
+					.forEach(s -> new RendererInvoker(s)
+							.setDebug(true)
+							.setFactor(maxResolution)
+							.render());
 		}
 	}
 
@@ -59,6 +84,8 @@ public class ImageExporterTest {
 	}
 
 	private boolean exists(String stId) {
+		if (new File(DIAGRAMS_FOLDER, stId + ".json").exists())
+			return true;
 		try {
 			HttpURLConnection.setFollowRedirects(false);
 			// note : you may also need
@@ -82,7 +109,12 @@ public class ImageExporterTest {
 		final List<Long> flags = getIdsFor("O60313", graph);
 		selected.add(211734L);
 		final Decorator decorator = new Decorator(flags, selected, analysis);
-		render(stId, "png", decorator, true, false);
+		new RendererInvoker(stId)
+				.setDecorator(decorator)
+				.setSave(true)
+				.setDebug(false)
+				.setFactor(10)
+				.render();
 	}
 
 	@Test
@@ -102,7 +134,7 @@ public class ImageExporterTest {
 				"R-SPO-8854691"
 		);
 		// This is a list of the diagrams that do take more time per element
-		pathways.forEach(stId -> render(stId, "png", null, true, false));
+		pathways.forEach(stId -> new RendererInvoker(stId).setDebug(false).render());
 	}
 
 	@Test
@@ -123,33 +155,26 @@ public class ImageExporterTest {
 				"R-HSA-448424",
 				"R-HSA-72312"
 		);
-		pathways.forEach(stId -> render(stId, "png", null, true, false));
+		pathways.forEach(stId ->
+				new RendererInvoker(stId)
+						.setDebug(false)
+						.setSave(true)
+						.setFactor(5)
+//						.setFormat("jpeg")
+						.render());
 	}
 
-	/**
-	 * This method is a real use case from the server side.
-	 *
-	 * @param stId      diagram stId
-	 * @param format    image format: JPEG, PNG, GIF, BMP and WBMP
-	 * @param decorator selections and flags
-	 * @param save      if true, diagram will be saved to a file in diagrams
-	 */
-	private void render(String stId, String format, Decorator decorator, boolean save, boolean debug) {
-		// Put json files in local
-		if (!download(stId)) return;
-		try {
-			// Create the output stream
-			final OutputStream outputStream = save
-					? new FileOutputStream(new File(IMAGES_FOLDER, stId + "." + format))
-					: NullOutputStream.NULL_OUTPUT_STREAM;
-			// Call to service
-			ImageExporter.export(stId, DIAGRAMS_FOLDER.getAbsolutePath(),
-					"modern", decorator, format, outputStream, 1, true);
-		} catch (DiagramJsonNotFoundException | DiagramProfileException
-				| DiagramJsonDeserializationException | IOException e) {
-			e.printStackTrace();
-		}
-
+	@Test
+	public void testStoichiometry() {
+		final String stId = "R-HSA-2173782";
+		final Graph graph = getGraph(stId);
+		final List<Long> ids = getIdsFor("R-HSA-2168880", graph);
+		final Decorator decorator = new Decorator(null, ids);
+		new RendererInvoker(stId)
+				.setDecorator(decorator)
+				.setSave(true)
+				.setDebug(false)
+				.render();
 	}
 
 	private List<Long> getIdsFor(String prot, Graph graph) {
@@ -193,6 +218,103 @@ public class ImageExporterTest {
 		return null;
 	}
 
+	private class RendererInvoker {
+		private String stId;
+		private String format = "png";
+		private Decorator decorator = null;
+		private boolean save = false;
+		private boolean debug = true;
+		private double factor = 1;
+
+		public RendererInvoker(String stId) {
+			this.stId = stId;
+		}
+
+		/**
+		 * default is png
+		 *
+		 * @param format
+		 *
+		 * @return
+		 */
+		RendererInvoker setFormat(String format) {
+			this.format = format;
+			return this;
+		}
+
+		/**
+		 * default is true
+		 *
+		 * @param debug
+		 *
+		 * @return
+		 */
+		public RendererInvoker setDebug(boolean debug) {
+			this.debug = debug;
+			return this;
+		}
+
+		/**
+		 * Default is null
+		 *
+		 * @param decorator
+		 *
+		 * @return
+		 */
+		public RendererInvoker setDecorator(Decorator decorator) {
+			this.decorator = decorator;
+			return this;
+		}
+
+		/**
+		 * default is 1
+		 *
+		 * @param factor
+		 *
+		 * @return
+		 */
+		public RendererInvoker setFactor(double factor) {
+			this.factor = factor;
+			return this;
+		}
+
+		/**
+		 * Default is false
+		 *
+		 * @param save
+		 *
+		 * @return
+		 */
+		public RendererInvoker setSave(boolean save) {
+			this.save = save;
+			return this;
+		}
+
+		/**
+		 * This method is a real use case from the server side.
+		 */
+		public void render() {
+			// Put json files in local
+			if (!download(stId)) return;
+			try {
+				// Create the output stream
+				IMAGES_FOLDER.mkdirs();
+				final OutputStream outputStream = save
+						? new BufferedOutputStream(new FileOutputStream(new File(IMAGES_FOLDER, stId + "." + format)))
+						: NullOutputStream.NULL_OUTPUT_STREAM;
+				// Call to service
+				RasterExporter.export(stId, DIAGRAMS_FOLDER.getAbsolutePath(),
+						"modern", decorator, format, outputStream, factor, debug);
+				outputStream.flush();
+				outputStream.close();
+				System.gc();
+			} catch (DiagramJsonNotFoundException | DiagramProfileException
+					| DiagramJsonDeserializationException | IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
 }
 
 

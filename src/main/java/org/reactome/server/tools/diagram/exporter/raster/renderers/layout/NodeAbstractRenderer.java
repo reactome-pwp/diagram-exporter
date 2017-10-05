@@ -9,32 +9,56 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.Scaled
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.Collection;
+import java.util.List;
 
+/**
+ * Basic node renderer. All Renderers that render nodes should override it. The
+ * default behaviour consists on 3 steps: filling, drawing borders and drawing
+ * texts.
+ *
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public abstract class NodeAbstractRenderer extends AbstractRenderer {
 
 	@Override
 	public void draw(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items, Paint fillColor, Paint lineColor, Paint textColor, Stroke segmentStroke, Stroke borderStroke) {
-		final Collection<Node> nodes = (Collection<Node>) items;
-		if (fillColor != null) fill(graphics, fillColor, nodes);
-		if (lineColor != null) border(graphics, lineColor, borderStroke, nodes);
-		if (textColor != null) text(graphics, textColor, nodes);
-//
-// final List<Shape> shapes = nodes.stream()
-//				.map(node -> shape(graphics, node))
-//				.collect(Collectors.toList());
-//		if (fillColor != null) fill(graphics, fillColor, shapes);
-//		if (lineColor != null) border(graphics, lineColor, nodes, shapes);
-//		if (textColor != null) text(graphics, textColor, nodes);
+		if (fillColor != null) fill(graphics, fillColor, items);
+		if (lineColor != null) border(graphics, lineColor, borderStroke, items);
+		if (textColor != null) text(graphics, textColor, items);
 	}
 
-	protected void fill(AdvancedGraphics2D graphics, Paint fillColor, Collection<Node> shapes) {
+	/**
+	 * This method is called from <code>draw()</code> if fillColor is not null.
+	 * It calls <code>shape</code> for each node and fills those shapes with
+	 * fillColor. You only have to override it if filling has a different
+	 * behaviour.
+	 *
+	 * @param graphics  where to render
+	 * @param fillColor color for all fillings
+	 * @param items     list of nodes to fill
+	 */
+	protected void fill(AdvancedGraphics2D graphics, Paint fillColor, Collection<? extends DiagramObject> items) {
+		final Collection<Node> nodes = (Collection<Node>) items;
 		graphics.getGraphics().setPaint(fillColor);
-		shapes.stream()
+		nodes.stream()
 				.map(node -> shape(graphics, node))
 				.forEach(shape -> graphics.getGraphics().fill(shape));
 	}
 
-	protected void border(AdvancedGraphics2D graphics, Paint lineColor, Stroke stroke, Collection<Node> nodes) {
+	/**
+	 * This method is called from <code>draw()</code> if lineColor is not null.
+	 * It calls <code>shape</code> for each node and draws those shapes with
+	 * lineColor. After that, if any of the nodes is crossed, draws the cross.
+	 * You only have to override it if drawing borders has a different
+	 * behaviour.
+	 *
+	 * @param graphics  where to render
+	 * @param lineColor color for borders
+	 * @param stroke    shape of border line
+	 * @param items     list of nodes to draw
+	 */
+	protected void border(AdvancedGraphics2D graphics, Paint lineColor, Stroke stroke, Collection<? extends DiagramObject> items) {
+		final Collection<Node> nodes = (Collection<Node>) items;
 		graphics.getGraphics().setPaint(lineColor);
 		graphics.getGraphics().setStroke(stroke);
 		nodes.stream()
@@ -45,11 +69,31 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 				.forEach(node -> graphics.drawCross(node.getProp()));
 	}
 
-	protected void text(AdvancedGraphics2D graphics, Paint textColor, Collection<Node> nodes) {
+	/**
+	 * This method is called from <code>draw()</code> if textColor is not null.
+	 * It sets the color to textColor and calls <code>graphics.drawText(node)</code>
+	 * for each node. You only have to override it if drawing borders has a
+	 * different behaviour.
+	 *
+	 * @param graphics  where to render
+	 * @param textColor color for texts
+	 * @param items     list of nodes to draw
+	 */
+	protected void text(AdvancedGraphics2D graphics, Paint textColor, Collection<? extends DiagramObject> items) {
+		final Collection<Node> nodes = (Collection<Node>) items;
 		graphics.getGraphics().setPaint(textColor);
 		nodes.forEach(graphics::drawText);
 	}
 
+	/**
+	 * Returns the proper java shape for a Node. By default creates a rectangle.
+	 * Override it when you have a different shape.
+	 *
+	 * @param graphics to take the factor
+	 * @param node     node to extract shape
+	 *
+	 * @return a Shape in the graphics scale
+	 */
 	protected Shape shape(AdvancedGraphics2D graphics, Node node) {
 		final NodeProperties properties = new ScaledNodeProperties(node.getProp(), graphics.getFactor());
 		return new Rectangle2D.Double(properties.getX(), properties.getY(),

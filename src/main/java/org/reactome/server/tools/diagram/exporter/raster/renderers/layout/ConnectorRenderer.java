@@ -9,13 +9,17 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class ConnectorRenderer extends EdgeRenderer {
 
 	/**
 	 * Renders a list of connectors in this order: segments, fills, borders and
 	 * texts. For the fills, shapes are precomputed and separated into empty and
 	 * non empty lists.
-	 *  @param graphics
+	 *
+	 * @param graphics
 	 * @param items
 	 * @param fillColor
 	 * @param lineColor
@@ -37,6 +41,10 @@ public class ConnectorRenderer extends EdgeRenderer {
 				else
 					empty.addAll(rendered);
 			}
+			if (connector.getStoichiometry() != null && connector.getStoichiometry().getShape() != null) {
+				final java.awt.Shape box = box(connector.getStoichiometry().getShape(), graphics.getFactor());
+				empty.add(box);
+			}
 		});
 		fillConnectors(graphics, fillColor, lineColor, empty, nonEmpty);
 
@@ -51,12 +59,29 @@ public class ConnectorRenderer extends EdgeRenderer {
 	}
 
 	private void text(AdvancedGraphics2D graphics, Connector connector) {
+		endShapeText(graphics, connector);
+		stoichiometryText(graphics, connector);
+	}
+
+	private void endShapeText(AdvancedGraphics2D graphics, Connector connector) {
 		final Shape shape = connector.getEndShape();
 		if (shape != null && shape.getS() != null)
 			graphics.drawText(shape.getS(),
 					shape.getA().getX(), shape.getA().getY(),
 					shape.getB().getX() - shape.getA().getX(),
-					shape.getB().getY() - shape.getA().getY(), 0.0);
+					shape.getB().getY() - shape.getA().getY(),
+					graphics.getFactor(), true);
+	}
+
+	private void stoichiometryText(AdvancedGraphics2D graphics, Connector connector) {
+		if (connector.getStoichiometry() == null || connector.getStoichiometry().getShape() == null)
+			return;
+		final Shape stShape = connector.getStoichiometry().getShape();
+		graphics.drawText(connector.getStoichiometry().getValue().toString(),
+				stShape.getA().getX(), stShape.getA().getY(),
+				stShape.getB().getX() - stShape.getA().getX(),
+				stShape.getB().getY() - stShape.getA().getY(),
+				graphics.getFactor(), true);
 	}
 
 	private void fillConnectors(AdvancedGraphics2D graphics, Paint fillColor, Paint lineColor, List<java.awt.Shape> empty, List<java.awt.Shape> nonEmpty) {

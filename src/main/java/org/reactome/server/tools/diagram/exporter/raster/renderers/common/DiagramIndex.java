@@ -3,7 +3,7 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.data.layout.*;
-import org.reactome.server.tools.diagram.exporter.pptx.model.Decorator;
+import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.raster.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.RenderType;
 
@@ -11,6 +11,13 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Computes a Diagram to group nodes by renderableClass and RenderType, so all
+ * nodes in a group can be rendered with the same colors for filling and
+ * stroking.
+ *
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class DiagramIndex {
 
 	private final Diagram diagram;
@@ -19,7 +26,7 @@ public class DiagramIndex {
 	private AnalysisType analysisType;
 
 	private Map<Long, DiagramObject> diagramIndex;
-	private Map<Long, DiagramObject> diagramReactomeIndex;
+//	private Map<Long, DiagramObject> diagramReactomeIndex;
 	private Map<Long, GraphNode> graphIndex;
 	private Map<String, Set<Node>> selectedNodes;
 	private Set<Edge> selectedReactions;
@@ -34,6 +41,16 @@ public class DiagramIndex {
 	private Set<Edge> flagReactions;
 	private HashSet<Connector> flagConnectors;
 
+	/**
+	 * Computes the maps of nodes, reactions and connectors so they are grouped
+	 * by renderableClass, renderType and normal, selection, halo or flag
+	 * status.
+	 *
+	 * @param diagram      diagram with nodes and reactions
+	 * @param graph        background graph
+	 * @param decorator    decorator with selection and flags
+	 * @param analysisType type of analysis
+	 */
 	public DiagramIndex(Diagram diagram, Graph graph, Decorator decorator, AnalysisType analysisType) {
 		this.diagram = diagram;
 		this.graph = graph;
@@ -45,14 +62,14 @@ public class DiagramIndex {
 
 	private void createIndexes() {
 		diagramIndex = new HashMap<>();
-		diagramReactomeIndex = new HashMap<>();
+//		diagramReactomeIndex = new HashMap<>();
 		graphIndex = new HashMap<>();
 		Stream.of(diagram.getEdges(), diagram.getNodes(), diagram.getLinks(),
 				diagram.getNotes())
 				.flatMap(Collection::stream)
 				.forEach(item -> {
 					diagramIndex.put(item.getId(), item);
-					diagramReactomeIndex.put(item.getReactomeId(), item);
+//					diagramReactomeIndex.put(item.getReactomeId(), item);
 				});
 		Stream.of(graph.getEdges(), graph.getNodes())
 				.flatMap(Collection::stream)
@@ -178,6 +195,7 @@ public class DiagramIndex {
 	 * inhibitors, inputs and outputs in a unique stream
 	 *
 	 * @param edge the chosen one
+	 *
 	 * @return a stream with all participant nodes in the reaction
 	 */
 	private Stream<Node> streamParticipants(Edge edge) {

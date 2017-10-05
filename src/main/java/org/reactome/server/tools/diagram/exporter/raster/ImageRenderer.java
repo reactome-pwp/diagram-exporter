@@ -5,7 +5,7 @@ import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.Edge;
 import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
-import org.reactome.server.tools.diagram.exporter.pptx.model.Decorator;
+import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ColorProfile;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,15 +34,25 @@ import static org.reactome.server.tools.diagram.exporter.raster.renderers.common
  */
 public class ImageRenderer {
 
+	/*
+	 * # of pixels  |   600ppi     | 1200 ppi
+	 * -------------|--------------|-------------
+	 *  10MP        |  3m2,  31ft2 | 1.5m2, 15ft2
+	 *  50MP        | 14m2, 155ft2 |  7m2,  77ft2
+	 * 100MP        | 29m2, 310ft2 | 14m2, 155ft2
+	 * 200MP        | 58m2, 621ft2 | 29m2, 310ft2
+	 */
+	/**
+	 * Max amount of pixels per image
+	 * Using a hq printing quality (600ppi) you can have:
+	 */
+	private static final double MAX_IMAGE_SIZE = 0.1 * 1024 * 1024 * 1024; // 100 Mpixels
+	// OPTIONS
+	private static final int MARGIN = 15;
 	private final Diagram diagram;
 	private final Graph graph;
 	private final DiagramProfile profile;
 	private final Decorator decorator;
-
-
-	// OPTIONS
-	private static final int MARGIN = 15;
-
 	private AdvancedGraphics2D graphics;
 	private DiagramIndex index;
 	private ConnectorRenderer connectorRenderer = new ConnectorRenderer();
@@ -54,6 +65,7 @@ public class ImageRenderer {
 	 * @param graph     underlying graph
 	 * @param profile   colouring profile
 	 * @param decorator elements to decorate
+	 *
 	 * @return a Canvas with the diagram render
 	 */
 	public ImageRenderer(Diagram diagram, Graph graph, DiagramProfile profile, Decorator decorator) {
@@ -68,11 +80,10 @@ public class ImageRenderer {
 	 * Renders an Image with given dimensions
 	 *
 	 * @param factor scale of the image
+	 *
 	 * @return a RenderedImage with the given dimensions
 	 */
 	public BufferedImage render(double factor) {
-		RendererProperties.setFactor(factor);
-		ColorProfile.setFactor(factor);
 
 		// Bounds are recalculated reading nodes, we don't trust diagram bounds
 		final double minX = getMinX();
@@ -80,8 +91,25 @@ public class ImageRenderer {
 		final double minY = getMinY();
 		final double maxY = getMaxY();
 
-		final int width = Double.valueOf(factor * (maxX - minX) + 2 * MARGIN).intValue();
-		final int height = Double.valueOf(factor * (maxY - minY) + 2 * MARGIN).intValue();
+		int width = Double.valueOf(factor * (maxX - minX) + 2 * MARGIN).intValue();
+		int height = Double.valueOf(factor * (maxY - minY) + 2 * MARGIN).intValue();
+
+		// Avoid too large images
+		double newFactor = factor;
+		while (height * width > MAX_IMAGE_SIZE && newFactor > 1) {
+			newFactor -= 0.1;
+			width = Double.valueOf(newFactor * (maxX - minX) + 2 * MARGIN).intValue();
+			height = Double.valueOf(newFactor * (maxY - minY) + 2 * MARGIN).intValue();
+		}
+		if (newFactor < factor) {
+			Logger.getLogger(getClass().getName())
+					.warning(String.format(
+							"Image too large. Quality reduced from %.1f to %.1f -> %d x %d = %d (%.2f MP)",
+							factor, newFactor, height, width, height * width, height * width / 1e6));
+			factor = newFactor;
+		}
+		RendererProperties.setFactor(factor);
+		ColorProfile.setFactor(factor);
 
 		final double x = minX * factor;
 		final double y = minY * factor;

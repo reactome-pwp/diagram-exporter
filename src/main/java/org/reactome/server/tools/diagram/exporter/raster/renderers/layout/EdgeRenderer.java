@@ -10,6 +10,9 @@ import java.awt.geom.Line2D;
 import java.util.*;
 import java.util.List;
 
+/**
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class EdgeRenderer extends AbstractRenderer {
 
 	/**
@@ -19,6 +22,7 @@ public class EdgeRenderer extends AbstractRenderer {
 	 *
 	 * @param shape reactome shape
 	 * @param scale AdvancedGraphics2D factor
+	 *
 	 * @return a list of java shapes
 	 */
 	// TODO: Is it ok to return a list of shapes just because of the inner circle?
@@ -39,14 +43,15 @@ public class EdgeRenderer extends AbstractRenderer {
 		}
 	}
 
-	private void drawReactionText(AdvancedGraphics2D graphics, EdgeCommon edge) {
+	private void drawReactionText(AdvancedGraphics2D graphics, Edge edge) {
 		if (edge.getReactionShape().getS() == null)
 			return;
 		final Shape shape = edge.getReactionShape();
 		graphics.drawText(shape.getS(),
 				shape.getA().getX(), shape.getA().getY(),
 				shape.getB().getX() - shape.getA().getX(),
-				shape.getB().getY() - shape.getA().getY(), 0.0);
+				shape.getB().getY() - shape.getA().getY(),
+				graphics.getFactor(), true);
 	}
 
 	private java.awt.Shape arrow(Shape shape, double scale) {
@@ -63,7 +68,7 @@ public class EdgeRenderer extends AbstractRenderer {
 		return new Polygon(xs, ys, xs.length);
 	}
 
-	private java.awt.Shape box(Shape shape, double scale) {
+	protected java.awt.Shape box(Shape shape, double scale) {
 		return new Rectangle(
 				(int) (scale * shape.getA().getX()),
 				(int) (scale * shape.getA().getY()),

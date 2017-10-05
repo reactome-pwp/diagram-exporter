@@ -1,11 +1,15 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
-import org.reactome.server.tools.diagram.data.layout.*;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.*;
+import org.reactome.server.tools.diagram.data.layout.Bound;
+import org.reactome.server.tools.diagram.data.layout.Compartment;
+import org.reactome.server.tools.diagram.data.layout.DiagramObject;
+import org.reactome.server.tools.diagram.data.layout.NodeProperties;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledBound;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledNodeProperties;
 
-import java.awt.Color;
 import java.awt.*;
-import java.awt.Shape;
 import java.awt.geom.Area;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
@@ -14,18 +18,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+/**
+ * Renderer for compartments
+ */
+public class CompartmentRenderer extends NodeAbstractRenderer {
 
-public class CompartmentRenderer extends AbstractRenderer {
-
-	@Override
-	public void draw(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items, Paint fill, Paint border, Paint textColor, Stroke segmentStroke, Stroke borderStroke) {
+	protected void fill(AdvancedGraphics2D graphics, Paint fill, Collection<? extends DiagramObject> items) {
 		final Collection<Compartment> compartments = (Collection<Compartment>) items;
-		if (fill != null) fill(graphics, fill, compartments);
-		if (border != null) border(graphics, border, compartments);
-		if (textColor != null) text(graphics, textColor, compartments);
-	}
-
-	private void fill(AdvancedGraphics2D graphics, Paint fill, Collection<Compartment> compartments) {
 		final List<Shape> outer = compartments.stream()
 				.map(compartment -> outer(compartment, graphics.getFactor()))
 				.collect(Collectors.toCollection(ArrayList::new));
@@ -50,71 +49,31 @@ public class CompartmentRenderer extends AbstractRenderer {
 		inner.stream().filter(Objects::nonNull).forEach(shape -> graphics.getGraphics().fill(shape));
 	}
 
-	private void text(AdvancedGraphics2D graphics, Paint textColor, Collection<Compartment> compartments) {
+	@Override
+	protected void text(AdvancedGraphics2D graphics, Paint textColor, Collection<? extends DiagramObject> items) {
+		final Collection<Compartment> compartments = (Collection<Compartment>) items;
 		graphics.getGraphics().setPaint(textColor);
-		compartments.forEach(compartment -> graphics.drawTextSingleLine(compartment.getDisplayName(), compartment.getTextPosition()));
+		compartments.forEach(compartment ->
+				graphics.drawTextSingleLine(compartment.getDisplayName(),
+						compartment.getTextPosition()));
 	}
 
-	private void border(AdvancedGraphics2D graphics, Paint border, Collection<Compartment> compartments) {
+	@Override
+	protected void border(AdvancedGraphics2D graphics, Paint border, Stroke borderStroke, Collection<? extends DiagramObject> items) {
+		final Collection<Compartment> compartments = (Collection<Compartment>) items;
+		graphics.getGraphics().setStroke(borderStroke);
 		graphics.getGraphics().setPaint(border);
 		compartments.stream()
-				.map(NodeCommon::getProp)
-				.map(props -> new IntNodeProperties(new ScaledNodeProperties(props, graphics.getFactor())))
-				.forEach(props -> draw(graphics, props));
+				.map(node -> outer(node, graphics.getFactor()))
+				.forEach(graphics.getGraphics()::draw);
 		compartments.stream()
-				.map(NodeCommon::getInsets)
-				.filter(Objects::nonNull)
-				.map(bound -> new IntBound(new ScaledBound(bound, graphics.getFactor())))
-				.forEach(bound -> draw(graphics, bound));
+				.filter(node -> node.getInsets() != null)
+				.map(node -> inner(node, graphics.getFactor()))
+				.forEach(graphics.getGraphics()::draw);
 	}
 
-	private void draw(AdvancedGraphics2D graphics, IntNodeProperties props) {
-		graphics.getGraphics().drawRoundRect(
-				props.intX(),
-				props.intY(),
-				props.intWidth(),
-				props.intHeight(),
-				(int) RendererProperties.ROUND_RECT_ARC_WIDTH,
-				(int) RendererProperties.ROUND_RECT_ARC_WIDTH
-		);
-	}
-
-	private void draw(AdvancedGraphics2D graphics, IntBound props) {
-		graphics.getGraphics().drawRoundRect(
-				props.intX(),
-				props.intY(),
-				props.intWidth(),
-				props.intHeight(),
-				(int) RendererProperties.ROUND_RECT_ARC_WIDTH,
-				(int) RendererProperties.ROUND_RECT_ARC_WIDTH
-		);
-	}
-
-	private void fill(AdvancedGraphics2D graphics, IntNodeProperties props) {
-		graphics.getGraphics().fillRoundRect(
-				props.intX(),
-				props.intY(),
-				props.intWidth(),
-				props.intHeight(),
-				(int) RendererProperties.ROUND_RECT_ARC_WIDTH,
-				(int) RendererProperties.ROUND_RECT_ARC_WIDTH
-		);
-	}
-
-	private void fill(AdvancedGraphics2D graphics, IntBound props) {
-		graphics.getGraphics().fillRoundRect(
-				props.intX(),
-				props.intY(),
-				props.intWidth(),
-				props.intHeight(),
-				(int) RendererProperties.ROUND_RECT_ARC_WIDTH,
-				(int) RendererProperties.ROUND_RECT_ARC_WIDTH
-		);
-	}
-
-	public Shape outer(DiagramObject item, double factor) {
-		final Compartment compartment = (Compartment) item;
-		final NodeProperties properties = new ScaledNodeProperties(compartment.getProp(), factor);
+	private Shape outer(Compartment node, double factor) {
+		final NodeProperties properties = new ScaledNodeProperties(node.getProp(), factor);
 		return new RoundRectangle2D.Double(
 				properties.getX(),
 				properties.getY(),
@@ -124,11 +83,10 @@ public class CompartmentRenderer extends AbstractRenderer {
 				RendererProperties.ROUND_RECT_ARC_WIDTH);
 	}
 
-	public Shape inner(DiagramObject item, double factor) {
-		final Compartment compartment = (Compartment) item;
-		if (compartment.getInsets() == null)
+	private Shape inner(Compartment item, double factor) {
+		if (item.getInsets() == null)
 			return null;
-		final Bound bound = new ScaledBound(compartment.getInsets(), factor);
+		final Bound bound = new ScaledBound(item.getInsets(), factor);
 		return new RoundRectangle2D.Double(
 				bound.getX(),
 				bound.getY(),

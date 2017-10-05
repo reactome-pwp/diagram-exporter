@@ -8,6 +8,11 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.Scaled
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 
+/**
+ * Proteins use a rounded rectangle.
+ *
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class ProteinRenderer extends NodeAbstractRenderer {
 	@Override
 	protected Shape shape(AdvancedGraphics2D graphics, Node node) {

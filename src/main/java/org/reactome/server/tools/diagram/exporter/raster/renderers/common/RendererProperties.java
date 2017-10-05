@@ -1,8 +1,13 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
+/**
+ * General Properties for the RasterRenderer class and all of the Node
+ * renderers.
+ *
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class RendererProperties {
 
-	public static double ARROW_ANGLE = Math.PI / 6;
 	public static double ARROW_LENGTH;
 	public static double[] DASHED_LINE_PATTERN;
 	public static double EDGE_TYPE_WIDGET_WIDTH;

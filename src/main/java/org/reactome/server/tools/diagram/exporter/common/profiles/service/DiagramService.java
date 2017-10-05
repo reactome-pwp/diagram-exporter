@@ -4,8 +4,8 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
 import org.reactome.server.tools.diagram.exporter.pptx.PowerPointExporter;
-import org.reactome.server.tools.diagram.exporter.pptx.model.Decorator;
-import org.reactome.server.tools.diagram.exporter.raster.ImageExporter;
+import org.reactome.server.tools.diagram.exporter.common.Decorator;
+import org.reactome.server.tools.diagram.exporter.raster.RasterExporter;
 
 import java.io.File;
 import java.io.IOException;
@@ -67,7 +67,7 @@ public class DiagramService {
 	                           Decorator decorator, String format, double factor)
 			throws DiagramProfileException, DiagramJsonDeserializationException,
 			DiagramJsonNotFoundException, IOException {
-		ImageExporter.export(stId, diagramFolder, profileName.toLowerCase(), decorator, format, output, factor);
+		RasterExporter.export(stId, diagramFolder, profileName.toLowerCase(), decorator, format, output, factor);
 
 	}
 }
