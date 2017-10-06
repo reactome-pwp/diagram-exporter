@@ -14,23 +14,16 @@ import java.util.Collection;
  */
 public interface Renderer {
 
-	void drawEnrichments(AdvancedGraphics2D graphics, DiagramObject item);
-
-	void drawHitInteractors(AdvancedGraphics2D graphics, DiagramObject item);
-
-	void drawExpression(AdvancedGraphics2D graphics, DiagramObject item);
-
 	/**
 	 * Render the list of DiagramObjects. They all have to share the same fill
 	 * color, the same border color and the same text color.
 	 *
-	 * @param graphics      where to render
-	 * @param items         list of DiagramObjects
-	 * @param fillColor     color for filling
-	 * @param lineColor     color for borders and segments
-	 * @param textColor     color for texts
-	 * @param segmentStroke stroke for segments (lines)
-	 * @param borderStroke  stroke for borders
+	 * @param graphics     where to render
+	 * @param items        list of DiagramObjects
+	 * @param fillColor    color for filling
+	 * @param lineColor    color for borders and segments
+	 * @param textColor    color for texts
+	 * @param borderStroke stroke for borders
 	 */
-	void draw(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items, Paint fillColor, Paint lineColor, Paint textColor, Stroke segmentStroke, Stroke borderStroke);
+	void draw(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items, Paint fillColor, Paint lineColor, Paint textColor, Stroke borderStroke);
 }

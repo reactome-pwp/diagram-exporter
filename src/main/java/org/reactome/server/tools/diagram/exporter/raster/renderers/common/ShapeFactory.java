@@ -1,8 +1,11 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
+import org.reactome.server.tools.diagram.data.layout.NodeProperties;
+
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
+import java.awt.geom.RoundRectangle2D;
 
 /**
  * Convenient place to find no so common shapes.
@@ -14,13 +17,13 @@ public class ShapeFactory {
 	/**
 	 * Creates a rectangle with edged corners (an octagon)
 	 *
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
-	 * @param corner
+	 * @param x      top left x coordinate
+	 * @param y      top left y coordinate
+	 * @param width  width
+	 * @param height height
+	 * @param corner corner size
 	 *
-	 * @return
+	 * @return an edged rectangle
 	 */
 	public static Shape getCornedRectangle(double x, double y, double width, double height, int corner) {
 		final int[] xs = new int[]{
@@ -51,12 +54,12 @@ public class ShapeFactory {
 	/**
 	 * Creates the shape of the gene fill, a bottom rounded rectangle.
 	 *
-	 * @param x
-	 * @param y
-	 * @param width
-	 * @param height
+	 * @param x      top left x coordinate
+	 * @param y      top left y coordinate
+	 * @param width  width
+	 * @param height height
 	 *
-	 * @return
+	 * @return the gene fill shape
 	 */
 	public static Shape getGeneFillShape(double x, double y, double width, double height) {
 		final GeneralPath path = new GeneralPath();
@@ -77,11 +80,11 @@ public class ShapeFactory {
 	/**
 	 * Returns a path with two perpendicular lines.
 	 *
-	 * @param x
-	 * @param y
-	 * @param width
+	 * @param x     top left x coordinate
+	 * @param y     top left y coordinate
+	 * @param width width
 	 *
-	 * @return
+	 * @return a path of two perpendicular lines
 	 */
 	public static Shape getGeneLine(double x, double y, double width) {
 		// Horizontal line
@@ -101,11 +104,11 @@ public class ShapeFactory {
 	}
 
 	/**
-	 * @param x
-	 * @param y
-	 * @param width
+	 * @param x     top left x coordinate
+	 * @param y     top left y coordinate
+	 * @param width width
 	 *
-	 * @return
+	 * @return the gene arrow
 	 */
 	public static Shape getGeneArrow(double x, double y, double width) {
 		final double right = x + width;
@@ -149,5 +152,30 @@ public class ShapeFactory {
 		path.quadTo(x, y, xAux, yAux);
 		path.closePath();
 		return path;
+	}
+
+	public static Shape roundedRectangle(NodeProperties properties) {
+		return roundedRectangle(properties.getX(), properties.getY(),
+				properties.getWidth(), properties.getHeight());
+	}
+
+	public static Shape roundedRectangle(double x, double y, double width, double height) {
+		return new RoundRectangle2D.Double(
+				x,
+				y,
+				width,
+				height,
+				RendererProperties.ROUND_RECT_ARC_WIDTH,
+				RendererProperties.ROUND_RECT_ARC_WIDTH);
+	}
+
+	public static Shape roundedRectangle(double x, double y, double width, double height, double padding) {
+		return new RoundRectangle2D.Double(
+				x + padding,
+				y + padding,
+				width - 2 * padding,
+				height - 2 * padding,
+				RendererProperties.ROUND_RECT_ARC_WIDTH,
+				RendererProperties.ROUND_RECT_ARC_WIDTH);
 	}
 }

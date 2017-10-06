@@ -49,7 +49,7 @@ public class GeneRenderer extends NodeAbstractRenderer {
 			final double yOffset = 0.5 * RendererProperties.GENE_SYMBOL_WIDTH / graphics.getFactor();
 			final double y = node.getProp().getY() + yOffset;
 			final double height = node.getProp().getHeight() - yOffset;
-			graphics.drawText(node.getDisplayName(), x, y, width, height);
+			TextRenderer.drawText(graphics, node.getDisplayName(), x, y, width, height);
 		});
 	}
 

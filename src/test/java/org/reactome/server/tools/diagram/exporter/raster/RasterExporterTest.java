@@ -8,11 +8,14 @@ import org.reactome.server.tools.diagram.data.DiagramFactory;
 import org.reactome.server.tools.diagram.data.exception.DeserializationException;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
+import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
-import org.reactome.server.tools.diagram.exporter.common.Decorator;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -101,7 +104,7 @@ public class RasterExporterTest {
 	}
 
 	@Test
-	public void testSelection() {
+	public void testDecoration() {
 		final String stId = "R-HSA-169911";// Regulation of apoptosis
 		final Graph graph = getGraph(stId);
 		final List<Long> selected = getIdsFor("A1A4S6", graph);
@@ -140,6 +143,7 @@ public class RasterExporterTest {
 	@Test
 	public void testSomeDiagrams() {
 		final List<String> pathways = Arrays.asList(
+				"R-HSA-5602410",
 				"R-HSA-1362409",  // Mithocondrial iron-sulfur cluster biogenesis
 				"R-HSA-169911",  // Regulation of apoptosis
 				"R-HSA-68874",  // M/G1 Transition
@@ -153,7 +157,8 @@ public class RasterExporterTest {
 				"R-HSA-8963743",
 				"R-HSA-8935690",
 				"R-HSA-448424",
-				"R-HSA-72312"
+				"R-HSA-72312",
+				"R-HSA-168643"
 		);
 		pathways.forEach(stId ->
 				new RendererInvoker(stId)
@@ -216,6 +221,21 @@ public class RasterExporterTest {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@Test
+	public void testJpegColoring() {
+		final BufferedImage image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
+
+		final Graphics2D graphics = image.createGraphics();
+		graphics.setBackground(Color.WHITE);
+		graphics.clearRect(0, 0, 100, 100);
+		try {
+			ImageIO.write(image, "jpg", new File("image.jpg"));
+			ImageIO.write(image, "png", new File("image.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private class RendererInvoker {
@@ -297,6 +317,7 @@ public class RasterExporterTest {
 			// Put json files in local
 			if (!download(stId)) return;
 			try {
+				System.out.println(stId);
 				// Create the output stream
 				IMAGES_FOLDER.mkdirs();
 				final OutputStream outputStream = save

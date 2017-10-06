@@ -7,8 +7,6 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.Advanc
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Path2D;
-import java.awt.geom.Rectangle2D;
-import java.nio.file.Path;
 import java.util.Collection;
 
 /**
@@ -22,17 +20,18 @@ public class ShadowRenderer extends NodeAbstractRenderer {
 		final double w = item.getPoints().get(2).getX() - x;
 		final double h = item.getPoints().get(2).getY() - y;
 
-		graphics.drawText(item.getDisplayName(), x, y, w, h);
+		TextRenderer.drawText(graphics, item.getDisplayName(), x, y, w, h);
 	}
 
 
 	@Override
-	public void draw(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items, Paint fillColor, Paint lineColor, Paint textColor, Stroke segmentStroke, Stroke borderStroke) {
+	public void draw(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items, Paint fillColor, Paint lineColor, Paint textColor, Stroke borderStroke) {
 		final Collection<Shadow> shadows = (Collection<Shadow>) items;
 		graphics.getGraphics().setPaint(fillColor);
 		shadows.forEach(shadow -> graphics.getGraphics().fill(shape(graphics, shadow)));
 
 		graphics.getGraphics().setPaint(lineColor);
+		graphics.getGraphics().setStroke(borderStroke);
 		shadows.forEach(shadow -> graphics.getGraphics().draw(shape(graphics, shadow)));
 
 		graphics.getGraphics().setPaint(textColor);
@@ -50,11 +49,7 @@ public class ShadowRenderer extends NodeAbstractRenderer {
 					shadow.getPoints().get(i).getX() * graphics.getFactor(),
 					shadow.getPoints().get(i).getY() * graphics.getFactor());
 		}
+		path.closePath();
 		return path;
-//		final double x = graphics.getFactor() * shadow.getPoints().get(0).getX();
-//		final double y = graphics.getFactor() * shadow.getPoints().get(0).getY();
-//		final double w = graphics.getFactor() * shadow.getPoints().get(2).getX() - x;
-//		final double h = graphics.getFactor() * shadow.getPoints().get(2).getY() - y;
-//		return new Rectangle2D.Double(x, y, w, h);
 	}
 }

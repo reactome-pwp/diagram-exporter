@@ -43,67 +43,67 @@ public class EdgeRenderer extends AbstractRenderer {
 		}
 	}
 
-	private void drawReactionText(AdvancedGraphics2D graphics, Edge edge) {
+	private void drawReactionText(AdvancedGraphics2D graphics, EdgeCommon edge) {
 		if (edge.getReactionShape().getS() == null)
 			return;
 		final Shape shape = edge.getReactionShape();
-		graphics.drawText(shape.getS(),
+		TextRenderer.drawText(graphics, shape.getS(),
 				shape.getA().getX(), shape.getA().getY(),
 				shape.getB().getX() - shape.getA().getX(),
 				shape.getB().getY() - shape.getA().getY(),
 				graphics.getFactor(), true);
 	}
 
-	private java.awt.Shape arrow(Shape shape, double scale) {
+	private java.awt.Shape arrow(Shape shape, double factor) {
 		final int[] xs = new int[]{
-				(int) (scale * shape.getA().getX()),
-				(int) (scale * shape.getB().getX()),
-				(int) (scale * shape.getC().getX())
+				(int) (factor * shape.getA().getX()),
+				(int) (factor * shape.getB().getX()),
+				(int) (factor * shape.getC().getX())
 		};
 		final int[] ys = new int[]{
-				(int) (scale * shape.getA().getY()),
-				(int) (scale * shape.getB().getY()),
-				(int) (scale * shape.getC().getY())
+				(int) (factor * shape.getA().getY()),
+				(int) (factor * shape.getB().getY()),
+				(int) (factor * shape.getC().getY())
 		};
 		return new Polygon(xs, ys, xs.length);
 	}
 
-	protected java.awt.Shape box(Shape shape, double scale) {
+	protected java.awt.Shape box(Shape shape, double factor) {
 		return new Rectangle(
-				(int) (scale * shape.getA().getX()),
-				(int) (scale * shape.getA().getY()),
-				(int) (scale * (shape.getB().getX() - shape.getA().getX())),
-				(int) (scale * (shape.getB().getY() - shape.getA().getY())));
+				(int) (factor * shape.getA().getX()),
+				(int) (factor * shape.getA().getY()),
+				(int) (factor * (shape.getB().getX() - shape.getA().getX())),
+				(int) (factor * (shape.getB().getY() - shape.getA().getY())));
 	}
 
-	private java.awt.Shape circle(Shape shape, double scale) {
+	private java.awt.Shape circle(Shape shape, double factor) {
 		final double x = shape.getC().getX() - shape.getR();
 		final double y = shape.getC().getY() - shape.getR();
 		return new Ellipse2D.Double(
-				scale * x,
-				scale * y,
-				scale * 2 * shape.getR(),
-				scale * 2 * shape.getR());
+				factor * x,
+				factor * y,
+				factor * 2 * shape.getR(),
+				factor * 2 * shape.getR());
 	}
 
-	private java.awt.Shape innerCircle(Shape shape, double scale) {
+	private java.awt.Shape innerCircle(Shape shape, double factor) {
 		final double x = shape.getC().getX() - shape.getR1();
 		final double y = shape.getC().getY() - shape.getR1();
 		return new Ellipse2D.Double(
-				scale * x,
-				scale * y,
-				scale * 2 * shape.getR1(),
-				scale * 2 * shape.getR1()
+				factor * x,
+				factor * y,
+				factor * 2 * shape.getR1(),
+				factor * 2 * shape.getR1()
 		);
 //		graphics.drawOval(x, y, shape.getR1() * 2, shape.getR1() * 2);
 	}
 
-	private java.awt.Shape stop(Shape shape, double scale) {
+	private java.awt.Shape stop(Shape shape, double factor) {
 		return new Line2D.Double(
-				scale * shape.getA().getX(),
-				scale * shape.getA().getY(),
-				scale * shape.getB().getX(),
-				scale * shape.getB().getY()
+				factor * shape.getA().getX(),
+				factor * shape.getA().getY(),
+				factor * shape.getB().getX(),
+				factor * shape.getB().getY()
 		);
 	}
 
@@ -117,18 +117,16 @@ public class EdgeRenderer extends AbstractRenderer {
 	 * @param fillColor     color for filling
 	 * @param lineColor     color for segments and borders
 	 * @param textColor     color for text
-	 * @param segmentStroke stroke for segments
 	 */
 	@Override
-	public void draw(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items, Paint fillColor, Paint lineColor, Paint textColor, Stroke segmentStroke, Stroke borderStroke) {
-		final Collection<Edge> edges = (Collection<Edge>) items;
-		// Segments
-		segments(graphics, lineColor, segmentStroke, edges);
+	public void draw(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items, Paint fillColor, Paint lineColor, Paint textColor, Stroke borderStroke) {
+		final Collection<EdgeCommon> edges = (Collection<EdgeCommon>) items;
 
 		// separate reactions and ends in black and white
 		final List<java.awt.Shape> empty = new LinkedList<>();
 		final List<java.awt.Shape> nonEmpty = new LinkedList<>();
 		edges.forEach(edge -> {
+			//noinspection Duplicates (some as Connector, but no common interface)
 			if (edge.getEndShape() != null) {
 				final List<java.awt.Shape> rendered = getScaledShapes(edge.getEndShape(), graphics.getFactor());
 				if (edge.getEndShape().getEmpty() == null)
@@ -159,7 +157,7 @@ public class EdgeRenderer extends AbstractRenderer {
 	 * @param stroke    line style
 	 * @param edges     list of edges to render
 	 */
-	public void segments(AdvancedGraphics2D graphics, Paint lineColor, Stroke stroke, Collection<Edge> edges) {
+	public void segments(AdvancedGraphics2D graphics, Paint lineColor, Stroke stroke, Collection<? extends EdgeCommon> edges) {
 		graphics.getGraphics().setStroke(stroke);
 		graphics.getGraphics().setPaint(lineColor);
 		edges.stream()
@@ -190,7 +188,7 @@ public class EdgeRenderer extends AbstractRenderer {
 	 *
 	 * @param graphics     where to render
 	 * @param lineColor    color for borders
-	 * @param borderStroke
+	 * @param borderStroke stroke for borders
 	 * @param shapes       list of precomputed shapes
 	 */
 	public void border(AdvancedGraphics2D graphics, Paint lineColor, Stroke borderStroke, List<java.awt.Shape> shapes) {
@@ -206,7 +204,7 @@ public class EdgeRenderer extends AbstractRenderer {
 	 * @param textColor color for texts
 	 * @param edges     list of edges
 	 */
-	public void text(AdvancedGraphics2D graphics, Paint textColor, Collection<Edge> edges) {
+	public void text(AdvancedGraphics2D graphics, Paint textColor, Collection<? extends EdgeCommon> edges) {
 		graphics.getGraphics().setPaint(textColor);
 		edges.forEach(edge -> drawReactionText(graphics, edge));
 	}

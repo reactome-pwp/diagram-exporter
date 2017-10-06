@@ -10,6 +10,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Connectors have a similar behaviour than reactions: segments, shapes and
+ * texts, but they do NOT share interface, so its rendering is made with a
+ * different renderer. Connectors do not have reaction shape, instead they have
+ * stoichiometry box when its value is more than 1.
+ *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class ConnectorRenderer extends EdgeRenderer {
@@ -19,21 +24,18 @@ public class ConnectorRenderer extends EdgeRenderer {
 	 * texts. For the fills, shapes are precomputed and separated into empty and
 	 * non empty lists.
 	 *
-	 * @param graphics
-	 * @param items
-	 * @param fillColor
-	 * @param lineColor
-	 * @param textColor
-	 * @param lineStroke
+	 * @param graphics   where to render
+	 * @param connectors list of connectors
+	 * @param fillColor  filling color for empty shapes
+	 * @param lineColor  color for borders, non empty shapes and texts
 	 */
-	public void drawConnectors(AdvancedGraphics2D graphics, Collection<Connector> items, Paint fillColor, Paint lineColor, Paint textColor, Stroke lineStroke, Stroke borderStroke) {
-		final Collection<Connector> connectors = items;
-		connectorSegments(graphics, lineColor, lineStroke, connectors);
+	public void drawConnectors(AdvancedGraphics2D graphics, Collection<Connector> connectors, Paint fillColor, Paint lineColor, Stroke borderStroke) {
 		// Fills
 		// separate reactions and ends in black and white
 		final List<java.awt.Shape> empty = new LinkedList<>();
 		final List<java.awt.Shape> nonEmpty = new LinkedList<>();
 		connectors.forEach(connector -> {
+			//noinspection Duplicates (similar to edges, but don't share interface)
 			if (connector.getEndShape() != null) {
 				final List<java.awt.Shape> rendered = getScaledShapes(connector.getEndShape(), graphics.getFactor());
 				if (connector.getEndShape().getEmpty() == null)
@@ -53,6 +55,7 @@ public class ConnectorRenderer extends EdgeRenderer {
 		graphics.getGraphics().setPaint(lineColor);
 		graphics.getGraphics().setStroke(borderStroke);
 		empty.forEach(shape -> graphics.getGraphics().draw(shape));
+
 		// Text
 		// They have same color as border
 		connectors.forEach(connector -> text(graphics, connector));
@@ -66,7 +69,7 @@ public class ConnectorRenderer extends EdgeRenderer {
 	private void endShapeText(AdvancedGraphics2D graphics, Connector connector) {
 		final Shape shape = connector.getEndShape();
 		if (shape != null && shape.getS() != null)
-			graphics.drawText(shape.getS(),
+			TextRenderer.drawText(graphics, shape.getS(),
 					shape.getA().getX(), shape.getA().getY(),
 					shape.getB().getX() - shape.getA().getX(),
 					shape.getB().getY() - shape.getA().getY(),
@@ -77,7 +80,8 @@ public class ConnectorRenderer extends EdgeRenderer {
 		if (connector.getStoichiometry() == null || connector.getStoichiometry().getShape() == null)
 			return;
 		final Shape stShape = connector.getStoichiometry().getShape();
-		graphics.drawText(connector.getStoichiometry().getValue().toString(),
+		TextRenderer.drawText(graphics,
+				connector.getStoichiometry().getValue().toString(),
 				stShape.getA().getX(), stShape.getA().getY(),
 				stShape.getB().getX() - stShape.getA().getX(),
 				stShape.getB().getY() - stShape.getA().getY(),
@@ -93,7 +97,7 @@ public class ConnectorRenderer extends EdgeRenderer {
 		nonEmpty.forEach(shape -> graphics.getGraphics().fill(shape));
 	}
 
-	private void connectorSegments(AdvancedGraphics2D graphics, Paint lineColor, Stroke stroke, Collection<Connector> connectors) {
+	public void connectorSegments(AdvancedGraphics2D graphics, Paint lineColor, Stroke stroke, Collection<Connector> connectors) {
 		graphics.getGraphics().setStroke(stroke);
 		graphics.getGraphics().setPaint(lineColor);
 		connectors.stream()

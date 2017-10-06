@@ -4,12 +4,12 @@ import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ColorProfile;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledNodeProperties;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * Basic node renderer. All Renderers that render nodes should override it. The
@@ -21,7 +21,7 @@ import java.util.List;
 public abstract class NodeAbstractRenderer extends AbstractRenderer {
 
 	@Override
-	public void draw(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items, Paint fillColor, Paint lineColor, Paint textColor, Stroke segmentStroke, Stroke borderStroke) {
+	public void draw(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items, Paint fillColor, Paint lineColor, Paint textColor, Stroke borderStroke) {
 		if (fillColor != null) fill(graphics, fillColor, items);
 		if (lineColor != null) border(graphics, lineColor, borderStroke, items);
 		if (textColor != null) text(graphics, textColor, items);
@@ -61,12 +61,17 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 		final Collection<Node> nodes = (Collection<Node>) items;
 		graphics.getGraphics().setPaint(lineColor);
 		graphics.getGraphics().setStroke(stroke);
-		nodes.stream()
-				.map(node -> shape(graphics, node))
-				.forEach(shape -> graphics.getGraphics().draw(shape));
-		nodes.stream()
-				.filter(node -> node.getIsCrossed() != null)
-				.forEach(node -> graphics.drawCross(node.getProp()));
+		nodes.forEach(node -> {
+			final Shape shape = shape(graphics, node);
+			if (node.getNeedDashedBorder() != null) {
+				graphics.getGraphics().setStroke(ColorProfile.DASHED_BORDER_STROKE);
+				graphics.getGraphics().draw(shape);
+				graphics.getGraphics().setStroke(ColorProfile.DEFAULT_BORDER_STROKE);
+			} else graphics.getGraphics().draw(shape);
+		});
+//		nodes.stream()
+//				.filter(node -> node.getIsCrossed() != null)
+//				.forEach(node -> graphics.drawCross(node.getProp()));
 	}
 
 	/**
@@ -79,10 +84,11 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 	 * @param textColor color for texts
 	 * @param items     list of nodes to draw
 	 */
+
 	protected void text(AdvancedGraphics2D graphics, Paint textColor, Collection<? extends DiagramObject> items) {
 		final Collection<Node> nodes = (Collection<Node>) items;
 		graphics.getGraphics().setPaint(textColor);
-		nodes.forEach(graphics::drawText);
+		nodes.forEach(node -> TextRenderer.drawText(graphics, node));
 	}
 
 	/**

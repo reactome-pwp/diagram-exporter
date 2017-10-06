@@ -6,25 +6,29 @@ import org.reactome.server.tools.diagram.exporter.pptx.model.Stylesheet;
 import org.reactome.server.tools.diagram.exporter.raster.RenderType;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class ColorProfile {
 
 	private final static Pattern RGBA = Pattern.compile("^rgba\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*((0.[1-9])|[01])\\s*\\)$");
+	private static final List<String> LINKS = Arrays.asList("Interaction", "EntitySetAndEntitySetLink", "EntitySetAndMemberLink");
+	public static BasicStroke DASHED_BORDER_STROKE;
+	public static Stroke DASHED_LINE_STROKE;
 	public static Font SHADOWS_FONT;
 	public static Font DEFAULT_FONT;
 	public static Stroke HALO_STROKE;
 	public static Stroke DEFAULT_LINE_STROKE;
 	public static Stroke DEFAULT_BORDER_STROKE;
 	public static Stroke SELECTION_STROKE;
-	public static Stroke THICK_BORDER;
+
 	/**
 	 * rendering classes colors
 	 */
@@ -43,19 +47,29 @@ public class ColorProfile {
 		DEFAULT_BORDER_STROKE = new BasicStroke((float) (2 * factor), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER);
 		SELECTION_STROKE = new BasicStroke((float) (3 * factor), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
 		HALO_STROKE = new BasicStroke((float) (6 * factor), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-		THICK_BORDER = new BasicStroke((float) (3 * factor), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
+
+		final float dashSize = (float) (factor * 5);
+		final float dashSpace = (float) (factor * 2);
+		DASHED_LINE_STROKE = new BasicStroke((float) (1 * factor),
+				BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, dashSize,
+				new float[]{dashSize}, dashSize);
+		DASHED_BORDER_STROKE = new BasicStroke((float) (2 * factor),
+				BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, dashSize,
+				new float[]{dashSize, dashSpace}, dashSize);
+
 		SHADOWS_FONT = new Font("arial", Font.BOLD, (int) (24 * factor));
 		DEFAULT_FONT = new Font("arial", Font.BOLD, (int) (9 * factor));
 	}
 
 	/**
-	 * Computes the color of the "stroke" property for the given
-	 * renderingClass based on the renderType
+	 * Computes the color of the "stroke" property for the given renderingClass
+	 * based on the renderType
 	 *
 	 * @param profile        the profile to extract the color from
 	 * @param renderingClass the class of the object to paint
 	 * @param renderType     the render type to choose between normal, light,
 	 *                       fadeout or disease
+	 *
 	 * @return a Paint with a proper color for drawing lines
 	 */
 	public static Paint getLineColor(DiagramProfile profile, String renderingClass, RenderType renderType) {
@@ -88,6 +102,7 @@ public class ColorProfile {
 	 * @param renderingClass the class of the object to paint
 	 * @param renderType     the render type to choose between normal, light or
 	 *                       fadeout
+	 *
 	 * @return a Paint with a proper color for drawing lines
 	 */
 	public static Paint getFillColor(DiagramProfile profile, String renderingClass, RenderType renderType) {
@@ -114,11 +129,13 @@ public class ColorProfile {
 	}
 
 	/**
-	 * Computes the shape of the "stroke" to be applied to a line in the diagram
+	 * Computes the shape of the "stroke" to be applied to a line in the
+	 * diagram
 	 *
 	 * @param profile        the profile to extract the stroke
 	 * @param renderingClass the class of the object to paint
 	 * @param renderType     the render type
+	 *
 	 * @return a computed stroke for your needs
 	 */
 
@@ -148,10 +165,11 @@ public class ColorProfile {
 	private static Stylesheet getStyleSheet(DiagramProfile profile, String type) {
 		if (type.equals("Entity"))
 			type = "OtherEntity";
-		stylesheets.putIfAbsent(profile.getName(), new HashMap<>());
-		final Map<String, Stylesheet> style = stylesheets.get(profile.getName());
-		style.putIfAbsent(type, new Stylesheet(profile, type));
-		return style.get(type);
+		if (LINKS.contains(type))
+			type = "link";
+		return stylesheets
+				.computeIfAbsent(profile.getName(), k -> new HashMap<>())
+				.computeIfAbsent(type, k -> new Stylesheet(profile, k));
 	}
 
 	private static void addProfile(DiagramProfile profile) {
@@ -170,6 +188,7 @@ public class ColorProfile {
 	 *
 	 * @param profile
 	 * @param type
+	 *
 	 * @return
 	 */
 	public static Paint getProfileColor(DiagramProfile profile, String type) {

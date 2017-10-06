@@ -16,9 +16,9 @@ public class NoteRenderer extends AbstractRenderer {
 
 
 	@Override
-	public void draw(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items, Paint fillColor, Paint lineColor, Paint textColor, Stroke segmentStroke, Stroke borderStroke) {
+	public void draw(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items, Paint fillColor, Paint lineColor, Paint textColor, Stroke borderStroke) {
 		final Collection<Note> nodes = (Collection<Note>) items;
 		graphics.getGraphics().setPaint(textColor);
-		nodes.forEach(note -> graphics.drawTextSingleLine(note.getDisplayName(), note.getTextPosition()));
+		nodes.forEach(note -> TextRenderer.drawTextSingleLine(graphics, note.getDisplayName(), note.getTextPosition()));
 	}
 }

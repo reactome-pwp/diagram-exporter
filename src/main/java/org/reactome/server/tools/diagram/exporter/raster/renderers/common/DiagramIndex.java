@@ -26,7 +26,7 @@ public class DiagramIndex {
 	private AnalysisType analysisType;
 
 	private Map<Long, DiagramObject> diagramIndex;
-//	private Map<Long, DiagramObject> diagramReactomeIndex;
+	//	private Map<Long, DiagramObject> diagramReactomeIndex;
 	private Map<Long, GraphNode> graphIndex;
 	private Map<String, Set<Node>> selectedNodes;
 	private Set<Edge> selectedReactions;
@@ -37,9 +37,10 @@ public class DiagramIndex {
 	private Map<String, Set<Connector>> haloConnectors;
 	private Map<String, Map<RenderType, Set<Node>>> classifiedNodes;
 	private Map<String, Map<RenderType, Set<Edge>>> classifiedReactions;
-	private Map<String, Map<RenderType, Set<Connector>>> classifiedConnectors;
+	private Map<RenderType, Set<Connector>> classifiedConnectors;
 	private Set<Edge> flagReactions;
 	private HashSet<Connector> flagConnectors;
+	private Map<String, Map<RenderType, Set<Link>>> links;
 
 	/**
 	 * Computes the maps of nodes, reactions and connectors so they are grouped
@@ -83,6 +84,9 @@ public class DiagramIndex {
 			selectNodes();
 			selectReactions();
 		}
+		links = diagram.getLinks().stream()
+				.collect(Collectors.groupingBy(DiagramObject::getRenderableClass,
+						Collectors.groupingBy(this::getRenderType, Collectors.toSet())));
 	}
 
 	private void classifyNodes() {
@@ -93,25 +97,35 @@ public class DiagramIndex {
 	}
 
 	private void classifyReactions() {
-		classifiedReactions = new HashMap<>();
-		classifiedConnectors = new HashMap<>();
-		diagram.getEdges().forEach(reaction -> {
-			// Classify edges by renderingClass/renderType
-			final RenderType renderType = getRenderType(reaction);
-			classifiedReactions
-					.computeIfAbsent(reaction.getRenderableClass(), k -> new HashMap<>())
-					.computeIfAbsent(renderType, k -> new HashSet<>())
-					.add(reaction);
-			// Classify connectors by renderingClass/renderType
-			final Set<Connector> connectorSet = classifiedConnectors
-					.computeIfAbsent(reaction.getRenderableClass(), k -> new HashMap<>())
-					.computeIfAbsent(renderType, k -> new HashSet<>());
-			streamParticipants(reaction)
-					.map(Node::getConnectors)
-					.flatMap(Collection::stream)
-					.filter(connector -> connector.getEdgeId().equals(reaction.getId()))
-					.forEach(connectorSet::add);
-		});
+//		classifiedReactions = new HashMap<>();
+		classifiedReactions = diagram.getEdges().stream()
+				.collect(Collectors.groupingBy(Edge::getRenderableClass,
+						Collectors.groupingBy(this::getRenderType, Collectors.toSet())));
+		classifiedConnectors = diagram.getNodes().stream()
+				.map(Node::getConnectors)
+				.flatMap(Collection::stream)
+				.collect(Collectors.groupingBy(this::getRenderType, Collectors.toSet()));
+//		diagram.getNodes().forEach(node -> {
+//			node.getConnectors().forEach(connector ->
+//					getRenderType(connector));
+//		});
+//		diagram.getEdges().forEach(reaction -> {
+//			// Classify edges by renderingClass/renderType
+//			final RenderType renderType = getRenderType(reaction);
+//			classifiedReactions
+//					.computeIfAbsent(reaction.getRenderableClass(), k -> new HashMap<>())
+//					.computeIfAbsent(renderType, k -> new HashSet<>())
+//					.add(reaction);
+////			// Classify connectors by renderingClass/renderType
+////			final Set<Connector> connectorSet = classifiedConnectors
+////					.computeIfAbsent(reaction.getRenderableClass(), k -> new HashMap<>())
+////					.computeIfAbsent(renderType, k -> new HashSet<>());
+////			streamParticipants(reaction)
+////					.map(Node::getConnectors)
+////					.flatMap(Collection::stream)
+////					.filter(connector -> connector.getEdgeId().equals(reaction.getId()))
+////					.forEach(connectorSet::add);
+//		});
 	}
 
 
@@ -216,9 +230,12 @@ public class DiagramIndex {
 	}
 
 	private RenderType getRenderType(DiagramObject item) {
-		if (item.getIsFadeOut() != null)
-			return RenderType.FADE_OUT;
 		final boolean isDisease = item.getIsDisease() != null;
+		if (item.getIsFadeOut() != null) {
+			return isDisease
+					? RenderType.DISEASE
+					: RenderType.FADE_OUT;
+		}
 		if (analysisType == AnalysisType.NONE) {
 			return isDisease
 					? RenderType.DISEASE
@@ -249,6 +266,15 @@ public class DiagramIndex {
 		return isDisease
 				? RenderType.NOT_HIT_BY_ANALYSIS_DISEASE
 				: RenderType.NOT_HIT_BY_ANALYSIS_NORMAL;
+	}
+
+	private RenderType getRenderType(Connector item) {
+		if (item.getIsDisease() != null && item.getIsDisease())
+			return RenderType.DISEASE;
+		if (item.getIsFadeOut() != null && item.getIsFadeOut())
+			return RenderType.FADE_OUT;
+		return RenderType.NORMAL;
+
 	}
 
 	public Map<String, Set<Node>> getSelectedNodes() {
@@ -284,7 +310,7 @@ public class DiagramIndex {
 		return flagReactions;
 	}
 
-	public Map<String, Map<RenderType, Set<Connector>>> getClassifiedConnectors() {
+	public Map<RenderType, Set<Connector>> getClassifiedConnectors() {
 		return classifiedConnectors;
 	}
 
@@ -311,5 +337,9 @@ public class DiagramIndex {
 
 	public Map<String, Set<Edge>> getHaloReactions() {
 		return haloReactions;
+	}
+
+	public Map<String, Map<RenderType, Set<Link>>> getLinks() {
+		return links;
 	}
 }
