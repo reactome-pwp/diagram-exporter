@@ -20,14 +20,6 @@ public class ColorProfile {
 
 	private final static Pattern RGBA = Pattern.compile("^rgba\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*((0.[1-9])|[01])\\s*\\)$");
 	private static final List<String> LINKS = Arrays.asList("Interaction", "EntitySetAndEntitySetLink", "EntitySetAndMemberLink");
-	public static BasicStroke DASHED_BORDER_STROKE;
-	public static Stroke DASHED_LINE_STROKE;
-	public static Font SHADOWS_FONT;
-	public static Font DEFAULT_FONT;
-	public static Stroke HALO_STROKE;
-	public static Stroke DEFAULT_LINE_STROKE;
-	public static Stroke DEFAULT_BORDER_STROKE;
-	public static Stroke SELECTION_STROKE;
 
 	/**
 	 * rendering classes colors
@@ -38,28 +30,6 @@ public class ColorProfile {
 	 */
 	private static Map<String, Map<String, Paint>> properties = new HashMap<>();
 
-	static {
-		setFactor(1.0);
-	}
-
-	public static void setFactor(double factor) {
-		DEFAULT_LINE_STROKE = new BasicStroke((float) (1 * factor), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
-		DEFAULT_BORDER_STROKE = new BasicStroke((float) (2 * factor), BasicStroke.CAP_SQUARE, BasicStroke.JOIN_MITER);
-		SELECTION_STROKE = new BasicStroke((float) (3 * factor), BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER);
-		HALO_STROKE = new BasicStroke((float) (6 * factor), BasicStroke.CAP_ROUND, BasicStroke.JOIN_MITER);
-
-		final float dashSize = (float) (factor * 5);
-		final float dashSpace = (float) (factor * 2);
-		DASHED_LINE_STROKE = new BasicStroke((float) (1 * factor),
-				BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, dashSize,
-				new float[]{dashSize}, dashSize);
-		DASHED_BORDER_STROKE = new BasicStroke((float) (2 * factor),
-				BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, dashSize,
-				new float[]{dashSize, dashSpace}, dashSize);
-
-		SHADOWS_FONT = new Font("arial", Font.BOLD, (int) (24 * factor));
-		DEFAULT_FONT = new Font("arial", Font.BOLD, (int) (9 * factor));
-	}
 
 	/**
 	 * Computes the color of the "stroke" property for the given renderingClass
@@ -126,27 +96,6 @@ public class ColorProfile {
 			default:
 				return styleSheet.getFillColor();
 		}
-	}
-
-	/**
-	 * Computes the shape of the "stroke" to be applied to a line in the
-	 * diagram
-	 *
-	 * @param profile        the profile to extract the stroke
-	 * @param renderingClass the class of the object to paint
-	 * @param renderType     the render type
-	 *
-	 * @return a computed stroke for your needs
-	 */
-
-	public static Stroke getStroke(DiagramProfile profile, String renderingClass, RenderType renderType) {
-		throw new UnsupportedOperationException("Use ColorProfile constants instead, i.e. ColorProfile.DEFAULT_LINE_STROKE");
-//		switch (renderType) {
-//			case HIT_INTERACTORS:
-//				return THICK_BORDER;
-//			default:
-//				return DEFAULT_LINE_STROKE;
-//		}
 	}
 
 	public static Paint getTextColor(DiagramProfile profile, String renderingClass, RenderType renderType) {

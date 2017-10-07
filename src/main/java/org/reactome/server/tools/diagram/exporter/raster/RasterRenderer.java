@@ -6,10 +6,7 @@ import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.Edge;
 import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.common.Decorator;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ColorProfile;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.*;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.ConnectorRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.EdgeRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.Renderer;
@@ -26,6 +23,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.reactome.server.tools.diagram.exporter.raster.renderers.common.ColorProfile.*;
+import static org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties.*;
 
 /**
  * Renders Reactome pathway diagrams into <code>BufferedImage</code>s.
@@ -114,7 +112,7 @@ public class RasterRenderer {
 		}
 
 		RendererProperties.setFactor(factor);
-		ColorProfile.setFactor(factor);
+		StrokeProperties.setFactor(factor);
 
 		final double x = minX * factor;
 		final double y = minY * factor;
@@ -183,7 +181,7 @@ public class RasterRenderer {
 		final Paint fillColor = getFillColor(profile, renderingClass, RenderType.NORMAL);
 		final Paint lineColor = getLineColor(profile, renderingClass, RenderType.NORMAL);
 		final Paint textColor = getTextColor(profile, renderingClass, RenderType.NORMAL);
-		renderer.draw(graphics, diagram.getCompartments(), fillColor, lineColor, textColor, DEFAULT_BORDER_STROKE);
+		renderer.draw(graphics, diagram.getCompartments(), fillColor, lineColor, textColor, BORDER_STROKE);
 	}
 
 	private void haloNodes() {
@@ -214,36 +212,42 @@ public class RasterRenderer {
 					final EdgeRenderer renderer = (EdgeRenderer) RendererFactory.get(rClass);
 					final Paint lineColor = ColorProfile.getLineColor(profile, rClass, renderType);
 					final Paint textColor = ColorProfile.getTextColor(profile, rClass, renderType);
-					renderer.segments(graphics, lineColor, DEFAULT_LINE_STROKE, links);
-					renderer.draw(graphics, links, null, lineColor, textColor, ColorProfile.DEFAULT_LINE_STROKE);
+					renderer.segments(graphics, lineColor, SEGMENT_STROKE, links);
+					renderer.draw(graphics, links, null, lineColor, textColor, SEGMENT_STROKE);
 				}));
 	}
 
 	private void drawReactions() {
 		// 1 segments
-		index.getClassifiedConnectors().forEach((renderType, connectors) -> {
-			final Paint lineColor = ColorProfile.getLineColor(profile, "Reaction", renderType);
-			connectorRenderer.connectorSegments(graphics, lineColor, DEFAULT_LINE_STROKE, connectors);
+		index.getClassifiedConnectors().forEach((rClass, items) -> {
+			items.forEach((renderType, connectors) -> {
+				final Paint lineColor = ColorProfile.getLineColor(profile, rClass, renderType);
+				connectorRenderer.connectorSegments(graphics, lineColor, SEGMENT_STROKE, connectors);
+			});
 		});
-		index.getClassifiedReactions().forEach((rClass, items) ->
-				items.forEach((renderType, edges) -> {
-					final EdgeRenderer renderer = (EdgeRenderer) RendererFactory.get(rClass);
-					final Paint border = ColorProfile.getLineColor(profile, rClass, renderType);
-					renderer.segments(graphics, border, DEFAULT_LINE_STROKE, edges);
-				}));
+		index.getClassifiedReactions().forEach((rClass, items) -> {
+			final EdgeRenderer renderer = (EdgeRenderer) RendererFactory.get(rClass);
+			items.forEach((renderType, edges) -> {
+				final Paint border = ColorProfile.getLineColor(profile, rClass, renderType);
+				renderer.segments(graphics, border, SEGMENT_STROKE, edges);
+			});
+		});
 		// 2 Shapes
-		index.getClassifiedConnectors().forEach((renderType, connectors) -> {
-			final Paint fill = ColorProfile.getFillColor(profile, "Reaction", renderType);
-			final Paint border = ColorProfile.getLineColor(profile, "Reaction", renderType);
-			connectorRenderer.drawConnectors(graphics, connectors, fill, border, DEFAULT_LINE_STROKE);
+		index.getClassifiedConnectors().forEach((rClass, items) -> {
+			items.forEach((renderType, connectors) -> {
+				final Paint fill = ColorProfile.getFillColor(profile, rClass, renderType);
+				final Paint border = ColorProfile.getLineColor(profile, rClass, renderType);
+				connectorRenderer.drawConnectors(graphics, connectors, fill, border, SEGMENT_STROKE);
+			});
 		});
-		index.getClassifiedReactions().forEach((renderableClass, reactions) ->
-				reactions.forEach((renderType, edges) -> {
-					final Renderer renderer = RendererFactory.get(renderableClass);
-					final Paint fill = ColorProfile.getFillColor(profile, renderableClass, renderType);
-					final Paint border = ColorProfile.getLineColor(profile, renderableClass, renderType);
-					renderer.draw(graphics, edges, fill, border, border, DEFAULT_LINE_STROKE);
-				}));
+		index.getClassifiedReactions().forEach((renderableClass, reactions) -> {
+			final Renderer renderer = RendererFactory.get(renderableClass);
+			reactions.forEach((renderType, edges) -> {
+				final Paint fill = ColorProfile.getFillColor(profile, renderableClass, renderType);
+				final Paint border = ColorProfile.getLineColor(profile, renderableClass, renderType);
+				renderer.draw(graphics, edges, fill, border, border, SEGMENT_STROKE);
+			});
+		});
 	}
 
 	private void selectReactions() {
@@ -255,7 +259,7 @@ public class RasterRenderer {
 			final Paint fill = ColorProfile.getFillColor(profile, rClass, RenderType.NORMAL);
 			final Paint text = ColorProfile.getTextColor(profile, rClass, RenderType.NORMAL);
 			renderer.segments(graphics, selection, SELECTION_STROKE, edges);
-			// Whe selecting segments, they can overlay the fill we made before
+			// When selecting segments, they can overlay the fill we made before
 			// so we must repeat the fill, border and text for the selected
 			// reactions
 			renderer.draw(graphics, edges, fill, selection, text, SELECTION_STROKE);
@@ -269,11 +273,13 @@ public class RasterRenderer {
 	private void drawNodes() {
 		index.getClassifiedNodes().forEach((renderingClass, items) -> {
 			final Renderer renderer = RendererFactory.get(renderingClass);
-			items.forEach((renderType, objects) -> {
+			items.forEach((renderType, nodes) -> {
 				final Paint lineColor = getLineColor(profile, renderingClass, renderType);
 				final Paint fillColor = getFillColor(profile, renderingClass, renderType);
 				final Paint textColor = getTextColor(profile, renderingClass, renderType);
-				renderer.draw(graphics, objects, fillColor, lineColor, textColor, DEFAULT_BORDER_STROKE);
+				renderer.draw(graphics, nodes, fillColor, lineColor, textColor, BORDER_STROKE);
+				final Paint disease = getProfileColor(profile, "disease");
+				renderer.cross(graphics, nodes, disease, SEGMENT_STROKE);
 			});
 		});
 	}
@@ -299,17 +305,17 @@ public class RasterRenderer {
 		final Paint fillColor = getFillColor(profile, renderingClass, RenderType.NORMAL);
 		final Paint lineColor = getLineColor(profile, renderingClass, RenderType.NORMAL);
 		final Paint textColor = getTextColor(profile, renderingClass, RenderType.NORMAL);
-		renderer.draw(graphics, diagram.getNotes(), fillColor, lineColor, textColor, DEFAULT_BORDER_STROKE);
+		renderer.draw(graphics, diagram.getNotes(), fillColor, lineColor, textColor, BORDER_STROKE);
 	}
 
 	private void shadows() {
-		graphics.getGraphics().setFont(ColorProfile.SHADOWS_FONT);
+		graphics.getGraphics().setFont(FontProperties.SHADOWS_FONT);
 		// Each shadow has a different color and different renderable Class
 		diagram.getShadows().forEach(shadow -> {
 			final Renderer renderer = RendererFactory.get(shadow.getRenderableClass());
 			final Paint shadowFill = ColorProfile.getShadowFill(shadow);
 			final Paint shadowLine = ColorProfile.getShadowLine(shadow);
-			renderer.draw(graphics, Collections.singletonList(shadow), shadowFill, shadowLine, shadowLine, DEFAULT_BORDER_STROKE);
+			renderer.draw(graphics, Collections.singletonList(shadow), shadowFill, shadowLine, shadowLine, BORDER_STROKE);
 		});
 	}
 }

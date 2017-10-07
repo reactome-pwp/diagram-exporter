@@ -1,6 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
+import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
 
 import java.awt.*;
@@ -18,4 +19,8 @@ public abstract class AbstractRenderer implements Renderer {
 
 	}
 
+	@Override
+	public void cross(AdvancedGraphics2D graphics, Collection<Node> nodes, Paint crossColor, Stroke stroke) {
+
+	}
 }

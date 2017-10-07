@@ -1,14 +1,9 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
-import org.reactome.server.tools.diagram.data.layout.Coordinate;
-import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.TextRenderer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Renders Reactome elements over a Graphics object. As Reactome elements use
@@ -50,7 +45,7 @@ public class AdvancedGraphics2D {
 				RenderingHints.KEY_TEXT_ANTIALIASING,
 				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 		this.factor = factor;
-		getGraphics().setFont(ColorProfile.DEFAULT_FONT);
+		getGraphics().setFont(FontProperties.DEFAULT_FONT);
 	}
 
 	/**

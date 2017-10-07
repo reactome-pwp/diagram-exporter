@@ -1,10 +1,12 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
+import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
 
 import java.awt.*;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Any renderer should accept a list of DiagramObjects and be able to render
@@ -26,4 +28,6 @@ public interface Renderer {
 	 * @param borderStroke stroke for borders
 	 */
 	void draw(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items, Paint fillColor, Paint lineColor, Paint textColor, Stroke borderStroke);
+
+	void cross(AdvancedGraphics2D graphics, Collection<Node> nodes, Paint crossColor, Stroke stroke);
 }

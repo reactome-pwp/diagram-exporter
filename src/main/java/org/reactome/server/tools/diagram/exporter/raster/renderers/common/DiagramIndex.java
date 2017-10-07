@@ -37,7 +37,7 @@ public class DiagramIndex {
 	private Map<String, Set<Connector>> haloConnectors;
 	private Map<String, Map<RenderType, Set<Node>>> classifiedNodes;
 	private Map<String, Map<RenderType, Set<Edge>>> classifiedReactions;
-	private Map<RenderType, Set<Connector>> classifiedConnectors;
+	private Map<String, Map<RenderType, Set<Connector>>> classifiedConnectors;
 	private Set<Edge> flagReactions;
 	private HashSet<Connector> flagConnectors;
 	private Map<String, Map<RenderType, Set<Link>>> links;
@@ -97,35 +97,24 @@ public class DiagramIndex {
 	}
 
 	private void classifyReactions() {
-//		classifiedReactions = new HashMap<>();
-		classifiedReactions = diagram.getEdges().stream()
-				.collect(Collectors.groupingBy(Edge::getRenderableClass,
-						Collectors.groupingBy(this::getRenderType, Collectors.toSet())));
-		classifiedConnectors = diagram.getNodes().stream()
-				.map(Node::getConnectors)
-				.flatMap(Collection::stream)
-				.collect(Collectors.groupingBy(this::getRenderType, Collectors.toSet()));
-//		diagram.getNodes().forEach(node -> {
-//			node.getConnectors().forEach(connector ->
-//					getRenderType(connector));
-//		});
-//		diagram.getEdges().forEach(reaction -> {
-//			// Classify edges by renderingClass/renderType
-//			final RenderType renderType = getRenderType(reaction);
-//			classifiedReactions
-//					.computeIfAbsent(reaction.getRenderableClass(), k -> new HashMap<>())
-//					.computeIfAbsent(renderType, k -> new HashSet<>())
-//					.add(reaction);
-////			// Classify connectors by renderingClass/renderType
-////			final Set<Connector> connectorSet = classifiedConnectors
-////					.computeIfAbsent(reaction.getRenderableClass(), k -> new HashMap<>())
-////					.computeIfAbsent(renderType, k -> new HashSet<>());
-////			streamParticipants(reaction)
-////					.map(Node::getConnectors)
-////					.flatMap(Collection::stream)
-////					.filter(connector -> connector.getEdgeId().equals(reaction.getId()))
-////					.forEach(connectorSet::add);
-//		});
+		diagram.getEdges().forEach(reaction -> {
+			// Classify edges by renderingClass/renderType
+			classifiedReactions
+					.computeIfAbsent(reaction.getRenderableClass(), k -> new HashMap<>())
+					.computeIfAbsent(getRenderType(reaction), k -> new HashSet<>())
+					.add(reaction);
+			// Rendering class of connectors is the same as the reaction they
+			// belong
+			final Map<RenderType, Set<Connector>> connectors = classifiedConnectors
+					.computeIfAbsent(reaction.getRenderableClass(), k -> new HashMap<>());
+			streamParticipants(reaction)
+					.map(Node::getConnectors)
+					.flatMap(Collection::stream)
+					.filter(connector -> connector.getEdgeId().equals(reaction.getId()))
+					.forEach(connector -> connectors
+							.computeIfAbsent(getRenderType(connector), k -> new HashSet<>())
+							.add(connector));
+		});
 	}
 
 
@@ -191,9 +180,10 @@ public class DiagramIndex {
 		final Set<Connector> connectors = haloConnectors.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>());
 		streamParticipants(reaction)
 				.forEach(node -> {
-					haloNodes
-							.computeIfAbsent(node.getRenderableClass(), k -> new HashSet<>())
-							.add(node);
+					if (node.getIsFadeOut() == null || !node.getIsFadeOut())
+						haloNodes
+								.computeIfAbsent(node.getRenderableClass(), k -> new HashSet<>())
+								.add(node);
 					node.getConnectors().stream()
 							.filter(connector -> connector.getEdgeId().equals(reaction.getId()))
 							.forEach(connector -> {
@@ -310,7 +300,7 @@ public class DiagramIndex {
 		return flagReactions;
 	}
 
-	public Map<RenderType, Set<Connector>> getClassifiedConnectors() {
+	public Map<String, Map<RenderType, Set<Connector>>> getClassifiedConnectors() {
 		return classifiedConnectors;
 	}
 

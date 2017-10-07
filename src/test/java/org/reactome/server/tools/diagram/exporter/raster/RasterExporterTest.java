@@ -104,7 +104,7 @@ public class RasterExporterTest {
 	}
 
 	@Test
-	public void testDecoration() {
+	public void testDecorationNormal() {
 		final String stId = "R-HSA-169911";// Regulation of apoptosis
 		final Graph graph = getGraph(stId);
 		final List<Long> selected = getIdsFor("A1A4S6", graph);
@@ -112,6 +112,19 @@ public class RasterExporterTest {
 		final List<Long> flags = getIdsFor("O60313", graph);
 		selected.add(211734L);
 		final Decorator decorator = new Decorator(flags, selected, analysis);
+		new RendererInvoker(stId)
+				.setDecorator(decorator)
+				.setSave(true)
+				.setDebug(false)
+				.setFactor(10)
+				.render();
+	}
+
+	@Test
+	public void testDecorationDisease() {
+		final String stId = "R-HSA-5602410";
+		final List<Long> selected = Arrays.asList(5602549L);
+		final Decorator decorator = new Decorator(null, selected, null);
 		new RendererInvoker(stId)
 				.setDecorator(decorator)
 				.setSave(true)

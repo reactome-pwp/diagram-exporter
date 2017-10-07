@@ -8,8 +8,6 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.*;
 
 import java.awt.*;
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Sets add an inner border.
@@ -27,7 +25,7 @@ public class SetRenderer extends NodeAbstractRenderer {
 			if (node.getNeedDashedBorder() != null && node.getNeedDashedBorder()) {
 				graphics.getGraphics().setStroke(ColorProfile.DASHED_BORDER_STROKE);
 				graphics.getGraphics().draw(shape);
-				graphics.getGraphics().setStroke(ColorProfile.DEFAULT_BORDER_STROKE);
+				graphics.getGraphics().setStroke(ColorProfile.BORDER_STROKE);
 			} else graphics.getGraphics().draw(shape);
 		});
 	}

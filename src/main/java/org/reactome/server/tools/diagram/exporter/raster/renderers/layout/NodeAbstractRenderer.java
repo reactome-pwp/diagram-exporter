@@ -6,6 +6,7 @@ import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ColorProfile;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledNodeProperties;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -64,9 +65,9 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 		nodes.forEach(node -> {
 			final Shape shape = shape(graphics, node);
 			if (node.getNeedDashedBorder() != null) {
-				graphics.getGraphics().setStroke(ColorProfile.DASHED_BORDER_STROKE);
+				graphics.getGraphics().setStroke(StrokeProperties.dash(stroke));
 				graphics.getGraphics().draw(shape);
-				graphics.getGraphics().setStroke(ColorProfile.DEFAULT_BORDER_STROKE);
+				graphics.getGraphics().setStroke(stroke);
 			} else graphics.getGraphics().draw(shape);
 		});
 //		nodes.stream()
@@ -89,6 +90,17 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 		final Collection<Node> nodes = (Collection<Node>) items;
 		graphics.getGraphics().setPaint(textColor);
 		nodes.forEach(node -> TextRenderer.drawText(graphics, node));
+	}
+
+	@Override
+	public void cross(AdvancedGraphics2D graphics, Collection<Node> nodes, Paint crossColor, Stroke stroke) {
+		graphics.getGraphics().setPaint(crossColor);
+		graphics.getGraphics().setStroke(stroke);
+		nodes.stream()
+				.filter(node -> node.getIsCrossed() != null)
+				.filter(Node::getIsCrossed)
+				.map(Node::getProp)
+				.forEach(graphics::drawCross);
 	}
 
 	/**
