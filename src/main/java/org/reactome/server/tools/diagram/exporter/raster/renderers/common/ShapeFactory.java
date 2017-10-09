@@ -1,0 +1,271 @@
+package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
+
+import org.reactome.server.tools.diagram.data.layout.Coordinate;
+import org.reactome.server.tools.diagram.data.layout.NodeProperties;
+
+import java.awt.*;
+import java.awt.geom.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
+/**
+ * Convenient place to find no so common shapes.
+ *
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
+public class ShapeFactory {
+
+	/**
+	 * Creates a rectangle with edged corners (an octagon)
+	 *
+	 * @param x      top left x coordinate
+	 * @param y      top left y coordinate
+	 * @param width  width
+	 * @param height height
+	 * @param corner corner size
+	 *
+	 * @return an edged rectangle
+	 */
+	public static Shape getCornedRectangle(double x, double y, double width, double height, int corner) {
+		final int[] xs = new int[]{
+				(int) (x + corner),
+				(int) (x + width - corner),
+				(int) (x + width),
+				(int) (x + width),
+				(int) (x + width - corner),
+				(int) (x + corner),
+				(int) x,
+				(int) x,
+				(int) (x + corner)
+		};
+		final int[] ys = new int[]{
+				(int) y,
+				(int) y,
+				(int) (y + corner),
+				(int) (y + height - corner),
+				(int) (y + height),
+				(int) (y + height),
+				(int) (y + height - corner),
+				(int) (y + corner),
+				(int) y
+		};
+		return new Polygon(xs, ys, xs.length);
+	}
+
+	/**
+	 * Creates the shape of the gene fill, a bottom rounded rectangle.
+	 *
+	 * @param x      top left x coordinate
+	 * @param y      top left y coordinate
+	 * @param width  width
+	 * @param height height
+	 *
+	 * @return the gene fill shape
+	 */
+	public static Shape getGeneFillShape(double x, double y, double width, double height) {
+		final GeneralPath path = new GeneralPath();
+		final double y1 = y + 0.5 * RendererProperties.GENE_SYMBOL_WIDTH;
+		final double bottom = y + height;
+		final double arcWidth = RendererProperties.ROUND_RECT_ARC_WIDTH;
+		final double right = x + width;
+		path.moveTo(x, y1);
+		path.lineTo(right, y1);
+		path.lineTo(right, bottom - arcWidth);
+		path.quadTo(right, bottom, right - arcWidth, bottom);
+		path.lineTo(x + arcWidth, bottom);
+		path.quadTo(x, bottom, x, bottom - arcWidth);
+		path.closePath();
+		return path;
+	}
+
+	/**
+	 * Returns a path with two perpendicular lines.
+	 *
+	 * @param x     top left x coordinate
+	 * @param y     top left y coordinate
+	 * @param width width
+	 *
+	 * @return a path of two perpendicular lines
+	 */
+	public static Shape getGeneLine(double x, double y, double width) {
+		// Horizontal line
+		final double y1 = y + 0.5 * RendererProperties.GENE_SYMBOL_WIDTH;
+		final double right = x + width;
+		final Path2D path = new GeneralPath();
+		path.moveTo(x, y1);
+		path.lineTo(right, y1);
+		// Vertical line
+		final double x1 = right - RendererProperties.GENE_SYMBOL_PAD;
+		final double y2 = y1 - 0.5 * RendererProperties.GENE_SYMBOL_WIDTH;
+		path.moveTo(x1, y1);
+		path.lineTo(x1, y2);
+		// another very short horizontal line
+		path.lineTo(right, y2);
+		return path;
+	}
+
+	/**
+	 * @param x     top left x coordinate
+	 * @param y     top left y coordinate
+	 * @param width width
+	 *
+	 * @return the gene arrow
+	 */
+	public static Shape getGeneArrow(double x, double y, double width) {
+		final double right = x + width;
+		final double toX = right + RendererProperties.ARROW_LENGTH;
+		final double y1 = y + 0.5 * RendererProperties.GENE_SYMBOL_WIDTH;
+		final double y2 = y1 - 0.5 * RendererProperties.GENE_SYMBOL_WIDTH;
+		final Path2D triangle = new GeneralPath();
+		triangle.moveTo(toX, y2);
+		final double ay = y2 + 0.5 * RendererProperties.ARROW_LENGTH;
+		final double by = y2 - 0.5 * RendererProperties.ARROW_LENGTH;
+		triangle.lineTo(right, ay);
+		triangle.lineTo(right, by);
+		triangle.closePath();
+		return triangle;
+	}
+
+	public static Shape getBoneShape(double x, double y, double width, double height, double loopWidth) {
+		double right = x + width;
+		double bottom = y + height;
+		final Path2D path = new GeneralPath();
+
+		double xAux = x + loopWidth;
+		double yAux = y + loopWidth / 2;
+		path.moveTo(xAux, yAux);
+		xAux = right - loopWidth;
+		path.lineTo(xAux, yAux);
+		yAux = y + height / 2;
+		path.quadTo(right, y, right, yAux);
+
+		xAux = right - loopWidth;
+		yAux = bottom - loopWidth / 2;
+		path.quadTo(right, bottom, xAux, yAux);
+
+		xAux = x + loopWidth;
+		path.lineTo(xAux, yAux);
+		yAux = y + height / 2;
+		path.quadTo(x, bottom, x, yAux);
+
+		xAux = x + loopWidth;
+		yAux = y + loopWidth / 2;
+		path.quadTo(x, y, xAux, yAux);
+		path.closePath();
+		return path;
+	}
+
+	public static Shape roundedRectangle(NodeProperties properties) {
+		return roundedRectangle(properties.getX(), properties.getY(),
+				properties.getWidth(), properties.getHeight());
+	}
+
+	public static Shape roundedRectangle(double x, double y, double width, double height) {
+		return new RoundRectangle2D.Double(
+				x,
+				y,
+				width,
+				height,
+				RendererProperties.ROUND_RECT_ARC_WIDTH,
+				RendererProperties.ROUND_RECT_ARC_WIDTH);
+	}
+
+	public static Shape roundedRectangle(double x, double y, double width, double height, double padding) {
+		return new RoundRectangle2D.Double(
+				x + padding,
+				y + padding,
+				width - 2 * padding,
+				height - 2 * padding,
+				RendererProperties.ROUND_RECT_ARC_WIDTH,
+				RendererProperties.ROUND_RECT_ARC_WIDTH);
+	}
+
+	public static Shape arrow(org.reactome.server.tools.diagram.data.layout.Shape shape, double factor) {
+		final int[] xs = new int[]{
+				(int) (factor * shape.getA().getX()),
+				(int) (factor * shape.getB().getX()),
+				(int) (factor * shape.getC().getX())
+		};
+		final int[] ys = new int[]{
+				(int) (factor * shape.getA().getY()),
+				(int) (factor * shape.getB().getY()),
+				(int) (factor * shape.getC().getY())
+		};
+		return new Polygon(xs, ys, xs.length);
+	}
+
+	public static Shape box(org.reactome.server.tools.diagram.data.layout.Shape shape, double factor) {
+		return new Rectangle(
+				(int) (factor * shape.getA().getX()),
+				(int) (factor * shape.getA().getY()),
+				(int) (factor * (shape.getB().getX() - shape.getA().getX())),
+				(int) (factor * (shape.getB().getY() - shape.getA().getY())));
+	}
+
+	private static Shape circle(org.reactome.server.tools.diagram.data.layout.Shape shape, double factor) {
+		final double x = shape.getC().getX() - shape.getR();
+		final double y = shape.getC().getY() - shape.getR();
+		return new Ellipse2D.Double(
+				factor * x,
+				factor * y,
+				factor * 2 * shape.getR(),
+				factor * 2 * shape.getR());
+	}
+
+	private static Shape innerCircle(org.reactome.server.tools.diagram.data.layout.Shape shape, double factor) {
+		final double x = shape.getC().getX() - shape.getR1();
+		final double y = shape.getC().getY() - shape.getR1();
+		return new Ellipse2D.Double(
+				factor * x,
+				factor * y,
+				factor * 2 * shape.getR1(),
+				factor * 2 * shape.getR1()
+		);
+	}
+
+	private static Shape stop(org.reactome.server.tools.diagram.data.layout.Shape shape, double factor) {
+		return new Line2D.Double(
+				factor * shape.getA().getX(),
+				factor * shape.getA().getY(),
+				factor * shape.getB().getX(),
+				factor * shape.getB().getY()
+		);
+	}
+
+	/**
+	 * Returns a list of java.awt.shapes that make up the reactome Shape.
+	 * Although most of the shapes are unique, the double circle returns two
+	 * circles.
+	 *
+	 * @param shape reactome shape
+	 * @param scale AdvancedGraphics2D factor
+	 *
+	 * @return a list of java shapes
+	 */
+	// TODO: Is it ok to return a list of shapes just because of the inner circle?
+	public static List<Shape> createShape(org.reactome.server.tools.diagram.data.layout.Shape shape, double scale) {
+		switch (shape.getType()) {
+			case "ARROW":
+				return Collections.singletonList(arrow(shape, scale));
+			case "BOX":
+				return Collections.singletonList(box(shape, scale));
+			case "CIRCLE":
+				return Collections.singletonList(circle(shape, scale));
+			case "DOUBLE_CIRCLE":
+				return Arrays.asList(circle(shape, scale), innerCircle(shape, scale));
+			case "STOP":
+				return Collections.singletonList(stop(shape, scale));
+			default:
+				throw new RuntimeException("Do not know shape " + shape.getType());
+		}
+	}
+
+	public static Shape line(AdvancedGraphics2D graphics, Coordinate from, Coordinate to) {
+		final double x = from.getX() * graphics.getFactor();
+		final double y = from.getY() * graphics.getFactor();
+		final double x1 = to.getX() * graphics.getFactor();
+		final double y1 = to.getY() * graphics.getFactor();
+		return new Line2D.Double(x, y, x1, y1);
+	}
+}
