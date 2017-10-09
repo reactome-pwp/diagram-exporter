@@ -20,6 +20,30 @@ import java.util.stream.Stream;
  */
 public class DiagramIndex {
 
+	/*
+	This will order the node rendering based on the order they are declared in
+	RenderType. For instance, if RenderType is NORMAL, FADEOUT, DISEASE, normal
+	nodes will be rendered first, then fadeout and finally diseases.
+	 */
+	private static final Comparator<RenderType> RENDER_TYPE_COMPARATOR = new Comparator<RenderType>() {
+		// The index will make sorting faster than values().indexOf()
+		final Map<RenderType, Integer> index = new HashMap<>();
+
+		{
+			// If the order in which RenderType values are declared is
+			// arbitrary then change RenderType.values() with the desired
+			// order: DISEASE, NORMAL, ...
+			final List<RenderType> order = Arrays.asList(RenderType.values());
+			for (int i = 0; i < RenderType.values().length; i++)
+				index.put(order.get(i), i);
+		}
+
+		@Override
+		public int compare(RenderType a, RenderType b) {
+			return Integer.compare(index.get(a), index.get(b));
+		}
+	};
+
 	private final Diagram diagram;
 	private final Graph graph;
 	private Decorator decorator;
@@ -29,18 +53,18 @@ public class DiagramIndex {
 	//	private Map<Long, DiagramObject> diagramReactomeIndex;
 	private Map<Long, GraphNode> graphIndex;
 	private Map<String, Set<Node>> selectedNodes;
-	private Set<Edge> selectedReactions;
-	private Set<Connector> selectedConnectors;
-	private Map<String, Set<DiagramObject>> flagNodes;
+	private Map<RenderType, Map<String, Set<Edge>>> selectedReactions;
+	private Map<RenderType, Map<String, Set<Connector>>> selectedConnectors;
+	private Map<String, Set<Node>> flagNodes;
 	private Map<String, Set<Edge>> haloReactions;
-	private Map<String, Set<DiagramObject>> haloNodes;
+	private Map<String, Set<Node>> haloNodes;
 	private Map<String, Set<Connector>> haloConnectors;
-	private Map<String, Map<RenderType, Set<Node>>> classifiedNodes;
-	private Map<String, Map<RenderType, Set<Edge>>> classifiedReactions;
-	private Map<String, Map<RenderType, Set<Connector>>> classifiedConnectors;
+	private Map<RenderType, Map<String, Set<Node>>> classifiedNodes;
+	private Map<RenderType, Map<String, Set<Edge>>> classifiedReactions;
+	private Map<RenderType, Map<String, Set<Connector>>> classifiedConnectors;
+	private Map<RenderType, Map<String, Set<Link>>> links;
 	private Set<Edge> flagReactions;
 	private HashSet<Connector> flagConnectors;
-	private Map<String, Map<RenderType, Set<Link>>> links;
 
 	/**
 	 * Computes the maps of nodes, reactions and connectors so they are grouped
@@ -85,36 +109,50 @@ public class DiagramIndex {
 			selectReactions();
 		}
 		links = diagram.getLinks().stream()
-				.collect(Collectors.groupingBy(DiagramObject::getRenderableClass,
-						Collectors.groupingBy(this::getRenderType, Collectors.toSet())));
+				.collect(Collectors.groupingBy(this::getRenderType,
+						Collectors.groupingBy(DiagramObject::getRenderableClass, Collectors.toSet())));
 	}
 
 	private void classifyNodes() {
-		classifiedNodes = new HashMap<>();
-		classifiedNodes = diagram.getNodes().stream()
-				.collect(Collectors.groupingBy(Node::getRenderableClass,
-						Collectors.groupingBy(this::getRenderType, Collectors.toSet())));
+		classifiedNodes = new TreeMap<>(RENDER_TYPE_COMPARATOR);
+		diagram.getNodes().forEach(node ->
+				classifiedNodes
+						.computeIfAbsent(getRenderType(node), k -> new HashMap<>())
+						.computeIfAbsent(node.getRenderableClass(), k -> new HashSet<>())
+						.add(node));
+//		classifiedNodes.forEach((rClass, items) -> {
+//					System.out.println(rClass);
+//					items.forEach((renderType, edges) -> {
+//						System.out.println(" - " + renderType);
+//						edges.forEach(edge -> {
+//							System.out.println("    - " + edge.getDisplayName());
+//						});
+//					});
+//				}
+//		);
 	}
 
 	private void classifyReactions() {
+		classifiedReactions = new TreeMap<>(RENDER_TYPE_COMPARATOR);
+		classifiedConnectors = new TreeMap<>(RENDER_TYPE_COMPARATOR);
 		diagram.getEdges().forEach(reaction -> {
 			// Classify edges by renderingClass/renderType
 			classifiedReactions
-					.computeIfAbsent(reaction.getRenderableClass(), k -> new HashMap<>())
-					.computeIfAbsent(getRenderType(reaction), k -> new HashSet<>())
+					.computeIfAbsent(getRenderType(reaction), k -> new HashMap<>())
+					.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>())
 					.add(reaction);
 			// Rendering class of connectors is the same as the reaction they
-			// belong
-			final Map<RenderType, Set<Connector>> connectors = classifiedConnectors
-					.computeIfAbsent(reaction.getRenderableClass(), k -> new HashMap<>());
+			// belong to
 			streamParticipants(reaction)
 					.map(Node::getConnectors)
 					.flatMap(Collection::stream)
 					.filter(connector -> connector.getEdgeId().equals(reaction.getId()))
-					.forEach(connector -> connectors
-							.computeIfAbsent(getRenderType(connector), k -> new HashSet<>())
+					.forEach(connector -> classifiedConnectors
+							.computeIfAbsent(getRenderType(connector), k -> new HashMap<>())
+							.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>())
 							.add(connector));
 		});
+
 	}
 
 
@@ -145,14 +183,17 @@ public class DiagramIndex {
 	}
 
 	private void selectReactions() {
-		selectedReactions = new HashSet<>();
-		selectedConnectors = new HashSet<>();
+		selectedReactions = new TreeMap<>(RENDER_TYPE_COMPARATOR);
+		selectedConnectors = new TreeMap<>(RENDER_TYPE_COMPARATOR);
 		flagReactions = new HashSet<>();
 		flagConnectors = new HashSet<>();
 		diagram.getEdges().forEach(reaction -> {
 			// Select edge
 			if (decorator.getSelected().contains(reaction.getReactomeId())) {
-				selectedReactions.add(reaction);
+				selectedReactions
+						.computeIfAbsent(getRenderType(reaction), k -> new HashMap<>())
+						.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>())
+						.add(reaction);
 				haloEdge(reaction, true);
 			}
 			// Flag edge
@@ -178,6 +219,7 @@ public class DiagramIndex {
 				.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>())
 				.add(reaction);
 		final Set<Connector> connectors = haloConnectors.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>());
+		final RenderType renderType = getRenderType(reaction);
 		streamParticipants(reaction)
 				.forEach(node -> {
 					if (node.getIsFadeOut() == null || !node.getIsFadeOut())
@@ -189,7 +231,10 @@ public class DiagramIndex {
 							.forEach(connector -> {
 								connectors.add(connector);
 								if (withSelection)
-									selectedConnectors.add(connector);
+									selectedConnectors
+											.computeIfAbsent(renderType, k -> new HashMap<>())
+											.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>())
+											.add(connector);
 							});
 				});
 	}
@@ -271,24 +316,24 @@ public class DiagramIndex {
 		return selectedNodes;
 	}
 
-	public Map<String, Set<DiagramObject>> getFlagNodes() {
+	public Map<String, Set<Node>> getFlagNodes() {
 		return flagNodes;
 	}
 
-	public Set<Connector> getSelectedConnectors() {
+	public Map<RenderType, Map<String, Set<Connector>>> getSelectedConnectors() {
 		return selectedConnectors;
 	}
 
-	public Set<Edge> getSelectedReactions() {
+	public Map<RenderType, Map<String, Set<Edge>>> getSelectedReactions() {
 		return selectedReactions;
 	}
 
 
-	public Map<String, Map<RenderType, Set<Node>>> getClassifiedNodes() {
+	public Map<RenderType, Map<String, Set<Node>>> getClassifiedNodes() {
 		return classifiedNodes;
 	}
 
-	public Map<String, Map<RenderType, Set<Edge>>> getClassifiedReactions() {
+	public Map<RenderType, Map<String, Set<Edge>>> getClassifiedReactions() {
 		return classifiedReactions;
 	}
 
@@ -300,7 +345,7 @@ public class DiagramIndex {
 		return flagReactions;
 	}
 
-	public Map<String, Map<RenderType, Set<Connector>>> getClassifiedConnectors() {
+	public Map<RenderType, Map<String, Set<Connector>>> getClassifiedConnectors() {
 		return classifiedConnectors;
 	}
 
@@ -315,7 +360,7 @@ public class DiagramIndex {
 	}
 
 
-	public Map<String, Set<DiagramObject>> getHaloNodes() {
+	public Map<String, Set<Node>> getHaloNodes() {
 		return haloNodes;
 
 	}
@@ -329,7 +374,7 @@ public class DiagramIndex {
 		return haloReactions;
 	}
 
-	public Map<String, Map<RenderType, Set<Link>>> getLinks() {
+	public Map<RenderType, Map<String, Set<Link>>> getLinks() {
 		return links;
 	}
 }

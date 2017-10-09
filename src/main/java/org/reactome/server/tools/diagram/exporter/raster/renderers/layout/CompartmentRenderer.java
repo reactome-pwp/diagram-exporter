@@ -22,7 +22,8 @@ import java.util.stream.Collectors;
  */
 public class CompartmentRenderer extends NodeAbstractRenderer {
 
-	protected void fill(AdvancedGraphics2D graphics, Paint fill, Collection<? extends DiagramObject> items) {
+	@Override
+	public void fill(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
 		final Collection<Compartment> compartments = (Collection<Compartment>) items;
 		final List<Shape> outer = compartments.stream()
 				.map(compartment -> outer(compartment, graphics.getFactor()))
@@ -31,7 +32,7 @@ public class CompartmentRenderer extends NodeAbstractRenderer {
 				.map(compartment -> inner(compartment, graphics.getFactor()))
 				.collect(Collectors.toCollection(ArrayList::new));
 
-		graphics.getGraphics().setPaint(fill);
+		final Paint fill = graphics.getGraphics().getPaint();
 		// Instead of painting both rectangles for each compartment
 		// we fill the inner one, but for the outer we paint only the residual
 		// space. That means that we are setting each pixel only once
@@ -49,9 +50,8 @@ public class CompartmentRenderer extends NodeAbstractRenderer {
 	}
 
 	@Override
-	protected void text(AdvancedGraphics2D graphics, Paint textColor, Collection<? extends DiagramObject> items) {
+	public void text(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
 		final Collection<Compartment> compartments = (Collection<Compartment>) items;
-		graphics.getGraphics().setPaint(textColor);
 		compartments.forEach(compartment ->
 				TextRenderer.drawTextSingleLine(graphics,
 						compartment.getDisplayName(),
@@ -59,10 +59,8 @@ public class CompartmentRenderer extends NodeAbstractRenderer {
 	}
 
 	@Override
-	protected void border(AdvancedGraphics2D graphics, Paint border, Stroke borderStroke, Collection<? extends DiagramObject> items) {
+	public void border(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
 		final Collection<Compartment> compartments = (Collection<Compartment>) items;
-		graphics.getGraphics().setStroke(borderStroke);
-		graphics.getGraphics().setPaint(border);
 		compartments.stream()
 				.map(node -> outer(node, graphics.getFactor()))
 				.forEach(graphics.getGraphics()::draw);

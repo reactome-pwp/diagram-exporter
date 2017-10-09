@@ -33,6 +33,11 @@ public class RasterExporterTest {
 	private static final String host = "http://reactomerelease.oicr.on.ca/download/current/diagram/";
 	private static final File DIAGRAMS_FOLDER = new File("/media/pascual/Disco1TB/reactome/diagram");
 	private static final File IMAGES_FOLDER = new File("/media/pascual/Disco1TB/reactome/images");
+	static {
+		// Create the output stream
+		IMAGES_FOLDER.mkdirs();
+		DIAGRAMS_FOLDER.mkdirs();
+	}
 
 	@Test
 	public void testPerformance() {
@@ -124,6 +129,7 @@ public class RasterExporterTest {
 	public void testDecorationDisease() {
 		final String stId = "R-HSA-5602410";
 		final List<Long> selected = Arrays.asList(5602549L);
+//		final List<Long> selected = Arrays.asList(5602649L);
 		final Decorator decorator = new Decorator(null, selected, null);
 		new RendererInvoker(stId)
 				.setDecorator(decorator)
@@ -178,7 +184,7 @@ public class RasterExporterTest {
 						.setDebug(false)
 						.setSave(true)
 						.setFactor(5)
-//						.setFormat("jpeg")
+						.setFormat("jpeg")
 						.render());
 	}
 
@@ -208,7 +214,6 @@ public class RasterExporterTest {
 		for (String extension : Arrays.asList(".json", ".graph.json")) {
 			final File file = new File(DIAGRAMS_FOLDER, stId + extension);
 			if (!file.exists()) {
-				file.getParentFile().mkdirs();
 				try {
 					final URL url = new URL(host + stId + extension);
 					final ReadableByteChannel rbc = Channels.newChannel(url.openStream());
@@ -331,8 +336,6 @@ public class RasterExporterTest {
 			if (!download(stId)) return;
 			try {
 				System.out.println(stId);
-				// Create the output stream
-				IMAGES_FOLDER.mkdirs();
 				final OutputStream outputStream = save
 						? new BufferedOutputStream(new FileOutputStream(new File(IMAGES_FOLDER, stId + "." + format)))
 						: NullOutputStream.NULL_OUTPUT_STREAM;

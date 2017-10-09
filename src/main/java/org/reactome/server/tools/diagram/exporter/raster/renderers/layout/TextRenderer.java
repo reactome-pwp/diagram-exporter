@@ -2,6 +2,7 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.Coordinate;
 import org.reactome.server.tools.diagram.data.layout.NodeCommon;
+import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;
 
@@ -215,5 +216,9 @@ public class TextRenderer {
 		final String end = word.substring(start);
 		if (!end.isEmpty()) parts.add(end);
 		return parts;
+	}
+
+	public static void drawText(AdvancedGraphics2D graphics, String text, NodeProperties props) {
+		drawText(graphics, text, props.getX(), props.getY(), props.getWidth(), props.getHeight());
 	}
 }

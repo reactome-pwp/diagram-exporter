@@ -21,7 +21,7 @@ public class ProcessNodeRenderer extends NodeAbstractRenderer {
 	private static final Paint INNER_COLOR = new Color(254, 253, 255);
 
 	@Override
-	public void draw(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items, Paint fillColor, Paint lineColor, Paint textColor, Stroke borderStroke) {
+	public void fill(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
 		final Collection<Node> nodes = (Collection<Node>) items;
 		final List<Shape> shapes = nodes.stream()
 				.map(node -> shape(graphics, node))
@@ -29,30 +29,26 @@ public class ProcessNodeRenderer extends NodeAbstractRenderer {
 		final List<Shape> inner = nodes.stream()
 				.map(node -> inner(graphics, node))
 				.collect(Collectors.toList());
-		if (fillColor != null) fill(graphics, fillColor, shapes, inner);
-		if (lineColor != null) border(graphics, lineColor, shapes, inner, borderStroke);
-		if (textColor != null) text(graphics, textColor, nodes);
-	}
-
-	private void fill(AdvancedGraphics2D graphics, Paint fillColor, List<Shape> shapes, List<Shape> inner) {
-		graphics.getGraphics().setPaint(fillColor);
 		shapes.forEach(shape -> graphics.getGraphics().fill(shape));
 		graphics.getGraphics().setPaint(INNER_COLOR);
 		inner.forEach(shape -> graphics.getGraphics().fill(shape));
 	}
 
-	private void border(AdvancedGraphics2D graphics, Paint lineColor, List<Shape> shapes, List<Shape> inner, Stroke stroke) {
-		graphics.getGraphics().setStroke(stroke);
-		graphics.getGraphics().setPaint(lineColor);
-		shapes.forEach(shape -> graphics.getGraphics().draw(shape));
-		inner.forEach(shape -> graphics.getGraphics().draw(shape));
+	@Override
+	public void border(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
+		final Collection<Node> nodes = (Collection<Node>) items;
+		nodes.stream()
+				.map(node -> shape(graphics, node))
+				.forEach(shape -> graphics.getGraphics().draw(shape));
+		nodes.stream()
+				.map(node -> inner(graphics, node))
+				.forEach(shape -> graphics.getGraphics().draw(shape));
 	}
 
 	@Override
-	protected void text(AdvancedGraphics2D graphics, Paint textColor, Collection<? extends DiagramObject> items) {
-		final Collection<Node> compartments = (Collection<Node>) items;
-		graphics.getGraphics().setPaint(textColor);
-		compartments.forEach(node -> TextRenderer.drawText(graphics, node, RendererProperties.PROCESS_NODE_INSET_WIDTH));
+	public void text(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
+		final Collection<Node> nodes = (Collection<Node>) items;
+		nodes.forEach(node -> TextRenderer.drawText(graphics, node, RendererProperties.PROCESS_NODE_INSET_WIDTH));
 	}
 
 	private Shape inner(AdvancedGraphics2D graphics, Node node) {

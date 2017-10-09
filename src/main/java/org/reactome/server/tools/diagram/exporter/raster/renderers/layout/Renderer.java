@@ -6,7 +6,6 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.Advanc
 
 import java.awt.*;
 import java.util.Collection;
-import java.util.Set;
 
 /**
  * Any renderer should accept a list of DiagramObjects and be able to render
@@ -16,18 +15,13 @@ import java.util.Set;
  */
 public interface Renderer {
 
-	/**
-	 * Render the list of DiagramObjects. They all have to share the same fill
-	 * color, the same border color and the same text color.
-	 *
-	 * @param graphics     where to render
-	 * @param items        list of DiagramObjects
-	 * @param fillColor    color for filling
-	 * @param lineColor    color for borders and segments
-	 * @param textColor    color for texts
-	 * @param borderStroke stroke for borders
-	 */
-	void draw(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items, Paint fillColor, Paint lineColor, Paint textColor, Stroke borderStroke);
+	void cross(AdvancedGraphics2D graphics, Collection<Node> nodes);
 
-	void cross(AdvancedGraphics2D graphics, Collection<Node> nodes, Paint crossColor, Stroke stroke);
+	void fill(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items);
+
+	void border(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items);
+
+	void text(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items);
+
+	void segments(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items);
 }

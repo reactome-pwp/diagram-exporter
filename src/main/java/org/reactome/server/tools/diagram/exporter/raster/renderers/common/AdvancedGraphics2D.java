@@ -113,7 +113,6 @@ public class AdvancedGraphics2D {
 		final int intH = Double.valueOf(factor * height).intValue();
 		getGraphics().drawLine(intX, intY, intX + intW, intY + intH);
 		getGraphics().drawLine(intX, intY + intH, intX + intW, intY);
-
 	}
 
 

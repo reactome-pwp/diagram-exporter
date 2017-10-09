@@ -5,7 +5,7 @@ import java.awt.*;
 public class StrokeProperties {
 
 	public static Stroke DASHED_BORDER_STROKE;
-	public static Stroke DASHED_LINE_STROKE;
+	public static Stroke DASHED_SEGMENT_STROKE;
 	public static Stroke HALO_STROKE;
 	public static Stroke SEGMENT_STROKE;
 	public static Stroke BORDER_STROKE;
@@ -14,8 +14,8 @@ public class StrokeProperties {
 	public static Stroke DASHED_HALO_STROKE;
 
 	public static void setFactor(double factor) {
-		final int end = BasicStroke.CAP_SQUARE;
-		final int join = BasicStroke.JOIN_ROUND;
+		final int end = BasicStroke.CAP_BUTT;
+		final int join = BasicStroke.JOIN_MITER;
 		final float segmentWidth = (float) (1 * factor);
 		final float borderWidth = (float) (2 * factor);
 		final float selectionWidth = (float) (3 * factor);
@@ -28,7 +28,7 @@ public class StrokeProperties {
 		SELECTION_STROKE = new BasicStroke(selectionWidth, end, join);
 		HALO_STROKE = new BasicStroke(haloWidth, end, join);
 
-		DASHED_LINE_STROKE = new BasicStroke(segmentWidth, end, join, dashSize,
+		DASHED_SEGMENT_STROKE = new BasicStroke(segmentWidth, end, join, dashSize,
 				new float[]{dashSize}, dashSize);
 		DASHED_BORDER_STROKE = new BasicStroke(borderWidth, end, join, dashSize,
 				new float[]{dashSize, dashSpace}, dashSize);

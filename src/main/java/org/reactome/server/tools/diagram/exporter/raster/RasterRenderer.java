@@ -1,23 +1,20 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
+import com.sun.org.apache.regexp.internal.RE;
 import org.reactome.server.tools.diagram.data.graph.Graph;
-import org.reactome.server.tools.diagram.data.layout.Diagram;
-import org.reactome.server.tools.diagram.data.layout.DiagramObject;
-import org.reactome.server.tools.diagram.data.layout.Edge;
+import org.reactome.server.tools.diagram.data.layout.*;
 import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.*;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.ConnectorRenderer;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.EdgeRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.Renderer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.RendererFactory;
 
 import java.awt.*;
+import java.awt.Shape;
 import java.awt.image.BufferedImage;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -111,8 +108,10 @@ public class RasterRenderer {
 			factor = newFactor;
 		}
 
+		FontProperties.setFactor(factor);
 		RendererProperties.setFactor(factor);
 		StrokeProperties.setFactor(factor);
+
 
 		final double x = minX * factor;
 		final double y = minY * factor;
@@ -130,9 +129,9 @@ public class RasterRenderer {
 			compartments();
 			links();
 			haloReactions();
-			haloNodes();
 			drawReactions();
 			selectReactions();
+			haloNodes();
 			drawNodes();
 			selectNodes();
 			shadows();
@@ -181,141 +180,282 @@ public class RasterRenderer {
 		final Paint fillColor = getFillColor(profile, renderingClass, RenderType.NORMAL);
 		final Paint lineColor = getLineColor(profile, renderingClass, RenderType.NORMAL);
 		final Paint textColor = getTextColor(profile, renderingClass, RenderType.NORMAL);
-		renderer.draw(graphics, diagram.getCompartments(), fillColor, lineColor, textColor, BORDER_STROKE);
+		graphics.getGraphics().setPaint(fillColor);
+		renderer.fill(graphics, diagram.getCompartments());
+		graphics.getGraphics().setPaint(lineColor);
+		graphics.getGraphics().setStroke(StrokeProperties.BORDER_STROKE);
+		renderer.border(graphics, diagram.getCompartments());
+		graphics.getGraphics().setPaint(textColor);
+		renderer.text(graphics, diagram.getCompartments());
 	}
 
 	private void haloNodes() {
-		final Paint color = getProfileColor(profile, "halo");
+		graphics.getGraphics().setPaint(getProfileColor(profile, "halo"));
 		index.getHaloNodes().forEach((rClass, nodes) -> {
-			final Renderer renderer = RendererFactory.get(rClass);
-			// Just the border
-			renderer.draw(graphics, nodes, null, color, null, HALO_STROKE);
+			final Map<Boolean, List<Node>> dashed = nodes.stream()
+					.collect(Collectors.groupingBy(this::isDashed));
+			if (dashed.containsKey(true)) {
+				graphics.getGraphics().setStroke(DASHED_HALO_STROKE);
+				RendererFactory.get(rClass).border(graphics, dashed.get(true));
+			}
+			if (dashed.containsKey(false)) {
+				graphics.getGraphics().setStroke(HALO_STROKE);
+				RendererFactory.get(rClass).border(graphics, dashed.get(false));
+			}
 		});
 	}
 
 	private void haloReactions() {
-		final Paint color = getProfileColor(profile, "halo");
+		graphics.getGraphics().setPaint(getProfileColor(profile, "halo"));
+		graphics.getGraphics().setStroke(HALO_STROKE);
 		index.getHaloConnectors().forEach((rClass, items) -> {
-			connectorRenderer.connectorSegments(graphics, color, HALO_STROKE, items);
-			connectorRenderer.drawConnectors(graphics, items, null, color, HALO_STROKE);
+			connectorRenderer.segments(graphics, items);
+			items.stream()
+					.map(Connector::getEndShape)
+					.filter(Objects::nonNull)
+					.map(shape -> ShapeFactory.createShape(shape, graphics.getFactor()))
+					.flatMap(Collection::stream)
+					.forEach(graphics.getGraphics()::draw);
 		});
 		index.getHaloReactions().forEach((rClass, reactions) -> {
-			final EdgeRenderer renderer = (EdgeRenderer) RendererFactory.get(rClass);
-			renderer.segments(graphics, color, HALO_STROKE, reactions);
-			renderer.draw(graphics, reactions, null, color, null, HALO_STROKE);
+			final Renderer renderer = RendererFactory.get(rClass);
+			renderer.segments(graphics, reactions);
+			reactions.stream()
+					.flatMap(reaction -> Stream.of(reaction.getReactionShape(), reaction.getEndShape()))
+					.filter(Objects::nonNull)
+					.map(shape -> ShapeFactory.createShape(shape, graphics.getFactor()))
+					.flatMap(Collection::stream)
+					.forEach(graphics.getGraphics()::draw);
 		});
 	}
 
 	private void links() {
-		index.getLinks().forEach((rClass, items) ->
-				items.forEach((renderType, links) -> {
-					final EdgeRenderer renderer = (EdgeRenderer) RendererFactory.get(rClass);
+		final List<String> LINKS = Arrays.asList("Interaction", "EntitySetAndEntitySetLink", "EntitySetAndMemberLink");
+		index.getLinks().forEach((renderType, items) ->
+				items.forEach((rClass, links) -> {
+					final Renderer renderer = RendererFactory.get(rClass);
 					final Paint lineColor = ColorProfile.getLineColor(profile, rClass, renderType);
-					final Paint textColor = ColorProfile.getTextColor(profile, rClass, renderType);
-					renderer.segments(graphics, lineColor, SEGMENT_STROKE, links);
-					renderer.draw(graphics, links, null, lineColor, textColor, SEGMENT_STROKE);
+					final Paint fillColor = ColorProfile.getFillColor(profile, rClass, renderType);
+					if (LINKS.contains(rClass))
+						graphics.getGraphics().setStroke(DASHED_SEGMENT_STROKE);
+					else
+						graphics.getGraphics().setStroke(StrokeProperties.SEGMENT_STROKE);
+					graphics.getGraphics().setPaint(lineColor);
+					renderer.segments(graphics, links);
+					final Map<Boolean, Set<Shape>> divide = divideLinkShapes(links);
+					fillBlackAndWhite(lineColor, fillColor, divide);
+					// links do not have text
 				}));
 	}
 
+	private void fillBlackAndWhite(Paint lineColor, Paint fillColor, Map<Boolean, Set<Shape>> shapes) {
+		graphics.getGraphics().setPaint(fillColor);
+		shapes.get(true).forEach(graphics.getGraphics()::fill);
+		graphics.getGraphics().setPaint(lineColor);
+		shapes.get(false).forEach(graphics.getGraphics()::fill);
+		shapes.values().stream()
+				.flatMap(Collection::stream)
+				.forEach(graphics.getGraphics()::draw);
+	}
+
+
 	private void drawReactions() {
 		// 1 segments
-		index.getClassifiedConnectors().forEach((rClass, items) -> {
-			items.forEach((renderType, connectors) -> {
-				final Paint lineColor = ColorProfile.getLineColor(profile, rClass, renderType);
-				connectorRenderer.connectorSegments(graphics, lineColor, SEGMENT_STROKE, connectors);
+		graphics.getGraphics().setStroke(StrokeProperties.SEGMENT_STROKE);
+		index.getClassifiedConnectors().forEach((renderType, items) -> {
+			items.forEach((rClass, connectors) -> {
+				graphics.getGraphics().setPaint(ColorProfile.getLineColor(profile, rClass, renderType));
+				connectorRenderer.segments(graphics, connectors);
 			});
 		});
-		index.getClassifiedReactions().forEach((rClass, items) -> {
-			final EdgeRenderer renderer = (EdgeRenderer) RendererFactory.get(rClass);
-			items.forEach((renderType, edges) -> {
-				final Paint border = ColorProfile.getLineColor(profile, rClass, renderType);
-				renderer.segments(graphics, border, SEGMENT_STROKE, edges);
+		index.getClassifiedReactions().forEach((renderType, items) -> {
+			items.forEach((rClass, edges) -> {
+				final Renderer renderer = RendererFactory.get(rClass);
+				final Paint color = ColorProfile.getLineColor(profile, rClass, renderType);
+				graphics.getGraphics().setPaint(color);
+				renderer.segments(graphics, edges);
 			});
 		});
 		// 2 Shapes
-		index.getClassifiedConnectors().forEach((rClass, items) -> {
-			items.forEach((renderType, connectors) -> {
+		index.getClassifiedConnectors().forEach((renderType, items) -> {
+			items.forEach((rClass, connectors) -> {
 				final Paint fill = ColorProfile.getFillColor(profile, rClass, renderType);
 				final Paint border = ColorProfile.getLineColor(profile, rClass, renderType);
-				connectorRenderer.drawConnectors(graphics, connectors, fill, border, SEGMENT_STROKE);
+				drawConnectors(connectors, fill, border);
 			});
 		});
-		index.getClassifiedReactions().forEach((renderableClass, reactions) -> {
-			final Renderer renderer = RendererFactory.get(renderableClass);
-			reactions.forEach((renderType, edges) -> {
-				final Paint fill = ColorProfile.getFillColor(profile, renderableClass, renderType);
-				final Paint border = ColorProfile.getLineColor(profile, renderableClass, renderType);
-				renderer.draw(graphics, edges, fill, border, border, SEGMENT_STROKE);
+		index.getClassifiedReactions().forEach((renderType, reactions) -> {
+			reactions.forEach((rClass, edges) -> {
+				final Renderer renderer = RendererFactory.get(rClass);
+				final Paint fill = ColorProfile.getFillColor(profile, rClass, renderType);
+				final Paint border = ColorProfile.getLineColor(profile, rClass, renderType);
+				drawEdges(renderer, edges, fill, border);
 			});
 		});
+	}
+
+	private void drawEdges(Renderer renderer, Collection<Edge> edges, Paint fill, Paint border) {
+		final Map<Boolean, Set<Shape>> divided = divideShapes(edges);
+		fillBlackAndWhite(border, fill, divided);
+		// Texts have the same color as lines
+		renderer.text(graphics, edges);
+	}
+
+	private void drawConnectors(Set<Connector> connectors, Paint fill, Paint border) {
+		final Map<Boolean, Set<Shape>> divided = divideConnectorShapes(connectors);
+		fillBlackAndWhite(border, fill, divided);
+		// Texts have the same color as lines
+		connectorRenderer.text(graphics, connectors);
+	}
+
+	private Map<Boolean, Set<Shape>> divideLinkShapes(Set<Link> links) {
+		return divide(links.stream()
+				.map(EdgeCommon::getEndShape));
+	}
+
+	private Map<Boolean, Set<Shape>> divideShapes(Collection<Edge> edges) {
+		return divide(edges.stream()
+				.flatMap(edge -> Stream.of(edge.getReactionShape(), edge.getEndShape())));
+	}
+
+	private Map<Boolean, Set<Shape>> divideConnectorShapes(Collection<Connector> connectors) {
+		return divide(connectors.stream()
+				.flatMap(connector -> Stream.of(connector.getEndShape(), connector.getStoichiometry().getShape())));
+	}
+
+	private Map<Boolean, Set<Shape>> divide(Stream<org.reactome.server.tools.diagram.data.layout.Shape> shapeStream) {
+		final Map<Boolean, Set<Shape>> shapes = new HashMap<>();
+		shapes.put(true, new HashSet<>());
+		shapes.put(false, new HashSet<>());
+		shapeStream
+				.filter(Objects::nonNull)
+				.forEach(shape -> {
+					final List<Shape> javaShapes = ShapeFactory.createShape(shape, graphics.getFactor());
+					shapes.get(isEmpty(shape)).addAll(javaShapes);
+				});
+		return shapes;
+	}
+
+	private boolean isEmpty(org.reactome.server.tools.diagram.data.layout.Shape shape) {
+		return shape.getEmpty() != null && shape.getEmpty();
 	}
 
 	private void selectReactions() {
 		final Paint selection = getProfileColor(profile, "selection");
-		final Map<String, List<Edge>> reactions = index.getSelectedReactions().stream()
-				.collect(Collectors.groupingBy(DiagramObject::getRenderableClass));
-		reactions.forEach((rClass, edges) -> {
-			final EdgeRenderer renderer = (EdgeRenderer) RendererFactory.get(rClass);
-			final Paint fill = ColorProfile.getFillColor(profile, rClass, RenderType.NORMAL);
-			final Paint text = ColorProfile.getTextColor(profile, rClass, RenderType.NORMAL);
-			renderer.segments(graphics, selection, SELECTION_STROKE, edges);
-			// When selecting segments, they can overlay the fill we made before
-			// so we must repeat the fill, border and text for the selected
-			// reactions
-			renderer.draw(graphics, edges, fill, selection, text, SELECTION_STROKE);
+		graphics.getGraphics().setPaint(selection);
+		graphics.getGraphics().setStroke(StrokeProperties.SELECTION_STROKE);
+		// 1 segments
+		index.getSelectedConnectors().forEach((rClass, items) -> {
+			items.forEach((renderType, connectors) -> {
+				connectorRenderer.segments(graphics, connectors);
+			});
 		});
-		final Paint fill = ColorProfile.getFillColor(profile, "Reaction", RenderType.NORMAL);
-		final Paint text = ColorProfile.getTextColor(profile, "Reaction", RenderType.NORMAL);
-		connectorRenderer.connectorSegments(graphics, selection, SELECTION_STROKE, index.getSelectedConnectors());
-		connectorRenderer.drawConnectors(graphics, index.getSelectedConnectors(), fill, selection, SELECTION_STROKE);
+		index.getSelectedReactions().forEach((renderType, items) -> {
+			items.forEach((rClass, edges) -> {
+				final Renderer renderer = RendererFactory.get(rClass);
+				renderer.segments(graphics, edges);
+			});
+		});
+		// 2 Shapes
+		index.getSelectedConnectors().forEach((renderType, items) -> {
+			items.forEach((rClass, connectors) -> {
+				final Paint fill = ColorProfile.getFillColor(profile, rClass, renderType);
+				drawConnectors(connectors, fill, selection);
+			});
+		});
+		index.getSelectedReactions().forEach((renderType, items) -> {
+			items.forEach((rClass, edges) -> {
+				final Renderer renderer = RendererFactory.get(rClass);
+				final Paint fill = ColorProfile.getFillColor(profile, rClass, renderType);
+				drawEdges(renderer, edges, fill, selection);
+			});
+		});
 	}
 
 	private void drawNodes() {
-		index.getClassifiedNodes().forEach((renderingClass, items) -> {
-			final Renderer renderer = RendererFactory.get(renderingClass);
-			items.forEach((renderType, nodes) -> {
-				final Paint lineColor = getLineColor(profile, renderingClass, renderType);
-				final Paint fillColor = getFillColor(profile, renderingClass, renderType);
-				final Paint textColor = getTextColor(profile, renderingClass, renderType);
-				renderer.draw(graphics, nodes, fillColor, lineColor, textColor, BORDER_STROKE);
-				final Paint disease = getProfileColor(profile, "disease");
-				renderer.cross(graphics, nodes, disease, SEGMENT_STROKE);
+		index.getClassifiedNodes().forEach((renderType, items) -> {
+			items.forEach((rClass, nodes) -> {
+				final Renderer renderer = RendererFactory.get(rClass);
+				graphics.getGraphics().setPaint(getFillColor(profile, rClass, renderType));
+				renderer.fill(graphics, nodes);
+				graphics.getGraphics().setPaint(getLineColor(profile, rClass, renderType));
+				final Map<Boolean, List<Node>> needDash = nodes.stream().collect(
+						Collectors.groupingBy(this::isDashed));
+				if (needDash.containsKey(true)) {
+					graphics.getGraphics().setStroke(DASHED_BORDER_STROKE);
+					renderer.border(graphics, needDash.get(true));
+				}
+				if (needDash.containsKey(false)) {
+					graphics.getGraphics().setStroke(BORDER_STROKE);
+					renderer.border(graphics, needDash.get(false));
+				}
+				graphics.getGraphics().setPaint(getTextColor(profile, rClass, renderType));
+				renderer.text(graphics, nodes);
+				graphics.getGraphics().setPaint(getProfileColor(profile, "disease"));
+				graphics.getGraphics().setStroke(SEGMENT_STROKE);
+				renderer.cross(graphics, nodes);
 			});
 		});
 	}
 
 	private void selectNodes() {
-		final Paint color = getProfileColor(profile, "selection");
+		// Just the border
+		graphics.getGraphics().setPaint(getProfileColor(profile, "selection"));
 		index.getSelectedNodes().forEach((rClass, nodes) -> {
 			final Renderer renderer = RendererFactory.get(rClass);
-			// Just the border
-			renderer.draw(graphics, nodes, null, color, null, SELECTION_STROKE);
+			final Map<Boolean, List<Node>> needDash = nodes.stream().collect(
+					Collectors.groupingBy(this::isDashed));
+			if (needDash.containsKey(true)) {
+				graphics.getGraphics().setStroke(DASHED_SELECTION_STROKE);
+				renderer.border(graphics, needDash.get(true));
+			}
+			if (needDash.containsKey(false)) {
+				graphics.getGraphics().setStroke(SELECTION_STROKE);
+				renderer.border(graphics, needDash.get(false));
+			}
 		});
 	}
 
 	private void flags() {
-		final Paint flag = ColorProfile.getProfileColor(profile, "flag");
-		index.getFlagNodes().forEach((rClass, nodes) ->
-				RendererFactory.get(rClass).draw(graphics, nodes, null, flag, null, SELECTION_STROKE));
+		graphics.getGraphics().setPaint(ColorProfile.getProfileColor(profile, "flag"));
+		index.getFlagNodes().forEach((rClass, nodes) -> {
+			final Renderer renderer = RendererFactory.get(rClass);
+			final Map<Boolean, List<Node>> needDash = nodes.stream().collect(
+					Collectors.groupingBy(this::isDashed));
+			if (needDash.containsKey(true)) {
+				graphics.getGraphics().setStroke(DASHED_SELECTION_STROKE);
+				renderer.border(graphics, needDash.get(true));
+			}
+			if (needDash.containsKey(false)) {
+				graphics.getGraphics().setStroke(SELECTION_STROKE);
+				renderer.border(graphics, needDash.get(false));
+			}
+		});
+
+	}
+
+	private boolean isDashed(Node node) {
+		return node.getNeedDashedBorder() != null && node.getNeedDashedBorder();
 	}
 
 	private void notes() {
 		final String renderingClass = "Note";
 		final Renderer renderer = RendererFactory.get(renderingClass);
-		final Paint fillColor = getFillColor(profile, renderingClass, RenderType.NORMAL);
-		final Paint lineColor = getLineColor(profile, renderingClass, RenderType.NORMAL);
-		final Paint textColor = getTextColor(profile, renderingClass, RenderType.NORMAL);
-		renderer.draw(graphics, diagram.getNotes(), fillColor, lineColor, textColor, BORDER_STROKE);
+		graphics.getGraphics().setPaint(getTextColor(profile, renderingClass, RenderType.NORMAL));
+		renderer.text(graphics, diagram.getNotes());
 	}
 
 	private void shadows() {
 		graphics.getGraphics().setFont(FontProperties.SHADOWS_FONT);
+		graphics.getGraphics().setStroke(StrokeProperties.BORDER_STROKE);
 		// Each shadow has a different color and different renderable Class
 		diagram.getShadows().forEach(shadow -> {
 			final Renderer renderer = RendererFactory.get(shadow.getRenderableClass());
-			final Paint shadowFill = ColorProfile.getShadowFill(shadow);
-			final Paint shadowLine = ColorProfile.getShadowLine(shadow);
-			renderer.draw(graphics, Collections.singletonList(shadow), shadowFill, shadowLine, shadowLine, BORDER_STROKE);
+			graphics.getGraphics().setPaint(ColorProfile.getShadowFill(shadow));
+			renderer.fill(graphics, Collections.singleton(shadow));
+			graphics.getGraphics().setPaint(ColorProfile.getShadowLine(shadow));
+			renderer.border(graphics, Collections.singleton(shadow));
+			renderer.text(graphics, Collections.singleton(shadow));
 		});
 	}
 }

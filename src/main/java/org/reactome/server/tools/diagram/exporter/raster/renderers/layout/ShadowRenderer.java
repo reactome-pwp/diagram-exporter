@@ -1,8 +1,10 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
+import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.data.layout.Shadow;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
+import sun.security.provider.SHA;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;
@@ -14,32 +16,15 @@ import java.util.Collection;
  */
 public class ShadowRenderer extends NodeAbstractRenderer {
 
-	private void drawText(AdvancedGraphics2D graphics, Shadow item) {
-		final double x = item.getPoints().get(0).getX();
-		final double y = item.getPoints().get(0).getY();
-		final double w = item.getPoints().get(2).getX() - x;
-		final double h = item.getPoints().get(2).getY() - y;
-
-		TextRenderer.drawText(graphics, item.getDisplayName(), x, y, w, h);
+	@Override
+	public void text(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
+		final Collection<Shadow> shadows = (Collection<Shadow>) items;
+		shadows.forEach(shadow -> TextRenderer.drawText(graphics, shadow.getDisplayName(), shadow.getProp()));
 	}
-
 
 	@Override
-	public void draw(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items, Paint fillColor, Paint lineColor, Paint textColor, Stroke borderStroke) {
-		final Collection<Shadow> shadows = (Collection<Shadow>) items;
-		graphics.getGraphics().setPaint(fillColor);
-		shadows.forEach(shadow -> graphics.getGraphics().fill(shape(graphics, shadow)));
-
-		graphics.getGraphics().setPaint(lineColor);
-		graphics.getGraphics().setStroke(borderStroke);
-		shadows.forEach(shadow -> graphics.getGraphics().draw(shape(graphics, shadow)));
-
-		graphics.getGraphics().setPaint(textColor);
-		shadows.forEach(node -> drawText(graphics, node));
-
-	}
-
-	private Shape shape(AdvancedGraphics2D graphics, Shadow shadow) {
+	protected Shape shape(AdvancedGraphics2D graphics, DiagramObject node) {
+		final Shadow shadow = (Shadow) node;
 		final Path2D path = new GeneralPath();
 		path.moveTo(
 				shadow.getPoints().get(0).getX() * graphics.getFactor(),

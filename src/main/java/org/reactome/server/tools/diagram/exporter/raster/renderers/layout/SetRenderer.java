@@ -9,6 +9,8 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.*;
 import java.awt.*;
 import java.util.Collection;
 
+import static org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties.BORDER_STROKE;
+
 /**
  * Sets add an inner border.
  *
@@ -17,21 +19,18 @@ import java.util.Collection;
 public class SetRenderer extends NodeAbstractRenderer {
 
 	@Override
-	protected void border(AdvancedGraphics2D graphics, Paint lineColor, Stroke stroke, Collection<? extends DiagramObject> items) {
-		super.border(graphics, lineColor, stroke, items);
+	public void border(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
+		super.border(graphics, items);
 		final Collection<Node> nodes = (Collection<Node>) items;
 		nodes.forEach(node -> {
 			final Shape shape = innerShape(graphics, node);
-			if (node.getNeedDashedBorder() != null && node.getNeedDashedBorder()) {
-				graphics.getGraphics().setStroke(ColorProfile.DASHED_BORDER_STROKE);
-				graphics.getGraphics().draw(shape);
-				graphics.getGraphics().setStroke(ColorProfile.BORDER_STROKE);
-			} else graphics.getGraphics().draw(shape);
+			graphics.getGraphics().draw(shape);
 		});
 	}
 
 	@Override
-	protected Shape shape(AdvancedGraphics2D graphics, Node node) {
+	protected Shape shape(AdvancedGraphics2D graphics, DiagramObject item) {
+		final Node node = (Node) item;
 		final NodeProperties prop = new ScaledNodeProperties(node.getProp(), graphics.getFactor());
 		return ShapeFactory.roundedRectangle(
 				prop.getX(), prop.getY(), prop.getWidth(), prop.getHeight());
@@ -47,8 +46,7 @@ public class SetRenderer extends NodeAbstractRenderer {
 	}
 
 	@Override
-	protected void text(AdvancedGraphics2D graphics, Paint textColor, Collection<? extends DiagramObject> items) {
-		graphics.getGraphics().setPaint(textColor);
+	public void text(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
 		items.forEach(node -> TextRenderer.drawText(graphics, (NodeCommon) node, RendererProperties.SEPARATION));
 	}
 }

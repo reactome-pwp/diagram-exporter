@@ -1,7 +1,8 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
 /**
- * As copied from diagram
+ * As copied from org.reactome.web.diagram.renderers.helper.RenderType
+ *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public enum RenderType {
