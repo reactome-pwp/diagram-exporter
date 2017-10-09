@@ -3,11 +3,10 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 import org.reactome.server.tools.diagram.data.layout.Connector;
 import org.reactome.server.tools.diagram.data.layout.Shape;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 
-import java.awt.*;
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Set;
 
 /**
  * Connectors have a similar behaviour than reactions: segments, shapes and
@@ -17,49 +16,49 @@ import java.util.List;
  *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
-public class ConnectorRenderer extends EdgeRenderer {
+public class ConnectorRenderer {
 
-	/**
-	 * Renders a list of connectors in this order: segments, fills, borders and
-	 * texts. For the fills, shapes are precomputed and separated into empty and
-	 * non empty lists.
-	 *
-	 * @param graphics   where to render
-	 * @param connectors list of connectors
-	 * @param fillColor  filling color for empty shapes
-	 * @param lineColor  color for borders, non empty shapes and texts
-	 */
-	public void drawConnectors(AdvancedGraphics2D graphics, Collection<Connector> connectors, Paint fillColor, Paint lineColor, Stroke borderStroke) {
-		// Fills
-		// separate reactions and ends in black and white
-		final List<java.awt.Shape> empty = new LinkedList<>();
-		final List<java.awt.Shape> nonEmpty = new LinkedList<>();
-		connectors.forEach(connector -> {
-			//noinspection Duplicates (similar to edges, but don't share interface)
-			if (connector.getEndShape() != null) {
-				final List<java.awt.Shape> rendered = getScaledShapes(connector.getEndShape(), graphics.getFactor());
-				if (connector.getEndShape().getEmpty() == null)
-					nonEmpty.addAll(rendered);
-				else
-					empty.addAll(rendered);
-			}
-			if (connector.getStoichiometry() != null && connector.getStoichiometry().getShape() != null) {
-				final java.awt.Shape box = box(connector.getStoichiometry().getShape(), graphics.getFactor());
-				empty.add(box);
-			}
-		});
-		fillConnectors(graphics, fillColor, lineColor, empty, nonEmpty);
-
-		// Borders
-		empty.addAll(nonEmpty);
-		graphics.getGraphics().setPaint(lineColor);
-		graphics.getGraphics().setStroke(borderStroke);
-		empty.forEach(shape -> graphics.getGraphics().draw(shape));
-
-		// Text
-		// They have same color as border
-		connectors.forEach(connector -> text(graphics, connector));
-	}
+//	/**
+//	 * Renders a list of connectors in this order: segments, fills, borders and
+//	 * texts. For the fills, shapes are precomputed and separated into empty and
+//	 * non empty lists.
+//	 *
+//	 * @param graphics   where to render
+//	 * @param connectors list of connectors
+//	 * @param fillColor  filling color for empty shapes
+//	 * @param lineColor  color for borders, non empty shapes and texts
+//	 */
+//	public void drawConnectors(AdvancedGraphics2D graphics, Collection<Connector> connectors, Paint fillColor, Paint lineColor, Stroke borderStroke) {
+//		// Fills
+//		// separate stoichiometries and end shapes in black and white
+//		final List<java.awt.Shape> empty = new LinkedList<>();
+//		final List<java.awt.Shape> nonEmpty = new LinkedList<>();
+//		connectors.forEach(connector -> {
+//			//noinspection Duplicates (similar to edges, but don't share interface)
+//			if (connector.getEndShape() != null) {
+//				final List<java.awt.Shape> rendered = ShapeFactory.createShape(connector.getEndShape(), graphics.getFactor());
+//				if (connector.getEndShape().getEmpty() == null)
+//					nonEmpty.addAll(rendered);
+//				else
+//					empty.addAll(rendered);
+//			}
+//			if (connector.getStoichiometry() != null && connector.getStoichiometry().getShape() != null) {
+//				final List<java.awt.Shape> box = ShapeFactory.createShape(connector.getStoichiometry().getShape(), graphics.getFactor());
+//				empty.addAll(box);
+//			}
+//		});
+//		fill(graphics, fillColor, lineColor, empty, nonEmpty);
+//
+//		// Borders
+//		empty.addAll(nonEmpty);
+//		graphics.getGraphics().setPaint(lineColor);
+//		graphics.getGraphics().setStroke(borderStroke);
+//		empty.forEach(shape -> graphics.getGraphics().draw(shape));
+//
+//		// Text
+//		// They have same color as border
+//		connectors.forEach(connector -> text(graphics, connector));
+//	}
 
 	private void text(AdvancedGraphics2D graphics, Connector connector) {
 		endShapeText(graphics, connector);
@@ -68,12 +67,13 @@ public class ConnectorRenderer extends EdgeRenderer {
 
 	private void endShapeText(AdvancedGraphics2D graphics, Connector connector) {
 		final Shape shape = connector.getEndShape();
-		if (shape != null && shape.getS() != null)
-			TextRenderer.drawText(graphics, shape.getS(),
-					shape.getA().getX(), shape.getA().getY(),
-					shape.getB().getX() - shape.getA().getX(),
-					shape.getB().getY() - shape.getA().getY(),
-					graphics.getFactor(), true);
+		if (shape == null || shape.getS() == null)
+			return;
+		TextRenderer.drawText(graphics, shape.getS(),
+				shape.getA().getX(), shape.getA().getY(),
+				shape.getB().getX() - shape.getA().getX(),
+				shape.getB().getY() - shape.getA().getY(),
+				graphics.getFactor(), true);
 	}
 
 	private void stoichiometryText(AdvancedGraphics2D graphics, Connector connector) {
@@ -88,21 +88,50 @@ public class ConnectorRenderer extends EdgeRenderer {
 				graphics.getFactor(), true);
 	}
 
-	private void fillConnectors(AdvancedGraphics2D graphics, Paint fillColor, Paint lineColor, List<java.awt.Shape> empty, List<java.awt.Shape> nonEmpty) {
-		// white
-		graphics.getGraphics().setPaint(fillColor);
-		empty.forEach(shape -> graphics.getGraphics().fill(shape));
-		// black
-		graphics.getGraphics().setPaint(lineColor);
-		nonEmpty.forEach(shape -> graphics.getGraphics().fill(shape));
-	}
+//	private void fill(AdvancedGraphics2D graphics, Paint fillColor, Paint lineColor, List<java.awt.Shape> empty, List<java.awt.Shape> nonEmpty) {
+//		// white
+//		graphics.getGraphics().setPaint(fillColor);
+//		empty.forEach(shape -> graphics.getGraphics().fill(shape));
+//		// black
+//		graphics.getGraphics().setPaint(lineColor);
+//		nonEmpty.forEach(shape -> graphics.getGraphics().fill(shape));
+//	}
 
-	public void connectorSegments(AdvancedGraphics2D graphics, Paint lineColor, Stroke stroke, Collection<Connector> connectors) {
-		graphics.getGraphics().setStroke(stroke);
-		graphics.getGraphics().setPaint(lineColor);
+	public void segments(AdvancedGraphics2D graphics, Set<Connector> connectors) {
 		connectors.stream()
 				.map(Connector::getSegments)
 				.flatMap(Collection::stream)
-				.forEach(segment -> drawSegment(graphics, segment));
+				.map(segment -> ShapeFactory.line(graphics, segment.getFrom(), segment.getTo()))
+				.forEach(line -> graphics.getGraphics().draw(line));
+	}
+
+	public void fill(AdvancedGraphics2D graphics, Collection<Connector> connectors) {
+		connectors.stream()
+				.filter(connector -> connector.getEndShape() != null)
+				.map(connector -> ShapeFactory.createShape(connector.getEndShape(), graphics.getFactor()))
+				.flatMap(Collection::stream)
+				.forEach(graphics.getGraphics()::fill);
+		connectors.stream()
+				.filter(connector -> connector.getStoichiometry().getShape() != null)
+				.map(connector -> ShapeFactory.createShape(connector.getStoichiometry().getShape(), graphics.getFactor()))
+				.flatMap(Collection::stream)
+				.forEach(graphics.getGraphics()::fill);
+	}
+
+	public void border(AdvancedGraphics2D graphics, Collection<Connector> connectors) {
+		connectors.stream()
+				.filter(connector -> connector.getEndShape() != null)
+				.map(connector -> ShapeFactory.createShape(connector.getEndShape(), graphics.getFactor()))
+				.flatMap(Collection::stream)
+				.forEach(graphics.getGraphics()::draw);
+		connectors.stream()
+				.filter(connector -> connector.getStoichiometry().getShape() != null)
+				.map(connector -> ShapeFactory.createShape(connector.getStoichiometry().getShape(), graphics.getFactor()))
+				.flatMap(Collection::stream)
+				.forEach(graphics.getGraphics()::draw);
+	}
+
+	public void text(AdvancedGraphics2D graphics, Collection<Connector> connectors) {
+		connectors.forEach(connector -> text(graphics, connector));
 	}
 }
