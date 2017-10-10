@@ -2,7 +2,6 @@ package org.reactome.server.tools.diagram.exporter.common.analysis;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
 import org.reactome.server.tools.diagram.data.exception.DeserializationException;
 import org.reactome.server.tools.diagram.data.mapper.ObjectMapperProvider;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
@@ -65,7 +64,7 @@ public class AnalysisClient {
 
             connection.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-            wr.writeBytes(StringUtils.join(pathways, ","));
+            wr.writeBytes(String.join(",", pathways));
 
             switch (connection.getResponseCode()){
                 case 200:
