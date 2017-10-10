@@ -27,6 +27,12 @@ public class AdvancedGraphics2D {
 	 */
 	public AdvancedGraphics2D(double width, double height, double factor, double x, double y, double margin, String format) {
 		switch (format.toLowerCase()) {
+			case "gif":
+				this.image = new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_RGB);
+				this.graphics = this.image.createGraphics();
+				this.graphics.setBackground(Color.WHITE);
+				this.graphics.clearRect(0, 0, (int) width, (int) height);
+				break;
 			case "jpeg":
 			case "jpg":
 				this.image = new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_RGB);
