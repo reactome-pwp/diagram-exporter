@@ -6,22 +6,22 @@ public class StrokeProperties {
 
 	public static Stroke DASHED_BORDER_STROKE;
 	public static Stroke DASHED_SEGMENT_STROKE;
-	public static Stroke HALO_STROKE;
-	public static Stroke SEGMENT_STROKE;
-	public static Stroke BORDER_STROKE;
-	public static Stroke SELECTION_STROKE;
 	public static Stroke DASHED_SELECTION_STROKE;
 	public static Stroke DASHED_HALO_STROKE;
+	public static Stroke BORDER_STROKE;
+	public static Stroke SEGMENT_STROKE;
+	public static Stroke SELECTION_STROKE;
+	public static Stroke HALO_STROKE;
 
 	public static void setFactor(double factor) {
 		final int end = BasicStroke.CAP_BUTT;
 		final int join = BasicStroke.JOIN_MITER;
-		final float segmentWidth = (float) (1 * factor);
-		final float borderWidth = (float) (2 * factor);
-		final float selectionWidth = (float) (3 * factor);
-		final float haloWidth = (float) (5 * factor);
-		final float dashSize = (float) (factor * 5);
-		final float dashSpace = (float) (factor * 2);
+		final float segmentWidth = (float) (Math.max(1, 1 * factor));
+		final float borderWidth = (float) (Math.max(1, 2 * factor));
+		final float selectionWidth = (float) (Math.max(1,3 * factor));
+		final float haloWidth = (float) (Math.max(1, 5 * factor));
+		final float dashSize = (float) (Math.max(1, 5 * factor));
+		final float dashSpace = (float) (Math.max(1, 5 * factor));
 
 		SEGMENT_STROKE = new BasicStroke(segmentWidth, end, join);
 		BORDER_STROKE = new BasicStroke(borderWidth, end, join);

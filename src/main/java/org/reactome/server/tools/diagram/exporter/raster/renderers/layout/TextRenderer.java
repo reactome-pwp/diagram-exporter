@@ -8,6 +8,7 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.Render
 
 import java.awt.*;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -158,6 +159,8 @@ public class TextRenderer {
 	 * @return
 	 */
 	private static List<String> fit(AdvancedGraphics2D graphics2D, double availableWidth, double availableHeight, String text, Font font) {
+		if (font.getSize() < 1)
+			return Collections.emptyList();
 		final List<String> lines = new LinkedList<>();
 		final String[] words = text.trim().split(" ");
 		StringBuilder line = new StringBuilder();

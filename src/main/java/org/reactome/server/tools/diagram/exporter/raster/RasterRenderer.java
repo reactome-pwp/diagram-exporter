@@ -1,17 +1,19 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
-import com.sun.org.apache.regexp.internal.RE;
 import org.reactome.server.tools.diagram.data.graph.Graph;
-import org.reactome.server.tools.diagram.data.layout.*;
+import org.reactome.server.tools.diagram.data.layout.Connector;
+import org.reactome.server.tools.diagram.data.layout.Diagram;
+import org.reactome.server.tools.diagram.data.layout.DiagramObject;
+import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.*;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.ConnectorRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.EdgeRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.Renderer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.RendererFactory;
 
 import java.awt.*;
-import java.awt.Shape;
 import java.awt.image.BufferedImage;
 import java.util.*;
 import java.util.List;
@@ -49,6 +51,7 @@ public class RasterRenderer {
 	private AdvancedGraphics2D graphics;
 	private DiagramIndex index;
 	private ConnectorRenderer connectorRenderer = new ConnectorRenderer();
+	private String ext;
 
 	/**
 	 * Creates a RasterRenderer with specific diagram, graph, profile and
@@ -70,11 +73,12 @@ public class RasterRenderer {
 	 * Renders an Image with given dimensions
 	 *
 	 * @param factor scale of the image
-	 * @param format file format. To select the proper in-memory structure
+	 * @param ext    file format. To select the proper in-memory structure
 	 *
 	 * @return a RenderedImage with the given dimensions
 	 */
-	public BufferedImage render(double factor, String format) {
+	public BufferedImage render(double factor, String ext) {
+		this.ext = ext;
 
 		// Bounds are recalculated reading nodes, we don't trust diagram bounds
 		final double minX = getMinX();
@@ -85,8 +89,8 @@ public class RasterRenderer {
 		final double diagramWidth = maxX - minX;
 		final double diagramHeight = maxY - minY;
 
-		int width = (int) (factor * (diagramWidth + 2 * MARGIN));
-		int height = (int) (factor * (diagramHeight + 2 * MARGIN));
+		double width = (factor * (diagramWidth + 2 * MARGIN));
+		double height = (factor * (diagramHeight + 2 * MARGIN));
 
 		// As HD images occupy lots of memory, we limit the size of the images
 		// by reducing the factor until they fit into the MAX_IMAGE_SIZE, thus
@@ -103,7 +107,7 @@ public class RasterRenderer {
 		if (newFactor < factor) {
 			Logger.getLogger(getClass().getName())
 					.warning(String.format(
-							"Image too large. Quality reduced from %.1f to %.1f -> %d x %d = %d (%.2f MP)",
+							"Image too large. Quality reduced from %.1f to %.1f -> %.0f x %.0f = %.0f (%.2f MP)",
 							factor, newFactor, height, width, height * width, height * width / 1e6));
 			factor = newFactor;
 		}
@@ -116,7 +120,7 @@ public class RasterRenderer {
 		final double x = minX * factor;
 		final double y = minY * factor;
 		final double margin = factor * MARGIN;
-		graphics = new AdvancedGraphics2D(width, height, factor, x, y, margin, format);
+		graphics = new AdvancedGraphics2D(width, height, factor, x, y, margin, ext);
 
 		if (decorator == null) {
 			compartments();
@@ -124,7 +128,6 @@ public class RasterRenderer {
 			drawReactions();
 			drawNodes();
 			notes();
-			shadows();
 		} else {
 			compartments();
 			links();
@@ -134,7 +137,6 @@ public class RasterRenderer {
 			haloNodes();
 			drawNodes();
 			selectNodes();
-			shadows();
 			notes();
 			flags();
 		}
@@ -178,6 +180,7 @@ public class RasterRenderer {
 		final String renderingClass = "Compartment";
 		final Renderer renderer = RendererFactory.get(renderingClass);
 		final Paint fillColor = getFillColor(profile, renderingClass, RenderType.NORMAL);
+
 		final Paint lineColor = getLineColor(profile, renderingClass, RenderType.NORMAL);
 		final Paint textColor = getTextColor(profile, renderingClass, RenderType.NORMAL);
 		graphics.getGraphics().setPaint(fillColor);
@@ -233,7 +236,7 @@ public class RasterRenderer {
 		final List<String> LINKS = Arrays.asList("Interaction", "EntitySetAndEntitySetLink", "EntitySetAndMemberLink");
 		index.getLinks().forEach((renderType, items) ->
 				items.forEach((rClass, links) -> {
-					final Renderer renderer = RendererFactory.get(rClass);
+					final EdgeRenderer renderer = (EdgeRenderer) RendererFactory.get(rClass);
 					final Paint lineColor = ColorProfile.getLineColor(profile, rClass, renderType);
 					final Paint fillColor = ColorProfile.getFillColor(profile, rClass, renderType);
 					if (LINKS.contains(rClass))
@@ -242,20 +245,11 @@ public class RasterRenderer {
 						graphics.getGraphics().setStroke(StrokeProperties.SEGMENT_STROKE);
 					graphics.getGraphics().setPaint(lineColor);
 					renderer.segments(graphics, links);
-					final Map<Boolean, Set<Shape>> divide = divideLinkShapes(links);
-					fillBlackAndWhite(lineColor, fillColor, divide);
+//					renderer.draw(graphics, links, fillColor, lineColor);
+//					final Map<Boolean, Set<Shape>> divide = divideLinkShapes(links);
+//					fillBlackAndWhite(lineColor, fillColor, divide);
 					// links do not have text
 				}));
-	}
-
-	private void fillBlackAndWhite(Paint lineColor, Paint fillColor, Map<Boolean, Set<Shape>> shapes) {
-		graphics.getGraphics().setPaint(fillColor);
-		shapes.get(true).forEach(graphics.getGraphics()::fill);
-		graphics.getGraphics().setPaint(lineColor);
-		shapes.get(false).forEach(graphics.getGraphics()::fill);
-		shapes.values().stream()
-				.flatMap(Collection::stream)
-				.forEach(graphics.getGraphics()::draw);
 	}
 
 
@@ -281,63 +275,21 @@ public class RasterRenderer {
 			items.forEach((rClass, connectors) -> {
 				final Paint fill = ColorProfile.getFillColor(profile, rClass, renderType);
 				final Paint border = ColorProfile.getLineColor(profile, rClass, renderType);
-				drawConnectors(connectors, fill, border);
+				connectorRenderer.draw(graphics, connectors, fill, border);
+				graphics.getGraphics().setPaint(border);
+				connectorRenderer.text(graphics, connectors);
 			});
 		});
 		index.getClassifiedReactions().forEach((renderType, reactions) -> {
 			reactions.forEach((rClass, edges) -> {
-				final Renderer renderer = RendererFactory.get(rClass);
+				final EdgeRenderer renderer = (EdgeRenderer) RendererFactory.get(rClass);
 				final Paint fill = ColorProfile.getFillColor(profile, rClass, renderType);
 				final Paint border = ColorProfile.getLineColor(profile, rClass, renderType);
-				drawEdges(renderer, edges, fill, border);
+				renderer.draw(graphics, edges, fill, border);
+				graphics.getGraphics().setPaint(border);
+				renderer.text(graphics, edges);
 			});
 		});
-	}
-
-	private void drawEdges(Renderer renderer, Collection<Edge> edges, Paint fill, Paint border) {
-		final Map<Boolean, Set<Shape>> divided = divideShapes(edges);
-		fillBlackAndWhite(border, fill, divided);
-		// Texts have the same color as lines
-		renderer.text(graphics, edges);
-	}
-
-	private void drawConnectors(Set<Connector> connectors, Paint fill, Paint border) {
-		final Map<Boolean, Set<Shape>> divided = divideConnectorShapes(connectors);
-		fillBlackAndWhite(border, fill, divided);
-		// Texts have the same color as lines
-		connectorRenderer.text(graphics, connectors);
-	}
-
-	private Map<Boolean, Set<Shape>> divideLinkShapes(Set<Link> links) {
-		return divide(links.stream()
-				.map(EdgeCommon::getEndShape));
-	}
-
-	private Map<Boolean, Set<Shape>> divideShapes(Collection<Edge> edges) {
-		return divide(edges.stream()
-				.flatMap(edge -> Stream.of(edge.getReactionShape(), edge.getEndShape())));
-	}
-
-	private Map<Boolean, Set<Shape>> divideConnectorShapes(Collection<Connector> connectors) {
-		return divide(connectors.stream()
-				.flatMap(connector -> Stream.of(connector.getEndShape(), connector.getStoichiometry().getShape())));
-	}
-
-	private Map<Boolean, Set<Shape>> divide(Stream<org.reactome.server.tools.diagram.data.layout.Shape> shapeStream) {
-		final Map<Boolean, Set<Shape>> shapes = new HashMap<>();
-		shapes.put(true, new HashSet<>());
-		shapes.put(false, new HashSet<>());
-		shapeStream
-				.filter(Objects::nonNull)
-				.forEach(shape -> {
-					final List<Shape> javaShapes = ShapeFactory.createShape(shape, graphics.getFactor());
-					shapes.get(isEmpty(shape)).addAll(javaShapes);
-				});
-		return shapes;
-	}
-
-	private boolean isEmpty(org.reactome.server.tools.diagram.data.layout.Shape shape) {
-		return shape.getEmpty() != null && shape.getEmpty();
 	}
 
 	private void selectReactions() {
@@ -360,14 +312,18 @@ public class RasterRenderer {
 		index.getSelectedConnectors().forEach((renderType, items) -> {
 			items.forEach((rClass, connectors) -> {
 				final Paint fill = ColorProfile.getFillColor(profile, rClass, renderType);
-				drawConnectors(connectors, fill, selection);
+				connectorRenderer.draw(graphics, connectors, fill, selection);
+				graphics.getGraphics().setPaint(selection);
+				connectorRenderer.text(graphics, connectors);
 			});
 		});
 		index.getSelectedReactions().forEach((renderType, items) -> {
 			items.forEach((rClass, edges) -> {
-				final Renderer renderer = RendererFactory.get(rClass);
+				final EdgeRenderer renderer = (EdgeRenderer) RendererFactory.get(rClass);
 				final Paint fill = ColorProfile.getFillColor(profile, rClass, renderType);
-				drawEdges(renderer, edges, fill, selection);
+				renderer.draw(graphics, edges, fill, selection);
+				graphics.getGraphics().setPaint(selection);
+				renderer.text(graphics, edges);
 			});
 		});
 	}
@@ -445,17 +401,4 @@ public class RasterRenderer {
 		renderer.text(graphics, diagram.getNotes());
 	}
 
-	private void shadows() {
-		graphics.getGraphics().setFont(FontProperties.SHADOWS_FONT);
-		graphics.getGraphics().setStroke(StrokeProperties.BORDER_STROKE);
-		// Each shadow has a different color and different renderable Class
-		diagram.getShadows().forEach(shadow -> {
-			final Renderer renderer = RendererFactory.get(shadow.getRenderableClass());
-			graphics.getGraphics().setPaint(ColorProfile.getShadowFill(shadow));
-			renderer.fill(graphics, Collections.singleton(shadow));
-			graphics.getGraphics().setPaint(ColorProfile.getShadowLine(shadow));
-			renderer.border(graphics, Collections.singleton(shadow));
-			renderer.text(graphics, Collections.singleton(shadow));
-		});
-	}
 }

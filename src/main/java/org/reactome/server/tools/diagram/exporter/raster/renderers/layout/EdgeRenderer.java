@@ -8,8 +8,8 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.Advanc
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 
 import java.awt.*;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
@@ -21,6 +21,7 @@ public class EdgeRenderer extends AbstractRenderer {
 		final Collection<Edge> edges = (Collection<Edge>) items;
 		edges.forEach(edgeCommon -> drawReactionText(graphics, edgeCommon));
 	}
+
 	private void drawReactionText(AdvancedGraphics2D graphics, Edge edge) {
 		if (edge.getReactionShape().getS() == null)
 			return;
@@ -31,6 +32,7 @@ public class EdgeRenderer extends AbstractRenderer {
 				shape.getB().getY() - shape.getA().getY(),
 				graphics.getFactor(), true);
 	}
+
 	@Override
 	public void segments(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
 		final Collection<EdgeCommon> edges = (Collection<EdgeCommon>) items;
@@ -39,4 +41,42 @@ public class EdgeRenderer extends AbstractRenderer {
 				.map(segment -> ShapeFactory.line(graphics, segment.getFrom(), segment.getTo()))
 				.forEach(shape -> graphics.getGraphics().draw(shape));
 	}
+
+	public void draw(AdvancedGraphics2D graphics, Set<Edge> edges, Paint fill, Paint border) {
+		final Map<Boolean, Set<java.awt.Shape>> divided = divideShapes(edges, graphics);
+		fillBlackAndWhite(graphics, border, fill, divided);
+	}
+
+	private Map<Boolean, Set<java.awt.Shape>> divideShapes(Collection<Edge> edges, AdvancedGraphics2D graphics) {
+		return divide(graphics, edges.stream()
+				.flatMap(edge -> Stream.of(edge.getReactionShape(), edge.getEndShape())));
+	}
+
+	protected Map<Boolean, Set<java.awt.Shape>> divide(AdvancedGraphics2D graphics, Stream<Shape> shapeStream) {
+		final Map<Boolean, Set<java.awt.Shape>> shapes = new HashMap<>();
+		shapes.put(true, new HashSet<>());
+		shapes.put(false, new HashSet<>());
+		shapeStream
+				.filter(Objects::nonNull)
+				.forEach(shape -> {
+					final java.util.List<java.awt.Shape> javaShapes = ShapeFactory.createShape(shape, graphics.getFactor());
+					shapes.get(isEmpty(shape)).addAll(javaShapes);
+				});
+		return shapes;
+	}
+
+	private boolean isEmpty(Shape shape) {
+		return shape.getEmpty() != null && shape.getEmpty();
+	}
+
+	private void fillBlackAndWhite(AdvancedGraphics2D graphics, Paint lineColor, Paint fillColor, Map<Boolean, Set<java.awt.Shape>> shapes) {
+		graphics.getGraphics().setPaint(fillColor);
+		shapes.get(true).forEach(graphics.getGraphics()::fill);
+		graphics.getGraphics().setPaint(lineColor);
+		shapes.get(false).forEach(graphics.getGraphics()::fill);
+		shapes.values().stream()
+				.flatMap(Collection::stream)
+				.forEach(graphics.getGraphics()::draw);
+	}
+
 }

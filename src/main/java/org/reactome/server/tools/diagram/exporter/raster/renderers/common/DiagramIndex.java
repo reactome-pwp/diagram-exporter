@@ -52,13 +52,17 @@ public class DiagramIndex {
 	private Map<Long, DiagramObject> diagramIndex;
 	//	private Map<Long, DiagramObject> diagramReactomeIndex;
 	private Map<Long, GraphNode> graphIndex;
+
 	private Map<String, Set<Node>> selectedNodes;
 	private Map<RenderType, Map<String, Set<Edge>>> selectedReactions;
 	private Map<RenderType, Map<String, Set<Connector>>> selectedConnectors;
+
 	private Map<String, Set<Node>> flagNodes;
+
 	private Map<String, Set<Edge>> haloReactions;
 	private Map<String, Set<Node>> haloNodes;
 	private Map<String, Set<Connector>> haloConnectors;
+
 	private Map<RenderType, Map<String, Set<Node>>> classifiedNodes;
 	private Map<RenderType, Map<String, Set<Edge>>> classifiedReactions;
 	private Map<RenderType, Map<String, Set<Connector>>> classifiedConnectors;
@@ -102,39 +106,28 @@ public class DiagramIndex {
 	}
 
 	private void collect() {
+		classifiedNodes = new TreeMap<>(RENDER_TYPE_COMPARATOR);
+		classifiedReactions = new TreeMap<>(RENDER_TYPE_COMPARATOR);
+		classifiedConnectors = new TreeMap<>(RENDER_TYPE_COMPARATOR);
 		classifyNodes();
 		classifyReactions();
 		if (decorator != null) {
 			selectNodes();
 			selectReactions();
 		}
-		links = diagram.getLinks().stream()
-				.collect(Collectors.groupingBy(this::getRenderType,
-						Collectors.groupingBy(DiagramObject::getRenderableClass, Collectors.toSet())));
+		classifyLinks();
 	}
 
 	private void classifyNodes() {
-		classifiedNodes = new TreeMap<>(RENDER_TYPE_COMPARATOR);
 		diagram.getNodes().forEach(node ->
 				classifiedNodes
 						.computeIfAbsent(getRenderType(node), k -> new HashMap<>())
 						.computeIfAbsent(node.getRenderableClass(), k -> new HashSet<>())
 						.add(node));
-//		classifiedNodes.forEach((rClass, items) -> {
-//					System.out.println(rClass);
-//					items.forEach((renderType, edges) -> {
-//						System.out.println(" - " + renderType);
-//						edges.forEach(edge -> {
-//							System.out.println("    - " + edge.getDisplayName());
-//						});
-//					});
-//				}
-//		);
 	}
 
 	private void classifyReactions() {
-		classifiedReactions = new TreeMap<>(RENDER_TYPE_COMPARATOR);
-		classifiedConnectors = new TreeMap<>(RENDER_TYPE_COMPARATOR);
+
 		diagram.getEdges().forEach(reaction -> {
 			// Classify edges by renderingClass/renderType
 			classifiedReactions
@@ -155,6 +148,12 @@ public class DiagramIndex {
 
 	}
 
+
+	private void classifyLinks() {
+		links = diagram.getLinks().stream()
+				.collect(Collectors.groupingBy(this::getRenderType,
+						Collectors.groupingBy(DiagramObject::getRenderableClass, Collectors.toSet())));
+	}
 
 	private void selectNodes() {
 		selectedNodes = new HashMap<>();

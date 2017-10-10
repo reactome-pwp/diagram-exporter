@@ -10,40 +10,15 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.FileHandler;
-import java.util.logging.Formatter;
-import java.util.logging.LogRecord;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 /**
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class RasterExporter {
-
-	private static final Logger logger = Logger.getLogger("log");
-
-	// Adding the benchmark logs to a file
-	static {
-		try {
-			final FileHandler fileHandler = new FileHandler("log.txt");
-			logger.setUseParentHandlers(false);
-			logger.addHandler(fileHandler);
-			fileHandler.setFormatter(new Formatter() {
-				@Override
-				public String format(LogRecord logRecord) {
-					return String.join("\t", logRecord.getMessage()) + System.lineSeparator();
-				}
-			});
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Service layer that provides access to the raster exporter. This service
@@ -83,8 +58,6 @@ public class RasterExporter {
 	                          double factor)
 			throws DiagramJsonNotFoundException, IOException,
 			DiagramProfileException, DiagramJsonDeserializationException {
-		// This is the only important part of the class
-		// The rest of code is intended for benchmarking
 		final DiagramProfile profile = ResourcesFactory.getDiagramProfile(profileName);
 		final Graph graph = ResourcesFactory.getGraph(diagramFolder, stId);
 		final Diagram diagram = ResourcesFactory.getDiagram(diagramFolder, stId);
@@ -93,60 +66,4 @@ public class RasterExporter {
 		ImageIO.write(image, fileExtension, output);
 	}
 
-	/**
-	 * only for debugging
-	 */
-	static void export(String stId, String diagramFolder,
-	                   String profileName, Decorator decorator,
-	                   String fileExtension, OutputStream output,
-	                   double factor, boolean debug)
-			throws DiagramProfileException, DiagramJsonDeserializationException,
-			DiagramJsonNotFoundException, IOException {
-		if (debug)
-			exportWithDebug(stId, diagramFolder, profileName, decorator, fileExtension, output, factor);
-		else
-			export(stId, diagramFolder, profileName, decorator, fileExtension, output, factor);
-	}
-
-	private static void exportWithDebug(String stId, String diagramJsonFolder, String profileName, Decorator decorator, String fileExtension, OutputStream output, double factor) throws DiagramProfileException, DiagramJsonDeserializationException, DiagramJsonNotFoundException, IOException {
-		// Indexing time (pre)
-		final long startPre = System.currentTimeMillis();
-		final DiagramProfile profile = ResourcesFactory.getDiagramProfile(profileName);
-		final Graph graph = ResourcesFactory.getGraph(diagramJsonFolder, stId);
-		final Diagram diagram = ResourcesFactory.getDiagram(diagramJsonFolder, stId);
-		final RasterRenderer renderer = new RasterRenderer(diagram, graph, profile, decorator);
-
-		// Rendering time
-		final long startRender = System.currentTimeMillis();
-		final BufferedImage image = renderer.render(factor, fileExtension);
-
-		// Saving time
-		final long startSave = System.currentTimeMillis();
-		ImageIO.write(image, fileExtension, output);
-
-//		final long end = System.currentTimeMillis();
-		final long pre = startRender - startPre;
-		final long render = startSave - startRender;
-//		final long save = end - startSave;
-		final long elements = countElements(diagram);
-		final long size = image.getWidth() * image.getHeight();
-		printLine(stId, size, elements, pre + render);
-		System.gc();
-	}
-
-	private static int countElements(Diagram diagram) {
-		return diagram.getEdges().size()
-				+ diagram.getNodes().size()
-				+ diagram.getCompartments().size()
-				+ diagram.getNotes().size()
-				+ diagram.getShadows().size();
-	}
-
-	private static void printLine(Object... objects) {
-		final List<String> strings = Arrays.stream(objects)
-				.map(String::valueOf)
-				.collect(Collectors.toList());
-		logger.info(String.join("\t", strings));
-
-	}
 }

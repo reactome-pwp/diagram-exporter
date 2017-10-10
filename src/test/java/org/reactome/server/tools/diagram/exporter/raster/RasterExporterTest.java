@@ -3,6 +3,7 @@ package org.reactome.server.tools.diagram.exporter.raster;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.io.output.NullOutputStream;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.reactome.server.tools.diagram.data.DiagramFactory;
 import org.reactome.server.tools.diagram.data.exception.DeserializationException;
@@ -13,17 +14,13 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.Charset;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -31,81 +28,26 @@ import java.util.stream.Collectors;
 public class RasterExporterTest {
 
 	private static final String host = "http://reactomerelease.oicr.on.ca/download/current/diagram/";
-	private static final File DIAGRAMS_FOLDER = new File("/media/pascual/Disco1TB/reactome/diagram");
-	private static final File IMAGES_FOLDER = new File("/media/pascual/Disco1TB/reactome/images");
-	static {
+	private static final File DIAGRAMS_FOLDER = new File("test-diagrams");
+	private static final File IMAGES_FOLDER = new File("test-images");
+
+	@BeforeClass
+	public static void beforeClass() {
 		// Create the output stream
 		IMAGES_FOLDER.mkdirs();
 		DIAGRAMS_FOLDER.mkdirs();
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			removeDir(IMAGES_FOLDER);
+			removeDir(DIAGRAMS_FOLDER);
+		}));
 	}
 
-	@Test
-	public void testPerformance() {
-		final List<String> pathways = getLines(new File("all-pathways.txt"));
-		if (pathways != null) {
-			Collections.shuffle(pathways);
-			// Warm up with 5 diagrams
-			pathways.stream()
-					.filter(this::exists)
-					.limit(5)
-					.forEach(s -> new RendererInvoker(s)
-							.setDebug(false)
-							.render());
-			pathways.stream()
-					.filter(this::exists)
-					.limit(1000)
-					.forEach(s -> new RendererInvoker(s).render());
-		}
-	}
-
-	@Test
-	public void testPerformanceMaxResolution() {
-		final double maxResolution = 10;
-		final List<String> pathways = getLines(new File("all-pathways.txt"));
-		if (pathways != null) {
-			Collections.shuffle(pathways);
-			// Warm up with 5 diagrams
-			pathways.stream()
-					.filter(this::exists)
-					.limit(5)
-					.forEach(s -> new RendererInvoker(s)
-							.setDebug(false)
-							.setFactor(maxResolution)
-							.render());
-			pathways.stream()
-					.filter(this::exists)
-					.limit(200)
-					.forEach(s -> new RendererInvoker(s)
-							.setDebug(true)
-							.setFactor(maxResolution)
-							.render());
-		}
-	}
-
-	private List<String> getLines(File file) {
-		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-			return reader.lines().collect(Collectors.toList());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	private boolean exists(String stId) {
-		if (new File(DIAGRAMS_FOLDER, stId + ".json").exists())
-			return true;
-		try {
-			HttpURLConnection.setFollowRedirects(false);
-			// note : you may also need
-			//        HttpURLConnection.setInstanceFollowRedirects(false)
-			HttpURLConnection con =
-					(HttpURLConnection) new URL(host + stId + ".json").openConnection();
-			con.setRequestMethod("HEAD");
-			return (con.getResponseCode() == HttpURLConnection.HTTP_OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+	private static void removeDir(File dir) {
+		final File[] files = dir.listFiles();
+		if (files != null)
+			for (File file : files)
+				file.delete();
+		dir.delete();
 	}
 
 	@Test
@@ -120,8 +62,6 @@ public class RasterExporterTest {
 		new RendererInvoker(stId)
 				.setDecorator(decorator)
 				.setSave(true)
-				.setDebug(false)
-				.setFactor(10)
 				.render();
 	}
 
@@ -134,56 +74,51 @@ public class RasterExporterTest {
 		new RendererInvoker(stId)
 				.setDecorator(decorator)
 				.setSave(true)
-				.setDebug(false)
-				.setFactor(10)
 				.render();
 	}
 
 	@Test
-	public void testHardestDiagrams() {
-		final List<String> pathways = Arrays.asList(
-				"R-ATH-448424",
-				"R-DDI-448424",
-				"R-CEL-448424",
-				"R-DME-448424",
-				"R-OSA-448424",
-				"R-SCE-448424",
-				"R-SPO-448424",
-				"R-DDI-212436",
-				"R-PFA-212436",
-				"R-OSA-6804756",
-				"R-PFA-8854691",
-				"R-SPO-8854691"
-		);
-		// This is a list of the diagrams that do take more time per element
-		pathways.forEach(stId -> new RendererInvoker(stId).setDebug(false).render());
-	}
-
-	@Test
-	public void testSomeDiagrams() {
+	public void testJpeg() {
 		final List<String> pathways = Arrays.asList(
 				"R-HSA-5602410",
 				"R-HSA-1362409",  // Mithocondrial iron-sulfur cluster biogenesis
 				"R-HSA-169911",  // Regulation of apoptosis
 				"R-HSA-68874",  // M/G1 Transition
-				"R-HSA-211945",  // Phase I -   Functionlaization of compounds
-				"R-HSA-109581",  // Apoptosis
-				"R-HSA-391251",  // Protein folding
-				"R-HSA-6796648",  // TP53 Regulates Transcription of DNA Repair Genes
-				"R-HSA-5638302",
-				"R-HSA-1474244",
-				"R-HSA-4839726",
-				"R-HSA-8963743",
-				"R-HSA-8935690",
-				"R-HSA-448424",
-				"R-HSA-72312",
-				"R-HSA-168643"
+				"R-HSA-109581"  // Apoptosis
 		);
 		pathways.forEach(stId ->
 				new RendererInvoker(stId)
-						.setDebug(false)
 						.setSave(true)
-						.setFactor(5)
+						.setFormat("jpeg")
+						.render());
+	}
+
+	@Test
+	public void testGif() {
+		final List<String> pathways = Arrays.asList(
+				"R-HSA-5602410",
+				"R-HSA-1362409",  // Mithocondrial iron-sulfur cluster biogenesis
+				"R-HSA-169911",  // Regulation of apoptosis
+				"R-HSA-68874",  // M/G1 Transition
+				"R-HSA-109581"  // Apoptosis
+		);
+		pathways.forEach(stId ->
+				new RendererInvoker(stId)
+						.setSave(true)
+						.setFormat("gif")
+						.render());
+	}
+
+	@Test
+	public void testHighQuality() {
+		final List<String> pathways = Arrays.asList(
+				"R-HSA-391251",  // Protein folding
+				"R-HSA-6796648" // TP53 Regulates Transcription of DNA Repair Genes
+		);
+		pathways.forEach(stId ->
+				new RendererInvoker(stId)
+						.setSave(true)
+						.setFactor(10)
 						.setFormat("jpeg")
 						.render());
 	}
@@ -197,7 +132,24 @@ public class RasterExporterTest {
 		new RendererInvoker(stId)
 				.setDecorator(decorator)
 				.setSave(true)
-				.setDebug(false)
+				.render();
+	}
+
+	@Test
+	public void testLowQuality() {
+		final String stId = "R-HSA-2173782";
+		new RendererInvoker(stId)
+				.setSave(true)
+				.setFactor(0.1)
+				.render();
+	}
+
+	@Test
+	public void testVeryHugeQuality() {
+		final String stId = "R-HSA-2173782";
+		new RendererInvoker(stId)
+				.setSave(true)
+				.setFactor(10000)
 				.render();
 	}
 
@@ -241,39 +193,19 @@ public class RasterExporterTest {
 		return null;
 	}
 
-	@Test
-	public void testJpegColoring() {
-		final BufferedImage image = new BufferedImage(100, 100, BufferedImage.TYPE_INT_RGB);
-
-		final Graphics2D graphics = image.createGraphics();
-		graphics.setBackground(Color.WHITE);
-		graphics.clearRect(0, 0, 100, 100);
-		try {
-			ImageIO.write(image, "jpg", new File("image.jpg"));
-			ImageIO.write(image, "png", new File("image.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	private class RendererInvoker {
 		private String stId;
 		private String format = "png";
 		private Decorator decorator = null;
 		private boolean save = false;
-		private boolean debug = true;
 		private double factor = 1;
 
-		public RendererInvoker(String stId) {
+		RendererInvoker(String stId) {
 			this.stId = stId;
 		}
 
 		/**
 		 * default is png
-		 *
-		 * @param format
-		 *
-		 * @return
 		 */
 		RendererInvoker setFormat(String format) {
 			this.format = format;
@@ -281,49 +213,25 @@ public class RasterExporterTest {
 		}
 
 		/**
-		 * default is true
-		 *
-		 * @param debug
-		 *
-		 * @return
-		 */
-		public RendererInvoker setDebug(boolean debug) {
-			this.debug = debug;
-			return this;
-		}
-
-		/**
 		 * Default is null
-		 *
-		 * @param decorator
-		 *
-		 * @return
 		 */
-		public RendererInvoker setDecorator(Decorator decorator) {
+		RendererInvoker setDecorator(Decorator decorator) {
 			this.decorator = decorator;
 			return this;
 		}
 
 		/**
 		 * default is 1
-		 *
-		 * @param factor
-		 *
-		 * @return
 		 */
-		public RendererInvoker setFactor(double factor) {
+		RendererInvoker setFactor(double factor) {
 			this.factor = factor;
 			return this;
 		}
 
 		/**
 		 * Default is false
-		 *
-		 * @param save
-		 *
-		 * @return
 		 */
-		public RendererInvoker setSave(boolean save) {
+		RendererInvoker setSave(boolean save) {
 			this.save = save;
 			return this;
 		}
@@ -331,17 +239,17 @@ public class RasterExporterTest {
 		/**
 		 * This method is a real use case from the server side.
 		 */
-		public void render() {
+		void render() {
 			// Put json files in local
 			if (!download(stId)) return;
 			try {
-				System.out.println(stId);
+//				System.out.println(stId);
 				final OutputStream outputStream = save
 						? new BufferedOutputStream(new FileOutputStream(new File(IMAGES_FOLDER, stId + "." + format)))
 						: NullOutputStream.NULL_OUTPUT_STREAM;
 				// Call to service
 				RasterExporter.export(stId, DIAGRAMS_FOLDER.getAbsolutePath(),
-						"modern", decorator, format, outputStream, factor, debug);
+						"modern", decorator, format, outputStream, factor);
 				outputStream.flush();
 				outputStream.close();
 				System.gc();
@@ -353,5 +261,3 @@ public class RasterExporterTest {
 
 	}
 }
-
-
