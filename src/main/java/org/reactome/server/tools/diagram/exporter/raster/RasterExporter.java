@@ -63,6 +63,7 @@ public class RasterExporter {
 		final Diagram diagram = ResourcesFactory.getDiagram(diagramFolder, stId);
 		final RasterRenderer renderer = new RasterRenderer(diagram, graph, profile, decorator);
 		final BufferedImage image = renderer.render(factor, fileExtension);
+
 		ImageIO.write(image, fileExtension, output);
 	}
 
