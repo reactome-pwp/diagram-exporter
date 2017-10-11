@@ -1,11 +1,12 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
+import org.reactome.server.tools.diagram.data.layout.Edge;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
 
-import java.awt.*;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Any renderer should accept a list of DiagramObjects and be able to render
@@ -24,4 +25,6 @@ public interface Renderer {
 	void text(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items);
 
 	void segments(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items);
+
+	void highlight(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items);
 }

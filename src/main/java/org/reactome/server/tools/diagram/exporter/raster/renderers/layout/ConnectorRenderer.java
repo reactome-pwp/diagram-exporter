@@ -55,42 +55,16 @@ public class ConnectorRenderer {
 				.forEach(line -> graphics.getGraphics().draw(line));
 	}
 
-	public void fill(AdvancedGraphics2D graphics, Collection<Connector> connectors) {
-		connectors.stream()
-				.filter(connector -> connector.getEndShape() != null)
-				.map(connector -> ShapeFactory.createShape(connector.getEndShape(), graphics.getFactor()))
-				.flatMap(Collection::stream)
-				.forEach(graphics.getGraphics()::fill);
-		connectors.stream()
-				.filter(connector -> connector.getStoichiometry().getShape() != null)
-				.map(connector -> ShapeFactory.createShape(connector.getStoichiometry().getShape(), graphics.getFactor()))
-				.flatMap(Collection::stream)
-				.forEach(graphics.getGraphics()::fill);
-	}
-
-//	public void border(AdvancedGraphics2D graphics, Collection<Connector> connectors) {
-//		connectors.stream()
-//				.filter(connector -> connector.getEndShape() != null)
-//				.map(connector -> ShapeFactory.createShape(connector.getEndShape(), graphics.getFactor()))
-//				.flatMap(Collection::stream)
-//				.forEach(graphics.getGraphics()::draw);
-//		connectors.stream()
-//				.filter(connector -> connector.getStoichiometry().getShape() != null)
-//				.map(connector -> ShapeFactory.createShape(connector.getStoichiometry().getShape(), graphics.getFactor()))
-//				.flatMap(Collection::stream)
-//				.forEach(graphics.getGraphics()::draw);
-//	}
-
 	public void text(AdvancedGraphics2D graphics, Collection<Connector> connectors) {
 		connectors.forEach(connector -> text(graphics, connector));
 	}
 
 	public void draw(AdvancedGraphics2D graphics, Set<Connector> connectors, Paint fill, Paint border) {
-		final Map<Boolean, Set<java.awt.Shape>> divided = divideConnectorShapes(connectors, graphics);
+		final Map<Boolean, Set<java.awt.Shape>> divided = divide(connectors, graphics);
 		fillBlackAndWhite(graphics, border, fill, divided);
 	}
 
-	private Map<Boolean, Set<java.awt.Shape>> divideConnectorShapes(Collection<Connector> connectors, AdvancedGraphics2D graphics) {
+	private Map<Boolean, Set<java.awt.Shape>> divide(Collection<Connector> connectors, AdvancedGraphics2D graphics) {
 		return divide(graphics, connectors.stream()
 				.flatMap(connector -> Stream.of(connector.getEndShape(), connector.getStoichiometry().getShape())));
 	}
@@ -123,4 +97,13 @@ public class ConnectorRenderer {
 				.forEach(graphics.getGraphics()::draw);
 	}
 
+	public void highlight(AdvancedGraphics2D graphics, Set<Connector> connectors) {
+		connectors.stream()
+				.map(Connector::getEndShape)
+				.filter(Objects::nonNull)
+				.map(shape -> ShapeFactory.createShape(shape, graphics.getFactor()))
+				.flatMap(Collection::stream)
+				.forEach(graphics.getGraphics()::draw);
+
+	}
 }

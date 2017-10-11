@@ -2,9 +2,11 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.Node;
+import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledNodeProperties;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -32,7 +34,7 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 	public void fill(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
 		items.stream()
 				.map(node -> shape(graphics, node))
-				.forEach(shape -> graphics.getGraphics().fill(shape));
+				.forEach(graphics.getGraphics()::fill);
 	}
 
 	/**
@@ -64,17 +66,22 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 
 	@Override
 	public void text(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
-		final Collection<Node> nodes = (Collection<Node>) items;
+		final Collection<? extends NodeCommon> nodes = (Collection<? extends NodeCommon>) items;
 		nodes.forEach(node -> TextRenderer.drawText(graphics, node));
 	}
 
 	@Override
 	public void cross(AdvancedGraphics2D graphics, Collection<Node> nodes) {
 		nodes.stream()
-				.filter(node -> node.getIsCrossed() != null)
-				.filter(Node::getIsCrossed)
+				.filter(this::isCrossed)
 				.map(Node::getProp)
-				.forEach(graphics::drawCross);
+				.map(properties -> ShapeFactory.cross(graphics, properties))
+				.flatMap(Collection::stream)
+				.forEach(graphics.getGraphics()::draw);
+	}
+
+	private boolean isCrossed(Node node) {
+		return node.getIsCrossed() != null && node.getIsCrossed();
 	}
 
 	/**

@@ -10,13 +10,14 @@ import org.reactome.server.tools.diagram.exporter.DiagramExporter;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
-import org.reactome.server.tools.diagram.exporter.pptx.PowerPointExporter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class ResourcesFactory {
@@ -43,10 +44,10 @@ public class ResourcesFactory {
 	}
 
 	public static Diagram getDiagram(String staticFolder, String stId) throws DiagramJsonDeserializationException, DiagramJsonNotFoundException {
-	    String pathway = staticFolder + "/" + stId + ".json";
+	    final Path pathway = Paths.get(staticFolder, stId + ".json");
 	    logger.info("Getting diagram JSON {}", pathway);
 	    try {
-	        String json = new String(Files.readAllBytes(Paths.get(pathway)));
+	        String json = new String(Files.readAllBytes(pathway));
 	        return DiagramFactory.getDiagram(json);
 	    } catch (DeserializationException e) {
 	        logger.error("Could not deserialize diagram json for pathway {}", pathway);
@@ -57,11 +58,11 @@ public class ResourcesFactory {
 	    }
 	}
 
-	public static Graph getGraph(String staticFolder, String stId) throws DiagramJsonDeserializationException, DiagramJsonNotFoundException {
-		String pathway = staticFolder + "/" + stId + ".graph.json";
+	public static Graph getGraph(String diagramPath, String stId) throws DiagramJsonDeserializationException, DiagramJsonNotFoundException {
+		final Path pathway = Paths.get(diagramPath, stId + ".graph.json");
 		logger.info("Getting graph JSON {}", pathway);
 		try {
-			String json = new String(Files.readAllBytes(Paths.get(pathway)));
+			String json = new String(Files.readAllBytes(pathway));
 			return DiagramFactory.getGraph(json);
 		} catch (DeserializationException e) {
 			logger.error("Could not deserialize diagram json for pathway {}", pathway);

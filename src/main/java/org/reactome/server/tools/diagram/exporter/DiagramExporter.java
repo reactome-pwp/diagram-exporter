@@ -1,11 +1,11 @@
 package org.reactome.server.tools.diagram.exporter;
 
 import com.martiansoftware.jsap.*;
+import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
 import org.reactome.server.tools.diagram.exporter.pptx.PowerPointExporter;
-import org.reactome.server.tools.diagram.exporter.common.Decorator;
 
 import java.io.File;
 import java.util.Arrays;

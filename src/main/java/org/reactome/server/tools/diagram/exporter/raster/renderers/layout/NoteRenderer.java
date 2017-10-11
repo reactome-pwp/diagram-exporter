@@ -4,7 +4,6 @@ import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.Note;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
 
-import java.awt.*;
 import java.util.Collection;
 
 /**

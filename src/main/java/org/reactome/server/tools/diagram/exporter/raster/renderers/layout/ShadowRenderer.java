@@ -1,10 +1,8 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
-import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.data.layout.Shadow;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
-import sun.security.provider.SHA;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;

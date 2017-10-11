@@ -2,7 +2,6 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.Node;
-import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;

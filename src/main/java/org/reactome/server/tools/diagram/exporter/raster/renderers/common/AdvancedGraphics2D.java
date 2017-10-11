@@ -1,7 +1,5 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
-import org.reactome.server.tools.diagram.data.layout.NodeProperties;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
@@ -23,7 +21,7 @@ public class AdvancedGraphics2D {
 	 * Creates a AdvancedGraphics2D that contains an BufferedImage. The
 	 * AdvancedGraphics2D perform an offset to the image, so renderers will not
 	 * need to manually offset. It also contains the factor by which all
-	 * renderers have to scale elements. It contains several methods for drawing
+	 * renderers have to scale elements.
 	 */
 	public AdvancedGraphics2D(double width, double height, double factor, double x, double y, double margin, String format) {
 		switch (format.toLowerCase()) {
@@ -51,7 +49,6 @@ public class AdvancedGraphics2D {
 				RenderingHints.KEY_TEXT_ANTIALIASING,
 				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 		this.factor = factor;
-		getGraphics().setFont(FontProperties.DEFAULT_FONT);
 	}
 
 	/**
@@ -70,9 +67,9 @@ public class AdvancedGraphics2D {
 	 * </pre>
 	 * </code> You can nest both decorators: <code>
 	 * <pre>
-	 * IntNodeProperties prop = new IntNodeProperties(new
-	 * ScaledNodeProperties(properties, factor));
-	 * int scaledX = prop.intX;
+	 * IntNodeProperties prop = new IntNodeProperties(
+	 *      new ScaledNodeProperties(properties, factor));
+	 * int scaledX = prop.intX();
 	 * </pre>
 	 * </code>
 	 *
@@ -89,37 +86,10 @@ public class AdvancedGraphics2D {
 	/**
 	 * Gets the factor at which elements are being resized
 	 *
-	 * @return
+	 * @return the image factor
 	 */
 	public double getFactor() {
 		return factor;
 	}
-
-	/**
-	 * Draws a cross.
-	 *
-	 * @param prop node properties
-	 */
-	public void drawCross(NodeProperties prop) {
-		drawCross(prop.getX(), prop.getY(), prop.getWidth(), prop.getHeight());
-	}
-
-	/**
-	 * Draws a cross.
-	 *
-	 * @param x      top left x coordinate
-	 * @param y      top left y coordinate
-	 * @param width  cross width
-	 * @param height cross height
-	 */
-	public void drawCross(double x, double y, double width, double height) {
-		final int intX = Double.valueOf(factor * x).intValue();
-		final int intY = Double.valueOf(factor * y).intValue();
-		final int intW = Double.valueOf(factor * width).intValue();
-		final int intH = Double.valueOf(factor * height).intValue();
-		getGraphics().drawLine(intX, intY, intX + intW, intY + intH);
-		getGraphics().drawLine(intX, intY + intH, intX + intW, intY);
-	}
-
 
 }

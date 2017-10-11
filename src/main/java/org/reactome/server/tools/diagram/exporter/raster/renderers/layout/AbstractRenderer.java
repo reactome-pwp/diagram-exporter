@@ -38,4 +38,9 @@ public abstract class AbstractRenderer implements Renderer {
 	public void segments(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
 
 	}
+
+	@Override
+	public void highlight(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
+
+	}
 }

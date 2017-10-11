@@ -156,11 +156,6 @@ public class ShapeFactory {
 		return path;
 	}
 
-	public static Shape roundedRectangle(NodeProperties properties) {
-		return roundedRectangle(properties.getX(), properties.getY(),
-				properties.getWidth(), properties.getHeight());
-	}
-
 	public static Shape roundedRectangle(double x, double y, double width, double height) {
 		return new RoundRectangle2D.Double(
 				x,
@@ -181,7 +176,7 @@ public class ShapeFactory {
 				RendererProperties.ROUND_RECT_ARC_WIDTH);
 	}
 
-	public static Shape arrow(org.reactome.server.tools.diagram.data.layout.Shape shape, double factor) {
+	private static Shape arrow(org.reactome.server.tools.diagram.data.layout.Shape shape, double factor) {
 		final int[] xs = new int[]{
 				(int) (factor * shape.getA().getX()),
 				(int) (factor * shape.getB().getX()),
@@ -195,7 +190,7 @@ public class ShapeFactory {
 		return new Polygon(xs, ys, xs.length);
 	}
 
-	public static Shape box(org.reactome.server.tools.diagram.data.layout.Shape shape, double factor) {
+	private static Shape box(org.reactome.server.tools.diagram.data.layout.Shape shape, double factor) {
 		return new Rectangle(
 				(int) (factor * shape.getA().getX()),
 				(int) (factor * shape.getA().getY()),
@@ -267,5 +262,16 @@ public class ShapeFactory {
 		final double x1 = to.getX() * graphics.getFactor();
 		final double y1 = to.getY() * graphics.getFactor();
 		return new Line2D.Double(x, y, x1, y1);
+	}
+
+	public static List<Shape> cross(AdvancedGraphics2D graphics, NodeProperties properties) {
+		final NodeProperties prop = new ScaledNodeProperties(properties, graphics.getFactor());
+		return Arrays.asList(
+				new Line2D.Double(prop.getX(), prop.getY(),
+						prop.getX() + prop.getWidth(),
+						prop.getY() + prop.getHeight()),
+				new Line2D.Double(prop.getX(), prop.getY() + prop.getHeight(),
+						prop.getX() + prop.getWidth(), prop.getY())
+		);
 	}
 }

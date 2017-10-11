@@ -2,7 +2,8 @@ package org.reactome.server.tools.diagram.exporter.raster;
 
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.io.output.NullOutputStream;
+import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.reactome.server.tools.diagram.data.DiagramFactory;
@@ -14,13 +15,17 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
 
-import java.io.*;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.Charset;
 import java.util.Arrays;
-import java.util.LinkedList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -30,24 +35,29 @@ public class RasterExporterTest {
 	private static final String host = "http://reactomerelease.oicr.on.ca/download/current/diagram/";
 	private static final File DIAGRAMS_FOLDER = new File("test-diagrams");
 	private static final File IMAGES_FOLDER = new File("test-images");
+	private static final String MODERN = "modern";
 
 	@BeforeClass
 	public static void beforeClass() {
-		// Create the output stream
 		IMAGES_FOLDER.mkdirs();
 		DIAGRAMS_FOLDER.mkdirs();
-		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-			removeDir(IMAGES_FOLDER);
-			removeDir(DIAGRAMS_FOLDER);
-		}));
+	}
+
+	@AfterClass
+	public static void afterClass() {
+		removeDir(IMAGES_FOLDER);
+		removeDir(DIAGRAMS_FOLDER);
 	}
 
 	private static void removeDir(File dir) {
 		final File[] files = dir.listFiles();
 		if (files != null)
 			for (File file : files)
-				file.delete();
-		dir.delete();
+				if (!file.delete())
+					System.err.println("Couldn't delete " + file);
+		if (!dir.delete()) {
+			System.err.println("Couldn't delete " + dir);
+		}
 	}
 
 	@Test
@@ -58,23 +68,17 @@ public class RasterExporterTest {
 		final List<Long> analysis = getIdsFor("Q13177", graph);
 		final List<Long> flags = getIdsFor("O60313", graph);
 		selected.add(211734L);
-		final Decorator decorator = new Decorator(flags, selected, analysis);
-		new RendererInvoker(stId)
-				.setDecorator(decorator)
-				.setSave(true)
-				.render();
+		final Decorator decorator = new Decorator(flags, selected);
+		renderSilent(stId, "png", 1, decorator, MODERN);
 	}
 
 	@Test
 	public void testDecorationDisease() {
 		final String stId = "R-HSA-5602410";
-		final List<Long> selected = Arrays.asList(5602549L);
+		final List<Long> selected = Collections.singletonList(5602549L);
 //		final List<Long> selected = Arrays.asList(5602649L);
-		final Decorator decorator = new Decorator(null, selected, null);
-		new RendererInvoker(stId)
-				.setDecorator(decorator)
-				.setSave(true)
-				.render();
+		final Decorator decorator = new Decorator(null, selected);
+		renderSilent(stId, "png", 1, decorator, MODERN);
 	}
 
 	@Test
@@ -82,31 +86,19 @@ public class RasterExporterTest {
 		final List<String> pathways = Arrays.asList(
 				"R-HSA-5602410",
 				"R-HSA-1362409",  // Mithocondrial iron-sulfur cluster biogenesis
-				"R-HSA-169911",  // Regulation of apoptosis
-				"R-HSA-68874",  // M/G1 Transition
-				"R-HSA-109581"  // Apoptosis
+				"R-HSA-169911"  // Regulation of apoptosis
 		);
-		pathways.forEach(stId ->
-				new RendererInvoker(stId)
-						.setSave(true)
-						.setFormat("jpeg")
-						.render());
+		pathways.forEach(stId -> renderToFile(stId, "jpeg", 1, null, MODERN));
 	}
 
 	@Test
 	public void testGif() {
 		final List<String> pathways = Arrays.asList(
-				"R-HSA-5602410",
-				"R-HSA-1362409",  // Mithocondrial iron-sulfur cluster biogenesis
 				"R-HSA-169911",  // Regulation of apoptosis
 				"R-HSA-68874",  // M/G1 Transition
 				"R-HSA-109581"  // Apoptosis
 		);
-		pathways.forEach(stId ->
-				new RendererInvoker(stId)
-						.setSave(true)
-						.setFormat("gif")
-						.render());
+		pathways.forEach(stId -> renderToFile(stId, "gif", 1, null, MODERN));
 	}
 
 	@Test
@@ -115,12 +107,7 @@ public class RasterExporterTest {
 				"R-HSA-391251",  // Protein folding
 				"R-HSA-6796648" // TP53 Regulates Transcription of DNA Repair Genes
 		);
-		pathways.forEach(stId ->
-				new RendererInvoker(stId)
-						.setSave(true)
-						.setFactor(10)
-						.setFormat("jpeg")
-						.render());
+		pathways.forEach(stId -> renderToFile(stId, "png", 10, null, MODERN));
 	}
 
 	@Test
@@ -129,28 +116,25 @@ public class RasterExporterTest {
 		final Graph graph = getGraph(stId);
 		final List<Long> ids = getIdsFor("R-HSA-2168880", graph);
 		final Decorator decorator = new Decorator(null, ids);
-		new RendererInvoker(stId)
-				.setDecorator(decorator)
-				.setSave(true)
-				.render();
+		renderSilent(stId, "png", 1, decorator, MODERN);
 	}
 
 	@Test
 	public void testLowQuality() {
 		final String stId = "R-HSA-2173782";
-		new RendererInvoker(stId)
-				.setSave(true)
-				.setFactor(0.1)
-				.render();
+		renderSilent(stId, "png", 0.1, null, MODERN);
 	}
 
 	@Test
 	public void testVeryHugeQuality() {
 		final String stId = "R-HSA-2173782";
-		new RendererInvoker(stId)
-				.setSave(true)
-				.setFactor(10000)
-				.render();
+		renderToFile(stId, "jpg", 10000, null, MODERN);
+	}
+
+	@Test
+	public void testProfileStandard() {
+		final String stId = "R-HSA-2173782";
+		renderToFile(stId, "jpg", 1, null, "standard");
 	}
 
 	private List<Long> getIdsFor(String prot, Graph graph) {
@@ -193,71 +177,27 @@ public class RasterExporterTest {
 		return null;
 	}
 
-	private class RendererInvoker {
-		private String stId;
-		private String format = "png";
-		private Decorator decorator = null;
-		private boolean save = false;
-		private double factor = 1;
-
-		RendererInvoker(String stId) {
-			this.stId = stId;
+	private void renderToFile(String stId, String ext, int factor, Decorator decorator, String profile) {
+		if (!download(stId))
+			Assert.fail("Diagram " + stId + " not found");
+		try {
+			final BufferedImage image = RasterExporter.export(stId, ext, factor, decorator, profile, DIAGRAMS_FOLDER.getAbsolutePath());
+			final File file = new File(IMAGES_FOLDER, stId + "." + ext);
+			ImageIO.write(image, ext, file);
+		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | IOException | DiagramProfileException e) {
+			e.printStackTrace();
 		}
-
-		/**
-		 * default is png
-		 */
-		RendererInvoker setFormat(String format) {
-			this.format = format;
-			return this;
-		}
-
-		/**
-		 * Default is null
-		 */
-		RendererInvoker setDecorator(Decorator decorator) {
-			this.decorator = decorator;
-			return this;
-		}
-
-		/**
-		 * default is 1
-		 */
-		RendererInvoker setFactor(double factor) {
-			this.factor = factor;
-			return this;
-		}
-
-		/**
-		 * Default is false
-		 */
-		RendererInvoker setSave(boolean save) {
-			this.save = save;
-			return this;
-		}
-
-		/**
-		 * This method is a real use case from the server side.
-		 */
-		void render() {
-			// Put json files in local
-			if (!download(stId)) return;
-			try {
-//				System.out.println(stId);
-				final OutputStream outputStream = save
-						? new BufferedOutputStream(new FileOutputStream(new File(IMAGES_FOLDER, stId + "." + format)))
-						: NullOutputStream.NULL_OUTPUT_STREAM;
-				// Call to service
-				RasterExporter.export(stId, DIAGRAMS_FOLDER.getAbsolutePath(),
-						"modern", decorator, format, outputStream, factor);
-				outputStream.flush();
-				outputStream.close();
-				System.gc();
-			} catch (DiagramJsonNotFoundException | DiagramProfileException
-					| DiagramJsonDeserializationException | IOException e) {
-				e.printStackTrace();
-			}
-		}
-
 	}
+
+
+	private void renderSilent(String stId, String ext, double factor, Decorator decorator, String profile) {
+		if (!download(stId))
+			Assert.fail("Diagram " + stId + " not found");
+		try {
+			RasterExporter.export(stId, ext, factor, decorator, profile, DIAGRAMS_FOLDER.getAbsolutePath());
+		} catch (DiagramJsonNotFoundException | DiagramProfileException | DiagramJsonDeserializationException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

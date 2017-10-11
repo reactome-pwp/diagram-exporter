@@ -9,6 +9,7 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeF
 
 import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -42,17 +43,34 @@ public class EdgeRenderer extends AbstractRenderer {
 				.forEach(shape -> graphics.getGraphics().draw(shape));
 	}
 
-	public void draw(AdvancedGraphics2D graphics, Set<Edge> edges, Paint fill, Paint border) {
+	@Override
+	public void highlight(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
+		final Collection<Edge> reactions = (Collection<Edge>) items;
+		reactions.stream()
+				.map(this::renderableShapes)
+				.flatMap(Collection::stream)
+				.filter(Objects::nonNull)
+				.map(shape -> ShapeFactory.createShape(shape, graphics.getFactor()))
+				.flatMap(Collection::stream)
+				.forEach(graphics.getGraphics()::draw);
+	}
+
+	public void draw(AdvancedGraphics2D graphics, Set<? extends EdgeCommon> edges, Paint fill, Paint border) {
 		final Map<Boolean, Set<java.awt.Shape>> divided = divideShapes(edges, graphics);
 		fillBlackAndWhite(graphics, border, fill, divided);
 	}
 
-	private Map<Boolean, Set<java.awt.Shape>> divideShapes(Collection<Edge> edges, AdvancedGraphics2D graphics) {
+	private Map<Boolean, Set<java.awt.Shape>> divideShapes(Set<? extends EdgeCommon> edges, AdvancedGraphics2D graphics) {
 		return divide(graphics, edges.stream()
-				.flatMap(edge -> Stream.of(edge.getReactionShape(), edge.getEndShape())));
+				.map(this::renderableShapes)
+				.flatMap(Collection::stream));
 	}
 
-	protected Map<Boolean, Set<java.awt.Shape>> divide(AdvancedGraphics2D graphics, Stream<Shape> shapeStream) {
+	protected List<Shape> renderableShapes(EdgeCommon edge) {
+		return Arrays.asList(edge.getReactionShape(), edge.getEndShape());
+	}
+
+	private Map<Boolean, Set<java.awt.Shape>> divide(AdvancedGraphics2D graphics, Stream<Shape> shapeStream) {
 		final Map<Boolean, Set<java.awt.Shape>> shapes = new HashMap<>();
 		shapes.put(true, new HashSet<>());
 		shapes.put(false, new HashSet<>());

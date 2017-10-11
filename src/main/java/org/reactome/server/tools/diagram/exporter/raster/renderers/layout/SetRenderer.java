@@ -4,12 +4,13 @@ import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.*;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledNodeProperties;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 
 import java.awt.*;
 import java.util.Collection;
-
-import static org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties.BORDER_STROKE;
 
 /**
  * Sets add an inner border.
@@ -47,6 +48,9 @@ public class SetRenderer extends NodeAbstractRenderer {
 
 	@Override
 	public void text(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
-		items.forEach(node -> TextRenderer.drawText(graphics, (NodeCommon) node, RendererProperties.SEPARATION));
+		final Collection<NodeCommon> nodes = (Collection<NodeCommon>) items;
+		// Adds 1*factor padding to the inner rectangle
+		final double padding = RendererProperties.SEPARATION + graphics.getFactor();
+		nodes.forEach(node -> TextRenderer.drawText(graphics, node, padding));
 	}
 }
