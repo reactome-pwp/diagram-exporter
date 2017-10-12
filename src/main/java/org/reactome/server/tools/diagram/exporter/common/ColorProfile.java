@@ -1,24 +1,21 @@
-package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
+package org.reactome.server.tools.diagram.exporter.common;
 
-import org.reactome.server.tools.diagram.data.layout.Shadow;
-import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
+import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.pptx.model.Stylesheet;
 import org.reactome.server.tools.diagram.exporter.raster.RenderType;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 
 import java.awt.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class ColorProfile {
 
-	private final static Pattern RGBA = Pattern.compile("^rgba\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*((0.[1-9])|[01])\\s*\\)$");
 	private static final List<String> LINKS = Arrays.asList("Interaction", "EntitySetAndEntitySetLink", "EntitySetAndMemberLink");
 
 	/**
@@ -35,7 +32,7 @@ public class ColorProfile {
 	 * Computes the color of the "stroke" property for the given renderingClass
 	 * based on the renderType
 	 *
-	 * @param profile        the profile to extract the color from
+	 * @param profile        the diagram to extract the color from
 	 * @param renderingClass the class of the object to paint
 	 * @param renderType     the render type to choose between normal, light,
 	 *                       fadeout or disease
@@ -68,7 +65,7 @@ public class ColorProfile {
 	 * Computes the color of the "fill" property for the given renderingClass
 	 * based on the renderType
 	 *
-	 * @param profile        the profile to extract the color from
+	 * @param profile        the diagram to extract the color from
 	 * @param renderingClass the class of the object to paint
 	 * @param renderType     the render type to choose between normal, light or
 	 *                       fadeout
@@ -123,12 +120,12 @@ public class ColorProfile {
 
 	private static void addProfile(DiagramProfile profile) {
 		final Map<String, Paint> map = new HashMap<>();
-		map.put("selection", parseColor(profile.getProperties().getSelection()));
-		map.put("highlight", parseColor(profile.getProperties().getHighlight()));
-		map.put("flag", parseColor(profile.getProperties().getFlag()));
-		map.put("disease", parseColor(profile.getProperties().getDisease()));
-		map.put("text", parseColor(profile.getProperties().getText()));
-		map.put("halo", parseColor(profile.getProperties().getHalo()));
+		map.put("selection", ColorFactory.parseColor(profile.getProperties().getSelection()));
+		map.put("highlight", ColorFactory.parseColor(profile.getProperties().getHighlight()));
+		map.put("flag", ColorFactory.parseColor(profile.getProperties().getFlag()));
+		map.put("disease", ColorFactory.parseColor(profile.getProperties().getDisease()));
+		map.put("text", ColorFactory.parseColor(profile.getProperties().getText()));
+		map.put("halo", ColorFactory.parseColor(profile.getProperties().getHalo()));
 		properties.putIfAbsent(profile.getName(), map);
 	}
 
@@ -146,41 +143,4 @@ public class ColorProfile {
 		return properties.get(profile.getName()).get(type);
 	}
 
-	private static Color parseColor(String color) {
-		if (color == null) return null;
-
-		if (color.startsWith("#")) {
-			return hexToColor(color);
-		}
-		return rgbaToColor(color);
-	}
-
-	private static Color hexToColor(String input) {
-		int r = Integer.valueOf(input.substring(1, 3), 16);
-		int g = Integer.valueOf(input.substring(3, 5), 16);
-		int b = Integer.valueOf(input.substring(5, 7), 16);
-
-		return new Color(r, g, b);
-	}
-
-	private static Color rgbaToColor(String input) {
-		final Matcher m = RGBA.matcher(input);
-		if (m.matches()) {
-			return new Color(Integer.parseInt(m.group(1)),
-					Integer.parseInt(m.group(2)),
-					Integer.parseInt(m.group(3)),
-					(int) (Float.parseFloat(m.group(4)) * 255f));
-		}
-		return null;
-	}
-
-	public static Paint getShadowFill(Shadow shadow) {
-		final Color color = parseColor(shadow.getColour());
-		return new Color(color.getRed(), color.getGreen(), color.getBlue(), 20);
-	}
-
-	public static Paint getShadowLine(Shadow shadow) {
-		final Color color = parseColor(shadow.getColour());
-		return new Color(color.getRed(), color.getGreen(), color.getBlue(), 200);
-	}
 }

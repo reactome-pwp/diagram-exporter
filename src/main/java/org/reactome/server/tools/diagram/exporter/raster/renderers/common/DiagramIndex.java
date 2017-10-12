@@ -4,8 +4,11 @@ import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.data.layout.*;
 import org.reactome.server.tools.diagram.exporter.common.Decorator;
+import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
+import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
+import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
+import org.reactome.server.tools.diagram.exporter.common.analysis.model.*;
 import org.reactome.server.tools.diagram.exporter.raster.AnalysisType;
-import org.reactome.server.tools.diagram.exporter.raster.RenderType;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -20,55 +23,18 @@ import java.util.stream.Stream;
  */
 public class DiagramIndex {
 
-	/*
-	This will order the node rendering based on the order they are declared in
-	RenderType. For instance, if RenderType is NORMAL, FADEOUT, DISEASE, normal
-	nodes will be rendered first, then fadeout and finally diseases.
-	 */
-	private static final Comparator<RenderType> RENDER_TYPE_COMPARATOR = new Comparator<RenderType>() {
-		// The index will make sorting faster than values().indexOf()
-		final Map<RenderType, Integer> index = new HashMap<>();
-
-		{
-			// If the order in which RenderType values are declared is
-			// arbitrary then change RenderType.values() with the desired
-			// order: DISEASE, NORMAL, ...
-			final List<RenderType> order = Arrays.asList(RenderType.values());
-			for (int i = 0; i < RenderType.values().length; i++)
-				index.put(order.get(i), i);
-		}
-
-		@Override
-		public int compare(RenderType a, RenderType b) {
-			return Integer.compare(index.get(a), index.get(b));
-		}
-	};
-
 	private final Diagram diagram;
 	private final Graph graph;
 	private Decorator decorator;
 	private AnalysisType analysisType;
 
 	private Map<Long, DiagramObject> diagramIndex;
-	//	private Map<Long, DiagramObject> diagramReactomeIndex;
 	private Map<Long, GraphNode> graphIndex;
 
-	private Map<String, Set<Node>> selectedNodes;
-	private Map<RenderType, Map<String, Set<Edge>>> selectedReactions;
-	private Map<RenderType, Map<String, Set<Connector>>> selectedConnectors;
-
-	private Map<String, Set<Node>> flagNodes;
-
-	private Map<String, Set<Edge>> haloReactions;
-	private Map<String, Set<Node>> haloNodes;
-	private Map<String, Set<Connector>> haloConnectors;
-
-	private Map<RenderType, Map<String, Set<Node>>> classifiedNodes;
-	private Map<RenderType, Map<String, Set<Edge>>> classifiedReactions;
-	private Map<RenderType, Map<String, Set<Connector>>> classifiedConnectors;
-	private Map<RenderType, Map<String, Set<Link>>> links;
-	private Set<Edge> flagReactions;
-	private HashSet<Connector> flagConnectors;
+	private Set<Long> selected = new TreeSet<>();
+	private Set<Long> flags = new TreeSet<>();
+	private Set<Long> haloed = new HashSet<>();
+	private Map<String, Double> analysisIndex = new HashMap<>();
 
 	/**
 	 * Computes the maps of nodes, reactions and connectors so they are grouped
@@ -87,89 +53,35 @@ public class DiagramIndex {
 		this.analysisType = analysisType;
 		createIndexes();
 		collect();
+		analysis();
 	}
 
 	private void createIndexes() {
 		diagramIndex = new HashMap<>();
-//		diagramReactomeIndex = new HashMap<>();
-		graphIndex = new HashMap<>();
 		Stream.of(diagram.getEdges(), diagram.getNodes(), diagram.getLinks(),
 				diagram.getNotes())
 				.flatMap(Collection::stream)
-				.forEach(item -> {
-					diagramIndex.put(item.getId(), item);
-//					diagramReactomeIndex.put(item.getReactomeId(), item);
-				});
+				.forEach(item -> diagramIndex.put(item.getId(), item));
+		graphIndex = new HashMap<>();
 		Stream.of(graph.getEdges(), graph.getNodes())
 				.flatMap(Collection::stream)
 				.forEach(item -> graphIndex.put(item.getDbId(), item));
 	}
 
 	private void collect() {
-		classifiedNodes = new TreeMap<>(RENDER_TYPE_COMPARATOR);
-		classifiedReactions = new TreeMap<>(RENDER_TYPE_COMPARATOR);
-		classifiedConnectors = new TreeMap<>(RENDER_TYPE_COMPARATOR);
-		classifyNodes();
-		classifyReactions();
 		if (decorator != null) {
 			selectNodes();
 			selectReactions();
 		}
-		classifyLinks();
 	}
 
-	private void classifyNodes() {
-		diagram.getNodes().forEach(node ->
-				classifiedNodes
-						.computeIfAbsent(getRenderType(node), k -> new HashMap<>())
-						.computeIfAbsent(node.getRenderableClass(), k -> new HashSet<>())
-						.add(node));
-	}
-
-	private void classifyReactions() {
-
-		diagram.getEdges().forEach(reaction -> {
-			// Classify edges by renderingClass/renderType
-			classifiedReactions
-					.computeIfAbsent(getRenderType(reaction), k -> new HashMap<>())
-					.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>())
-					.add(reaction);
-			// Rendering class of connectors is the same as the reaction they
-			// belong to
-			streamParticipants(reaction)
-					.map(Node::getConnectors)
-					.flatMap(Collection::stream)
-					.filter(connector -> connector.getEdgeId().equals(reaction.getId()))
-					.forEach(connector -> classifiedConnectors
-							.computeIfAbsent(getRenderType(connector), k -> new HashMap<>())
-							.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>())
-							.add(connector));
-		});
-
-	}
-
-
-	private void classifyLinks() {
-		links = diagram.getLinks().stream()
-				.collect(Collectors.groupingBy(this::getRenderType,
-						Collectors.groupingBy(DiagramObject::getRenderableClass, Collectors.toSet())));
-	}
 
 	private void selectNodes() {
-		selectedNodes = new HashMap<>();
-		haloNodes = new HashMap<>();
-		flagNodes = new HashMap<>();
-		haloReactions = new HashMap<>();
-		haloConnectors = new HashMap<>();
 		diagram.getNodes().forEach(node -> {
 			// Select node
 			if (decorator.getSelected().contains(node.getReactomeId())) {
-				selectedNodes
-						.computeIfAbsent(node.getRenderableClass(), k -> new HashSet<>())
-						.add(node);
-				haloNodes.
-						computeIfAbsent(node.getRenderableClass(), k -> new HashSet<>())
-						.add(node);
+				selected.add(node.getId());
+				haloed.add(node.getId());
 				node.getConnectors().forEach(connector -> {
 					final Edge reaction = (Edge) diagramIndex.get(connector.getEdgeId());
 					haloEdge(reaction, false);
@@ -177,27 +89,20 @@ public class DiagramIndex {
 			}
 			// Flag node
 			if (decorator.getFlags().contains(node.getReactomeId()))
-				flagNodes.computeIfAbsent(node.getRenderableClass(), k -> new HashSet<>()).add(node);
+				flags.add(node.getId());
 		});
 	}
 
 	private void selectReactions() {
-		selectedReactions = new TreeMap<>(RENDER_TYPE_COMPARATOR);
-		selectedConnectors = new TreeMap<>(RENDER_TYPE_COMPARATOR);
-		flagReactions = new HashSet<>();
-		flagConnectors = new HashSet<>();
-		diagram.getEdges().forEach(reaction -> {
+			diagram.getEdges().forEach(reaction -> {
 			// Select edge
 			if (decorator.getSelected().contains(reaction.getReactomeId())) {
-				selectedReactions
-						.computeIfAbsent(getRenderType(reaction), k -> new HashMap<>())
-						.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>())
-						.add(reaction);
+				selected.add(reaction.getId());
 				haloEdge(reaction, true);
 			}
 			// Flag edge
 			if (decorator.getFlags().contains(reaction.getReactomeId())) {
-				flagReactions.add(reaction);
+				flags.add(reaction.getId());
 				flagReaction(reaction);
 			}
 		});
@@ -214,26 +119,17 @@ public class DiagramIndex {
 	 *                      selectedConnectors as well
 	 */
 	private void haloEdge(Edge reaction, boolean withSelection) {
-		haloReactions
-				.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>())
-				.add(reaction);
-		final Set<Connector> connectors = haloConnectors.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>());
-		final RenderType renderType = getRenderType(reaction);
+		haloed.add(reaction.getId());
 		streamParticipants(reaction)
 				.forEach(node -> {
 					if (node.getIsFadeOut() == null || !node.getIsFadeOut())
-						haloNodes
-								.computeIfAbsent(node.getRenderableClass(), k -> new HashSet<>())
-								.add(node);
+						haloed.add(node.getId());
 					node.getConnectors().stream()
 							.filter(connector -> connector.getEdgeId().equals(reaction.getId()))
 							.forEach(connector -> {
-								connectors.add(connector);
+								haloed.add(connector.getEdgeId());
 								if (withSelection)
-									selectedConnectors
-											.computeIfAbsent(renderType, k -> new HashMap<>())
-											.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>())
-											.add(connector);
+									selected.add(connector.getEdgeId());
 							});
 				});
 	}
@@ -256,96 +152,127 @@ public class DiagramIndex {
 	}
 
 	private void flagReaction(Edge reaction) {
-		flagReactions.add(reaction);
+		flags.add(reaction.getId());
 		streamParticipants(reaction).forEach(node ->
 				node.getConnectors().stream()
 						.filter(connector -> connector.getEdgeId().equals(reaction.getId()))
-						.forEach(flagConnectors::add));
+						.map(Connector::getEdgeId)
+						.forEach(flags::add));
 	}
 
-	private RenderType getRenderType(DiagramObject item) {
-		final boolean isDisease = item.getIsDisease() != null;
-		if (item.getIsFadeOut() != null) {
-			return isDisease
-					? RenderType.DISEASE
-					: RenderType.FADE_OUT;
+//	private RenderType getRenderType(DiagramObject item) {
+//		final boolean isDisease = item.getIsDisease() != null;
+//		if (item.getIsFadeOut() != null) {
+//			return isDisease
+//					? RenderType.DISEASE
+//					: RenderType.FADE_OUT;
+//		}
+//		if (analysisType == AnalysisType.NONE) {
+//			return isDisease
+//					? RenderType.DISEASE
+//					: RenderType.NORMAL;
+//		}
+//		final GraphNode node = getNode(graph, item);
+//		if (node == null) {
+//			return isDisease
+//					? RenderType.NOT_HIT_BY_ANALYSIS_DISEASE
+//					: RenderType.NOT_HIT_BY_ANALYSIS_NORMAL;
+//		}
+//		if (isHit(node)) {
+////			return RenderType.HIT_INTERACTORS;
+//			switch (analysisType) {
+//				case SPECIES_COMPARISON:
+//				case OVERREPRESENTATION:
+//					return isDisease
+//							? RenderType.HIT_BY_ENRICHMENT_DISEASE
+//							: RenderType.HIT_BY_ENRICHMENT_NORMAL;
+//				case EXPRESSION:
+//					return isDisease
+//							? RenderType.HIT_BY_EXPRESSION_DISEASE
+//							: RenderType.HIT_BY_EXPRESSION_NORMAL;
+//				default:
+//					return RenderType.HIT_INTERACTORS;
+//			}
+//		}
+//		return isDisease
+//				? RenderType.NOT_HIT_BY_ANALYSIS_DISEASE
+//				: RenderType.NOT_HIT_BY_ANALYSIS_NORMAL;
+//	}
+//
+//	private RenderType getRenderType(Connector item) {
+//		if (item.getIsDisease() != null && item.getIsDisease())
+//			return RenderType.DISEASE;
+//		if (item.getIsFadeOut() != null && item.getIsFadeOut())
+//			return RenderType.FADE_OUT;
+//		return RenderType.NORMAL;
+//
+//	}
+
+	private void analysis() {
+		if (decorator == null)
+			return;
+		final String token = decorator.getToken();
+		if (token == null || token.isEmpty())
+			return;
+		final String stId = graph.getStId();
+		System.out.println(token);
+		try {
+			final AnalysisResult result = AnalysisClient.getAnalysisResult(token);
+			final List<ResourceSummary> summaryList = result.getResourceSummary();
+			final ResourceSummary resourceSummary = summaryList.size() == 2 ? summaryList.get(1) : summaryList.get(0);
+			final String resource = resourceSummary.getResource();
+			final FoundElements foundElements = AnalysisClient.getFoundElements(stId, token, resource);
+			subPathways(token, resource);
+			System.out.printf("elements to analyse (%d)\n", foundElements.getEntities().size());
+			foundElements.getEntities().forEach(foundEntity ->
+					System.out.println(" - " + getIdsFor(foundEntity.getId())));
+//			System.out.printf("found %d entities\n", foundElements.getFoundEntities());
+			final List<String> pathways = Arrays.asList(stId);
+//			for (PathwaySummary pathwaySummary : pathwaysSummary) {
+//				System.out.println(pathwaySummary.getStId() + " " + pathwaySummary.getName());
+//			}
+		} catch (AnalysisException | AnalysisServerError e) {
+			e.printStackTrace();
 		}
-		if (analysisType == AnalysisType.NONE) {
-			return isDisease
-					? RenderType.DISEASE
-					: RenderType.NORMAL;
-		}
-		final GraphNode node = getNode(graph, item);
-		if (node == null) {
-			return isDisease
-					? RenderType.NOT_HIT_BY_ANALYSIS_DISEASE
-					: RenderType.NOT_HIT_BY_ANALYSIS_NORMAL;
-		}
-		if (isHit(node)) {
-//			return RenderType.HIT_INTERACTORS;
-			switch (analysisType) {
-				case SPECIES_COMPARISON:
-				case OVERREPRESENTATION:
-					return isDisease
-							? RenderType.HIT_BY_ENRICHMENT_DISEASE
-							: RenderType.HIT_BY_ENRICHMENT_NORMAL;
-				case EXPRESSION:
-					return isDisease
-							? RenderType.HIT_BY_EXPRESSION_DISEASE
-							: RenderType.HIT_BY_EXPRESSION_NORMAL;
-				default:
-					return RenderType.HIT_INTERACTORS;
+
+
+	}
+
+	private void subPathways(String token, String resource) throws AnalysisServerError, AnalysisException {
+		// I need a list of process nodes (id, stid, displayname) with %
+		// 1 list of processnodes (stid)
+		final List<String> subPathways = diagram.getNodes().stream()
+				.filter(node -> node.getRenderableClass().equals("ProcessNode"))
+				.map(node -> graphIndex.get(node.getReactomeId()).getStId())
+				.collect(Collectors.toList());
+		// 2 call analysis
+		final PathwaySummary[] pathwaysSummary = AnalysisClient.getPathwaysSummary(subPathways, token, resource);
+		// extract %
+		for (PathwaySummary summary : pathwaysSummary) {
+			final String stId = summary.getStId();
+			final EntityStatistics entities = summary.getEntities();
+			double percentage = 0.0;
+			int found = 0;
+			int total = 0;
+			if (entities != null) {
+				found = entities.getFound();
+				total = entities.getTotal();
+				percentage = (double) found / total;
 			}
+			System.out.printf("%s %d/%d(%.3f)\n", stId, found, total, percentage);
+			analysisIndex.put(stId, percentage);
 		}
-		return isDisease
-				? RenderType.NOT_HIT_BY_ANALYSIS_DISEASE
-				: RenderType.NOT_HIT_BY_ANALYSIS_NORMAL;
+		System.out.printf("pathways to analyse (%d)\n", subPathways.size());
+		subPathways.forEach(s -> System.out.println(" - " + s));
 	}
 
-	private RenderType getRenderType(Connector item) {
-		if (item.getIsDisease() != null && item.getIsDisease())
-			return RenderType.DISEASE;
-		if (item.getIsFadeOut() != null && item.getIsFadeOut())
-			return RenderType.FADE_OUT;
-		return RenderType.NORMAL;
-
-	}
-
-	public Map<String, Set<Node>> getSelectedNodes() {
-		return selectedNodes;
-	}
-
-	public Map<String, Set<Node>> getFlagNodes() {
-		return flagNodes;
-	}
-
-	public Map<RenderType, Map<String, Set<Connector>>> getSelectedConnectors() {
-		return selectedConnectors;
-	}
-
-	public Map<RenderType, Map<String, Set<Edge>>> getSelectedReactions() {
-		return selectedReactions;
-	}
-
-
-	public Map<RenderType, Map<String, Set<Node>>> getClassifiedNodes() {
-		return classifiedNodes;
-	}
-
-	public Map<RenderType, Map<String, Set<Edge>>> getClassifiedReactions() {
-		return classifiedReactions;
-	}
-
-	public HashSet<Connector> getFlagConnectors() {
-		return flagConnectors;
-	}
-
-	public Set<Edge> getFlagReactions() {
-		return flagReactions;
-	}
-
-	public Map<RenderType, Map<String, Set<Connector>>> getClassifiedConnectors() {
-		return classifiedConnectors;
+	private List<Long> getIdsFor(String prot) {
+		// Also parents
+		return graph.getNodes().stream()
+				.filter(node -> Objects.nonNull(node.getIdentifier()))
+				.filter(node -> node.getIdentifier().equals(prot))
+				.map(GraphNode::getDbId)
+				.collect(Collectors.toList());
 	}
 
 	private boolean isHit(GraphNode item) {
@@ -358,22 +285,15 @@ public class DiagramIndex {
 				.findFirst().orElse(null);
 	}
 
-
-	public Map<String, Set<Node>> getHaloNodes() {
-		return haloNodes;
-
+	public Set<Long> getSelected() {
+		return selected;
 	}
 
-	public Map<String, Set<Connector>> getHaloConnectors() {
-		return haloConnectors;
-
+	public Set<Long> getFlags() {
+		return flags;
 	}
 
-	public Map<String, Set<Edge>> getHaloReactions() {
-		return haloReactions;
-	}
-
-	public Map<RenderType, Map<String, Set<Link>>> getLinks() {
-		return links;
+	public Set<Long> getHaloed() {
+		return haloed;
 	}
 }

@@ -22,7 +22,7 @@ public class DiagramExporter {
         SimpleJSAP jsap = new SimpleJSAP(DiagramExporter.class.getName(), "Export a given diagram to Power Point",
                 new Parameter[]{
                         new FlaggedOption("stId",          JSAP.STRING_PARSER, null,     JSAP.REQUIRED,     'i', "stId",           "Stable Identifier of the diagram"),
-                        new FlaggedOption("colourProfile", JSAP.STRING_PARSER, "Modern", JSAP.NOT_REQUIRED, 'p', "colourProfile",  "The colour profile [Modern or Standard]"),
+                        new FlaggedOption("colourProfile", JSAP.STRING_PARSER, "Modern", JSAP.NOT_REQUIRED, 'p', "colourProfile",  "The colour diagram [Modern or Standard]"),
                         new FlaggedOption("outputFolder",  JSAP.STRING_PARSER, null,     JSAP.REQUIRED,     'o', "output",         "The output folder"),
                         new FlaggedOption("staticFolder",  JSAP.STRING_PARSER, null,     JSAP.REQUIRED,     'j', "static",         "The static json's folder"),
                         new FlaggedOption("license",       JSAP.STRING_PARSER, null,     JSAP.NOT_REQUIRED, 'l', "license",        "Software License file"),
@@ -52,7 +52,7 @@ public class DiagramExporter {
 
         List<Long> flgs = Arrays.stream(config.getLongArray("flg")).boxed().collect(Collectors.toList());
         List<Long> sels = Arrays.stream(config.getLongArray("sel")).boxed().collect(Collectors.toList());
-        Decorator decorator = new Decorator(flgs, sels);
+        Decorator decorator = new Decorator(flgs, sels, null);
 
         File finalPptx = PowerPointExporter.export(stId, staticFolder, colourProfile, outputFolder.getPath(), decorator, lic);
 

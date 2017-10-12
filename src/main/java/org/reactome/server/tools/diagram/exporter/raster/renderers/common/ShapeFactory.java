@@ -256,16 +256,13 @@ public class ShapeFactory {
 		}
 	}
 
-	public static Shape line(AdvancedGraphics2D graphics, Coordinate from, Coordinate to) {
-		final double x = from.getX() * graphics.getFactor();
-		final double y = from.getY() * graphics.getFactor();
-		final double x1 = to.getX() * graphics.getFactor();
-		final double y1 = to.getY() * graphics.getFactor();
-		return new Line2D.Double(x, y, x1, y1);
+	public static Shape line(double factor, Coordinate from, Coordinate to) {
+		return new Line2D.Double(factor * from.getX(),
+				factor * from.getY(), factor * to.getX(), factor * to.getY());
 	}
 
-	public static List<Shape> cross(AdvancedGraphics2D graphics, NodeProperties properties) {
-		final NodeProperties prop = new ScaledNodeProperties(properties, graphics.getFactor());
+	public static List<Shape> cross(double factor, NodeProperties properties) {
+		final NodeProperties prop = new ScaledNodeProperties(properties, factor);
 		return Arrays.asList(
 				new Line2D.Double(prop.getX(), prop.getY(),
 						prop.getX() + prop.getWidth(),

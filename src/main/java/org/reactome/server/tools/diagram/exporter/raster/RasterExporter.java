@@ -2,7 +2,9 @@ package org.reactome.server.tools.diagram.exporter.raster;
 
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
-import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
+import org.reactome.server.tools.diagram.data.profile.analysis.AnalysisProfile;
+import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
+import org.reactome.server.tools.diagram.data.profile.interactors.InteractorProfile;
 import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
@@ -10,7 +12,6 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 /**
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
@@ -39,13 +40,13 @@ public class RasterExporter {
 	 * </pre>
 	 * </code>
 	 *
-	 * @param stId          stable identifier of the diagram
-	 * @param ext           output format: jpg, jpeg, png or gif. Case
-	 *                      insensitive
-	 * @param factor        quality of output image. Factor represents the
-	 *                      number of pixels per point in the diagram
-	 * @param decorator     flagged and selected elements
-	 * @param profile   Color profile name (modern or standard)
+	 * @param stId        stable identifier of the diagram
+	 * @param ext         output format: jpg, jpeg, png or gif. Case
+	 *                    insensitive
+	 * @param factor      quality of output image. Factor represents the number
+	 *                    of pixels per point in the diagram
+	 * @param decorator   flagged and selected elements
+	 * @param profile     Color diagram name (modern or standard)
 	 * @param diagramPath static directory for the diagram json
 	 */
 	public static BufferedImage export(String stId, String ext, double factor, Decorator decorator, String profile, String diagramPath)
@@ -53,7 +54,9 @@ public class RasterExporter {
 		final Graph graph = ResourcesFactory.getGraph(diagramPath, stId);
 		final Diagram diagram = ResourcesFactory.getDiagram(diagramPath, stId);
 		final DiagramProfile diagramProfile = ResourcesFactory.getDiagramProfile(profile.toLowerCase());
-		final RasterRenderer renderer = new RasterRenderer(diagram, graph, decorator, diagramProfile);
+		final AnalysisProfile analysisProfile = ResourcesFactory.getAnalysisProfile("standard");
+		final InteractorProfile interactorProfile = ResourcesFactory.getInteractorsProfile("teal");
+		final RasterRenderer renderer = new RasterRenderer(diagram, graph, decorator, diagramProfile, analysisProfile, interactorProfile);
 		return renderer.render(factor, ext);
 	}
 

@@ -1,12 +1,11 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
-import org.reactome.server.tools.diagram.data.layout.Edge;
-import org.reactome.server.tools.diagram.data.layout.Node;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
-
-import java.util.Collection;
-import java.util.Set;
+import org.reactome.server.tools.diagram.data.profile.analysis.AnalysisProfile;
+import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
+import org.reactome.server.tools.diagram.data.profile.interactors.InteractorProfile;
+import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 
 /**
  * Any renderer should accept a list of DiagramObjects and be able to render
@@ -16,15 +15,5 @@ import java.util.Set;
  */
 public interface Renderer {
 
-	void cross(AdvancedGraphics2D graphics, Collection<Node> nodes);
-
-	void fill(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items);
-
-	void border(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items);
-
-	void text(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items);
-
-	void segments(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items);
-
-	void highlight(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items);
+	void draw(DiagramCanvas canvas, DiagramObject node, DiagramProfile diagramProfile, AnalysisProfile analysisProfile, InteractorProfile interactorProfile, double factor, DiagramIndex index);
 }

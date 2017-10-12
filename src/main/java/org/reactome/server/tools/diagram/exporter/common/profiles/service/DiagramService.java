@@ -24,9 +24,9 @@ public class DiagramService {
 	 *
 	 * @param stId              stable identifier of the diagram
 	 * @param diagramJsonFolder static for the diagram json
-	 * @param profileName       Color profile name
+	 * @param profileName       Color diagram name
 	 * @param outputFolder      output folder, the given folder + the color
-	 *                          profile as a folder.
+	 *                          diagram as a folder.
 	 * @param decorator         class that holds the flagged and the selected
 	 *                          elements into two different lists.
 	 *
@@ -46,9 +46,9 @@ public class DiagramService {
 	 *
 	 * @param stId              stable identifier of the diagram
 	 * @param diagramJsonFolder static for the diagram json
-	 * @param profileName       Color profile name
+	 * @param profileName       Color diagram name
 	 * @param outputFolder      output folder, the given folder + the color
-	 *                          profile as a folder.
+	 *                          diagram as a folder.
 	 * @param decorator         class that holds the flagged and the selected
 	 *                          elements into two different lists.
 	 * @param licenseFilePath   a valid Aspose Software License.
@@ -89,7 +89,7 @@ public class DiagramService {
 	 * @param factor      quality of output image. Factor represents the number
 	 *                    of pixels per point in the diagram
 	 * @param decorator   flagged and selected elements
-	 * @param profile     Color profile name (modern or standard)
+	 * @param profile     Color diagram name (modern or standard)
 	 * @param diagramPath static directory for the diagram json
 	 */
 	public BufferedImage exportToRaster(String stId, String ext, Double factor, Decorator decorator, String profile, String diagramPath)

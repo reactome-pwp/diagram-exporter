@@ -1,58 +1,59 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
-import org.reactome.server.tools.diagram.data.layout.Node;
+import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
+import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
+import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledNodeProperties;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.FillLayer;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.LineLayer;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.TextLayer;
 
 import java.awt.*;
+import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class ProcessNodeRenderer extends NodeAbstractRenderer {
 
-	private static final Paint INNER_COLOR = new Color(254, 253, 255);
+	// When it comes to analysis, alpha must be 0.75
+	private static final String ANALYSIS_INNER_COLOR = "rgba(254, 253, 255, 191)";
+	private static final String INNER_COLOR = "#fefdff";
 
 	@Override
-	public void fill(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
-		final Collection<Node> nodes = (Collection<Node>) items;
-		final List<Shape> shapes = nodes.stream()
-				.map(node -> shape(graphics, node))
-				.collect(Collectors.toList());
-		final List<Shape> inner = nodes.stream()
-				.map(node -> inner(graphics, node))
-				.collect(Collectors.toList());
-		shapes.forEach(shape -> graphics.getGraphics().fill(shape));
-		graphics.getGraphics().setPaint(INNER_COLOR);
-		inner.forEach(shape -> graphics.getGraphics().fill(shape));
+	protected void fill(FillLayer fillLayer, NodeCommon node, Shape shape, DiagramProfileNode clas, double factor, DiagramProfile diagramProfile) {
+		final String fill = clas.getFill();
+		final Shape inner = inner(factor, node);
+		final Area outer = new Area(shape);
+		outer.subtract(new Area(inner));
+		fillLayer.add(fill, outer);
+		fillLayer.add(INNER_COLOR, inner);
 	}
 
 	@Override
-	public void border(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
-		final Collection<Node> nodes = (Collection<Node>) items;
-		nodes.stream()
-				.map(node -> shape(graphics, node))
-				.forEach(shape -> graphics.getGraphics().draw(shape));
-		nodes.stream()
-				.map(node -> inner(graphics, node))
-				.forEach(shape -> graphics.getGraphics().draw(shape));
+	protected void border(LineLayer lineLayer, DiagramObject node, String border, DiagramProfile diagramProfile, DiagramIndex index, Shape shape, DiagramProfileNode clas, double factor) {
+//		final String border = computeBorderColor(node, diagramProfile, index, clas);
+		final Stroke stroke = isDashed(node)
+				? StrokeProperties.DASHED_BORDER_STROKE
+				: StrokeProperties.BORDER_STROKE;
+		lineLayer.add(border, stroke, shape);
+		lineLayer.add(border, stroke, inner(factor, (NodeCommon) node));
 	}
 
 	@Override
-	public void text(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
-		final Collection<Node> nodes = (Collection<Node>) items;
-		nodes.forEach(node -> TextRenderer.drawText(graphics, node, RendererProperties.PROCESS_NODE_INSET_WIDTH));
+	protected void text(TextLayer textLayer, NodeCommon node, double factor, DiagramProfileNode clas) {
+		final NodeProperties limits = new ScaledNodeProperties(node.getProp(), factor);
+		textLayer.add(clas.getText(), node.getDisplayName(), limits, RendererProperties.PROCESS_NODE_INSET_WIDTH);
 	}
 
-	private Shape inner(AdvancedGraphics2D graphics, Node node) {
-		final NodeProperties properties = new ScaledNodeProperties(node.getProp(), graphics.getFactor());
+	private Shape inner(double factor, NodeCommon node) {
+		final NodeProperties properties = new ScaledNodeProperties(node.getProp(), factor);
 		return new Rectangle2D.Double(properties.getX() + RendererProperties.PROCESS_NODE_INSET_WIDTH,
 				properties.getY() + RendererProperties.PROCESS_NODE_INSET_WIDTH,
 				properties.getWidth() - 2 * RendererProperties.PROCESS_NODE_INSET_WIDTH,

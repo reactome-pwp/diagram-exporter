@@ -1,10 +1,12 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
-import org.reactome.server.tools.diagram.data.layout.Node;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
-
-import java.util.Collection;
+import org.reactome.server.tools.diagram.data.profile.analysis.AnalysisProfile;
+import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
+import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
+import org.reactome.server.tools.diagram.data.profile.interactors.InteractorProfile;
+import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 
 /**
  * empty renderer. Drawing with it will no have effects in the graphics.
@@ -13,34 +15,40 @@ import java.util.Collection;
  */
 public abstract class AbstractRenderer implements Renderer {
 
-
-	@Override
-	public void cross(AdvancedGraphics2D graphics, Collection<Node> nodes) {
-
+	static DiagramProfileNode getDiagramProfileNode(String rClass, DiagramProfile diagramProfile) {
+		switch (rClass) {
+			case "Chemical":
+				return diagramProfile.getChemical();
+			case "Complex":
+				return diagramProfile.getComplex();
+			case "Entity":
+//				return diagramProfile.getEntity();
+			case "EntitySet":
+				return diagramProfile.getEntityset();
+			case "Gene":
+				return diagramProfile.getGene();
+			case "ProcessNode":
+				return diagramProfile.getProcessnode();
+			case "Protein":
+				return diagramProfile.getProtein();
+			case "RNA":
+				return diagramProfile.getRna();
+			case "Reaction":
+				return diagramProfile.getReaction();
+			case "EntitySetAndEntitySetLink":
+			case "EntitySetAndMemberLink":
+			case "Interaction":
+				return diagramProfile.getLink();
+			case "FlowLine":
+				return diagramProfile.getFlowline();
+			case "Stoichiometry":
+				return diagramProfile.getStoichiometry();
+			default:
+				throw new IllegalArgumentException("Type " + rClass + " is not found in the JSON Profile.");		}
 	}
 
 	@Override
-	public void fill(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
-
-	}
-
-	@Override
-	public void border(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
-
-	}
-
-	@Override
-	public void text(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
-
-	}
-
-	@Override
-	public void segments(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
-
-	}
-
-	@Override
-	public void highlight(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items) {
+	public void draw(DiagramCanvas canvas, DiagramObject item, DiagramProfile diagramProfile, AnalysisProfile analysisProfile, InteractorProfile interactorProfile, double factor, DiagramIndex index) {
 
 	}
 }

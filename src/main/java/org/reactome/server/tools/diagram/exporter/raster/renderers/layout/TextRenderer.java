@@ -1,10 +1,8 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.Coordinate;
-import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;
+import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -20,23 +18,6 @@ public class TextRenderer {
 	private static final List<Character> WORD_SPLIT_CHARS = Arrays.asList(':', '.', '-', ',', ')', '/', '+');
 
 	/**
-	 * Draws a text with the default font, using position as the top left corner
-	 * of text. Text will be drawn in 1 line.
-	 *
-	 * @param text     text to display
-	 * @param position top left coordinate
-	 */
-	static void drawTextSingleLine(AdvancedGraphics2D graphics, String text, Coordinate position) {
-		final double x = graphics.getFactor() * position.getX() + RendererProperties.NODE_TEXT_PADDING;
-		final double y = graphics.getFactor() * position.getY() + RendererProperties.NODE_TEXT_PADDING;
-
-		final int height = graphics.getGraphics().getFontMetrics().getHeight();
-		final int baseY = (int) (y + height);
-
-		graphics.getGraphics().drawString(text, (int) x, baseY);
-	}
-
-	/**
 	 * Magic method that displays text in the assigned space. If the text does
 	 * not fit in one line, it is split in several lines. If the font size is
 	 * very large, it is lower until the text fits. Each line is centered to the
@@ -45,107 +26,33 @@ public class TextRenderer {
 	 * center of the box. This is a little big higher than strict center and is
 	 * visually better for large texts. A padding of RenderedProperties.NODE_TEXT_PADDING
 	 * is added by default.
-	 *
-	 * @param text   text to write
-	 * @param x      top left corner x coordinate
-	 * @param y      top left corner y coordinate
-	 * @param width  max width for text. A 2 * padding will be subtracted to
-	 *               this width
-	 * @param height max height for text. A 2 * padding will be subtracted to
-	 *               this height
 	 */
-	static void drawText(AdvancedGraphics2D graphics, String text, double x, double y, double width, double height) {
-		drawText(graphics, text, x, y, width, height, RendererProperties.NODE_TEXT_PADDING, true);
+	private static void drawText(Graphics2D graphics2D, String text, NodeProperties limits) {
+		drawText(graphics2D, text, limits.getX(), limits.getY(), limits.getWidth(), limits.getHeight());
 	}
 
-	/**
-	 * Displays text in the assigned space. If the text does not fit in one
-	 * line, it is split in several lines. If the font size is very large, it is
-	 * lower until the text fits. Each line is centered to the box and the whole
-	 * text is vertically centered. By default the vertical centering is
-	 * natural, i.e. text is centered at hyphens (-) height the center of the
-	 * box. This is a little big higher than strict center and is visually
-	 * better for large texts.
-	 *
-	 * @param text    text to write
-	 * @param x       top left corner x coordinate
-	 * @param y       top left corner y coordinate
-	 * @param width   max width for text. A 2 * padding will be subtracted to
-	 *                this width
-	 * @param height  max height for text. A 2 * padding will be subtracted to
-	 *                this height
-	 * @param padding minimum space from borders to text
-	 */
-	private static void drawText(AdvancedGraphics2D graphics, String text, double x, double y, double width, double height, double padding) {
-		drawText(graphics, text, x, y, width, height, padding, true);
-	}
-
-	/**
-	 * Draws text using all available space in node.getProp()
-	 */
-	static void drawText(AdvancedGraphics2D graphics, NodeCommon node) {
-		drawText(graphics, node.getDisplayName(), node.getProp().getX(),
-				node.getProp().getY(), node.getProp().getWidth(),
-				node.getProp().getHeight(), RendererProperties.NODE_TEXT_PADDING);
-	}
-
-
-	/**
-	 * Displays text in the assigned space. If the text does not fit in one
-	 * line, it is split in several lines. If the font size is very large, it is
-	 * lower until the text fits. Each line is centered to the box and the whole
-	 * text is vertically centered. By default the vertical centering is
-	 * natural, i.e. text is centered at hyphens (-) height. For smaller texts,
-	 * such us symbols or numbers, you can set naturalCentering to false.
-	 *
-	 * @param graphics        where to render
-	 * @param text            text to write
-	 * @param x               top left corner x coordinate
-	 * @param y               top left corner y coordinate
-	 * @param width           max width for text. A 2 * padding will be
-	 *                        subtracted to this width
-	 * @param height          max height for text. A 2 * padding will be
-	 *                        subtracted to this height
-	 * @param padding         absolute minimum space from borders to text
-	 * @param naturalCentered if true, text is vertically aligned to hyphens
-	 *                        (-), otherwise, it is centered to text center
-	 */
-	static void drawText(AdvancedGraphics2D graphics, String text, double x, double y, double width, double height, double padding, boolean naturalCentered) {
-		final double scaledX = graphics.getFactor() * (x) + padding;
-		final double scaledY = graphics.getFactor() * (y) + padding;
-		final double scaledW = graphics.getFactor() * (width) - 2 * padding;
-		final double scaledH = graphics.getFactor() * (height) - 2 * padding;
-		final double centerX = scaledX + scaledW * 0.5;
-
-		Font font = graphics.getGraphics().getFont();
+	private static void drawText(Graphics2D graphics2D, String text, double x, double y, double width, double height) {
+		final double centerX = x + width * 0.5;
+		Font font = graphics2D.getFont();
 		List<String> lines;
-		while ((lines = fit(graphics, scaledW, scaledH, text, font)) == null)
+		while ((lines = fit(graphics2D, width, height, text, font)) == null)
 			font = font.deriveFont((float) font.getSize() - 1);
 		// Impossible to fit even at font size 1
 		if (lines.isEmpty()) return;
-		final Font old = graphics.getGraphics().getFont();
-		graphics.getGraphics().setFont(font);
-		final int textHeight = lines.size() * graphics.getGraphics().getFontMetrics().getHeight();
-		double yOffset = scaledY + (scaledH - textHeight) * 0.5;
-		if (naturalCentered)
-			yOffset += graphics.getGraphics().getFontMetrics().getAscent();
-		else yOffset += (graphics.getGraphics().getFontMetrics().getHeight());
+		final Font old = graphics2D.getFont();
+		graphics2D.setFont(font);
+		final int textHeight = lines.size() * graphics2D.getFontMetrics().getHeight();
+		double yOffset = y + (height - textHeight) * 0.5;
+		yOffset += graphics2D.getFontMetrics().getAscent();
 //		else yOffset += 0.5 * (graphics.getFontMetrics().getAscent() + graphics.getFontMetrics().getDescent());
 		for (int i = 0; i < lines.size(); i++) {
 			final String line = lines.get(i);
-			final int lineWidth = graphics.getGraphics().getFontMetrics().charsWidth(line.toCharArray(), 0, line.length());
-			final int base = (int) (yOffset + i * graphics.getGraphics().getFontMetrics().getHeight());
+			final int lineWidth = graphics2D.getFontMetrics().charsWidth(line.toCharArray(), 0, line.length());
+			final int base = (int) (yOffset + i * graphics2D.getFontMetrics().getHeight());
 			int left = (int) (centerX - 0.5 * lineWidth);
-			graphics.getGraphics().drawString(line, left, base);
+			graphics2D.drawString(line, left, base);
 		}
-		graphics.getGraphics().setFont(old);
-//		}
-	}
-
-	static void drawText(AdvancedGraphics2D graphics, NodeCommon node, double padding) {
-		drawText(graphics, node.getDisplayName(), node.getProp().getX(),
-				node.getProp().getY(), node.getProp().getWidth(),
-				node.getProp().getHeight(), padding);
+		graphics2D.setFont(old);
 	}
 
 	/**
@@ -154,7 +61,7 @@ public class TextRenderer {
 	 * than 1, then it returns an empty list to indicate that text is impossible
 	 * to be shown, probably because image size is too small.
 	 */
-	private static List<String> fit(AdvancedGraphics2D graphics, double availableWidth, double availableHeight, String text, Font font) {
+	private static List<String> fit(Graphics2D graphics, double availableWidth, double availableHeight, String text, Font font) {
 		// Reached the limit of font size
 		if (font.getSize() < 1) return Collections.emptyList();
 		final List<String> lines = new LinkedList<>();
@@ -196,12 +103,12 @@ public class TextRenderer {
 		else return lines;
 	}
 
-	private static int computeHeight(AdvancedGraphics2D graphics, Font font, List<String> lines) {
-		return lines.size() * graphics.getGraphics().getFontMetrics(font).getHeight();
+	private static int computeHeight(Graphics2D graphics, Font font, List<String> lines) {
+		return lines.size() * graphics.getFontMetrics(font).getHeight();
 	}
 
-	private static int computeWidth(AdvancedGraphics2D graphics2D, Font font, String temp) {
-		return graphics2D.getGraphics().getFontMetrics(font).charsWidth(temp.toCharArray(), 0, temp.length());
+	private static int computeWidth(Graphics2D graphics, Font font, String temp) {
+		return graphics.getFontMetrics(font).charsWidth(temp.toCharArray(), 0, temp.length());
 	}
 
 	/**
@@ -226,7 +133,22 @@ public class TextRenderer {
 		return parts;
 	}
 
-	static void drawText(AdvancedGraphics2D graphics, String text, NodeProperties props) {
-		drawText(graphics, text, props.getX(), props.getY(), props.getWidth(), props.getHeight());
+	public static void drawTextSingleLine(Graphics2D graphics, String text, Coordinate position) {
+		drawTextSingleLine(graphics, text, position.getX(), position.getY());
+	}
+
+	private static void drawTextSingleLine(Graphics2D graphics, String text, double x, double y) {
+		final int height = graphics.getFontMetrics().getHeight();
+		final int baseY = (int) (y + height);
+		graphics.drawString(text, (int) x, baseY);
+	}
+
+	public static void drawText(Graphics2D graphics, String text, NodeProperties limits, double padding) {
+		NodeProperties newLimits = NodePropertiesFactory.get(
+				limits.getX() + padding,
+				limits.getY() + padding,
+				limits.getWidth() - 2 * padding,
+				limits.getHeight() - 2 * padding);
+		drawText(graphics, text, newLimits);
 	}
 }

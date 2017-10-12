@@ -41,7 +41,7 @@ public class AnalysisClientTest {
     }
 
     @Test
-    public void getAnalysisResultTest(){
+    public void getAnalysisResultTest() {
         try {
             FoundElements foundElements = AnalysisClient.getFoundElements("R-HSA-1257604", token, resource);
             Assert.assertTrue("Results expected for R-HSA-1257604", foundElements.getFoundEntities() > 0);
@@ -53,7 +53,7 @@ public class AnalysisClientTest {
     }
 
     @Test
-    public void getPathwaysSummaryTest(){
+    public void getPathwaysSummaryTest() {
         try {
             List<String> pathways = Arrays.asList("R-HSA-1257604", "R-HSA-199418");
             PathwaySummary[] summary = AnalysisClient.getPathwaysSummary(pathways, token, resource);

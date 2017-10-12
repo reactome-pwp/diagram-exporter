@@ -12,8 +12,10 @@ public class Decorator {
     public static final String EXTENSION = ".tmp";
     private Set<Long> flags = new HashSet<>();
     private Set<Long> selected = new HashSet<>();
+    private String token;
 
-    public Decorator(List<Long> flags, List<Long> selected) {
+    public Decorator(List<Long> flags, List<Long> selected, String token) {
+        this.token = token;
         if(flags != null) this.flags = new HashSet<>(flags);
         if (selected != null) this.selected = new HashSet<>(selected);
     }
@@ -27,6 +29,10 @@ public class Decorator {
     }
 
     public boolean isDecorated(){
-        return !flags.isEmpty() || !selected.isEmpty();
+        return !flags.isEmpty() || !selected.isEmpty() || token != null;
+    }
+
+    public String getToken() {
+        return token;
     }
 }

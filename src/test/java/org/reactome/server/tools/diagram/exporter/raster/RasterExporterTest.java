@@ -55,9 +55,8 @@ public class RasterExporterTest {
 			for (File file : files)
 				if (!file.delete())
 					System.err.println("Couldn't delete " + file);
-		if (!dir.delete()) {
+		if (!dir.delete())
 			System.err.println("Couldn't delete " + dir);
-		}
 	}
 
 	@Test
@@ -68,7 +67,7 @@ public class RasterExporterTest {
 		final List<Long> analysis = getIdsFor("Q13177", graph);
 		final List<Long> flags = getIdsFor("O60313", graph);
 		selected.add(211734L);
-		final Decorator decorator = new Decorator(flags, selected);
+		final Decorator decorator = new Decorator(flags, selected, null);
 		renderSilent(stId, "png", 1, decorator, MODERN);
 	}
 
@@ -77,7 +76,7 @@ public class RasterExporterTest {
 		final String stId = "R-HSA-5602410";
 		final List<Long> selected = Collections.singletonList(5602549L);
 //		final List<Long> selected = Arrays.asList(5602649L);
-		final Decorator decorator = new Decorator(null, selected);
+		final Decorator decorator = new Decorator(null, selected, null);
 		renderSilent(stId, "png", 1, decorator, MODERN);
 	}
 
@@ -115,7 +114,7 @@ public class RasterExporterTest {
 		final String stId = "R-HSA-2173782";
 		final Graph graph = getGraph(stId);
 		final List<Long> ids = getIdsFor("R-HSA-2168880", graph);
-		final Decorator decorator = new Decorator(null, ids);
+		final Decorator decorator = new Decorator(null, ids, null);
 		renderSilent(stId, "png", 1, decorator, MODERN);
 	}
 
@@ -132,7 +131,7 @@ public class RasterExporterTest {
 	}
 
 	@Test
-	public void testProfileStandard() {
+	public void testStandardProfile() {
 		final String stId = "R-HSA-2173782";
 		renderToFile(stId, "jpg", 1, null, "standard");
 	}

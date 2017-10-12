@@ -34,11 +34,8 @@ public class RendererFactory {
 		renderers.put("Interaction", new InteractionRenderer());
 		renderers.put("RNA", new RnaRenderer());
 		renderers.put("Gene", new GeneRenderer());
-		renderers.put("Shadow", new ShadowRenderer());
 		renderers.put("EntitySetAndMemberLink", new LinkRenderer());
 		renderers.put("EntitySetAndEntitySetLink", new LinkRenderer());
-		renderers.put("shadow", new ShadowRenderer());
-
 	}
 
 }

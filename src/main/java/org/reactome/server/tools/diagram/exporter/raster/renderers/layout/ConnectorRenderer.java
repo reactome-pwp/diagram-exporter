@@ -1,13 +1,21 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.Connector;
+import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.Shape;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
+import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
+import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
+import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledNodeProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.FillLayer;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.LineLayer;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.TextLayer;
 
 import java.awt.*;
-import java.util.*;
-import java.util.stream.Stream;
+import java.util.List;
 
 /**
  * Connectors have a similar behaviour than reactions: segments, shapes and
@@ -19,91 +27,102 @@ import java.util.stream.Stream;
  */
 public class ConnectorRenderer {
 
-	private void text(AdvancedGraphics2D graphics, Connector connector) {
-		endShapeText(graphics, connector);
-		stoichiometryText(graphics, connector);
+	public void draw(DiagramCanvas canvas, Connector connector, DiagramProfile diagramProfile, double factor, DiagramIndex index) {
+		if (connector.getIsFadeOut() != null && connector.getIsFadeOut())
+			asFadeOut(canvas, connector, diagramProfile, factor);
+		else asNormal(canvas, connector, diagramProfile, index, factor);
 	}
 
-	private void endShapeText(AdvancedGraphics2D graphics, Connector connector) {
+	private void asFadeOut(DiagramCanvas canvas, Connector connector, DiagramProfile diagramProfile, double factor) {
+		final LineLayer segments = canvas.getFadeOutSegments();
+		final FillLayer fillLayer = canvas.getFadeOutFills();
+		final LineLayer lineLayer = canvas.getFadeOutBorders();
+		final TextLayer textLayer = canvas.getFadeOutText();
+
+		final Stroke stroke = StrokeProperties.SEGMENT_STROKE;
+		final String border = diagramProfile.getReaction().getFadeOutStroke();
+		final String fill = diagramProfile.getReaction().getFadeOutFill();
 		final Shape shape = connector.getEndShape();
-		if (shape == null || shape.getS() == null)
-			return;
-		TextRenderer.drawText(graphics, shape.getS(),
-				shape.getA().getX(), shape.getA().getY(),
-				shape.getB().getX() - shape.getA().getX(),
-				shape.getB().getY() - shape.getA().getY(),
-				graphics.getFactor(), true);
+
+		connector.getSegments().stream()
+				.map(segment -> ShapeFactory.line(factor, segment.getFrom(), segment.getTo()))
+				.forEach(sh -> segments.add(border, stroke, sh));
+		// Shapes and borders
+		drawEndShape(factor, fill, border, stroke, shape, textLayer, lineLayer, fillLayer);
+		stoichiometry(connector, factor, border, fill, fillLayer, textLayer, lineLayer);
 	}
 
-	private void stoichiometryText(AdvancedGraphics2D graphics, Connector connector) {
-		if (connector.getStoichiometry() == null || connector.getStoichiometry().getShape() == null)
-			return;
-		final Shape stShape = connector.getStoichiometry().getShape();
-		TextRenderer.drawText(graphics,
-				connector.getStoichiometry().getValue().toString(),
-				stShape.getA().getX(), stShape.getA().getY(),
-				stShape.getB().getX() - stShape.getA().getX(),
-				stShape.getB().getY() - stShape.getA().getY(),
-				graphics.getFactor(), true);
+	private void asNormal(DiagramCanvas canvas, Connector connector, DiagramProfile diagramProfile, DiagramIndex index, double factor) {
+		final LineLayer segments = canvas.getSegments();
+		final FillLayer fillLayer = canvas.getFill();
+		final LineLayer lineLayer = canvas.getBorder();
+		final TextLayer textLayer = canvas.getText();
+
+		final Stroke stroke = StrokeProperties.SEGMENT_STROKE;
+		final String border = getSegmentColor(connector, diagramProfile, index);
+		final String fill = diagramProfile.getReaction().getFill();
+		final String haloColor = diagramProfile.getProperties().getHalo();
+		final Shape shape = connector.getEndShape();
+
+		connector.getSegments().stream()
+				.map(segment -> ShapeFactory.line(factor, segment.getFrom(), segment.getTo()))
+				.forEach(line -> segments.add(border, stroke, line));
+		// Shapes and borders
+		drawEndShape(factor, fill, border, stroke, shape, textLayer, lineLayer, fillLayer);
+		stoichiometry(connector, factor, border, fill, fillLayer, textLayer, lineLayer);
+
 	}
 
-	public void segments(AdvancedGraphics2D graphics, Set<Connector> connectors) {
-		connectors.stream()
-				.map(Connector::getSegments)
-				.flatMap(Collection::stream)
-				.map(segment -> ShapeFactory.line(graphics, segment.getFrom(), segment.getTo()))
-				.forEach(line -> graphics.getGraphics().draw(line));
+	private void drawEndShape(double factor, String fill, String border, Stroke borderStroke, Shape shape, TextLayer textLayer, LineLayer linel, FillLayer fillLayer) {
+		if (shape != null) {
+			final String color = isEmpty(shape) ? fill : border;
+			final List<java.awt.Shape> shapes = ShapeFactory.createShape(shape, factor);
+			shapes.forEach(s -> {
+				fillLayer.add(color, s);
+				linel.add(border, borderStroke, s);
+			});
+			if (shape.getS() != null && !shape.getS().isEmpty()) {
+				final NodeProperties limits = new ScaledNodeProperties(
+						NodePropertiesFactory.get(
+								shape.getA().getX(), shape.getA().getY(),
+								shape.getB().getX() - shape.getA().getX(),
+								shape.getB().getY() - shape.getA().getY()),
+						factor);
+				// Texts
+				textLayer.add(border, shape.getS(), limits, factor);
+			}
+		}
 	}
 
-	public void text(AdvancedGraphics2D graphics, Collection<Connector> connectors) {
-		connectors.forEach(connector -> text(graphics, connector));
+	private void stoichiometry(Connector connector, double factor, String color, String fill, FillLayer fillLayer, TextLayer textLayer, LineLayer lineLayer) {
+		if (connector.getStoichiometry() != null && connector.getStoichiometry().getShape() != null) {
+			final Shape stShape = connector.getStoichiometry().getShape();
+			final List<java.awt.Shape> shapes = ShapeFactory.createShape(stShape, factor);
+			final boolean empty = isEmpty(stShape);
+			shapes.forEach(sh -> {
+				fillLayer.add(empty ? fill : color, sh);
+				lineLayer.add(color, StrokeProperties.SEGMENT_STROKE, sh);
+			});
+			final String text = connector.getStoichiometry().getValue().toString();
+			final NodeProperties limits = new ScaledNodeProperties(
+					NodePropertiesFactory.get(
+							stShape.getA().getX(), stShape.getA().getY(),
+							stShape.getB().getX() - stShape.getA().getX(),
+							stShape.getB().getY() - stShape.getA().getY()), factor);
+			textLayer.add(color, text, limits, factor);
+		}
 	}
 
-	public void draw(AdvancedGraphics2D graphics, Set<Connector> connectors, Paint fill, Paint border) {
-		final Map<Boolean, Set<java.awt.Shape>> divided = divide(connectors, graphics);
-		fillBlackAndWhite(graphics, border, fill, divided);
-	}
+	private String getSegmentColor(Connector connector, DiagramProfile diagramProfile, DiagramIndex index) {
+		if (index.getSelected().contains(connector.getEdgeId()))
+			return diagramProfile.getProperties().getSelection();
+		if (connector.getIsDisease() != null && connector.getIsDisease())
+			return diagramProfile.getProperties().getDisease();
+		return diagramProfile.getReaction().getStroke();
 
-	private Map<Boolean, Set<java.awt.Shape>> divide(Collection<Connector> connectors, AdvancedGraphics2D graphics) {
-		return divide(graphics, connectors.stream()
-				.flatMap(connector -> Stream.of(connector.getEndShape(), connector.getStoichiometry().getShape())));
 	}
-
-	private Map<Boolean, Set<java.awt.Shape>> divide(AdvancedGraphics2D graphics, Stream<Shape> shapeStream) {
-		final Map<Boolean, Set<java.awt.Shape>> shapes = new HashMap<>();
-		shapes.put(true, new HashSet<>());
-		shapes.put(false, new HashSet<>());
-		shapeStream
-				.filter(Objects::nonNull)
-				.forEach(shape -> {
-					final java.util.List<java.awt.Shape> javaShapes = ShapeFactory.createShape(shape, graphics.getFactor());
-					shapes.get(isEmpty(shape)).addAll(javaShapes);
-				});
-		return shapes;
-	}
-
 
 	private boolean isEmpty(Shape shape) {
 		return shape.getEmpty() != null && shape.getEmpty();
-	}
-
-	private void fillBlackAndWhite(AdvancedGraphics2D graphics, Paint lineColor, Paint fillColor, Map<Boolean, Set<java.awt.Shape>> shapes) {
-		graphics.getGraphics().setPaint(fillColor);
-		shapes.get(true).forEach(graphics.getGraphics()::fill);
-		graphics.getGraphics().setPaint(lineColor);
-		shapes.get(false).forEach(graphics.getGraphics()::fill);
-		shapes.values().stream()
-				.flatMap(Collection::stream)
-				.forEach(graphics.getGraphics()::draw);
-	}
-
-	public void highlight(AdvancedGraphics2D graphics, Set<Connector> connectors) {
-		connectors.stream()
-				.map(Connector::getEndShape)
-				.filter(Objects::nonNull)
-				.map(shape -> ShapeFactory.createShape(shape, graphics.getFactor()))
-				.flatMap(Collection::stream)
-				.forEach(graphics.getGraphics()::draw);
-
 	}
 }

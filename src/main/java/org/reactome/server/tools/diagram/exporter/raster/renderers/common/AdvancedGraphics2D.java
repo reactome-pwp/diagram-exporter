@@ -14,7 +14,6 @@ import java.awt.image.BufferedImage;
 public class AdvancedGraphics2D {
 
 	private final Graphics2D graphics;
-	private final double factor;
 	private final BufferedImage image;
 
 	/**
@@ -23,7 +22,7 @@ public class AdvancedGraphics2D {
 	 * need to manually offset. It also contains the factor by which all
 	 * renderers have to scale elements.
 	 */
-	public AdvancedGraphics2D(double width, double height, double factor, double x, double y, double margin, String format) {
+	public AdvancedGraphics2D(double width, double height, double x, double y, double margin, String format) {
 		switch (format.toLowerCase()) {
 			case "gif":
 				this.image = new BufferedImage((int) width, (int) height, BufferedImage.TYPE_INT_RGB);
@@ -48,7 +47,6 @@ public class AdvancedGraphics2D {
 		this.graphics.setRenderingHint(
 				RenderingHints.KEY_TEXT_ANTIALIASING,
 				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
-		this.factor = factor;
 	}
 
 	/**
@@ -81,15 +79,6 @@ public class AdvancedGraphics2D {
 
 	public BufferedImage getImage() {
 		return image;
-	}
-
-	/**
-	 * Gets the factor at which elements are being resized
-	 *
-	 * @return the image factor
-	 */
-	public double getFactor() {
-		return factor;
 	}
 
 }
