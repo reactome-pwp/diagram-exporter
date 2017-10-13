@@ -2,7 +2,6 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.Node;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledNodeProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 
 import java.awt.*;
@@ -15,10 +14,8 @@ import java.awt.*;
 public class ProteinRenderer extends NodeAbstractRenderer {
 
 	@Override
-	protected Shape backgroundShape(double factor, DiagramObject item) {
+	protected Shape backgroundShape(DiagramObject item) {
 		final Node node = (Node) item;
-		final ScaledNodeProperties prop = new ScaledNodeProperties(node.getProp(), factor);
-		return ShapeFactory.roundedRectangle(prop.getX(),
-				prop.getY(), prop.getWidth(), prop.getHeight());
+		return ShapeFactory.roundedRectangle(node.getProp());
 	}
 }

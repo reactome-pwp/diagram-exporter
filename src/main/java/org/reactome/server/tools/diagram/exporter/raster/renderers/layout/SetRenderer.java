@@ -3,11 +3,9 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeCommon;
-import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
 import org.reactome.server.tools.diagram.exporter.raster.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledNodeProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 
 import java.awt.*;
@@ -20,21 +18,14 @@ import java.awt.*;
 public class SetRenderer extends NodeAbstractRenderer {
 
 	@Override
-	protected Shape backgroundShape(double factor, DiagramObject item) {
+	protected Shape backgroundShape(DiagramObject item) {
 		final Node node = (Node) item;
-		final NodeProperties prop = new ScaledNodeProperties(node.getProp(), factor);
-		return ShapeFactory.roundedRectangle(
-				prop.getX(), prop.getY(), prop.getWidth(), prop.getHeight());
+		return ShapeFactory.roundedRectangle(node.getProp());
 	}
 
 	@Override
-	protected Shape foregroundShape(double factor, NodeCommon node) {
-		final NodeProperties prop = new ScaledNodeProperties(node.getProp(), factor);
-		return ShapeFactory.roundedRectangle(
-				prop.getX(),
-				prop.getY(),
-				prop.getWidth(),
-				prop.getHeight(), RendererProperties.SEPARATION);
+	protected Shape foregroundShape(NodeCommon node) {
+		return ShapeFactory.roundedRectangle(node.getProp(), RendererProperties.SEPARATION);
 	}
 
 	@Override

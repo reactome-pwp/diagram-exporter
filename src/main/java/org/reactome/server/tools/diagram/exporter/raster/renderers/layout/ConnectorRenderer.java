@@ -8,7 +8,6 @@ import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
 import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledNodeProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.FillLayer;
@@ -29,7 +28,7 @@ import java.util.stream.Collectors;
  */
 public class ConnectorRenderer {
 
-	public void draw(DiagramCanvas canvas, Connector connector, DiagramProfile diagramProfile, double factor, DiagramIndex index) {
+	public void draw(DiagramCanvas canvas, Connector connector, DiagramProfile diagramProfile, DiagramIndex index) {
 		final DiagramProfileNode profile = diagramProfile.getReaction();
 		final boolean isHalo = index.getHaloed().contains(connector.getEdgeId());
 		final boolean selected = index.getSelected().contains(connector.getEdgeId());
@@ -68,7 +67,7 @@ public class ConnectorRenderer {
 		}
 		// 1 segments
 		final List<java.awt.Shape> segments = connector.getSegments().stream()
-				.map(segment -> ShapeFactory.line(factor, segment.getFrom(), segment.getTo()))
+				.map(segment -> ShapeFactory.line(segment.getFrom(), segment.getTo()))
 				.collect(Collectors.toList());
 		if (isHalo)
 			segments.forEach(shape -> canvas.getHalos().add(haloColor, haloStroke, shape));
@@ -77,7 +76,7 @@ public class ConnectorRenderer {
 		// 2 shapes
 		final Shape shape = connector.getEndShape();
 		if (shape != null) {
-			final List<java.awt.Shape> javaShapes = ShapeFactory.createShape(shape, factor);
+			final List<java.awt.Shape> javaShapes = ShapeFactory.createShape(shape);
 			// 2.1 halo
 			if (isHalo)
 				javaShapes.forEach(sh -> canvas.getFlags().add(haloColor, haloStroke, sh));
@@ -88,50 +87,47 @@ public class ConnectorRenderer {
 			javaShapes.forEach(sh -> borderLayer.add(lineColor, lineStroke, sh));
 			// 2.4 text
 			if (shape.getS() != null && !shape.getS().isEmpty()) {
-				final NodeProperties limits = new ScaledNodeProperties(
-						NodePropertiesFactory.get(
-								shape.getA().getX(), shape.getA().getY(),
-								shape.getB().getX() - shape.getA().getX(),
-								shape.getB().getY() - shape.getA().getY()),
-						factor);
-				textLayer.add(lineColor, shape.getS(), limits, factor);
+				final NodeProperties limits = NodePropertiesFactory.get(
+						shape.getA().getX(), shape.getA().getY(),
+						shape.getB().getX() - shape.getA().getX(),
+						shape.getB().getY() - shape.getA().getY());
+				textLayer.add(lineColor, shape.getS(), limits, 1);
 			}
 		}
 		if (connector.getStoichiometry() != null && connector.getStoichiometry().getShape() != null) {
 			final Shape stShape = connector.getStoichiometry().getShape();
-			final List<java.awt.Shape> shapes = ShapeFactory.createShape(stShape, factor);
+			final List<java.awt.Shape> shapes = ShapeFactory.createShape(stShape);
 			final boolean empty = isEmpty(stShape);
 			shapes.forEach(sh -> {
 				fillLayer.add(empty ? fillColor : lineColor, sh);
 				borderLayer.add(lineColor, StrokeProperties.SEGMENT_STROKE, sh);
 			});
 			final String text = connector.getStoichiometry().getValue().toString();
-			final NodeProperties limits = new ScaledNodeProperties(
+			final NodeProperties limits =
 					NodePropertiesFactory.get(
 							stShape.getA().getX(), stShape.getA().getY(),
 							stShape.getB().getX() - stShape.getA().getX(),
-							stShape.getB().getY() - stShape.getA().getY()), factor);
-			textLayer.add(lineColor, text, limits, factor);
+							stShape.getB().getY() - stShape.getA().getY());
+			textLayer.add(lineColor, text, limits, 1);
 		}
 	}
 
 
-	private void stoichiometry(Connector connector, double factor, String color, String fill, FillLayer fillLayer, TextLayer textLayer, LineLayer lineLayer) {
+	private void stoichiometry(Connector connector, String color, String fill, FillLayer fillLayer, TextLayer textLayer, LineLayer lineLayer) {
 		if (connector.getStoichiometry() != null && connector.getStoichiometry().getShape() != null) {
 			final Shape stShape = connector.getStoichiometry().getShape();
-			final List<java.awt.Shape> shapes = ShapeFactory.createShape(stShape, factor);
+			final List<java.awt.Shape> shapes = ShapeFactory.createShape(stShape);
 			final boolean empty = isEmpty(stShape);
 			shapes.forEach(sh -> {
 				fillLayer.add(empty ? fill : color, sh);
 				lineLayer.add(color, StrokeProperties.SEGMENT_STROKE, sh);
 			});
 			final String text = connector.getStoichiometry().getValue().toString();
-			final NodeProperties limits = new ScaledNodeProperties(
-					NodePropertiesFactory.get(
-							stShape.getA().getX(), stShape.getA().getY(),
-							stShape.getB().getX() - stShape.getA().getX(),
-							stShape.getB().getY() - stShape.getA().getY()), factor);
-			textLayer.add(color, text, limits, factor);
+			final NodeProperties limits = NodePropertiesFactory.get(
+					stShape.getA().getX(), stShape.getA().getY(),
+					stShape.getB().getX() - stShape.getA().getX(),
+					stShape.getB().getY() - stShape.getA().getY());
+			textLayer.add(color, text, limits, 1);
 		}
 	}
 

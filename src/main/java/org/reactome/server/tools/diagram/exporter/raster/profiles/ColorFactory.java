@@ -1,6 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.profiles;
 
 import java.awt.*;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,7 +9,7 @@ import java.util.regex.Pattern;
  * Parse colors in hex RGB (#FF0000) and rgba(255,255,0, 0.5)
  */
 public class ColorFactory {
-	private final static Pattern RGBA = Pattern.compile("^rgba\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*((0.[1-9])|[01])\\s*\\)$");
+	private final static Pattern RGBA = Pattern.compile("^rgba\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*((0.[0-9]+)|[01])\\s*\\)$");
 
 	public static Color parseColor(String color) {
 		if (color == null) return null;
@@ -34,5 +35,28 @@ public class ColorFactory {
 					(int) (Float.parseFloat(m.group(4)) * 255f));
 		}
 		return null;
+	}
+
+	public static String asRgba(Color color) {
+		return String.format(Locale.US, "rgba(%d, %d, %d, %.2f)",
+				color.getRed(), color.getGreen(), color.getBlue(),
+				color.getAlpha() / 255.0);
+	}
+
+	public static Color blend(Color back, Color front) {
+		double b = back.getAlpha() / 255.0;
+		double f = front.getAlpha() / 255.0;
+		double alpha = b * f + (1 - b);
+		int red = (int) (back.getRed() * b + front.getRed() * f);
+		int green = (int) (back.getGreen() * b + front.getGreen() * f);
+		int blue = (int) (back.getBlue() * b + front.getBlue() * f);
+//		int red = back.getRed() * back.getAlpha() + front.getRed() * front.getAlpha();
+//		int green = back.getGreen() + (front.getGreen() - back.getGreen()) / 2;
+//		int blue = back.getBlue() + (front.getBlue() - back.getBlue()) / 2;
+		return new Color(
+				Math.min(255, red),
+				Math.min(255, green),
+				Math.min(255, blue),
+				Math.min(255, (int) (alpha * 255)));
 	}
 }

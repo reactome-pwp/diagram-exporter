@@ -49,7 +49,7 @@ public abstract class AbstractRenderer implements Renderer {
 	}
 
 	@Override
-	public void draw(DiagramCanvas canvas, DiagramObject item, DiagramProfile diagramProfile, AnalysisProfile analysisProfile, InteractorProfile interactorProfile, double factor, DiagramIndex index, AnalysisType analysisType) {
+	public void draw(DiagramCanvas canvas, DiagramObject item, DiagramProfile diagramProfile, AnalysisProfile analysisProfile, InteractorProfile interactorProfile, DiagramIndex index, AnalysisType analysisType) {
 
 	}
 }

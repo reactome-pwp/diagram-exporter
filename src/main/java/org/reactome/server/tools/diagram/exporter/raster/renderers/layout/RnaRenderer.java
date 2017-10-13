@@ -4,7 +4,6 @@ import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledNodeProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 
 import java.awt.*;
@@ -15,9 +14,9 @@ import java.awt.*;
 public class RnaRenderer extends NodeAbstractRenderer {
 
 	@Override
-	protected Shape backgroundShape(double factor, DiagramObject item) {
+	protected Shape backgroundShape(DiagramObject item) {
 		final Node node = (Node) item;
-		final NodeProperties properties = new ScaledNodeProperties(node.getProp(), factor);
+		final NodeProperties properties = node.getProp();
 		final double loopWidth = RendererProperties.RNA_LOOP_WIDTH;
 		final double x = properties.getX();
 		final double y = properties.getY();

@@ -5,7 +5,6 @@ import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
 import org.reactome.server.tools.diagram.exporter.raster.AnalysisType;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledNodeProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.FillLayer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.LineLayer;
@@ -20,28 +19,28 @@ import java.awt.*;
 public class GeneRenderer extends NodeAbstractRenderer {
 
 	@Override
-	protected void border(LineLayer layer, NodeCommon node, Shape backgroundShape, Shape foregroundShape, Stroke borderStroke, String borderColor, double factor) {
-		final Shape line = line(factor, node);
+	protected void border(LineLayer layer, NodeCommon node, Shape backgroundShape, Shape foregroundShape, Stroke borderStroke, String borderColor) {
+		final Shape line = line(node);
 		layer.add(borderColor, borderStroke, line);
-		final Shape arrow = arrow(factor, node);
+		final Shape arrow = arrow(node);
 		layer.add(borderColor, borderStroke, arrow);
 	}
 
 	@Override
-	protected void foreground(FillLayer canvas, NodeCommon node, Shape foregroundShape, String fgFill, double factor) {
-		super.foreground(canvas, node, foregroundShape, fgFill, factor);
-		final Shape arrow = arrow(factor, node);
+	protected void foreground(FillLayer canvas, NodeCommon node, Shape foregroundShape, String fgFill) {
+		super.foreground(canvas, node, foregroundShape, fgFill);
+		final Shape arrow = arrow(node);
 		canvas.add(fgFill, arrow);
 	}
 
 	@Override
-	protected Shape backgroundShape(double factor, DiagramObject item) {
+	protected Shape backgroundShape(DiagramObject item) {
 		return null;
 	}
 
 	@Override
-	protected Shape foregroundShape(double factor, NodeCommon node) {
-		final NodeProperties prop = new ScaledNodeProperties(node.getProp(), factor);
+	protected Shape foregroundShape(NodeCommon node) {
+		final NodeProperties prop = node.getProp();
 		final double x = prop.getX();
 		final double y = prop.getY();
 		final double width = prop.getWidth();
@@ -49,16 +48,16 @@ public class GeneRenderer extends NodeAbstractRenderer {
 		return ShapeFactory.getGeneFillShape(x, y, width, height);
 	}
 
-	private Shape line(double factor, NodeCommon node) {
-		final NodeProperties prop = new ScaledNodeProperties(node.getProp(), factor);
+	private Shape line(NodeCommon node) {
+		final NodeProperties prop = node.getProp();
 		final double x = prop.getX();
 		final double y = prop.getY();
 		final double width = prop.getWidth();
 		return ShapeFactory.getGeneLine(x, y, width);
 	}
 
-	private Shape arrow(double factor, NodeCommon node) {
-		final NodeProperties prop = new ScaledNodeProperties(node.getProp(), factor);
+	private Shape arrow(NodeCommon node) {
+		final NodeProperties prop = node.getProp();
 		final double x = prop.getX();
 		final double y = prop.getY();
 		final double width = prop.getWidth();

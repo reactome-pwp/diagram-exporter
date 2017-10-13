@@ -140,7 +140,7 @@ public class TextRenderer {
 
 	private static void drawTextSingleLine(Graphics2D graphics, String text, double x, double y) {
 		final int height = graphics.getFontMetrics().getHeight();
-		final int baseY = (int) (y + 2 * height);
+		final int baseY = (int) (y + 3 * height);  // somehow text appears too high, so I doubled the y offset
 		graphics.drawString(text, (int) (x + RendererProperties.NODE_TEXT_PADDING), baseY);
 	}
 

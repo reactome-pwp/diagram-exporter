@@ -156,6 +156,10 @@ public class ShapeFactory {
 		return path;
 	}
 
+	public static Shape roundedRectangle(NodeProperties properties) {
+		return roundedRectangle(properties.getX(), properties.getY(), properties.getWidth(), properties.getHeight());
+	}
+
 	public static Shape roundedRectangle(double x, double y, double width, double height) {
 		return new RoundRectangle2D.Double(
 				x,
@@ -176,55 +180,55 @@ public class ShapeFactory {
 				RendererProperties.ROUND_RECT_ARC_WIDTH);
 	}
 
-	private static Shape arrow(org.reactome.server.tools.diagram.data.layout.Shape shape, double factor) {
+	private static Shape arrow(org.reactome.server.tools.diagram.data.layout.Shape shape) {
 		final int[] xs = new int[]{
-				(int) (factor * shape.getA().getX()),
-				(int) (factor * shape.getB().getX()),
-				(int) (factor * shape.getC().getX())
+				shape.getA().getX().intValue(),
+				shape.getB().getX().intValue(),
+				shape.getC().getX().intValue()
 		};
 		final int[] ys = new int[]{
-				(int) (factor * shape.getA().getY()),
-				(int) (factor * shape.getB().getY()),
-				(int) (factor * shape.getC().getY())
+				shape.getA().getY().intValue(),
+				shape.getB().getY().intValue(),
+				shape.getC().getY().intValue()
 		};
 		return new Polygon(xs, ys, xs.length);
 	}
 
-	private static Shape box(org.reactome.server.tools.diagram.data.layout.Shape shape, double factor) {
-		return new Rectangle(
-				(int) (factor * shape.getA().getX()),
-				(int) (factor * shape.getA().getY()),
-				(int) (factor * (shape.getB().getX() - shape.getA().getX())),
-				(int) (factor * (shape.getB().getY() - shape.getA().getY())));
+	private static Shape box(org.reactome.server.tools.diagram.data.layout.Shape shape) {
+		return new Rectangle2D.Double(
+				shape.getA().getX(),
+				shape.getA().getY(),
+				shape.getB().getX() - shape.getA().getX(),
+				shape.getB().getY() - shape.getA().getY());
 	}
 
-	private static Shape circle(org.reactome.server.tools.diagram.data.layout.Shape shape, double factor) {
+	private static Shape circle(org.reactome.server.tools.diagram.data.layout.Shape shape) {
 		final double x = shape.getC().getX() - shape.getR();
 		final double y = shape.getC().getY() - shape.getR();
 		return new Ellipse2D.Double(
-				factor * x,
-				factor * y,
-				factor * 2 * shape.getR(),
-				factor * 2 * shape.getR());
+				x,
+				y,
+				2 * shape.getR(),
+				2 * shape.getR());
 	}
 
-	private static Shape innerCircle(org.reactome.server.tools.diagram.data.layout.Shape shape, double factor) {
+	private static Shape innerCircle(org.reactome.server.tools.diagram.data.layout.Shape shape) {
 		final double x = shape.getC().getX() - shape.getR1();
 		final double y = shape.getC().getY() - shape.getR1();
 		return new Ellipse2D.Double(
-				factor * x,
-				factor * y,
-				factor * 2 * shape.getR1(),
-				factor * 2 * shape.getR1()
+				x,
+				y,
+				2 * shape.getR1(),
+				2 * shape.getR1()
 		);
 	}
 
-	private static Shape stop(org.reactome.server.tools.diagram.data.layout.Shape shape, double factor) {
+	private static Shape stop(org.reactome.server.tools.diagram.data.layout.Shape shape) {
 		return new Line2D.Double(
-				factor * shape.getA().getX(),
-				factor * shape.getA().getY(),
-				factor * shape.getB().getX(),
-				factor * shape.getB().getY()
+				shape.getA().getX(),
+				shape.getA().getY(),
+				shape.getB().getX(),
+				shape.getB().getY()
 		);
 	}
 
@@ -234,41 +238,52 @@ public class ShapeFactory {
 	 * circles.
 	 *
 	 * @param shape reactome shape
-	 * @param scale AdvancedGraphics2D factor
 	 *
 	 * @return a list of java shapes
 	 */
 	// TODO: Is it ok to return a list of shapes just because of the inner circle?
-	public static List<Shape> createShape(org.reactome.server.tools.diagram.data.layout.Shape shape, double scale) {
+	public static List<Shape> createShape(org.reactome.server.tools.diagram.data.layout.Shape shape) {
 		switch (shape.getType()) {
 			case "ARROW":
-				return Collections.singletonList(arrow(shape, scale));
+				return Collections.singletonList(arrow(shape));
 			case "BOX":
-				return Collections.singletonList(box(shape, scale));
+				return Collections.singletonList(box(shape));
 			case "CIRCLE":
-				return Collections.singletonList(circle(shape, scale));
+				return Collections.singletonList(circle(shape));
 			case "DOUBLE_CIRCLE":
-				return Arrays.asList(circle(shape, scale), innerCircle(shape, scale));
+				return Arrays.asList(circle(shape), innerCircle(shape));
 			case "STOP":
-				return Collections.singletonList(stop(shape, scale));
+				return Collections.singletonList(stop(shape));
 			default:
 				throw new RuntimeException("Do not know shape " + shape.getType());
 		}
 	}
 
-	public static Shape line(double factor, Coordinate from, Coordinate to) {
-		return new Line2D.Double(factor * from.getX(),
-				factor * from.getY(), factor * to.getX(), factor * to.getY());
+	public static Shape line(Coordinate from, Coordinate to) {
+		return new Line2D.Double(from.getX(),
+				from.getY(), to.getX(), to.getY());
 	}
 
-	public static List<Shape> cross(double factor, NodeProperties properties) {
-		final NodeProperties prop = new ScaledNodeProperties(properties, factor);
+	public static List<Shape> cross(NodeProperties properties) {
 		return Arrays.asList(
-				new Line2D.Double(prop.getX(), prop.getY(),
-						prop.getX() + prop.getWidth(),
-						prop.getY() + prop.getHeight()),
-				new Line2D.Double(prop.getX(), prop.getY() + prop.getHeight(),
-						prop.getX() + prop.getWidth(), prop.getY())
+				new Line2D.Double(properties.getX(), properties.getY(),
+						properties.getX() + properties.getWidth(),
+						properties.getY() + properties.getHeight()),
+				new Line2D.Double(properties.getX(), properties.getY() + properties.getHeight(),
+						properties.getX() + properties.getWidth(), properties.getY())
 		);
+	}
+
+	public static Shape rectangle(NodeProperties prop, double padding) {
+		return new Rectangle2D.Double(prop.getX() + padding,
+				prop.getY() + padding,
+				prop.getWidth() - 2 * padding,
+				prop.getHeight() - 2 * padding);
+
+	}
+
+	public static Shape roundedRectangle(NodeProperties prop, double padding) {
+		return roundedRectangle(prop.getX(), prop.getY(),
+				prop.getWidth(), prop.getHeight(), padding);
 	}
 }

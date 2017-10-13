@@ -8,11 +8,14 @@ import org.reactome.server.tools.diagram.data.profile.analysis.AnalysisProfile;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 import org.reactome.server.tools.diagram.data.profile.interactors.InteractorProfile;
 import org.reactome.server.tools.diagram.exporter.common.Decorator;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.*;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.*;
 
 import java.awt.image.BufferedImage;
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
@@ -46,7 +49,7 @@ public class RasterRenderer {
 	private final InteractorProfile interactorProfile;
 	private DiagramIndex index;
 	private DiagramCanvas canvas;
-	private double factor;
+	private AnalysisType analysisType;
 
 	/**
 	 * Creates a RasterRenderer with specific diagram, graph, diagram and
@@ -64,7 +67,10 @@ public class RasterRenderer {
 		this.diagramProfile = diagramProfile;
 		this.analysisProfile = analysisProfile;
 		this.interactorProfile = interactorProfile;
-		this.index = new DiagramIndex(diagram, graph, decorator, AnalysisType.NONE);
+		if (decorator != null && decorator.getToken() != null)
+			analysisType = AnalysisType.EXPRESSION;
+		else analysisType = AnalysisType.NONE;
+		this.index = new DiagramIndex(diagram, graph, decorator);
 	}
 
 	/**
@@ -76,9 +82,18 @@ public class RasterRenderer {
 	 * @return a RenderedImage with the given dimensions
 	 */
 	public BufferedImage render(double factor, String ext) {
-		this.factor = factor;
 
 		// Bounds are recalculated reading nodes, we don't trust diagram bounds
+		final AtomicReference<DiagramObject> object = new AtomicReference<>();
+		streamObjects().forEach(diagramObject -> {
+			if (object.get() == null) {
+				object.set(diagramObject);
+			}else {
+				if (diagramObject.getMinX() < object.get().getMinX()) {
+					object.set(diagramObject);
+				}
+			}
+		});
 		final double minX = getMinX();
 		final double maxX = getMaxX();
 		final double minY = getMinY();
@@ -102,20 +117,22 @@ public class RasterRenderer {
 		if (newFactor < factor) {
 			Logger.getLogger(getClass().getName())
 					.warning(String.format(
-							"Image too large. Quality reduced from %.1f to %.1f -> %.0f x %.0f = %.0f (%.2f MP)",
-							factor, newFactor, height, width, height * width, height * width / 1e6));
+							"Diagram %s too large. Quality reduced from %.1f to %.1f -> %.0f x %.0f = %.0f (%.2f MP)",
+							diagram.getStableId(), factor, newFactor, height, width, height * width, height * width / 1e6));
 			factor = newFactor;
 		}
-
-		FontProperties.setFactor(factor);
-		RendererProperties.setFactor(factor);
-		StrokeProperties.setFactor(factor);
+//		this.factor = factor;
+//
+//		FontProperties.setFactor(factor);
+//		RendererProperties.setFactor(factor);
+//		StrokeProperties.setFactor(factor);
 
 		final double x = minX * factor;
 		final double y = minY * factor;
 		final double margin = factor * MARGIN;
 		final AdvancedGraphics2D graphics = new AdvancedGraphics2D(width, height, x, y, margin, ext);
 		graphics.getGraphics().setFont(FontProperties.DEFAULT_FONT);
+		graphics.getGraphics().scale(factor, factor);
 
 
 		canvas = new DiagramCanvas();
@@ -163,35 +180,35 @@ public class RasterRenderer {
 
 	private void compartments() {
 		final CompartmentRenderer renderer = new CompartmentRenderer();
-		renderer.draw(canvas, diagram.getCompartments(), diagramProfile, factor);
+		renderer.draw(canvas, diagram.getCompartments(), diagramProfile);
 	}
 
 	private void links() {
 		diagram.getLinks().forEach(link -> {
 			final EdgeRenderer renderer = (EdgeRenderer) RendererFactory.get(link.getRenderableClass());
-			renderer.draw(canvas, link, diagramProfile, factor, index);
+			renderer.draw(canvas, link, diagramProfile, index);
 		});
 	}
 
 	private void nodes() {
 		diagram.getNodes().forEach(node ->
 				RendererFactory.get(node.getRenderableClass())
-						.draw(canvas, node, diagramProfile, analysisProfile, interactorProfile, factor, index));
+						.draw(canvas, node, diagramProfile, analysisProfile, interactorProfile, index, analysisType));
 	}
 
 	private void edges() {
 		final ReactionRenderer renderer = new ReactionRenderer();
-		diagram.getEdges().forEach(edge -> renderer.draw(canvas, edge, diagramProfile, factor, index));
+		diagram.getEdges().forEach(edge -> renderer.draw(canvas, edge, diagramProfile, index));
 		final ConnectorRenderer connectorRenderer = new ConnectorRenderer();
 		diagram.getNodes().stream()
 				.map(Node::getConnectors)
 				.flatMap(Collection::stream)
-				.forEach(connector -> connectorRenderer.draw(canvas, connector, diagramProfile, factor, index));
+				.forEach(connector -> connectorRenderer.draw(canvas, connector, diagramProfile, index));
 
 	}
 
 	private void notes() {
 		final NoteRenderer renderer = new NoteRenderer();
-		diagram.getNotes().forEach(note -> renderer.draw(canvas, note, diagramProfile, analysisProfile, interactorProfile, factor, index));
+		diagram.getNotes().forEach(note -> renderer.draw(canvas, note, diagramProfile, analysisProfile, interactorProfile, index, analysisType));
 	}
 }

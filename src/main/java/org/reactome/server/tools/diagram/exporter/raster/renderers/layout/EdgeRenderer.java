@@ -8,7 +8,6 @@ import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
 import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledNodeProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.FillLayer;
@@ -26,7 +25,7 @@ import java.util.stream.Collectors;
  */
 public class EdgeRenderer extends AbstractRenderer {
 
-	public void draw(DiagramCanvas canvas, EdgeCommon edge, DiagramProfile diagramProfile, double factor, DiagramIndex index) {
+	public void draw(DiagramCanvas canvas, EdgeCommon edge, DiagramProfile diagramProfile, DiagramIndex index) {
 		final DiagramProfileNode profile = getDiagramProfileNode(edge.getRenderableClass(), diagramProfile);
 		final boolean isHalo = index.getHaloed().contains(edge.getId());
 		final boolean selected = index.getSelected().contains(edge.getId());
@@ -72,7 +71,7 @@ public class EdgeRenderer extends AbstractRenderer {
 		}
 		// 1 segments
 		final List<java.awt.Shape> segments = edge.getSegments().stream()
-				.map(segment -> ShapeFactory.line(factor, segment.getFrom(), segment.getTo()))
+				.map(segment -> ShapeFactory.line(segment.getFrom(), segment.getTo()))
 				.collect(Collectors.toList());
 		if (isHalo)
 			segments.forEach(shape -> canvas.getHalos().add(haloColor, haloStroke, shape));
@@ -80,7 +79,7 @@ public class EdgeRenderer extends AbstractRenderer {
 
 		// 2 shapes
 		renderableShapes(edge).stream().filter(Objects::nonNull).forEach(shape -> {
-			final List<java.awt.Shape> javaShapes = ShapeFactory.createShape(shape, factor);
+			final List<java.awt.Shape> javaShapes = ShapeFactory.createShape(shape);
 			// 2.1 halo
 			if (isHalo)
 				javaShapes.forEach(sh -> canvas.getFlags().add(haloColor, haloStroke, sh));
@@ -91,13 +90,11 @@ public class EdgeRenderer extends AbstractRenderer {
 			javaShapes.forEach(sh -> borderLayer.add(lineColor, lineStroke, sh));
 			// 2.4 text
 			if (shape.getS() != null && !shape.getS().isEmpty()) {
-				final NodeProperties limits = new ScaledNodeProperties(
-						NodePropertiesFactory.get(
-								shape.getA().getX(), shape.getA().getY(),
-								shape.getB().getX() - shape.getA().getX(),
-								shape.getB().getY() - shape.getA().getY()),
-						factor);
-				textLayer.add(textColor, shape.getS(), limits, factor);
+				final NodeProperties limits = NodePropertiesFactory.get(
+						shape.getA().getX(), shape.getA().getY(),
+						shape.getB().getX() - shape.getA().getX(),
+						shape.getB().getY() - shape.getA().getY());
+				textLayer.add(textColor, shape.getS(), limits, 1);
 			}
 		});
 	}
