@@ -3,6 +3,7 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 import org.reactome.server.tools.diagram.data.layout.Coordinate;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -139,8 +140,8 @@ public class TextRenderer {
 
 	private static void drawTextSingleLine(Graphics2D graphics, String text, double x, double y) {
 		final int height = graphics.getFontMetrics().getHeight();
-		final int baseY = (int) (y + height);
-		graphics.drawString(text, (int) x, baseY);
+		final int baseY = (int) (y + 2 * height);
+		graphics.drawString(text, (int) (x + RendererProperties.NODE_TEXT_PADDING), baseY);
 	}
 
 	public static void drawText(Graphics2D graphics, String text, NodeProperties limits, double padding) {

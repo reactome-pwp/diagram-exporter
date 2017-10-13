@@ -15,7 +15,7 @@ import java.awt.*;
 public class RnaRenderer extends NodeAbstractRenderer {
 
 	@Override
-	protected Shape shape(double factor, DiagramObject item) {
+	protected Shape backgroundShape(double factor, DiagramObject item) {
 		final Node node = (Node) item;
 		final NodeProperties properties = new ScaledNodeProperties(node.getProp(), factor);
 		final double loopWidth = RendererProperties.RNA_LOOP_WIDTH;

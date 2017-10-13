@@ -5,6 +5,7 @@ import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.Shape;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
+import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
 import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledNodeProperties;
@@ -17,77 +18,78 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.TextLa
 import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class EdgeRenderer extends AbstractRenderer {
 
-	protected List<Shape> renderableShapes(EdgeCommon edge) {
-		return Arrays.asList(edge.getReactionShape(), edge.getEndShape());
-	}
-
-	private boolean isEmpty(org.reactome.server.tools.diagram.data.layout.Shape shape) {
-		return shape.getEmpty() != null && shape.getEmpty();
-	}
-
 	public void draw(DiagramCanvas canvas, EdgeCommon edge, DiagramProfile diagramProfile, double factor, DiagramIndex index) {
-		if (edge.getIsFadeOut() != null && edge.getIsFadeOut())
-			asFadeOut(canvas, edge, diagramProfile, factor);
-		else asNormal(canvas, edge, diagramProfile, index, factor);
-	}
-
-	private void asFadeOut(DiagramCanvas canvas, EdgeCommon edge, DiagramProfile diagramProfile, double factor) {
-		final String line = diagramProfile.getReaction().getFadeOutStroke();
-		final Stroke segmentStroke = StrokeProperties.SEGMENT_STROKE;
-		segments(canvas.getFadeOutSegments(), edge, factor, line, segmentStroke);
-
-		// Shapes and borders
-		String fill = diagramProfile.getReaction().getFadeOutFill();
-		String border = diagramProfile.getReaction().getFadeOutStroke();
-		final Stroke borderStroke = StrokeProperties.SEGMENT_STROKE;
-		final FillLayer fillLayer = canvas.getFadeOutFills();
-		final LineLayer lineLayer = canvas.getFadeOutBorders();
-		final TextLayer textLayer = canvas.getFadeOutText();
-		draw(edge, factor, border, borderStroke, fillLayer, textLayer, lineLayer, null, fill, false, null);
-	}
-
-	private void asNormal(DiagramCanvas canvas, EdgeCommon edge, DiagramProfile diagramProfile, DiagramIndex index, double factor) {
-		final String lineColor = getSegmentColor(edge, diagramProfile, index);
-		final String haloColor = diagramProfile.getProperties().getHalo();
-		final Stroke stroke = index.getSelected().contains(edge.getId())
+		final DiagramProfileNode profile = getDiagramProfileNode(edge.getRenderableClass(), diagramProfile);
+		final boolean isHalo = index.getHaloed().contains(edge.getId());
+		final boolean selected = index.getSelected().contains(edge.getId());
+		final boolean fadeout = edge.getIsFadeOut() != null && edge.getIsFadeOut();
+		final boolean disease = edge.getIsDisease() != null && edge.getIsDisease();
+		final boolean dashed = dashed(edge);
+		final Stroke haloStroke = StrokeProperties.HALO_STROKE;
+		final Stroke lineStroke = selected
 				? StrokeProperties.SELECTION_STROKE
 				: StrokeProperties.SEGMENT_STROKE;
-		final boolean halo = index.getHaloed().contains(edge.getId());
-		if (halo)
-			segments(canvas.getHalos(), edge, factor, haloColor, StrokeProperties.HALO_STROKE);
-		segments(canvas.getSegments(), edge, factor, lineColor, stroke);
-		// Shapes and borders
-		final FillLayer fillLayer = canvas.getFill();
-		final TextLayer textLayer = canvas.getText();
-		final LineLayer lineLayer = canvas.getBorder();
-		String fill = diagramProfile.getReaction().getFill();
-		draw(edge, factor, lineColor, stroke, fillLayer, textLayer, lineLayer, canvas.getHalos(), fill, halo, haloColor);
-	}
+		final Stroke segmentStroke = dashed
+				? selected
+				? StrokeProperties.DASHED_SELECTION_STROKE
+				: StrokeProperties.DASHED_SEGMENT_STROKE
+				: StrokeProperties.SEGMENT_STROKE;
+		final String haloColor = diagramProfile.getProperties().getHalo();
+		final String lineColor = selected
+				? diagramProfile.getProperties().getSelection()
+				: disease
+				? diagramProfile.getProperties().getDisease()
+				: fadeout
+				? profile.getFadeOutStroke()
+				: profile.getStroke();
+		final String fillColor = fadeout
+				? profile.getFadeOutFill()
+				: profile.getFill();
+		final String textColor = lineColor;
 
-	private void segments(LineLayer lineLayer, EdgeCommon edge, double factor, String line, Stroke segmentStroke) {
-		// Segments
-		edge.getSegments().stream()
+		final FillLayer fillLayer;
+		final LineLayer borderLayer;
+		final TextLayer textLayer;
+		final LineLayer segmentsLayer;
+		if (fadeout) {
+			segmentsLayer = canvas.getFadeOutSegments();
+			fillLayer = canvas.getFadeoutEdgeFill();
+			borderLayer = canvas.getFadeoutEdgeBorder();
+			textLayer = canvas.getFadeOutText();
+		} else {
+			segmentsLayer = canvas.getSegments();
+			fillLayer = canvas.getEdgeFill();
+			borderLayer = canvas.getEdgeBorder();
+			textLayer = canvas.getText();
+		}
+		// 1 segments
+		final List<java.awt.Shape> segments = edge.getSegments().stream()
 				.map(segment -> ShapeFactory.line(factor, segment.getFrom(), segment.getTo()))
-				.forEach(shape -> lineLayer.add(line, segmentStroke, shape));
-	}
+				.collect(Collectors.toList());
+		if (isHalo)
+			segments.forEach(shape -> canvas.getHalos().add(haloColor, haloStroke, shape));
+		segments.forEach(shape -> segmentsLayer.add(lineColor, segmentStroke, shape));
 
-	private void draw(EdgeCommon edge, double factor, String lineColor, Stroke stroke, FillLayer fillLayer, TextLayer textLayer, LineLayer lineLayer, LineLayer haloLayer, String fill, boolean halo, String haloColor) {
-		for (Shape shape : renderableShapes(edge)) {
-			if (shape == null) continue;
-			final String color = isEmpty(shape) ? fill : lineColor;
-			final List<java.awt.Shape> shapes = ShapeFactory.createShape(shape, factor);
-			shapes.forEach(s -> {
-				fillLayer.add(color, s);
-				lineLayer.add(lineColor, stroke, s);
-				if (halo)
-					haloLayer.add(haloColor, StrokeProperties.HALO_STROKE, s);
-			});
+		// 2 shapes
+		renderableShapes(edge).stream().filter(Objects::nonNull).forEach(shape -> {
+			final List<java.awt.Shape> javaShapes = ShapeFactory.createShape(shape, factor);
+			// 2.1 halo
+			if (isHalo)
+				javaShapes.forEach(sh -> canvas.getFlags().add(haloColor, haloStroke, sh));
+			// 2.2 fill
+			final String color = isEmpty(shape) ? fillColor : lineColor;
+			javaShapes.forEach(sh -> fillLayer.add(color, sh));
+			// 2.3 border
+			javaShapes.forEach(sh -> borderLayer.add(lineColor, lineStroke, sh));
+			// 2.4 text
 			if (shape.getS() != null && !shape.getS().isEmpty()) {
 				final NodeProperties limits = new ScaledNodeProperties(
 						NodePropertiesFactory.get(
@@ -95,18 +97,20 @@ public class EdgeRenderer extends AbstractRenderer {
 								shape.getB().getX() - shape.getA().getX(),
 								shape.getB().getY() - shape.getA().getY()),
 						factor);
-				// Texts
-				textLayer.add(lineColor, shape.getS(), limits, factor);
+				textLayer.add(textColor, shape.getS(), limits, factor);
 			}
-		}
+		});
 	}
 
-	private String getSegmentColor(EdgeCommon edge, DiagramProfile diagramProfile, DiagramIndex index) {
-		if (index.getSelected().contains(edge.getId()))
-			return diagramProfile.getProperties().getSelection();
-		if (edge.getIsDisease() != null && edge.getIsDisease())
-			return diagramProfile.getProperties().getDisease();
-		return diagramProfile.getReaction().getStroke();
+	private boolean isEmpty(org.reactome.server.tools.diagram.data.layout.Shape shape) {
+		return shape.getEmpty() != null && shape.getEmpty();
+	}
 
+	protected List<Shape> renderableShapes(EdgeCommon edge) {
+		return Arrays.asList(edge.getReactionShape(), edge.getEndShape());
+	}
+
+	protected boolean dashed(EdgeCommon edge) {
+		return false;
 	}
 }

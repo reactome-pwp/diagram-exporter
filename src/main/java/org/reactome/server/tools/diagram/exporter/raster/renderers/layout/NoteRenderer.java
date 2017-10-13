@@ -6,6 +6,7 @@ import org.reactome.server.tools.diagram.data.layout.Note;
 import org.reactome.server.tools.diagram.data.profile.analysis.AnalysisProfile;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 import org.reactome.server.tools.diagram.data.profile.interactors.InteractorProfile;
+import org.reactome.server.tools.diagram.exporter.raster.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 
@@ -24,7 +25,7 @@ public class NoteRenderer extends AbstractRenderer {
 //	}
 
 	@Override
-	public void draw(DiagramCanvas canvas, DiagramObject item, DiagramProfile diagramProfile, AnalysisProfile analysisProfile, InteractorProfile interactorProfile, double factor, DiagramIndex index) {
+	public void draw(DiagramCanvas canvas, DiagramObject item, DiagramProfile diagramProfile, AnalysisProfile analysisProfile, InteractorProfile interactorProfile, double factor, DiagramIndex index, AnalysisType analysisType) {
 		final String text = diagramProfile.getNote().getText();
 		final Note note = (Note) item;
 		final Coordinate position = note.getPosition().multiply(factor);

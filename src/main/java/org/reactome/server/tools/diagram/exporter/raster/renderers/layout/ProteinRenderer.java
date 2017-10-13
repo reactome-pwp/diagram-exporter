@@ -15,7 +15,7 @@ import java.awt.*;
 public class ProteinRenderer extends NodeAbstractRenderer {
 
 	@Override
-	protected Shape shape(double factor, DiagramObject item) {
+	protected Shape backgroundShape(double factor, DiagramObject item) {
 		final Node node = (Node) item;
 		final ScaledNodeProperties prop = new ScaledNodeProperties(node.getProp(), factor);
 		return ShapeFactory.roundedRectangle(prop.getX(),

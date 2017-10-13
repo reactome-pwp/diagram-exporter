@@ -15,4 +15,9 @@ public class LinkRenderer extends EdgeRenderer {
 	protected List<Shape> renderableShapes(EdgeCommon edge) {
 		return Collections.singletonList(edge.getEndShape());
 	}
+
+	@Override
+	protected boolean dashed(EdgeCommon edge) {
+		return true;
+	}
 }

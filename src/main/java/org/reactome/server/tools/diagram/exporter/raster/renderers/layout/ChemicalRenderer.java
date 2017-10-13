@@ -16,7 +16,7 @@ import java.awt.geom.Ellipse2D;
 public class ChemicalRenderer extends NodeAbstractRenderer {
 
 	@Override
-	protected Shape shape(double factor, DiagramObject item) {
+	protected Shape backgroundShape(double factor, DiagramObject item) {
 		final Node node = (Node) item;
 		final NodeProperties properties = new ScaledNodeProperties(node.getProp(), factor);
 		return new Ellipse2D.Double(properties.getX(), properties.getY(), properties.getWidth(), properties.getHeight());

@@ -38,21 +38,12 @@ public class CompartmentRenderer extends NodeAbstractRenderer {
 				bound.getWidth(), bound.getHeight());
 	}
 
-	private Color blend(Color a, Color b) {
-		int alpha = a.getAlpha() + (b.getAlpha() - a.getAlpha()) / 2;
-		int red = a.getRed() + (b.getRed() - a.getRed()) / 2;
-		int green = a.getGreen() + (b.getGreen() - a.getGreen()) / 2;
-		int blue = a.getBlue() + (b.getBlue() - a.getBlue()) / 2;
-
-		return new Color(red, green, blue, alpha);
-	}
-
 
 	public void draw(DiagramCanvas canvas, List<Compartment> compartments, DiagramProfile profile, double factor) {
 		final String fillString = profile.getCompartment().getFill();
 		final Paint fill = ColorFactory.parseColor(fillString);
 		// Inner color is the sum of the fill color with itself
-		final String innerColor = asRgba(blend((Color) fill, (Color) fill));
+		final String innerColor = ColorFactory.asRgba(ColorFactory.blend((Color) fill, (Color) fill));
 		final String border = profile.getCompartment().getStroke();
 		final Stroke stroke = StrokeProperties.BORDER_STROKE;
 		final String text = profile.getCompartment().getText();
@@ -85,9 +76,4 @@ public class CompartmentRenderer extends NodeAbstractRenderer {
 		});
 	}
 
-	private String asRgba(Color color) {
-		return String.format("rgba(%d,%d,%d,%f)",
-				color.getRed(), color.getGreen(), color.getBlue(),
-				color.getAlpha() / 255.0);
-	}
 }

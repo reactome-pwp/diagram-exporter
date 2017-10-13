@@ -17,7 +17,7 @@ import java.awt.*;
 public class ComplexRenderer extends NodeAbstractRenderer {
 
 	@Override
-	protected Shape shape(double factor, DiagramObject item) {
+	protected Shape backgroundShape(double factor, DiagramObject item) {
 		final Node node = (Node) item;
 		final NodeProperties prop = new ScaledNodeProperties(node.getProp(), factor);
 		final int corner = (int) RendererProperties.COMPLEX_RECT_ARC_WIDTH;

@@ -5,6 +5,7 @@ import org.reactome.server.tools.diagram.data.profile.analysis.AnalysisProfile;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
 import org.reactome.server.tools.diagram.data.profile.interactors.InteractorProfile;
+import org.reactome.server.tools.diagram.exporter.raster.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 
@@ -48,7 +49,7 @@ public abstract class AbstractRenderer implements Renderer {
 	}
 
 	@Override
-	public void draw(DiagramCanvas canvas, DiagramObject item, DiagramProfile diagramProfile, AnalysisProfile analysisProfile, InteractorProfile interactorProfile, double factor, DiagramIndex index) {
+	public void draw(DiagramCanvas canvas, DiagramObject item, DiagramProfile diagramProfile, AnalysisProfile analysisProfile, InteractorProfile interactorProfile, double factor, DiagramIndex index, AnalysisType analysisType) {
 
 	}
 }

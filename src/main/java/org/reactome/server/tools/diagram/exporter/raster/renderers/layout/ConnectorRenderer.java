@@ -5,6 +5,7 @@ import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.Shape;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
+import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
 import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ScaledNodeProperties;
@@ -16,6 +17,7 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.TextLa
 
 import java.awt.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Connectors have a similar behaviour than reactions: segments, shapes and
@@ -28,59 +30,63 @@ import java.util.List;
 public class ConnectorRenderer {
 
 	public void draw(DiagramCanvas canvas, Connector connector, DiagramProfile diagramProfile, double factor, DiagramIndex index) {
-		if (connector.getIsFadeOut() != null && connector.getIsFadeOut())
-			asFadeOut(canvas, connector, diagramProfile, factor);
-		else asNormal(canvas, connector, diagramProfile, index, factor);
-	}
-
-	private void asFadeOut(DiagramCanvas canvas, Connector connector, DiagramProfile diagramProfile, double factor) {
-		final LineLayer segments = canvas.getFadeOutSegments();
-		final FillLayer fillLayer = canvas.getFadeOutFills();
-		final LineLayer lineLayer = canvas.getFadeOutBorders();
-		final TextLayer textLayer = canvas.getFadeOutText();
-
-		final Stroke stroke = StrokeProperties.SEGMENT_STROKE;
-		final String border = diagramProfile.getReaction().getFadeOutStroke();
-		final String fill = diagramProfile.getReaction().getFadeOutFill();
-		final Shape shape = connector.getEndShape();
-
-		connector.getSegments().stream()
-				.map(segment -> ShapeFactory.line(factor, segment.getFrom(), segment.getTo()))
-				.forEach(sh -> segments.add(border, stroke, sh));
-		// Shapes and borders
-		drawEndShape(factor, fill, border, stroke, shape, textLayer, lineLayer, fillLayer);
-		stoichiometry(connector, factor, border, fill, fillLayer, textLayer, lineLayer);
-	}
-
-	private void asNormal(DiagramCanvas canvas, Connector connector, DiagramProfile diagramProfile, DiagramIndex index, double factor) {
-		final LineLayer segments = canvas.getSegments();
-		final FillLayer fillLayer = canvas.getFill();
-		final LineLayer lineLayer = canvas.getBorder();
-		final TextLayer textLayer = canvas.getText();
-
-		final Stroke stroke = StrokeProperties.SEGMENT_STROKE;
-		final String border = getSegmentColor(connector, diagramProfile, index);
-		final String fill = diagramProfile.getReaction().getFill();
+		final DiagramProfileNode profile = diagramProfile.getReaction();
+		final boolean isHalo = index.getHaloed().contains(connector.getEdgeId());
+		final boolean selected = index.getSelected().contains(connector.getEdgeId());
+		final boolean fadeout = connector.getIsFadeOut() != null && connector.getIsFadeOut();
+		final boolean disease = connector.getIsDisease() != null && connector.getIsDisease();
+		final Stroke haloStroke = StrokeProperties.HALO_STROKE;
+		final Stroke lineStroke = selected
+				? StrokeProperties.SELECTION_STROKE
+				: StrokeProperties.SEGMENT_STROKE;
 		final String haloColor = diagramProfile.getProperties().getHalo();
-		final Shape shape = connector.getEndShape();
+		final String lineColor = selected
+				? diagramProfile.getProperties().getSelection()
+				: disease
+				? diagramProfile.getProperties().getDisease()
+				: fadeout
+				? profile.getFadeOutStroke()
+				: profile.getStroke();
+		final String fillColor = fadeout
+				? profile.getFadeOutFill()
+				: profile.getFill();
 
-		connector.getSegments().stream()
+		final FillLayer fillLayer;
+		final LineLayer borderLayer;
+		final TextLayer textLayer;
+		final LineLayer segmentsLayer;
+		if (fadeout) {
+			segmentsLayer = canvas.getFadeOutSegments();
+			fillLayer = canvas.getFadeoutEdgeFill();
+			borderLayer = canvas.getFadeoutEdgeBorder();
+			textLayer = canvas.getFadeOutText();
+		} else {
+			segmentsLayer = canvas.getSegments();
+			fillLayer = canvas.getEdgeFill();
+			borderLayer = canvas.getEdgeBorder();
+			textLayer = canvas.getText();
+		}
+		// 1 segments
+		final List<java.awt.Shape> segments = connector.getSegments().stream()
 				.map(segment -> ShapeFactory.line(factor, segment.getFrom(), segment.getTo()))
-				.forEach(line -> segments.add(border, stroke, line));
-		// Shapes and borders
-		drawEndShape(factor, fill, border, stroke, shape, textLayer, lineLayer, fillLayer);
-		stoichiometry(connector, factor, border, fill, fillLayer, textLayer, lineLayer);
+				.collect(Collectors.toList());
+		if (isHalo)
+			segments.forEach(shape -> canvas.getHalos().add(haloColor, haloStroke, shape));
+		segments.forEach(shape -> segmentsLayer.add(lineColor, lineStroke, shape));
 
-	}
-
-	private void drawEndShape(double factor, String fill, String border, Stroke borderStroke, Shape shape, TextLayer textLayer, LineLayer linel, FillLayer fillLayer) {
+		// 2 shapes
+		final Shape shape = connector.getEndShape();
 		if (shape != null) {
-			final String color = isEmpty(shape) ? fill : border;
-			final List<java.awt.Shape> shapes = ShapeFactory.createShape(shape, factor);
-			shapes.forEach(s -> {
-				fillLayer.add(color, s);
-				linel.add(border, borderStroke, s);
-			});
+			final List<java.awt.Shape> javaShapes = ShapeFactory.createShape(shape, factor);
+			// 2.1 halo
+			if (isHalo)
+				javaShapes.forEach(sh -> canvas.getFlags().add(haloColor, haloStroke, sh));
+			// 2.2 fill
+			final String color = isEmpty(shape) ? fillColor : lineColor;
+			javaShapes.forEach(sh -> fillLayer.add(color, sh));
+			// 2.3 border
+			javaShapes.forEach(sh -> borderLayer.add(lineColor, lineStroke, sh));
+			// 2.4 text
 			if (shape.getS() != null && !shape.getS().isEmpty()) {
 				final NodeProperties limits = new ScaledNodeProperties(
 						NodePropertiesFactory.get(
@@ -88,11 +94,27 @@ public class ConnectorRenderer {
 								shape.getB().getX() - shape.getA().getX(),
 								shape.getB().getY() - shape.getA().getY()),
 						factor);
-				// Texts
-				textLayer.add(border, shape.getS(), limits, factor);
+				textLayer.add(lineColor, shape.getS(), limits, factor);
 			}
 		}
+		if (connector.getStoichiometry() != null && connector.getStoichiometry().getShape() != null) {
+			final Shape stShape = connector.getStoichiometry().getShape();
+			final List<java.awt.Shape> shapes = ShapeFactory.createShape(stShape, factor);
+			final boolean empty = isEmpty(stShape);
+			shapes.forEach(sh -> {
+				fillLayer.add(empty ? fillColor : lineColor, sh);
+				borderLayer.add(lineColor, StrokeProperties.SEGMENT_STROKE, sh);
+			});
+			final String text = connector.getStoichiometry().getValue().toString();
+			final NodeProperties limits = new ScaledNodeProperties(
+					NodePropertiesFactory.get(
+							stShape.getA().getX(), stShape.getA().getY(),
+							stShape.getB().getX() - stShape.getA().getX(),
+							stShape.getB().getY() - stShape.getA().getY()), factor);
+			textLayer.add(lineColor, text, limits, factor);
+		}
 	}
+
 
 	private void stoichiometry(Connector connector, double factor, String color, String fill, FillLayer fillLayer, TextLayer textLayer, LineLayer lineLayer) {
 		if (connector.getStoichiometry() != null && connector.getStoichiometry().getShape() != null) {
@@ -111,15 +133,6 @@ public class ConnectorRenderer {
 							stShape.getB().getY() - stShape.getA().getY()), factor);
 			textLayer.add(color, text, limits, factor);
 		}
-	}
-
-	private String getSegmentColor(Connector connector, DiagramProfile diagramProfile, DiagramIndex index) {
-		if (index.getSelected().contains(connector.getEdgeId()))
-			return diagramProfile.getProperties().getSelection();
-		if (connector.getIsDisease() != null && connector.getIsDisease())
-			return diagramProfile.getProperties().getDisease();
-		return diagramProfile.getReaction().getStroke();
-
 	}
 
 	private boolean isEmpty(Shape shape) {
