@@ -8,7 +8,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class LineLayerImpl implements LineLayer {
+/**
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
+public class DrawLayerImpl implements DrawLayer {
 
 	private Map<String, Map<Stroke, List<Shape>>> shapes = new HashMap<>();
 

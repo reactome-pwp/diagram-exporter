@@ -11,6 +11,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 
+/**
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class TextLayerImpl implements TextLayer {
 
 	private Map<String, Collection<RenderableText>> texts = new HashMap<>();

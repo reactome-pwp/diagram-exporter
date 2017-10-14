@@ -3,13 +3,11 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.layers;
 import java.awt.*;
 
 /**
- * Virtual layer. At any time it is passed a graphics and has to render things
- * over it.
+ * Layer for drawings, like lines or borders.
  *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
-public interface Layer {
+public interface DrawLayer extends Layer {
 
-	void render(Graphics2D graphics);
-
+	void add(String color, Stroke stroke, Shape shape);
 }

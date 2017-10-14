@@ -8,6 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class FillLayerImpl implements FillLayer {
 
 	private Map<String, List<Shape>> shapes = new HashMap<>();
