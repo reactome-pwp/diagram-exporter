@@ -1,7 +1,9 @@
 package org.reactome.server.tools.diagram.exporter.raster.profiles;
 
 import java.awt.*;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,8 +13,17 @@ import java.util.regex.Pattern;
 public class ColorFactory {
 	private final static Pattern RGBA = Pattern.compile("^rgba\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*((0.[0-9]+)|[01])\\s*\\)$");
 
+	// speed up with a color cache
+	// of course, this shouldn't be necessary if the Profiles already had the
+	// colors parsed
+	private static final Map<String, Color> cache = new HashMap<>();
+
 	public static Color parseColor(String color) {
 		if (color == null) return null;
+		return cache.computeIfAbsent(color, ColorFactory::strToColor);
+	}
+
+	private static Color strToColor(String color) {
 		return color.startsWith("#")
 				? hexToColor(color)
 				: rgbaToColor(color);
