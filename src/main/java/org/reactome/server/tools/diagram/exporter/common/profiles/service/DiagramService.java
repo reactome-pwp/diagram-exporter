@@ -83,18 +83,27 @@ public class DiagramService {
 	 * </pre>
 	 * </code>
 	 *
-	 * @param stId        stable identifier of the diagram
-	 * @param ext         output format: jpg, jpeg, png or gif. Case
-	 *                    insensitive
-	 * @param factor      quality of output image. Factor represents the number
-	 *                    of pixels per point in the diagram
-	 * @param decorator   flagged and selected elements
-	 * @param profile     Color diagram name (modern or standard)
-	 * @param diagramPath static directory for the diagram json
+	 * @param stId              stable identifier of the diagram
+	 * @param ext               output format: jpg, jpeg, png or gif. Case
+	 *                          insensitive
+	 * @param factor            quality of output image. Factor represents the
+	 *                          number of pixels per point in the diagram
+	 * @param decorator         flagged and selected elements
+	 * @param diagramPath       static directory for the diagram json
+	 * @param diagramProfile    diagram profile name (modern or standard)
+	 * @param analysisProfile   analysis profile name (standard, strosobar or
+	 *                          copper plus)
+	 * @param interactorProfile interactor profile name (cyan or teal)
 	 */
-	public BufferedImage exportToRaster(String stId, String ext, Double factor, Decorator decorator, String profile, String diagramPath)
+	public BufferedImage exportToRaster(String stId, String ext, Double factor,
+	                                    Decorator decorator,
+	                                    String diagramPath,
+	                                    String diagramProfile,
+	                                    String analysisProfile,
+	                                    String interactorProfile)
 			throws DiagramProfileException, DiagramJsonDeserializationException,
 			DiagramJsonNotFoundException {
-		return RasterExporter.export(stId, ext, factor, decorator, profile, diagramPath);
+		return RasterExporter.export(stId, ext, factor, decorator, diagramPath,
+				diagramProfile, analysisProfile, interactorProfile);
 	}
 }
