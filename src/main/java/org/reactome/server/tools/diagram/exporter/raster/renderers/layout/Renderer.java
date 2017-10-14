@@ -16,5 +16,5 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.Diagra
  */
 public interface Renderer {
 
-	void draw(DiagramCanvas canvas, DiagramObject node, DiagramProfile diagramProfile, AnalysisProfile analysisProfile, InteractorProfile interactorProfile, DiagramIndex index, AnalysisType analysisType);
+	void draw(DiagramCanvas canvas, DiagramObject item, DiagramProfile diagramProfile, AnalysisProfile analysisProfile, InteractorProfile interactorProfile, DiagramIndex index, AnalysisType analysisType);
 }

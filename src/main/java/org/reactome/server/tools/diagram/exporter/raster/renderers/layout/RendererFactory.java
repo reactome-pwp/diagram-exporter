@@ -20,8 +20,6 @@ public class RendererFactory {
 
 	private static void createRenderers() {
 		renderers = new HashMap<>();
-		renderers.put("Compartment", new CompartmentRenderer());
-		renderers.put("Note", new NoteRenderer());
 		renderers.put("Protein", new ProteinRenderer());
 		renderers.put("Chemical", new ChemicalRenderer());
 		renderers.put("ChemicalDrug", new ChemicalDrugRenderer());

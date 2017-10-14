@@ -2,6 +2,8 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.Bound;
 import org.reactome.server.tools.diagram.data.layout.Compartment;
+import org.reactome.server.tools.diagram.data.layout.Coordinate;
+import org.reactome.server.tools.diagram.data.layout.impl.CoordinateFactory;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
@@ -16,8 +18,12 @@ import java.util.stream.Collectors;
 
 /**
  * Renderer for compartments
+ *
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
-public class CompartmentRenderer extends NodeAbstractRenderer {
+public class CompartmentRenderer extends AbstractRenderer {
+
+	private static final Coordinate GWU_CORRECTION = CoordinateFactory.get(14, 18);
 
 	private Shape outer(Compartment node) {
 		return ShapeFactory.roundedRectangle(node.getProp());
@@ -38,7 +44,7 @@ public class CompartmentRenderer extends NodeAbstractRenderer {
 		// Inner color is the sum of the fill color with itself
 		final String innerColor = ColorFactory.asRgba(ColorFactory.blend((Color) fill, (Color) fill));
 		final String border = profile.getCompartment().getStroke();
-		final Stroke stroke = StrokeProperties.BORDER_STROKE;
+		final Stroke stroke = StrokeProperties.StrokeStyle.BORDER.getStroke(false);
 		final String text = profile.getCompartment().getText();
 
 		final List<Shape> outer = compartments.stream()
@@ -62,10 +68,9 @@ public class CompartmentRenderer extends NodeAbstractRenderer {
 			canvas.getCompartmentFill().add(fillString, out);
 			canvas.getCompartmentBorder().add(border, stroke, outer.get(i));
 		}
-
-		compartments.forEach(compartment -> {
-			canvas.getCompartmentText().add(text, compartment.getDisplayName(), compartment.getTextPosition());
-		});
+		compartments.forEach(compartment ->
+				canvas.getCompartmentText().add(text, compartment.getDisplayName(),
+						compartment.getTextPosition().add(GWU_CORRECTION)));
 	}
 
 }

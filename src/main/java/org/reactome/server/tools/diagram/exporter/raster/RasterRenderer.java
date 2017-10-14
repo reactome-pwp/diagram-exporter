@@ -3,19 +3,20 @@ package org.reactome.server.tools.diagram.exporter.raster;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
-import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.profile.analysis.AnalysisProfile;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 import org.reactome.server.tools.diagram.data.profile.interactors.InteractorProfile;
 import org.reactome.server.tools.diagram.exporter.common.Decorator;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.FontProperties;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.*;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.CompartmentRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.EdgeRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.NoteRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.RendererFactory;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Collection;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.*;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
@@ -25,6 +26,8 @@ import java.util.stream.Stream;
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class RasterRenderer {
+
+	private static final Logger log = Logger.getLogger(RasterRenderer.class.getName());
 
 	/*
 	 * physical size of image using the best print quality (600 ppi).
@@ -43,16 +46,19 @@ public class RasterRenderer {
 	 */
 	private static final double MAX_IMAGE_SIZE = 1e8; // 100Mpixels
 	private static final int MARGIN = 15;
+	private static final Set<String> TRANSPARENT_FORMATS = new HashSet<>(Collections.singletonList("png"));
+	private static final Set<String> NO_TRANSPARENT_FORMATS = new HashSet<>(Arrays.asList("jpg", "jpeg", "gif"));
+
 	private final Diagram diagram;
 	private final DiagramProfile diagramProfile;
 	private final AnalysisProfile analysisProfile;
 	private final InteractorProfile interactorProfile;
-	private DiagramIndex index;
+	private final DiagramIndex index;
+	private final AnalysisType analysisType;
 	private DiagramCanvas canvas;
-	private AnalysisType analysisType;
 
 	/**
-	 * Creates a RasterRenderer with specific diagram, graph, diagram and
+	 * Creates a RasterRenderer with specific diagram, graph, color profile and
 	 * decorator.
 	 *
 	 * @param diagram           diagram to render
@@ -62,7 +68,10 @@ public class RasterRenderer {
 	 * @param analysisProfile   profile for analysis
 	 * @param interactorProfile profile for interactors
 	 */
-	RasterRenderer(Diagram diagram, Graph graph, Decorator decorator, DiagramProfile diagramProfile, AnalysisProfile analysisProfile, InteractorProfile interactorProfile) {
+	RasterRenderer(Diagram diagram, Graph graph, Decorator decorator,
+	               DiagramProfile diagramProfile,
+	               AnalysisProfile analysisProfile,
+	               InteractorProfile interactorProfile) {
 		this.diagram = diagram;
 		this.diagramProfile = diagramProfile;
 		this.analysisProfile = analysisProfile;
@@ -84,65 +93,38 @@ public class RasterRenderer {
 	public BufferedImage render(double factor, String ext) {
 
 		// Bounds are recalculated reading nodes, we don't trust diagram bounds
-		final AtomicReference<DiagramObject> object = new AtomicReference<>();
-		streamObjects().forEach(diagramObject -> {
-			if (object.get() == null) {
-				object.set(diagramObject);
-			}else {
-				if (diagramObject.getMinX() < object.get().getMinX()) {
-					object.set(diagramObject);
-				}
-			}
-		});
 		final double minX = getMinX();
 		final double maxX = getMaxX();
 		final double minY = getMinY();
 		final double maxY = getMaxY();
 
-		final double diagramWidth = maxX - minX;
-		final double diagramHeight = maxY - minY;
+		final double diagramWidth = maxX - minX + 2 * MARGIN;
+		final double diagramHeight = maxY - minY + 2 * MARGIN;
 
-		double width = factor * (diagramWidth + 2 * MARGIN);
-		double height = factor * (diagramHeight + 2 * MARGIN);
+		int width = (int) (factor * diagramWidth);
+		int height = (int) (factor * diagramHeight);
 
 		// Limit the size of the images by reducing the factor until it fits
 		// into the MAX_IMAGE_SIZE, thus ensuring that a maximum of
 		// MAX_IMAGE_SIZE pixels are stored in memory.
-		double newFactor = factor;
-		while (height * width > MAX_IMAGE_SIZE && newFactor > 1) {
-			newFactor -= 0.1;
-			width = newFactor * (diagramWidth + 2 * MARGIN);
-			height = newFactor * (diagramHeight + 2 * MARGIN);
-		}
-		if (newFactor < factor) {
-			Logger.getLogger(getClass().getName())
-					.warning(String.format(
-							"Diagram %s too large. Quality reduced from %.1f to %.1f -> %.0f x %.0f = %.0f (%.2f MP)",
-							diagram.getStableId(), factor, newFactor, height, width, height * width, height * width / 1e6));
+		final double size = height * width;
+		if (size > MAX_IMAGE_SIZE) {
+			final double newFactor = Math.sqrt((MAX_IMAGE_SIZE / (diagramHeight * diagramWidth)));
+			width = (int) (newFactor * diagramWidth);
+			height = (int) (newFactor * diagramHeight);
+			log.warning(String.format(
+					"Diagram %s too large. Quality reduced from %.1f to %.2f -> %d x %d = %d (%.2f MP)",
+					diagram.getStableId(), factor, newFactor, height, width, height * width, height * width / 1e6));
 			factor = newFactor;
 		}
-//		this.factor = factor;
-//
-//		FontProperties.setFactor(factor);
-//		RendererProperties.setFactor(factor);
-//		StrokeProperties.setFactor(factor);
 
-		final double x = minX * factor;
-		final double y = minY * factor;
-		final double margin = factor * MARGIN;
-		final AdvancedGraphics2D graphics = new AdvancedGraphics2D(width, height, x, y, margin, ext);
-		graphics.getGraphics().setFont(FontProperties.DEFAULT_FONT);
-		graphics.getGraphics().scale(factor, factor);
-
-
+		// Virtual canvas: full of layers
 		canvas = new DiagramCanvas();
-		compartments();
-		links();
-		nodes();
-		notes();
-		edges();
-		canvas.render(graphics.getGraphics());
-		return graphics.getImage();
+		layout();
+		final BufferedImage image = createImage(width, height, ext.toLowerCase());
+		final Graphics2D graphics = createGraphics(image, ext.toLowerCase(), factor, minX, minY, MARGIN);
+		canvas.render(graphics);
+		return image;
 	}
 
 	private double getMinY() {
@@ -178,16 +160,54 @@ public class RasterRenderer {
 				.flatMap(Collection::stream);
 	}
 
+	private BufferedImage createImage(int width, int height, String ext) {
+		if (TRANSPARENT_FORMATS.contains(ext))
+			return new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		else if (NO_TRANSPARENT_FORMATS.contains(ext))
+			return new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		else
+			throw new IllegalArgumentException("Unsupported file extension " + ext);
+	}
+
+	private Graphics2D createGraphics(BufferedImage image, String ext,
+	                                  double factor, double x, double y,
+	                                  double margin) {
+		final Graphics2D graphics = image.createGraphics();
+		if (NO_TRANSPARENT_FORMATS.contains(ext)) {
+			graphics.setBackground(Color.WHITE);
+			graphics.clearRect(0, 0, image.getWidth(), image.getHeight());
+		}
+		// These 3 lines are really important, they move the canvas to the minx,
+		// miny of the diagram and scale it.
+		// Now we can draw elements with their own dimensions, isn't it nice?
+		graphics.translate(margin * factor, margin * factor);
+		graphics.translate((int) -x * factor, (int) -y * margin);
+		graphics.scale(factor, factor);
+
+		graphics.setFont(FontProperties.DEFAULT_FONT);
+		graphics.setRenderingHint(
+				RenderingHints.KEY_TEXT_ANTIALIASING,
+				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+		return graphics;
+	}
+
+	private void layout() {
+		compartments();
+		links();
+		nodes();
+		notes();
+		edges();
+	}
+
 	private void compartments() {
 		final CompartmentRenderer renderer = new CompartmentRenderer();
 		renderer.draw(canvas, diagram.getCompartments(), diagramProfile);
 	}
 
 	private void links() {
-		diagram.getLinks().forEach(link -> {
-			final EdgeRenderer renderer = (EdgeRenderer) RendererFactory.get(link.getRenderableClass());
-			renderer.draw(canvas, link, diagramProfile, index);
-		});
+		diagram.getLinks().forEach(link ->
+				RendererFactory.get(link.getRenderableClass())
+						.draw(canvas, link, diagramProfile, analysisProfile, interactorProfile, index, analysisType));
 	}
 
 	private void nodes() {
@@ -197,18 +217,13 @@ public class RasterRenderer {
 	}
 
 	private void edges() {
-		final ReactionRenderer renderer = new ReactionRenderer();
-		diagram.getEdges().forEach(edge -> renderer.draw(canvas, edge, diagramProfile, index));
-		final ConnectorRenderer connectorRenderer = new ConnectorRenderer();
-		diagram.getNodes().stream()
-				.map(Node::getConnectors)
-				.flatMap(Collection::stream)
-				.forEach(connector -> connectorRenderer.draw(canvas, connector, diagramProfile, index));
-
+		final EdgeRenderer renderer = new EdgeRenderer();
+		diagram.getEdges().forEach(edge ->
+				renderer.draw(canvas, edge, diagramProfile, analysisProfile, interactorProfile, index, analysisType));
 	}
 
 	private void notes() {
 		final NoteRenderer renderer = new NoteRenderer();
-		diagram.getNotes().forEach(note -> renderer.draw(canvas, note, diagramProfile, analysisProfile, interactorProfile, index, analysisType));
+		diagram.getNotes().forEach(note -> renderer.draw(canvas, note, diagramProfile));
 	}
 }

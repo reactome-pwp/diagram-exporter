@@ -14,15 +14,17 @@ import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.DrawLayer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.FillLayer;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.LineLayer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.TextLayer;
 
 import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
+
+import static org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties.StrokeStyle;
+import static org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties.get;
 
 /**
  * Basic node renderer. All Renderers that render nodes should override it. The
@@ -35,10 +37,7 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 
 	@Override
 	public void draw(DiagramCanvas canvas, DiagramObject item, DiagramProfile diagramProfile, AnalysisProfile analysisProfile, InteractorProfile interactorProfile, DiagramIndex index, AnalysisType analysisType) {
-		/*
-		 * First part of method: take all the decisions
-		 * Second part: render
-		 */
+		// 1 take aaaaalll the decisions
 		final NodeCommon node = (NodeCommon) item;
 		final boolean disease = isDisease(node);
 		final boolean crossed = isCrossed(node);
@@ -47,14 +46,49 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 		final boolean isFlag = index.getFlags().contains(node.getId());
 		final boolean isSelected = index.getSelected().contains(node.getId());
 		final boolean isHalo = index.getHaloed().contains(node.getId());
-		final Shape backgroundShape = backgroundShape(node);
+		// An area can be clip
+		final Shape bgShape = backgroundShape(node);
+		final Area bgArea = bgShape == null ? null : new Area(bgShape);
 		final Shape foregroundShape = foregroundShape(node);
 		final DiagramProfileNode profile = getDiagramProfileNode(node.getRenderableClass(), diagramProfile);
 		final NodeProperties prop = node.getProp();
 		final FillLayer bgLayer;
-		final LineLayer borderLayer;
+		final DrawLayer borderLayer;
 		final TextLayer textLayer;
 		final FillLayer fgLayer;
+		final Stroke borderStroke;
+		borderStroke = isSelected
+				? StrokeStyle.SELECTION.getStroke(dashed)
+				: StrokeStyle.BORDER.getStroke(dashed);
+
+		final String borderColor;
+		final String textColor;
+		final String bgFillColor;
+
+		if (fadeOut) {
+			bgFillColor = profile.getFadeOutFill();
+			borderColor = profile.getFadeOutStroke();
+			textColor = profile.getFadeOutText();
+		} else {
+			if (analysisType == AnalysisType.NONE) {
+				bgFillColor = profile.getFill();
+				borderColor = isSelected
+						? diagramProfile.getProperties().getSelection()
+						: disease
+						? diagramProfile.getProperties().getDisease()
+						: profile.getStroke();
+				textColor = profile.getText();
+			} else {
+				bgFillColor = profile.getLighterFill();
+				borderColor = isSelected
+						? diagramProfile.getProperties().getSelection()
+						: disease
+						? diagramProfile.getProperties().getDisease()
+						: profile.getLighterStroke();
+				textColor = profile.getLighterText();
+			}
+		}
+
 		if (fadeOut) {
 			bgLayer = canvas.getFadeOutNodeBackground();
 			fgLayer = canvas.getFadeOutNodeForeground();
@@ -66,41 +100,35 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 			borderLayer = canvas.getNodeBorder();
 			textLayer = canvas.getText();
 		}
+
 		// 1 flag
 		if (isFlag) {
 			final String flagColor = diagramProfile.getProperties().getFlag();
-			final Stroke flagStroke = dashed
-					? StrokeProperties.DASHED_FLAG_STROKE
-					: StrokeProperties.FLAG_STROKE;
-			flag(canvas.getFlags(), node, backgroundShape, flagColor, flagStroke);
+			final Stroke flagStroke = get(StrokeStyle.FLAG, dashed);
+			flag(canvas.getFlags(), node, bgArea, flagColor, flagStroke);
 		}
 		// 2 halo
 		if (isHalo) {
 			final String haloColor = diagramProfile.getProperties().getHalo();
-			final Stroke haloStroke = dashed
-					? StrokeProperties.DASHED_HALO_STROKE
-					: StrokeProperties.HALO_STROKE;
-			halo(canvas.getHalos(), backgroundShape, haloColor, haloStroke);
+			final Stroke haloStroke = StrokeStyle.HALO.getStroke(dashed);
+			halo(canvas.getHalo(), bgArea, haloColor, haloStroke);
 		}
 		// 3 fill
 		// 3.1 background
-		if (backgroundShape != null) {
-			final String bgFill;
-			if (fadeOut) bgFill = profile.getFadeOutFill();
-			else if (analysisType != AnalysisType.NONE)
-				bgFill = profile.getLighterFill();
-			else bgFill = profile.getFill();
-			background(bgLayer, node, backgroundShape, bgFill, fadeOut);
+		// This area can be modified later
+		if (bgArea != null) {
+			background(bgLayer, node, bgArea, bgFillColor, fadeOut);
 		}
 		// 3.2 enrichments
 		final Double percentage = index.getAnalysisValue(node);
 		if (percentage != null && percentage > 0) {
 			final String analysisColor = analysisProfile.getEnrichment().getGradient().getMax();
-			final Area analysisShape = new Area(backgroundShape);
+			final Area enrichment = new Area(bgShape);
 			final Rectangle2D rectangle = new Rectangle2D.Double(prop.getX(),
 					prop.getY(), prop.getWidth() * percentage, prop.getHeight());
-			analysisShape.intersect(new Area(rectangle));
-			analysis(canvas.getAnalysis(), analysisColor, analysisShape, node, fadeOut);
+			enrichment.intersect(new Area(rectangle));
+			bgArea.subtract(enrichment);
+			enrichment(canvas.getNodeEnrichment(), analysisColor, enrichment, node, fadeOut);
 		}
 		// 3.3 foreground
 		if (foregroundShape != null) {
@@ -108,39 +136,16 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 			foreground(fgLayer, node, foregroundShape, fgFill);
 		}
 		// 4 border
-		final Stroke borderStroke;
-		borderStroke = isSelected
-				? dashed
-				? StrokeProperties.DASHED_SELECTION_STROKE
-				: StrokeProperties.SELECTION_STROKE
-				: dashed
-				? StrokeProperties.DASHED_BORDER_STROKE
-				: StrokeProperties.BORDER_STROKE;
-		final String borderColor;
-		if (fadeOut)
-			borderColor = profile.getFadeOutStroke();
-		else if (isSelected)
-			borderColor = diagramProfile.getProperties().getSelection();
-		else if (disease)
-			borderColor = diagramProfile.getProperties().getDisease();
-		else if (analysisType != AnalysisType.NONE)
-			borderColor = profile.getLighterStroke();
-		else borderColor = profile.getStroke();
-		border(borderLayer, node, backgroundShape, foregroundShape, borderStroke, borderColor);
+		border(borderLayer, node, bgShape, foregroundShape, borderStroke, borderColor);
 
 		// 5 text
-		final String textColor;
-		if (fadeOut) textColor = profile.getFadeOutText();
-		else if (analysisType != AnalysisType.NONE)
-			textColor = profile.getLighterText();
-		else textColor = profile.getText();
 		text(textLayer, node, foregroundShape, prop, textColor);
 
 		// 6 cross
 		if (crossed) {
 			final String crossColor = diagramProfile.getProperties().getDisease();
 			final List<Shape> cross = ShapeFactory.cross(node.getProp());
-			cross.forEach(line -> canvas.getCross().add(crossColor, StrokeProperties.BORDER_STROKE, line));
+			cross.forEach(line -> canvas.getCross().add(crossColor, borderStroke, line));
 
 		}
 	}
@@ -156,7 +161,7 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 			layer.add(textColor, node.getDisplayName(), prop, RendererProperties.NODE_TEXT_PADDING);
 	}
 
-	protected void border(LineLayer layer, NodeCommon node, Shape backgroundShape, Shape foregroundShape, Stroke borderStroke, String borderColor) {
+	protected void border(DrawLayer layer, NodeCommon node, Shape backgroundShape, Shape foregroundShape, Stroke borderStroke, String borderColor) {
 		if (backgroundShape != null)
 			layer.add(borderColor, borderStroke, backgroundShape);
 		if (foregroundShape != null)
@@ -167,7 +172,7 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 		layer.add(fgFill, foregroundShape);
 	}
 
-	private void analysis(FillLayer layer, String analysisColor, Area analysisShape, NodeCommon node, boolean fadeout) {
+	private void enrichment(FillLayer layer, String analysisColor, Area analysisShape, NodeCommon node, boolean fadeout) {
 		layer.add(analysisColor, analysisShape);
 	}
 
@@ -175,11 +180,11 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 		layer.add(bgFill, backgroundShape);
 	}
 
-	private void halo(LineLayer layer, Shape shape, String haloColor, Stroke haloStroke) {
+	private void halo(DrawLayer layer, Shape shape, String haloColor, Stroke haloStroke) {
 		layer.add(haloColor, haloStroke, shape);
 	}
 
-	private void flag(LineLayer layer, NodeCommon node, Shape shape, String flagColor, Stroke flagStroke) {
+	private void flag(DrawLayer layer, NodeCommon node, Shape shape, String flagColor, Stroke flagStroke) {
 		layer.add(flagColor, flagStroke, shape);
 	}
 

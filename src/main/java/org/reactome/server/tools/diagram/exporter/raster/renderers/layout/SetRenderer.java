@@ -31,8 +31,5 @@ public class SetRenderer extends NodeAbstractRenderer {
 	@Override
 	protected String getFgFill(AnalysisType analysisType, DiagramProfileNode profile) {
 		return "rgba(0,0,0,0)";
-//		return analysisType == AnalysisType.NONE
-//				? profile.getFill()
-//				: profile.getLighterFill();
 	}
 }

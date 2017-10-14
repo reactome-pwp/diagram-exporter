@@ -23,7 +23,7 @@ import java.util.stream.Stream;
  */
 public class DiagramIndex {
 
-	public static final double MIN_ENRICHMENT = 0.05;
+	private static final double MIN_ENRICHMENT = 0.05;
 	private final Diagram diagram;
 	private final Graph graph;
 	private Decorator decorator;
@@ -33,13 +33,13 @@ public class DiagramIndex {
 	 */
 	private Map<Long, DiagramObject> diagramIndex;
 	/**
-	 * [reactome id] node.getDbId()
-	 */
-	private Map<Long, EntityNode> graphIndex;
-	/**
 	 * [reactome id] item.getReactomeId()
 	 */
 	private Map<Long, DiagramObject> reactomeIndex;
+	/**
+	 * [reactome id] node.getDbId()
+	 */
+	private Map<Long, EntityNode> graphIndex;
 
 	/**
 	 * [diagram id] item.getId()
@@ -57,6 +57,10 @@ public class DiagramIndex {
 	 * [diagram id] item.getId()
 	 */
 	private Map<Long, Double> analysisIndex = new HashMap<>();
+	/**
+	 * [diagram id] edge.getId()
+	 */
+	private Map<Long, List<Connector>> connectors;
 
 	/**
 	 * Computes the maps of nodes, reactions and connectors so they are grouped
@@ -73,7 +77,6 @@ public class DiagramIndex {
 		this.decorator = decorator;
 		createIndexes();
 		collect();
-		analysis();
 	}
 
 	private void createIndexes() {
@@ -88,12 +91,17 @@ public class DiagramIndex {
 				});
 		graphIndex = new HashMap<>();
 		graph.getNodes().forEach(item -> graphIndex.put(item.getDbId(), item));
+		connectors = diagram.getNodes().stream()
+				.map(Node::getConnectors)
+				.flatMap(Collection::stream)
+				.collect(Collectors.groupingBy(Connector::getEdgeId));
 	}
 
 	private void collect() {
 		if (decorator != null) {
 			selectNodes();
 			selectReactions();
+			analysis();
 		}
 	}
 
@@ -135,7 +143,7 @@ public class DiagramIndex {
 	 * Adds the reaction to the haloReaction set, participating nodes to
 	 * haloNodes and participating connectors to haloConnectors
 	 *
-	 * @param reaction      reaction to halo
+	 * @param reaction reaction to halo
 	 */
 	private void haloEdge(Edge reaction) {
 		haloed.add(reaction.getId());
@@ -144,6 +152,10 @@ public class DiagramIndex {
 					if (node.getIsFadeOut() == null || !node.getIsFadeOut())
 						haloed.add(node.getId());
 				});
+	}
+
+	private void flagReaction(Edge reaction) {
+		flags.add(reaction.getId());
 	}
 
 	/**
@@ -163,45 +175,41 @@ public class DiagramIndex {
 				.map(Node.class::cast);
 	}
 
-	private void flagReaction(Edge reaction) {
-		flags.add(reaction.getId());
-		streamParticipants(reaction).forEach(node ->
-				node.getConnectors().stream()
-						.filter(connector -> connector.getEdgeId().equals(reaction.getId()))
-						.map(Connector::getEdgeId)
-						.forEach(flags::add));
-	}
-
 	private void analysis() {
-		if (decorator == null)
-			return;
 		final String token = decorator.getToken();
 		if (token == null || token.isEmpty())
 			return;
 		final String stId = graph.getStId();
-		System.out.println(token);
+		System.out.println(token);// TODO: delete on production
 		try {
 			final AnalysisResult result = AnalysisClient.getAnalysisResult(token);
 			final List<ResourceSummary> summaryList = result.getResourceSummary();
-			final ResourceSummary resourceSummary = summaryList.size() == 2 ? summaryList.get(1) : summaryList.get(0);
+			final ResourceSummary resourceSummary = summaryList.size() == 2
+					? summaryList.get(1)
+					: summaryList.get(0);
 			final String resource = resourceSummary.getResource();
+
 			subPathways(token, resource);
 			enrichment(token, stId, resource);
+
 		} catch (AnalysisException | AnalysisServerError e) {
 			e.printStackTrace();
 		}
-
-
 	}
 
+	/**
+	 * Adds to the analysis index the subPathways present in the diagram (as
+	 * ProcessNodes). So for each it takes its PathwaySummary and divides
+	 * entities.getFound() / entities.getTotal() to compute the percentage of
+	 * the fill area.
+	 */
 	private void subPathways(String token, String resource) throws AnalysisServerError, AnalysisException {
-		// I need a list of process nodes (id, stid, displayname) with %
-		// 1 list of processnodes (stid)
+		// 1 extract list of subPathways stId (for ProcessNodes)
 		final List<String> subPathways = diagram.getNodes().stream()
 				.filter(node -> node.getRenderableClass().equals("ProcessNode"))
 				.map(node -> graphIndex.get(node.getReactomeId()).getStId())
 				.collect(Collectors.toList());
-		// 2 call analysis
+		// 2 get subPathways summary
 		final PathwaySummary[] pathwaysSummary = AnalysisClient.getPathwaysSummary(subPathways, token, resource);
 		// extract %
 		for (PathwaySummary summary : pathwaysSummary) {
@@ -220,6 +228,13 @@ public class DiagramIndex {
 		}
 	}
 
+	/**
+	 * Adds to the analysis index all the nodes that are hit by the analysis,
+	 * either directly (proteins) or any of its children (sets and complex). The
+	 * percentage is the relation between the number of hit leaf nodes and the
+	 * number of leaf nodes which are descender of a certain node. A leaf node
+	 * is a node with no children.
+	 */
 	private void enrichment(String token, String stId, String resource) throws AnalysisException, AnalysisServerError {
 		final FoundElements foundElements = AnalysisClient.getFoundElements(stId, token, resource);
 		// 1 map foundEntities to graph nodes (EntityNode)
@@ -232,27 +247,31 @@ public class DiagramIndex {
 		final Set<EntityNode> hitEntities = graph.getNodes().stream()
 				.filter(entityNode -> identifiers.contains(entityNode.getIdentifier()))
 				.collect(Collectors.toSet());
-
 		final Set<Long> hitIds = hitEntities.stream()
 				.map(GraphNode::getDbId)
 				.collect(Collectors.toSet());
-		// 3 Find graph nodes with children, count found children, map to diagram item
 		diagram.getNodes().stream()
 				.filter(node -> !node.getRenderableClass().equals("ProcessNode"))
 				.forEach(node -> {
 					final EntityNode graphNode = graphIndex.get(node.getReactomeId());
 					if (graphNode != null) {
-						final Set<Long> leaves = getLeaves(graphNode);
-						final int total = leaves.size();
-						final long count = leaves.stream().filter(hitIds::contains).count();
-						double percentage = (double) count / total;
-						if (percentage < MIN_ENRICHMENT && percentage > 0)
-							percentage = MIN_ENRICHMENT;
-						System.out.printf("[%s]\t %s \t(%d/%d) %.2f\n", node.getRenderableClass(), node.getDisplayName(),
-								count, total, percentage);
+						double percentage = getPercentage(hitIds, node, graphNode);
 						analysisIndex.put(node.getId(), percentage);
 					}
 				});
+	}
+
+	private double getPercentage(Set<Long> hitIds, Node node, EntityNode graphNode) {
+		final Set<Long> leaves = getLeaves(graphNode);
+		final int total = leaves.size();
+		final long count = leaves.stream().filter(hitIds::contains).count();
+		double percentage = (double) count / total;
+		if (percentage < MIN_ENRICHMENT && percentage > 0)
+			percentage = MIN_ENRICHMENT;
+		// TODO: remove on production
+		System.out.printf("[%s]\t %s \t(%d/%d) %.2f\n", node.getRenderableClass(), node.getDisplayName(),
+				count, total, percentage);
+		return percentage;
 	}
 
 	private Set<Long> getLeaves(EntityNode node) {
@@ -283,5 +302,9 @@ public class DiagramIndex {
 
 	public Double getAnalysisValue(NodeCommon node) {
 		return analysisIndex.get(node.getId());
+	}
+
+	public List<Connector> getConnectors(Long edgeId) {
+		return connectors.getOrDefault(edgeId, Collections.emptyList());
 	}
 }

@@ -1,13 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
-import org.reactome.server.tools.diagram.data.layout.DiagramObject;
-import org.reactome.server.tools.diagram.data.profile.analysis.AnalysisProfile;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
-import org.reactome.server.tools.diagram.data.profile.interactors.InteractorProfile;
-import org.reactome.server.tools.diagram.exporter.raster.AnalysisType;
-import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 
 /**
  * empty renderer. Drawing with it will no have effects in the graphics.
@@ -22,7 +16,7 @@ public abstract class AbstractRenderer implements Renderer {
 				return diagramProfile.getChemical();
 			case "Complex":
 				return diagramProfile.getComplex();
-			case "Entity":
+			case "Entity": // Weirdo black background
 //				return diagramProfile.getEntity();
 			case "EntitySet":
 				return diagramProfile.getEntityset();
@@ -45,11 +39,7 @@ public abstract class AbstractRenderer implements Renderer {
 			case "Stoichiometry":
 				return diagramProfile.getStoichiometry();
 			default:
-				throw new IllegalArgumentException("Type " + rClass + " is not found in the JSON Profile.");		}
-	}
-
-	@Override
-	public void draw(DiagramCanvas canvas, DiagramObject item, DiagramProfile diagramProfile, AnalysisProfile analysisProfile, InteractorProfile interactorProfile, DiagramIndex index, AnalysisType analysisType) {
-
+				throw new IllegalArgumentException("Type " + rClass + " is not found in the JSON Profile.");
+		}
 	}
 }

@@ -6,8 +6,8 @@ import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
 import org.reactome.server.tools.diagram.exporter.raster.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.DrawLayer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.FillLayer;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.LineLayer;
 
 import java.awt.*;
 
@@ -19,7 +19,7 @@ import java.awt.*;
 public class GeneRenderer extends NodeAbstractRenderer {
 
 	@Override
-	protected void border(LineLayer layer, NodeCommon node, Shape backgroundShape, Shape foregroundShape, Stroke borderStroke, String borderColor) {
+	protected void border(DrawLayer layer, NodeCommon node, Shape backgroundShape, Shape foregroundShape, Stroke borderStroke, String borderColor) {
 		final Shape line = line(node);
 		layer.add(borderColor, borderStroke, line);
 		final Shape arrow = arrow(node);

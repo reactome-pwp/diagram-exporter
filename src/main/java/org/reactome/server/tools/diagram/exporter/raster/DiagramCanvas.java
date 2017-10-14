@@ -6,35 +6,33 @@ import java.awt.*;
 import java.util.stream.Stream;
 
 public class DiagramCanvas {
+
 	private FillLayer compartmentFill = new FillLayerImpl();
-	private LineLayer compartmentBorder = new LineLayerImpl();
+	private DrawLayer compartmentBorder = new DrawLayerImpl();
 	private TextLayer compartmentText = new TextLayerImpl();
-	private LineLayer fadeOutSegments = new LineLayerImpl();
+	private DrawLayer fadeOutSegments = new DrawLayerImpl();
 	private FillLayer fadeOutNodeBackground = new FillLayerImpl();
-	private LineLayer fadeOutNodeBorder = new LineLayerImpl();
+	private DrawLayer fadeOutNodeBorder = new DrawLayerImpl();
 	private TextLayer fadeOutText = new TextLayerImpl();
-	private LineLayer segments = new LineLayerImpl();
-	private LineLayer flags = new LineLayerImpl();
-	private LineLayer halos = new LineLayerImpl();
-	private FillLayer edgeFill = new FillLayerImpl();
-	private LineLayer nodeBorder = new LineLayerImpl();
+	private DrawLayer segments = new DrawLayerImpl();
+	private DrawLayer flags = new DrawLayerImpl();
+	private DrawLayer halo = new DrawLayerImpl();
+	private DrawLayer nodeBorder = new DrawLayerImpl();
 	private TextLayer text = new TextLayerImpl();
 	private TextLayer notes = new TextLayerImpl();
-	private FillLayer analysis = new FillLayerImpl();
-	private LineLayer cross = new LineLayerImpl();
+	private FillLayer nodeEnrichment = new FillLayerImpl();
+	private DrawLayer cross = new DrawLayerImpl();
 	private FillLayer nodeBackground = new FillLayerImpl();
 	private FillLayer nodeForeground = new FillLayerImpl();
-	private LineLayer edgeBorder = new LineLayerImpl();
 	private FillLayer fadeOutNodeForeground = new FillLayerImpl();
-	private FillLayer fadeoutEdgeFill = new FillLayerImpl();
-	private LineLayer fadeoutEdgeBorder = new LineLayerImpl();
+	private FillDrawLayer edgeShapes = new FillDrawLayerImpl();
+	private FillDrawLayer fadeOutEdgeShapes = new FillDrawLayerImpl();
 
 	public DiagramCanvas() {
 	}
 
 	public void render(Graphics2D graphics) {
 		Stream.of(
-				// Compartments
 				compartmentFill,
 				compartmentBorder,
 				compartmentText,
@@ -43,28 +41,26 @@ public class DiagramCanvas {
 				fadeOutNodeBackground,
 				fadeOutNodeForeground,
 				fadeOutNodeBorder,
-				fadeoutEdgeFill,
-				fadeoutEdgeBorder,
+				fadeOutEdgeShapes,
 				fadeOutText,
-				cross,
 
+				cross,
 				flags,
-				halos,
+				halo,
 
 				segments,
 				nodeBackground,
-				analysis,
+				nodeEnrichment,
 				nodeForeground,
 				nodeBorder,
-				edgeFill,
-				edgeBorder,
+				edgeShapes,
 				text,
 
 				notes
 		).forEach(layer -> layer.render(graphics));
 	}
 
-	public LineLayer getCompartmentBorder() {
+	public DrawLayer getCompartmentBorder() {
 		return compartmentBorder;
 	}
 
@@ -76,11 +72,11 @@ public class DiagramCanvas {
 		return compartmentText;
 	}
 
-	public LineLayer getFadeOutSegments() {
+	public DrawLayer getFadeOutSegments() {
 		return fadeOutSegments;
 	}
 
-	public LineLayer getSegments() {
+	public DrawLayer getSegments() {
 		return segments;
 	}
 
@@ -88,7 +84,7 @@ public class DiagramCanvas {
 		return fadeOutNodeBackground;
 	}
 
-	public LineLayer getFadeOutNodeBorder() {
+	public DrawLayer getFadeOutNodeBorder() {
 		return fadeOutNodeBorder;
 	}
 
@@ -96,19 +92,15 @@ public class DiagramCanvas {
 		return fadeOutText;
 	}
 
-	public LineLayer getFlags() {
+	public DrawLayer getFlags() {
 		return flags;
 	}
 
-	public LineLayer getHalos() {
-		return halos;
+	public DrawLayer getHalo() {
+		return halo;
 	}
 
-	public FillLayer getEdgeFill() {
-		return edgeFill;
-	}
-
-	public LineLayer getNodeBorder() {
+	public DrawLayer getNodeBorder() {
 		return nodeBorder;
 	}
 
@@ -120,7 +112,7 @@ public class DiagramCanvas {
 		return notes;
 	}
 
-	public LineLayer getCross() {
+	public DrawLayer getCross() {
 		return cross;
 	}
 
@@ -128,28 +120,23 @@ public class DiagramCanvas {
 		return nodeBackground;
 	}
 
-	public FillLayer getAnalysis() {
-		return analysis;
+	public FillLayer getNodeEnrichment() {
+		return nodeEnrichment;
 	}
 
 	public FillLayer getNodeForeground() {
 		return nodeForeground;
 	}
 
-	public LineLayer getEdgeBorder() {
-		return edgeBorder;
-	}
-
 	public FillLayer getFadeOutNodeForeground() {
 		return fadeOutNodeForeground;
 	}
 
-	public FillLayer getFadeoutEdgeFill() {
-		return fadeoutEdgeFill;
+	public FillDrawLayer getEdgeShapes() {
+		return edgeShapes;
 	}
 
-	public LineLayer getFadeoutEdgeBorder() {
-		return fadeoutEdgeBorder;
+	public FillDrawLayer getFadeOutEdgeShapes() {
+		return fadeOutEdgeShapes;
 	}
-
 }
