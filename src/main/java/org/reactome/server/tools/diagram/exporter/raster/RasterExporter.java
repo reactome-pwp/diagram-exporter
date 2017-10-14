@@ -40,22 +40,29 @@ public class RasterExporter {
 	 * </pre>
 	 * </code>
 	 *
-	 * @param stId        stable identifier of the diagram
-	 * @param ext         output format: jpg, jpeg, png or gif. Case
-	 *                    insensitive
-	 * @param factor      quality of output image. Factor represents the number
-	 *                    of pixels per point in the diagram
-	 * @param decorator   flagged and selected elements
-	 * @param profile     Color diagram name (modern or standard)
-	 * @param diagramPath static directory for the diagram json
+	 * @param stId                  stable identifier of the diagram
+	 * @param ext                   output format: jpg, jpeg, png or gif. Case
+	 *                              insensitive
+	 * @param factor                quality of output image. number of pixels
+	 *                              per point in the diagram
+	 * @param decorator             flagged and selected elements
+	 * @param diagramPath           static directory for the diagram json
+	 * @param diagramProfileName    diagram profile name (modern or standard)
+	 * @param analysisProfileName   analysis profile name (standard, strosobar
+	 *                              or copper plus)
+	 * @param interactorProfileName interactor profile name (cyan or teal)
 	 */
-	public static BufferedImage export(String stId, String ext, double factor, Decorator decorator, String profile, String diagramPath)
+	public static BufferedImage export(String stId, String ext, double factor,
+	                                   Decorator decorator, String diagramPath,
+	                                   String diagramProfileName,
+	                                   String analysisProfileName,
+	                                   String interactorProfileName)
 			throws DiagramJsonNotFoundException, DiagramProfileException, DiagramJsonDeserializationException {
 		final Graph graph = ResourcesFactory.getGraph(diagramPath, stId);
 		final Diagram diagram = ResourcesFactory.getDiagram(diagramPath, stId);
-		final DiagramProfile diagramProfile = ResourcesFactory.getDiagramProfile(profile.toLowerCase());
-		final AnalysisProfile analysisProfile = ResourcesFactory.getAnalysisProfile("standard");
-		final InteractorProfile interactorProfile = ResourcesFactory.getInteractorsProfile("teal");
+		final DiagramProfile diagramProfile = ResourcesFactory.getDiagramProfile(diagramProfileName.toLowerCase());
+		final AnalysisProfile analysisProfile = ResourcesFactory.getAnalysisProfile(analysisProfileName.toLowerCase());
+		final InteractorProfile interactorProfile = ResourcesFactory.getInteractorsProfile(interactorProfileName.toLowerCase());
 		final RasterRenderer renderer = new RasterRenderer(diagram, graph, decorator, diagramProfile, analysisProfile, interactorProfile);
 		return renderer.render(factor, ext);
 	}
