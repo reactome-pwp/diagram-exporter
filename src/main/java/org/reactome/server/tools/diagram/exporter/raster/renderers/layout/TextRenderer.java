@@ -55,13 +55,13 @@ public class TextRenderer {
 
 		Area whiteArea = null;
 		Area colorArea = null;
-		Area shadowArea = null;
+//		Area shadowArea = null;
 		if (splitText > 0 && splitText < 1) {
 			// +1 for thw shadow
 			whiteArea = new Area(new Rectangle2D.Double(
 					x, y, width * splitText, height));
-			shadowArea = new Area(new Rectangle2D.Double(
-					x - SHADOW_OFFSET, y + SHADOW_OFFSET, width * splitText + SHADOW_OFFSET, height));
+//			shadowArea = new Area(new Rectangle2D.Double(
+//					x - SHADOW_OFFSET, y + SHADOW_OFFSET, width * splitText + SHADOW_OFFSET, height));
 			colorArea = new Area(new Rectangle2D.Double(
 					x + width * splitText, y, width * (1 - splitText), height));
 		}
@@ -81,16 +81,15 @@ public class TextRenderer {
 			final float left = (float) (centerX - 0.5 * lineWidth);
 			final float base = (float) (yOffset + i * lineHeight);
 			if (whiteArea != null) {
-				graphics2D.setClip(colorArea);
-				graphics2D.drawString(line, left, base);
 				final Paint oldPaint = graphics2D.getPaint();
-				graphics2D.setClip(shadowArea);
-				graphics2D.setPaint(Color.DARK_GRAY);
+				graphics2D.setPaint(Color.GRAY);
 				graphics2D.drawString(line, left - SHADOW_OFFSET, base + SHADOW_OFFSET);
 				graphics2D.setClip(whiteArea);
 				graphics2D.setPaint(Color.WHITE);
 				graphics2D.drawString(line, left, base);
 				graphics2D.setPaint(oldPaint);
+				graphics2D.setClip(colorArea);
+				graphics2D.drawString(line, left, base);
 				graphics2D.setClip(null);
 			} else graphics2D.drawString(line, left, base);
 		}
