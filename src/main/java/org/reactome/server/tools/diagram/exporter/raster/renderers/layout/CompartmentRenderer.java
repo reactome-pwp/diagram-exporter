@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
-public class CompartmentRenderer extends AbstractRenderer {
+public class CompartmentRenderer {
 
 	private static final Coordinate GWU_CORRECTION = CoordinateFactory.get(14, 18);
 
@@ -48,10 +48,10 @@ public class CompartmentRenderer extends AbstractRenderer {
 		final String text = profile.getCompartment().getText();
 
 		final List<Shape> outer = compartments.stream()
-				.map(compartment -> outer(compartment))
+				.map(this::outer)
 				.collect(Collectors.toCollection(ArrayList::new));
 		final List<Shape> inner = compartments.stream()
-				.map(compartment -> inner(compartment))
+				.map(this::inner)
 				.collect(Collectors.toCollection(ArrayList::new));
 
 		// Instead of painting both rectangles for each compartment

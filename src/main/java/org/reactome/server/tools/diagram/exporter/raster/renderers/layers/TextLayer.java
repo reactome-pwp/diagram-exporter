@@ -12,7 +12,7 @@ import org.reactome.server.tools.diagram.data.layout.NodeProperties;
  */
 public interface TextLayer extends Layer {
 
-	void add(String color, String text, NodeProperties limits, double padding);
+	void add(String color, String text, NodeProperties limits, double padding, double splitText);
 
 	void add(String color, String text, Coordinate position);
 }

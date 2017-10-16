@@ -4,10 +4,10 @@ import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
-import org.reactome.server.tools.diagram.exporter.raster.AnalysisType;
+import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.NodeRenderInfo;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.DrawLayer;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.FillLayer;
 
 import java.awt.*;
 
@@ -19,18 +19,18 @@ import java.awt.*;
 public class GeneRenderer extends NodeAbstractRenderer {
 
 	@Override
-	protected void border(DrawLayer layer, NodeCommon node, Shape backgroundShape, Shape foregroundShape, Stroke borderStroke, String borderColor) {
-		final Shape line = line(node);
-		layer.add(borderColor, borderStroke, line);
-		final Shape arrow = arrow(node);
-		layer.add(borderColor, borderStroke, arrow);
+	protected void border(NodeRenderInfo info) {
+		final Shape line = line(info.getProp());
+		info.getBorderLayer().add(info.getBorderColor(), info.getBorderStroke(), line);
+		final Shape arrow = arrow(info.getProp());
+		info.getBorderLayer().add(info.getBorderColor(), info.getBorderStroke(), arrow);
 	}
 
 	@Override
-	protected void foreground(FillLayer canvas, NodeCommon node, Shape foregroundShape, String fgFill) {
-		super.foreground(canvas, node, foregroundShape, fgFill);
-		final Shape arrow = arrow(node);
-		canvas.add(fgFill, arrow);
+	protected void foreground(DiagramIndex index, NodeRenderInfo info, String fgFill) {
+		super.foreground(index, info, fgFill);
+		final Shape arrow = arrow(info.getProp());
+		info.getFgLayer().add(fgFill, arrow);
 	}
 
 	@Override
@@ -48,16 +48,14 @@ public class GeneRenderer extends NodeAbstractRenderer {
 		return ShapeFactory.getGeneFillShape(x, y, width, height);
 	}
 
-	private Shape line(NodeCommon node) {
-		final NodeProperties prop = node.getProp();
+	private Shape line(NodeProperties prop) {
 		final double x = prop.getX();
 		final double y = prop.getY();
 		final double width = prop.getWidth();
 		return ShapeFactory.getGeneLine(x, y, width);
 	}
 
-	private Shape arrow(NodeCommon node) {
-		final NodeProperties prop = node.getProp();
+	private Shape arrow(NodeProperties prop) {
 		final double x = prop.getX();
 		final double y = prop.getY();
 		final double width = prop.getWidth();

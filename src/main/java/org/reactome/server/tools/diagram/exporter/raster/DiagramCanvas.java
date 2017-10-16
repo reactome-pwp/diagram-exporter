@@ -20,7 +20,7 @@ public class DiagramCanvas {
 	private DrawLayer nodeBorder = new DrawLayerImpl();
 	private TextLayer text = new TextLayerImpl();
 	private TextLayer notes = new TextLayerImpl();
-	private FillLayer nodeEnrichment = new FillLayerImpl();
+	private FillLayer nodeAnalysis = new FillLayerImpl();
 	private DrawLayer cross = new DrawLayerImpl();
 	private FillLayer nodeBackground = new FillLayerImpl();
 	private FillLayer nodeForeground = new FillLayerImpl();
@@ -50,7 +50,7 @@ public class DiagramCanvas {
 
 				segments,
 				nodeBackground,
-				nodeEnrichment,
+				nodeAnalysis,
 				nodeForeground,
 				nodeBorder,
 				edgeShapes,
@@ -120,8 +120,8 @@ public class DiagramCanvas {
 		return nodeBackground;
 	}
 
-	public FillLayer getNodeEnrichment() {
-		return nodeEnrichment;
+	public FillLayer getNodeAnalysis() {
+		return nodeAnalysis;
 	}
 
 	public FillLayer getNodeForeground() {

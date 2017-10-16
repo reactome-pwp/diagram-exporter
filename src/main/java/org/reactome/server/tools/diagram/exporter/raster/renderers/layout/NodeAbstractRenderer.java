@@ -9,22 +9,22 @@ import org.reactome.server.tools.diagram.data.profile.analysis.AnalysisProfile;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
 import org.reactome.server.tools.diagram.data.profile.interactors.InteractorProfile;
-import org.reactome.server.tools.diagram.exporter.raster.AnalysisType;
+import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.NodeRenderInfo;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.DrawLayer;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.FillLayer;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.TextLayer;
 
 import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
+import java.util.Collections;
 import java.util.List;
-
-import static org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties.StrokeStyle;
-import static org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties.get;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Basic node renderer. All Renderers that render nodes should override it. The
@@ -35,177 +35,131 @@ import static org.reactome.server.tools.diagram.exporter.raster.renderers.common
  */
 public abstract class NodeAbstractRenderer extends AbstractRenderer {
 
+	private static final int COL = 0;
+
 	@Override
-	public void draw(DiagramCanvas canvas, DiagramObject item, DiagramProfile diagramProfile, AnalysisProfile analysisProfile, InteractorProfile interactorProfile, DiagramIndex index, AnalysisType analysisType) {
-		// 1 take aaaaalll the decisions
+	public void draw(DiagramCanvas canvas, DiagramObject item, DiagramProfile diagramProfile, AnalysisProfile analysisProfile, InteractorProfile interactorProfile, DiagramIndex index) {
 		final NodeCommon node = (NodeCommon) item;
-		final boolean disease = isDisease(node);
-		final boolean crossed = isCrossed(node);
-		final boolean dashed = isDashed(node);
-		final boolean fadeOut = isFadeOut(node);
-		final boolean isFlag = index.getFlags().contains(node.getId());
-		final boolean isSelected = index.getSelected().contains(node.getId());
-		final boolean isHalo = index.getHaloed().contains(node.getId());
-		// An area can be clip
 		final Shape bgShape = backgroundShape(node);
-		final Area bgArea = bgShape == null ? null : new Area(bgShape);
-		final Shape foregroundShape = foregroundShape(node);
-		final DiagramProfileNode profile = getDiagramProfileNode(node.getRenderableClass(), diagramProfile);
-		final NodeProperties prop = node.getProp();
-		final FillLayer bgLayer;
-		final DrawLayer borderLayer;
-		final TextLayer textLayer;
-		final FillLayer fgLayer;
-		final Stroke borderStroke;
-		borderStroke = isSelected
-				? StrokeStyle.SELECTION.getStroke(dashed)
-				: StrokeStyle.BORDER.getStroke(dashed);
+		final Shape fgShape = foregroundShape(node);
+		final NodeRenderInfo info = new NodeRenderInfo(node, index, diagramProfile, canvas, bgShape, fgShape);
+		flag(canvas, info);
+		halo(canvas, info);
 
-		final String borderColor;
-		final String textColor;
-		final String bgFillColor;
+		// 3 fill (bg, analysis, fg)
+		background(info);
 
-		if (fadeOut) {
-			bgFillColor = profile.getFadeOutFill();
-			borderColor = profile.getFadeOutStroke();
-			textColor = profile.getFadeOutText();
-		} else {
-			if (analysisType == AnalysisType.NONE) {
-				bgFillColor = profile.getFill();
-				borderColor = isSelected
-						? diagramProfile.getProperties().getSelection()
-						: disease
-						? diagramProfile.getProperties().getDisease()
-						: profile.getStroke();
-				textColor = profile.getText();
-			} else {
-				bgFillColor = profile.getLighterFill();
-				borderColor = isSelected
-						? diagramProfile.getProperties().getSelection()
-						: disease
-						? diagramProfile.getProperties().getDisease()
-						: profile.getLighterStroke();
-				textColor = profile.getLighterText();
-			}
-		}
+		double splitText = 0.0;
+		if (index.getAnalysisType() == AnalysisType.EXPRESSION)
+			splitText = expression(canvas, analysisProfile, index, node, bgShape, splitText);
+		else if (index.getAnalysisType() == AnalysisType.OVERREPRESENTATION)
+			enrichment(canvas, analysisProfile, index, node, bgShape, info);
+		final String fgFill = getFgFill(index.getAnalysisType(), info.getProfile());
+		foreground(index, info, fgFill);
 
-		if (fadeOut) {
-			bgLayer = canvas.getFadeOutNodeBackground();
-			fgLayer = canvas.getFadeOutNodeForeground();
-			borderLayer = canvas.getFadeOutNodeBorder();
-			textLayer = canvas.getFadeOutText();
-		} else {
-			bgLayer = canvas.getNodeBackground();
-			fgLayer = canvas.getNodeForeground();
-			borderLayer = canvas.getNodeBorder();
-			textLayer = canvas.getText();
-		}
+		border(info);
+		text(node, info, splitText);
+		cross(canvas, diagramProfile, info);
+	}
 
-		// 1 flag
-		if (isFlag) {
-			final String flagColor = diagramProfile.getProperties().getFlag();
-			final Stroke flagStroke = get(StrokeStyle.FLAG, dashed);
-			flag(canvas.getFlags(), node, bgArea, flagColor, flagStroke);
+	protected void foreground(DiagramIndex index, NodeRenderInfo info, String fgFill) {
+		if (info.getForegroundShape() != null) {
+			info.getFgLayer().add(fgFill, info.getForegroundShape());
 		}
-		// 2 halo
-		if (isHalo) {
-			final String haloColor = diagramProfile.getProperties().getHalo();
-			final Stroke haloStroke = StrokeStyle.HALO.getStroke(dashed);
-			halo(canvas.getHalo(), bgArea, haloColor, haloStroke);
+	}
+
+	private void cross(DiagramCanvas canvas, DiagramProfile diagramProfile, NodeRenderInfo info) {
+		if (info.isCrossed()) {
+			final String crossColor = diagramProfile.getProperties().getDisease();
+			final List<Shape> cross = ShapeFactory.cross(info.getProp());
+			cross.forEach(line -> canvas.getCross().add(crossColor, info.getBorderStroke(), line));
+
 		}
-		// 3 fill
-		// 3.1 background
-		// This area can be modified later
-		if (bgArea != null) {
-			background(bgLayer, node, bgArea, bgFillColor, fadeOut);
+	}
+
+	private void background(NodeRenderInfo info) {
+		if (info.getBackgroundArea() != null) {
+			info.getBgLayer().add(info.getBackgroundColor(), info.getBackgroundArea());
 		}
-		// 3.2 enrichments
+	}
+
+	private void halo(DiagramCanvas canvas, NodeRenderInfo info) {
+		if (info.isHalo())
+			canvas.getHalo().add(info.getHaloColor(), info.getHaloStroke(), info.getBackgroundShape());
+	}
+
+	private void flag(DiagramCanvas canvas, NodeRenderInfo info) {
+		if (info.isFlag())
+			canvas.getFlags().add(info.getFlagColor(), info.getFlagStroke(), info.getBackgroundShape());
+	}
+
+	protected void border(NodeRenderInfo info) {
+		// 4 border
+		DrawLayer layer = info.getBorderLayer();
+		Stroke borderStroke = info.getBorderStroke();
+		String borderColor = info.getBorderColor();
+		if (info.getBackgroundShape() != null)
+			layer.add(borderColor, borderStroke, info.getBackgroundShape());
+		if (info.getForegroundShape() != null)
+			layer.add(borderColor, borderStroke, info.getForegroundShape());
+	}
+
+	private void text(NodeCommon node, NodeRenderInfo info, double splitText) {
+		if (info.getForegroundShape() != null) {
+			final Rectangle2D bounds = info.getForegroundShape().getBounds2D();
+			final NodeProperties limits = NodePropertiesFactory.get(
+					bounds.getX(), bounds.getY(), bounds.getWidth(),
+					bounds.getHeight());
+			// as splitText is in background dimensions,
+			// we need to change to foreground percentage
+			splitText = (node.getProp().getX() + splitText * node.getProp().getWidth() - limits.getX()) / limits.getWidth();
+			info.getTextLayer().add(info.getTextColor(), node.getDisplayName(), limits, 1, splitText);
+		} else
+			info.getTextLayer().add(info.getTextColor(), node.getDisplayName(), node.getProp(), RendererProperties.NODE_TEXT_PADDING, splitText);
+	}
+
+	private void enrichment(DiagramCanvas canvas, AnalysisProfile analysisProfile, DiagramIndex index, NodeCommon node, Shape bgShape, NodeRenderInfo info) {
 		final Double percentage = index.getAnalysisValue(node);
 		if (percentage != null && percentage > 0) {
 			final String analysisColor = analysisProfile.getEnrichment().getGradient().getMax();
 			final Area enrichment = new Area(bgShape);
-			final Rectangle2D rectangle = new Rectangle2D.Double(prop.getX(),
-					prop.getY(), prop.getWidth() * percentage, prop.getHeight());
+			final Rectangle2D rectangle = new Rectangle2D.Double(node.getProp().getX(),
+					node.getProp().getY(), node.getProp().getWidth() * percentage, node.getProp().getHeight());
 			enrichment.intersect(new Area(rectangle));
-			bgArea.subtract(enrichment);
-			enrichment(canvas.getNodeEnrichment(), analysisColor, enrichment, node, fadeOut);
-		}
-		// 3.3 foreground
-		if (foregroundShape != null) {
-			final String fgFill = getFgFill(analysisType, profile);
-			foreground(fgLayer, node, foregroundShape, fgFill);
-		}
-		// 4 border
-		border(borderLayer, node, bgShape, foregroundShape, borderStroke, borderColor);
-
-		// 5 text
-		text(textLayer, node, foregroundShape, prop, textColor);
-
-		// 6 cross
-		if (crossed) {
-			final String crossColor = diagramProfile.getProperties().getDisease();
-			final List<Shape> cross = ShapeFactory.cross(node.getProp());
-			cross.forEach(line -> canvas.getCross().add(crossColor, borderStroke, line));
-
+			info.getBackgroundArea().subtract(enrichment);
+			canvas.getNodeAnalysis().add(analysisColor, enrichment);
 		}
 	}
 
-	private void text(TextLayer layer, NodeCommon node, Shape foregroundShape, NodeProperties prop, String textColor) {
-		if (foregroundShape != null) {
-			final Rectangle2D bounds = foregroundShape.getBounds2D();
-			final NodeProperties limits = NodePropertiesFactory.get(
-					bounds.getX(), bounds.getY(), bounds.getWidth(),
-					bounds.getHeight());
-			layer.add(textColor, node.getDisplayName(), limits, 1);
-		} else
-			layer.add(textColor, node.getDisplayName(), prop, RendererProperties.NODE_TEXT_PADDING);
-	}
+	private double expression(DiagramCanvas canvas, AnalysisProfile analysisProfile, DiagramIndex index, NodeCommon node, Shape bgShape, double splitText) {
+		final List<List<Double>> expressions = index.getExpressions(node);
+		if (expressions != null) {
+			final List<Double> values = expressions.stream()
+					.filter(Objects::nonNull)
+					.map(doubles -> doubles.get(COL))
+					.collect(Collectors.toList());
+			values.sort(Collections.reverseOrder());
+			final int size = expressions.size();
+			final double x = node.getProp().getX();
+			final double y = node.getProp().getY();
+			final double height = node.getProp().getHeight();
+			final double partSize = node.getProp().getWidth() / size;
+			splitText = (double) values.size() / expressions.size();
 
-	protected void border(DrawLayer layer, NodeCommon node, Shape backgroundShape, Shape foregroundShape, Stroke borderStroke, String borderColor) {
-		if (backgroundShape != null)
-			layer.add(borderColor, borderStroke, backgroundShape);
-		if (foregroundShape != null)
-			layer.add(borderColor, borderStroke, foregroundShape);
-	}
-
-	protected void foreground(FillLayer layer, NodeCommon node, Shape foregroundShape, String fgFill) {
-		layer.add(fgFill, foregroundShape);
-	}
-
-	private void enrichment(FillLayer layer, String analysisColor, Area analysisShape, NodeCommon node, boolean fadeout) {
-		layer.add(analysisColor, analysisShape);
-	}
-
-	private void background(FillLayer layer, NodeCommon node, Shape backgroundShape, String bgFill, boolean fadeout) {
-		layer.add(bgFill, backgroundShape);
-	}
-
-	private void halo(DrawLayer layer, Shape shape, String haloColor, Stroke haloStroke) {
-		layer.add(haloColor, haloStroke, shape);
-	}
-
-	private void flag(DrawLayer layer, NodeCommon node, Shape shape, String flagColor, Stroke flagStroke) {
-		layer.add(flagColor, flagStroke, shape);
-	}
-
-	private boolean isFadeOut(DiagramObject node) {
-		return node.getIsFadeOut() != null && node.getIsFadeOut();
-	}
-
-	private boolean isDisease(NodeCommon node) {
-		return node.getIsDisease() != null && node.getIsDisease();
-	}
-
-	private boolean isDashed(DiagramObject object) {
-		if (object instanceof NodeCommon) {
-			NodeCommon node = (NodeCommon) object;
-			return node.getNeedDashedBorder() != null && node.getNeedDashedBorder();
+			final double max = index.getMaxExpression();
+			final double min = index.getMinExpression();
+			for (int i = 0; i < values.size(); i++) {
+				final double val = values.get(i);
+				final double scale = (val - min) / (max - min);
+				final String color = ColorFactory.interpolate(analysisProfile.getExpression().getGradient(), scale);
+				final Rectangle2D rect = new Rectangle2D.Double(
+						x + i * partSize, y, partSize, height);
+				final Area fillArea = new Area(rect);
+				fillArea.intersect(new Area(bgShape));
+				canvas.getNodeAnalysis().add(color, fillArea);
+			}
 		}
-		return false;
-	}
-
-	private boolean isCrossed(NodeCommon node) {
-		return node.getIsCrossed() != null && node.getIsCrossed();
+		return splitText;
 	}
 
 	/**

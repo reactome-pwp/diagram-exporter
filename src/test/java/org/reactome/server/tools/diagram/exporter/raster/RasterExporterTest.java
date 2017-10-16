@@ -180,7 +180,9 @@ public class RasterExporterTest {
 		if (!download(stId))
 			Assert.fail("Diagram " + stId + " not found");
 		try {
-			final BufferedImage image = RasterExporter.export(stId, ext, factor, decorator, profile, DIAGRAMS_FOLDER.getAbsolutePath());
+			final BufferedImage image = RasterExporter.export(stId, ext, factor,
+					decorator, DIAGRAMS_FOLDER.getAbsolutePath(),
+					profile, "standard", "cyan");
 			final File file = new File(IMAGES_FOLDER, stId + "." + ext);
 			ImageIO.write(image, ext, file);
 		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | IOException | DiagramProfileException e) {
@@ -193,7 +195,8 @@ public class RasterExporterTest {
 		if (!download(stId))
 			Assert.fail("Diagram " + stId + " not found");
 		try {
-			RasterExporter.export(stId, ext, factor, decorator, profile, DIAGRAMS_FOLDER.getAbsolutePath());
+			RasterExporter.export(stId, ext, factor, decorator, DIAGRAMS_FOLDER.getAbsolutePath(),
+					profile, "standard", "cyan");
 		} catch (DiagramJsonNotFoundException | DiagramProfileException | DiagramJsonDeserializationException e) {
 			e.printStackTrace();
 		}

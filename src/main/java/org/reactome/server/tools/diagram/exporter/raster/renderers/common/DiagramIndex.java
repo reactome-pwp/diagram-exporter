@@ -58,9 +58,16 @@ public class DiagramIndex {
 	 */
 	private Map<Long, Double> analysisIndex = new HashMap<>();
 	/**
+	 * [graph id] graphItem.getId() or diagramItem.getReactomeId()
+	 */
+	private Map<Long, List<List<Double>>> entitiesExpressions = new HashMap<>();
+	/**
 	 * [diagram id] edge.getId()
 	 */
 	private Map<Long, List<Connector>> connectors;
+	private double maxExpression = 0;
+	private double minExpression = Double.MAX_VALUE;
+	private AnalysisType analysisType = AnalysisType.NONE;
 
 	/**
 	 * Computes the maps of nodes, reactions and connectors so they are grouped
@@ -114,6 +121,8 @@ public class DiagramIndex {
 				haloed.add(node.getId());
 				node.getConnectors().forEach(connector -> {
 					final Edge reaction = (Edge) diagramIndex.get(connector.getEdgeId());
+					// When a node is selected, the nodes in the same reaction
+					// are also haloed
 					haloEdge(reaction);
 				});
 			}
@@ -188,7 +197,7 @@ public class DiagramIndex {
 					? summaryList.get(1)
 					: summaryList.get(0);
 			final String resource = resourceSummary.getResource();
-
+			analysisType = AnalysisType.getType(result.getSummary().getType());
 			subPathways(token, resource);
 			enrichment(token, stId, resource);
 
@@ -209,6 +218,8 @@ public class DiagramIndex {
 				.filter(node -> node.getRenderableClass().equals("ProcessNode"))
 				.map(node -> graphIndex.get(node.getReactomeId()).getStId())
 				.collect(Collectors.toList());
+		if (subPathways.isEmpty())
+			return;
 		// 2 get subPathways summary
 		final PathwaySummary[] pathwaysSummary = AnalysisClient.getPathwaysSummary(subPathways, token, resource);
 		// extract %
@@ -259,6 +270,32 @@ public class DiagramIndex {
 						analysisIndex.put(node.getId(), percentage);
 					}
 				});
+
+		// Now the expressions
+		final Map<String, List<Double>> expressions = new HashMap<>();
+		foundElements.getEntities().forEach(analysisNode -> {
+			final List<Double> exp = analysisNode.getExp();
+			for (Double val : exp) {
+				if (val > maxExpression) maxExpression = val;
+				if (val < minExpression) minExpression = val;
+			}
+			analysisNode.getMapsTo().stream()
+					.map(IdentifierMap::getIds)
+					.flatMap(Collection::stream)
+					.forEach(s -> expressions.put(s, exp));
+		});
+		diagram.getNodes().forEach(diagramNode -> {
+			final EntityNode graphNode = graphIndex.get(diagramNode.getReactomeId());
+			if (graphNode == null)
+				return;
+			final Set<Long> leaves = getLeaves(graphNode);
+			final List<List<Double>> collect = leaves.stream()
+					.map(leafId -> expressions.get(graphIndex.get(leafId).getIdentifier()))
+					.collect(Collectors.toList());
+			if (collect.stream().anyMatch(Objects::nonNull))
+				entitiesExpressions.put(diagramNode.getId(), collect);
+		});
+		System.out.printf("[%.2f-%.2f]\n", minExpression, maxExpression);
 	}
 
 	private double getPercentage(Set<Long> hitIds, Node node, EntityNode graphNode) {
@@ -306,5 +343,21 @@ public class DiagramIndex {
 
 	public List<Connector> getConnectors(Long edgeId) {
 		return connectors.getOrDefault(edgeId, Collections.emptyList());
+	}
+
+	public List<List<Double>> getExpressions(NodeCommon node) {
+		return entitiesExpressions.get(node.getId());
+	}
+
+	public double getMaxExpression() {
+		return maxExpression;
+	}
+
+	public double getMinExpression() {
+		return minExpression;
+	}
+
+	public AnalysisType getAnalysisType() {
+		return analysisType;
 	}
 }

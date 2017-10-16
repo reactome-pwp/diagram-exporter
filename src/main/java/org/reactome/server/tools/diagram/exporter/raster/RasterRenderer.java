@@ -54,7 +54,6 @@ public class RasterRenderer {
 	private final AnalysisProfile analysisProfile;
 	private final InteractorProfile interactorProfile;
 	private final DiagramIndex index;
-	private final AnalysisType analysisType;
 	private DiagramCanvas canvas;
 
 	/**
@@ -76,9 +75,6 @@ public class RasterRenderer {
 		this.diagramProfile = diagramProfile;
 		this.analysisProfile = analysisProfile;
 		this.interactorProfile = interactorProfile;
-		if (decorator != null && decorator.getToken() != null)
-			analysisType = AnalysisType.EXPRESSION;
-		else analysisType = AnalysisType.NONE;
 		this.index = new DiagramIndex(diagram, graph, decorator);
 	}
 
@@ -181,7 +177,7 @@ public class RasterRenderer {
 		// miny of the diagram and scale it.
 		// Now we can draw elements with their own dimensions, isn't it nice?
 		graphics.translate(margin * factor, margin * factor);
-		graphics.translate((int) -x * factor, (int) -y * margin);
+		graphics.translate((int) -x * factor, (int) -y * factor);
 		graphics.scale(factor, factor);
 
 		graphics.setFont(FontProperties.DEFAULT_FONT);
@@ -207,19 +203,19 @@ public class RasterRenderer {
 	private void links() {
 		diagram.getLinks().forEach(link ->
 				RendererFactory.get(link.getRenderableClass())
-						.draw(canvas, link, diagramProfile, analysisProfile, interactorProfile, index, analysisType));
+						.draw(canvas, link, diagramProfile, analysisProfile, interactorProfile, index));
 	}
 
 	private void nodes() {
 		diagram.getNodes().forEach(node ->
 				RendererFactory.get(node.getRenderableClass())
-						.draw(canvas, node, diagramProfile, analysisProfile, interactorProfile, index, analysisType));
+						.draw(canvas, node, diagramProfile, analysisProfile, interactorProfile, index));
 	}
 
 	private void edges() {
 		final EdgeRenderer renderer = new EdgeRenderer();
 		diagram.getEdges().forEach(edge ->
-				renderer.draw(canvas, edge, diagramProfile, analysisProfile, interactorProfile, index, analysisType));
+				renderer.draw(canvas, edge, diagramProfile, analysisProfile, interactorProfile, index));
 	}
 
 	private void notes() {

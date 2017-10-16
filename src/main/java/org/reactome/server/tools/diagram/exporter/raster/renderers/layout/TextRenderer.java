@@ -5,6 +5,8 @@ import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 
 import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -16,6 +18,7 @@ import java.util.List;
 public class TextRenderer {
 
 	private static final List<Character> WORD_SPLIT_CHARS = Arrays.asList(':', '.', '-', ',', ')', '/', '+');
+	private static final float SHADOW_OFFSET = 0.5f;
 
 	/**
 	 * Displays text in the assigned space. If the text does not fit in one
@@ -23,22 +26,24 @@ public class TextRenderer {
 	 * lower until the text fits. Each line is centered to the box and the whole
 	 * text is vertically centered.
 	 *
-	 * @param graphics canvas to write
-	 * @param text     text to display
-	 * @param limits   box where text should be fit
-	 * @param padding  minimum distance from any of the box sides to the text
+	 * @param graphics  canvas to write
+	 * @param text      text to display
+	 * @param limits    box where text should be fit
+	 * @param padding   minimum distance from any of the box sides to the text
+	 * @param splitText
 	 */
-	public static void drawText(Graphics2D graphics, String text, NodeProperties limits, double padding) {
+	public static void drawText(Graphics2D graphics, String text, NodeProperties limits, double padding, double splitText) {
 		final NodeProperties bounds = NodePropertiesFactory.get(
 				limits.getX() + padding,
 				limits.getY() + padding,
 				limits.getWidth() - 2 * padding,
 				limits.getHeight() - 2 * padding);
+		splitText = (limits.getX() + splitText * limits.getWidth() - bounds.getX()) / bounds.getWidth();
 		drawText(graphics, text, bounds.getX(), bounds.getY(),
-				bounds.getWidth(), bounds.getHeight());
+				bounds.getWidth(), bounds.getHeight(), splitText);
 	}
 
-	private static void drawText(Graphics2D graphics2D, String text, double x, double y, double width, double height) {
+	private static void drawText(Graphics2D graphics2D, String text, double x, double y, double width, double height, double splitText) {
 		// Start reducing the size of the font till text fits in the limits
 		Font font = graphics2D.getFont();
 		List<String> lines;
@@ -48,6 +53,18 @@ public class TextRenderer {
 		// Impossible to fit even at font size 1. May happen with thumbnails
 		if (lines.isEmpty()) return;
 
+		Area whiteArea = null;
+		Area colorArea = null;
+		Area shadowArea = null;
+		if (splitText > 0 && splitText < 1) {
+			// +1 for thw shadow
+			whiteArea = new Area(new Rectangle2D.Double(
+					x, y, width * splitText, height));
+			shadowArea = new Area(new Rectangle2D.Double(
+					x - SHADOW_OFFSET, y + SHADOW_OFFSET, width * splitText + SHADOW_OFFSET, height));
+			colorArea = new Area(new Rectangle2D.Double(
+					x + width * splitText, y, width * (1 - splitText), height));
+		}
 		final Font old = graphics2D.getFont();
 		graphics2D.setFont(font);
 
@@ -61,9 +78,21 @@ public class TextRenderer {
 		for (int i = 0; i < lines.size(); i++) {
 			final String line = lines.get(i);
 			final int lineWidth = computeWidth(line, graphics2D);
-			final int left = (int) (centerX - 0.5 * lineWidth);
-			final int base = (int) (yOffset + i * lineHeight);
-			graphics2D.drawString(line, left, base);
+			final float left = (float) (centerX - 0.5 * lineWidth);
+			final float base = (float) (yOffset + i * lineHeight);
+			if (whiteArea != null) {
+				graphics2D.setClip(colorArea);
+				graphics2D.drawString(line, left, base);
+				final Paint oldPaint = graphics2D.getPaint();
+				graphics2D.setClip(shadowArea);
+				graphics2D.setPaint(Color.DARK_GRAY);
+				graphics2D.drawString(line, left - SHADOW_OFFSET, base + SHADOW_OFFSET);
+				graphics2D.setClip(whiteArea);
+				graphics2D.setPaint(Color.WHITE);
+				graphics2D.drawString(line, left, base);
+				graphics2D.setPaint(oldPaint);
+				graphics2D.setClip(null);
+			} else graphics2D.drawString(line, left, base);
 		}
 		graphics2D.setFont(old);
 	}

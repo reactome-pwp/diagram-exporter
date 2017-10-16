@@ -1,5 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.profiles;
 
+import org.reactome.server.tools.diagram.data.profile.analysis.ProfileGradient;
+
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Locale;
@@ -11,7 +13,7 @@ import java.util.regex.Pattern;
  * Parse colors in hex RGB (#FF0000) and rgba(255,255,0, 0.5)
  */
 public class ColorFactory {
-	private final static Pattern RGBA = Pattern.compile("^rgba\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*((0.[0-9]+)|[01])\\s*\\)$");
+	private final static Pattern RGBA = Pattern.compile("^rgba\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*((0.[0-9]+)|[01]|1.0*)\\s*\\)$");
 
 	// speed up with a color cache
 	// of course, this shouldn't be necessary if the Profiles already had the
@@ -69,5 +71,23 @@ public class ColorFactory {
 				Math.min(255, green),
 				Math.min(255, blue),
 				Math.min(255, (int) (alpha * 255)));
+	}
+
+	public static String interpolate(ProfileGradient gradient, double scale) {
+		final Color min = parseColor(gradient.getMin());
+		final Color max = parseColor(gradient.getMax());
+		final Color interpolate = interpolate(max, min, scale);
+		return asRgba(interpolate);
+	}
+
+	private static Color interpolate(Color a, Color b, double t) {
+		if (t <= 0.0) return a;
+		if (t >= 1.0) return b;
+		float scale = (float) t;
+		return new Color(
+				(int) (a.getRed() + (b.getRed() - a.getRed()) * scale),
+				(int) (a.getGreen() + (b.getGreen() - a.getGreen()) * scale),
+				(int) (a.getBlue() + (b.getBlue() - a.getBlue()) * scale),
+				(int) (a.getAlpha() + (b.getAlpha() - a.getAlpha()) * scale));
 	}
 }
