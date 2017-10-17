@@ -15,7 +15,7 @@ With the raster exporter you can generate High Definition images up to 100 megap
 
 ## Exporting a diagram
 
-```
+```java
 String stId = "R-HSA-169911";
 // This path must contain "R-HSA-169911.json" and "R-HSA-169911.graph.json" files
 String diagramPath = "path/to/diagram";
