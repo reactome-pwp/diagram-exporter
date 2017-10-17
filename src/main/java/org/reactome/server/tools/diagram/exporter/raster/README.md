@@ -7,8 +7,8 @@ Exports a diagram in the Pathway Browser to an image. Current supported formats 
 The diagram is generated using the diagram JSON file, so you may notice  small differences with Pathway Browser.
 
 <div>
-<img src=doc/R-HSA-169911_pathway-browser.png width=300/>
-<img src=doc/R-HSA-169911_diagram-exporter.png width=300/>
+<img src=doc/R-HSA-169911_pathway-browser.png alt="R-HSA-169911 (Pathway browser)" title="R-HSA-169911 (Pathway browser)"/>
+<img src=doc/R-HSA-169911_diagram-exporter.png alt="R-HSA-169911 (Image exporter)" title="R-HSA-169911 (Image exporter)"/>
 </div>
 
 With the raster exporter you can generate High Definition images up to 100 megapixels.
