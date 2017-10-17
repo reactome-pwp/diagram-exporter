@@ -39,7 +39,7 @@ public class EdgeRenderer extends AbstractRenderer {
 	}
 
 	private void segments(DiagramCanvas canvas, EdgeRenderInfo info) {
-		if (info.isHalo())
+		if (info.getDecorator().isHalo())
 			info.getSegments().forEach(shape -> canvas.getHalo().add(info.getHaloColor(), info.getHaloStroke(), shape));
 		info.getSegments().forEach(shape -> info.getSegmentsLayer().add(info.getLineColor(), info.getSegmentStroke(), shape));
 	}
@@ -49,7 +49,7 @@ public class EdgeRenderer extends AbstractRenderer {
 		renderableShapes(edge).stream()
 				.filter(Objects::nonNull)
 				.forEach(rShapes::add);
-		info.getConnectors().stream()
+		info.getDecorator().getConnectors().stream()
 				.map(Connector::getEndShape)
 				.filter(Objects::nonNull)
 				.forEach(rShapes::add);
@@ -59,7 +59,7 @@ public class EdgeRenderer extends AbstractRenderer {
 	private void renderShape(DiagramCanvas canvas, EdgeRenderInfo info, Shape shape) {
 		final List<java.awt.Shape> javaShapes = ShapeFactory.createShape(shape);
 		// 2.1 halo
-		if (info.isHalo())
+		if (info.getDecorator().isHalo())
 			javaShapes.forEach(sh -> canvas.getFlags().add(info.getHaloColor(), info.getHaloStroke(), sh));
 		// 2.2 fill
 		final String color = shape.getEmpty() != null && shape.getEmpty() ? info.getFillColor() : info.getLineColor();
@@ -75,7 +75,7 @@ public class EdgeRenderer extends AbstractRenderer {
 	}
 
 	private void stoichiometries(DiagramCanvas canvas, EdgeRenderInfo info) {
-		info.getConnectors().stream()
+		info.getDecorator().getConnectors().stream()
 				.map(Connector::getStoichiometry)
 				.filter(Objects::nonNull)
 				.filter(stoichiometry -> stoichiometry.getShape() != null)
@@ -85,7 +85,7 @@ public class EdgeRenderer extends AbstractRenderer {
 	private void renderStoichiometry(DiagramCanvas canvas, EdgeRenderInfo info, Stoichiometry stoichiometry) {
 		final Shape stShape = stoichiometry.getShape();
 		final List<java.awt.Shape> shapes = ShapeFactory.createShape(stShape);
-		if (info.isHalo())
+		if (info.getDecorator().isHalo())
 			shapes.forEach(sh -> canvas.getHalo().add(info.getHaloColor(), info.getHaloStroke(), sh));
 		final String fill = stShape.getEmpty() != null && stShape.getEmpty()
 				? info.getFillColor() : info.getLineColor();

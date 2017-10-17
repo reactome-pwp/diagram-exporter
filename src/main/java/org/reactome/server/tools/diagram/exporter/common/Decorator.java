@@ -9,30 +9,32 @@ import java.util.Set;
  */
 public class Decorator {
 
-    public static final String EXTENSION = ".tmp";
-    private Set<Long> flags = new HashSet<>();
-    private Set<Long> selected = new HashSet<>();
-    private String token;
+	public static final String EXTENSION = ".tmp";
+	private Set<Long> flags = new HashSet<>();
+	private Set<Long> selected = new HashSet<>();
 
-    public Decorator(List<Long> flags, List<Long> selected, String token) {
-        this.token = token;
-        if(flags != null) this.flags = new HashSet<>(flags);
-        if (selected != null) this.selected = new HashSet<>(selected);
-    }
+	public Decorator(List<Long> flags, List<Long> selected) {
+		if (flags != null) this.flags = new HashSet<>(flags);
+		if (selected != null) this.selected = new HashSet<>(selected);
+	}
 
-    public Set<Long> getFlags() {
-        return flags;
-    }
+	/**
+	 * set of selected elements in the diagram. Values are reactome
+	 * identifiers.
+	 */
+	public Set<Long> getFlags() {
+		return flags;
+	}
 
-    public Set<Long> getSelected() {
-        return selected;
-    }
+	/**
+	 * set of flag elements in the diagram. Values are reactome identifiers.
+	 */
+	public Set<Long> getSelected() {
+		return selected;
+	}
 
-    public boolean isDecorated(){
-        return !flags.isEmpty() || !selected.isEmpty() || token != null;
-    }
+	public boolean isDecorated() {
+		return !flags.isEmpty() || !selected.isEmpty();
+	}
 
-    public String getToken() {
-        return token;
-    }
 }

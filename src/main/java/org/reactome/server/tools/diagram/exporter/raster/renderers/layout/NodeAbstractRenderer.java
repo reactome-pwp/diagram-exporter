@@ -51,9 +51,9 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 
 		double splitText = 0.0;
 		if (index.getAnalysisType() == AnalysisType.EXPRESSION)
-			splitText = expression(canvas, analysisProfile, index, node, bgShape, splitText);
+			splitText = expression(canvas, analysisProfile, index, info);
 		else if (index.getAnalysisType() == AnalysisType.OVERREPRESENTATION)
-			enrichment(canvas, analysisProfile, index, node, bgShape, info);
+			enrichment(canvas, analysisProfile, node, bgShape, info);
 		final String fgFill = getFgFill(index.getAnalysisType(), info.getProfile());
 		foreground(index, info, fgFill);
 
@@ -84,12 +84,12 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 	}
 
 	private void halo(DiagramCanvas canvas, NodeRenderInfo info) {
-		if (info.isHalo())
+		if (info.getDecorator().isHalo())
 			canvas.getHalo().add(info.getHaloColor(), info.getHaloStroke(), info.getBackgroundShape());
 	}
 
 	private void flag(DiagramCanvas canvas, NodeRenderInfo info) {
-		if (info.isFlag())
+		if (info.getDecorator().isFlag())
 			canvas.getFlags().add(info.getFlagColor(), info.getFlagStroke(), info.getBackgroundShape());
 	}
 
@@ -118,8 +118,8 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 			info.getTextLayer().add(info.getTextColor(), node.getDisplayName(), node.getProp(), RendererProperties.NODE_TEXT_PADDING, splitText);
 	}
 
-	private void enrichment(DiagramCanvas canvas, AnalysisProfile analysisProfile, DiagramIndex index, NodeCommon node, Shape bgShape, NodeRenderInfo info) {
-		final Double percentage = index.getAnalysisValue(node);
+	private void enrichment(DiagramCanvas canvas, AnalysisProfile analysisProfile, NodeCommon node, Shape bgShape, NodeRenderInfo info) {
+		final Double percentage = info.getDecorator().getEnrichment();
 		if (percentage != null && percentage > 0) {
 			final String analysisColor = analysisProfile.getEnrichment().getGradient().getMax();
 			final Area enrichment = new Area(bgShape);
@@ -131,8 +131,9 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 		}
 	}
 
-	private double expression(DiagramCanvas canvas, AnalysisProfile analysisProfile, DiagramIndex index, NodeCommon node, Shape bgShape, double splitText) {
-		final List<List<Double>> expressions = index.getExpressions(node);
+	private double expression(DiagramCanvas canvas, AnalysisProfile analysisProfile, DiagramIndex index, NodeRenderInfo info) {
+		final List<List<Double>> expressions = info.getDecorator().getExpressions();
+		double splitText = 0.0;
 		if (expressions != null) {
 			final List<Double> values = expressions.stream()
 					.filter(Objects::nonNull)
@@ -140,10 +141,10 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 					.collect(Collectors.toList());
 			values.sort(Collections.reverseOrder());
 			final int size = expressions.size();
-			final double x = node.getProp().getX();
-			final double y = node.getProp().getY();
-			final double height = node.getProp().getHeight();
-			final double partSize = node.getProp().getWidth() / size;
+			final double x = info.getProp().getX();
+			final double y = info.getProp().getY();
+			final double height = info.getProp().getHeight();
+			final double partSize = info.getProp().getWidth() / size;
 			splitText = (double) values.size() / expressions.size();
 
 			final double max = index.getMaxExpression();
@@ -155,7 +156,7 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 				final Rectangle2D rect = new Rectangle2D.Double(
 						x + i * partSize, y, partSize, height);
 				final Area fillArea = new Area(rect);
-				fillArea.intersect(new Area(bgShape));
+				fillArea.intersect(new Area(info.getBackgroundShape()));
 				canvas.getNodeAnalysis().add(color, fillArea);
 			}
 		}

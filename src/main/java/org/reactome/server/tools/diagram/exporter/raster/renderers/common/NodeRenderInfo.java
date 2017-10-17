@@ -15,15 +15,12 @@ import java.awt.geom.Area;
 
 import static org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties.get;
 
+/**
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class NodeRenderInfo extends DiagramObjectInfo {
 
-	private final boolean disease;
 	private final boolean crossed;
-	private final boolean dashed;
-	private final boolean fadeOut;
-	private final boolean flag;
-	private final boolean selected;
-	private final boolean halo;
 
 	private final Area backgroundArea;
 	private final DiagramProfileNode profile;
@@ -43,25 +40,34 @@ public class NodeRenderInfo extends DiagramObjectInfo {
 	private final FillLayer fgLayer;
 	private final DrawLayer borderLayer;
 	private final TextLayer textLayer;
+	private final DiagramIndex.NodeDecorator decorator;
 	private Shape backgroundShape;
 	private Shape foregroundShape;
 
+	/**
+	 * Creates a NodeRenderInfo with all the info about how to render a node.
+	 *
+	 * @param node           node
+	 * @param index          the diagram index
+	 * @param diagramProfile color profile
+	 * @param canvas         image canvas
+	 * @param background     backgroundShape
+	 * @param foreground     foregroundShape
+	 */
 	public NodeRenderInfo(NodeCommon node, DiagramIndex index, DiagramProfile diagramProfile, DiagramCanvas canvas, Shape background, Shape foreground) {
-		disease = node.getIsDisease() != null && node.getIsDisease();
+		this.decorator = index.getNodeDecorator(node.getId());
+		boolean disease = node.getIsDisease() != null && node.getIsDisease();
 		crossed = node.getIsCrossed() != null && node.getIsCrossed();
-		dashed = node.getNeedDashedBorder() != null && node.getNeedDashedBorder();
-		fadeOut = node.getIsFadeOut() != null && node.getIsFadeOut();
-		flag = index.getFlags().contains(node.getId());
-		selected = index.getSelected().contains(node.getId());
-		halo = index.getHaloed().contains(node.getId());
-		// An area can be clip
+		boolean dashed = node.getNeedDashedBorder() != null && node.getNeedDashedBorder();
+		boolean fadeOut = node.getIsFadeOut() != null && node.getIsFadeOut();
+		// An area that can be clip
 		this.backgroundShape = background;
 		this.foregroundShape = foreground;
 		backgroundArea = background == null ? null : new Area(background);
 		profile = getDiagramProfileNode(node.getRenderableClass(), diagramProfile);
 		prop = node.getProp();
 
-		borderStroke = selected
+		borderStroke = decorator.isFlag()
 				? StrokeProperties.StrokeStyle.SELECTION.getStroke(dashed)
 				: StrokeProperties.StrokeStyle.BORDER.getStroke(dashed);
 
@@ -73,7 +79,7 @@ public class NodeRenderInfo extends DiagramObjectInfo {
 		} else {
 			if (index.getAnalysisType() == AnalysisType.NONE) {
 				backgroundColor = profile.getFill();
-				borderColor = selected
+				borderColor = decorator.isSelected()
 						? diagramProfile.getProperties().getSelection()
 						: disease
 						? diagramProfile.getProperties().getDisease()
@@ -81,7 +87,7 @@ public class NodeRenderInfo extends DiagramObjectInfo {
 				textColor = profile.getText();
 			} else {
 				backgroundColor = profile.getLighterFill();
-				borderColor = selected
+				borderColor = decorator.isSelected()
 						? diagramProfile.getProperties().getSelection()
 						: disease
 						? diagramProfile.getProperties().getDisease()
@@ -132,32 +138,8 @@ public class NodeRenderInfo extends DiagramObjectInfo {
 		return fgLayer;
 	}
 
-	public boolean isDisease() {
-		return disease;
-	}
-
 	public boolean isCrossed() {
 		return crossed;
-	}
-
-	public boolean isDashed() {
-		return dashed;
-	}
-
-	public boolean isFadeOut() {
-		return fadeOut;
-	}
-
-	public boolean isFlag() {
-		return flag;
-	}
-
-	public boolean isSelected() {
-		return selected;
-	}
-
-	public boolean isHalo() {
-		return halo;
 	}
 
 	public NodeProperties getProp() {
@@ -202,5 +184,9 @@ public class NodeRenderInfo extends DiagramObjectInfo {
 
 	public Shape getForegroundShape() {
 		return foregroundShape;
+	}
+
+	public DiagramIndex.NodeDecorator getDecorator() {
+		return decorator;
 	}
 }

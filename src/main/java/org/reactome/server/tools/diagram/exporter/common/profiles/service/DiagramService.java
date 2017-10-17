@@ -5,6 +5,7 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
 import org.reactome.server.tools.diagram.exporter.pptx.PowerPointExporter;
+import org.reactome.server.tools.diagram.exporter.raster.ColorScheme;
 import org.reactome.server.tools.diagram.exporter.raster.RasterExporter;
 
 import java.awt.image.BufferedImage;
@@ -83,27 +84,23 @@ public class DiagramService {
 	 * </pre>
 	 * </code>
 	 *
-	 * @param stId              stable identifier of the diagram
-	 * @param ext               output format: jpg, jpeg, png or gif. Case
-	 *                          insensitive
-	 * @param factor            quality of output image. Factor represents the
-	 *                          number of pixels per point in the diagram
-	 * @param decorator         flagged and selected elements
-	 * @param diagramPath       static directory for the diagram json
-	 * @param diagramProfile    diagram profile name (modern or standard)
-	 * @param analysisProfile   analysis profile name (standard, strosobar or
-	 *                          copper plus)
-	 * @param interactorProfile interactor profile name (cyan or teal)
+	 * @param stId        stable identifier of the diagram
+	 * @param ext         output format: jpg, jpeg, png or gif. Case
+	 *                    insensitive
+	 * @param factor      quality of output image. Factor represents the number
+	 *                    of pixels per point in the diagram
+	 * @param decorator   flagged and selected elements
+	 * @param diagramPath static directory for the diagram json
+	 * @param token       analysis token if available
+	 * @param scheme      color profiles for diagram, analysis and interactors
 	 */
-	public BufferedImage exportToRaster(String stId, String ext, Double factor,
+	public BufferedImage exportToRaster(String stId, String diagramPath,
+	                                    String ext, double factor,
 	                                    Decorator decorator,
-	                                    String diagramPath,
-	                                    String diagramProfile,
-	                                    String analysisProfile,
-	                                    String interactorProfile)
+	                                    String token, ColorScheme scheme)
 			throws DiagramProfileException, DiagramJsonDeserializationException,
 			DiagramJsonNotFoundException {
-		return RasterExporter.export(stId, ext, factor, decorator, diagramPath,
-				diagramProfile, analysisProfile, interactorProfile);
+		return RasterExporter.export(stId, diagramPath, ext, factor, decorator,
+				token, scheme);
 	}
 }

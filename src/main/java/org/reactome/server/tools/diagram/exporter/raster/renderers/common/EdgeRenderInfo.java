@@ -12,15 +12,11 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.TextLa
 import java.awt.*;
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
 
 public class EdgeRenderInfo extends DiagramObjectInfo {
 
 	private final DiagramProfileNode profile;
-	private final List<Connector> connectors;
 
-	private final boolean halo;
-	private final boolean selected;
 	private final boolean fadeout;
 	private final boolean disease;
 	private final boolean dashed;
@@ -37,19 +33,18 @@ public class EdgeRenderInfo extends DiagramObjectInfo {
 	private final String lineColor;
 	private final String haloColor;
 	private final LinkedList<Shape> segments;
+	private final DiagramIndex.EdgeDecorator decorator;
 
 	public EdgeRenderInfo(EdgeCommon edge, boolean dashed, DiagramProfile diagramProfile, DiagramIndex index, DiagramCanvas canvas) {
+		this.decorator = index.getEdgeDecorator(edge.getId());
 		profile = getDiagramProfileNode(edge.getRenderableClass(), diagramProfile);
-		connectors = index.getConnectors(edge.getId());
 
-		halo = index.getHaloed().contains(edge.getId());
-		selected = index.getSelected().contains(edge.getId());
 		fadeout = edge.getIsFadeOut() != null && edge.getIsFadeOut();
 		disease = edge.getIsDisease() != null && edge.getIsDisease();
 		this.dashed = dashed;
 
 		haloStroke = StrokeProperties.StrokeStyle.HALO.getStroke(false);
-		if (selected) {
+		if (decorator.isSelected()) {
 			lineStroke = StrokeProperties.StrokeStyle.SELECTION.getStroke(false);
 			segmentStroke = StrokeProperties.StrokeStyle.SELECTION.getStroke(dashed);
 		} else {
@@ -70,7 +65,7 @@ public class EdgeRenderInfo extends DiagramObjectInfo {
 			shapeLayer = canvas.getEdgeShapes();
 			textLayer = canvas.getText();
 			fillColor = profile.getFill();
-			lineColor = selected
+			lineColor = decorator.isSelected()
 					? diagramProfile.getProperties().getSelection()
 					: disease
 					? diagramProfile.getProperties().getDisease()
@@ -80,7 +75,7 @@ public class EdgeRenderInfo extends DiagramObjectInfo {
 		edge.getSegments().stream()
 				.map(segment -> ShapeFactory.line(segment.getFrom(), segment.getTo()))
 				.forEach(segments::add);
-		connectors.stream()
+		decorator.getConnectors().stream()
 				.map(Connector::getSegments)
 				.flatMap(Collection::stream)
 				.map(segment -> ShapeFactory.line(segment.getFrom(), segment.getTo()))
@@ -98,10 +93,6 @@ public class EdgeRenderInfo extends DiagramObjectInfo {
 
 	public FillDrawLayer getShapeLayer() {
 		return shapeLayer;
-	}
-
-	public List<Connector> getConnectors() {
-		return connectors;
 	}
 
 	public String getFillColor() {
@@ -132,27 +123,11 @@ public class EdgeRenderInfo extends DiagramObjectInfo {
 		return textLayer;
 	}
 
-	public boolean isDashed() {
-		return dashed;
-	}
-
-	public boolean isDisease() {
-		return disease;
-	}
-
-	public boolean isFadeout() {
-		return fadeout;
-	}
-
-	public boolean isHalo() {
-		return halo;
-	}
-
-	public boolean isSelected() {
-		return selected;
-	}
-
 	public LinkedList<Shape> getSegments() {
 		return segments;
+	}
+
+	public DiagramIndex.EdgeDecorator getDecorator() {
+		return decorator;
 	}
 }

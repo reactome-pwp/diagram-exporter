@@ -52,7 +52,7 @@ public class DiagramExporter {
 
         List<Long> flgs = Arrays.stream(config.getLongArray("flg")).boxed().collect(Collectors.toList());
         List<Long> sels = Arrays.stream(config.getLongArray("sel")).boxed().collect(Collectors.toList());
-        Decorator decorator = new Decorator(flgs, sels, null);
+        Decorator decorator = new Decorator(flgs, sels);
 
         File finalPptx = PowerPointExporter.export(stId, staticFolder, colourProfile, outputFolder.getPath(), decorator, lic);
 

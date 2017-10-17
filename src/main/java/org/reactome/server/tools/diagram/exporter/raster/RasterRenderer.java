@@ -59,23 +59,23 @@ public class RasterRenderer {
 	/**
 	 * Creates a RasterRenderer with specific diagram, graph, color profile and
 	 * decorator.
-	 *
-	 * @param diagram           diagram to render
+	 *  @param diagram           diagram to render
 	 * @param graph             underlying graph
 	 * @param decorator         elements to decorate
 	 * @param diagramProfile    colouring diagram
 	 * @param analysisProfile   profile for analysis
 	 * @param interactorProfile profile for interactors
+	 * @param token
 	 */
 	RasterRenderer(Diagram diagram, Graph graph, Decorator decorator,
 	               DiagramProfile diagramProfile,
 	               AnalysisProfile analysisProfile,
-	               InteractorProfile interactorProfile) {
+	               InteractorProfile interactorProfile, String token) {
 		this.diagram = diagram;
 		this.diagramProfile = diagramProfile;
 		this.analysisProfile = analysisProfile;
 		this.interactorProfile = interactorProfile;
-		this.index = new DiagramIndex(diagram, graph, decorator);
+		this.index = new DiagramIndex(diagram, graph, decorator, token);
 	}
 
 	/**

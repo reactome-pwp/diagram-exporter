@@ -67,7 +67,7 @@ public class RasterExporterTest {
 		final List<Long> analysis = getIdsFor("Q13177", graph);
 		final List<Long> flags = getIdsFor("O60313", graph);
 		selected.add(211734L);
-		final Decorator decorator = new Decorator(flags, selected, null);
+		final Decorator decorator = new Decorator(flags, selected);
 		renderSilent(stId, "png", 1, decorator, MODERN);
 	}
 
@@ -76,7 +76,7 @@ public class RasterExporterTest {
 		final String stId = "R-HSA-5602410";
 		final List<Long> selected = Collections.singletonList(5602549L);
 //		final List<Long> selected = Arrays.asList(5602649L);
-		final Decorator decorator = new Decorator(null, selected, null);
+		final Decorator decorator = new Decorator(null, selected);
 		renderSilent(stId, "png", 1, decorator, MODERN);
 	}
 
@@ -114,7 +114,7 @@ public class RasterExporterTest {
 		final String stId = "R-HSA-2173782";
 		final Graph graph = getGraph(stId);
 		final List<Long> ids = getIdsFor("R-HSA-2168880", graph);
-		final Decorator decorator = new Decorator(null, ids, null);
+		final Decorator decorator = new Decorator(null, ids);
 		renderSilent(stId, "png", 1, decorator, MODERN);
 	}
 
@@ -180,9 +180,10 @@ public class RasterExporterTest {
 		if (!download(stId))
 			Assert.fail("Diagram " + stId + " not found");
 		try {
-			final BufferedImage image = RasterExporter.export(stId, ext, factor,
-					decorator, DIAGRAMS_FOLDER.getAbsolutePath(),
-					profile, "standard", "cyan");
+			final BufferedImage image = RasterExporter.export(stId,
+					DIAGRAMS_FOLDER.getAbsolutePath(),
+					ext, factor, decorator, null,
+					new ColorScheme(profile, "standard", "cyan"));
 			final File file = new File(IMAGES_FOLDER, stId + "." + ext);
 			ImageIO.write(image, ext, file);
 		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | IOException | DiagramProfileException e) {
@@ -195,8 +196,9 @@ public class RasterExporterTest {
 		if (!download(stId))
 			Assert.fail("Diagram " + stId + " not found");
 		try {
-			RasterExporter.export(stId, ext, factor, decorator, DIAGRAMS_FOLDER.getAbsolutePath(),
-					profile, "standard", "cyan");
+			RasterExporter.export(stId, DIAGRAMS_FOLDER.getAbsolutePath(),
+					ext, factor, decorator, null,
+					new ColorScheme(profile, "standard", "cyan"));
 		} catch (DiagramJsonNotFoundException | DiagramProfileException | DiagramJsonDeserializationException e) {
 			e.printStackTrace();
 		}
