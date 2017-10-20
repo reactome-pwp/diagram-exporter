@@ -5,7 +5,7 @@ import com.aspose.slides.IShapeCollection;
 import com.aspose.slides.LineStyle;
 import com.aspose.slides.ShapeType;
 import org.reactome.server.tools.diagram.data.layout.Node;
-import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
+import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 
 /**
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
