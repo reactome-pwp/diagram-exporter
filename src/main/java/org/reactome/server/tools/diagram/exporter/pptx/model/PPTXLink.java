@@ -3,7 +3,7 @@ package org.reactome.server.tools.diagram.exporter.pptx.model;
 import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.Link;
 import org.reactome.server.tools.diagram.data.layout.Segment;
-import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
+import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 
 import java.util.Map;
 
