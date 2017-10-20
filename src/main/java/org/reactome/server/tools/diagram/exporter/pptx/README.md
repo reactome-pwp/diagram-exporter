@@ -5,7 +5,6 @@ Power Point Exporter
 
 ### Introduction
 This project exports a given diagram in the Pathway Browser into fully compatible Microsoft PowerPoint. The output pptx file is a real Power Point presentation where all the elements, such as, shapes and connectors can be rearranged and formatted openly. Extra parameters, for instance, colour profile, flag and select can be set.
-At the moment, we are currently exporting to PowerPoint only, but we aim to export a diagram also to png.
 
 <div>
 <img src=https://cloud.githubusercontent.com/assets/6883670/23128274/3f6dc596-f776-11e6-88e5-54b76b33049f.png width=380 height=200 />
