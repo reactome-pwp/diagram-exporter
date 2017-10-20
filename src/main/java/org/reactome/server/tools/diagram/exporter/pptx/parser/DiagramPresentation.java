@@ -2,7 +2,7 @@ package org.reactome.server.tools.diagram.exporter.pptx.parser;
 
 import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.*;
-import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
+import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.DiagramExporter;
 import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.pptx.model.*;
@@ -137,8 +137,8 @@ public class DiagramPresentation {
         dp.setTitle(diagram.getStableId());
 
         // To avoid two+ files being generated at the same time having different flg and sel (and one can overwrite the other)
-        // we are adding the UUID as part of the filename when decorators are present. Otherwise we keep the original name.
-        // We must have an unique name before saving.
+        // we are adding the UUID as part of the filename when decorators are present. Otherwise we keep the original getName.
+        // We must have an unique getName before saving.
         final String fileExtension = ".pptx";
         File file = new File(outputFolder, stId + fileExtension);
         if(decorator.isDecorated()){
@@ -147,7 +147,7 @@ public class DiagramPresentation {
             file = new File(outputFolder, pptxDecor + fileExtension);
         }
 
-        // full path already contains the file name and the extension.
+        // full path already contains the file getName and the extension.
         presentation.save(file.getPath(), SaveFormat.Pptx);
         return file;
     }

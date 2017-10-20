@@ -11,7 +11,7 @@ public class RendererFactory {
 		createRenderers();
 	}
 
-	private RendererFactory(){
+	private RendererFactory() {
 	}
 
 	public static Renderer get(String renderingClass) {
@@ -20,8 +20,6 @@ public class RendererFactory {
 
 	private static void createRenderers() {
 		renderers = new HashMap<>();
-		renderers.put("Compartment", new CompartmentRenderer());
-		renderers.put("Note", new NoteRenderer());
 		renderers.put("Protein", new ProteinRenderer());
 		renderers.put("Chemical", new ChemicalRenderer());
 		renderers.put("ChemicalDrug", new ChemicalDrugRenderer());
@@ -34,11 +32,8 @@ public class RendererFactory {
 		renderers.put("Interaction", new InteractionRenderer());
 		renderers.put("RNA", new RnaRenderer());
 		renderers.put("Gene", new GeneRenderer());
-		renderers.put("Shadow", new ShadowRenderer());
 		renderers.put("EntitySetAndMemberLink", new LinkRenderer());
 		renderers.put("EntitySetAndEntitySetLink", new LinkRenderer());
-		renderers.put("shadow", new ShadowRenderer());
-
 	}
 
 }

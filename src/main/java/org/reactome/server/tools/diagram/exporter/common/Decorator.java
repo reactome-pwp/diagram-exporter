@@ -9,38 +9,32 @@ import java.util.Set;
  */
 public class Decorator {
 
-    public static final String EXTENSION = ".tmp";
-    private Set<Long> flags = new HashSet<>();
-    private Set<Long> selected = new HashSet<>();
-    private Set<Long> analysis = new HashSet<>();
+	public static final String EXTENSION = ".tmp";
+	private Set<Long> flags = new HashSet<>();
+	private Set<Long> selected = new HashSet<>();
 
-    public Decorator(List<Long> flags, List<Long> selected) {
-        if(flags != null) this.flags = new HashSet<>(flags);
-        if (selected != null) this.selected = new HashSet<>(selected);
-    }
+	public Decorator(List<Long> flags, List<Long> selected) {
+		if (flags != null) this.flags = new HashSet<>(flags);
+		if (selected != null) this.selected = new HashSet<>(selected);
+	}
 
-    public Decorator(List<Long> flags, List<Long> selected, List<Long> analysis) {
-        if (flags != null)
-            this.flags = new HashSet<>(flags);
-        if (selected != null)
-            this.selected = new HashSet<>(selected);
-        if (analysis != null)
-            this.analysis = new HashSet<>(analysis);
-    }
+	/**
+	 * set of selected elements in the diagram. Values are reactome
+	 * identifiers.
+	 */
+	public Set<Long> getFlags() {
+		return flags;
+	}
 
-    public Set<Long> getFlags() {
-        return flags;
-    }
+	/**
+	 * set of flag elements in the diagram. Values are reactome identifiers.
+	 */
+	public Set<Long> getSelected() {
+		return selected;
+	}
 
-    public Set<Long> getSelected() {
-        return selected;
-    }
+	public boolean isDecorated() {
+		return !flags.isEmpty() || !selected.isEmpty();
+	}
 
-    public Set<Long> getAnalysis() {
-        return analysis;
-    }
-
-    public boolean isDecorated(){
-        return !flags.isEmpty() || !selected.isEmpty() || ! analysis.isEmpty();
-    }
 }

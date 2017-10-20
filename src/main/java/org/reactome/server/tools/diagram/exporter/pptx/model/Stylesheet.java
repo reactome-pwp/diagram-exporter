@@ -4,8 +4,8 @@ import com.aspose.slides.LineArrowheadLength;
 import com.aspose.slides.LineArrowheadStyle;
 import com.aspose.slides.LineArrowheadWidth;
 import com.aspose.slides.LineCapStyle;
-import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
-import org.reactome.server.tools.diagram.data.profile.DiagramProfileNode;
+import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
+import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
 
 import java.awt.*;
 import java.util.regex.Matcher;

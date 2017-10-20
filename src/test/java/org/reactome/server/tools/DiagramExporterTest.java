@@ -17,7 +17,7 @@ public class DiagramExporterTest
     /**
      * Create the test case
      *
-     * @param testName name of the test case
+     * @param testName getName of the test case
      */
     public DiagramExporterTest(String testName )
     {

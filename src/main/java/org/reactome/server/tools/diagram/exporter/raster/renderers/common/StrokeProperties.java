@@ -2,42 +2,69 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
 import java.awt.*;
 
+/**
+ * Choose among 5 different stroke widths.
+ *
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class StrokeProperties {
 
-	public static Stroke DASHED_BORDER_STROKE;
-	public static Stroke DASHED_SEGMENT_STROKE;
-	public static Stroke HALO_STROKE;
-	public static Stroke SEGMENT_STROKE;
-	public static Stroke BORDER_STROKE;
-	public static Stroke SELECTION_STROKE;
-	public static Stroke DASHED_SELECTION_STROKE;
-	public static Stroke DASHED_HALO_STROKE;
+	private static final int END = BasicStroke.CAP_BUTT;
+	private static final int JOIN = BasicStroke.JOIN_MITER;
 
-	public static void setFactor(double factor) {
-		final int end = BasicStroke.CAP_BUTT;
-		final int join = BasicStroke.JOIN_MITER;
-		final float segmentWidth = (float) (1 * factor);
-		final float borderWidth = (float) (2 * factor);
-		final float selectionWidth = (float) (3 * factor);
-		final float haloWidth = (float) (5 * factor);
-		final float dashSize = (float) (factor * 5);
-		final float dashSpace = (float) (factor * 2);
+	private static final float SEGMENT_WIDTH = 1;
+	private static final float BORDER_WIDTH = 2;
+	private static final float SELECTION_WIDTH = 2;
+	private static final float HALO_WIDTH = 4;
+	private static final float FLAG_WIDTH = 5;
 
-		SEGMENT_STROKE = new BasicStroke(segmentWidth, end, join);
-		BORDER_STROKE = new BasicStroke(borderWidth, end, join);
-		SELECTION_STROKE = new BasicStroke(selectionWidth, end, join);
-		HALO_STROKE = new BasicStroke(haloWidth, end, join);
+	private static final float DASH_SIZE = 5;
+	private static final float DASH_SPACE = 5;
 
-		DASHED_SEGMENT_STROKE = new BasicStroke(segmentWidth, end, join, dashSize,
-				new float[]{dashSize}, dashSize);
-		DASHED_BORDER_STROKE = new BasicStroke(borderWidth, end, join, dashSize,
-				new float[]{dashSize, dashSpace}, dashSize);
-		DASHED_SELECTION_STROKE = new BasicStroke(selectionWidth, end, join, dashSize,
-				new float[]{dashSize, dashSpace}, dashSize);
-		DASHED_HALO_STROKE = new BasicStroke(haloWidth, end, join, dashSize,
-				new float[]{dashSize, dashSpace}, dashSize);
+	private static Stroke SEGMENT_STROKE = new BasicStroke(SEGMENT_WIDTH, END, JOIN);
+	private static Stroke BORDER_STROKE = new BasicStroke(BORDER_WIDTH, END, JOIN);
+	private static Stroke SELECTION_STROKE = new BasicStroke(SELECTION_WIDTH, END, JOIN);
+	private static Stroke HALO_STROKE = new BasicStroke(HALO_WIDTH, END, JOIN);
+	private static Stroke FLAG_STROKE = new BasicStroke(FLAG_WIDTH, END, JOIN);
 
+	private static Stroke DASHED_SEGMENT_STROKE = new BasicStroke(SEGMENT_WIDTH, END, JOIN, DASH_SIZE, new float[]{DASH_SIZE}, DASH_SIZE);
+	private static Stroke DASHED_BORDER_STROKE = new BasicStroke(BORDER_WIDTH, END, JOIN, DASH_SIZE, new float[]{DASH_SIZE, DASH_SPACE}, DASH_SIZE);
+	private static Stroke DASHED_SELECTION_STROKE = new BasicStroke(SELECTION_WIDTH, END, JOIN, DASH_SIZE, new float[]{DASH_SIZE, DASH_SPACE}, DASH_SIZE);
+	private static Stroke DASHED_HALO_STROKE = new BasicStroke(HALO_WIDTH, END, JOIN, DASH_SIZE, new float[]{DASH_SIZE, DASH_SPACE}, DASH_SIZE);
+	private static Stroke DASHED_FLAG_STROKE = new BasicStroke(FLAG_WIDTH, END, JOIN, DASH_SIZE, new float[]{DASH_SIZE, DASH_SPACE}, DASH_SIZE);
 
+	public static Stroke get(StrokeStyle style, boolean dashed) {
+		return style.getStroke(dashed);
 	}
+	public enum StrokeStyle {
+		FLAG {
+			@Override
+			public Stroke getStroke(boolean dashed) {
+				return dashed ? DASHED_FLAG_STROKE : FLAG_STROKE;
+			}
+		}, HALO {
+			@Override
+			public Stroke getStroke(boolean dashed) {
+				return dashed ? DASHED_HALO_STROKE : HALO_STROKE;
+			}
+		}, SELECTION {
+			@Override
+			public Stroke getStroke(boolean dashed) {
+				return dashed ? DASHED_SELECTION_STROKE : SELECTION_STROKE;
+			}
+		}, SEGMENT {
+			@Override
+			public Stroke getStroke(boolean dashed) {
+				return dashed ? DASHED_SEGMENT_STROKE : SEGMENT_STROKE;
+			}
+		}, BORDER {
+			@Override
+			public Stroke getStroke(boolean dashed) {
+				return dashed ? DASHED_BORDER_STROKE : BORDER_STROKE;
+			}
+		};
 
+		public abstract Stroke getStroke(boolean dashed);
+	}
 }
+
