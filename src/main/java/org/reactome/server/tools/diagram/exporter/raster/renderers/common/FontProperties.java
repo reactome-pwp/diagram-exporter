@@ -2,19 +2,12 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
 import java.awt.*;
 
+/**
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class FontProperties {
 
-	public static Font DEFAULT_FONT;
-	public static Font SHADOWS_FONT;
+	public static Font DEFAULT_FONT = new Font("arial", Font.BOLD, 8);
 
-	static {
-		setFactor(1.0);
-	}
-
-	public static void setFactor(double factor) {
-
-		FontProperties.SHADOWS_FONT = new Font("arial", Font.BOLD, (int) (24 * factor));
-		FontProperties.DEFAULT_FONT = new Font("arial", Font.BOLD, (int) (9 * factor));
-	}
 
 }

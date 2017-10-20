@@ -1,13 +1,14 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.Coordinate;
-import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;
+import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 
 import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,198 +18,156 @@ import java.util.List;
 public class TextRenderer {
 
 	private static final List<Character> WORD_SPLIT_CHARS = Arrays.asList(':', '.', '-', ',', ')', '/', '+');
-
-	/**
-	 * Draws a text with the default font, using position as the top left corner
-	 * of text. Text will be drawn in 1 line.
-	 *
-	 * @param text     text to display
-	 * @param position top left coordinate
-	 */
-	public static void drawTextSingleLine(AdvancedGraphics2D graphics, String text, Coordinate position) {
-		final int leftX = Double.valueOf(RendererProperties.NODE_TEXT_PADDING + graphics.getFactor() * (position.getX())).intValue();
-		final int topY = Double.valueOf(RendererProperties.NODE_TEXT_PADDING + graphics.getFactor() * position.getY()).intValue();
-
-		final int height = graphics.getGraphics().getFontMetrics().getHeight();
-		final int baseY = topY + height;
-
-		graphics.getGraphics().drawString(text, leftX, baseY);
-	}
-
-	/**
-	 * Magic method that displays text in the assigned space. If the text does
-	 * not fit in one line, it is split in several lines. If the font size is
-	 * very large, it is lower until the text fits. Each line is centered to the
-	 * box and the whole text is vertically centered. By default the vertical
-	 * centering is natural, i.e. text is centered at hyphens (-) height the
-	 * center of the box. This is a little big higher than strict center and is
-	 * visually better for large texts. A padding of RenderedProperties.NODE_TEXT_PADDING
-	 * is added by default.
-	 *
-	 * @param text   text to write
-	 * @param x      top left corner x coordinate
-	 * @param y      top left corner y coordinate
-	 * @param width  max width for text. A 2 * padding will be subtracted to
-	 *               this width
-	 * @param height max height for text. A 2 * padding will be subtracted to
-	 *               this height
-	 */
-	public static void drawText(AdvancedGraphics2D graphics, String text, double x, double y, double width, double height) {
-		drawText(graphics, text, x, y, width, height, RendererProperties.NODE_TEXT_PADDING, true);
-	}
+	private static final float SHADOW_OFFSET = 0.5f;
 
 	/**
 	 * Displays text in the assigned space. If the text does not fit in one
 	 * line, it is split in several lines. If the font size is very large, it is
 	 * lower until the text fits. Each line is centered to the box and the whole
-	 * text is vertically centered. By default the vertical centering is
-	 * natural, i.e. text is centered at hyphens (-) height the center of the
-	 * box. This is a little big higher than strict center and is visually
-	 * better for large texts.
+	 * text is vertically centered.
 	 *
-	 * @param text    text to write
-	 * @param x       top left corner x coordinate
-	 * @param y       top left corner y coordinate
-	 * @param width   max width for text. A 2 * padding will be subtracted to
-	 *                this width
-	 * @param height  max height for text. A 2 * padding will be subtracted to
-	 *                this height
-	 * @param padding minimum space from borders to text
+	 * @param graphics  canvas to write
+	 * @param text      text to display
+	 * @param limits    box where text should be fit
+	 * @param padding   minimum distance from any of the box sides to the text
+	 * @param splitText
 	 */
-	public static void drawText(AdvancedGraphics2D graphics, String text, double x, double y, double width, double height, double padding) {
-		drawText(graphics, text, x, y, width, height, padding, true);
+	public static void drawText(Graphics2D graphics, String text, NodeProperties limits, double padding, double splitText) {
+		final NodeProperties bounds = NodePropertiesFactory.get(
+				limits.getX() + padding,
+				limits.getY() + padding,
+				limits.getWidth() - 2 * padding,
+				limits.getHeight() - 2 * padding);
+		splitText = (limits.getX() + splitText * limits.getWidth() - bounds.getX()) / bounds.getWidth();
+		drawText(graphics, text, bounds.getX(), bounds.getY(),
+				bounds.getWidth(), bounds.getHeight(), splitText);
 	}
 
-	/**
-	 * Draws text using all available space in node.getProp()
-	 *
-	 * @param node
-	 */
-	public static void drawText(AdvancedGraphics2D graphics, NodeCommon node) {
-		drawText(graphics, node.getDisplayName(), node.getProp().getX(),
-				node.getProp().getY(), node.getProp().getWidth(),
-				node.getProp().getHeight());
-	}
-
-
-	/**
-	 * Displays text in the assigned space. If the text does not fit in one
-	 * line, it is split in several lines. If the font size is very large, it is
-	 * lower until the text fits. Each line is centered to the box and the whole
-	 * text is vertically centered. By default the vertical centering is
-	 * natural, i.e. text is centered at hyphens (-) height the center of the
-	 * box. For smaller texts, such us symbols or numbers, you can set
-	 * naturalCentering to false.
-	 *
-	 * @param graphics
-	 * @param text            text to write
-	 * @param x               top left corner x coordinate
-	 * @param y               top left corner y coordinate
-	 * @param width           max width for text. A 2 * padding will be
-	 *                        subtracted to this width
-	 * @param height          max height for text. A 2 * padding will be
-	 *                        subtracted to this height
-	 * @param padding         minimum space from borders to text
-	 * @param naturalCentered if true, text is vertically aligned to hyphens
-	 *                        (-), otherwise, it is centered to text center
-	 */
-	public static void drawText(AdvancedGraphics2D graphics, String text, double x, double y, double width, double height, double padding, boolean naturalCentered) {
-		final double scaledX = graphics.getFactor() * (x) + padding;
-		final double scaledY = graphics.getFactor() * (y) + padding;
-		final double scaledW = graphics.getFactor() * (width) - 2 * padding;
-		final double scaledH = graphics.getFactor() * (height) - 2 * padding;
-		final double centerX = scaledX + scaledW * 0.5;
-
-		Font font = graphics.getGraphics().getFont();
+	private static void drawText(Graphics2D graphics2D, String text, double x, double y, double width, double height, double splitText) {
+		// Start reducing the size of the font till text fits in the limits
+		Font font = graphics2D.getFont();
 		List<String> lines;
-		while ((lines = fit(graphics, scaledW, scaledH, text, font)) == null)
-			font = font.deriveFont((float) font.getSize() - 1);
-		final Font old = graphics.getGraphics().getFont();
-		graphics.getGraphics().setFont(font);
-		final int textHeight = lines.size() * graphics.getGraphics().getFontMetrics().getHeight();
-		double yOffset = scaledY + (scaledH - textHeight) * 0.5;
-		if (naturalCentered)
-			yOffset += graphics.getGraphics().getFontMetrics().getAscent();
-		else yOffset += (graphics.getGraphics().getFontMetrics().getHeight());
-//		else yOffset += 0.5 * (graphics.getFontMetrics().getAscent() + graphics.getFontMetrics().getDescent());
+		while ((lines = fit(text, font, graphics2D, width, height)) == null)
+			font = font.deriveFont(font.getSize() - 1f);
+
+		// Impossible to fit even at font size 1. May happen with thumbnails
+		if (lines.isEmpty()) return;
+
+		Area whiteArea = null;
+		Area colorArea = null;
+//		Area shadowArea = null;
+		if (splitText > 0 && splitText < 1) {
+			// +1 for thw shadow
+			whiteArea = new Area(new Rectangle2D.Double(
+					x, y, width * splitText, height));
+//			shadowArea = new Area(new Rectangle2D.Double(
+//					x - SHADOW_OFFSET, y + SHADOW_OFFSET, width * splitText + SHADOW_OFFSET, height));
+			colorArea = new Area(new Rectangle2D.Double(
+					x + width * splitText, y, width * (1 - splitText), height));
+		}
+		final Font old = graphics2D.getFont();
+		graphics2D.setFont(font);
+
+		final int lineHeight = graphics2D.getFontMetrics().getHeight();
+		final int textHeight = lines.size() * lineHeight;
+		final double centerX = x + width * 0.5;
+		double yOffset = y + (height - textHeight) * 0.5;
+		// Centering at ascent gives a more natural view (centers at -)
+		// https://goo.gl/x1EExY [difference between ascent/descent/height]
+		yOffset += graphics2D.getFontMetrics().getAscent();
 		for (int i = 0; i < lines.size(); i++) {
 			final String line = lines.get(i);
-			final int lineWidth = graphics.getGraphics().getFontMetrics().charsWidth(line.toCharArray(), 0, line.length());
-			final int base = (int) (yOffset + i * graphics.getGraphics().getFontMetrics().getHeight());
-			int left = (int) (centerX - 0.5 * lineWidth);
-			graphics.getGraphics().drawString(line, left, base);
+			final int lineWidth = computeWidth(line, graphics2D);
+			final float left = (float) (centerX - 0.5 * lineWidth);
+			final float base = (float) (yOffset + i * lineHeight);
+			if (whiteArea != null) {
+				final Paint oldPaint = graphics2D.getPaint();
+				graphics2D.setPaint(Color.GRAY);
+				graphics2D.drawString(line, left - SHADOW_OFFSET, base + SHADOW_OFFSET);
+				graphics2D.setClip(whiteArea);
+				graphics2D.setPaint(Color.WHITE);
+				graphics2D.drawString(line, left, base);
+				graphics2D.setPaint(oldPaint);
+				graphics2D.setClip(colorArea);
+				graphics2D.drawString(line, left, base);
+				graphics2D.setClip(null);
+			} else graphics2D.drawString(line, left, base);
 		}
-		graphics.getGraphics().setFont(old);
-//		}
-	}
-
-	public static void drawText(AdvancedGraphics2D graphics, NodeCommon node, double padding) {
-		drawText(graphics, node.getDisplayName(), node.getProp().getX(),
-				node.getProp().getY(), node.getProp().getWidth(),
-				node.getProp().getHeight(), padding);
+		graphics2D.setFont(old);
 	}
 
 	/**
-	 * @param graphics2D
-	 * @param availableWidth
-	 * @param availableHeight
-	 * @param text
-	 * @param font
-	 *
-	 * @return
+	 * @return a list of lines if text can be fit inside maxWidth and maxHeight.
+	 * If text does not fit, returns null. If font size is less than 1, then it
+	 * returns an empty list to indicate that text is impossible to be shown,
+	 * probably because image size is too small.
 	 */
-	private static List<String> fit(AdvancedGraphics2D graphics2D, double availableWidth, double availableHeight, String text, Font font) {
+	private static List<String> fit(String text, Font font, Graphics2D graphics, double maxWidth, double maxHeight) {
+		if (font.getSize() < 1) return Collections.emptyList();
 		final List<String> lines = new LinkedList<>();
 		final String[] words = text.trim().split(" ");
-		StringBuilder line = new StringBuilder();
+		String line = "";
+		String temp;
 		for (String word : words) {
-			String temp = line.toString() + " " + word;
-			if (graphics2D.getGraphics().getFontMetrics(font).charsWidth(temp.toCharArray(), 0, temp.length()) < availableWidth)
-				line.append(" ").append(word);
+			temp = line.isEmpty() ? word : line + " " + word;
+			if (computeWidth(temp, font, graphics) < maxWidth)
+				line = temp;
 			else {
+				// Split word in smaller parts and add as much parts as possible
+				// to the line
 				final List<String> parts = splitWord(word);
-				boolean first = true;
+				boolean firstPart = true;
 				for (String part : parts) {
-					if (first && line.length() > 0)
-						temp = line.toString() + " " + part;
-					else temp = line.toString() + part;
-					if (graphics2D.getGraphics().getFontMetrics(font).charsWidth(temp.toCharArray(), 0, temp.length()) < availableWidth) {
-						if (first) {
-							line.append(" ");
-							first = false;
-						}
-						line.append(part);
-					} else {
-						lines.add(line.toString().trim());
-						line = new StringBuilder(part);
+					// If the part can't fit a line, the text won't fit
+					if (computeWidth(part, font, graphics) > maxWidth)
+						return null;
+					if (line.isEmpty()) temp = part;
+					else if (firstPart) temp = line + " " + part;
+					else temp = line + part;
+					if (computeWidth(temp, font, graphics) < maxWidth)
+						line = temp;
+					else {
+						// Start a new line with part
+						lines.add(line);
+						line = part;
+						if (computeHeight(lines, font, graphics) > maxHeight)
+							return null;
 					}
+					firstPart = false;
 				}
 			}
 		}
-		if (!line.toString().trim().isEmpty())
-			lines.add(line.toString().trim());
-		if (lines.size() * graphics2D.getGraphics().getFontMetrics(font).getHeight() <= availableHeight)
-			return lines;
-		else return null;
+		if (!line.isEmpty()) lines.add(line);
+		if (computeHeight(lines, font, graphics) > maxHeight)
+			return null;
+		else return lines;
+	}
+
+	private static int computeHeight(List<String> lines, Font font, Graphics2D graphics) {
+		return lines.size() * graphics.getFontMetrics(font).getHeight();
+	}
+
+	private static int computeWidth(String text, Font font, Graphics2D graphics) {
+		return graphics.getFontMetrics(font).charsWidth(text.toCharArray(), 0, text.length());
+	}
+
+	private static int computeWidth(String text, Graphics2D graphics) {
+		return graphics.getFontMetrics().charsWidth(text.toCharArray(), 0, text.length());
 	}
 
 	/**
 	 * Will split a word by any character in WORD_SPLIT_CHARS
-	 * <pre>{':', '.', '-', ',', ')', '/', '+'}</pre>
-	 * the split characters are inserted as the last character of the fragment
+	 * <pre>:.-,)/+</pre>
+	 * The split characters are inserted as the last character of the fragment
 	 *
-	 * For instance <pre>splitWord("p-T402-PAK2(213-524))</pre> will result in
+	 * For instance <pre>splitWord("p-T402-PAK2(213-524)")</pre> will result in
 	 * <pre>{"p-", "T402-", "PAK2(", "213-", "524)"}</pre>
-	 *
-	 * @param word
-	 *
-	 * @return
 	 */
 	private static List<String> splitWord(String word) {
 		final List<String> parts = new LinkedList<>();
 		int start = 0;
 		for (int i = 0; i < word.length(); i++) {
-			if (TextRenderer.WORD_SPLIT_CHARS.contains(word.charAt(i))) {
+			if (WORD_SPLIT_CHARS.contains(word.charAt(i))) {
 				parts.add(word.substring(start, i + 1));
 				start = i + 1;
 			}
@@ -218,7 +177,20 @@ public class TextRenderer {
 		return parts;
 	}
 
-	public static void drawText(AdvancedGraphics2D graphics, String text, NodeProperties props) {
-		drawText(graphics, text, props.getX(), props.getY(), props.getWidth(), props.getHeight());
+	/**
+	 * Renders the given text in the desired position.
+	 *
+	 * @param graphics canvas to draw into
+	 * @param text     text to draw
+	 * @param position top left position of text
+	 */
+	public static void drawTextSingleLine(Graphics2D graphics, String text, Coordinate position) {
+		drawTextSingleLine(graphics, text, position.getX(), position.getY());
+	}
+
+	private static void drawTextSingleLine(Graphics2D graphics, String text, double x, double y) {
+		final int height = graphics.getFontMetrics().getHeight();
+		final int baseY = (int) (y + height);
+		graphics.drawString(text, (int) x, baseY);
 	}
 }

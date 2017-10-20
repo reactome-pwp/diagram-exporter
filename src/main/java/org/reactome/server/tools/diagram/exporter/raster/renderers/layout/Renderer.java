@@ -1,11 +1,9 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
-import org.reactome.server.tools.diagram.data.layout.Node;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.AdvancedGraphics2D;
-
-import java.awt.*;
-import java.util.Collection;
+import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 
 /**
  * Any renderer should accept a list of DiagramObjects and be able to render
@@ -15,13 +13,5 @@ import java.util.Collection;
  */
 public interface Renderer {
 
-	void cross(AdvancedGraphics2D graphics, Collection<Node> nodes);
-
-	void fill(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items);
-
-	void border(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items);
-
-	void text(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items);
-
-	void segments(AdvancedGraphics2D graphics, Collection<? extends DiagramObject> items);
+	void draw(DiagramCanvas canvas, DiagramObject item, ColorProfiles colorProfiles, DiagramIndex index);
 }

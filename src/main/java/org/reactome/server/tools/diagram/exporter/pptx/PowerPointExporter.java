@@ -1,12 +1,12 @@
 package org.reactome.server.tools.diagram.exporter.pptx;
 
 import org.reactome.server.tools.diagram.data.layout.Diagram;
-import org.reactome.server.tools.diagram.data.profile.DiagramProfile;
+import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
+import org.reactome.server.tools.diagram.exporter.common.Decorator;
+import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
-import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
-import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.pptx.parser.DiagramPresentation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

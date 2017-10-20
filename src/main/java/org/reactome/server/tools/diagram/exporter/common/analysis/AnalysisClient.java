@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.Collection;
 
 public class AnalysisClient {
@@ -42,10 +43,10 @@ public class AnalysisClient {
 
             switch (connection.getResponseCode()){
                 case 200:
-                    String json = IOUtils.toString(connection.getInputStream());
+                    String json = IOUtils.toString(connection.getInputStream(), Charset.defaultCharset());
                     return getObject(FoundElements.class, json);
                 default:
-                    String error = IOUtils.toString(connection.getErrorStream());
+                    String error = IOUtils.toString(connection.getErrorStream(), Charset.defaultCharset());
                     throw new AnalysisException(getObject(AnalysisError.class, error));
             }
         } catch (IOException | DeserializationException e) {
@@ -68,10 +69,10 @@ public class AnalysisClient {
 
             switch (connection.getResponseCode()){
                 case 200:
-                    String json = IOUtils.toString(connection.getInputStream());
+                    String json = IOUtils.toString(connection.getInputStream(), Charset.defaultCharset());
                     return getObject(PathwaySummary[].class, json);
                 default:
-                    String error = IOUtils.toString(connection.getErrorStream());
+                    String error = IOUtils.toString(connection.getErrorStream(), Charset.defaultCharset());
                     throw new AnalysisException(getObject(AnalysisError.class, error));
             }
         } catch (IOException | DeserializationException e) {
@@ -94,10 +95,10 @@ public class AnalysisClient {
 
             switch (connection.getResponseCode()){
                 case 200:
-                    String json = IOUtils.toString(connection.getInputStream());
+                    String json = IOUtils.toString(connection.getInputStream(), Charset.defaultCharset());
                     return getObject(AnalysisResult.class, json);
                 default:
-                    String error = IOUtils.toString(connection.getErrorStream());
+                    String error = IOUtils.toString(connection.getErrorStream(), Charset.defaultCharset());
                     throw new AnalysisException(getObject(AnalysisError.class, error));
             }
         } catch (IOException | DeserializationException e) {
@@ -110,6 +111,27 @@ public class AnalysisClient {
             return mapper.readValue(json, cls);
         } catch (Throwable e) {
             throw new DeserializationException("Error mapping json string for [" + cls + "]: " + json, e);
+        }
+    }
+
+    public static AnalysisResult getAnalysisResult(String token) throws AnalysisServerError {
+        try {
+            URL url = new URL(AnalysisClient.SERVER + "/AnalysisService/token/" + token);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Content-Type","text/plain");
+            connection.setRequestProperty("Response-Type","application/json");
+
+            switch (connection.getResponseCode()){
+                case 200:
+                    String json = IOUtils.toString(connection.getInputStream(), Charset.defaultCharset());
+                    return getObject(AnalysisResult.class, json);
+                default:
+                    String error = IOUtils.toString(connection.getErrorStream(), Charset.defaultCharset());
+                    throw new AnalysisException(getObject(AnalysisError.class, error));
+            }
+        } catch (DeserializationException | AnalysisException | IOException e) {
+            throw new AnalysisServerError(e.getMessage());
         }
     }
 }

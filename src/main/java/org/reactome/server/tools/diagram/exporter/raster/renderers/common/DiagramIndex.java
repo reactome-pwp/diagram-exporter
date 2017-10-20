@@ -1,205 +1,152 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
+import org.reactome.server.tools.diagram.data.graph.EntityNode;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.data.layout.*;
 import org.reactome.server.tools.diagram.exporter.common.Decorator;
-import org.reactome.server.tools.diagram.exporter.raster.AnalysisType;
-import org.reactome.server.tools.diagram.exporter.raster.RenderType;
+import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
+import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
+import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
+import org.reactome.server.tools.diagram.exporter.common.analysis.model.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Computes a Diagram to group nodes by renderableClass and RenderType, so all
- * nodes in a group can be rendered with the same colors for filling and
- * stroking.
+ * Indexes a diagram so for each node in the diagram you can get all the logical
+ * information about it: if selected, flag, halo, its enrichments and
+ * expressions.
  *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class DiagramIndex {
 
-	/*
-	This will order the node rendering based on the order they are declared in
-	RenderType. For instance, if RenderType is NORMAL, FADEOUT, DISEASE, normal
-	nodes will be rendered first, then fadeout and finally diseases.
-	 */
-	private static final Comparator<RenderType> RENDER_TYPE_COMPARATOR = new Comparator<RenderType>() {
-		// The index will make sorting faster than values().indexOf()
-		final Map<RenderType, Integer> index = new HashMap<>();
-
-		{
-			// If the order in which RenderType values are declared is
-			// arbitrary then change RenderType.values() with the desired
-			// order: DISEASE, NORMAL, ...
-			final List<RenderType> order = Arrays.asList(RenderType.values());
-			for (int i = 0; i < RenderType.values().length; i++)
-				index.put(order.get(i), i);
-		}
-
-		@Override
-		public int compare(RenderType a, RenderType b) {
-			return Integer.compare(index.get(a), index.get(b));
-		}
-	};
-
+	private static final double MIN_ENRICHMENT = 0.05;
 	private final Diagram diagram;
 	private final Graph graph;
+	private final HashMap<Long, DiagramObjectDecorator> index;
 	private Decorator decorator;
-	private AnalysisType analysisType;
-
-	private Map<Long, DiagramObject> diagramIndex;
-	//	private Map<Long, DiagramObject> diagramReactomeIndex;
-	private Map<Long, GraphNode> graphIndex;
-	private Map<String, Set<Node>> selectedNodes;
-	private Map<RenderType, Map<String, Set<Edge>>> selectedReactions;
-	private Map<RenderType, Map<String, Set<Connector>>> selectedConnectors;
-	private Map<String, Set<Node>> flagNodes;
-	private Map<String, Set<Edge>> haloReactions;
-	private Map<String, Set<Node>> haloNodes;
-	private Map<String, Set<Connector>> haloConnectors;
-	private Map<RenderType, Map<String, Set<Node>>> classifiedNodes;
-	private Map<RenderType, Map<String, Set<Edge>>> classifiedReactions;
-	private Map<RenderType, Map<String, Set<Connector>>> classifiedConnectors;
-	private Map<RenderType, Map<String, Set<Link>>> links;
-	private Set<Edge> flagReactions;
-	private HashSet<Connector> flagConnectors;
+	private String token;
 
 	/**
-	 * Computes the maps of nodes, reactions and connectors so they are grouped
-	 * by renderableClass, renderType and normal, selection, halo or flag
-	 * status.
-	 *
-	 * @param diagram      diagram with nodes and reactions
-	 * @param graph        background graph
-	 * @param decorator    decorator with selection and flags
-	 * @param analysisType type of analysis
+	 * [diagram id] item.getId()
 	 */
-	public DiagramIndex(Diagram diagram, Graph graph, Decorator decorator, AnalysisType analysisType) {
+	private Map<Long, DiagramObject> diagramIndex;
+	/**
+	 * [reactome id] item.getReactomeId()
+	 */
+	private Map<Long, DiagramObject> reactomeIndex;
+	/**
+	 * [reactome id] node.getDbId()
+	 */
+	private Map<Long, EntityNode> graphIndex;
+
+	//	/**
+//	 * [diagram id] item.getId()
+//	 */
+//	private Set<Long> selected = new TreeSet<>();
+//	/**
+//	 * [diagram id] item.getId()
+//	 */
+//	private Set<Long> flags = new TreeSet<>();
+//	/**
+//	 * [diagram id] item.getId()
+//	 */
+//	private Set<Long> haloed = new HashSet<>();
+//	/**
+//	 * [diagram id] item.getId()
+//	 */
+//	private Map<Long, Double> enrichment = new HashMap<>();
+//	/**
+//	 * [graph id] graphItem.getId() or diagramItem.getReactomeId()
+//	 */
+//	private Map<Long, List<List<Double>>> expresion = new HashMap<>();
+//	/**
+//	 * [diagram id] edge.getId()
+//	 */
+//	private Map<Long, List<Connector>> connectors;
+	private double maxExpression = 0;
+	private double minExpression = Double.MAX_VALUE;
+	private AnalysisType analysisType = AnalysisType.NONE;
+
+	/**
+	 * Creates a new DiagramIndex with the information for each node in maps.
+	 *
+	 * @param diagram   diagram with nodes and reactions
+	 * @param graph     background graph
+	 * @param decorator decorator with selection and flags
+	 */
+	public DiagramIndex(Diagram diagram, Graph graph, Decorator decorator, String token) {
 		this.diagram = diagram;
 		this.graph = graph;
 		this.decorator = decorator;
-		this.analysisType = analysisType;
+		this.token = token;
+		this.index = new HashMap<>();
 		createIndexes();
 		collect();
 	}
 
 	private void createIndexes() {
 		diagramIndex = new HashMap<>();
-//		diagramReactomeIndex = new HashMap<>();
-		graphIndex = new HashMap<>();
+		reactomeIndex = new HashMap<>();
 		Stream.of(diagram.getEdges(), diagram.getNodes(), diagram.getLinks(),
 				diagram.getNotes())
 				.flatMap(Collection::stream)
 				.forEach(item -> {
 					diagramIndex.put(item.getId(), item);
-//					diagramReactomeIndex.put(item.getReactomeId(), item);
+					reactomeIndex.put(item.getReactomeId(), item);
 				});
-		Stream.of(graph.getEdges(), graph.getNodes())
+		graphIndex = new HashMap<>();
+		graph.getNodes().forEach(item -> graphIndex.put(item.getDbId(), item));
+		diagram.getNodes().stream()
+				.map(Node::getConnectors)
 				.flatMap(Collection::stream)
-				.forEach(item -> graphIndex.put(item.getDbId(), item));
+				.forEach(connector -> getEdgeDecorator(connector.getEdgeId()).getConnectors().add(connector));
 	}
 
 	private void collect() {
-		classifyNodes();
-		classifyReactions();
 		if (decorator != null) {
 			selectNodes();
 			selectReactions();
+			analysis();
 		}
-		links = diagram.getLinks().stream()
-				.collect(Collectors.groupingBy(this::getRenderType,
-						Collectors.groupingBy(DiagramObject::getRenderableClass, Collectors.toSet())));
-	}
-
-	private void classifyNodes() {
-		classifiedNodes = new TreeMap<>(RENDER_TYPE_COMPARATOR);
-		diagram.getNodes().forEach(node ->
-				classifiedNodes
-						.computeIfAbsent(getRenderType(node), k -> new HashMap<>())
-						.computeIfAbsent(node.getRenderableClass(), k -> new HashSet<>())
-						.add(node));
-//		classifiedNodes.forEach((rClass, items) -> {
-//					System.out.println(rClass);
-//					items.forEach((renderType, edges) -> {
-//						System.out.println(" - " + renderType);
-//						edges.forEach(edge -> {
-//							System.out.println("    - " + edge.getDisplayName());
-//						});
-//					});
-//				}
-//		);
-	}
-
-	private void classifyReactions() {
-		classifiedReactions = new TreeMap<>(RENDER_TYPE_COMPARATOR);
-		classifiedConnectors = new TreeMap<>(RENDER_TYPE_COMPARATOR);
-		diagram.getEdges().forEach(reaction -> {
-			// Classify edges by renderingClass/renderType
-			classifiedReactions
-					.computeIfAbsent(getRenderType(reaction), k -> new HashMap<>())
-					.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>())
-					.add(reaction);
-			// Rendering class of connectors is the same as the reaction they
-			// belong to
-			streamParticipants(reaction)
-					.map(Node::getConnectors)
-					.flatMap(Collection::stream)
-					.filter(connector -> connector.getEdgeId().equals(reaction.getId()))
-					.forEach(connector -> classifiedConnectors
-							.computeIfAbsent(getRenderType(connector), k -> new HashMap<>())
-							.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>())
-							.add(connector));
-		});
-
 	}
 
 
 	private void selectNodes() {
-		selectedNodes = new HashMap<>();
-		haloNodes = new HashMap<>();
-		flagNodes = new HashMap<>();
-		haloReactions = new HashMap<>();
-		haloConnectors = new HashMap<>();
 		diagram.getNodes().forEach(node -> {
 			// Select node
 			if (decorator.getSelected().contains(node.getReactomeId())) {
-				selectedNodes
-						.computeIfAbsent(node.getRenderableClass(), k -> new HashSet<>())
-						.add(node);
-				haloNodes.
-						computeIfAbsent(node.getRenderableClass(), k -> new HashSet<>())
-						.add(node);
+				final NodeDecorator decorator = getNodeDecorator(node.getId());
+				decorator.setSelected(true);
+				decorator.setHalo(true);
 				node.getConnectors().forEach(connector -> {
 					final Edge reaction = (Edge) diagramIndex.get(connector.getEdgeId());
-					haloEdge(reaction, false);
+					// When a node is selected, the nodes in the same reaction
+					// are haloed
+					haloEdgeParticipants(reaction);
 				});
 			}
 			// Flag node
 			if (decorator.getFlags().contains(node.getReactomeId()))
-				flagNodes.computeIfAbsent(node.getRenderableClass(), k -> new HashSet<>()).add(node);
+				getNodeDecorator(node.getId()).setFlag(true);
 		});
 	}
 
 	private void selectReactions() {
-		selectedReactions = new TreeMap<>(RENDER_TYPE_COMPARATOR);
-		selectedConnectors = new TreeMap<>(RENDER_TYPE_COMPARATOR);
-		flagReactions = new HashSet<>();
-		flagConnectors = new HashSet<>();
 		diagram.getEdges().forEach(reaction -> {
 			// Select edge
 			if (decorator.getSelected().contains(reaction.getReactomeId())) {
-				selectedReactions
-						.computeIfAbsent(getRenderType(reaction), k -> new HashMap<>())
-						.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>())
-						.add(reaction);
-				haloEdge(reaction, true);
+				final EdgeDecorator decorator = getEdgeDecorator(reaction.getId());
+				decorator.setSelected(true);
+				decorator.setHalo(true);
+				haloEdgeParticipants(reaction);
 			}
 			// Flag edge
 			if (decorator.getFlags().contains(reaction.getReactomeId())) {
-				flagReactions.add(reaction);
-				flagReaction(reaction);
+				getEdgeDecorator(reaction.getId()).setFlag(true);
 			}
 		});
 	}
@@ -209,33 +156,13 @@ public class DiagramIndex {
 	 * Adds the reaction to the haloReaction set, participating nodes to
 	 * haloNodes and participating connectors to haloConnectors
 	 *
-	 * @param reaction      reaction to halo
-	 * @param withSelection whether this reaction is selected or not. If true,
-	 *                      participating connectors will be added to
-	 *                      selectedConnectors as well
+	 * @param reaction reaction to halo
 	 */
-	private void haloEdge(Edge reaction, boolean withSelection) {
-		haloReactions
-				.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>())
-				.add(reaction);
-		final Set<Connector> connectors = haloConnectors.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>());
-		final RenderType renderType = getRenderType(reaction);
+	private void haloEdgeParticipants(Edge reaction) {
 		streamParticipants(reaction)
 				.forEach(node -> {
 					if (node.getIsFadeOut() == null || !node.getIsFadeOut())
-						haloNodes
-								.computeIfAbsent(node.getRenderableClass(), k -> new HashSet<>())
-								.add(node);
-					node.getConnectors().stream()
-							.filter(connector -> connector.getEdgeId().equals(reaction.getId()))
-							.forEach(connector -> {
-								connectors.add(connector);
-								if (withSelection)
-									selectedConnectors
-											.computeIfAbsent(renderType, k -> new HashMap<>())
-											.computeIfAbsent(reaction.getRenderableClass(), k -> new HashSet<>())
-											.add(connector);
-							});
+						getNodeDecorator(node.getId()).setHalo(true);
 				});
 	}
 
@@ -256,125 +183,255 @@ public class DiagramIndex {
 				.map(Node.class::cast);
 	}
 
-	private void flagReaction(Edge reaction) {
-		flagReactions.add(reaction);
-		streamParticipants(reaction).forEach(node ->
-				node.getConnectors().stream()
-						.filter(connector -> connector.getEdgeId().equals(reaction.getId()))
-						.forEach(flagConnectors::add));
+	/**
+	 * extracts
+	 */
+	private void analysis() {
+		if (token == null || token.isEmpty())
+			return;
+		final String stId = graph.getStId();
+		System.out.println(token); // TODO: delete on production
+		System.out.println(stId);
+		try {
+			final AnalysisResult result = AnalysisClient.getAnalysisResult(token);
+			final List<ResourceSummary> summaryList = result.getResourceSummary();
+			final ResourceSummary resourceSummary = summaryList.size() == 2
+					? summaryList.get(1)
+					: summaryList.get(0);
+			final String resource = resourceSummary.getResource();
+			analysisType = AnalysisType.getType(result.getSummary().getType());
+			subPathways(token, resource);
+			if (analysisType == AnalysisType.EXPRESSION)
+				expression(token, stId, resource);
+			else if (analysisType == AnalysisType.OVERREPRESENTATION)
+				enrichment(token, stId, resource);
+
+		} catch (AnalysisException | AnalysisServerError e) {
+			e.printStackTrace();
+		}
 	}
 
-	private RenderType getRenderType(DiagramObject item) {
-		final boolean isDisease = item.getIsDisease() != null;
-		if (item.getIsFadeOut() != null) {
-			return isDisease
-					? RenderType.DISEASE
-					: RenderType.FADE_OUT;
-		}
-		if (analysisType == AnalysisType.NONE) {
-			return isDisease
-					? RenderType.DISEASE
-					: RenderType.NORMAL;
-		}
-		final GraphNode node = getNode(graph, item);
-		if (node == null) {
-			return isDisease
-					? RenderType.NOT_HIT_BY_ANALYSIS_DISEASE
-					: RenderType.NOT_HIT_BY_ANALYSIS_NORMAL;
-		}
-		if (isHit(node)) {
-//			return RenderType.HIT_INTERACTORS;
-			switch (analysisType) {
-				case SPECIES_COMPARISON:
-				case OVERREPRESENTATION:
-					return isDisease
-							? RenderType.HIT_BY_ENRICHMENT_DISEASE
-							: RenderType.HIT_BY_ENRICHMENT_NORMAL;
-				case EXPRESSION:
-					return isDisease
-							? RenderType.HIT_BY_EXPRESSION_DISEASE
-							: RenderType.HIT_BY_EXPRESSION_NORMAL;
-				default:
-					return RenderType.HIT_INTERACTORS;
+	/**
+	 * Adds to the analysis index the subPathways present in the diagram (as
+	 * ProcessNodes). So for each it takes its PathwaySummary and divides
+	 * entities.getFound() / entities.getTotal() to compute the percentage of
+	 * the fill area.
+	 */
+	private void subPathways(String token, String resource) throws AnalysisServerError, AnalysisException {
+		// 1 extract list of subPathways stId (for ProcessNodes)
+		final List<String> subPathways = diagram.getNodes().stream()
+				.filter(node -> node.getRenderableClass().equals("ProcessNode"))
+				.map(node -> graphIndex.get(node.getReactomeId()).getStId())
+				.collect(Collectors.toList());
+		if (subPathways.isEmpty())
+			return;
+		// 2 get subPathways summary
+		final PathwaySummary[] pathwaysSummary = AnalysisClient.getPathwaysSummary(subPathways, token, resource);
+		// extract %
+		for (PathwaySummary summary : pathwaysSummary) {
+			final EntityStatistics entities = summary.getEntities();
+			if (entities != null) {
+				int found = entities.getFound();
+				int total = entities.getTotal();
+				double percentage = (double) found / total;
+				if (percentage < MIN_ENRICHMENT && percentage > 0)
+					percentage = MIN_ENRICHMENT;
+//			final String stId = summary.getStId();
+//			System.out.printf("%s %d/%d(%.3f)\n", stId, found, total, percentage);
+				final DiagramObject diagramNode = reactomeIndex.get(summary.getDbId());
+				if (diagramNode != null)
+					getNodeDecorator(diagramNode.getId()).setEnrichment(percentage);
 			}
 		}
-		return isDisease
-				? RenderType.NOT_HIT_BY_ANALYSIS_DISEASE
-				: RenderType.NOT_HIT_BY_ANALYSIS_NORMAL;
 	}
 
-	private RenderType getRenderType(Connector item) {
-		if (item.getIsDisease() != null && item.getIsDisease())
-			return RenderType.DISEASE;
-		if (item.getIsFadeOut() != null && item.getIsFadeOut())
-			return RenderType.FADE_OUT;
-		return RenderType.NORMAL;
-
-	}
-
-	public Map<String, Set<Node>> getSelectedNodes() {
-		return selectedNodes;
-	}
-
-	public Map<String, Set<Node>> getFlagNodes() {
-		return flagNodes;
-	}
-
-	public Map<RenderType, Map<String, Set<Connector>>> getSelectedConnectors() {
-		return selectedConnectors;
-	}
-
-	public Map<RenderType, Map<String, Set<Edge>>> getSelectedReactions() {
-		return selectedReactions;
-	}
-
-
-	public Map<RenderType, Map<String, Set<Node>>> getClassifiedNodes() {
-		return classifiedNodes;
-	}
-
-	public Map<RenderType, Map<String, Set<Edge>>> getClassifiedReactions() {
-		return classifiedReactions;
-	}
-
-	public HashSet<Connector> getFlagConnectors() {
-		return flagConnectors;
-	}
-
-	public Set<Edge> getFlagReactions() {
-		return flagReactions;
-	}
-
-	public Map<RenderType, Map<String, Set<Connector>>> getClassifiedConnectors() {
-		return classifiedConnectors;
-	}
-
-	private boolean isHit(GraphNode item) {
-		return false;
-	}
-
-	private GraphNode getNode(Graph graph, DiagramObject item) {
-		return graph.getNodes().stream()
-				.filter(node -> node.getDbId().equals(item.getId()))
-				.findFirst().orElse(null);
+	/**
+	 * Computes the list of expressions of components. For each diagram object,
+	 * except ProcessNodes, you get a list of lists of doubles
+	 */
+	private void expression(String token, String stId, String resource) throws AnalysisServerError, AnalysisException {
+		final FoundElements foundElements = AnalysisClient.getFoundElements(stId, token, resource);
+		final Map<String, Participant> expressions = new HashMap<>();
+		foundElements.getEntities().forEach(analysisNode -> {
+			final List<Double> exp = analysisNode.getExp();
+			for (Double val : exp) {
+				if (val > maxExpression) maxExpression = val;
+				if (val < minExpression) minExpression = val;
+			}
+			analysisNode.getMapsTo().stream()
+					.map(IdentifierMap::getIds)
+					.flatMap(Collection::stream)
+					.forEach(identifier -> expressions.put(identifier, new Participant(identifier, exp)));
+		});
+		diagram.getNodes().forEach(diagramNode -> {
+			final EntityNode graphNode = graphIndex.get(diagramNode.getReactomeId());
+			if (graphNode == null) return;
+			final Set<Long> leaves = getLeaves(graphNode);
+			final List<Participant> collect = leaves.stream()
+					.map(leafId -> expressions.get(graphIndex.get(leafId).getIdentifier()))
+					.collect(Collectors.toList());
+			if (collect.stream().anyMatch(Objects::nonNull)) {
+				collect.sort((o1, o2) -> {
+					if (o1 == null) return 1;
+					if (o2 == null) return -1;
+					return o1.identifier.compareTo(o2.identifier);
+				});
+				getNodeDecorator(diagramNode.getId()).setExpressions(collect);
+			}
+		});
+		System.out.printf("[%.2f-%.2f]\n", minExpression, maxExpression);
 	}
 
 
-	public Map<String, Set<Node>> getHaloNodes() {
-		return haloNodes;
+	/** Computes only the relation of hit found components and found component */
+	private void enrichment(String token, String stId, String resource) throws AnalysisException, AnalysisServerError {
+		final FoundElements analysisNodes = AnalysisClient.getFoundElements(stId, token, resource);
+		// 1 map foundEntities to graph nodes (EntityNode)
+		final Set<String> identifiers = analysisNodes.getEntities().stream()
+				.map(FoundEntity::getMapsTo)
+				.flatMap(Collection::stream)
+				.map(IdentifierMap::getIds)
+				.flatMap(Collection::stream)
+				.collect(Collectors.toSet());
+		// Transform those identifiers into graph nodes
+		final Set<Long> graphNodeHit = graph.getNodes().stream()
+				.filter(entityNode -> identifiers.contains(entityNode.getIdentifier()))
+				.map(GraphNode::getDbId)
+				.collect(Collectors.toSet());
+		// run through the diagram nodes and compute the enrichment level for
+		// its associated graph node.
+		diagram.getNodes().stream()
+				.filter(node -> !node.getRenderableClass().equals("ProcessNode"))
+				.forEach(diagramNode -> {
+					final EntityNode graphNode = graphIndex.get(diagramNode.getReactomeId());
+					if (graphNode != null) {
+						double percentage = getPercentage(graphNodeHit, diagramNode, graphNode);
+						getNodeDecorator(diagramNode.getId()).setEnrichment(percentage);
+					}
+				});
+	}
+
+	private double getPercentage(Set<Long> hitIds, Node node, EntityNode graphNode) {
+		final Set<Long> leaves = getLeaves(graphNode);
+		final int total = leaves.size();
+		final long count = leaves.stream().filter(hitIds::contains).count();
+		double percentage = (double) count / total;
+		if (percentage > 0 && percentage < MIN_ENRICHMENT)
+			percentage = MIN_ENRICHMENT;
+		// TODO: remove on production
+		System.out.printf("[%s]\t %s \t(%d/%d) %.2f\n", node.getRenderableClass(), node.getDisplayName(),
+				count, total, percentage);
+		return percentage;
+	}
+
+	private Set<Long> getLeaves(EntityNode node) {
+		if (node.getChildren() == null) {
+			return Collections.singleton(node.getDbId());
+		} else {
+			return node.getChildren().stream()
+					.map(graphIndex::get)
+					.filter(Objects::nonNull)
+					.map(this::getLeaves)
+					.flatMap(Collection::stream)
+					.collect(Collectors.toSet());
+		}
+	}
+
+	public NodeDecorator getNodeDecorator(long id) {
+		return (NodeDecorator) index.computeIfAbsent(id, k -> new NodeDecorator());
+	}
+
+	public EdgeDecorator getEdgeDecorator(long id) {
+		return (EdgeDecorator) index.computeIfAbsent(id, k -> new EdgeDecorator());
+	}
+
+	public double getMaxExpression() {
+		return maxExpression;
+	}
+
+	public double getMinExpression() {
+		return minExpression;
+	}
+
+	public AnalysisType getAnalysisType() {
+		return analysisType;
+	}
+
+	public class DiagramObjectDecorator {
+		private boolean flag = false;
+		private boolean selected = false;
+		private boolean halo = false;
+
+		public boolean isFlag() {
+			return flag;
+		}
+
+		void setFlag(boolean flag) {
+			this.flag = flag;
+		}
+
+		public boolean isSelected() {
+			return selected;
+		}
+
+		void setSelected(boolean selected) {
+			this.selected = selected;
+		}
+
+		public boolean isHalo() {
+			return halo;
+		}
+
+		void setHalo(boolean halo) {
+			this.halo = halo;
+		}
+	}
+
+	public class EdgeDecorator extends DiagramObjectDecorator {
+		private List<Connector> connectors = new LinkedList<>();
+
+		public List<Connector> getConnectors() {
+			return connectors;
+		}
+	}
+
+	public class NodeDecorator extends DiagramObjectDecorator {
+		private List<Participant> expressions = null;
+		private Double enrichment = null;
+
+		public Double getEnrichment() {
+			return enrichment;
+		}
+
+		void setEnrichment(Double enrichment) {
+			this.enrichment = enrichment;
+		}
+
+		public List<Participant> getExpressions() {
+			return expressions;
+		}
+
+		void setExpressions(List<Participant> expressions) {
+			this.expressions = expressions;
+		}
 
 	}
 
-	public Map<String, Set<Connector>> getHaloConnectors() {
-		return haloConnectors;
+	public class Participant {
+		private final String identifier;
+		private final List<Double> exp;
 
-	}
+		public Participant(String identifier, List<Double> exp) {
+			this.identifier = identifier;
+			this.exp = exp;
+		}
 
-	public Map<String, Set<Edge>> getHaloReactions() {
-		return haloReactions;
-	}
+		public List<Double> getExp() {
+			return exp;
+		}
 
-	public Map<RenderType, Map<String, Set<Link>>> getLinks() {
-		return links;
+		public String getIdentifier() {
+			return identifier;
+		}
 	}
 }

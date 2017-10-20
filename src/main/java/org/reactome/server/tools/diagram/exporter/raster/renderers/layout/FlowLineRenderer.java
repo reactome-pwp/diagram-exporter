@@ -5,6 +5,6 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
  *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
-public class FlowLineRenderer extends EdgeRenderer {
+public class FlowLineRenderer extends LinkRenderer {
 
 }
