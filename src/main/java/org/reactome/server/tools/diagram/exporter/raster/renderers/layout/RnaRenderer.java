@@ -1,9 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
-import org.reactome.server.tools.diagram.data.layout.DiagramObject;
-import org.reactome.server.tools.diagram.data.layout.Node;
+import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 
 import java.awt.*;
@@ -14,15 +12,13 @@ import java.awt.*;
 public class RnaRenderer extends NodeAbstractRenderer {
 
 	@Override
-	protected Shape backgroundShape(DiagramObject item) {
-		final Node node = (Node) item;
+	protected Shape backgroundShape(NodeCommon node) {
 		final NodeProperties properties = node.getProp();
-		final double loopWidth = RendererProperties.RNA_LOOP_WIDTH;
 		final double x = properties.getX();
 		final double y = properties.getY();
 		final double width = properties.getWidth();
 		final double height = properties.getHeight();
-		return ShapeFactory.getBoneShape(x, y, width, height, loopWidth);
+		return ShapeFactory.getRnaShape(x, y, width, height);
 	}
 
 }

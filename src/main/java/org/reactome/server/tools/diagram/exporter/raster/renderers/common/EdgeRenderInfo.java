@@ -2,9 +2,10 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
 import org.reactome.server.tools.diagram.data.layout.Connector;
 import org.reactome.server.tools.diagram.data.layout.EdgeCommon;
-import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
-import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
 import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.color.DiagramSheet;
+import org.reactome.server.tools.diagram.exporter.raster.color.NodeColorSheet;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.DrawLayer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.FillDrawLayer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.TextLayer;
@@ -15,7 +16,7 @@ import java.util.LinkedList;
 
 public class EdgeRenderInfo extends DiagramObjectInfo {
 
-	private final DiagramProfileNode profile;
+	private final NodeColorSheet profile;
 
 	private final boolean fadeout;
 	private final boolean disease;
@@ -29,15 +30,16 @@ public class EdgeRenderInfo extends DiagramObjectInfo {
 	private final Stroke lineStroke;
 	private final Stroke segmentStroke;
 
-	private final String fillColor;
-	private final String lineColor;
-	private final String haloColor;
+	private final Color fillColor;
+	private final Color lineColor;
+	private final Color haloColor;
 	private final LinkedList<Shape> segments;
 	private final DiagramIndex.EdgeDecorator decorator;
 
-	public EdgeRenderInfo(EdgeCommon edge, boolean dashed, DiagramProfile diagramProfile, DiagramIndex index, DiagramCanvas canvas) {
+	public EdgeRenderInfo(EdgeCommon edge, boolean dashed, ColorProfiles colorProfiles, DiagramIndex index, DiagramCanvas canvas) {
 		this.decorator = index.getEdgeDecorator(edge.getId());
-		profile = getDiagramProfileNode(edge.getRenderableClass(), diagramProfile);
+		final DiagramSheet diagramSheet = colorProfiles.getDiagramSheet();
+		profile = getDiagramProfileNode(edge.getRenderableClass(), diagramSheet);
 
 		fadeout = edge.getIsFadeOut() != null && edge.getIsFadeOut();
 		disease = edge.getIsDisease() != null && edge.getIsDisease();
@@ -52,7 +54,7 @@ public class EdgeRenderInfo extends DiagramObjectInfo {
 			segmentStroke = StrokeProperties.StrokeStyle.SEGMENT.getStroke(dashed);
 		}
 
-		haloColor = diagramProfile.getProperties().getHalo();
+		haloColor = diagramSheet.getProperties().getHalo();
 
 		if (fadeout) {
 			segmentsLayer = canvas.getFadeOutSegments();
@@ -66,9 +68,9 @@ public class EdgeRenderInfo extends DiagramObjectInfo {
 			textLayer = canvas.getText();
 			fillColor = profile.getFill();
 			lineColor = decorator.isSelected()
-					? diagramProfile.getProperties().getSelection()
+					? diagramSheet.getProperties().getSelection()
 					: disease
-					? diagramProfile.getProperties().getDisease()
+					? diagramSheet.getProperties().getDisease()
 					: profile.getStroke();
 		}
 		segments = new LinkedList<>();
@@ -83,7 +85,7 @@ public class EdgeRenderInfo extends DiagramObjectInfo {
 
 	}
 
-	public DiagramProfileNode getProfile() {
+	public NodeColorSheet getProfile() {
 		return profile;
 	}
 
@@ -95,15 +97,15 @@ public class EdgeRenderInfo extends DiagramObjectInfo {
 		return shapeLayer;
 	}
 
-	public String getFillColor() {
+	public Color getFillColor() {
 		return fillColor;
 	}
 
-	public String getHaloColor() {
+	public Color getHaloColor() {
 		return haloColor;
 	}
 
-	public String getLineColor() {
+	public Color getLineColor() {
 		return lineColor;
 	}
 

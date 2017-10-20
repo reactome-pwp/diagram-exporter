@@ -1,7 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
-import org.reactome.server.tools.diagram.data.layout.DiagramObject;
-import org.reactome.server.tools.diagram.data.layout.Node;
+import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 
 import java.awt.*;
@@ -15,8 +14,7 @@ import java.awt.geom.Ellipse2D;
 public class ChemicalRenderer extends NodeAbstractRenderer {
 
 	@Override
-	protected Shape backgroundShape(DiagramObject item) {
-		final Node node = (Node) item;
+	protected Shape backgroundShape(NodeCommon node) {
 		final NodeProperties properties = node.getProp();
 		return new Ellipse2D.Double(properties.getX(), properties.getY(),
 				properties.getWidth(), properties.getHeight());

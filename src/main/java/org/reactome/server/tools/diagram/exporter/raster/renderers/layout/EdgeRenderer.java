@@ -1,15 +1,15 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.*;
+import org.reactome.server.tools.diagram.data.layout.Shape;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
-import org.reactome.server.tools.diagram.data.profile.analysis.AnalysisProfile;
-import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
-import org.reactome.server.tools.diagram.data.profile.interactors.InteractorProfile;
 import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.EdgeRenderInfo;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,15 +24,15 @@ public class EdgeRenderer extends AbstractRenderer {
 
 	/**
 	 * Renders an edge and the connectors associated to it.
-	 *  @param canvas         where to render
-	 * @param item           the edge to render
-	 * @param diagramProfile color profile
-	 * @param index          the diagram index
+	 *
+	 * @param canvas where to render
+	 * @param item   the edge to render
+	 * @param index  the diagram index
 	 */
 	@Override
-	public void draw(DiagramCanvas canvas, DiagramObject item, DiagramProfile diagramProfile, AnalysisProfile analysisProfile, InteractorProfile interactorProfile, DiagramIndex index) {
-		final EdgeCommon edge  = (EdgeCommon) item;
-		final EdgeRenderInfo info = new EdgeRenderInfo(edge, dashed(edge), diagramProfile, index, canvas);
+	public void draw(DiagramCanvas canvas, DiagramObject item, ColorProfiles colorProfiles, DiagramIndex index) {
+		final EdgeCommon edge = (EdgeCommon) item;
+		final EdgeRenderInfo info = new EdgeRenderInfo(edge, dashed(edge), colorProfiles, index, canvas);
 		segments(canvas, info);
 		shapes(canvas, edge, info);
 		stoichiometries(canvas, info);
@@ -56,13 +56,13 @@ public class EdgeRenderer extends AbstractRenderer {
 		rShapes.forEach(shape -> renderShape(canvas, info, shape));
 	}
 
-	private void renderShape(DiagramCanvas canvas, EdgeRenderInfo info, Shape shape) {
-		final List<java.awt.Shape> javaShapes = ShapeFactory.createShape(shape);
+	private void renderShape(DiagramCanvas canvas, EdgeRenderInfo info, org.reactome.server.tools.diagram.data.layout.Shape shape) {
+		final List<java.awt.Shape> javaShapes = ShapeFactory.getShapes(shape);
 		// 2.1 halo
 		if (info.getDecorator().isHalo())
 			javaShapes.forEach(sh -> canvas.getFlags().add(info.getHaloColor(), info.getHaloStroke(), sh));
 		// 2.2 fill
-		final String color = shape.getEmpty() != null && shape.getEmpty() ? info.getFillColor() : info.getLineColor();
+		final Color color = shape.getEmpty() != null && shape.getEmpty() ? info.getFillColor() : info.getLineColor();
 		javaShapes.forEach(sh -> info.getShapeLayer().add(color, info.getLineColor(), info.getLineStroke(), sh));
 		// 2.4 text
 		if (shape.getS() != null && !shape.getS().isEmpty()) {
@@ -84,10 +84,10 @@ public class EdgeRenderer extends AbstractRenderer {
 
 	private void renderStoichiometry(DiagramCanvas canvas, EdgeRenderInfo info, Stoichiometry stoichiometry) {
 		final Shape stShape = stoichiometry.getShape();
-		final List<java.awt.Shape> shapes = ShapeFactory.createShape(stShape);
+		final List<java.awt.Shape> shapes = ShapeFactory.getShapes(stShape);
 		if (info.getDecorator().isHalo())
 			shapes.forEach(sh -> canvas.getHalo().add(info.getHaloColor(), info.getHaloStroke(), sh));
-		final String fill = stShape.getEmpty() != null && stShape.getEmpty()
+		final Color fill = stShape.getEmpty() != null && stShape.getEmpty()
 				? info.getFillColor() : info.getLineColor();
 		shapes.forEach(sh -> info.getShapeLayer().add(fill, info.getLineColor(), info.getLineStroke(), sh));
 		final String text = stoichiometry.getValue().toString();

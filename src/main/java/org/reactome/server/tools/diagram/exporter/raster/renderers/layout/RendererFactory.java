@@ -11,7 +11,7 @@ public class RendererFactory {
 		createRenderers();
 	}
 
-	private RendererFactory(){
+	private RendererFactory() {
 	}
 
 	public static Renderer get(String renderingClass) {

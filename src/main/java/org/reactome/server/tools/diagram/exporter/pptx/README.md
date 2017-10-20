@@ -53,7 +53,7 @@ DiagramService diagramService = new DiagramService();
 /**
  * @param stId                stable identifier of the diagram
  * @param diagramJsonFolder   static for the diagram json
- * @param profileName         Color profile name
+ * @param profileName         getName
  * @param outputFolder        output folder, the given folder + the color profile as a folder.
  * @param decorator           class that holds the flagged and the selected elements into two different lists.
  * @param licenseFilePath     a valid Aspose Software License.

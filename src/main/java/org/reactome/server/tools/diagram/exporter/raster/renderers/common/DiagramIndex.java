@@ -125,7 +125,7 @@ public class DiagramIndex {
 				node.getConnectors().forEach(connector -> {
 					final Edge reaction = (Edge) diagramIndex.get(connector.getEdgeId());
 					// When a node is selected, the nodes in the same reaction
-					// are also haloed
+					// are haloed
 					haloEdgeParticipants(reaction);
 				});
 			}
@@ -245,10 +245,13 @@ public class DiagramIndex {
 		}
 	}
 
-	/** Computes only the relation of hit found components and found component */
+	/**
+	 * Computes the list of expressions of components. For each diagram object,
+	 * except ProcessNodes, you get a list of lists of doubles
+	 */
 	private void expression(String token, String stId, String resource) throws AnalysisServerError, AnalysisException {
 		final FoundElements foundElements = AnalysisClient.getFoundElements(stId, token, resource);
-		final Map<String, List<Double>> expressions = new HashMap<>();
+		final Map<String, Participant> expressions = new HashMap<>();
 		foundElements.getEntities().forEach(analysisNode -> {
 			final List<Double> exp = analysisNode.getExp();
 			for (Double val : exp) {
@@ -258,26 +261,29 @@ public class DiagramIndex {
 			analysisNode.getMapsTo().stream()
 					.map(IdentifierMap::getIds)
 					.flatMap(Collection::stream)
-					.forEach(s -> expressions.put(s, exp));
+					.forEach(identifier -> expressions.put(identifier, new Participant(identifier, exp)));
 		});
 		diagram.getNodes().forEach(diagramNode -> {
 			final EntityNode graphNode = graphIndex.get(diagramNode.getReactomeId());
 			if (graphNode == null) return;
 			final Set<Long> leaves = getLeaves(graphNode);
-			final List<List<Double>> collect = leaves.stream()
+			final List<Participant> collect = leaves.stream()
 					.map(leafId -> expressions.get(graphIndex.get(leafId).getIdentifier()))
 					.collect(Collectors.toList());
 			if (collect.stream().anyMatch(Objects::nonNull)) {
+				collect.sort((o1, o2) -> {
+					if (o1 == null) return 1;
+					if (o2 == null) return -1;
+					return o1.identifier.compareTo(o2.identifier);
+				});
 				getNodeDecorator(diagramNode.getId()).setExpressions(collect);
 			}
 		});
 		System.out.printf("[%.2f-%.2f]\n", minExpression, maxExpression);
 	}
 
-	/**
-	 * Computes the list of expressions of components. For each diagram object,
-	 * except ProcessNodes, you get a list of lists of doubles
-	 */
+
+	/** Computes only the relation of hit found components and found component */
 	private void enrichment(String token, String stId, String resource) throws AnalysisException, AnalysisServerError {
 		final FoundElements analysisNodes = AnalysisClient.getFoundElements(stId, token, resource);
 		// 1 map foundEntities to graph nodes (EntityNode)
@@ -390,7 +396,7 @@ public class DiagramIndex {
 	}
 
 	public class NodeDecorator extends DiagramObjectDecorator {
-		private List<List<Double>> expressions = null;
+		private List<Participant> expressions = null;
 		private Double enrichment = null;
 
 		public Double getEnrichment() {
@@ -401,13 +407,31 @@ public class DiagramIndex {
 			this.enrichment = enrichment;
 		}
 
-		public List<List<Double>> getExpressions() {
+		public List<Participant> getExpressions() {
 			return expressions;
 		}
 
-		void setExpressions(List<List<Double>> expressions) {
+		void setExpressions(List<Participant> expressions) {
 			this.expressions = expressions;
 		}
 
+	}
+
+	public class Participant {
+		private final String identifier;
+		private final List<Double> exp;
+
+		public Participant(String identifier, List<Double> exp) {
+			this.identifier = identifier;
+			this.exp = exp;
+		}
+
+		public List<Double> getExp() {
+			return exp;
+		}
+
+		public String getIdentifier() {
+			return identifier;
+		}
 	}
 }

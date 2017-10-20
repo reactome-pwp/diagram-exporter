@@ -1,38 +1,41 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
-import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
-import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
+import org.reactome.server.tools.diagram.exporter.raster.color.DiagramSheet;
+import org.reactome.server.tools.diagram.exporter.raster.color.NodeColorSheet;
 
+/**
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class DiagramObjectInfo {
 
-	static DiagramProfileNode getDiagramProfileNode(String rClass, DiagramProfile diagramProfile) {
+	static NodeColorSheet getDiagramProfileNode(String rClass, DiagramSheet diagramSheet) {
 		switch (rClass) {
 			case "Chemical":
-				return diagramProfile.getChemical();
+				return diagramSheet.getChemical();
 			case "Complex":
-				return diagramProfile.getComplex();
+				return diagramSheet.getComplex();
 			case "Entity": // Weirdo black background
-//				return diagramProfile.getEntity();
+				return diagramSheet.getOtherEntity();
 			case "EntitySet":
-				return diagramProfile.getEntityset();
+				return diagramSheet.getEntitySet();
 			case "Gene":
-				return diagramProfile.getGene();
+				return diagramSheet.getGene();
 			case "ProcessNode":
-				return diagramProfile.getProcessnode();
+				return diagramSheet.getProcessNode();
 			case "Protein":
-				return diagramProfile.getProtein();
+				return diagramSheet.getProtein();
 			case "RNA":
-				return diagramProfile.getRna();
+				return diagramSheet.getRna();
 			case "Reaction":
-				return diagramProfile.getReaction();
+				return diagramSheet.getReaction();
 			case "EntitySetAndEntitySetLink":
 			case "EntitySetAndMemberLink":
 			case "Interaction":
-				return diagramProfile.getLink();
+				return diagramSheet.getLink();
 			case "FlowLine":
-				return diagramProfile.getFlowline();
+				return diagramSheet.getFlowLine();
 			case "Stoichiometry":
-				return diagramProfile.getStoichiometry();
+				return diagramSheet.getStoichiometry();
 			default:
 				throw new IllegalArgumentException("Type " + rClass + " is not found in the JSON Profile.");
 		}

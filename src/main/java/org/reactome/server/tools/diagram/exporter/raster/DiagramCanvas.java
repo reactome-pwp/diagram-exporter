@@ -5,6 +5,9 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.*;
 import java.awt.*;
 import java.util.stream.Stream;
 
+/**
+ * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
+ */
 public class DiagramCanvas {
 
 	private FillLayer compartmentFill = new FillLayerImpl();
@@ -27,6 +30,8 @@ public class DiagramCanvas {
 	private FillLayer fadeOutNodeForeground = new FillLayerImpl();
 	private FillDrawLayer edgeShapes = new FillDrawLayerImpl();
 	private FillDrawLayer fadeOutEdgeShapes = new FillDrawLayerImpl();
+	private FillDrawLayer attachments = new FillDrawLayerImpl();
+	private FillDrawLayer fadeOutAttachments = new FillDrawLayerImpl();
 
 	public DiagramCanvas() {
 	}
@@ -38,10 +43,11 @@ public class DiagramCanvas {
 				compartmentText,
 
 				fadeOutSegments,
+				fadeOutEdgeShapes,
 				fadeOutNodeBackground,
 				fadeOutNodeForeground,
 				fadeOutNodeBorder,
-				fadeOutEdgeShapes,
+				fadeOutAttachments,
 				fadeOutText,
 
 				cross,
@@ -49,11 +55,12 @@ public class DiagramCanvas {
 				halo,
 
 				segments,
+				edgeShapes,
 				nodeBackground,
 				nodeAnalysis,
 				nodeForeground,
 				nodeBorder,
-				edgeShapes,
+				attachments,
 				text,
 
 				notes
@@ -138,5 +145,13 @@ public class DiagramCanvas {
 
 	public FillDrawLayer getFadeOutEdgeShapes() {
 		return fadeOutEdgeShapes;
+	}
+
+	public FillDrawLayer getAttachments() {
+		return attachments;
+	}
+
+	public FillDrawLayer getFadeOutAttachments() {
+		return fadeOutAttachments;
 	}
 }

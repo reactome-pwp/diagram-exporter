@@ -5,9 +5,7 @@ import org.reactome.server.tools.diagram.data.DiagramFactory;
 import org.reactome.server.tools.diagram.data.exception.DeserializationException;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
-import org.reactome.server.tools.diagram.data.profile.analysis.AnalysisProfile;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
-import org.reactome.server.tools.diagram.data.profile.interactors.InteractorProfile;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
@@ -35,16 +33,16 @@ public class ResourcesFactory {
 	private static final String DEFAULT_INTERACTORS_PROFILE = "cyan";
 
 	/**
-	 * Loads into memory the DiagramProfile corresponding to name profile. If
-	 * name is null or there is no profile with name, a default profile is
+	 * Loads into memory the DiagramProfile corresponding to getName profile. If
+	 * getName is null or there is no profile with getName, a default profile is
 	 * returned.
 	 *
-	 * @param name name of profile. null to take default
+	 * @param name getName of profile. null to take default
 	 *
-	 * @return the DiagramProfile for name, or a default one
+	 * @return the DiagramProfile for getName, or a default one
 	 *
 	 * @throws DiagramProfileException             when there is no file
-	 *                                             associated to name, neither a
+	 *                                             associated to getName, neither a
 	 *                                             default diagram
 	 * @throws DiagramJsonDeserializationException when profile file is not well
 	 *                                             formed
@@ -70,85 +68,6 @@ public class ResourcesFactory {
 		} catch (IOException e) {
 			logger.error("Could not read diagram color profile {}", name);
 			throw new DiagramProfileException("Could not read diagram color profile " + name);
-		}
-	}
-
-	/**
-	 * Loads into memory the AnalysisProfile corresponding to name profile. If
-	 * name is null or there is no profile with name, a default profile is
-	 * returned.
-	 *
-	 * @param name name of profile. null to take default
-	 *
-	 * @return the AnalysisProfile for name, or a default one
-	 *
-	 * @throws DiagramProfileException             when there is no file
-	 *                                             associated to name, neither a
-	 *                                             default diagram
-	 * @throws DiagramJsonDeserializationException when profile file is not well
-	 *                                             formed
-	 */
-	public static AnalysisProfile getAnalysisProfile(String name) throws DiagramProfileException, DiagramJsonDeserializationException {
-		if (name == null)
-			name = DEFAULT_ANALYSIS_PROFILE;
-		logger.info("Getting analysis profile [{}]", name);
-		final String file = "analysis_" + name.toLowerCase() + ".json";
-		InputStream resource = ProfileResources.class.getResourceAsStream(file);
-		if (resource == null)
-			resource = ProfileResources.class.getResourceAsStream(DEFAULT_ANALYSIS_PROFILE);
-		try {
-			if (resource == null) {
-				logger.error("Could not read analysis color profile {}", name);
-				throw new DiagramProfileException("Could not read analysis color profile " + name);
-			}
-			final String json = IOUtils.toString(resource, Charset.defaultCharset());
-			return DiagramFactory.getAnalysisProfile(json);
-		} catch (DeserializationException e) {
-			logger.error("Could not deserialize diagram color profile {}", name);
-			throw new DiagramJsonDeserializationException("Could not deserialize diagram color profile " + name);
-		} catch (IOException e) {
-			logger.error("Could not read diagram color profile {}", name);
-			throw new DiagramProfileException("Could not read diagram color profile " + name);
-		}
-	}
-
-	/**
-	 * Loads into memory the InteractorProfile corresponding to name profile. If
-	 * name is null or there is no profile with name, a default profile is
-	 * returned.
-	 *
-	 * @param name name of profile. null to take default
-	 *
-	 * @return the InteractorProfile for name, or a default one
-	 *
-	 * @throws DiagramProfileException             when there is no file
-	 *                                             associated to name, neither a
-	 *                                             default diagram
-	 * @throws DiagramJsonDeserializationException when profile file is not well
-	 *                                             formed
-	 */
-	public static InteractorProfile getInteractorsProfile(String name) throws DiagramProfileException, DiagramJsonDeserializationException {
-		if (name == null)
-			name = DEFAULT_INTERACTORS_PROFILE;
-		logger.info("Getting interactors profile [{}]", name);
-		final String file = "interactors_" + name.toLowerCase() + ".json";
-		InputStream resource = ProfileResources.class.getResourceAsStream(file);
-		if (resource == null)
-			resource = ProfileResources.class.getResourceAsStream(DEFAULT_INTERACTORS_PROFILE);
-		try {
-			if (resource == null) {
-				logger.error("Could not read interactors color profile {}", name);
-				throw new DiagramProfileException("Could not read interactors color profile " + name);
-			}
-			//            return DiagramProfileFactory.getModelObject(IOUtils.toString(is, "UTF-8"));
-			final String json = IOUtils.toString(resource, Charset.defaultCharset());
-			return DiagramFactory.getInteractorsProfile(json);
-		} catch (DeserializationException e) {
-			logger.error("Could not deserialize interactors color profile {}", name);
-			throw new DiagramJsonDeserializationException("Could not deserialize interactor color profile " + name);
-		} catch (IOException e) {
-			logger.error("Could not read diagram color profile {}", name);
-			throw new DiagramProfileException("Could not read interactor color profile " + name);
 		}
 	}
 

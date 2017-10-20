@@ -3,10 +3,8 @@ package org.reactome.server.tools.diagram.exporter.raster;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
-import org.reactome.server.tools.diagram.data.profile.analysis.AnalysisProfile;
-import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
-import org.reactome.server.tools.diagram.data.profile.interactors.InteractorProfile;
 import org.reactome.server.tools.diagram.exporter.common.Decorator;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.CompartmentRenderer;
@@ -50,31 +48,23 @@ public class RasterRenderer {
 	private static final Set<String> NO_TRANSPARENT_FORMATS = new HashSet<>(Arrays.asList("jpg", "jpeg", "gif"));
 
 	private final Diagram diagram;
-	private final DiagramProfile diagramProfile;
-	private final AnalysisProfile analysisProfile;
-	private final InteractorProfile interactorProfile;
 	private final DiagramIndex index;
+	private final ColorProfiles colorProfiles;
 	private DiagramCanvas canvas;
 
 	/**
 	 * Creates a RasterRenderer with specific diagram, graph, color profile and
 	 * decorator.
-	 *  @param diagram           diagram to render
-	 * @param graph             underlying graph
-	 * @param decorator         elements to decorate
-	 * @param diagramProfile    colouring diagram
-	 * @param analysisProfile   profile for analysis
-	 * @param interactorProfile profile for interactors
-	 * @param token
+	 *
+	 * @param diagram   diagram to render
+	 * @param graph     underlying graph
+	 * @param decorator elements to decorate
+	 * @param token     analysis token
 	 */
 	RasterRenderer(Diagram diagram, Graph graph, Decorator decorator,
-	               DiagramProfile diagramProfile,
-	               AnalysisProfile analysisProfile,
-	               InteractorProfile interactorProfile, String token) {
+	               ColorProfiles colorProfiles, String token) {
 		this.diagram = diagram;
-		this.diagramProfile = diagramProfile;
-		this.analysisProfile = analysisProfile;
-		this.interactorProfile = interactorProfile;
+		this.colorProfiles = colorProfiles;
 		this.index = new DiagramIndex(diagram, graph, decorator, token);
 	}
 
@@ -109,7 +99,7 @@ public class RasterRenderer {
 			width = (int) (newFactor * diagramWidth);
 			height = (int) (newFactor * diagramHeight);
 			log.warning(String.format(
-					"Diagram %s too large. Quality reduced from %.1f to %.2f -> %d x %d = %d (%.2f MP)",
+					"Diagram %s is too large. Quality reduced from %.1f to %.2f -> %d x %d = %d (%.2f MP)",
 					diagram.getStableId(), factor, newFactor, height, width, height * width, height * width / 1e6));
 			factor = newFactor;
 		}
@@ -117,6 +107,7 @@ public class RasterRenderer {
 		// Virtual canvas: full of layers
 		canvas = new DiagramCanvas();
 		layout();
+		// Memory eater
 		final BufferedImage image = createImage(width, height, ext.toLowerCase());
 		final Graphics2D graphics = createGraphics(image, ext.toLowerCase(), factor, minX, minY, MARGIN);
 		canvas.render(graphics);
@@ -197,29 +188,29 @@ public class RasterRenderer {
 
 	private void compartments() {
 		final CompartmentRenderer renderer = new CompartmentRenderer();
-		renderer.draw(canvas, diagram.getCompartments(), diagramProfile);
+		renderer.draw(canvas, diagram.getCompartments(), colorProfiles);
 	}
 
 	private void links() {
 		diagram.getLinks().forEach(link ->
 				RendererFactory.get(link.getRenderableClass())
-						.draw(canvas, link, diagramProfile, analysisProfile, interactorProfile, index));
+						.draw(canvas, link, colorProfiles, index));
 	}
 
 	private void nodes() {
 		diagram.getNodes().forEach(node ->
 				RendererFactory.get(node.getRenderableClass())
-						.draw(canvas, node, diagramProfile, analysisProfile, interactorProfile, index));
+						.draw(canvas, node, colorProfiles, index));
 	}
 
 	private void edges() {
 		final EdgeRenderer renderer = new EdgeRenderer();
 		diagram.getEdges().forEach(edge ->
-				renderer.draw(canvas, edge, diagramProfile, analysisProfile, interactorProfile, index));
+				renderer.draw(canvas, edge, colorProfiles, index));
 	}
 
 	private void notes() {
 		final NoteRenderer renderer = new NoteRenderer();
-		diagram.getNotes().forEach(note -> renderer.draw(canvas, note, diagramProfile));
+		diagram.getNotes().forEach(note -> renderer.draw(canvas, note, colorProfiles));
 	}
 }

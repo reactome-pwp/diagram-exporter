@@ -9,5 +9,5 @@ import java.awt.*;
  */
 public interface DrawLayer extends Layer {
 
-	void add(String color, Stroke stroke, Shape shape);
+	void add(Color color, Stroke stroke, Shape shape);
 }

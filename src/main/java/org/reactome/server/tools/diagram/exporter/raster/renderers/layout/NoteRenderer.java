@@ -1,8 +1,10 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.Note;
-import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
+
+import java.awt.*;
 
 /**
  * Notes only contain text.
@@ -11,8 +13,8 @@ import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
  */
 public class NoteRenderer {
 
-	public void draw(DiagramCanvas canvas, Note note, DiagramProfile diagramProfile) {
-		final String text = diagramProfile.getNote().getText();
+	public void draw(DiagramCanvas canvas, Note note, ColorProfiles colorProfiles) {
+		final Color text = colorProfiles.getDiagramSheet().getNote().getText();
 		canvas.getNotes().add(text, note.getDisplayName(), note.getTextPosition());
 	}
 }

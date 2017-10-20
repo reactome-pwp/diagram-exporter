@@ -2,14 +2,12 @@ package org.reactome.server.tools.diagram.exporter.raster;
 
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
-import org.reactome.server.tools.diagram.data.profile.analysis.AnalysisProfile;
-import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
-import org.reactome.server.tools.diagram.data.profile.interactors.InteractorProfile;
 import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
 import java.awt.image.BufferedImage;
 
@@ -57,10 +55,8 @@ public class RasterExporter {
 			throws DiagramJsonNotFoundException, DiagramProfileException, DiagramJsonDeserializationException {
 		final Graph graph = ResourcesFactory.getGraph(diagramPath, stId);
 		final Diagram diagram = ResourcesFactory.getDiagram(diagramPath, stId);
-		final DiagramProfile diagramProfile = ResourcesFactory.getDiagramProfile(scheme.getDiagramProfileName());
-		final AnalysisProfile analysisProfile = ResourcesFactory.getAnalysisProfile(scheme.getAnalysisProfileName());
-		final InteractorProfile interactorProfile = ResourcesFactory.getInteractorsProfile(scheme.getInteractorProfileName());
-		final RasterRenderer renderer = new RasterRenderer(diagram, graph, decorator, diagramProfile, analysisProfile, interactorProfile, token);
+		final ColorProfiles colorProfiles = new ColorProfiles(scheme);
+		final RasterRenderer renderer = new RasterRenderer(diagram, graph, decorator, colorProfiles, token);
 		return renderer.render(factor, ext);
 	}
 

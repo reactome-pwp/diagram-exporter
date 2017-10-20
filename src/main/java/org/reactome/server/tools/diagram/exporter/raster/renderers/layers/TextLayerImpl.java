@@ -2,7 +2,6 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.layers;
 
 import org.reactome.server.tools.diagram.data.layout.Coordinate;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
-import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.TextRenderer;
 
 import java.awt.*;
@@ -16,16 +15,16 @@ import java.util.Map;
  */
 public class TextLayerImpl implements TextLayer {
 
-	private Map<String, Collection<RenderableText>> texts = new HashMap<>();
+	private Map<Color, Collection<RenderableText>> texts = new HashMap<>();
 
 	@Override
-	public void add(String color, String text, NodeProperties limits, double padding, double splitText) {
+	public void add(Color color, String text, NodeProperties limits, double padding, double splitText) {
 		texts.computeIfAbsent(color, k -> new LinkedList<>())
 				.add(new RenderableText(text, limits, padding, splitText));
 	}
 
 	@Override
-	public void add(String color, String text, Coordinate position) {
+	public void add(Color color, String text, Coordinate position) {
 		texts.computeIfAbsent(color, k -> new LinkedList<>())
 				.add(new RenderableText(text, position));
 	}
@@ -33,7 +32,7 @@ public class TextLayerImpl implements TextLayer {
 	@Override
 	public void render(Graphics2D graphics) {
 		texts.forEach((color, renderableTexts) -> {
-			graphics.setPaint(ColorFactory.parseColor(color));
+			graphics.setPaint(color);
 			renderableTexts.forEach(text -> {
 				if (text.limits != null)
 					TextRenderer.drawText(graphics, text.text, text.limits, text.padding, text.splitText);

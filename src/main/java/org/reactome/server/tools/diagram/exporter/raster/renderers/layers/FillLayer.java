@@ -9,5 +9,5 @@ import java.awt.*;
  */
 public interface FillLayer extends Layer {
 
-	void add(String color, Shape shape);
+	void add(Color color, Shape shape);
 }

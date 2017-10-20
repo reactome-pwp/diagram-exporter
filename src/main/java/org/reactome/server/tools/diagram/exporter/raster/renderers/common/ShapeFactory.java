@@ -23,11 +23,11 @@ public class ShapeFactory {
 	 * @param y      top left y coordinate
 	 * @param width  width
 	 * @param height height
-	 * @param corner corner size
 	 *
 	 * @return an edged rectangle
 	 */
-	public static Shape getCornedRectangle(double x, double y, double width, double height, int corner) {
+	public static Shape getCornedRectangle(double x, double y, double width, double height) {
+		final double corner = RendererProperties.COMPLEX_RECT_ARC_WIDTH;
 		final int[] xs = new int[]{
 				(int) (x + corner),
 				(int) (x + width - corner),
@@ -127,7 +127,8 @@ public class ShapeFactory {
 		return triangle;
 	}
 
-	public static Shape getBoneShape(double x, double y, double width, double height, double loopWidth) {
+	public static Shape getRnaShape(double x, double y, double width, double height) {
+		final double loopWidth = RendererProperties.RNA_LOOP_WIDTH;
 		double right = x + width;
 		double bottom = y + height;
 		final Path2D path = new GeneralPath();
@@ -157,7 +158,8 @@ public class ShapeFactory {
 	}
 
 	public static Shape roundedRectangle(NodeProperties properties) {
-		return roundedRectangle(properties.getX(), properties.getY(), properties.getWidth(), properties.getHeight());
+		return roundedRectangle(properties.getX(), properties.getY(),
+				properties.getWidth(), properties.getHeight());
 	}
 
 	public static Shape roundedRectangle(double x, double y, double width, double height) {
@@ -170,7 +172,12 @@ public class ShapeFactory {
 				RendererProperties.ROUND_RECT_ARC_WIDTH);
 	}
 
-	public static Shape roundedRectangle(double x, double y, double width, double height, double padding) {
+	public static Shape roundedRectangle(NodeProperties prop, double padding) {
+		return roundedRectangle(prop.getX(), prop.getY(),
+				prop.getWidth(), prop.getHeight(), padding);
+	}
+
+	private static Shape roundedRectangle(double x, double y, double width, double height, double padding) {
 		return new RoundRectangle2D.Double(
 				x + padding,
 				y + padding,
@@ -242,7 +249,7 @@ public class ShapeFactory {
 	 * @return a list of java shapes
 	 */
 	// TODO: Is it ok to return a list of shapes just because of the inner circle?
-	public static List<Shape> createShape(org.reactome.server.tools.diagram.data.layout.Shape shape) {
+	public static List<Shape> getShapes(org.reactome.server.tools.diagram.data.layout.Shape shape) {
 		switch (shape.getType()) {
 			case "ARROW":
 				return Collections.singletonList(arrow(shape));
@@ -280,10 +287,5 @@ public class ShapeFactory {
 				prop.getWidth() - 2 * padding,
 				prop.getHeight() - 2 * padding);
 
-	}
-
-	public static Shape roundedRectangle(NodeProperties prop, double padding) {
-		return roundedRectangle(prop.getX(), prop.getY(),
-				prop.getWidth(), prop.getHeight(), padding);
 	}
 }

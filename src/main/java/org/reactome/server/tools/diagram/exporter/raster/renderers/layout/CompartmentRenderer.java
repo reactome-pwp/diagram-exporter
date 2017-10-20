@@ -4,9 +4,9 @@ import org.reactome.server.tools.diagram.data.layout.Bound;
 import org.reactome.server.tools.diagram.data.layout.Compartment;
 import org.reactome.server.tools.diagram.data.layout.Coordinate;
 import org.reactome.server.tools.diagram.data.layout.impl.CoordinateFactory;
-import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties;
 
@@ -38,14 +38,14 @@ public class CompartmentRenderer {
 	}
 
 
-	public void draw(DiagramCanvas canvas, List<Compartment> compartments, DiagramProfile profile) {
-		final String fillString = profile.getCompartment().getFill();
-		final Paint fill = ColorFactory.parseColor(fillString);
+	public void draw(DiagramCanvas canvas, List<Compartment> compartments, ColorProfiles profile) {
+		final Color fill = profile.getDiagramSheet().getCompartment().getFill();
+//		final Paint fill = ColorFactory.parseColor(fillString);
 		// Inner color is the sum of the fill color with itself
-		final String innerColor = ColorFactory.asRgba(ColorFactory.blend((Color) fill, (Color) fill));
-		final String border = profile.getCompartment().getStroke();
+		final Color innerColor = ColorFactory.blend(fill, fill);
+		final Color border = profile.getDiagramSheet().getCompartment().getStroke();
 		final Stroke stroke = StrokeProperties.StrokeStyle.BORDER.getStroke(false);
-		final String text = profile.getCompartment().getText();
+		final Color text = profile.getDiagramSheet().getCompartment().getText();
 
 		final List<Shape> outer = compartments.stream()
 				.map(this::outer)
@@ -65,7 +65,7 @@ public class CompartmentRenderer {
 				canvas.getCompartmentFill().add(innerColor, inn);
 				canvas.getCompartmentBorder().add(border, stroke, inn);
 			}
-			canvas.getCompartmentFill().add(fillString, out);
+			canvas.getCompartmentFill().add(fill, out);
 			canvas.getCompartmentBorder().add(border, stroke, outer.get(i));
 		}
 		compartments.forEach(compartment ->

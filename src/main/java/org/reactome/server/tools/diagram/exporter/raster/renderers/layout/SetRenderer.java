@@ -1,10 +1,8 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
-import org.reactome.server.tools.diagram.data.layout.DiagramObject;
-import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeCommon;
-import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 
@@ -17,19 +15,19 @@ import java.awt.*;
  */
 public class SetRenderer extends NodeAbstractRenderer {
 
+
 	@Override
-	protected Shape backgroundShape(DiagramObject item) {
-		final Node node = (Node) item;
+	protected Shape backgroundShape(NodeCommon node) {
 		return ShapeFactory.roundedRectangle(node.getProp());
 	}
 
 	@Override
 	protected Shape foregroundShape(NodeCommon node) {
-		return ShapeFactory.roundedRectangle(node.getProp(), RendererProperties.SEPARATION);
+		return ShapeFactory.roundedRectangle(node.getProp(), RendererProperties.SET_PADDING);
 	}
 
 	@Override
-	protected String getFgFill(AnalysisType analysisType, DiagramProfileNode profile) {
-		return "rgba(0,0,0,0)";
+	protected Color getFgFill(ColorProfiles colorProfiles, DiagramIndex index) {
+		return new Color(0, 0, 0, 0);
 	}
 }

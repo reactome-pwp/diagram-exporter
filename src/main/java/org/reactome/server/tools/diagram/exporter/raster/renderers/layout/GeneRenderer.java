@@ -1,10 +1,9 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
-import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
-import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfileNode;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.NodeRenderInfo;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
@@ -20,21 +19,21 @@ public class GeneRenderer extends NodeAbstractRenderer {
 
 	@Override
 	protected void border(NodeRenderInfo info) {
-		final Shape line = line(info.getProp());
+		final Shape line = line(info.getNode().getProp());
 		info.getBorderLayer().add(info.getBorderColor(), info.getBorderStroke(), line);
-		final Shape arrow = arrow(info.getProp());
+		final Shape arrow = arrow(info.getNode().getProp());
 		info.getBorderLayer().add(info.getBorderColor(), info.getBorderStroke(), arrow);
 	}
 
 	@Override
-	protected void foreground(DiagramIndex index, NodeRenderInfo info, String fgFill) {
-		super.foreground(index, info, fgFill);
-		final Shape arrow = arrow(info.getProp());
-		info.getFgLayer().add(fgFill, arrow);
+	protected void foreground(NodeRenderInfo info) {
+		super.foreground(info);
+		final Shape arrow = arrow(info.getNode().getProp());
+		info.getFgLayer().add(info.getForegroundColor(), arrow);
 	}
 
 	@Override
-	protected Shape backgroundShape(DiagramObject item) {
+	protected Shape backgroundShape(NodeCommon item) {
 		return null;
 	}
 
@@ -63,9 +62,9 @@ public class GeneRenderer extends NodeAbstractRenderer {
 	}
 
 	@Override
-	protected String getFgFill(AnalysisType analysisType, DiagramProfileNode profile) {
-		return analysisType == AnalysisType.NONE
-				? profile.getFill()
-				: profile.getLighterFill();
+	protected Color getFgFill(ColorProfiles colorProfiles, DiagramIndex index) {
+		return index.getAnalysisType() == AnalysisType.NONE
+				? colorProfiles.getDiagramSheet().getGene().getFill()
+				: colorProfiles.getDiagramSheet().getGene().getLighterFill();
 	}
 }

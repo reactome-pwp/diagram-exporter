@@ -1,6 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.raster.profiles;
 
-import org.reactome.server.tools.diagram.data.profile.analysis.ProfileGradient;
+import org.reactome.server.tools.diagram.exporter.raster.color.GradientSheet;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -21,7 +21,7 @@ public class ColorFactory {
 	private static final Map<String, Color> cache = new HashMap<>();
 
 	public static Color parseColor(String color) {
-		if (color == null) return null;
+		if (color == null || color.trim().isEmpty()) return null;
 		return cache.computeIfAbsent(color, ColorFactory::strToColor);
 	}
 
@@ -63,9 +63,6 @@ public class ColorFactory {
 		int red = (int) (back.getRed() * b + front.getRed() * f);
 		int green = (int) (back.getGreen() * b + front.getGreen() * f);
 		int blue = (int) (back.getBlue() * b + front.getBlue() * f);
-//		int red = back.getRed() * back.getAlpha() + front.getRed() * front.getAlpha();
-//		int green = back.getGreen() + (front.getGreen() - back.getGreen()) / 2;
-//		int blue = back.getBlue() + (front.getBlue() - back.getBlue()) / 2;
 		return new Color(
 				Math.min(255, red),
 				Math.min(255, green),
@@ -73,11 +70,13 @@ public class ColorFactory {
 				Math.min(255, (int) (alpha * 255)));
 	}
 
-	public static String interpolate(ProfileGradient gradient, double scale) {
-		final Color min = parseColor(gradient.getMin());
-		final Color max = parseColor(gradient.getMax());
-		final Color interpolate = interpolate(max, min, scale);
-		return asRgba(interpolate);
+	public static Color interpolate(GradientSheet gradient, double scale) {
+		if (gradient.getStop() == null)
+			return interpolate(gradient.getMax(), gradient.getMin(), scale);
+		else if (scale < 0.5)
+			return interpolate(gradient.getStop(), gradient.getMin(), scale * 2);
+		else
+			return interpolate(gradient.getMax(), gradient.getStop(), (scale - 0.5) * 2);
 	}
 
 	private static Color interpolate(Color a, Color b, double t) {
