@@ -8,7 +8,7 @@ import org.reactome.server.tools.diagram.exporter.raster.color.NodeColorSheet;
  */
 public class DiagramObjectInfo {
 
-	static NodeColorSheet getDiagramProfileNode(String rClass, DiagramSheet diagramSheet) {
+	static NodeColorSheet getNodeColorSheet(String rClass, DiagramSheet diagramSheet) {
 		switch (rClass) {
 			case "Chemical":
 				return diagramSheet.getChemical();

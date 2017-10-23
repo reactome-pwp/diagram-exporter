@@ -4,7 +4,6 @@ import org.reactome.server.tools.diagram.exporter.raster.color.GradientSheet;
 
 import java.awt.*;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -48,12 +47,6 @@ public class ColorFactory {
 					(int) (Float.parseFloat(m.group(4)) * 255f));
 		}
 		return null;
-	}
-
-	public static String asRgba(Color color) {
-		return String.format(Locale.US, "rgba(%d, %d, %d, %.2f)",
-				color.getRed(), color.getGreen(), color.getBlue(),
-				color.getAlpha() / 255.0);
 	}
 
 	public static Color blend(Color back, Color front) {

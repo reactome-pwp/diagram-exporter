@@ -33,9 +33,6 @@ public class StrokeProperties {
 	private static Stroke DASHED_HALO_STROKE = new BasicStroke(HALO_WIDTH, END, JOIN, DASH_SIZE, new float[]{DASH_SIZE, DASH_SPACE}, DASH_SIZE);
 	private static Stroke DASHED_FLAG_STROKE = new BasicStroke(FLAG_WIDTH, END, JOIN, DASH_SIZE, new float[]{DASH_SIZE, DASH_SPACE}, DASH_SIZE);
 
-	public static Stroke get(StrokeStyle style, boolean dashed) {
-		return style.getStroke(dashed);
-	}
 	public enum StrokeStyle {
 		FLAG {
 			@Override

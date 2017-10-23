@@ -29,8 +29,6 @@ public class ResourcesFactory {
 
 	private static final Logger logger = LoggerFactory.getLogger("infoLogger");
 	private static final String DEFAULT_DIAGRAM_PROFILE = "modern";
-	private static final String DEFAULT_ANALYSIS_PROFILE = "standard";
-	private static final String DEFAULT_INTERACTORS_PROFILE = "cyan";
 
 	/**
 	 * Loads into memory the DiagramProfile corresponding to getName profile. If
