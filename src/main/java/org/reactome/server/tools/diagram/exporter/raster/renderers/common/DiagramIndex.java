@@ -201,9 +201,11 @@ public class DiagramIndex {
 			final String resource = resourceSummary.getResource();
 			analysisType = AnalysisType.getType(result.getSummary().getType());
 			subPathways(token, resource);
-			if (analysisType == AnalysisType.EXPRESSION)
+			if (analysisType == AnalysisType.EXPRESSION) {
+				maxExpression = result.getExpression().getMax();
+				minExpression = result.getExpression().getMin();
 				expression(token, stId, resource);
-			else if (analysisType == AnalysisType.OVERREPRESENTATION)
+			} else if (analysisType == AnalysisType.OVERREPRESENTATION)
 				enrichment(token, stId, resource);
 
 		} catch (AnalysisException | AnalysisServerError e) {
@@ -253,15 +255,12 @@ public class DiagramIndex {
 		final FoundElements foundElements = AnalysisClient.getFoundElements(stId, token, resource);
 		final Map<String, Participant> expressions = new HashMap<>();
 		foundElements.getEntities().forEach(analysisNode -> {
+			final String id = analysisNode.getId();
 			final List<Double> exp = analysisNode.getExp();
-			for (Double val : exp) {
-				if (val > maxExpression) maxExpression = val;
-				if (val < minExpression) minExpression = val;
-			}
 			analysisNode.getMapsTo().stream()
 					.map(IdentifierMap::getIds)
 					.flatMap(Collection::stream)
-					.forEach(identifier -> expressions.put(identifier, new Participant(identifier, exp)));
+					.forEach(identifier -> expressions.put(identifier, new Participant(id, exp)));
 		});
 		diagram.getNodes().forEach(diagramNode -> {
 			final EntityNode graphNode = graphIndex.get(diagramNode.getReactomeId());
