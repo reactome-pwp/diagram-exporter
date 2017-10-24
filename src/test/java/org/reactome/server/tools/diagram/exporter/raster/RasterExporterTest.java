@@ -24,10 +24,9 @@ import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.Charset;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class RasterExporterTest {
@@ -134,6 +133,13 @@ public class RasterExporterTest {
 	public void testStandardProfile() {
 		final String stId = "R-HSA-2173782";
 		renderToFile(stId, "jpg", 1, null, "standard");
+	}
+
+	@Test
+	public void testLegendFormat() {
+		final double max = 2.9;
+		final DecimalFormat NF = new DecimalFormat("#.##E0", DecimalFormatSymbols.getInstance(Locale.UK));
+		System.out.println(NF.format(max));
 	}
 
 	private List<Long> getIdsFor(String prot, Graph graph) {

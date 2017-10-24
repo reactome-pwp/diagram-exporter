@@ -9,5 +9,5 @@ import java.awt.*;
  */
 public interface FillDrawLayer extends Layer {
 
-	void add(Color fillColor, Color borderColor, Stroke borderStroke, Shape shape);
+	void add(Paint fillColor, Paint borderColor, Stroke borderStroke, Shape shape);
 }

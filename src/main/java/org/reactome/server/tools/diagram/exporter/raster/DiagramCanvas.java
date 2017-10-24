@@ -32,6 +32,11 @@ public class DiagramCanvas {
 	private FillDrawLayer fadeOutEdgeShapes = new FillDrawLayerImpl();
 	private FillDrawLayer attachments = new FillDrawLayerImpl();
 	private FillDrawLayer fadeOutAttachments = new FillDrawLayerImpl();
+	private FillDrawLayer legendBackground = new FillDrawLayerImpl();
+	private TextLayer legendText = new TextLayerImpl();
+	private FillLayer legendBar = new FillLayerImpl();
+	private DrawLayer legendTicks = new DrawLayerImpl();
+	private FillLayer legendTickArrows = new FillLayerImpl();
 
 	public DiagramCanvas() {
 	}
@@ -63,7 +68,12 @@ public class DiagramCanvas {
 				attachments,
 				text,
 
-				notes
+				notes,
+				legendBackground,
+				legendBar,
+				legendTicks,
+				legendTickArrows,
+				legendText
 		).forEach(layer -> layer.render(graphics));
 	}
 
@@ -153,5 +163,25 @@ public class DiagramCanvas {
 
 	public FillDrawLayer getFadeOutAttachments() {
 		return fadeOutAttachments;
+	}
+
+	public FillDrawLayer getLegendBackground() {
+		return legendBackground;
+	}
+
+	public FillLayer getLegendBar() {
+		return legendBar;
+	}
+
+	public DrawLayer getLegendTicks() {
+		return legendTicks;
+	}
+
+	public FillLayer getLegendTickArrows() {
+		return legendTickArrows;
+	}
+
+	public TextLayer getLegendText() {
+		return legendText;
 	}
 }

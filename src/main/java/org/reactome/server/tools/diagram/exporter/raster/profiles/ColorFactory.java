@@ -67,9 +67,9 @@ public class ColorFactory {
 		if (gradient.getStop() == null)
 			return interpolate(gradient.getMax(), gradient.getMin(), scale);
 		else if (scale < 0.5)
-			return interpolate(gradient.getStop(), gradient.getMin(), scale * 2);
+			return interpolate(gradient.getMax(), gradient.getStop(), scale * 2);
 		else
-			return interpolate(gradient.getMax(), gradient.getStop(), (scale - 0.5) * 2);
+			return interpolate(gradient.getStop(), gradient.getMin(), (scale - 0.5) * 2);
 	}
 
 	private static Color interpolate(Color a, Color b, double t) {

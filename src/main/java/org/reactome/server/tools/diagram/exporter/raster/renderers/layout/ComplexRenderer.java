@@ -14,7 +14,7 @@ import java.awt.*;
 public class ComplexRenderer extends NodeAbstractRenderer {
 
 	@Override
-	protected Shape backgroundShape(NodeCommon node) {
+	public Shape backgroundShape(NodeCommon node) {
 		final NodeProperties prop = node.getProp();
 		final double x = prop.getX();
 		final double y = prop.getY();

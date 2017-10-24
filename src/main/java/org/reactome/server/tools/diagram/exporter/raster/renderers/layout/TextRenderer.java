@@ -20,6 +20,9 @@ public class TextRenderer {
 	private static final List<Character> WORD_SPLIT_CHARS = Arrays.asList(':', '.', '-', ',', ')', '/', '+');
 	private static final float SHADOW_OFFSET = 0.5f;
 
+	public static final Color ANALYSIS_SHADOW_COLOR = Color.GRAY;
+	public static final Color ANALYSIS_TEXT_COLOR = Color.WHITE;
+
 	/**
 	 * Displays text in the assigned space. If the text does not fit in one
 	 * line, it is split in several lines. If the font size is very large, it is
@@ -82,10 +85,10 @@ public class TextRenderer {
 			final float base = (float) (yOffset + i * lineHeight);
 			if (whiteArea != null) {
 				final Paint oldPaint = graphics2D.getPaint();
-				graphics2D.setPaint(Color.GRAY);
+				graphics2D.setPaint(ANALYSIS_SHADOW_COLOR);
 				graphics2D.drawString(line, left - SHADOW_OFFSET, base + SHADOW_OFFSET);
 				graphics2D.setClip(whiteArea);
-				graphics2D.setPaint(Color.WHITE);
+				graphics2D.setPaint(ANALYSIS_TEXT_COLOR);
 				graphics2D.drawString(line, left, base);
 				graphics2D.setPaint(oldPaint);
 				graphics2D.setClip(colorArea);

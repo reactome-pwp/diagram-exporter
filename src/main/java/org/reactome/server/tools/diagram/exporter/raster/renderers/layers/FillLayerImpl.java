@@ -11,18 +11,18 @@ import java.util.Map;
  */
 public class FillLayerImpl implements FillLayer {
 
-	private Map<Color, List<Shape>> shapes = new HashMap<>();
+	private Map<Paint, List<Shape>> shapes = new HashMap<>();
 
 	@Override
-	public void add(Color color, Shape shape) {
+	public void add(Paint color, Shape shape) {
 		shapes.computeIfAbsent(color, k -> new LinkedList<>())
 				.add(shape);
 	}
 
 	@Override
 	public void render(Graphics2D graphics) {
-		shapes.forEach((color, shapes) -> {
-			graphics.setPaint(color);
+		shapes.forEach((paint, shapes) -> {
+			graphics.setPaint(paint);
 			shapes.forEach(graphics::fill);
 		});
 	}

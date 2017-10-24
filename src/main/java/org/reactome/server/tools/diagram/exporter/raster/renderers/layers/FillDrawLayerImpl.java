@@ -13,10 +13,10 @@ import java.util.Map;
  */
 public class FillDrawLayerImpl implements FillDrawLayer {
 
-	private Map<Color, Map<Color, Map<Stroke, Collection<Shape>>>> shapes = new HashMap<>();
+	private Map<Paint, Map<Paint, Map<Stroke, Collection<Shape>>>> shapes = new HashMap<>();
 
 	@Override
-	public void add(Color fillColor, Color borderColor, Stroke borderStroke, Shape shape) {
+	public void add(Paint fillColor, Paint borderColor, Stroke borderStroke, Shape shape) {
 		shapes
 				.computeIfAbsent(fillColor, k -> new HashMap<>())
 				.computeIfAbsent(borderColor, k -> new HashMap<>())

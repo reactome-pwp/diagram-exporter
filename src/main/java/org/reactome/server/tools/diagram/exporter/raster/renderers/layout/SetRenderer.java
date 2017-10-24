@@ -17,17 +17,17 @@ public class SetRenderer extends NodeAbstractRenderer {
 
 
 	@Override
-	protected Shape backgroundShape(NodeCommon node) {
+	public Shape backgroundShape(NodeCommon node) {
 		return ShapeFactory.roundedRectangle(node.getProp());
 	}
 
 	@Override
-	protected Shape foregroundShape(NodeCommon node) {
+	public Shape foregroundShape(NodeCommon node) {
 		return ShapeFactory.roundedRectangle(node.getProp(), RendererProperties.SET_PADDING);
 	}
 
 	@Override
-	protected Color getFgFill(ColorProfiles colorProfiles, DiagramIndex index) {
+	public Color getForegroundFill(ColorProfiles colors, DiagramIndex index) {
 		return new Color(0, 0, 0, 0);
 	}
 }

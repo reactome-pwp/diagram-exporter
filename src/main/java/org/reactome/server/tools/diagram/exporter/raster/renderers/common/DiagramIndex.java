@@ -46,6 +46,7 @@ public class DiagramIndex {
 	private double maxExpression = Double.MAX_VALUE;
 	private double minExpression = 0;
 	private AnalysisType analysisType = AnalysisType.NONE;
+	private NodeDecorator selected;
 
 	/**
 	 * Creates a new DiagramIndex with the information for each node in maps.
@@ -89,7 +90,6 @@ public class DiagramIndex {
 		}
 	}
 
-
 	private void collectNodes() {
 		diagram.getNodes().forEach(node -> {
 			// Select node
@@ -97,10 +97,14 @@ public class DiagramIndex {
 				final NodeDecorator decorator = getNodeDecorator(node.getId());
 				decorator.setSelected(true);
 				decorator.setHalo(true);
+				// Only one node should be selected. If there is more than one
+				// node selected, then take the last one.
+				selected = decorator;
 				node.getConnectors().forEach(connector -> {
 					final Edge reaction = (Edge) diagramIndex.get(connector.getEdgeId());
 					// When a node is selected, the nodes in the same reaction
 					// are haloed
+					getEdgeDecorator(reaction.getId()).setHalo(true);
 					haloEdgeParticipants(reaction);
 				});
 			}
@@ -246,12 +250,12 @@ public class DiagramIndex {
 					if (p2 == null) return -1;
 					return p1.getId().compareTo(p2.getId());
 				});
-				getNodeDecorator(diagramNode.getId()).setExpressions(leaves);
+				final NodeDecorator decorator = getNodeDecorator(diagramNode.getId());
+				decorator.setExpressions(leaves);
 			}
 		});
 		System.out.printf("[%.2f-%.2f]\n", minExpression, maxExpression);
 	}
-
 
 	/** Computes only the relation of hit found components and found component */
 	private void enrichment(String token, String stId, String resource) throws AnalysisException, AnalysisServerError {
@@ -325,6 +329,10 @@ public class DiagramIndex {
 
 	public AnalysisType getAnalysisType() {
 		return analysisType;
+	}
+
+	public NodeDecorator getSelected() {
+		return selected;
 	}
 
 	public class DiagramObjectDecorator {

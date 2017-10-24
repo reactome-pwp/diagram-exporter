@@ -13,7 +13,7 @@ import java.awt.*;
 public class ProteinRenderer extends NodeAbstractRenderer {
 
 	@Override
-	protected Shape backgroundShape(NodeCommon node) {
+	public Shape backgroundShape(NodeCommon node) {
 		return ShapeFactory.roundedRectangle(node.getProp());
 	}
 }

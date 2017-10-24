@@ -4,13 +4,11 @@ import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.exporter.common.Decorator;
+import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.FontProperties;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.CompartmentRenderer;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.EdgeRenderer;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.NoteRenderer;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.RendererFactory;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -25,7 +23,8 @@ import java.util.stream.Stream;
  */
 public class RasterRenderer {
 
-	private static final Logger log = Logger.getLogger(RasterRenderer.class.getName());
+	private static final int LEGEND_WIDTH = 70;
+	private static final int LEGEND_HEIGHT = 350;
 
 	/*
 	 * physical size of image using the best print quality (600 ppi).
@@ -39,6 +38,7 @@ public class RasterRenderer {
 	 *  1e8         | 400MB  | 51cm x 51cm  | 20” x 20”
 	 *  2e8         | 800MB  | 61cm x 61cm  | 24” x 24”
 	 */
+	private static final Logger log = Logger.getLogger(RasterRenderer.class.getName());
 	/**
 	 * Max amount of allowed pixels per image
 	 */
@@ -46,11 +46,13 @@ public class RasterRenderer {
 	private static final int MARGIN = 15;
 	private static final Set<String> TRANSPARENT_FORMATS = new HashSet<>(Collections.singletonList("png"));
 	private static final Set<String> NO_TRANSPARENT_FORMATS = new HashSet<>(Arrays.asList("jpg", "jpeg", "gif"));
-
+	private static final int COL = 0;
 	private final Diagram diagram;
 	private final DiagramIndex index;
 	private final ColorProfiles colorProfiles;
 	private DiagramCanvas canvas;
+	private double legend_height;
+	private double legend_width;
 
 	/**
 	 * Creates a RasterRenderer with specific diagram, graph, color profile and
@@ -84,8 +86,19 @@ public class RasterRenderer {
 		final double minY = getMinY();
 		final double maxY = getMaxY();
 
-		final double diagramWidth = maxX - minX + 2 * MARGIN;
 		final double diagramHeight = maxY - minY + 2 * MARGIN;
+
+		legend_width = 0;
+		legend_height = 0;
+		if (index.getAnalysisType() == AnalysisType.EXPRESSION) {
+			legend_height = LEGEND_HEIGHT;
+			if (diagramHeight < LEGEND_HEIGHT){
+				legend_height = diagramHeight;
+				legend_width = LEGEND_WIDTH * legend_height / LEGEND_HEIGHT;
+			} else legend_width = LEGEND_WIDTH;
+		}
+
+		final double diagramWidth = maxX - minX + 2 * MARGIN + legend_width;
 
 		int width = (int) (factor * diagramWidth);
 		int height = (int) (factor * diagramHeight);
@@ -184,6 +197,7 @@ public class RasterRenderer {
 		nodes();
 		notes();
 		edges();
+		legend();
 	}
 
 	private void compartments() {
@@ -212,5 +226,11 @@ public class RasterRenderer {
 	private void notes() {
 		final NoteRenderer renderer = new NoteRenderer();
 		diagram.getNotes().forEach(note -> renderer.draw(canvas, note, colorProfiles));
+	}
+
+	private void legend() {
+		if (index.getAnalysisType() == AnalysisType.EXPRESSION) {
+			LegendRenderer.addLegend(canvas, colorProfiles, diagram, MARGIN, legend_width, legend_height, index, COL);
+		}
 	}
 }
