@@ -29,7 +29,7 @@ public class LegendRenderer {
 	private static final DecimalFormat LEGEND_FORMAT = new DecimalFormat("#.##E0", DecimalFormatSymbols.getInstance(Locale.UK));
 	private static final double TEXT_PADDING = 2;
 	private static final double BACKGROUND_PADDING = 10;
-	public static final int SIZE = 5;
+	private static final int ARROW_SIZE = 5;
 
 	public static void addLegend(DiagramCanvas canvas, ColorProfiles colorProfiles,
 	                             Diagram diagram, double margin,
@@ -49,12 +49,12 @@ public class LegendRenderer {
 		final double textSpace = TEXT_PADDING + textHeight;
 		final double width = (legend_width - 20);
 		final double centerY = diagram.getMinY() + (diagram.getMaxY() - diagram.getMinY()) * 0.5;
-		final double height = legend_height - 2 * (textSpace);
+		final double height = legend_height - 3 * (textSpace);
 		final double y = centerY - 0.5 * height;
 		background(canvas, x, y, width, height, textSpace);
 		colorbar(canvas, sheet, x, width, height, y);
 		ticks(canvas, index, colorProfiles, x, y, width, height, col);
-		text(canvas, index, textHeight, x, y, width, height);
+		text(canvas, index, textHeight, x, y, width, height, col);
 
 	}
 
@@ -64,7 +64,7 @@ public class LegendRenderer {
 				x - BACKGROUND_PADDING,
 				y - (textSpace + BACKGROUND_PADDING),
 				width + 2 * BACKGROUND_PADDING,
-				height + 2 * (textSpace + BACKGROUND_PADDING),
+				height + 3 * textSpace + 2 * BACKGROUND_PADDING,
 				20, 20);
 		final Color border = new Color(175, 175, 175);
 		final Color bg = new Color(220, 220, 220);
@@ -96,7 +96,7 @@ public class LegendRenderer {
 		if (index.getSelected() == null) return;
 		final List<FoundEntity> expressions = index.getSelected().getExpressions();
 		if (expressions == null) return;
-		// Calculate values
+		// Calculate [min - median - max] | [value]
 		Double nMax;
 		Double nMin;
 		Double nValue;
@@ -137,7 +137,7 @@ public class LegendRenderer {
 			final double y1 = getY1(index.getMinExpression(), index.getMaxExpression(), y, height, value);
 			final Shape line = new Line2D.Double(x, y1, rightX, y1);
 			canvas.getLegendTicks().add(limitColor, stroke, line);
-			final Shape arrow = arrow(rightX, y1);
+			final Shape arrow = arrow(rightX - 1, y1);
 			canvas.getLegendTickArrows().add(limitColor, arrow);
 		}
 	}
@@ -145,8 +145,8 @@ public class LegendRenderer {
 	private static Shape arrow(double x, double y) {
 		final Path2D arrow = new Path2D.Double();
 		arrow.moveTo(x, y);
-		arrow.lineTo(x + SIZE, y + SIZE);
-		arrow.lineTo(x + SIZE, y - SIZE);
+		arrow.lineTo(x + ARROW_SIZE, y + ARROW_SIZE);
+		arrow.lineTo(x + ARROW_SIZE, y - ARROW_SIZE);
 		arrow.closePath();
 		return arrow;
 	}
@@ -158,7 +158,7 @@ public class LegendRenderer {
 		return (max - val) / (max - min) * (height) + y;
 	}
 
-	private static void text(DiagramCanvas canvas, DiagramIndex index, int textHeight, double x, double y, double width, double height) {
+	private static void text(DiagramCanvas canvas, DiagramIndex index, int textHeight, double x, double y, double width, double height, int col) {
 		final float b = (float) (y + height);
 		// 4 text
 		// There is not TextCenteredLayer, so we use a regular TextLayer
@@ -171,5 +171,8 @@ public class LegendRenderer {
 		final double min = index.getMinExpression();
 		canvas.getLegendText().add(Color.BLACK, LEGEND_FORMAT.format(max), top, 0, 0);
 		canvas.getLegendText().add(Color.BLACK, LEGEND_FORMAT.format(min), bottom, 0, 0);
+		final NodeProperties progress = NodePropertiesFactory.get(x - 10,
+				b + TEXT_PADDING + textHeight, width + 20, textHeight);
+		canvas.getLegendText().add(Color.BLACK, String.format("%d/%d", col + 1, index.getExpressionSize()), progress, 0,0);
 	}
 }
