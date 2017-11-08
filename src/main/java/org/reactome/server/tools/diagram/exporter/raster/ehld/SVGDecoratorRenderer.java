@@ -28,9 +28,9 @@ class SVGDecoratorRenderer {
 		final Set<String> selected = args.getSelected() == null
 				? Collections.EMPTY_SET
 				: new HashSet<>(args.getSelected());
-		final Set<String> flags = args.getSelected() == null
+		final Set<String> flags = args.getFlags() == null
 				? Collections.EMPTY_SET
-				: new HashSet<>(args.getSelected());
+				: new HashSet<>(args.getFlags());
 
 		final Set<String> selAndFlag = new HashSet<>(selected);
 		selAndFlag.retainAll(flags);
