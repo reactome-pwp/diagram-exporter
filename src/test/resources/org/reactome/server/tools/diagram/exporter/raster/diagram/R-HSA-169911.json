@@ -1,0 +1,1339 @@
+{
+  "dbId" : 169911,
+  "stableId" : "R-HSA-169911",
+  "displayName" : "Diagram of Regulation of Apoptosis",
+  "nodes" : [ {
+    "id" : 67,
+    "reactomeId" : 113595,
+    "displayName" : "Ub",
+    "schemaClass" : "DefinedSet",
+    "renderableClass" : "EntitySet",
+    "position" : {
+      "x" : 316,
+      "y" : 436
+    },
+    "minX" : 283,
+    "maxX" : 381,
+    "minY" : 425,
+    "maxY" : 447,
+    "prop" : {
+      "x" : 283,
+      "y" : 425,
+      "width" : 66,
+      "height" : 22
+    },
+    "textPosition" : {
+      "x" : 304,
+      "y" : 425
+    },
+    "connectors" : [ {
+      "edgeId" : 66,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 355,
+          "y" : 436
+        },
+        "to" : {
+          "x" : 381,
+          "y" : 436
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 72,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 68,
+    "reactomeId" : 211654,
+    "displayName" : "p-T402-PAK2(213-524)",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 381,
+      "y" : 373
+    },
+    "minX" : 328,
+    "maxX" : 441,
+    "minY" : 321,
+    "maxY" : 436,
+    "prop" : {
+      "x" : 328,
+      "y" : 355,
+      "width" : 107,
+      "height" : 36
+    },
+    "innerProp" : {
+      "x" : 328,
+      "y" : 361,
+      "width" : 107,
+      "height" : 30
+    },
+    "textPosition" : {
+      "x" : 335,
+      "y" : 355
+    },
+    "nodeAttachments" : [ {
+      "reactomeId" : 211618,
+      "label" : "P",
+      "description" : "O-phospho-L-threonine at 402",
+      "shape" : {
+        "a" : {
+          "x" : 338,
+          "y" : 349
+        },
+        "b" : {
+          "x" : 350,
+          "y" : 361
+        },
+        "s" : "P",
+        "type" : "BOX",
+        "empty" : true
+      }
+    } ],
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 435,
+          "y" : 355
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 66,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 381,
+          "y" : 394
+        },
+        "to" : {
+          "x" : 381,
+          "y" : 436
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 75,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 381,
+          "y" : 352
+        },
+        "to" : {
+          "x" : 381,
+          "y" : 321
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 70,
+    "reactomeId" : 69593,
+    "displayName" : "Ubiquitin ligase",
+    "schemaClass" : "GenomeEncodedEntity",
+    "renderableClass" : "Entity",
+    "position" : {
+      "x" : 535,
+      "y" : 409
+    },
+    "minX" : 388,
+    "maxX" : 591,
+    "minY" : 398,
+    "maxY" : 469,
+    "prop" : {
+      "x" : 480,
+      "y" : 398,
+      "width" : 111,
+      "height" : 22
+    },
+    "textPosition" : {
+      "x" : 487,
+      "y" : 398
+    },
+    "connectors" : [ {
+      "edgeId" : 66,
+      "type" : "CATALYST",
+      "segments" : [ {
+        "from" : {
+          "x" : 506,
+          "y" : 423
+        },
+        "to" : {
+          "x" : 396,
+          "y" : 463
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "c" : {
+          "x" : 392,
+          "y" : 465
+        },
+        "r" : 4,
+        "type" : "CIRCLE",
+        "empty" : true
+      }
+    } ]
+  }, {
+    "id" : 74,
+    "reactomeId" : 68819,
+    "displayName" : "26S proteasome",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 143,
+      "y" : 435
+    },
+    "minX" : 86,
+    "maxX" : 219,
+    "minY" : 424,
+    "maxY" : 446,
+    "prop" : {
+      "x" : 86,
+      "y" : 424,
+      "width" : 115,
+      "height" : 22
+    },
+    "textPosition" : {
+      "x" : 92,
+      "y" : 425
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 72,
+      "type" : "CATALYST",
+      "segments" : [ {
+        "from" : {
+          "x" : 204,
+          "y" : 435
+        },
+        "to" : {
+          "x" : 211,
+          "y" : 435
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "c" : {
+          "x" : 215,
+          "y" : 435
+        },
+        "r" : 4,
+        "type" : "CIRCLE",
+        "empty" : true
+      }
+    } ]
+  }, {
+    "id" : 76,
+    "reactomeId" : 195125,
+    "displayName" : "ARHGAP10",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 347,
+      "y" : 268
+    },
+    "minX" : 251,
+    "maxX" : 393,
+    "minY" : 251,
+    "maxY" : 321,
+    "prop" : {
+      "x" : 308,
+      "y" : 257,
+      "width" : 79,
+      "height" : 22
+    },
+    "textPosition" : {
+      "x" : 311,
+      "y" : 257
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 387,
+          "y" : 257
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 75,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 354,
+          "y" : 282
+        },
+        "to" : {
+          "x" : 381,
+          "y" : 321
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 77,
+    "reactomeId" : 211701,
+    "displayName" : "PAK-2p34:RHG10 complex",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 529,
+      "y" : 269
+    },
+    "minX" : 467,
+    "maxX" : 591,
+    "minY" : 251,
+    "maxY" : 287,
+    "prop" : {
+      "x" : 467,
+      "y" : 251,
+      "width" : 124,
+      "height" : 36
+    },
+    "textPosition" : {
+      "x" : 469,
+      "y" : 252
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 75,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 78,
+      "type" : "INPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 79,
+    "reactomeId" : 211729,
+    "displayName" : "perinuclear PAK-2p34:RHG10 complex",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 726,
+      "y" : 269
+    },
+    "minX" : 666,
+    "maxX" : 786,
+    "minY" : 244,
+    "maxY" : 294,
+    "prop" : {
+      "x" : 666,
+      "y" : 244,
+      "width" : 120,
+      "height" : 50
+    },
+    "textPosition" : {
+      "x" : 672,
+      "y" : 245
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 78,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 211,
+    "reactomeId" : 8867508,
+    "displayName" : "OPA1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 727,
+      "y" : 375
+    },
+    "minX" : 358,
+    "maxX" : 774,
+    "minY" : 358,
+    "maxY" : 431,
+    "prop" : {
+      "x" : 706,
+      "y" : 364,
+      "width" : 43,
+      "height" : 22
+    },
+    "textPosition" : {
+      "x" : 707,
+      "y" : 364
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 749,
+          "y" : 364
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 210,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 736,
+          "y" : 389
+        },
+        "to" : {
+          "x" : 774,
+          "y" : 431
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 212,
+    "reactomeId" : 113521,
+    "displayName" : "H2O",
+    "schemaClass" : "SimpleEntity",
+    "renderableClass" : "Chemical",
+    "position" : {
+      "x" : 731,
+      "y" : 445
+    },
+    "minX" : 429,
+    "maxX" : 774,
+    "minY" : 429,
+    "maxY" : 460,
+    "prop" : {
+      "x" : 713,
+      "y" : 430,
+      "width" : 36,
+      "height" : 30
+    },
+    "textPosition" : {
+      "x" : 714,
+      "y" : 434
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 744,
+          "y" : 435
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 210,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 752,
+          "y" : 439
+        },
+        "to" : {
+          "x" : 774,
+          "y" : 431
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ],
+    "trivial" : true
+  }, {
+    "id" : 213,
+    "reactomeId" : 8867509,
+    "displayName" : "OPA1(88-194)",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 943,
+      "y" : 383
+    },
+    "minX" : 357,
+    "maxX" : 981,
+    "minY" : 357,
+    "maxY" : 431,
+    "prop" : {
+      "x" : 912,
+      "y" : 363,
+      "width" : 63,
+      "height" : 41
+    },
+    "textPosition" : {
+      "x" : 912,
+      "y" : 366
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 975,
+          "y" : 363
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 210,
+      "type" : "OUTPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 909,
+          "y" : 397
+        },
+        "to" : {
+          "x" : 839,
+          "y" : 431
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 905,
+          "y" : 404
+        },
+        "b" : {
+          "x" : 909,
+          "y" : 397
+        },
+        "c" : {
+          "x" : 901,
+          "y" : 396
+        },
+        "type" : "ARROW"
+      }
+    } ]
+  }, {
+    "id" : 214,
+    "reactomeId" : 8867513,
+    "displayName" : "OPA1(195-960)",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 945,
+      "y" : 444
+    },
+    "minX" : 420,
+    "maxX" : 988,
+    "minY" : 420,
+    "maxY" : 462,
+    "prop" : {
+      "x" : 908,
+      "y" : 426,
+      "width" : 74,
+      "height" : 36
+    },
+    "textPosition" : {
+      "x" : 909,
+      "y" : 426
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 982,
+          "y" : 426
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 210,
+      "type" : "OUTPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 905,
+          "y" : 439
+        },
+        "to" : {
+          "x" : 839,
+          "y" : 431
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 898,
+          "y" : 442
+        },
+        "b" : {
+          "x" : 905,
+          "y" : 439
+        },
+        "c" : {
+          "x" : 899,
+          "y" : 434
+        },
+        "type" : "ARROW"
+      }
+    } ]
+  }, {
+    "id" : 215,
+    "reactomeId" : 8867510,
+    "displayName" : "OMA1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 809,
+      "y" : 375
+    },
+    "minX" : 358,
+    "maxX" : 838,
+    "minY" : 358,
+    "maxY" : 423,
+    "prop" : {
+      "x" : 787,
+      "y" : 364,
+      "width" : 45,
+      "height" : 22
+    },
+    "textPosition" : {
+      "x" : 788,
+      "y" : 364
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 832,
+          "y" : 364
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 210,
+      "type" : "CATALYST",
+      "segments" : [ {
+        "from" : {
+          "x" : 809,
+          "y" : 389
+        },
+        "to" : {
+          "x" : 809,
+          "y" : 415
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "c" : {
+          "x" : 809,
+          "y" : 419
+        },
+        "r" : 4,
+        "type" : "CIRCLE",
+        "empty" : true
+      }
+    } ]
+  }, {
+    "id" : 188,
+    "reactomeId" : 3095873,
+    "displayName" : "K48polyUb-p-T402-PAK-2p43",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 227,
+      "y" : 500
+    },
+    "minX" : 128,
+    "maxX" : 478,
+    "minY" : 478,
+    "maxY" : 516,
+    "prop" : {
+      "x" : 128,
+      "y" : 484,
+      "width" : 199,
+      "height" : 32
+    },
+    "innerProp" : {
+      "x" : 128,
+      "y" : 490,
+      "width" : 199,
+      "height" : 26
+    },
+    "textPosition" : {
+      "x" : 130,
+      "y" : 489
+    },
+    "nodeAttachments" : [ {
+      "reactomeId" : 211618,
+      "label" : "P",
+      "description" : "O-phospho-L-threonine at 402",
+      "shape" : {
+        "a" : {
+          "x" : 138,
+          "y" : 478
+        },
+        "b" : {
+          "x" : 150,
+          "y" : 490
+        },
+        "s" : "P",
+        "type" : "BOX",
+        "empty" : true
+      }
+    }, {
+      "reactomeId" : 3095874,
+      "description" : "ubiquitinylated lysine (K48polyUb [cytosol]) at unknown position",
+      "shape" : {
+        "a" : {
+          "x" : 154,
+          "y" : 478
+        },
+        "b" : {
+          "x" : 166,
+          "y" : 490
+        },
+        "type" : "BOX",
+        "empty" : true
+      }
+    } ],
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 327,
+          "y" : 484
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 66,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 72,
+      "type" : "INPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  } ],
+  "edges" : [ {
+    "id" : 66,
+    "reactomeId" : 211734,
+    "displayName" : "Ubiquitination of PAK-2p34",
+    "schemaClass" : "BlackBoxEvent",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 381,
+      "y" : 469
+    },
+    "minX" : 306,
+    "maxX" : 387,
+    "minY" : 436,
+    "maxY" : 481,
+    "segments" : [ {
+      "from" : {
+        "x" : 381,
+        "y" : 436
+      },
+      "to" : {
+        "x" : 381,
+        "y" : 469
+      }
+    }, {
+      "from" : {
+        "x" : 381,
+        "y" : 469
+      },
+      "to" : {
+        "x" : 306,
+        "y" : 481
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 312,
+        "y" : 476
+      },
+      "b" : {
+        "x" : 306,
+        "y" : 481
+      },
+      "c" : {
+        "x" : 313,
+        "y" : 484
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 375,
+        "y" : 463
+      },
+      "b" : {
+        "x" : 387,
+        "y" : 475
+      },
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 67,
+      "points" : [ {
+        "x" : 355,
+        "y" : 436
+      } ]
+    }, {
+      "id" : 68,
+      "points" : [ {
+        "x" : 381,
+        "y" : 394
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 188
+    } ],
+    "catalysts" : [ {
+      "id" : 70,
+      "points" : [ {
+        "x" : 506,
+        "y" : 423
+      } ]
+    } ]
+  }, {
+    "id" : 210,
+    "reactomeId" : 8867344,
+    "displayName" : "OMA1 hydrolyses OPA1",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 809,
+      "y" : 431
+    },
+    "minX" : 774,
+    "maxX" : 839,
+    "minY" : 425,
+    "maxY" : 437,
+    "segments" : [ {
+      "from" : {
+        "x" : 774,
+        "y" : 431
+      },
+      "to" : {
+        "x" : 809,
+        "y" : 431
+      }
+    }, {
+      "from" : {
+        "x" : 809,
+        "y" : 431
+      },
+      "to" : {
+        "x" : 839,
+        "y" : 431
+      }
+    } ],
+    "reactionShape" : {
+      "a" : {
+        "x" : 803,
+        "y" : 425
+      },
+      "b" : {
+        "x" : 815,
+        "y" : 437
+      },
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 211,
+      "points" : [ {
+        "x" : 736,
+        "y" : 389
+      } ]
+    }, {
+      "id" : 212,
+      "points" : [ {
+        "x" : 752,
+        "y" : 439
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 213,
+      "points" : [ {
+        "x" : 909,
+        "y" : 397
+      } ]
+    }, {
+      "id" : 214,
+      "points" : [ {
+        "x" : 905,
+        "y" : 439
+      } ]
+    } ],
+    "catalysts" : [ {
+      "id" : 215,
+      "points" : [ {
+        "x" : 809,
+        "y" : 389
+      } ]
+    } ]
+  }, {
+    "id" : 72,
+    "reactomeId" : 211715,
+    "displayName" : "Proteasome mediated degradation of PAK-2p34",
+    "schemaClass" : "BlackBoxEvent",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 227,
+      "y" : 436
+    },
+    "minX" : 221,
+    "maxX" : 277,
+    "minY" : 430,
+    "maxY" : 481,
+    "reactionType" : "Omitted Process",
+    "segments" : [ {
+      "from" : {
+        "x" : 227,
+        "y" : 481
+      },
+      "to" : {
+        "x" : 227,
+        "y" : 436
+      }
+    }, {
+      "from" : {
+        "x" : 227,
+        "y" : 436
+      },
+      "to" : {
+        "x" : 277,
+        "y" : 436
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 270,
+        "y" : 440
+      },
+      "b" : {
+        "x" : 277,
+        "y" : 436
+      },
+      "c" : {
+        "x" : 270,
+        "y" : 432
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 221,
+        "y" : 430
+      },
+      "b" : {
+        "x" : 233,
+        "y" : 442
+      },
+      "s" : "\\\\",
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 188
+    } ],
+    "outputs" : [ {
+      "id" : 67
+    } ],
+    "catalysts" : [ {
+      "id" : 74,
+      "points" : [ {
+        "x" : 204,
+        "y" : 435
+      } ]
+    } ]
+  }, {
+    "id" : 75,
+    "reactomeId" : 211716,
+    "displayName" : "Rho GTPase-activating protein 10 (RHG10) interacts with caspase-activated PAK-2p34",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 431,
+      "y" : 269
+    },
+    "minX" : 381,
+    "maxX" : 464,
+    "minY" : 264,
+    "maxY" : 321,
+    "reactionType" : "Association",
+    "segments" : [ {
+      "from" : {
+        "x" : 381,
+        "y" : 321
+      },
+      "to" : {
+        "x" : 431,
+        "y" : 269
+      }
+    }, {
+      "from" : {
+        "x" : 431,
+        "y" : 269
+      },
+      "to" : {
+        "x" : 464,
+        "y" : 269
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 457,
+        "y" : 273
+      },
+      "b" : {
+        "x" : 464,
+        "y" : 269
+      },
+      "c" : {
+        "x" : 457,
+        "y" : 265
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "c" : {
+        "x" : 431,
+        "y" : 269
+      },
+      "r" : 5,
+      "type" : "CIRCLE"
+    },
+    "inputs" : [ {
+      "id" : 76,
+      "points" : [ {
+        "x" : 354,
+        "y" : 282
+      } ]
+    }, {
+      "id" : 68,
+      "points" : [ {
+        "x" : 381,
+        "y" : 352
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 77
+    } ]
+  }, {
+    "id" : 78,
+    "reactomeId" : 211731,
+    "displayName" : "Interaction of PAK-2p34 with RGH10/ PS-GAP results in accumulation of PAK-2p34 in the perinuclear region",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 629,
+      "y" : 268
+    },
+    "minX" : 594,
+    "maxX" : 663,
+    "minY" : 263,
+    "maxY" : 273,
+    "reactionType" : "Association",
+    "segments" : [ {
+      "from" : {
+        "x" : 594,
+        "y" : 268
+      },
+      "to" : {
+        "x" : 629,
+        "y" : 268
+      }
+    }, {
+      "from" : {
+        "x" : 629,
+        "y" : 268
+      },
+      "to" : {
+        "x" : 663,
+        "y" : 268
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 656,
+        "y" : 272
+      },
+      "b" : {
+        "x" : 663,
+        "y" : 268
+      },
+      "c" : {
+        "x" : 656,
+        "y" : 264
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "c" : {
+        "x" : 629,
+        "y" : 268
+      },
+      "r" : 5,
+      "type" : "CIRCLE"
+    },
+    "inputs" : [ {
+      "id" : 77
+    } ],
+    "outputs" : [ {
+      "id" : 79
+    } ]
+  } ],
+  "compartments" : [ {
+    "id" : 208,
+    "reactomeId" : 5460,
+    "displayName" : "mitochondrial matrix",
+    "schemaClass" : "EntityCompartment",
+    "renderableClass" : "Compartment",
+    "position" : {
+      "x" : 815,
+      "y" : 465
+    },
+    "minX" : 672,
+    "maxX" : 958,
+    "minY" : 369,
+    "maxY" : 561,
+    "prop" : {
+      "x" : 672,
+      "y" : 369,
+      "width" : 286,
+      "height" : 192
+    },
+    "textPosition" : {
+      "x" : 682,
+      "y" : 475
+    },
+    "insets" : {
+      "x" : 679,
+      "y" : 377,
+      "width" : 271,
+      "height" : 177
+    },
+    "bgColor" : {
+      "r" : 250,
+      "g" : 240,
+      "b" : 240
+    },
+    "componentIds" : [ 215, 211, 210, 212, 213, 214 ]
+  }, {
+    "id" : 209,
+    "reactomeId" : 17927,
+    "displayName" : "mitochondrial intermembrane space",
+    "schemaClass" : "EntityCompartment",
+    "renderableClass" : "Compartment",
+    "position" : {
+      "x" : 830,
+      "y" : 471
+    },
+    "minX" : 653,
+    "maxX" : 1007,
+    "minY" : 343,
+    "maxY" : 600,
+    "prop" : {
+      "x" : 653,
+      "y" : 343,
+      "width" : 354,
+      "height" : 257
+    },
+    "textPosition" : {
+      "x" : 670,
+      "y" : 557
+    },
+    "insets" : {
+      "x" : 660,
+      "y" : 352,
+      "width" : 339,
+      "height" : 241
+    },
+    "bgColor" : {
+      "r" : 250,
+      "g" : 240,
+      "b" : 240
+    },
+    "componentIds" : [ 208 ]
+  }, {
+    "id" : 187,
+    "reactomeId" : 70101,
+    "displayName" : "cytosol",
+    "schemaClass" : "EntityCompartment",
+    "renderableClass" : "Compartment",
+    "position" : {
+      "x" : 593,
+      "y" : 429
+    },
+    "minX" : 61,
+    "maxX" : 1126,
+    "minY" : 202,
+    "maxY" : 656,
+    "prop" : {
+      "x" : 61,
+      "y" : 202,
+      "width" : 1065,
+      "height" : 454
+    },
+    "textPosition" : {
+      "x" : 94,
+      "y" : 230
+    },
+    "insets" : {
+      "x" : 71,
+      "y" : 209,
+      "width" : 1043,
+      "height" : 437
+    },
+    "bgColor" : {
+      "r" : 250,
+      "g" : 240,
+      "b" : 240
+    },
+    "componentIds" : [ 74, 67, 68, 70, 76, 77, 79, 66, 72, 75, 78, 188, 209 ]
+  } ],
+  "notes" : [ ],
+  "links" : [ ],
+  "shadows" : [ {
+    "id" : 216,
+    "reactomeId" : 211728,
+    "displayName" : "Regulation of PAK-2p34 activity by PS-GAP/RHG10",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "Shadow",
+    "position" : {
+      "x" : 547,
+      "y" : 317
+    },
+    "minX" : 298,
+    "maxX" : 796,
+    "minY" : 234,
+    "maxY" : 401,
+    "prop" : {
+      "x" : 298,
+      "y" : 234,
+      "width" : 498,
+      "height" : 111
+    },
+    "points" : [ {
+      "x" : 298,
+      "y" : 234
+    }, {
+      "x" : 796,
+      "y" : 234
+    }, {
+      "x" : 796,
+      "y" : 401
+    }, {
+      "x" : 298,
+      "y" : 401
+    } ],
+    "colour" : "#4684ee"
+  }, {
+    "id" : 217,
+    "reactomeId" : 211733,
+    "displayName" : "Regulation of activated PAK-2p34 by proteasome mediated degradation",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "Shadow",
+    "position" : {
+      "x" : 338,
+      "y" : 435
+    },
+    "minX" : 76,
+    "maxX" : 601,
+    "minY" : 345,
+    "maxY" : 526,
+    "prop" : {
+      "x" : 76,
+      "y" : 401,
+      "width" : 525,
+      "height" : 125
+    },
+    "points" : [ {
+      "x" : 76,
+      "y" : 345
+    }, {
+      "x" : 601,
+      "y" : 345
+    }, {
+      "x" : 601,
+      "y" : 526
+    }, {
+      "x" : 76,
+      "y" : 526
+    } ],
+    "colour" : "#dc3912"
+  } ],
+  "minX" : 61,
+  "maxX" : 1126,
+  "minY" : 202,
+  "maxY" : 656,
+  "disease" : false
+}

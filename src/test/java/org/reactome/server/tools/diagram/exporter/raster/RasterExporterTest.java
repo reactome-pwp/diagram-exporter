@@ -26,14 +26,16 @@ import java.util.stream.Collectors;
 
 public class RasterExporterTest {
 
-	private static final String host = "http://reactomerelease.oicr.on.ca/download/current/diagram/";
+//	private static final String host = "http://reactomerelease.oicr.on.ca/download/current/diagram/";
+
 	private static final File IMAGES_FOLDER = new File("test-images");
 	private static final String MODERN = "modern";
+	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/diagram";
+	private static final String EHLD_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/ehld";
 
 	@BeforeClass
 	public static void beforeClass() {
 		IMAGES_FOLDER.mkdirs();
-		ResourcesFactory.setHost("http://localhost:8080");
 	}
 
 	@AfterClass
@@ -53,20 +55,18 @@ public class RasterExporterTest {
 
 	@Test
 	public void testDecorationNormal() {
-		final String stId = "R-HSA-169911";// Regulation of apoptosis
-		final Graph graph;
+		final String stId = "R-HSA-169911"; // Regulation of apoptosis
 		try {
-			graph = ResourcesFactory.getGraph(stId);
-		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException e) {
+			final Graph graph = ResourcesFactory.getGraph(DIAGRAM_PATH, stId);
+			final List<Long> selected = getIdsFor("A1A4S6", graph);
+//			final List<Long> analysis = getIdsFor("Q13177", graph);
+			final List<Long> flags = getIdsFor("O60313", graph);
+			selected.add(211734L);
+			final Decorator decorator = new Decorator(flags, selected);
+			renderSilent(stId, "png", 1, decorator, MODERN);
+		} catch (DiagramJsonDeserializationException | DiagramJsonNotFoundException e) {
 			Assert.fail(e.getMessage());
-			return;
 		}
-		final List<Long> selected = getIdsFor("A1A4S6", graph);
-		final List<Long> analysis = getIdsFor("Q13177", graph);
-		final List<Long> flags = getIdsFor("O60313", graph);
-		selected.add(211734L);
-		final Decorator decorator = new Decorator(flags, selected);
-		renderSilent(stId, "png", 1, decorator, MODERN);
 	}
 
 	@Test
@@ -106,17 +106,15 @@ public class RasterExporterTest {
 
 	@Test
 	public void testStoichiometry() {
-		final String stId = "R-HSA-2173782";
-		final Graph graph;
 		try {
-			graph = ResourcesFactory.getGraph(stId);
-		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException e) {
+			final String stId = "R-HSA-2173782";
+			final Graph graph = ResourcesFactory.getGraph(DIAGRAM_PATH, stId);
+			final List<Long> ids = getIdsFor("R-HSA-2168880", graph);
+			final Decorator decorator = new Decorator(null, ids);
+			renderSilent(stId, "png", 1, decorator, MODERN);
+		} catch (DiagramJsonDeserializationException | DiagramJsonNotFoundException e) {
 			Assert.fail(e.getMessage());
-			return;
 		}
-		final List<Long> ids = getIdsFor("R-HSA-2168880", graph);
-		final Decorator decorator = new Decorator(null, ids);
-		renderSilent(stId, "png", 1, decorator, MODERN);
 	}
 
 	@Test
@@ -159,13 +157,11 @@ public class RasterExporterTest {
 			args.setFactor(factor);
 			args.setDecorator(decorator);
 			args.setProfiles(new ColorProfiles(profile, "standard", "cyan"));
-			final BufferedImage image = RasterExporter.export(args);
+			final BufferedImage image = RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
 			final File file = new File(IMAGES_FOLDER, stId + "." + ext);
 			ImageIO.write(image, ext, file);
-		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | IOException e) {
-			e.printStackTrace();
-		} catch (EHLDException e) {
-			e.printStackTrace();
+		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | IOException | EHLDException e) {
+			Assert.fail(e.getMessage());
 		}
 	}
 
@@ -175,11 +171,9 @@ public class RasterExporterTest {
 			args.setFactor(factor);
 			args.setDecorator(decorator);
 			args.setProfiles(new ColorProfiles(profile, "standard", "cyan"));
-			RasterExporter.export(args);
-		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException e) {
-			e.printStackTrace();
-		} catch (EHLDException e) {
-			e.printStackTrace();
+			RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
+		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | EHLDException e) {
+			Assert.fail(e.getMessage());
 		}
 	}
 

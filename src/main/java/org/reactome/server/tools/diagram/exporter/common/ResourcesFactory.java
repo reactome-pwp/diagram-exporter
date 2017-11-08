@@ -13,7 +13,6 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDMalformedException;
-import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ProfileResources;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,9 +20,6 @@ import org.w3c.dom.svg.SVGDocument;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -37,21 +33,8 @@ public class ResourcesFactory {
 
 	private static final Logger logger = LoggerFactory.getLogger("infoLogger");
 
-	private static final String DIAGRAM_SERVICE = "/download/current/diagram/";
-	private static final String EHLD_SERVICE = "/download/current/ehld/";
-
 	private static final String DEFAULT_DIAGRAM_PROFILE = "modern";
 	private static final SAXSVGDocumentFactory DOCUMENT_FACTORY = new SAXSVGDocumentFactory(XMLResourceDescriptor.getXMLParserClassName());
-	private static String host = "http://localhost";
-
-	/**
-	 * Set the host. By default is http://localhost
-	 *
-	 * @param host new host
-	 */
-	public static void setHost(String host) {
-		ResourcesFactory.host = host;
-	}
 
 	/**
 	 * Loads into memory the DiagramProfile corresponding to getName profile. If
@@ -106,9 +89,6 @@ public class ResourcesFactory {
 	 *                                             .json file
 	 */
 	public static Diagram getDiagram(String diagramPath, String stId) throws DiagramJsonDeserializationException, DiagramJsonNotFoundException {
-		// If not specified, use http protocol
-		if (diagramPath == null)
-			return getDiagram(stId);
 		final Path pathway = Paths.get(diagramPath, stId + ".json");
 		logger.info("Getting diagram JSON {}", pathway);
 		try {
@@ -151,91 +131,12 @@ public class ResourcesFactory {
 		}
 	}
 
-	/**
-	 * Gets the Diagram of stId
-	 *
-	 * @param stId diagram stable identifier
-	 *
-	 * @return the Diagram of stId
-	 *
-	 * @throws DiagramJsonNotFoundException when stId has no corresponding JSON
-	 *                                      file
-	 */
-	public static Diagram getDiagram(String stId) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException {
-		try {
-			URL url = new URL(host + DIAGRAM_SERVICE + stId + ".json");
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestMethod("GET");
-			connection.setRequestProperty("Response-Type", "application/json");
-
-			switch (connection.getResponseCode()) {
-				case 200:
-					String json = IOUtils.toString(connection.getInputStream());
-					return DiagramFactory.getDiagram(json);
-				default:
-					String error = IOUtils.toString(connection.getErrorStream());
-					throw new DiagramJsonNotFoundException(error);
-			}
-		} catch (IOException e) {
-			throw new DiagramJsonNotFoundException(e.getMessage());
-		} catch (DeserializationException e) {
-			throw new DiagramJsonDeserializationException(e.getMessage());
-		}
-	}
-
-	/**
-	 * Gets the Graph of stId
-	 *
-	 * @param stId diagram stable identifier
-	 *
-	 * @return the Graph of stId
-	 *
-	 * @throws DiagramJsonNotFoundException when stId has no corresponding JSON
-	 *                                      graph file
-	 */
-	public static Graph getGraph(String stId) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException {
-		try {
-			URL url = new URL(host + DIAGRAM_SERVICE + stId + ".graph.json");
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestMethod("GET");
-			connection.setRequestProperty("Response-Type", "application/json");
-
-			switch (connection.getResponseCode()) {
-				case 200:
-					String json = IOUtils.toString(connection.getInputStream());
-					return DiagramFactory.getGraph(json);
-				default:
-					String error = IOUtils.toString(connection.getErrorStream());
-					throw new DiagramJsonNotFoundException(error);
-			}
-		} catch (IOException e) {
-			throw new DiagramJsonNotFoundException(stId);
-		} catch (DeserializationException e) {
-			throw new DiagramJsonDeserializationException(e.getMessage());
-		}
-	}
-
-	public static SVGDocument getEHLD(String stId) throws EHLDMalformedException, EHLDNotFoundException {
-		try {
-			final URL url = new URL(host + EHLD_SERVICE + stId + ".svg");
-//			final HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-			return DOCUMENT_FACTORY.createSVGDocument(url.toURI().toString());
-		} catch (IOException e) {
-			throw new EHLDMalformedException("Diagram " + stId + " has no associated EHLD");
-		} catch (URISyntaxException e) {
-			throw new EHLDNotFoundException("Diagram " + stId + " has no associated EHLD");
-		}
-	}
-
 	public static SVGDocument getEHLD(String EHLDPath, String stId) throws EHLDException {
-		if (EHLDPath == null)
-			return getEHLD(stId);
 		final Path path = Paths.get(EHLDPath, stId + ".svg");
 		try {
 			return DOCUMENT_FACTORY.createSVGDocument(path.toUri().toString());
 		} catch (IOException e) {
 			throw new EHLDMalformedException("EHLD document is not valid " + stId);
 		}
-
 	}
 }
