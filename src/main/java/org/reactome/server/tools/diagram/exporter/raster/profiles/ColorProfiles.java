@@ -1,12 +1,14 @@
 package org.reactome.server.tools.diagram.exporter.raster.profiles;
 
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 
 public class ColorProfiles {
 	private static final String DEFAULT_DIAGRAM_PROFILE = "modern";
@@ -53,4 +55,13 @@ public class ColorProfiles {
 	public InteractorsSheet getInteractorsSheet() {
 		return interactorsSheet;
 	}
+
+	@JsonCreator
+	public ColorProfiles(Map<String, Object> delegate) {
+		final String diagram = (String) delegate.get("diagram");
+		final String analysis = (String) delegate.get("analysis");
+		final String interactors = (String) delegate.get("interactors");
+		diagramSheet = getSheet(DiagramSheetImpl.class, DEFAULT_DIAGRAM_PROFILE, "diagram", diagram);
+		analysisSheet = getSheet(AnalysisSheetImpl.class, DEFAULT_ANALYSIS_PROFILE, "analysis", analysis);
+		interactorsSheet = getSheet(InteractorsSheetImpl.class, DEFAULT_INTERACTORS_PROFILE, "interactors", interactors);	}
 }

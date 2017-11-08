@@ -78,7 +78,7 @@ public class DiagramRenderer {
 		diagram = ResourcesFactory.getDiagram(diagramPath, args.getStId());
 		this.args = args;
 		this.colorProfiles = args.getProfiles();
-		this.index = new DiagramIndex(diagram, graph, args.getDecorator(), args.getToken());
+		this.index = new DiagramIndex(diagram, graph, args);
 	}
 
 	/**

@@ -4,11 +4,11 @@ import org.reactome.server.tools.diagram.data.graph.EntityNode;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.data.layout.*;
-import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.*;
+import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -27,9 +27,7 @@ public class DiagramIndex {
 	private final Diagram diagram;
 	private final Graph graph;
 	private final HashMap<Long, DiagramObjectDecorator> index;
-	private final Decorator decorator;
-	private final String token;
-
+	private RasterArgs args;
 	/**
 	 * [diagram id] diagramNode.getId()
 	 */
@@ -49,18 +47,17 @@ public class DiagramIndex {
 	private NodeDecorator selected;
 	private int expressionSize;
 
+
 	/**
 	 * Creates a new DiagramIndex with the information for each node in maps.
 	 *
-	 * @param diagram   diagram with nodes and reactions
-	 * @param graph     background graph
-	 * @param decorator decorator with selection and flags
+	 * @param diagram diagram with nodes and reactions
+	 * @param graph   background graph
 	 */
-	public DiagramIndex(Diagram diagram, Graph graph, Decorator decorator, String token) {
+	public DiagramIndex(Diagram diagram, Graph graph, RasterArgs args) {
 		this.diagram = diagram;
 		this.graph = graph;
-		this.decorator = decorator;
-		this.token = token;
+		this.args = args;
 		this.index = new HashMap<>();
 		index();
 		collect();
@@ -84,17 +81,61 @@ public class DiagramIndex {
 	}
 
 	private void collect() {
-		if (decorator != null) {
-			collectNodes();
-			collectReactions();
-		}
+		final List<Long> sel = getSelectedIds();
+		final List<Long> flg = getFlagged();
+		decorateNodes(sel, flg);
+		decorateReactions(sel, flg);
 		collectAnalysis();
 	}
 
-	private void collectNodes() {
+	private List<Long> getSelectedIds() {
+		if (args.getSelected() == null)
+			return Collections.emptyList();
+		return args.getSelected().stream()
+				.map(this::findNodeId)
+				.filter(Objects::nonNull)
+				.collect(Collectors.toList());
+	}
+
+	private List<Long> getFlagged() {
+		if (args.getFlags() == null)
+			return Collections.emptyList();
+		return args.getFlags().stream()
+				.map(this::findNodeId)
+				.filter(Objects::nonNull)
+				.collect(Collectors.toList());
+	}
+
+	private Long findNodeId(String string) {
+		// dbId, this is faster because dbId is indexed
+		try {
+			final long dbId = Long.parseLong(string);
+			if (graphIndex.containsKey(dbId))
+				return (dbId);
+		} catch (NumberFormatException ignored) {
+			// ignored, not a dbId
+		}
+		for (EntityNode node : graph.getNodes()) {
+			// stId
+			if (string.equals(node.getStId()))
+				return node.getDbId();
+			// identifier
+			if (string.equals(node.getIdentifier()))
+				return node.getDbId();
+			// geneNames
+			if (node.getGeneNames() != null && node.getGeneNames().contains(string))
+				return node.getDbId();
+		}
+		// Bad luck, not found
+		return null;
+	}
+
+	private void decorateNodes(List<Long> sel, List<Long> flg) {
+		if (sel.isEmpty() && flg.isEmpty())
+			return;
 		diagram.getNodes().forEach(node -> {
 			// Select node
-			if (decorator.getSelected().contains(node.getReactomeId())) {
+			if (sel.contains(node.getReactomeId())) {
 				final NodeDecorator decorator = getNodeDecorator(node.getId());
 				decorator.setSelected(true);
 				decorator.setHalo(true);
@@ -110,22 +151,22 @@ public class DiagramIndex {
 				});
 			}
 			// Flag node
-			if (decorator.getFlags().contains(node.getReactomeId()))
+			if (flg.contains(node.getReactomeId()))
 				getNodeDecorator(node.getId()).setFlag(true);
 		});
 	}
 
-	private void collectReactions() {
+	private void decorateReactions(List<Long> sel, List<Long> flg) {
 		diagram.getEdges().forEach(reaction -> {
 			// Select edge
-			if (decorator.getSelected().contains(reaction.getReactomeId())) {
+			if (sel.contains(reaction.getReactomeId())) {
 				final EdgeDecorator decorator = getEdgeDecorator(reaction.getId());
 				decorator.setSelected(true);
 				decorator.setHalo(true);
 				haloEdgeParticipants(reaction);
 			}
 			// Flag edge
-			if (decorator.getFlags().contains(reaction.getReactomeId()))
+			if (flg.contains(reaction.getReactomeId()))
 				getEdgeDecorator(reaction.getId()).setFlag(true);
 		});
 	}
@@ -164,27 +205,27 @@ public class DiagramIndex {
 	 * Extracts analysis information and attaches it to each diagram node.
 	 */
 	private void collectAnalysis() {
-		if (token == null || token.isEmpty())
+		if (args.getToken() == null || args.getToken().isEmpty())
 			return;
 		final String stId = graph.getStId();
-		System.out.println(token); // TODO: delete on production
+		System.out.println(args.getToken()); // TODO: delete on production
 		System.out.println(stId);
 		try {
-			final AnalysisResult result = AnalysisClient.getAnalysisResult(token);
+			final AnalysisResult result = AnalysisClient.getAnalysisResult(args.getToken());
 			final List<ResourceSummary> summaryList = result.getResourceSummary();
 			final ResourceSummary resourceSummary = summaryList.size() == 2
 					? summaryList.get(1)
 					: summaryList.get(0);
 			final String resource = resourceSummary.getResource();
 			analysisType = AnalysisType.getType(result.getSummary().getType());
-			subPathways(token, resource);
+			subPathways(args.getToken(), resource);
 			if (analysisType == AnalysisType.EXPRESSION) {
 				maxExpression = result.getExpression().getMax();
 				minExpression = result.getExpression().getMin();
 				expressionSize = result.getExpression().getColumnNames().size();
-				expression(token, stId, resource);
+				expression(args.getToken(), stId, resource);
 			} else if (analysisType == AnalysisType.OVERREPRESENTATION)
-				enrichment(token, stId, resource);
+				enrichment(args.getToken(), stId, resource);
 
 		} catch (AnalysisException | AnalysisServerError e) {
 			e.printStackTrace();

@@ -31,7 +31,7 @@ public class EHLDRenderer {
 	}
 
 	public BufferedImage render() {
-		SVGDecoratorFactory.selectAndFlag(document, args);
+		SVGDecoratorRenderer.selectAndFlag(document, args);
 		SVGAnalisysRenderer.analysis(document, args);
 		return renderImage();
 	}
@@ -64,6 +64,7 @@ public class EHLDRenderer {
 			case "jpg":
 			case "jpeg":
 				transcoder = new JPEGTranscoder();
+				transcoder.addTranscodingHint(JPEGTranscoder.KEY_QUALITY, 1f);
 				break;
 			default:
 				transcoder = new PNGTranscoder();

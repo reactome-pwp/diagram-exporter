@@ -7,35 +7,41 @@ import org.w3c.dom.Element;
 import org.w3c.dom.svg.SVGDocument;
 
 import java.awt.*;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import static org.apache.batik.util.SVGConstants.SVG_ID_ATTRIBUTE;
 
-class SVGDecoratorFactory {
+class SVGDecoratorRenderer {
 
 	private static final String SELECTION_FILTER = "selection-filter";
 	private static final String FLAG_FILTER = "flag-filter";
 	private static final String SELECTION_FLAG_FILTER = "selection-flag-filter";
 
 	static void selectAndFlag(SVGDocument document, RasterArgs args) {
+		if (args.getSelected() == null && args.getFlags() == null)
+			return;
 		addFilters(document, args);
 
-		final Set<String> selAndFlag = new HashSet<>(args.getSelected());
-		selAndFlag.retainAll(args.getFlags());
+		final Set<String> selected = args.getSelected() == null
+				? Collections.EMPTY_SET
+				: new HashSet<>(args.getSelected());
+		final Set<String> flags = args.getSelected() == null
+				? Collections.EMPTY_SET
+				: new HashSet<>(args.getSelected());
+
+		final Set<String> selAndFlag = new HashSet<>(selected);
+		selAndFlag.retainAll(flags);
 		setFilter(document, selAndFlag, SVGUtil.toURL(SELECTION_FLAG_FILTER));
 
-		final Set<String> selected = new HashSet<>(args.getSelected());
 		selected.removeAll(selAndFlag);
 		setFilter(document, selected, SVGUtil.toURL(SELECTION_FILTER));
 
-		final Set<String> flag = new HashSet<>(args.getFlags());
-		flag.removeAll(selAndFlag);
-		setFilter(document, flag, SVGUtil.toURL(FLAG_FILTER));
+		flags.removeAll(selAndFlag);
+		setFilter(document, flags, SVGUtil.toURL(FLAG_FILTER));
 
-		if (!selAndFlag.isEmpty() || !selected.isEmpty() || ! flag.isEmpty())
-			addFilters(document, args);
 	}
 
 	private static void addFilters(SVGDocument document, RasterArgs args) {

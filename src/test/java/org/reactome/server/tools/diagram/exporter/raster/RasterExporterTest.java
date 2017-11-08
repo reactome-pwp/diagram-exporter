@@ -7,11 +7,10 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
-import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
-import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
+import org.reactome.server.tools.diagram.exporter.raster.api.SimpleRasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
@@ -21,7 +20,10 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class RasterExporterTest {
@@ -58,12 +60,13 @@ public class RasterExporterTest {
 		final String stId = "R-HSA-169911"; // Regulation of apoptosis
 		try {
 			final Graph graph = ResourcesFactory.getGraph(DIAGRAM_PATH, stId);
-			final List<Long> selected = getIdsFor("A1A4S6", graph);
+			final List<String> selected = getIdsFor("A1A4S6", graph).stream()
+					.map(String::valueOf).collect(Collectors.toList());
 //			final List<Long> analysis = getIdsFor("Q13177", graph);
-			final List<Long> flags = getIdsFor("O60313", graph);
-			selected.add(211734L);
-			final Decorator decorator = new Decorator(flags, selected);
-			renderSilent(stId, "png", 1, decorator, MODERN);
+			final List<String> flags = getIdsFor("O60313", graph).stream()
+					.map(String::valueOf).collect(Collectors.toList());;
+			selected.add("211734");
+			renderSilent(stId, "png", 1, selected, flags, MODERN);
 		} catch (DiagramJsonDeserializationException | DiagramJsonNotFoundException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -72,10 +75,9 @@ public class RasterExporterTest {
 	@Test
 	public void testDecorationDisease() {
 		final String stId = "R-HSA-5602410";
-		final List<Long> selected = Collections.singletonList(5602549L);
+		final List<String> selected = Arrays.asList("5602549");
 //		final List<Long> selected = Arrays.asList(5602649L);
-		final Decorator decorator = new Decorator(null, selected);
-		renderSilent(stId, "png", 1, decorator, MODERN);
+		renderSilent(stId, "png", 1, selected, null, MODERN);
 	}
 
 	@Test
@@ -85,7 +87,7 @@ public class RasterExporterTest {
 				"R-HSA-1362409",  // Mithocondrial iron-sulfur cluster biogenesis
 				"R-HSA-169911"  // Regulation of apoptosis
 		);
-		pathways.forEach(stId -> renderToFile(stId, "jpeg", 1, null, MODERN));
+		pathways.forEach(stId -> renderToFile(stId, "jpeg", 1,null, null, MODERN));
 	}
 
 	@Test
@@ -95,13 +97,13 @@ public class RasterExporterTest {
 				"R-HSA-68874",  // M/G1 Transition
 				"R-HSA-109581"  // Apoptosis
 		);
-		pathways.forEach(stId -> renderToFile(stId, "gif", 1, null, MODERN));
+		pathways.forEach(stId -> renderToFile(stId, "gif", 1, null, null, MODERN));
 	}
 
 	@Test
 	public void testHighQuality() {
 		final String stId = "R-HSA-391251";
-		renderToFile(stId, "png", 10, null, MODERN);
+		renderToFile(stId, "png", 10, null, null, MODERN);
 	}
 
 	@Test
@@ -109,9 +111,9 @@ public class RasterExporterTest {
 		try {
 			final String stId = "R-HSA-2173782";
 			final Graph graph = ResourcesFactory.getGraph(DIAGRAM_PATH, stId);
-			final List<Long> ids = getIdsFor("R-HSA-2168880", graph);
-			final Decorator decorator = new Decorator(null, ids);
-			renderSilent(stId, "png", 1, decorator, MODERN);
+			final List<String> ids = getIdsFor("R-HSA-2168880", graph).stream()
+					.map(String::valueOf).collect(Collectors.toList());
+			renderSilent(stId, "png", 1, ids, null, MODERN);
 		} catch (DiagramJsonDeserializationException | DiagramJsonNotFoundException e) {
 			Assert.fail(e.getMessage());
 		}
@@ -120,19 +122,19 @@ public class RasterExporterTest {
 	@Test
 	public void testLowQuality() {
 		final String stId = "R-HSA-2173782";
-		renderSilent(stId, "png", 0.1, null, MODERN);
+		renderSilent(stId, "png", 0.1, null, null, MODERN);
 	}
 
 	@Test
 	public void testVeryHugeQuality() {
 		final String stId = "R-HSA-2173782";
-		renderToFile(stId, "jpg", 10000, null, MODERN);
+		renderToFile(stId, "jpg", 10000, null, null, MODERN);
 	}
 
 	@Test
 	public void testStandardProfile() {
 		final String stId = "R-HSA-2173782";
-		renderToFile(stId, "jpg", 1, null, "standard");
+		renderToFile(stId, "jpg", 1, null, null, "standard");
 	}
 
 	@Test
@@ -151,11 +153,12 @@ public class RasterExporterTest {
 				.collect(Collectors.toList());
 	}
 
-	private void renderToFile(String stId, String ext, double factor, Decorator decorator, String profile) {
+	private void renderToFile(String stId, String ext, double factor, List<String> selected, List<String> flags, String profile) {
 		try {
-			final RasterArgs args = new RasterArgs(stId, ext);
+			final SimpleRasterArgs args = new SimpleRasterArgs(stId, ext);
 			args.setFactor(factor);
-			args.setDecorator(decorator);
+			args.setSelected(selected);
+			args.setFlags(flags);
 			args.setProfiles(new ColorProfiles(profile, "standard", "cyan"));
 			final BufferedImage image = RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
 			final File file = new File(IMAGES_FOLDER, stId + "." + ext);
@@ -165,11 +168,12 @@ public class RasterExporterTest {
 		}
 	}
 
-	private void renderSilent(String stId, String ext, double factor, Decorator decorator, String profile) {
+	private void renderSilent(String stId, String ext, double factor, List<String> selected, List<String> flags, String profile) {
 		try {
-			final RasterArgs args = new RasterArgs(stId, ext);
+			final SimpleRasterArgs args = new SimpleRasterArgs(stId, ext);
 			args.setFactor(factor);
-			args.setDecorator(decorator);
+			args.setSelected(selected);
+			args.setFlags(flags);
 			args.setProfiles(new ColorProfiles(profile, "standard", "cyan"));
 			RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
 		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | EHLDException e) {

@@ -5,10 +5,8 @@
   "background": "#FFFFFF",
   "token": null,
   "column": 1,
-  "decorator": {
-    "flags": [1, 2, 3],
-    "selected": [4, 3, 5]
-  },
+  "flags": [1, 2, 3],
+  "selected": [4, 3, 5, "R-HSA-12"],
   "profiles": {
     "diagram": "modern",
     "analysis": "strosobar",

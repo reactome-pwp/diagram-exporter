@@ -67,34 +67,6 @@ public class RasterExporter {
 	 * </pre>
 	 * </code>
 	 *
-	 * @param args arguments for the export
-	 */
-	public static BufferedImage export(RasterArgs args) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException, EHLDException {
-		return export(args, null, null);
-	}
-
-	/**
-	 * Service layer that provides access to the raster exporter. This service
-	 * outputs the result as a BufferedImage, not to a File.
-	 * <p>
-	 * To save the image to an URL: <code>
-	 * <pre>
-	 *     URL url = new URL("http://host.com/");
-	 *     HttpUrlConnection connection = (HttpUrlConnection)
-	 * url.openConnection();
-	 *     connection.setDoOutput(true);  // your url must support writing
-	 *     OutputStream os = connection.getOutputStream();
-	 *     ImageIO.write(image, ext, os);
-	 * </pre>
-	 * </code>
-	 * <p>
-	 * To save to a File <code>
-	 * <pre>
-	 * File file = new File(path, stId + ".png");
-	 * ImageIO.write(image, ext, file);
-	 * </pre>
-	 * </code>
-	 *
 	 * @param args        arguments for the export
 	 * @param diagramPath
 	 * @param ehldPath
