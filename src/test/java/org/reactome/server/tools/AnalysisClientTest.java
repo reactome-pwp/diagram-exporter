@@ -13,7 +13,6 @@ import org.reactome.server.tools.diagram.exporter.common.analysis.model.PathwayS
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.ResourceSummary;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class AnalysisClientTest {
     public static void initialiseTest(){
         AnalysisClient.setServer("http://reactomedev.oicr.on.ca");
         try {
-            String sample = IOUtils.toString(AnalysisClientTest.class.getResourceAsStream("GBM_Uniprot.txt"), Charset.defaultCharset());
+            String sample = IOUtils.toString(AnalysisClientTest.class.getResourceAsStream("GBM_Uniprot.txt"));
             AnalysisResult result = AnalysisClient.performAnalysis(sample);
             token = result.getSummary().getToken();
 

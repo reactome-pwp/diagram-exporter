@@ -4,9 +4,9 @@ import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.FoundEntity;
-import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
-import org.reactome.server.tools.diagram.exporter.raster.color.ExpressionSheet;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.ExpressionSheet;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties;
@@ -41,7 +41,7 @@ public class LegendRenderer {
 		 * 2. a FillLayer for the gradient color bar
 		 * 3. a DrawLayer fot the ticks
 		 * 4. a TextLayer for the numbers
-		 * Everything must fit the legend_height x legend_width
+		 * Everything must fit in the rectangle (legend_height, legend_width)
 		 */
 		final ExpressionSheet sheet = colorProfiles.getAnalysisSheet().getExpression();
 		final int textHeight = FontProperties.DEFAULT_FONT.getSize() * 2;
@@ -55,7 +55,6 @@ public class LegendRenderer {
 		colorbar(canvas, sheet, x, width, height, y);
 		ticks(canvas, index, colorProfiles, x, y, width, height, col);
 		text(canvas, index, textHeight, x, y, width, height, col);
-
 	}
 
 	private static void background(DiagramCanvas canvas, double x, double y, double width, double height, double textSpace) {
@@ -96,7 +95,7 @@ public class LegendRenderer {
 		if (index.getSelected() == null) return;
 		final List<FoundEntity> expressions = index.getSelected().getExpressions();
 		if (expressions == null) return;
-		// Calculate [min - median - max] | [value]
+		// Calculate which ticks to draw: (min, median, max) or (value)
 		Double nMax;
 		Double nMin;
 		Double nValue;
@@ -116,15 +115,15 @@ public class LegendRenderer {
 				nValue = (values.get(half) + values.get(half - 1)) * 0.5;
 			else nValue = values.get(half);
 		}
-		// Draw ticks
+
 		final Stroke stroke = StrokeProperties.StrokeStyle.SEGMENT.getStroke(false);
 		final Color limitColor, valueColor;
-		if (nMax != null) {
-			limitColor = colors.getDiagramSheet().getProperties().getSelection();
-			valueColor = colors.getAnalysisSheet().getExpression().getLegend().getMedian();
-		} else {
+		if (nMax == null) {
 			limitColor = null;
 			valueColor = colors.getDiagramSheet().getProperties().getSelection();
+		} else {
+			limitColor = colors.getDiagramSheet().getProperties().getSelection();
+			valueColor = colors.getAnalysisSheet().getExpression().getLegend().getMedian();
 		}
 		drawTick(canvas, index, x, y, width, height, nValue, stroke, valueColor);
 		drawTick(canvas, index, x, y, width, height, nMax, stroke, limitColor);

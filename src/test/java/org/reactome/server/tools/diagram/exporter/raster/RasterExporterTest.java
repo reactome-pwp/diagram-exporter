@@ -1,29 +1,24 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
 
-import org.apache.commons.io.IOUtils;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.reactome.server.tools.diagram.data.DiagramFactory;
-import org.reactome.server.tools.diagram.data.exception.DeserializationException;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.exporter.common.Decorator;
+import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
-import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
+import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
-import java.nio.charset.Charset;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.*;
@@ -32,20 +27,18 @@ import java.util.stream.Collectors;
 public class RasterExporterTest {
 
 	private static final String host = "http://reactomerelease.oicr.on.ca/download/current/diagram/";
-	private static final File DIAGRAMS_FOLDER = new File("test-diagrams");
 	private static final File IMAGES_FOLDER = new File("test-images");
 	private static final String MODERN = "modern";
 
 	@BeforeClass
 	public static void beforeClass() {
 		IMAGES_FOLDER.mkdirs();
-		DIAGRAMS_FOLDER.mkdirs();
+		ResourcesFactory.setHost("http://localhost:8080");
 	}
 
 	@AfterClass
 	public static void afterClass() {
 		removeDir(IMAGES_FOLDER);
-		removeDir(DIAGRAMS_FOLDER);
 	}
 
 	private static void removeDir(File dir) {
@@ -61,7 +54,13 @@ public class RasterExporterTest {
 	@Test
 	public void testDecorationNormal() {
 		final String stId = "R-HSA-169911";// Regulation of apoptosis
-		final Graph graph = getGraph(stId);
+		final Graph graph;
+		try {
+			graph = ResourcesFactory.getGraph(stId);
+		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException e) {
+			Assert.fail(e.getMessage());
+			return;
+		}
 		final List<Long> selected = getIdsFor("A1A4S6", graph);
 		final List<Long> analysis = getIdsFor("Q13177", graph);
 		final List<Long> flags = getIdsFor("O60313", graph);
@@ -101,17 +100,20 @@ public class RasterExporterTest {
 
 	@Test
 	public void testHighQuality() {
-		final List<String> pathways = Arrays.asList(
-				"R-HSA-391251",  // Protein folding
-				"R-HSA-6796648" // TP53 Regulates Transcription of DNA Repair Genes
-		);
-		pathways.forEach(stId -> renderToFile(stId, "png", 10, null, MODERN));
+		final String stId = "R-HSA-391251";
+		renderToFile(stId, "png", 10, null, MODERN);
 	}
 
 	@Test
 	public void testStoichiometry() {
 		final String stId = "R-HSA-2173782";
-		final Graph graph = getGraph(stId);
+		final Graph graph;
+		try {
+			graph = ResourcesFactory.getGraph(stId);
+		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException e) {
+			Assert.fail(e.getMessage());
+			return;
+		}
 		final List<Long> ids = getIdsFor("R-HSA-2168880", graph);
 		final Decorator decorator = new Decorator(null, ids);
 		renderSilent(stId, "png", 1, decorator, MODERN);
@@ -151,61 +153,32 @@ public class RasterExporterTest {
 				.collect(Collectors.toList());
 	}
 
-	private boolean download(String stId) {
-		for (String extension : Arrays.asList(".json", ".graph.json")) {
-			final File file = new File(DIAGRAMS_FOLDER, stId + extension);
-			if (!file.exists()) {
-				try {
-					final URL url = new URL(host + stId + extension);
-					final ReadableByteChannel rbc = Channels.newChannel(url.openStream());
-					final FileOutputStream fos = new FileOutputStream(file);
-					fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-					fos.flush();
-				} catch (IOException e) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-
-	private Graph getGraph(String stId) {
-		if (!download(stId))
-			return null;
+	private void renderToFile(String stId, String ext, double factor, Decorator decorator, String profile) {
 		try {
-			final File file = new File(DIAGRAMS_FOLDER, stId + ".graph.json");
-			final String json = IOUtils.toString(file.toURI(), Charset.defaultCharset());
-			return DiagramFactory.getGraph(json);
-		} catch (DeserializationException | IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	private void renderToFile(String stId, String ext, int factor, Decorator decorator, String profile) {
-		if (!download(stId))
-			Assert.fail("Diagram " + stId + " not found");
-		try {
-			final BufferedImage image = RasterExporter.export(stId,
-					DIAGRAMS_FOLDER.getAbsolutePath(),
-					ext, factor, decorator, null,
-					new ColorScheme(profile, "standard", "cyan"));
+			final RasterArgs args = new RasterArgs(stId, ext);
+			args.setFactor(factor);
+			args.setDecorator(decorator);
+			args.setProfiles(new ColorProfiles(profile, "standard", "cyan"));
+			final BufferedImage image = RasterExporter.export(args);
 			final File file = new File(IMAGES_FOLDER, stId + "." + ext);
 			ImageIO.write(image, ext, file);
-		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | IOException | DiagramProfileException e) {
+		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | IOException e) {
+			e.printStackTrace();
+		} catch (EHLDException e) {
 			e.printStackTrace();
 		}
 	}
 
-
 	private void renderSilent(String stId, String ext, double factor, Decorator decorator, String profile) {
-		if (!download(stId))
-			Assert.fail("Diagram " + stId + " not found");
 		try {
-			RasterExporter.export(stId, DIAGRAMS_FOLDER.getAbsolutePath(),
-					ext, factor, decorator, null,
-					new ColorScheme(profile, "standard", "cyan"));
-		} catch (DiagramJsonNotFoundException | DiagramProfileException | DiagramJsonDeserializationException e) {
+			final RasterArgs args = new RasterArgs(stId, ext);
+			args.setFactor(factor);
+			args.setDecorator(decorator);
+			args.setProfiles(new ColorProfiles(profile, "standard", "cyan"));
+			RasterExporter.export(args);
+		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException e) {
+			e.printStackTrace();
+		} catch (EHLDException e) {
 			e.printStackTrace();
 		}
 	}

@@ -4,9 +4,11 @@ import org.reactome.server.tools.diagram.data.layout.Bound;
 import org.reactome.server.tools.diagram.data.layout.Compartment;
 import org.reactome.server.tools.diagram.data.layout.Coordinate;
 import org.reactome.server.tools.diagram.data.layout.impl.CoordinateFactory;
-import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties;
 
@@ -38,14 +40,25 @@ public class CompartmentRenderer {
 	}
 
 
-	public void draw(DiagramCanvas canvas, List<Compartment> compartments, ColorProfiles profile) {
-		final Color fill = profile.getDiagramSheet().getCompartment().getFill();
-//		final Paint fill = ColorFactory.parseColor(fillString);
-		// Inner color is the sum of the fill color with itself
-		final Color innerColor = ColorFactory.blend(fill, fill);
-		final Color border = profile.getDiagramSheet().getCompartment().getStroke();
+	public void draw(DiagramCanvas canvas, List<Compartment> compartments, ColorProfiles profile, DiagramIndex index) {
 		final Stroke stroke = StrokeProperties.StrokeStyle.BORDER.getStroke(false);
-		final Color text = profile.getDiagramSheet().getCompartment().getText();
+		final Color fill;
+		final Color innerColor;
+		final Color text;
+		final Color border;
+		if (index.getAnalysisType() == AnalysisType.NONE) {
+			border = profile.getDiagramSheet().getCompartment().getStroke();
+			text = profile.getDiagramSheet().getCompartment().getText();
+			fill = profile.getDiagramSheet().getCompartment().getFill();
+			// Inner color is the sum of the fill color with itself
+			innerColor = ColorFactory.blend(fill, fill);
+		} else {
+			border = profile.getDiagramSheet().getCompartment().getLighterStroke();
+			text = profile.getDiagramSheet().getCompartment().getLighterText();
+			fill = profile.getDiagramSheet().getCompartment().getLighterFill();
+			// Inner color is the sum of the fill color with itself
+			innerColor = ColorFactory.blend(fill, fill);
+		}
 
 		final List<Shape> outer = compartments.stream()
 				.map(this::outer)
@@ -56,7 +69,7 @@ public class CompartmentRenderer {
 
 		// Instead of painting both rectangles for each compartment
 		// we fill the inner one, but for the outer we paint only the residual
-		// space. That means that we are setting each pixel only once
+		// space. That means that we are setting each pixel only once!
 		for (int i = 0; i < outer.size(); i++) {
 			final Area out = new Area(outer.get(i));
 			if (inner.get(i) != null) {

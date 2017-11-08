@@ -39,4 +39,9 @@ public class FillDrawLayerImpl implements FillDrawLayer {
 					});
 				}));
 	}
+
+	@Override
+	public void clear() {
+		shapes.clear();
+	}
 }

@@ -26,4 +26,9 @@ public class FillLayerImpl implements FillLayer {
 			shapes.forEach(graphics::fill);
 		});
 	}
+
+	@Override
+	public void clear() {
+		shapes.clear();
+	}
 }

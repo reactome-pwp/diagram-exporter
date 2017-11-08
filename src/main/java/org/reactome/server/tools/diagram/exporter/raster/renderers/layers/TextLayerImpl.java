@@ -43,6 +43,11 @@ public class TextLayerImpl implements TextLayer {
 		});
 	}
 
+	@Override
+	public void clear() {
+		texts.clear();
+	}
+
 	private class RenderableText {
 
 		private final String text;

@@ -1,9 +1,8 @@
 package org.reactome.server.tools.diagram.exporter.raster.profiles;
 
-import org.reactome.server.tools.diagram.exporter.raster.color.GradientSheet;
-
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +17,7 @@ public class ColorFactory {
 	// of course, this shouldn't be necessary if the Profiles already had the
 	// colors parsed
 	private static final Map<String, Color> cache = new HashMap<>();
+	private static final float INV_255 = 0.003921569f; // 1 / 255
 
 	public static Color parseColor(String color) {
 		if (color == null || color.trim().isEmpty()) return null;
@@ -65,11 +65,11 @@ public class ColorFactory {
 
 	public static Color interpolate(GradientSheet gradient, double scale) {
 		if (gradient.getStop() == null)
-			return interpolate(gradient.getMax(), gradient.getMin(), scale);
+			return interpolate(gradient.getMin(), gradient.getMax(), scale);
 		else if (scale < 0.5)
-			return interpolate(gradient.getMax(), gradient.getStop(), scale * 2);
+			return interpolate(gradient.getMin(), gradient.getStop(), scale * 2);
 		else
-			return interpolate(gradient.getStop(), gradient.getMin(), (scale - 0.5) * 2);
+			return interpolate(gradient.getStop(), gradient.getMax(), (scale - 0.5) * 2);
 	}
 
 	private static Color interpolate(Color a, Color b, double t) {
@@ -81,5 +81,40 @@ public class ColorFactory {
 				(int) (a.getGreen() + (b.getGreen() - a.getGreen()) * scale),
 				(int) (a.getBlue() + (b.getBlue() - a.getBlue()) * scale),
 				(int) (a.getAlpha() + (b.getAlpha() - a.getAlpha()) * scale));
+	}
+
+	public static String hex(Color color) {
+		return String.format("#%02X%02X%02X", color.getRed(), color.getGreen(), color.getBlue());
+	}
+
+	@SuppressWarnings("unused")
+	public static String rgba(Color color) {
+		final float alpha = color.getAlpha() * INV_255;
+		String a;
+		if (alpha > 0.99) a = "1";
+		else a = String.format("%.2f", alpha);
+		return String.format(Locale.UK, "rgba(%d,%d,%d,%s)", color.getRed(),
+				color.getGreen(), color.getBlue(), a);
+	}
+
+	public static String getColorMatrix(Color color) {
+		// X * INV_255 = X / 255
+		// multiplication is CPU faster than division
+		final String r = String.format(Locale.UK, "%.2f", color.getRed() * INV_255);
+		final String g = String.format(Locale.UK, "%.2f", color.getGreen() * INV_255);
+		final String b = String.format(Locale.UK, "%.2f", color.getBlue() * INV_255);
+		final String a = String.format(Locale.UK, "%.2f", color.getAlpha() * INV_255);
+
+		// RR RG RB RA R
+		// GR GG GB GA G
+		// BR BG BB BA B
+		// AR AG AB AA A
+		// RG means how much input red to put in output green [0-1]
+		// In this case we use absolute values for RGB
+		// and
+		return "0 0 0 0 " + r +
+				" 0 0 0 0 " + g +
+				" 0 0 0 0 " + b +
+				" 0 0 0 " + a + " 0";
 	}
 }

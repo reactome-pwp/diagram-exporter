@@ -7,7 +7,7 @@ import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.FoundEntity;
-import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
@@ -31,10 +31,8 @@ import java.util.stream.Collectors;
  */
 public abstract class NodeAbstractRenderer extends AbstractRenderer {
 
-	private static final int COL = 0;
-
 	@Override
-	public void draw(DiagramCanvas canvas, DiagramObject item, ColorProfiles colorProfiles, DiagramIndex index) {
+	public void draw(DiagramCanvas canvas, DiagramObject item, ColorProfiles colorProfiles, DiagramIndex index, int t) {
 		final NodeCommon node = (NodeCommon) item;
 		final NodeRenderInfo info = new NodeRenderInfo(node, index, colorProfiles, canvas, this);
 		flag(info);
@@ -42,7 +40,7 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 		background(info);
 		// color profiles for the gradients
 		// index for the analysis max and min
-		double splitText = analysis(colorProfiles, index, info);
+		double splitText = analysis(colorProfiles, index, info, t);
 		foreground(info);
 		attachment(info);
 		border(info);
@@ -66,10 +64,10 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 		}
 	}
 
-	private double analysis(ColorProfiles colorProfiles, DiagramIndex index, NodeRenderInfo info) {
+	private double analysis(ColorProfiles colorProfiles, DiagramIndex index, NodeRenderInfo info, int t) {
 		double splitText = 0.0;
 		if (index.getAnalysisType() == AnalysisType.EXPRESSION)
-			splitText = expression(colorProfiles, index, info);
+			splitText = expression(colorProfiles, index, info, t);
 		else if (index.getAnalysisType() == AnalysisType.OVERREPRESENTATION)
 			enrichment(colorProfiles, info);
 		return splitText;
@@ -154,7 +152,7 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 		}
 	}
 
-	public double expression(ColorProfiles colorProfiles, DiagramIndex index, NodeRenderInfo info) {
+	public double expression(ColorProfiles colorProfiles, DiagramIndex index, NodeRenderInfo info, int t) {
 		// Sorted during index
 		final List<FoundEntity> expressions = info.getDecorator().getExpressions();
 		double splitText = 0.0;
@@ -163,7 +161,7 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 					.filter(Objects::nonNull)
 					.collect(Collectors.toList());
 			final List<Double> values = withExpression.stream()
-					.map(participant -> participant.getExp().get(COL))
+					.map(participant -> participant.getExp().get(t))
 					.collect(Collectors.toList());
 			final int size = expressions.size();
 

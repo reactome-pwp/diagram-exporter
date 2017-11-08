@@ -47,6 +47,7 @@ public class DiagramIndex {
 	private double minExpression = 0;
 	private AnalysisType analysisType = AnalysisType.NONE;
 	private NodeDecorator selected;
+	private int expressionSize;
 
 	/**
 	 * Creates a new DiagramIndex with the information for each node in maps.
@@ -86,8 +87,8 @@ public class DiagramIndex {
 		if (decorator != null) {
 			collectNodes();
 			collectReactions();
-			collectAnalysis();
 		}
+		collectAnalysis();
 	}
 
 	private void collectNodes() {
@@ -180,6 +181,7 @@ public class DiagramIndex {
 			if (analysisType == AnalysisType.EXPRESSION) {
 				maxExpression = result.getExpression().getMax();
 				minExpression = result.getExpression().getMin();
+				expressionSize = result.getExpression().getColumnNames().size();
 				expression(token, stId, resource);
 			} else if (analysisType == AnalysisType.OVERREPRESENTATION)
 				enrichment(token, stId, resource);
@@ -333,6 +335,10 @@ public class DiagramIndex {
 
 	public NodeDecorator getSelected() {
 		return selected;
+	}
+
+	public int getExpressionSize() {
+		return expressionSize;
 	}
 
 	public class DiagramObjectDecorator {

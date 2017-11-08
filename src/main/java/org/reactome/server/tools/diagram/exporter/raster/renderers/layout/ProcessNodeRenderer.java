@@ -40,7 +40,7 @@ public class ProcessNodeRenderer extends NodeAbstractRenderer {
 	}
 
 	@Override
-	public double expression(ColorProfiles colorProfiles, DiagramIndex index, NodeRenderInfo info) {
+	public double expression(ColorProfiles colorProfiles, DiagramIndex index, NodeRenderInfo info, int t) {
 		final Double percentage = info.getDecorator().getEnrichment();
 		if (percentage != null && percentage > 0) {
 			final NodeProperties prop = info.getNode().getProp();

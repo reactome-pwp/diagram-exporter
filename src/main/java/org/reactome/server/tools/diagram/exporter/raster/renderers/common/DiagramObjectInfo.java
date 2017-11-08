@@ -1,7 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
-import org.reactome.server.tools.diagram.exporter.raster.color.DiagramSheet;
-import org.reactome.server.tools.diagram.exporter.raster.color.NodeColorSheet;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.DiagramSheet;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.NodeColorSheet;
 
 /**
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)

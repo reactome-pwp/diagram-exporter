@@ -2,10 +2,10 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
 import org.reactome.server.tools.diagram.data.layout.Connector;
 import org.reactome.server.tools.diagram.data.layout.EdgeCommon;
-import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
-import org.reactome.server.tools.diagram.exporter.raster.color.DiagramSheet;
-import org.reactome.server.tools.diagram.exporter.raster.color.NodeColorSheet;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.DiagramSheet;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.NodeColorSheet;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.DrawLayer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.FillDrawLayer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.TextLayer;
