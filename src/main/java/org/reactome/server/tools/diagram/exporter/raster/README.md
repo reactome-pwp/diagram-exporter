@@ -1,4 +1,4 @@
-<img src=https://cloud.githubusercontent.com/assets/6883670/22938783/bbef4474-f2d4-11e6-92a5-07c1a6964491.png width=220 height=100 />
+<img src=https://reactome.org/images/logo/imagotype/positive/Reactome_Imagotype_Positive_25mm.png />
 
 # Raster exporter
 Exports a diagram in the Pathway Browser to an image. Current supported formats are:
@@ -8,35 +8,81 @@ Exports a diagram in the Pathway Browser to an image. Current supported formats 
 
 The diagram is generated using the diagram JSON file, so you may notice  small differences with Pathway Browser.
 
-<div>
-<img src=doc/R-HSA-169911_pathway-browser.png alt="R-HSA-169911 (Pathway browser)" title="R-HSA-169911 (Pathway browser)"/>
-<img src=doc/R-HSA-169911_diagram-exporter.png alt="R-HSA-169911 (Image exporter)" title="R-HSA-169911 (Image exporter)"/>
-</div>
-
 With the raster exporter you can generate High Definition images up to 100 megapixels.
+
+Images are generated from the EHLD if it is available.
 
 ## Exporting a diagram
 
+### Basic usage
 ```java
-String stId = "R-HSA-169911";
 // This path must contain "R-HSA-169911.json" and "R-HSA-169911.graph.json" files
 String diagramPath = "path/to/diagram";
-String ext = "png"; // png, jpeg, jpg, gif
-Double factor = 2;  // 0.1 to 10
+String ehldPath = "path/to/ehld";
 
-Decorator decorator = new Decorator(selection, flags);
-String token = "MjAxNzEwMTIxNTE2MjJfNjk%253D"; // can be null
-ColorSchem scheme = new ColorScheme("modern", "standard", "cyan");
+final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-5602410", "jpg");
+args.setFactor(3.);
+args.setProfiles(new ColorProfiles("standard", null, null));
+args.setBackground("#444444");
 
-BufferedImage image = RasterExporter.export(stId, diagramPath,
-	ext, factor, decorator, token, scheme);
-
-// If sending through an URL
-URL url = ...;
-HttpUrlConnection connection = (HttpUrlConnection) url.openConnection();
-connection.setDoOutput(true);  // your url must support writing
-ImageIO.write(image, ext, connection.getOutputStream());
+final BufferedImage image = RasterExporter.export(args, diagramPath, ehldPath);
 
 // If saving to a file
-ImageIO.write(image, ext, new File(path, filename));
+final File file = new File(args.getStId() + "." + args.getFormat());
+ImageIO.write(image, args.getFormat(), file);
+
+// If sending through an URL
+URL url = new URL("...");
+HttpUrlConnection connection = (HttpUrlConnection) url.openConnection();
+connection.setDoOutput(true);  // your url must support writing
+ImageIO.write(image, args.getFormat(), connection.getOutputStream());    
+
 ```
+
+### Decorators
+Raster exporter supports decoration: selection and flags. You can specify dbIds, stIds, interactors or geneNames, or a mix of them.
+
+```java
+args.setSelected(Arrays.asList("1234", "R-HSA-1234"));
+args.setFlags(Arrays.asList("PTEN"));
+```
+
+### Analysis
+If you want to see an analysis overlaid, simply add the token to the args.
+```java
+args.setToken("MjAxNzExMDYxMDQ3MzBfMzA%253D");
+```
+
+Diagram exporter automatically detects which type of analysis you run and properly mimics PathwayBrowser appearance.
+
+### Animated GIFs
+If you run an analysis with expression values and want to see an animated GIF with changing colors, use the *exportToGif* method.
+```java
+String stId = "R-HSA-1234";
+File file = new File(stId + ".gif");
+OutputStream os = new FileOutputStream(file);
+RasterRenderer.renderToGif(stId, diagramPath, ehldPath, os);
+os.close();
+```
+
+## Status
+
+feature|diagram|ehld
+---|---|---
+PNG|Yes|Yes
+JPG,JPEG|Yes|Yes
+GIF|Yes|Yes
+Animated GIF|Yes|Yes
+Selection|Yes|No\*
+Flag|Yes|No\*
+EXPRESSION|Yes|Yes
+ENRICHMENT|Yes|Yes
+BACKGROUND|Yes|Yes
+EXP COLUMN|Yes|Yes
+
+\* There is a bug with the SVG renderer (https://issues.apache.org/jira/browse/BATIK-1207). For stability, selection and flagging are deactivated.
+
+## Requirements
+This project requires an external library to deal with the SVG files: BATIK 1.9.
+To install BATIK, download from its webpage, and add all the jar files as dependencies.
+https://xmlgraphics.apache.org/batik/download.html
