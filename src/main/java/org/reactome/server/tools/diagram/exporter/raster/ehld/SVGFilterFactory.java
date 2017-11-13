@@ -1,5 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.raster.ehld;
 
+import org.apache.batik.util.SVGConstants;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -7,35 +8,48 @@ import org.w3c.dom.svg.SVGElement;
 
 import java.awt.*;
 
-import static org.apache.batik.anim.dom.SVGDOMImplementation.SVG_NAMESPACE_URI;
 import static org.apache.batik.util.SVGConstants.*;
 
 class SVGFilterFactory {
 
 	static Element createBorderFilter(Document document, Color color, double width, String prefix) {
+
 		// Create a layer with the color
 		final Element matrix = document.createElementNS(SVG_NAMESPACE_URI, SVG_FE_COLOR_MATRIX_TAG);
 		matrix.setAttribute(SVG_IN_ATTRIBUTE, SVG_SOURCE_GRAPHIC_VALUE);
 		matrix.setAttribute(SVG_VALUES_ATTRIBUTE, ColorFactory.getColorMatrix(color));
 		matrix.setAttribute(SVG_RESULT_ATTRIBUTE, prefix + 1);
+		matrix.setAttribute(SVG_TYPE_ATTRIBUTE, SVG_MATRIX_VALUE);
 
 		// Dilate color layer
 		final Element morpho = document.createElementNS(SVG_NAMESPACE_URI, SVG_FE_MORPHOLOGY_TAG);
 		morpho.setAttribute(SVG_IN_ATTRIBUTE, prefix + 1);
 		morpho.setAttribute(SVG_OPERATOR_ATTRIBUTE, SVG_DILATE_VALUE);
+		morpho.setAttribute(SVG_FILTER_UNITS_ATTRIBUTE, SVG_OBJECT_BOUNDING_BOX_VALUE);
 		morpho.setAttribute(SVG_RADIUS_ATTRIBUTE, String.valueOf(width));
 		morpho.setAttribute(SVG_RESULT_ATTRIBUTE, prefix + 2);
 
 		// Merge dilated with original
-		final Element merge = document.createElementNS(SVG_NAMESPACE_URI, SVG_FE_COMPOSITE_TAG);
-		merge.setAttribute(SVG_IN_ATTRIBUTE, SVG_SOURCE_GRAPHIC_VALUE);
-		merge.setAttribute(SVG_IN2_ATTRIBUTE, prefix + 2);
+		final Element merge = document.createElementNS(SVG_NAMESPACE_URI, SVG_FE_MERGE_TAG);
+		final Element source = document.createElementNS(SVG_NAMESPACE_URI, SVG_FE_MERGE_NODE_TAG);
+		source.setAttribute(SVG_IN_ATTRIBUTE, SVG_SOURCE_GRAPHIC_VALUE);
+		final Element in = document.createElementNS(SVG_NAMESPACE_URI, SVG_FE_MERGE_NODE_TAG);
+		in.setAttribute(SVG_IN_ATTRIBUTE, prefix + 1);
+//		merge.appendChild(source);
+		merge.appendChild(in);
 		merge.setAttribute(SVG_RESULT_ATTRIBUTE, prefix + "Result");
 
 		final Element filter = document.createElementNS(SVG_NAMESPACE_URI, SVG_FILTER_TAG);
+		filter.setAttribute(SVGConstants.SVG_X_ATTRIBUTE, "-25%");
+		filter.setAttribute(SVGConstants.SVG_Y_ATTRIBUTE, "-25%");
+		filter.setAttribute(SVGConstants.SVG_WIDTH_ATTRIBUTE, "150%");
+		filter.setAttribute(SVGConstants.SVG_HEIGHT_ATTRIBUTE, "150%");
+
 		filter.appendChild(matrix);
 		filter.appendChild(morpho);
 		filter.appendChild(merge);
+
+//		filter.setAttribute(SVG_STYLE_ATTRIBUTE, SVG_COLOR_INTERPOLATION_ATTRIBUTE);
 
 		return filter;
 	}

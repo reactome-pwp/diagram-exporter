@@ -1,16 +1,19 @@
 package org.reactome.server.tools.diagram.exporter.raster.ehld;
 
 import org.apache.batik.util.SVGConstants;
-import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.svg.SVGDocument;
 
 import java.awt.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
-import static org.apache.batik.anim.dom.SVGDOMImplementation.SVG_NAMESPACE_URI;
 import static org.apache.batik.util.SVGConstants.*;
 
 class SVGLegendRenderer {
@@ -24,8 +27,9 @@ class SVGLegendRenderer {
 	private static final String LEGEND_GRADIENT = "legend-gradient";
 	private static final double TEXT_PADDING = 2;
 	private static final int FONT_SIZE = 12;
+	public static final String TICKS = "ticks";
 
-	static void legend(SVGDocument document, RasterArgs args) {
+	static void legend(SVGDocument document, GradientSheet gradientSheet, double top, double bottom) {
 		// Legend dims: to be put as constants
 		final double bgWidth = LEGEND_WIDTH + 2 * BG_PADDING;
 		final double bgHeight = LEGEND_HEIGHT + 2 * BG_PADDING;
@@ -52,7 +56,7 @@ class SVGLegendRenderer {
 		//         - stop min
 		//         - stop max
 
-		final Element legendGradient = createGradient(document, args);
+		final Element legendGradient = createGradient(document, gradientSheet);
 		SVGUtil.appendToDefs(document, legendGradient);
 
 		final Element legend = document.createElementNS(SVG_NAMESPACE_URI, SVG_G_TAG);
@@ -68,14 +72,14 @@ class SVGLegendRenderer {
 		topText.setAttribute(SVG_Y_ATTRIBUTE, String.valueOf((height - LEGEND_HEIGHT) * 0.5 - TEXT_PADDING));
 		topText.setAttribute(SVG_TEXT_ANCHOR_ATTRIBUTE, SVG_MIDDLE_VALUE);
 		topText.setAttribute(SVG_STYLE_ATTRIBUTE, "font-size: " + FONT_SIZE);
-		topText.setTextContent("0");
+		topText.setTextContent(String.valueOf(top));
 
 		final Element bottomText = document.createElementNS(SVG_NAMESPACE_URI, SVG_TEXT_TAG);
 		bottomText.setAttribute(SVG_X_ATTRIBUTE, String.valueOf(centerX));
 		bottomText.setAttribute(SVG_Y_ATTRIBUTE, String.valueOf((height + LEGEND_HEIGHT) * 0.5 + TEXT_PADDING + FONT_SIZE));
 		bottomText.setAttribute(SVG_TEXT_ANCHOR_ATTRIBUTE, SVG_MIDDLE_VALUE);
 		bottomText.setAttribute(SVG_STYLE_ATTRIBUTE, "font-size: " + FONT_SIZE);
-		bottomText.setTextContent(String.valueOf(SVGAnalisysRenderer.THRESHOLD));
+		bottomText.setTextContent(String.valueOf(bottom));
 
 		legend.appendChild(background);
 		legend.appendChild(gradientBox);
@@ -113,7 +117,7 @@ class SVGLegendRenderer {
 		document.getRootElement().setAttribute(SVG_VIEW_BOX_ATTRIBUTE, newVB);
 	}
 
-	private static Element createGradient(SVGDocument document, RasterArgs args) {
+	private static Element createGradient(SVGDocument document, GradientSheet gradient) {
 		final Element legendGradient = document.createElementNS(SVG_NAMESPACE_URI, SVG_LINEAR_GRADIENT_TAG);
 		legendGradient.setAttribute(SVG_ID_ATTRIBUTE, LEGEND_GRADIENT);
 		legendGradient.setAttribute(SVG_X1_ATTRIBUTE, "0");
@@ -122,16 +126,22 @@ class SVGLegendRenderer {
 		legendGradient.setAttribute(SVG_Y2_ATTRIBUTE, "1");
 
 		final Element startColor = document.createElementNS(SVG_NAMESPACE_URI, SVG_STOP_TAG);
-		final Color sc = args.getProfiles().getAnalysisSheet().getEnrichment().getGradient().getMin();
-		startColor.setAttribute(SVG_STYLE_ATTRIBUTE, String.format("stop-color: %s", ColorFactory.hex(sc)));
+		startColor.setAttribute(SVG_STOP_COLOR_ATTRIBUTE, ColorFactory.hex(gradient.getMin()));
 		startColor.setAttribute(SVG_OFFSET_ATTRIBUTE, "0");
+		legendGradient.appendChild(startColor);
+
+		if (gradient.getStop() != null) {
+			final Element stopColor = document.createElementNS(SVG_NAMESPACE_URI, SVG_STOP_TAG);
+			stopColor.setAttribute(SVG_STOP_COLOR_ATTRIBUTE, ColorFactory.hex(gradient.getStop()));
+			stopColor.setAttribute(SVG_OFFSET_ATTRIBUTE, "0.5");
+			legendGradient.appendChild(stopColor);
+		}
 
 		final Element endColor = document.createElementNS(SVG_NAMESPACE_URI, SVG_STOP_TAG);
-		final Color ec = args.getProfiles().getAnalysisSheet().getEnrichment().getGradient().getMax();
-		endColor.setAttribute(SVG_STYLE_ATTRIBUTE, String.format("stop-color: %s", ColorFactory.hex(ec)));
+		endColor.setAttribute(SVG_STOP_COLOR_ATTRIBUTE, ColorFactory.hex(gradient.getMax()));
 		endColor.setAttribute(SVG_OFFSET_ATTRIBUTE, "1");
-		legendGradient.appendChild(startColor);
 		legendGradient.appendChild(endColor);
+
 		return legendGradient;
 	}
 
@@ -140,20 +150,21 @@ class SVGLegendRenderer {
 		// - g id=LEGEND
 		//     - ...
 		//     - gradient-box
-		//     - tick
+		//     - ticks
 		//          - line
-		//          - polygon
+		//          - polygon (triangle)
 
 		final String hexColor = ColorFactory.hex(color);
 
 		// Find legend box, ith should exist
 		final Element box = document.getElementById(GRADIENT_BOX);
+		final Element ticks = getOrCreateTicks(document);
 		final double x = Double.valueOf(box.getAttribute(SVG_X_ATTRIBUTE));
 		final double y = Double.valueOf(box.getAttribute(SVG_Y_ATTRIBUTE));
 		final double w = Double.valueOf(box.getAttribute(SVG_WIDTH_ATTRIBUTE));
 		final double h = Double.valueOf(box.getAttribute(SVG_HEIGHT_ATTRIBUTE));
 
-		final double y1 = value * h / SVGAnalisysRenderer.THRESHOLD + y;
+		final double y1 = y + value * h;
 
 		// 1 Line
 		// y1 - y    val - 0
@@ -166,7 +177,7 @@ class SVGLegendRenderer {
 		line.setAttribute(SVG_Y2_ATTRIBUTE, String.valueOf(y1));
 		line.setAttribute(SVG_STROKE_ATTRIBUTE, hexColor);
 
-		box.getParentNode().appendChild(line);
+		ticks.appendChild(line);
 
 		// 2 Triangle
 		final Element tri = document.createElementNS(SVG_NAMESPACE_URI, SVG_POLYGON_TAG);
@@ -176,6 +187,28 @@ class SVGLegendRenderer {
 				x + w + 5, y1 + 5);
 		tri.setAttribute(SVG_POINTS_ATTRIBUTE, points);
 		tri.setAttribute(SVG_FILL_ATTRIBUTE, hexColor);
-		box.getParentNode().appendChild(tri);
+		ticks.appendChild(tri);
+	}
+
+	public static void clearTicks(SVGDocument document) {
+		// Find legend box, it should exist
+		final Element ticks = getOrCreateTicks(document);
+		final List<Node> children = new LinkedList<>();
+		IntStream.range(0, ticks.getChildNodes().getLength())
+				.mapToObj(ticks.getChildNodes()::item)
+				.forEach(children::add);
+		children.forEach(ticks::removeChild);
+
+	}
+
+	private static Element getOrCreateTicks(SVGDocument document) {
+		Element ticks = document.getElementById(TICKS);
+		if (ticks != null)
+			return ticks;
+		ticks = document.createElementNS(SVG_NAMESPACE_URI, SVG_G_TAG);
+		final Node legend = document.getElementById(GRADIENT_BOX).getParentNode();
+		ticks.setAttribute(SVG_ID_ATTRIBUTE, TICKS);
+		legend.appendChild(ticks);
+		return ticks;
 	}
 }

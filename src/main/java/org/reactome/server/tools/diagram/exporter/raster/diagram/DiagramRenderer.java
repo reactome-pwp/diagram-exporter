@@ -4,11 +4,13 @@ import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
+import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
+import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
-import org.reactome.server.tools.diagram.exporter.raster.gif.Giffer;
+import org.reactome.server.tools.diagram.exporter.raster.gif.AnimatedGifEncoder;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.FontProperties;
@@ -67,13 +69,13 @@ public class DiagramRenderer {
 	/**
 	 * Creates a DiagramRenderer
 	 *
-	 * @param args arguments for rendering
-	 *
+	 * @param args        arguments for rendering
 	 * @param diagramPath
-	 * @throws DiagramJsonNotFoundException if diagram is not found
+	 *
+	 * @throws DiagramJsonNotFoundException        if diagram is not found
 	 * @throws DiagramJsonDeserializationException if diagram is malformed
 	 */
-	public DiagramRenderer(RasterArgs args, String diagramPath) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException {
+	public DiagramRenderer(RasterArgs args, String diagramPath) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException, AnalysisException, AnalysisServerError {
 		final Graph graph = ResourcesFactory.getGraph(diagramPath, args.getStId());
 		diagram = ResourcesFactory.getDiagram(diagramPath, args.getStId());
 		this.args = args;
@@ -123,11 +125,12 @@ public class DiagramRenderer {
 		canvas = new DiagramCanvas();
 		layout();
 
-		final Giffer encoder = new Giffer();
-//		final AnimatedGifEncoder encoder = new AnimatedGifEncoder();
-//		encoder.setDelay(1000);
-//		encoder.setRepeat(0);
-//		encoder.setQuality(1);
+//		final Giffer encoder = new Giffer();
+
+		final AnimatedGifEncoder encoder = new AnimatedGifEncoder();
+		encoder.setDelay(1000);
+		encoder.setRepeat(0);
+		encoder.setQuality(1);
 		encoder.start(outputStream);
 		for (int t = 0; t < index.getExpressionSize(); t++) {
 			System.out.println(t);
@@ -202,7 +205,10 @@ public class DiagramRenderer {
 	                                  double margin) {
 		final Graphics2D graphics = image.createGraphics();
 		if (NO_TRANSPARENT_FORMATS.contains(ext)) {
-			graphics.setBackground(Color.WHITE);
+			Color bgColor = args.getBackground() == null
+					? Color.WHITE
+					: args.getBackground();
+			graphics.setBackground(bgColor);
 			graphics.clearRect(0, 0, image.getWidth(), image.getHeight());
 		}
 		// These 3 lines are really important, they add the margin, move the

@@ -61,10 +61,10 @@ class SVGDecoratorRenderer {
 
 	private static void setFilter(Document document, Set<String> ids, String filter) {
 		ids.stream()
-				.map(stId -> SVGAnalisysRenderer.REGION_ + stId)
+				.map(stId -> SVGAnalysis.REGION_ + stId)
 				.map(document::getElementById)
 				.filter(Objects::nonNull)
-				.forEach(element -> element.setAttribute(SVGConstants.SVG_FILTER_TAG, filter));
+				.forEach(element -> element.setAttribute(SVGConstants.SVG_STYLE_TAG, "filter:" + filter));
 	}
 
 }

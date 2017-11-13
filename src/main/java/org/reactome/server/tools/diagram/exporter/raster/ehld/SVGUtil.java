@@ -6,15 +6,13 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.svg.SVGDocument;
 
-import static org.apache.batik.anim.dom.SVGDOMImplementation.SVG_NAMESPACE_URI;
-import static org.apache.batik.util.SVGConstants.SVG_CLASS_ATTRIBUTE;
-import static org.apache.batik.util.SVGConstants.SVG_DEFS_TAG;
+import static org.apache.batik.util.SVGConstants.*;
 
 public class SVGUtil {
 
 	public static void addInlineStyle(SVGDocument document, String aClass, String style) {
 		final NodeList styles = document.getElementsByTagName(SVGConstants.SVG_STYLE_TAG);
-		if (styles!=null && styles.getLength() > 0) {
+		if (styles != null && styles.getLength() > 0) {
 			final Node item = styles.item(0);
 			item.setTextContent(item.getTextContent() + "." + aClass + style);
 		}

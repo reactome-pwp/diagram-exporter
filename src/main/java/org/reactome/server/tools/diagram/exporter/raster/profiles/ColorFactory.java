@@ -1,11 +1,11 @@
 package org.reactome.server.tools.diagram.exporter.raster.profiles;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Parse colors in hex RGB (#FF0000) and rgba(255,255,0, 0.5)
@@ -100,11 +100,14 @@ public class ColorFactory {
 	public static String getColorMatrix(Color color) {
 		// X * INV_255 = X / 255
 		// multiplication is CPU faster than division
-		final String r = String.format(Locale.UK, "%.2f", color.getRed() * INV_255);
-		final String g = String.format(Locale.UK, "%.2f", color.getGreen() * INV_255);
-		final String b = String.format(Locale.UK, "%.2f", color.getBlue() * INV_255);
-		final String a = String.format(Locale.UK, "%.2f", color.getAlpha() * INV_255);
-
+//		final String r = String.format(Locale.UK, "%.2f", color.getRed() * INV_255);
+//		final String g = String.format(Locale.UK, "%.2f", color.getGreen() * INV_255);
+//		final String b = String.format(Locale.UK, "%.2f", color.getBlue() * INV_255);
+//		final String a = String.format(Locale.UK, "%.2f", color.getAlpha() * INV_255);
+		final float r = color.getRed() * INV_255;
+		final float g = color.getBlue() * INV_255;
+		final float b = color.getGreen() * INV_255;
+		final float a = color.getAlpha() * INV_255;
 		// RR RG RB RA R
 		// GR GG GB GA G
 		// BR BG BB BA B
@@ -112,9 +115,14 @@ public class ColorFactory {
 		// RG means how much input red to put in output green [0-1]
 		// In this case we use absolute values for RGB
 		// and
-		return "0 0 0 0 " + r +
-				" 0 0 0 0 " + g +
-				" 0 0 0 0 " + b +
-				" 0 0 0 " + a + " 0";
+		final Float[] floats = new Float[]{
+				0f, 0f, 0f, r, 0f,
+				0f, 0f, 0f, g, 0f,
+				0f, 0f, 0f, b, 0f,
+				0f, 0f, 0f, a, 0f};
+		final List<String> strings = Arrays.stream(floats)
+				.map(String::valueOf)
+				.collect(Collectors.toList());
+		return String.join(" ", strings);
 	}
 }

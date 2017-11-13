@@ -8,6 +8,8 @@ import org.junit.Test;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
+import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
+import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.api.SimpleRasterArgs;
@@ -64,7 +66,8 @@ public class RasterExporterTest {
 					.map(String::valueOf).collect(Collectors.toList());
 //			final List<Long> analysis = getIdsFor("Q13177", graph);
 			final List<String> flags = getIdsFor("O60313", graph).stream()
-					.map(String::valueOf).collect(Collectors.toList());;
+					.map(String::valueOf).collect(Collectors.toList());
+			;
 			selected.add("211734");
 			renderSilent(stId, "png", 1, selected, flags, MODERN);
 		} catch (DiagramJsonDeserializationException | DiagramJsonNotFoundException e) {
@@ -87,7 +90,7 @@ public class RasterExporterTest {
 				"R-HSA-1362409",  // Mithocondrial iron-sulfur cluster biogenesis
 				"R-HSA-169911"  // Regulation of apoptosis
 		);
-		pathways.forEach(stId -> renderToFile(stId, "jpeg", 1,null, null, MODERN));
+		pathways.forEach(stId -> renderToFile(stId, "jpeg", 1, null, null, MODERN));
 	}
 
 	@Test
@@ -165,6 +168,8 @@ public class RasterExporterTest {
 			ImageIO.write(image, ext, file);
 		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | IOException | EHLDException e) {
 			Assert.fail(e.getMessage());
+		} catch (AnalysisServerError | AnalysisException analysisServerError) {
+			analysisServerError.printStackTrace();
 		}
 	}
 
@@ -178,6 +183,8 @@ public class RasterExporterTest {
 			RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
 		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | EHLDException e) {
 			Assert.fail(e.getMessage());
+		} catch (AnalysisServerError | AnalysisException analysisServerError) {
+			analysisServerError.printStackTrace();
 		}
 	}
 

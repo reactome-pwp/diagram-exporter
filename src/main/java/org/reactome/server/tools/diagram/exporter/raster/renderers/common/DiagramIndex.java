@@ -54,7 +54,7 @@ public class DiagramIndex {
 	 * @param diagram diagram with nodes and reactions
 	 * @param graph   background graph
 	 */
-	public DiagramIndex(Diagram diagram, Graph graph, RasterArgs args) {
+	public DiagramIndex(Diagram diagram, Graph graph, RasterArgs args) throws AnalysisServerError, AnalysisException {
 		this.diagram = diagram;
 		this.graph = graph;
 		this.args = args;
@@ -80,7 +80,7 @@ public class DiagramIndex {
 				.forEach(connector -> getEdgeDecorator(connector.getEdgeId()).getConnectors().add(connector));
 	}
 
-	private void collect() {
+	private void collect() throws AnalysisException, AnalysisServerError {
 		final List<Long> sel = getSelectedIds();
 		final List<Long> flg = getFlagged();
 		decorateNodes(sel, flg);
@@ -204,32 +204,30 @@ public class DiagramIndex {
 	/**
 	 * Extracts analysis information and attaches it to each diagram node.
 	 */
-	private void collectAnalysis() {
+	private void collectAnalysis() throws AnalysisServerError, AnalysisException {
 		if (args.getToken() == null || args.getToken().isEmpty())
 			return;
 		final String stId = graph.getStId();
 		System.out.println(args.getToken()); // TODO: delete on production
 		System.out.println(stId);
-		try {
-			final AnalysisResult result = AnalysisClient.getAnalysisResult(args.getToken());
-			final List<ResourceSummary> summaryList = result.getResourceSummary();
-			final ResourceSummary resourceSummary = summaryList.size() == 2
-					? summaryList.get(1)
-					: summaryList.get(0);
-			final String resource = resourceSummary.getResource();
-			analysisType = AnalysisType.getType(result.getSummary().getType());
-			subPathways(args.getToken(), resource);
-			if (analysisType == AnalysisType.EXPRESSION) {
-				maxExpression = result.getExpression().getMax();
-				minExpression = result.getExpression().getMin();
-				expressionSize = result.getExpression().getColumnNames().size();
-				expression(args.getToken(), stId, resource);
-			} else if (analysisType == AnalysisType.OVERREPRESENTATION)
-				enrichment(args.getToken(), stId, resource);
 
-		} catch (AnalysisException | AnalysisServerError e) {
-			e.printStackTrace();
-		}
+		final AnalysisResult result = AnalysisClient.getAnalysisResult(args.getToken());
+		final List<ResourceSummary> summaryList = result.getResourceSummary();
+		final ResourceSummary resourceSummary = summaryList.size() == 2
+				? summaryList.get(1)
+				: summaryList.get(0);
+		final String resource = resourceSummary.getResource();
+		analysisType = AnalysisType.getType(result.getSummary().getType());
+		subPathways(args.getToken(), resource);
+		if (analysisType == AnalysisType.EXPRESSION) {
+			maxExpression = result.getExpression().getMax();
+			minExpression = result.getExpression().getMin();
+			expressionSize = result.getExpression().getColumnNames().size();
+			expression(args.getToken(), stId, resource);
+		} else if (analysisType == AnalysisType.OVERREPRESENTATION)
+			enrichment(args.getToken(), stId, resource);
+
+
 	}
 
 	/**

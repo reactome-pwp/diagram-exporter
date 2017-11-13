@@ -1,6 +1,8 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
 import org.apache.commons.io.IOUtils;
+import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
+import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
@@ -9,10 +11,11 @@ import org.reactome.server.tools.diagram.exporter.raster.ehld.EHLDRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,11 +29,10 @@ public class RasterExporter {
 
 	static {
 		try {
-			final URL url = new URL("https://reactome.org/download/current/ehld/svgsummary.txt");
-			final List<String> lines = IOUtils.readLines(url.openStream());
+//			final URL url = new URL("https://reactome.org/download/current/ehld/svgsummary.txt");
+			final URL url = new File("/media/pascual/Disco1TB/reactome/svgsummary.txt").toURI().toURL();
+			final List<String> lines = IOUtils.readLines(url.openStream(), Charset.defaultCharset());
 			hasEHLD.addAll(lines);
-		} catch (MalformedURLException e) {
-//			e.printStackTrace();
 		} catch (IOException e) {
 //			e.printStackTrace();
 		}
@@ -40,9 +42,14 @@ public class RasterExporter {
 	 * If you want an animated GIF, then image is generated directly into an
 	 * OutputStream. Use this method only in that case.
 	 */
-	public static void exportToGif(RasterArgs args, OutputStream os, String diagramPath) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException, IOException {
-		final DiagramRenderer renderer = new DiagramRenderer(args, diagramPath);
-		renderer.renderToAnimatedGif(os);
+	public static void exportToGif(RasterArgs args, String diagramPath, String ehldPath, OutputStream os) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException, EHLDException, AnalysisServerError, AnalysisException, IOException {
+		if (hasEHLD.contains(args.getStId())) {
+			final EHLDRenderer renderer = new EHLDRenderer(args, ehldPath);
+			renderer.renderToAnimatedGif(os);
+		} else {
+			final DiagramRenderer renderer = new DiagramRenderer(args, diagramPath);
+			renderer.renderToAnimatedGif(os);
+		}
 	}
 
 	/**
@@ -68,24 +75,17 @@ public class RasterExporter {
 	 * </code>
 	 *
 	 * @param args        arguments for the export
-	 * @param diagramPath
-	 * @param ehldPath
+	 * @param diagramPath location of diagrams
+	 * @param ehldPath    location of ehld
 	 */
-	public static BufferedImage export(RasterArgs args, String diagramPath, String ehldPath) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException, EHLDException {
+	public static BufferedImage export(RasterArgs args, String diagramPath, String ehldPath) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException, EHLDException, AnalysisServerError, AnalysisException {
 		if (hasEHLD.contains(args.getStId())) {
-			return fromEhld(args, ehldPath);
+			final EHLDRenderer renderer = new EHLDRenderer(args, ehldPath);
+			return renderer.render();
 		} else {
-			return fromDiagram(args, diagramPath);
+			final DiagramRenderer renderer = new DiagramRenderer(args, diagramPath);
+			return renderer.render();
 		}
 	}
 
-	private static BufferedImage fromDiagram(RasterArgs args, String diagramPath) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException {
-		final DiagramRenderer renderer = new DiagramRenderer(args, diagramPath);
-		return renderer.render();
-	}
-
-	private static BufferedImage fromEhld(RasterArgs args, String ehldPath) throws EHLDException {
-		final EHLDRenderer EHLDRenderer = new EHLDRenderer(args, ehldPath);
-		return EHLDRenderer.render();
-	}
 }
