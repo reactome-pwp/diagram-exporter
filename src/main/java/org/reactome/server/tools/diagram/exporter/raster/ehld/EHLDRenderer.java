@@ -1,11 +1,9 @@
 package org.reactome.server.tools.diagram.exporter.raster.ehld;
 
-import org.apache.batik.transcoder.Transcoder;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.ImageTranscoder;
-import org.apache.batik.transcoder.svg2svg.SVGTranscoder;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
@@ -22,8 +20,6 @@ import org.w3c.dom.svg.SVGDocument;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
@@ -54,9 +50,6 @@ public class EHLDRenderer {
 
 	private BufferedImage renderImage() throws EHLDException {
 		updateDocumentDimensions();
-
-		// FIXME: this is just for debugging. remove for production
-		toFile(document);
 		return toImage(document);
 	}
 
@@ -111,17 +104,6 @@ public class EHLDRenderer {
 		}
 	}
 
-	private void toFile(Document document) {
-		try {
-			final TranscoderInput input = new TranscoderInput(document);
-			final Transcoder trans = new SVGTranscoder();
-			final File output = new File("ehld.svg");
-			trans.transcode(input, new TranscoderOutput(new FileWriter(output)));
-		} catch (TranscoderException | IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	public void renderToAnimatedGif(OutputStream os) throws AnalysisServerError, EHLDException, IOException, AnalysisException {
 		// Check if analysis token is OK
 		final AnalysisResult result = AnalysisClient.getAnalysisResult(args.getToken());
@@ -145,7 +127,6 @@ public class EHLDRenderer {
 			encoder.addFrame(image);
 		}
 		encoder.finish();
-		toFile(document);
 	}
 
 	/**
@@ -159,7 +140,7 @@ public class EHLDRenderer {
 		private String format;
 		private Color background;
 
-		public BufferedImageTranscoder(RasterArgs args) {
+		BufferedImageTranscoder(RasterArgs args) {
 			this.background = args.getBackground() == null
 					? Color.WHITE
 					: args.getBackground();
