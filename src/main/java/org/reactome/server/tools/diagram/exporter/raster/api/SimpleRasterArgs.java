@@ -1,6 +1,5 @@
 package org.reactome.server.tools.diagram.exporter.raster.api;
 
-import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
 import java.awt.*;
@@ -78,8 +77,8 @@ public class SimpleRasterArgs implements RasterArgs {
 		return background;
 	}
 
-	public void setBackground(String color) {
-		this.background = ColorFactory.parseColor(color);
+	public void setBackground(Color color) {
+		this.background = color;
 	}
 
 	/**
