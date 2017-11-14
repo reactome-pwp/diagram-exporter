@@ -291,14 +291,14 @@ public class DiagramIndex {
 					.map(leafId -> analysisIndex.get(graphIndex.get(leafId).getIdentifier()))
 					.collect(Collectors.toList());
 			if (leaves.stream().anyMatch(Objects::nonNull)) {
-				leaves.sort((p1, p2) -> {
-					// put nulls at the end
-					if (p1 == null) return 1;
-					if (p2 == null) return -1;
-					return p1.getId().compareTo(p2.getId());
-				});
+				final List<FoundEntity> collect = leaves.stream().filter(Objects::nonNull)
+						.sorted((Comparator.comparing(IdentifierSummary::getId)))
+						.collect(Collectors.toList());
+				for (int i = 0; i < leaves.size() - collect.size(); i++) {
+					collect.add(null);
+				}
 				final NodeDecorator decorator = getNodeDecorator(diagramNode.getId());
-				decorator.setExpressions(leaves);
+				decorator.setExpressions(collect);
 			}
 		});
 	}
