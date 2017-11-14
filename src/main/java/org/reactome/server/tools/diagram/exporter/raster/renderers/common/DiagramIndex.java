@@ -1,6 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
 import org.reactome.server.tools.diagram.data.graph.EntityNode;
+import org.reactome.server.tools.diagram.data.graph.EventNode;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.data.layout.*;
@@ -40,6 +41,7 @@ public class DiagramIndex {
 	 * [reactome id] graphNode.getDbId()
 	 */
 	private Map<Long, EntityNode> graphIndex;
+	private Map<Long, EventNode> reactionIndex;
 
 	private double maxExpression = Double.MAX_VALUE;
 	private double minExpression = 0;
@@ -74,6 +76,8 @@ public class DiagramIndex {
 				});
 		graphIndex = new HashMap<>();
 		graph.getNodes().forEach(item -> graphIndex.put(item.getDbId(), item));
+		reactionIndex = new HashMap<>();
+		graph.getEdges().forEach(event -> reactionIndex.put(event.getDbId(), event));
 		diagram.getNodes().stream()
 				.map(Node::getConnectors)
 				.flatMap(Collection::stream)
@@ -92,7 +96,7 @@ public class DiagramIndex {
 		if (args.getSelected() == null)
 			return Collections.emptyList();
 		return args.getSelected().stream()
-				.map(this::findNodeId)
+				.map(this::getDiagramObjectId)
 				.filter(Objects::nonNull)
 				.collect(Collectors.toList());
 	}
@@ -101,30 +105,36 @@ public class DiagramIndex {
 		if (args.getFlags() == null)
 			return Collections.emptyList();
 		return args.getFlags().stream()
-				.map(this::findNodeId)
+				.map(this::getDiagramObjectId)
 				.filter(Objects::nonNull)
 				.collect(Collectors.toList());
 	}
 
-	private Long findNodeId(String string) {
+	private Long getDiagramObjectId(String string) {
 		// dbId, this is faster because dbId is indexed
 		try {
 			final long dbId = Long.parseLong(string);
-			if (graphIndex.containsKey(dbId))
-				return (dbId);
+			if (graphIndex.containsKey(dbId)
+					|| reactionIndex.containsKey(dbId))
+				return dbId;
 		} catch (NumberFormatException ignored) {
 			// ignored, not a dbId
 		}
 		for (EntityNode node : graph.getNodes()) {
 			// stId
-			if (string.equals(node.getStId()))
+			if (string.equalsIgnoreCase(node.getStId()))
 				return node.getDbId();
 			// identifier
-			if (string.equals(node.getIdentifier()))
+			if (string.equalsIgnoreCase(node.getIdentifier()))
 				return node.getDbId();
 			// geneNames
 			if (node.getGeneNames() != null && node.getGeneNames().contains(string))
 				return node.getDbId();
+		}
+		// Reactions
+		for (EventNode eventNode : graph.getEdges()) {
+			if (eventNode.getStId().equalsIgnoreCase(string))
+				return eventNode.getDbId();
 		}
 		// Bad luck, not found
 		return null;
@@ -315,13 +325,13 @@ public class DiagramIndex {
 				.forEach(diagramNode -> {
 					final EntityNode graphNode = graphIndex.get(diagramNode.getReactomeId());
 					if (graphNode != null) {
-						double percentage = getPercentage(graphNodeHit, diagramNode, graphNode);
+						double percentage = getPercentage(graphNodeHit, graphNode);
 						getNodeDecorator(diagramNode.getId()).setEnrichment(percentage);
 					}
 				});
 	}
 
-	private double getPercentage(Set<Long> hitIds, Node node, EntityNode graphNode) {
+	private double getPercentage(Set<Long> hitIds, EntityNode graphNode) {
 		final Set<Long> leaves = getLeaves(graphNode);
 		final int total = leaves.size();
 		final long count = leaves.stream().filter(hitIds::contains).count();
