@@ -12,7 +12,7 @@ import java.awt.*;
 public class RnaRenderer extends NodeAbstractRenderer {
 
 	@Override
-	protected Shape backgroundShape(NodeCommon node) {
+	public Shape backgroundShape(NodeCommon node) {
 		final NodeProperties properties = node.getProp();
 		final double x = properties.getX();
 		final double y = properties.getY();

@@ -2,10 +2,10 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
 import org.reactome.server.tools.diagram.data.layout.Connector;
 import org.reactome.server.tools.diagram.data.layout.EdgeCommon;
-import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
-import org.reactome.server.tools.diagram.exporter.raster.color.DiagramSheet;
-import org.reactome.server.tools.diagram.exporter.raster.color.NodeColorSheet;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.DiagramSheet;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.NodeColorSheet;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.DrawLayer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.FillDrawLayer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.TextLayer;
@@ -15,8 +15,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 public class EdgeRenderInfo extends DiagramObjectInfo {
-
-	private final NodeColorSheet profile;
 
 	private final boolean fadeout;
 	private final boolean disease;
@@ -39,7 +37,7 @@ public class EdgeRenderInfo extends DiagramObjectInfo {
 	public EdgeRenderInfo(EdgeCommon edge, boolean dashed, ColorProfiles colorProfiles, DiagramIndex index, DiagramCanvas canvas) {
 		this.decorator = index.getEdgeDecorator(edge.getId());
 		final DiagramSheet diagramSheet = colorProfiles.getDiagramSheet();
-		profile = getDiagramProfileNode(edge.getRenderableClass(), diagramSheet);
+		final NodeColorSheet profile = getNodeColorSheet(edge.getRenderableClass(), diagramSheet);
 
 		fadeout = edge.getIsFadeOut() != null && edge.getIsFadeOut();
 		disease = edge.getIsDisease() != null && edge.getIsDisease();
@@ -83,10 +81,6 @@ public class EdgeRenderInfo extends DiagramObjectInfo {
 				.map(segment -> ShapeFactory.line(segment.getFrom(), segment.getTo()))
 				.forEach(segments::add);
 
-	}
-
-	public NodeColorSheet getProfile() {
-		return profile;
 	}
 
 	public DrawLayer getSegmentsLayer() {

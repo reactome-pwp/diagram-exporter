@@ -4,20 +4,20 @@ import org.reactome.server.tools.diagram.data.graph.EntityNode;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.data.layout.*;
-import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.*;
+import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Indexes a diagram so for each node in the diagram you can get all the logical
- * information about it: if selected, flag, halo, its enrichments and
- * expressions.
+ * Computes all the information that modifies each node basic rendering:
+ * selection, flag, halo and analysis (enrichments and expressions). This data
+ * is not in the Node class.
  *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
@@ -27,72 +27,46 @@ public class DiagramIndex {
 	private final Diagram diagram;
 	private final Graph graph;
 	private final HashMap<Long, DiagramObjectDecorator> index;
-	private Decorator decorator;
-	private String token;
-
+	private RasterArgs args;
 	/**
-	 * [diagram id] item.getId()
+	 * [diagram id] diagramNode.getId()
 	 */
 	private Map<Long, DiagramObject> diagramIndex;
 	/**
-	 * [reactome id] item.getReactomeId()
+	 * [reactome id] diagramNode.getReactomeId(), graphNode.getDbId()
 	 */
 	private Map<Long, DiagramObject> reactomeIndex;
 	/**
-	 * [reactome id] node.getDbId()
+	 * [reactome id] graphNode.getDbId()
 	 */
 	private Map<Long, EntityNode> graphIndex;
 
-	//	/**
-//	 * [diagram id] item.getId()
-//	 */
-//	private Set<Long> selected = new TreeSet<>();
-//	/**
-//	 * [diagram id] item.getId()
-//	 */
-//	private Set<Long> flags = new TreeSet<>();
-//	/**
-//	 * [diagram id] item.getId()
-//	 */
-//	private Set<Long> haloed = new HashSet<>();
-//	/**
-//	 * [diagram id] item.getId()
-//	 */
-//	private Map<Long, Double> enrichment = new HashMap<>();
-//	/**
-//	 * [graph id] graphItem.getId() or diagramItem.getReactomeId()
-//	 */
-//	private Map<Long, List<List<Double>>> expresion = new HashMap<>();
-//	/**
-//	 * [diagram id] edge.getId()
-//	 */
-//	private Map<Long, List<Connector>> connectors;
-	private double maxExpression = 0;
-	private double minExpression = Double.MAX_VALUE;
+	private double maxExpression = Double.MAX_VALUE;
+	private double minExpression = 0;
 	private AnalysisType analysisType = AnalysisType.NONE;
+	private NodeDecorator selected;
+	private int expressionSize;
+
 
 	/**
 	 * Creates a new DiagramIndex with the information for each node in maps.
 	 *
-	 * @param diagram   diagram with nodes and reactions
-	 * @param graph     background graph
-	 * @param decorator decorator with selection and flags
+	 * @param diagram diagram with nodes and reactions
+	 * @param graph   background graph
 	 */
-	public DiagramIndex(Diagram diagram, Graph graph, Decorator decorator, String token) {
+	public DiagramIndex(Diagram diagram, Graph graph, RasterArgs args) throws AnalysisServerError, AnalysisException {
 		this.diagram = diagram;
 		this.graph = graph;
-		this.decorator = decorator;
-		this.token = token;
+		this.args = args;
 		this.index = new HashMap<>();
-		createIndexes();
+		index();
 		collect();
 	}
 
-	private void createIndexes() {
+	private void index() {
 		diagramIndex = new HashMap<>();
 		reactomeIndex = new HashMap<>();
-		Stream.of(diagram.getEdges(), diagram.getNodes(), diagram.getLinks(),
-				diagram.getNotes())
+		Stream.of(diagram.getEdges(), diagram.getNodes(), diagram.getLinks())
 				.flatMap(Collection::stream)
 				.forEach(item -> {
 					diagramIndex.put(item.getId(), item);
@@ -106,48 +80,94 @@ public class DiagramIndex {
 				.forEach(connector -> getEdgeDecorator(connector.getEdgeId()).getConnectors().add(connector));
 	}
 
-	private void collect() {
-		if (decorator != null) {
-			selectNodes();
-			selectReactions();
-			analysis();
-		}
+	private void collect() throws AnalysisException, AnalysisServerError {
+		final List<Long> sel = getSelectedIds();
+		final List<Long> flg = getFlagged();
+		decorateNodes(sel, flg);
+		decorateReactions(sel, flg);
+		collectAnalysis();
 	}
 
+	private List<Long> getSelectedIds() {
+		if (args.getSelected() == null)
+			return Collections.emptyList();
+		return args.getSelected().stream()
+				.map(this::findNodeId)
+				.filter(Objects::nonNull)
+				.collect(Collectors.toList());
+	}
 
-	private void selectNodes() {
+	private List<Long> getFlagged() {
+		if (args.getFlags() == null)
+			return Collections.emptyList();
+		return args.getFlags().stream()
+				.map(this::findNodeId)
+				.filter(Objects::nonNull)
+				.collect(Collectors.toList());
+	}
+
+	private Long findNodeId(String string) {
+		// dbId, this is faster because dbId is indexed
+		try {
+			final long dbId = Long.parseLong(string);
+			if (graphIndex.containsKey(dbId))
+				return (dbId);
+		} catch (NumberFormatException ignored) {
+			// ignored, not a dbId
+		}
+		for (EntityNode node : graph.getNodes()) {
+			// stId
+			if (string.equals(node.getStId()))
+				return node.getDbId();
+			// identifier
+			if (string.equals(node.getIdentifier()))
+				return node.getDbId();
+			// geneNames
+			if (node.getGeneNames() != null && node.getGeneNames().contains(string))
+				return node.getDbId();
+		}
+		// Bad luck, not found
+		return null;
+	}
+
+	private void decorateNodes(List<Long> sel, List<Long> flg) {
+		if (sel.isEmpty() && flg.isEmpty())
+			return;
 		diagram.getNodes().forEach(node -> {
 			// Select node
-			if (decorator.getSelected().contains(node.getReactomeId())) {
+			if (sel.contains(node.getReactomeId())) {
 				final NodeDecorator decorator = getNodeDecorator(node.getId());
 				decorator.setSelected(true);
 				decorator.setHalo(true);
+				// Only one node should be selected. If there is more than one
+				// node selected, then take the last one.
+				selected = decorator;
 				node.getConnectors().forEach(connector -> {
 					final Edge reaction = (Edge) diagramIndex.get(connector.getEdgeId());
 					// When a node is selected, the nodes in the same reaction
 					// are haloed
+					getEdgeDecorator(reaction.getId()).setHalo(true);
 					haloEdgeParticipants(reaction);
 				});
 			}
 			// Flag node
-			if (decorator.getFlags().contains(node.getReactomeId()))
+			if (flg.contains(node.getReactomeId()))
 				getNodeDecorator(node.getId()).setFlag(true);
 		});
 	}
 
-	private void selectReactions() {
+	private void decorateReactions(List<Long> sel, List<Long> flg) {
 		diagram.getEdges().forEach(reaction -> {
 			// Select edge
-			if (decorator.getSelected().contains(reaction.getReactomeId())) {
+			if (sel.contains(reaction.getReactomeId())) {
 				final EdgeDecorator decorator = getEdgeDecorator(reaction.getId());
 				decorator.setSelected(true);
 				decorator.setHalo(true);
 				haloEdgeParticipants(reaction);
 			}
 			// Flag edge
-			if (decorator.getFlags().contains(reaction.getReactomeId())) {
+			if (flg.contains(reaction.getReactomeId()))
 				getEdgeDecorator(reaction.getId()).setFlag(true);
-			}
 		});
 	}
 
@@ -160,15 +180,13 @@ public class DiagramIndex {
 	 */
 	private void haloEdgeParticipants(Edge reaction) {
 		streamParticipants(reaction)
-				.forEach(node -> {
-					if (node.getIsFadeOut() == null || !node.getIsFadeOut())
-						getNodeDecorator(node.getId()).setHalo(true);
-				});
+				.filter(node -> node.getIsFadeOut() == null || !node.getIsFadeOut())
+				.forEach(node -> getNodeDecorator(node.getId()).setHalo(true));
 	}
 
 	/**
 	 * Very convenient method to iterate over all of the activators, catalysts,
-	 * inhibitors, inputs and outputs in a unique stream
+	 * inhibitors, inputs and outputs in a unique stream as diagram Nodes
 	 *
 	 * @param edge the chosen one
 	 *
@@ -184,31 +202,32 @@ public class DiagramIndex {
 	}
 
 	/**
-	 * extracts
+	 * Extracts analysis information and attaches it to each diagram node.
 	 */
-	private void analysis() {
-		if (token == null || token.isEmpty())
+	private void collectAnalysis() throws AnalysisServerError, AnalysisException {
+		if (args.getToken() == null || args.getToken().isEmpty())
 			return;
 		final String stId = graph.getStId();
-		System.out.println(token); // TODO: delete on production
+		System.out.println(args.getToken()); // TODO: delete on production
 		System.out.println(stId);
-		try {
-			final AnalysisResult result = AnalysisClient.getAnalysisResult(token);
-			final List<ResourceSummary> summaryList = result.getResourceSummary();
-			final ResourceSummary resourceSummary = summaryList.size() == 2
-					? summaryList.get(1)
-					: summaryList.get(0);
-			final String resource = resourceSummary.getResource();
-			analysisType = AnalysisType.getType(result.getSummary().getType());
-			subPathways(token, resource);
-			if (analysisType == AnalysisType.EXPRESSION)
-				expression(token, stId, resource);
-			else if (analysisType == AnalysisType.OVERREPRESENTATION)
-				enrichment(token, stId, resource);
 
-		} catch (AnalysisException | AnalysisServerError e) {
-			e.printStackTrace();
-		}
+		final AnalysisResult result = AnalysisClient.getAnalysisResult(args.getToken());
+		final List<ResourceSummary> summaryList = result.getResourceSummary();
+		final ResourceSummary resourceSummary = summaryList.size() == 2
+				? summaryList.get(1)
+				: summaryList.get(0);
+		final String resource = resourceSummary.getResource();
+		analysisType = AnalysisType.getType(result.getSummary().getType());
+		subPathways(args.getToken(), resource);
+		if (analysisType == AnalysisType.EXPRESSION) {
+			maxExpression = result.getExpression().getMax();
+			minExpression = result.getExpression().getMin();
+			expressionSize = result.getExpression().getColumnNames().size();
+			expression(args.getToken(), stId, resource);
+		} else if (analysisType == AnalysisType.OVERREPRESENTATION)
+			enrichment(args.getToken(), stId, resource);
+
+
 	}
 
 	/**
@@ -251,49 +270,45 @@ public class DiagramIndex {
 	 */
 	private void expression(String token, String stId, String resource) throws AnalysisServerError, AnalysisException {
 		final FoundElements foundElements = AnalysisClient.getFoundElements(stId, token, resource);
-		final Map<String, Participant> expressions = new HashMap<>();
-		foundElements.getEntities().forEach(analysisNode -> {
-			final List<Double> exp = analysisNode.getExp();
-			for (Double val : exp) {
-				if (val > maxExpression) maxExpression = val;
-				if (val < minExpression) minExpression = val;
-			}
-			analysisNode.getMapsTo().stream()
-					.map(IdentifierMap::getIds)
-					.flatMap(Collection::stream)
-					.forEach(identifier -> expressions.put(identifier, new Participant(identifier, exp)));
-		});
+		// Index analysis nodes via mapsTo
+		final Map<String, FoundEntity> analysisIndex = new HashMap<>();
+		foundElements.getEntities().forEach(analysisNode ->
+				analysisNode.getMapsTo().stream()
+						.map(IdentifierMap::getIds)
+						.flatMap(Collection::stream)
+						.forEach(identifier -> analysisIndex.put(identifier, analysisNode)));
+
 		diagram.getNodes().forEach(diagramNode -> {
 			final EntityNode graphNode = graphIndex.get(diagramNode.getReactomeId());
 			if (graphNode == null) return;
-			final Set<Long> leaves = getLeaves(graphNode);
-			final List<Participant> collect = leaves.stream()
-					.map(leafId -> expressions.get(graphIndex.get(leafId).getIdentifier()))
+			final List<FoundEntity> leaves = getLeaves(graphNode).stream()
+					.map(leafId -> analysisIndex.get(graphIndex.get(leafId).getIdentifier()))
 					.collect(Collectors.toList());
-			if (collect.stream().anyMatch(Objects::nonNull)) {
-				collect.sort((o1, o2) -> {
-					if (o1 == null) return 1;
-					if (o2 == null) return -1;
-					return o1.identifier.compareTo(o2.identifier);
+			if (leaves.stream().anyMatch(Objects::nonNull)) {
+				leaves.sort((p1, p2) -> {
+					// put nulls at the end
+					if (p1 == null) return 1;
+					if (p2 == null) return -1;
+					return p1.getId().compareTo(p2.getId());
 				});
-				getNodeDecorator(diagramNode.getId()).setExpressions(collect);
+				final NodeDecorator decorator = getNodeDecorator(diagramNode.getId());
+				decorator.setExpressions(leaves);
 			}
 		});
 		System.out.printf("[%.2f-%.2f]\n", minExpression, maxExpression);
 	}
 
-
 	/** Computes only the relation of hit found components and found component */
 	private void enrichment(String token, String stId, String resource) throws AnalysisException, AnalysisServerError {
 		final FoundElements analysisNodes = AnalysisClient.getFoundElements(stId, token, resource);
-		// 1 map foundEntities to graph nodes (EntityNode)
+		// foundEntity.getMapsTo().getIds() -> graphNode.getIdentifier()
 		final Set<String> identifiers = analysisNodes.getEntities().stream()
 				.map(FoundEntity::getMapsTo)
 				.flatMap(Collection::stream)
 				.map(IdentifierMap::getIds)
 				.flatMap(Collection::stream)
 				.collect(Collectors.toSet());
-		// Transform those identifiers into graph nodes
+		// graphNode.getIdentifier() -> graphNode.getDbId()
 		final Set<Long> graphNodeHit = graph.getNodes().stream()
 				.filter(entityNode -> identifiers.contains(entityNode.getIdentifier()))
 				.map(GraphNode::getDbId)
@@ -319,8 +334,8 @@ public class DiagramIndex {
 		if (percentage > 0 && percentage < MIN_ENRICHMENT)
 			percentage = MIN_ENRICHMENT;
 		// TODO: remove on production
-		System.out.printf("[%s]\t %s \t(%d/%d) %.2f\n", node.getRenderableClass(), node.getDisplayName(),
-				count, total, percentage);
+//		System.out.printf("[%s]\t %s \t(%d/%d) %.2f\n", node.getRenderableClass(), node.getDisplayName(),
+//				count, total, percentage);
 		return percentage;
 	}
 
@@ -337,11 +352,11 @@ public class DiagramIndex {
 		}
 	}
 
-	public NodeDecorator getNodeDecorator(long id) {
+	NodeDecorator getNodeDecorator(long id) {
 		return (NodeDecorator) index.computeIfAbsent(id, k -> new NodeDecorator());
 	}
 
-	public EdgeDecorator getEdgeDecorator(long id) {
+	EdgeDecorator getEdgeDecorator(long id) {
 		return (EdgeDecorator) index.computeIfAbsent(id, k -> new EdgeDecorator());
 	}
 
@@ -355,6 +370,14 @@ public class DiagramIndex {
 
 	public AnalysisType getAnalysisType() {
 		return analysisType;
+	}
+
+	public NodeDecorator getSelected() {
+		return selected;
+	}
+
+	public int getExpressionSize() {
+		return expressionSize;
 	}
 
 	public class DiagramObjectDecorator {
@@ -396,7 +419,7 @@ public class DiagramIndex {
 	}
 
 	public class NodeDecorator extends DiagramObjectDecorator {
-		private List<Participant> expressions = null;
+		private List<FoundEntity> expressions = null;
 		private Double enrichment = null;
 
 		public Double getEnrichment() {
@@ -407,31 +430,14 @@ public class DiagramIndex {
 			this.enrichment = enrichment;
 		}
 
-		public List<Participant> getExpressions() {
+		public List<FoundEntity> getExpressions() {
 			return expressions;
 		}
 
-		void setExpressions(List<Participant> expressions) {
+		void setExpressions(List<FoundEntity> expressions) {
 			this.expressions = expressions;
 		}
 
 	}
 
-	public class Participant {
-		private final String identifier;
-		private final List<Double> exp;
-
-		public Participant(String identifier, List<Double> exp) {
-			this.identifier = identifier;
-			this.exp = exp;
-		}
-
-		public List<Double> getExp() {
-			return exp;
-		}
-
-		public String getIdentifier() {
-			return identifier;
-		}
-	}
 }

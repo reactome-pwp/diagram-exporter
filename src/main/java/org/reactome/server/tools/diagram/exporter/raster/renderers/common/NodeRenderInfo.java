@@ -2,89 +2,89 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
 import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
-import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
-import org.reactome.server.tools.diagram.exporter.raster.color.DiagramSheet;
-import org.reactome.server.tools.diagram.exporter.raster.color.NodeColorSheet;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.DiagramSheet;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.NodeColorSheet;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.DrawLayer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.FillDrawLayer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.FillLayer;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.TextLayer;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.NodeAbstractRenderer;
 
 import java.awt.*;
 import java.awt.geom.Area;
 
-import static org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties.get;
-
 /**
+ * When a node is renderer, there are a lot of decisions that must be made.
+ * Colors, shapes, dashing... And these decisions depends on more than one
+ * element: node, renderer, color profile, decorator, token. The
+ * NodeRendererInfo takes all these decisions and give you basic getters
+ *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class NodeRenderInfo extends DiagramObjectInfo {
 
 	private final boolean crossed;
 
-	private final Area backgroundArea;
-	private final NodeColorSheet profile;
+	private final DiagramIndex.NodeDecorator decorator;
+	private final NodeCommon node;
+
 
 	private final Stroke borderStroke;
 	private final Stroke flagStroke;
 	private final Stroke haloStroke;
+	private final Stroke attachmentStroke;
 
 	private final Color backgroundColor;
 	private final Color borderColor;
 	private final Color textColor;
 	private final Color flagColor;
 	private final Color haloColor;
+	private final Color crossColor;
+	private final Color attachmentsFill;
+	private final Color attachmentsBorder;
+	private final Color attachmentsText;
+	private final Color foregroundColor;
 
 	private final FillLayer bgLayer;
 	private final FillLayer fgLayer;
+	private final FillLayer analysisLayer;
 	private final DrawLayer borderLayer;
+	private final DrawLayer flagLayer;
+	private final DrawLayer haloLayer;
+	private final DrawLayer crossLayer;
+	private final FillDrawLayer attachmentsLayer;
 	private final TextLayer textLayer;
-	private final DiagramIndex.NodeDecorator decorator;
-	private final NodeCommon node;
-	private Shape backgroundShape;
-	private Shape foregroundShape;
-	private DrawLayer flagLayer;
-	private DrawLayer haloLayer;
-	private Color foregroundColor;
-	private double textPadding;
-	private double textSplit;
-	private DrawLayer crossLayer;
-	private Color crossColor;
-	private FillDrawLayer attachmentsLayer;
-	private Color attachmentsFill;
-	private Color attachmentsBorder;
-	private Color attachmentsText;
-	private Stroke attachmentStroke;
+
+	private final Shape backgroundShape;
+	private final Shape foregroundShape;
+	private final Area backgroundArea;
 
 	/**
 	 * Creates a NodeRenderInfo with all the info about how to render a node.
 	 *
-	 * @param node           node
-	 * @param index          the diagram index
-	 * @param colors         color profile
-	 * @param canvas         image canvas
-	 * @param background     backgroundShape
-	 * @param foreground     foregroundShape
-	 * @param foregroundFill
+	 * @param node     node
+	 * @param index    the diagram index
+	 * @param colors   color profile
+	 * @param canvas   image canvas
+	 * @param renderer associated renderer
 	 */
-	public NodeRenderInfo(NodeCommon node, DiagramIndex index, ColorProfiles colors, DiagramCanvas canvas, Shape background, Shape foreground, Color foregroundFill) {
+	public NodeRenderInfo(NodeCommon node, DiagramIndex index, ColorProfiles colors, DiagramCanvas canvas, NodeAbstractRenderer renderer) {
 		this.decorator = index.getNodeDecorator(node.getId());
-		this.foregroundShape = foreground;
-		this.backgroundShape = background;
+		this.foregroundShape = renderer.foregroundShape(node);
+		this.backgroundShape = renderer.backgroundShape(node);
 		this.node = node;
+		this.foregroundColor = renderer.getForegroundFill(colors, index);
+
 		final DiagramSheet diagramSheet = colors.getDiagramSheet();
 		flagLayer = canvas.getFlags();
 		haloLayer = canvas.getHalo();
-		textPadding = RendererProperties.NODE_TEXT_PADDING;
-		textSplit = 0.0;
-
-		this.foregroundColor = foregroundFill;
 
 		crossed = node.getIsCrossed() != null && node.getIsCrossed();
-		profile = getDiagramProfileNode(node.getRenderableClass(), diagramSheet);
+		final NodeColorSheet profile = getNodeColorSheet(node.getRenderableClass(), diagramSheet);
 
-		backgroundArea = background == null ? null : new Area(background);
+		backgroundArea = backgroundShape == null ? null : new Area(backgroundShape);
 
 		boolean disease = node.getIsDisease() != null && node.getIsDisease();
 		boolean dashed = node.getNeedDashedBorder() != null && node.getNeedDashedBorder();
@@ -102,34 +102,30 @@ public class NodeRenderInfo extends DiagramObjectInfo {
 			attachmentsLayer = canvas.getFadeOutAttachments();
 
 			backgroundColor = profile.getFadeOutFill();
+			attachmentsFill = profile.getFadeOutFill();
 			borderColor = profile.getFadeOutStroke();
 			textColor = profile.getFadeOutText();
-
 		} else {
 			bgLayer = canvas.getNodeBackground();
 			fgLayer = canvas.getNodeForeground();
 			borderLayer = canvas.getNodeBorder();
-			attachmentsLayer = canvas.getAttachments();
 			textLayer = canvas.getText();
+			attachmentsLayer = canvas.getAttachments();
 			if (index.getAnalysisType() == AnalysisType.NONE) {
-				attachmentsFill = colors.getDiagramSheet().getAttachment().getFill();
-				attachmentsText = colors.getDiagramSheet().getAttachment().getText();
+//				attachmentsFill = colors.getDiagramSheet().getAttachment().getFill();
 				textColor = profile.getText();
 				backgroundColor = profile.getFill();
+				attachmentsFill = profile.getFill();
 
 				if (decorator.isSelected()) {
 					borderColor = diagramSheet.getProperties().getSelection();
-					attachmentsBorder = diagramSheet.getProperties().getSelection();
 				} else if (disease) {
 					borderColor = diagramSheet.getProperties().getDisease();
-					attachmentsBorder = diagramSheet.getProperties().getDisease();
 				} else {
 					borderColor = profile.getStroke();
-					attachmentsBorder = colors.getDiagramSheet().getAttachment().getStroke();
 				}
 			} else {
 				backgroundColor = profile.getLighterFill();
-				attachmentsText = colors.getDiagramSheet().getAttachment().getLighterText();
 				textColor = profile.getLighterText();
 
 				if (index.getAnalysisType() == AnalysisType.OVERREPRESENTATION
@@ -148,20 +144,23 @@ public class NodeRenderInfo extends DiagramObjectInfo {
 		}
 
 		flagColor = diagramSheet.getProperties().getFlag();
-		flagStroke = get(StrokeProperties.StrokeStyle.FLAG, dashed);
+		flagStroke = StrokeProperties.StrokeStyle.FLAG.getStroke(dashed);
+
 		haloColor = diagramSheet.getProperties().getHalo();
 		haloStroke = StrokeProperties.StrokeStyle.HALO.getStroke(dashed);
+
 		attachmentStroke = StrokeProperties.StrokeStyle.SEGMENT.getStroke(false);
 		attachmentsBorder = borderColor;
 		attachmentsText = textColor;
+
+		crossColor = diagramSheet.getProperties().getDisease();
+		crossLayer = canvas.getCross();
+
+		analysisLayer = canvas.getNodeAnalysis();
 	}
 
 	public TextLayer getTextLayer() {
 		return textLayer;
-	}
-
-	public NodeColorSheet getProfile() {
-		return profile;
 	}
 
 	public DrawLayer getBorderLayer() {
@@ -242,14 +241,6 @@ public class NodeRenderInfo extends DiagramObjectInfo {
 		return foregroundColor;
 	}
 
-	public double getTextPadding() {
-		return textPadding;
-	}
-
-	public double getTextSplit() {
-		return textSplit;
-	}
-
 	public DrawLayer getCrossLayer() {
 		return crossLayer;
 	}
@@ -280,5 +271,9 @@ public class NodeRenderInfo extends DiagramObjectInfo {
 
 	public Stroke getAttachmentStroke() {
 		return attachmentStroke;
+	}
+
+	public FillLayer getAnalysisLayer() {
+		return analysisLayer;
 	}
 }

@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
 import java.util.Collection;
 
 public class AnalysisClient {
@@ -43,10 +42,10 @@ public class AnalysisClient {
 
             switch (connection.getResponseCode()){
                 case 200:
-                    String json = IOUtils.toString(connection.getInputStream(), Charset.defaultCharset());
+                    String json = IOUtils.toString(connection.getInputStream());
                     return getObject(FoundElements.class, json);
                 default:
-                    String error = IOUtils.toString(connection.getErrorStream(), Charset.defaultCharset());
+                    String error = IOUtils.toString(connection.getErrorStream());
                     throw new AnalysisException(getObject(AnalysisError.class, error));
             }
         } catch (IOException | DeserializationException e) {
@@ -69,10 +68,10 @@ public class AnalysisClient {
 
             switch (connection.getResponseCode()){
                 case 200:
-                    String json = IOUtils.toString(connection.getInputStream(), Charset.defaultCharset());
+                    String json = IOUtils.toString(connection.getInputStream());
                     return getObject(PathwaySummary[].class, json);
                 default:
-                    String error = IOUtils.toString(connection.getErrorStream(), Charset.defaultCharset());
+                    String error = IOUtils.toString(connection.getErrorStream());
                     throw new AnalysisException(getObject(AnalysisError.class, error));
             }
         } catch (IOException | DeserializationException e) {
@@ -95,10 +94,10 @@ public class AnalysisClient {
 
             switch (connection.getResponseCode()){
                 case 200:
-                    String json = IOUtils.toString(connection.getInputStream(), Charset.defaultCharset());
+                    String json = IOUtils.toString(connection.getInputStream());
                     return getObject(AnalysisResult.class, json);
                 default:
-                    String error = IOUtils.toString(connection.getErrorStream(), Charset.defaultCharset());
+                    String error = IOUtils.toString(connection.getErrorStream());
                     throw new AnalysisException(getObject(AnalysisError.class, error));
             }
         } catch (IOException | DeserializationException e) {
@@ -124,10 +123,10 @@ public class AnalysisClient {
 
             switch (connection.getResponseCode()){
                 case 200:
-                    String json = IOUtils.toString(connection.getInputStream(), Charset.defaultCharset());
+                    String json = IOUtils.toString(connection.getInputStream());
                     return getObject(AnalysisResult.class, json);
                 default:
-                    String error = IOUtils.toString(connection.getErrorStream(), Charset.defaultCharset());
+                    String error = IOUtils.toString(connection.getErrorStream());
                     throw new AnalysisException(getObject(AnalysisError.class, error));
             }
         } catch (DeserializationException | AnalysisException | IOException e) {

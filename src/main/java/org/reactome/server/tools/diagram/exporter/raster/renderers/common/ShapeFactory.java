@@ -288,4 +288,8 @@ public class ShapeFactory {
 				prop.getHeight() - 2 * padding);
 
 	}
+
+	public static Shape rectangle(NodeProperties prop) {
+		return new Rectangle2D.Double(prop.getX(), prop.getY(), prop.getWidth(), prop.getHeight());
+	}
 }

@@ -1,5 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.common;
 
+import org.apache.batik.anim.dom.SAXSVGDocumentFactory;
+import org.apache.batik.util.XMLResourceDescriptor;
 import org.apache.commons.io.IOUtils;
 import org.reactome.server.tools.diagram.data.DiagramFactory;
 import org.reactome.server.tools.diagram.data.exception.DeserializationException;
@@ -9,13 +11,15 @@ import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDMalformedException;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ProfileResources;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.svg.SVGDocument;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,9 +32,9 @@ import java.nio.file.Paths;
 public class ResourcesFactory {
 
 	private static final Logger logger = LoggerFactory.getLogger("infoLogger");
+
 	private static final String DEFAULT_DIAGRAM_PROFILE = "modern";
-	private static final String DEFAULT_ANALYSIS_PROFILE = "standard";
-	private static final String DEFAULT_INTERACTORS_PROFILE = "cyan";
+	private static final SAXSVGDocumentFactory DOCUMENT_FACTORY = new SAXSVGDocumentFactory(XMLResourceDescriptor.getXMLParserClassName());
 
 	/**
 	 * Loads into memory the DiagramProfile corresponding to getName profile. If
@@ -42,8 +46,8 @@ public class ResourcesFactory {
 	 * @return the DiagramProfile for getName, or a default one
 	 *
 	 * @throws DiagramProfileException             when there is no file
-	 *                                             associated to getName, neither a
-	 *                                             default diagram
+	 *                                             associated to getName,
+	 *                                             neither a default diagram
 	 * @throws DiagramJsonDeserializationException when profile file is not well
 	 *                                             formed
 	 */
@@ -60,7 +64,7 @@ public class ResourcesFactory {
 				logger.error("Could not read diagram color profile {}", name);
 				throw new DiagramProfileException("Could not read diagram color profile " + name);
 			}
-			final String json = IOUtils.toString(resource, Charset.defaultCharset());
+			final String json = IOUtils.toString(resource);
 			return DiagramFactory.getProfile(json);
 		} catch (DeserializationException e) {
 			logger.error("Could not deserialize diagram color profile {}", name);
@@ -124,6 +128,15 @@ public class ResourcesFactory {
 		} catch (IOException e) {
 			logger.error("Could not read diagram json for pathway {}", pathway);
 			throw new DiagramJsonNotFoundException("Could not read diagram json for pathway " + pathway);
+		}
+	}
+
+	public static SVGDocument getEHLD(String EHLDPath, String stId) throws EHLDException {
+		final Path path = Paths.get(EHLDPath, stId + ".svg");
+		try {
+			return DOCUMENT_FACTORY.createSVGDocument(path.toUri().toString());
+		} catch (IOException e) {
+			throw new EHLDMalformedException("EHLD document is not valid " + stId);
 		}
 	}
 }

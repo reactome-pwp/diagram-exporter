@@ -26,19 +26,19 @@ public class GeneRenderer extends NodeAbstractRenderer {
 	}
 
 	@Override
-	protected void foreground(NodeRenderInfo info) {
+	public void foreground(NodeRenderInfo info) {
 		super.foreground(info);
 		final Shape arrow = arrow(info.getNode().getProp());
 		info.getFgLayer().add(info.getForegroundColor(), arrow);
 	}
 
 	@Override
-	protected Shape backgroundShape(NodeCommon item) {
+	public Shape backgroundShape(NodeCommon item) {
 		return null;
 	}
 
 	@Override
-	protected Shape foregroundShape(NodeCommon node) {
+	public Shape foregroundShape(NodeCommon node) {
 		final NodeProperties prop = node.getProp();
 		final double x = prop.getX();
 		final double y = prop.getY();
@@ -62,9 +62,9 @@ public class GeneRenderer extends NodeAbstractRenderer {
 	}
 
 	@Override
-	protected Color getFgFill(ColorProfiles colorProfiles, DiagramIndex index) {
+	public Color getForegroundFill(ColorProfiles colors, DiagramIndex index) {
 		return index.getAnalysisType() == AnalysisType.NONE
-				? colorProfiles.getDiagramSheet().getGene().getFill()
-				: colorProfiles.getDiagramSheet().getGene().getLighterFill();
+				? colors.getDiagramSheet().getGene().getFill()
+				: colors.getDiagramSheet().getGene().getLighterFill();
 	}
 }

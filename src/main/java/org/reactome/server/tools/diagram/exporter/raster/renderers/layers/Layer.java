@@ -12,4 +12,5 @@ public interface Layer {
 
 	void render(Graphics2D graphics);
 
+	void clear();
 }

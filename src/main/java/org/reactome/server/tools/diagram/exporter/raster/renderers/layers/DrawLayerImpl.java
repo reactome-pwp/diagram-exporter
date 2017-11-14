@@ -30,4 +30,9 @@ public class DrawLayerImpl implements DrawLayer {
 			});
 		});
 	}
+
+	@Override
+	public void clear() {
+		shapes.clear();
+	}
 }

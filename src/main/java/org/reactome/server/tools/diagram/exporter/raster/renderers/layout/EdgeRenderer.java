@@ -3,7 +3,7 @@ package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 import org.reactome.server.tools.diagram.data.layout.*;
 import org.reactome.server.tools.diagram.data.layout.Shape;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
-import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.EdgeRenderInfo;
@@ -24,13 +24,13 @@ public class EdgeRenderer extends AbstractRenderer {
 
 	/**
 	 * Renders an edge and the connectors associated to it.
-	 *
-	 * @param canvas where to render
+	 *  @param canvas where to render
 	 * @param item   the edge to render
 	 * @param index  the diagram index
+	 * @param t
 	 */
 	@Override
-	public void draw(DiagramCanvas canvas, DiagramObject item, ColorProfiles colorProfiles, DiagramIndex index) {
+	public void draw(DiagramCanvas canvas, DiagramObject item, ColorProfiles colorProfiles, DiagramIndex index, int t) {
 		final EdgeCommon edge = (EdgeCommon) item;
 		final EdgeRenderInfo info = new EdgeRenderInfo(edge, dashed(edge), colorProfiles, index, canvas);
 		segments(canvas, info);

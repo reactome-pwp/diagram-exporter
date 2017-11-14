@@ -1,7 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.Note;
-import org.reactome.server.tools.diagram.exporter.raster.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
 import java.awt.*;

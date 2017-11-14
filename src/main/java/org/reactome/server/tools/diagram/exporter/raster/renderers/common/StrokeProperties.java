@@ -15,56 +15,48 @@ public class StrokeProperties {
 	private static final float SEGMENT_WIDTH = 1;
 	private static final float BORDER_WIDTH = 2;
 	private static final float SELECTION_WIDTH = 2;
-	private static final float HALO_WIDTH = 4;
-	private static final float FLAG_WIDTH = 5;
+	private static final float HALO_WIDTH = 5;
+	private static final float FLAG_WIDTH = 7;
 
 	private static final float DASH_SIZE = 5;
 	private static final float DASH_SPACE = 5;
 
-	private static Stroke SEGMENT_STROKE = new BasicStroke(SEGMENT_WIDTH, END, JOIN);
-	private static Stroke BORDER_STROKE = new BasicStroke(BORDER_WIDTH, END, JOIN);
-	private static Stroke SELECTION_STROKE = new BasicStroke(SELECTION_WIDTH, END, JOIN);
-	private static Stroke HALO_STROKE = new BasicStroke(HALO_WIDTH, END, JOIN);
-	private static Stroke FLAG_STROKE = new BasicStroke(FLAG_WIDTH, END, JOIN);
-
-	private static Stroke DASHED_SEGMENT_STROKE = new BasicStroke(SEGMENT_WIDTH, END, JOIN, DASH_SIZE, new float[]{DASH_SIZE}, DASH_SIZE);
-	private static Stroke DASHED_BORDER_STROKE = new BasicStroke(BORDER_WIDTH, END, JOIN, DASH_SIZE, new float[]{DASH_SIZE, DASH_SPACE}, DASH_SIZE);
-	private static Stroke DASHED_SELECTION_STROKE = new BasicStroke(SELECTION_WIDTH, END, JOIN, DASH_SIZE, new float[]{DASH_SIZE, DASH_SPACE}, DASH_SIZE);
-	private static Stroke DASHED_HALO_STROKE = new BasicStroke(HALO_WIDTH, END, JOIN, DASH_SIZE, new float[]{DASH_SIZE, DASH_SPACE}, DASH_SIZE);
-	private static Stroke DASHED_FLAG_STROKE = new BasicStroke(FLAG_WIDTH, END, JOIN, DASH_SIZE, new float[]{DASH_SIZE, DASH_SPACE}, DASH_SIZE);
-
-	public static Stroke get(StrokeStyle style, boolean dashed) {
-		return style.getStroke(dashed);
-	}
 	public enum StrokeStyle {
 		FLAG {
 			@Override
-			public Stroke getStroke(boolean dashed) {
-				return dashed ? DASHED_FLAG_STROKE : FLAG_STROKE;
+			protected float getWidth() {
+				return FLAG_WIDTH;
 			}
 		}, HALO {
 			@Override
-			public Stroke getStroke(boolean dashed) {
-				return dashed ? DASHED_HALO_STROKE : HALO_STROKE;
+			protected float getWidth() {
+				return HALO_WIDTH;
 			}
 		}, SELECTION {
 			@Override
-			public Stroke getStroke(boolean dashed) {
-				return dashed ? DASHED_SELECTION_STROKE : SELECTION_STROKE;
+			protected float getWidth() {
+				return SELECTION_WIDTH;
 			}
 		}, SEGMENT {
 			@Override
-			public Stroke getStroke(boolean dashed) {
-				return dashed ? DASHED_SEGMENT_STROKE : SEGMENT_STROKE;
+			protected float getWidth() {
+				return SEGMENT_WIDTH;
 			}
 		}, BORDER {
 			@Override
-			public Stroke getStroke(boolean dashed) {
-				return dashed ? DASHED_BORDER_STROKE : BORDER_STROKE;
+			protected float getWidth() {
+				return BORDER_WIDTH;
 			}
 		};
+		private final Stroke NORMAL = new BasicStroke(getWidth(), END, JOIN);
+		private final Stroke DASHED = new BasicStroke(getWidth(), END, JOIN,
+				DASH_SIZE, new float[]{DASH_SIZE, DASH_SPACE}, DASH_SIZE);
 
-		public abstract Stroke getStroke(boolean dashed);
+		protected abstract float getWidth();
+
+		public final Stroke getStroke(boolean dashed) {
+			return dashed ? DASHED : NORMAL;
+		}
 	}
 }
 

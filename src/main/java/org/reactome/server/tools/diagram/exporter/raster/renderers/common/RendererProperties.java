@@ -1,7 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.common;
 
 /**
- * General Properties for the RasterRenderer class and all of the Node
+ * General Properties for the DiagramRenderer class and all of the Node
  * renderers.
  *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)

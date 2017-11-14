@@ -1,0 +1,15 @@
+{
+  "stId": "R-HSA-12345",
+  "format": "png",
+  "factor": 3,
+  "background": "#FFFFFF",
+  "token": null,
+  "column": 1,
+  "flags": [1, 2, 3],
+  "selected": [4, 3, 5, "R-HSA-12"],
+  "profiles": {
+    "diagram": "modern",
+    "analysis": "strosobar",
+    "interactors": "cyan"
+  }
+}
