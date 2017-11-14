@@ -8,6 +8,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.svg.SVGDocument;
 
 import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -20,6 +22,8 @@ import static org.apache.batik.util.SVGConstants.*;
  * Methods to add a legend to a document, including ticks.
  */
 class SVGLegendRenderer {
+
+	private static final DecimalFormat LEGEND_FORMAT = new DecimalFormat("#.##E0", DecimalFormatSymbols.getInstance(Locale.UK));
 
 	private static final String GRADIENT_BOX = "gradient-box";
 	private static final double RX = 8.0;
@@ -74,14 +78,14 @@ class SVGLegendRenderer {
 		topText.setAttribute(SVG_Y_ATTRIBUTE, String.valueOf((height - LEGEND_HEIGHT) * 0.5 - TEXT_PADDING));
 		topText.setAttribute(SVG_TEXT_ANCHOR_ATTRIBUTE, SVG_MIDDLE_VALUE);
 		topText.setAttribute(SVG_STYLE_ATTRIBUTE, "font-size: " + FONT_SIZE);
-		topText.setTextContent(String.valueOf(top));
+		topText.setTextContent(LEGEND_FORMAT.format(top));
 
 		final Element bottomText = document.createElementNS(SVG_NAMESPACE_URI, SVG_TEXT_TAG);
 		bottomText.setAttribute(SVG_X_ATTRIBUTE, String.valueOf(centerX));
 		bottomText.setAttribute(SVG_Y_ATTRIBUTE, String.valueOf((height + LEGEND_HEIGHT) * 0.5 + TEXT_PADDING + FONT_SIZE));
 		bottomText.setAttribute(SVG_TEXT_ANCHOR_ATTRIBUTE, SVG_MIDDLE_VALUE);
 		bottomText.setAttribute(SVG_STYLE_ATTRIBUTE, "font-size: " + FONT_SIZE);
-		bottomText.setTextContent(String.valueOf(bottom));
+		bottomText.setTextContent(LEGEND_FORMAT.format(bottom));
 
 		legend.appendChild(background);
 		legend.appendChild(gradientBox);
