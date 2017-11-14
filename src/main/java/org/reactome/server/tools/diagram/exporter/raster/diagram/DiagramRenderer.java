@@ -133,7 +133,6 @@ public class DiagramRenderer {
 		encoder.setQuality(1);
 		encoder.start(outputStream);
 		for (int t = 0; t < index.getExpressionSize(); t++) {
-			System.out.println(t);
 			canvas.getNodeAnalysis().clear();
 			canvas.getLegendTickArrows().clear();
 			canvas.getLegendTicks().clear();

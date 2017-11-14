@@ -208,8 +208,6 @@ public class DiagramIndex {
 		if (args.getToken() == null || args.getToken().isEmpty())
 			return;
 		final String stId = graph.getStId();
-		System.out.println(args.getToken()); // TODO: delete on production
-		System.out.println(stId);
 
 		final AnalysisResult result = AnalysisClient.getAnalysisResult(args.getToken());
 		final List<ResourceSummary> summaryList = result.getResourceSummary();
@@ -255,8 +253,6 @@ public class DiagramIndex {
 				double percentage = (double) found / total;
 				if (percentage < MIN_ENRICHMENT && percentage > 0)
 					percentage = MIN_ENRICHMENT;
-//			final String stId = summary.getStId();
-//			System.out.printf("%s %d/%d(%.3f)\n", stId, found, total, percentage);
 				final DiagramObject diagramNode = reactomeIndex.get(summary.getDbId());
 				if (diagramNode != null)
 					getNodeDecorator(diagramNode.getId()).setEnrichment(percentage);
@@ -295,7 +291,6 @@ public class DiagramIndex {
 				decorator.setExpressions(leaves);
 			}
 		});
-		System.out.printf("[%.2f-%.2f]\n", minExpression, maxExpression);
 	}
 
 	/** Computes only the relation of hit found components and found component */
@@ -333,9 +328,6 @@ public class DiagramIndex {
 		double percentage = (double) count / total;
 		if (percentage > 0 && percentage < MIN_ENRICHMENT)
 			percentage = MIN_ENRICHMENT;
-		// TODO: remove on production
-//		System.out.printf("[%s]\t %s \t(%d/%d) %.2f\n", node.getRenderableClass(), node.getDisplayName(),
-//				count, total, percentage);
 		return percentage;
 	}
 

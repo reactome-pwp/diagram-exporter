@@ -90,6 +90,10 @@ public class SimpleRasterArgs implements RasterArgs {
 		return column;
 	}
 
+	public void setColumn(Integer column) {
+		this.column = column;
+	}
+
 	public Set<String> getFlags() {
 		return flags;
 	}

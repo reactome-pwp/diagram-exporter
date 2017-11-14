@@ -54,7 +54,7 @@ public class ResourcesFactory {
 	public static DiagramProfile getDiagramProfile(String name) throws DiagramProfileException, DiagramJsonDeserializationException {
 		if (name == null)
 			name = DEFAULT_DIAGRAM_PROFILE;
-		logger.info("Getting Profile [{}]", name);
+		logger.trace("Getting Profile [{}]", name);
 		final String file = "diagram_" + name.toLowerCase() + ".json";
 		InputStream resource = ProfileResources.class.getResourceAsStream(file);
 		if (resource == null)
@@ -90,7 +90,7 @@ public class ResourcesFactory {
 	 */
 	public static Diagram getDiagram(String diagramPath, String stId) throws DiagramJsonDeserializationException, DiagramJsonNotFoundException {
 		final Path pathway = Paths.get(diagramPath, stId + ".json");
-		logger.info("Getting diagram JSON {}", pathway);
+		logger.trace("Getting diagram JSON {}", pathway);
 		try {
 			String json = new String(Files.readAllBytes(pathway));
 			return DiagramFactory.getDiagram(json);
@@ -118,7 +118,7 @@ public class ResourcesFactory {
 	 */
 	public static Graph getGraph(String diagramPath, String stId) throws DiagramJsonDeserializationException, DiagramJsonNotFoundException {
 		final Path pathway = Paths.get(diagramPath, stId + ".graph.json");
-		logger.info("Getting graph JSON {}", pathway);
+		logger.trace("Getting graph JSON {}", pathway);
 		try {
 			String json = new String(Files.readAllBytes(pathway));
 			return DiagramFactory.getGraph(json);
