@@ -1,6 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.ehld;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
@@ -16,6 +17,12 @@ public class EhldTest {
 
 	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/diagram";
 	private static final String EHLD_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/ehld";
+	private static final String SVG_SUMMARY = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/ehld/ehlds.txt";
+
+	@BeforeClass
+	public static void init(){
+		RasterExporter.initialise(SVG_SUMMARY);
+	}
 
 	@Test
 	public void testPng() {
