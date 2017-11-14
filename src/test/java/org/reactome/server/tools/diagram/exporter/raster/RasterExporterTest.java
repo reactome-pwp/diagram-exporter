@@ -144,7 +144,7 @@ public class RasterExporterTest {
 	public void testLegendFormat() {
 		final double max = 2.9;
 		final DecimalFormat NF = new DecimalFormat("#.##E0", DecimalFormatSymbols.getInstance(Locale.UK));
-		System.out.println(NF.format(max));
+		Assert.assertEquals("2.9E01", NF.format(max));
 	}
 
 	private List<Long> getIdsFor(String prot, Graph graph) {

@@ -177,7 +177,7 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 			final double delta = 1 / (max - min);  // only one division
 			for (int i = 0; i < values.size(); i++) {
 				final double val = values.get(i);
-				final double scale = (val - min) * delta;
+				final double scale = 1 - (val - min) * delta;
 				final Color color = ColorFactory.interpolate(colorProfiles.getAnalysisSheet().getExpression().getGradient(), scale);
 				final Rectangle2D rect = new Rectangle2D.Double(
 						x + i * partSize, y, partSize, height);
