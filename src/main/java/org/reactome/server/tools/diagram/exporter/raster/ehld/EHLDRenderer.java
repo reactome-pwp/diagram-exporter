@@ -121,7 +121,6 @@ public class EHLDRenderer {
 		encoder.setQuality(1);
 		encoder.start(os);
 		for (int expressionColumn = 0; expressionColumn < result.getExpression().getColumnNames().size(); expressionColumn++) {
-			System.out.println(expressionColumn);
 			svgAnalysis.setColumn(expressionColumn);
 			final BufferedImage image = toImage(document);
 			encoder.addFrame(image);

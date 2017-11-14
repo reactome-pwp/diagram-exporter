@@ -26,7 +26,7 @@
         </encoder>
     </appender>
 
-    <logger name="infoLogger" level="INFO" additivity="false">
+    <logger name="infoLogger" level="TRACE" additivity="false">
         <appender-ref ref="FILE"/>
     </logger>
 
