@@ -32,3 +32,6 @@ local.properties
 
 *.lic
 *.lic.xml
+
+#Ignore the logs
+*.log

@@ -24,6 +24,12 @@
             <organization>http://www.ebi.ac.uk/</organization>
         </developer>
         <developer>
+            <id>plorente</id>
+            <name>Pascual Lorente</name>
+            <email>plorente@ebi.ac.uk</email>
+            <organization>http://www.ebi.ac.uk/</organization>
+        </developer>
+        <developer>
             <id>amundo</id>
             <name>Antonio Fabregat Mundo</name>
             <email>amundo@ebi.ac.uk</email>
@@ -33,6 +39,8 @@
 
     <properties>
         <diagram.reader.version>1.1.0</diagram.reader.version>
+        <batik.osgi>1.7.0</batik.osgi>
+        <batik.transcoder>1.9.1</batik.transcoder>
         <aspose.version>17.7</aspose.version>
         <logback.version>1.1.10</logback.version>
         <commons.io.version>2.5</commons.io.version>
@@ -57,6 +65,18 @@
             <groupId>org.reactome.server.tools</groupId>
             <artifactId>diagram-reader</artifactId>
             <version>${diagram.reader.version}</version>
+        </dependency>
+
+        <!-- EHLD related dependencies -->
+        <dependency>
+            <groupId>org.apache.batik</groupId>
+            <artifactId>batik-osgi</artifactId>
+            <version>${batik.osgi}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-transcoder</artifactId>
+            <version>${batik.transcoder}</version>
         </dependency>
 
         <dependency>
@@ -206,6 +226,17 @@
         <repository>
             <id>aspose-maven-repository</id>
             <url>http://maven.aspose.com/repository/ext-release-local</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>mygrid-maven-repository</id>
+            <url>http://www.mygrid.org.uk/maven/repository/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
