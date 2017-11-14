@@ -24,6 +24,12 @@
             <organization>http://www.ebi.ac.uk/</organization>
         </developer>
         <developer>
+            <id>plorente</id>
+            <name>Pascual Lorente</name>
+            <email>plorente@ebi.ac.uk</email>
+            <organization>http://www.ebi.ac.uk/</organization>
+        </developer>
+        <developer>
             <id>amundo</id>
             <name>Antonio Fabregat Mundo</name>
             <email>amundo@ebi.ac.uk</email>
