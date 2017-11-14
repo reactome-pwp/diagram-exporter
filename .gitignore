@@ -33,5 +33,8 @@ local.properties
 *.lic
 *.lic.xml
 
+#Ignoring the folder where the resulting images for tests are placed
+test_images
+
 #Ignore the logs
 *.log
