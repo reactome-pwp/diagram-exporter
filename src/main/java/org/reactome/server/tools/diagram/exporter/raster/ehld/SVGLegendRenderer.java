@@ -16,6 +16,9 @@ import java.util.stream.IntStream;
 
 import static org.apache.batik.util.SVGConstants.*;
 
+/**
+ * Methods to add a legend to a document, including ticks.
+ */
 class SVGLegendRenderer {
 
 	private static final String GRADIENT_BOX = "gradient-box";
@@ -27,10 +30,9 @@ class SVGLegendRenderer {
 	private static final String LEGEND_GRADIENT = "legend-gradient";
 	private static final double TEXT_PADDING = 2;
 	private static final int FONT_SIZE = 12;
-	public static final String TICKS = "ticks";
+	private static final String TICKS = "ticks";
 
 	static void legend(SVGDocument document, GradientSheet gradientSheet, double top, double bottom) {
-		// Legend dims: to be put as constants
 		final double bgWidth = LEGEND_WIDTH + 2 * BG_PADDING;
 		final double bgHeight = LEGEND_HEIGHT + 2 * BG_PADDING;
 		final double spaceWidth = bgWidth + 2 * BG_PADDING;

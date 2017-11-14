@@ -20,7 +20,7 @@ Images are generated from the EHLD if it is available.
 String diagramPath = "path/to/diagram";
 String ehldPath = "path/to/ehld";
 
-final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-5602410", "jpg");
+final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-169911", "jpg");
 args.setFactor(3.);
 args.setProfiles(new ColorProfiles("standard", null, null));
 args.setBackground("#444444");
@@ -69,16 +69,16 @@ os.close();
 
 feature|diagram|ehld
 ---|---|---
-PNG|Yes|Yes
-JPG,JPEG|Yes|Yes
-GIF|Yes|Yes
-Animated GIF|Yes|Yes
-Selection|Yes|No\*
-Flag|Yes|No\*
-EXPRESSION|Yes|Yes
-ENRICHMENT|Yes|Yes
-BACKGROUND|Yes|Yes
-EXP COLUMN|Yes|Yes
+png|Yes|Yes
+jpg, jpeg|Yes|Yes
+gif|Yes|Yes
+animated gif|Yes|Yes
+selection|Yes|No\*
+flag|Yes|No\*
+expression analysis|Yes|Yes
+enrichment analysis|Yes|Yes
+background color|Yes|Yes
+expression column|Yes|Yes
 
 \* There is a bug with the SVG renderer (https://issues.apache.org/jira/browse/BATIK-1207). For stability, selection and flagging are deactivated.
 
