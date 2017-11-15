@@ -16,9 +16,10 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Computes all the information that modifies each node basic rendering:
- * selection, flag, halo and analysis (enrichments and expressions). This data
- * is not in the Node class.
+ * Creates a DiagramObjectDecorator per Node in the diagram. Computes all the
+ * information that modifies each node basic rendering: selection, flag, halo
+ * and analysis (enrichments and expressions). This data is not in the Node
+ * class.
  *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
@@ -41,7 +42,10 @@ public class DiagramIndex {
 	 * [reactome id] graphNode.getDbId()
 	 */
 	private Map<Long, EntityNode> graphIndex;
-	private Map<Long, EventNode> reactionIndex;
+	/**
+	 * [reactome id] graphEdge.getDbId()
+	 */
+	private HashSet<Long> reactionIds;
 
 	private double maxExpression = Double.MAX_VALUE;
 	private double minExpression = 0;
@@ -76,8 +80,8 @@ public class DiagramIndex {
 				});
 		graphIndex = new HashMap<>();
 		graph.getNodes().forEach(item -> graphIndex.put(item.getDbId(), item));
-		reactionIndex = new HashMap<>();
-		graph.getEdges().forEach(event -> reactionIndex.put(event.getDbId(), event));
+		reactionIds = new HashSet<>();
+		graph.getEdges().forEach(event -> reactionIds.add(event.getDbId()));
 		diagram.getNodes().stream()
 				.map(Node::getConnectors)
 				.flatMap(Collection::stream)
@@ -115,11 +119,12 @@ public class DiagramIndex {
 		try {
 			final long dbId = Long.parseLong(string);
 			if (graphIndex.containsKey(dbId)
-					|| reactionIndex.containsKey(dbId))
+					|| reactionIds.contains(dbId))
 				return dbId;
 		} catch (NumberFormatException ignored) {
 			// ignored, not a dbId
 		}
+		// Nodes
 		for (EntityNode node : graph.getNodes()) {
 			// stId
 			if (string.equalsIgnoreCase(node.getStId()))
@@ -132,10 +137,9 @@ public class DiagramIndex {
 				return node.getDbId();
 		}
 		// Reactions
-		for (EventNode eventNode : graph.getEdges()) {
+		for (EventNode eventNode : graph.getEdges())
 			if (eventNode.getStId().equalsIgnoreCase(string))
 				return eventNode.getDbId();
-		}
 		// Bad luck, not found
 		return null;
 	}
@@ -144,7 +148,6 @@ public class DiagramIndex {
 		if (sel.isEmpty() && flg.isEmpty())
 			return;
 		diagram.getNodes().forEach(node -> {
-			// Select node
 			if (sel.contains(node.getReactomeId())) {
 				final NodeDecorator decorator = getNodeDecorator(node.getId());
 				decorator.setSelected(true);
@@ -160,7 +163,6 @@ public class DiagramIndex {
 					haloEdgeParticipants(reaction);
 				});
 			}
-			// Flag node
 			if (flg.contains(node.getReactomeId()))
 				getNodeDecorator(node.getId()).setFlag(true);
 		});
@@ -168,14 +170,12 @@ public class DiagramIndex {
 
 	private void decorateReactions(List<Long> sel, List<Long> flg) {
 		diagram.getEdges().forEach(reaction -> {
-			// Select edge
 			if (sel.contains(reaction.getReactomeId())) {
 				final EdgeDecorator decorator = getEdgeDecorator(reaction.getId());
 				decorator.setSelected(true);
 				decorator.setHalo(true);
 				haloEdgeParticipants(reaction);
 			}
-			// Flag edge
 			if (flg.contains(reaction.getReactomeId()))
 				getEdgeDecorator(reaction.getId()).setFlag(true);
 		});
@@ -290,16 +290,8 @@ public class DiagramIndex {
 			final List<FoundEntity> leaves = getLeaves(graphNode).stream()
 					.map(leafId -> analysisIndex.get(graphIndex.get(leafId).getIdentifier()))
 					.collect(Collectors.toList());
-			if (leaves.stream().anyMatch(Objects::nonNull)) {
-				final List<FoundEntity> collect = leaves.stream().filter(Objects::nonNull)
-						.sorted((Comparator.comparing(IdentifierSummary::getId)))
-						.collect(Collectors.toList());
-				for (int i = 0; i < leaves.size() - collect.size(); i++) {
-					collect.add(null);
-				}
-				final NodeDecorator decorator = getNodeDecorator(diagramNode.getId());
-				decorator.setExpressions(collect);
-			}
+			final NodeDecorator decorator = getNodeDecorator(diagramNode.getId());
+			decorator.setHitExpressions(leaves);
 		});
 	}
 
@@ -382,7 +374,11 @@ public class DiagramIndex {
 		return expressionColumns;
 	}
 
-	public class DiagramObjectDecorator {
+	/**
+	 * Contains decorator information for a DiagramObject: flag, selection and
+	 * halo.
+	 */
+	public abstract class DiagramObjectDecorator {
 		private boolean flag = false;
 		private boolean selected = false;
 		private boolean halo = false;
@@ -412,6 +408,10 @@ public class DiagramIndex {
 		}
 	}
 
+	/**
+	 * Contains extra rendering information for an edge: decorators plus
+	 * connectors.
+	 */
 	public class EdgeDecorator extends DiagramObjectDecorator {
 		private List<Connector> connectors = new LinkedList<>();
 
@@ -420,9 +420,14 @@ public class DiagramIndex {
 		}
 	}
 
+	/**
+	 * Contains extra rendering data for a Node: decorators plus expression
+	 * values or enrichment value.
+	 */
 	public class NodeDecorator extends DiagramObjectDecorator {
-		private List<FoundEntity> expressions = null;
+		private List<FoundEntity> hitExpressions = null;
 		private Double enrichment = null;
+		private Integer totalExpressions;
 
 		public Double getEnrichment() {
 			return enrichment;
@@ -432,14 +437,21 @@ public class DiagramIndex {
 			this.enrichment = enrichment;
 		}
 
-		public List<FoundEntity> getExpressions() {
-			return expressions;
+		public List<FoundEntity> getHitExpressions() {
+			return hitExpressions;
 		}
 
-		void setExpressions(List<FoundEntity> expressions) {
-			this.expressions = expressions;
+		void setHitExpressions(List<FoundEntity> hitExpressions) {
+			this.hitExpressions = hitExpressions.stream()
+					.filter(Objects::nonNull)
+					.sorted((Comparator.comparing(IdentifierSummary::getId)))
+					.collect(Collectors.toList());
+			this.totalExpressions = hitExpressions.size();
 		}
 
+		public Integer getTotalExpressions() {
+			return totalExpressions;
+		}
 	}
 
 }

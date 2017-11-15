@@ -169,7 +169,7 @@ public class LegendRenderer {
 
 	private void ticks(int col) {
 		if (index.getSelected() == null) return;
-		final List<FoundEntity> expressions = index.getSelected().getExpressions();
+		final List<FoundEntity> expressions = index.getSelected().getHitExpressions();
 		if (expressions == null) return;
 		// Calculate which ticks to draw: (min, median, max) or (value)
 		Double nMax;

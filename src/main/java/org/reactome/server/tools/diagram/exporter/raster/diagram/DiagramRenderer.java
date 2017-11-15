@@ -149,7 +149,6 @@ public class DiagramRenderer {
 		return image;
 	}
 
-
 	private double limitFactor(Rectangle2D bounds, double maxSize) {
 		final double width = args.getFactor() * (MARGIN + bounds.getWidth());
 		final double height = args.getFactor() * (MARGIN + bounds.getHeight());
