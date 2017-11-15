@@ -52,7 +52,7 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 			info.getFlagLayer().add(info.getFlagColor(), info.getFlagStroke(), info.getBackgroundShape());
 	}
 
-	private void halo(NodeRenderInfo info) {
+	protected void halo(NodeRenderInfo info) {
 		if (info.getDecorator().isHalo())
 			info.getHaloLayer().add(info.getHaloColor(), info.getHaloStroke(), info.getBackgroundShape());
 	}

@@ -51,7 +51,7 @@ public class DiagramRenderer {
 	 * Max amount of allowed pixels per image
 	 */
 	private static final double MAX_IMAGE_SIZE = 1e8; // 100Mpixels
-	private static final double MAX_GIF_SIZE = 5e7; // 50Mpixels
+	private static final double MAX_GIF_SIZE = 1e7; // 10Mpixels
 	private static final int MARGIN = 15;
 	private static final Set<String> TRANSPARENT_FORMATS = new HashSet<>(Collections.singletonList("png"));
 	private static final Set<String> NO_TRANSPARENT_FORMATS = new HashSet<>(Arrays.asList("jpg", "jpeg", "gif"));
