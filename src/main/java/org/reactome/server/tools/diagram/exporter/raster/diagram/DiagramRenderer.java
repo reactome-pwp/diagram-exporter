@@ -2,7 +2,6 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram;
 
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
-import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
@@ -18,12 +17,15 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.NodeRe
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.*;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 
 /**
  * Renders Reactome pathway diagrams into <code>BufferedImage</code>s.
@@ -31,9 +33,6 @@ import java.util.stream.Stream;
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class DiagramRenderer {
-
-	private static final int LEGEND_WIDTH = 70;
-	private static final int LEGEND_HEIGHT = 350;
 
 	/*
 	 * physical size of image using the best print quality (600 ppi).
@@ -52,7 +51,7 @@ public class DiagramRenderer {
 	 * Max amount of allowed pixels per image
 	 */
 	private static final double MAX_IMAGE_SIZE = 1e8; // 100Mpixels
-	private static final double MAX_GIF_SIZE = 5e7; // 100Mpixels
+	private static final double MAX_GIF_SIZE = 5e7; // 50Mpixels
 	private static final int MARGIN = 15;
 	private static final Set<String> TRANSPARENT_FORMATS = new HashSet<>(Collections.singletonList("png"));
 	private static final Set<String> NO_TRANSPARENT_FORMATS = new HashSet<>(Arrays.asList("jpg", "jpeg", "gif"));
@@ -62,8 +61,7 @@ public class DiagramRenderer {
 	private final ColorProfiles colorProfiles;
 	private final RasterArgs args;
 	private DiagramCanvas canvas;
-	private double legend_height;
-	private double legend_width;
+	private LegendRenderer legendRenderer;
 
 
 	/**
@@ -89,21 +87,19 @@ public class DiagramRenderer {
 	 * @return a RenderedImage with the given dimensions
 	 */
 	public BufferedImage render() {
-		double factor = args.getFactor();
-		final RasterProperties rasterProperties = new RasterProperties(factor, MAX_IMAGE_SIZE);
-		int width = (int) rasterProperties.getWidth();
-		int height = (int) rasterProperties.getHeight();
-		factor = rasterProperties.getFactor();
-		double minX = rasterProperties.minX();
-		double minY = rasterProperties.minY();
-
-		// Virtual canvas: full of layers
 		canvas = new DiagramCanvas();
 		layout();
-		// Memory eater
+
+		final Rectangle2D bounds = canvas.getBounds();
+		double factor = limitFactor(bounds, MAX_IMAGE_SIZE);
+		int width = (int) ((2 * MARGIN + bounds.getWidth()) * factor + 0.5);
+		int height = (int) ((2 * MARGIN + bounds.getHeight()) * factor + 0.5);
+		int offsetX = (int) ((MARGIN - bounds.getMinX()) * factor + 0.5);
+		int offsetY = (int) ((MARGIN - bounds.getMinY()) * factor + 0.5);
+
 		final String ext = args.getFormat().toLowerCase();
 		final BufferedImage image = createImage(width, height, ext);
-		final Graphics2D graphics = createGraphics(image, ext, factor, minX, minY, MARGIN);
+		final Graphics2D graphics = createGraphics(image, ext, factor, offsetX, offsetY);
 		canvas.render(graphics);
 		return image;
 	}
@@ -114,80 +110,58 @@ public class DiagramRenderer {
 	public void renderToAnimatedGif(OutputStream outputStream) throws IOException {
 		if (index.getAnalysisType() != AnalysisType.EXPRESSION)
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
-		double factor = args.getFactor();
-		final RasterProperties rasterProperties = new RasterProperties(factor, MAX_GIF_SIZE);
-		int width = (int) rasterProperties.getWidth();
-		int height = (int) rasterProperties.getHeight();
-		double minX = rasterProperties.minX();
-		double minY = rasterProperties.minY();
-		factor = rasterProperties.getFactor();
-
 		canvas = new DiagramCanvas();
 		layout();
 
-//		final Giffer encoder = new Giffer();
+		final Rectangle2D bounds = canvas.getBounds();
+		double factor = limitFactor(bounds, MAX_GIF_SIZE);
+		int width = (int) ((2 * MARGIN + bounds.getWidth()) * factor + 0.5);
+		int height = (int) ((2 * MARGIN + bounds.getHeight()) * factor + 0.5);
+		int offsetX = (int) ((MARGIN - bounds.getMinX()) * factor + 0.5);
+		int offsetY = (int) ((MARGIN - bounds.getMinY()) * factor + 0.5);
 
 		final AnimatedGifEncoder encoder = new AnimatedGifEncoder();
 		encoder.setDelay(1000);
 		encoder.setRepeat(0);
-		encoder.setQuality(1);
+//		encoder.setQuality(1);
 		encoder.start(outputStream);
-		for (int t = 0; t < index.getExpressionSize(); t++) {
-			canvas.getNodeAnalysis().clear();
-			canvas.getLegendTickArrows().clear();
-			canvas.getLegendTicks().clear();
-			canvas.getLegendBar().clear();
-			canvas.getLegendText().clear();
-			canvas.getLegendBackground().clear();
-			final int T = t;
-			// We render only the expression layer
-			diagram.getNodes().forEach(node -> {
-				final NodeAbstractRenderer renderer = (NodeAbstractRenderer) RendererFactory.get(node.getRenderableClass());
-				final NodeRenderInfo info = new NodeRenderInfo(node, index, colorProfiles, canvas, renderer);
-				renderer.expression(colorProfiles, index, info, T);
-			});
-			// And the legend
-			legend(t);
-			// Memory eater
-			final BufferedImage image = createImage(width, height, "gif");
-			final Graphics2D graphics = createGraphics(image, "gif", factor, minX, minY, MARGIN);
-			canvas.render(graphics);
+		for (int t = 0; t < index.getExpressionColumns().size(); t++) {
+			final BufferedImage image = frame(factor, width, height, offsetX, offsetY, t);
 			encoder.addFrame(image);
 		}
 		encoder.finish();
 	}
 
-	private double getDiagramMinY() {
-		return streamObjects()
-				.mapToDouble(DiagramObject::getMinY)
-				.min().orElse(0);
+	private BufferedImage frame(double factor, int width, int height, int offsetX, int offsetY, int t) {
+		canvas.getNodeAnalysis().clear();
+		// Update expression layer
+		diagram.getNodes().forEach(node -> {
+			final NodeAbstractRenderer renderer = (NodeAbstractRenderer) RendererFactory.get(node.getRenderableClass());
+			// TODO: this operation is costly, should we maintain all the NodeRenderInfo in an index
+			final NodeRenderInfo info = new NodeRenderInfo(node, index, colorProfiles, canvas, renderer);
+			renderer.expression(colorProfiles, index, info, t);
+		});
+		// Update legend
+		legendRenderer.setCol(t);
+		final BufferedImage image = createImage(width, height, "gif");
+		final Graphics2D graphics = createGraphics(image, "gif", factor, offsetX, offsetY);
+		canvas.render(graphics);
+		return image;
 	}
 
-	private double getDiagramMinX() {
-		return streamObjects()
-				.mapToDouble(DiagramObject::getMinX)
-				.min().orElse(0);
-	}
 
-	private double getDiagramMaxX() {
-		return streamObjects()
-				.mapToDouble(DiagramObject::getMaxX)
-				.max().orElse(0);
-	}
-
-	private double getDiagramMaxY() {
-		return streamObjects()
-				.mapToDouble(DiagramObject::getMaxY)
-				.max().orElse(0);
-	}
-
-	private Stream<DiagramObject> streamObjects() {
-		return Stream.of(
-				diagram.getCompartments(),
-				diagram.getLinks(),
-				diagram.getEdges(),
-				diagram.getNodes())
-				.flatMap(Collection::stream);
+	private double limitFactor(Rectangle2D bounds, double maxSize) {
+		final double width = args.getFactor() * (MARGIN + bounds.getWidth());
+		final double height = args.getFactor() * (MARGIN + bounds.getHeight());
+		double size = width * height;
+		if (size > maxSize) {
+			final double newFactor = Math.sqrt(maxSize / ((MARGIN + bounds.getWidth()) * (MARGIN + bounds.getHeight())));
+			log.warning(String.format(
+					"Diagram %s is too large. Quality reduced from %.1f to %.2f -> (%d x %d)",
+					diagram.getStableId(), args.getFactor(), newFactor, (int) (bounds.getWidth() * newFactor), (int) (bounds.getHeight() * newFactor)));
+			return newFactor;
+		}
+		return args.getFactor();
 	}
 
 	private BufferedImage createImage(int width, int height, String ext) {
@@ -200,8 +174,7 @@ public class DiagramRenderer {
 	}
 
 	private Graphics2D createGraphics(BufferedImage image, String ext,
-	                                  double factor, double x, double y,
-	                                  double margin) {
+	                                  double factor, double offsetX, double offsetY) {
 		final Graphics2D graphics = image.createGraphics();
 		if (NO_TRANSPARENT_FORMATS.contains(ext)) {
 			Color bgColor = args.getBackground() == null
@@ -210,11 +183,10 @@ public class DiagramRenderer {
 			graphics.setBackground(bgColor);
 			graphics.clearRect(0, 0, image.getWidth(), image.getHeight());
 		}
-		// These 3 lines are really important, they add the margin, move the
-		// canvas to the minx, miny of the diagram and scale it.
-		// Now we can draw elements with their own dimensions, isn't it nice?
-		graphics.translate(margin * factor, margin * factor);
-		graphics.translate((int) -x * factor, (int) -y * factor);
+
+		// This transformation allows elements to use their own dimensions,
+		// isn't it nice?
+		graphics.translate(offsetX, offsetY);
 		graphics.scale(factor, factor);
 
 		graphics.setFont(FontProperties.DEFAULT_FONT);
@@ -230,7 +202,7 @@ public class DiagramRenderer {
 		nodes();
 		notes();
 		edges();
-		legend(T);
+		legend();
 	}
 
 	private void compartments() {
@@ -261,78 +233,13 @@ public class DiagramRenderer {
 		diagram.getNotes().forEach(note -> renderer.draw(canvas, note, colorProfiles));
 	}
 
-	private void legend(int t) {
+	private void legend() {
 		if (index.getAnalysisType() == AnalysisType.EXPRESSION) {
-			LegendRenderer.addLegend(canvas, colorProfiles, diagram, MARGIN, legend_width, legend_height, index, t);
+			legendRenderer = new LegendRenderer(canvas, index, colorProfiles);
+			legendRenderer.addLegend();
+			if (args.getColumn() != null)
+				legendRenderer.setCol(args.getColumn());
 		}
 	}
 
-	private class RasterProperties {
-		private double factor;
-		private double minX;
-		private double minY;
-		private long width;
-		private long height;
-
-		public RasterProperties(double factor, double maxSize) {
-			this.factor = factor;
-			// Bounds are recalculated reading nodes, we don't trust diagram bounds
-			minX = getDiagramMinX();
-			minY = getDiagramMinY();
-			final double maxX = getDiagramMaxX();
-			final double maxY = getDiagramMaxY();
-
-			final double diagramHeight = maxY - minY + 2 * MARGIN;
-
-			legend_width = 0;
-			legend_height = 0;
-			if (index.getAnalysisType() == AnalysisType.EXPRESSION) {
-				legend_height = LEGEND_HEIGHT;
-				if (diagramHeight < LEGEND_HEIGHT) {
-					legend_height = diagramHeight;
-					legend_width = LEGEND_WIDTH * legend_height / LEGEND_HEIGHT;
-				} else legend_width = LEGEND_WIDTH;
-			}
-
-			final double diagramWidth = maxX - minX + 2 * MARGIN + legend_width;
-
-			width = (long) (factor * diagramWidth);
-			height = (long) (factor * diagramHeight);
-
-			// Limit the size of the images by reducing the factor until it fits
-			// into the MAX_IMAGE_SIZE, thus ensuring that a maximum of
-			// MAX_IMAGE_SIZE pixels are stored in memory.
-			final long size = height * width;
-			if (size > maxSize) {
-				final double newFactor = Math.sqrt((maxSize / (diagramHeight * diagramWidth)));
-				width = (long) (newFactor * diagramWidth);
-				height = (long) (newFactor * diagramHeight);
-				log.warning(String.format(
-						"Diagram %s is too large. Quality reduced from %.1f to %.2f -> %d x %d = %d (%.2f MP)",
-						diagram.getStableId(), factor, newFactor, height, width, height * width, height * width / 1e6));
-				this.factor = newFactor;
-			}
-		}
-
-		public double getFactor() {
-			return factor;
-		}
-
-		public double minX() {
-			return minX;
-		}
-
-		public double minY() {
-			return minY;
-		}
-
-		public long getWidth() {
-			return width;
-		}
-
-		public long getHeight() {
-			return height;
-		}
-
-	}
 }

@@ -47,7 +47,7 @@ public class DiagramIndex {
 	private double minExpression = 0;
 	private AnalysisType analysisType = AnalysisType.NONE;
 	private NodeDecorator selected;
-	private int expressionSize;
+	private List<String> expressionColumns;
 
 
 	/**
@@ -230,7 +230,7 @@ public class DiagramIndex {
 		if (analysisType == AnalysisType.EXPRESSION) {
 			maxExpression = result.getExpression().getMax();
 			minExpression = result.getExpression().getMin();
-			expressionSize = result.getExpression().getColumnNames().size();
+			expressionColumns = result.getExpression().getColumnNames();
 			expression(args.getToken(), stId, resource);
 		} else if (analysisType == AnalysisType.OVERREPRESENTATION)
 			enrichment(args.getToken(), stId, resource);
@@ -378,8 +378,8 @@ public class DiagramIndex {
 		return selected;
 	}
 
-	public int getExpressionSize() {
-		return expressionSize;
+	public List<String> getExpressionColumns() {
+		return expressionColumns;
 	}
 
 	public class DiagramObjectDecorator {

@@ -1,12 +1,12 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
-import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
+import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.FoundEntity;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
-import org.reactome.server.tools.diagram.exporter.raster.profiles.ExpressionSheet;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties;
@@ -26,72 +26,148 @@ import java.util.stream.Collectors;
 
 public class LegendRenderer {
 
+	/** space from diagram to legend */
+	private static final int LEGEND_TO_DIAGRAM_SPACE = 15;
+	private static final int LEGEND_WIDTH = 70;
+	private static final int LEGEND_HEIGHT = 350;
 	private static final DecimalFormat LEGEND_FORMAT = new DecimalFormat("#.##E0", DecimalFormatSymbols.getInstance(Locale.UK));
-	private static final double TEXT_PADDING = 2;
-	private static final double BACKGROUND_PADDING = 10;
+	/** value to create ticks arrows */
 	private static final int ARROW_SIZE = 5;
+	/** space between texts and color bar */
+	private static final double TEXT_PADDING = 2;
+	/** space between background and color bar or text, what before */
+	private static final double BACKGROUND_PADDING = 10;
+	private static final Color BACKGROUND_BORDER = new Color(175, 175, 175);
+	private static final Color BACKGROUND_FILL = new Color(220, 220, 220);
 
-	public static void addLegend(DiagramCanvas canvas, ColorProfiles colorProfiles,
-	                             Diagram diagram, double margin,
-	                             double legend_width, double legend_height,
-	                             DiagramIndex index, int col) {
+	private final DiagramCanvas canvas;
+	private final DiagramIndex index;
+	private final ColorProfiles profiles;
+	private double colorBarX;
+	private double colorBarY;
+	private double colorBarHeight;
+	private double colorBarWidth;
+	private NodeProperties bottomTextBox;
+
+	public LegendRenderer(DiagramCanvas canvas, DiagramIndex index, ColorProfiles profiles) {
+		this.canvas = canvas;
+		this.index = index;
+		this.profiles = profiles;
+	}
+
+	private static Shape arrow(double x, double y) {
+		final Path2D arrow = new Path2D.Double();
+		arrow.moveTo(x, y);
+		arrow.lineTo(x + ARROW_SIZE, y + ARROW_SIZE);
+		arrow.lineTo(x + ARROW_SIZE, y - ARROW_SIZE);
+		arrow.closePath();
+		return arrow;
+	}
+
+	private static double getY1(double min, double max, double y, double height, double val) {
+		//  y1 - y     max - val
+		// -------- = -----------
+		//  height     max - min
+		return (max - val) / (max - min) * (height) + y;
+	}
+
+	public void addLegend() {
 		/*
 		 * Legend is disposed in 4 layers:
 		 * 1. a FillDrawLayer for the background
 		 * 2. a FillLayer for the gradient color bar
 		 * 3. a DrawLayer fot the ticks
 		 * 4. a TextLayer for the numbers
-		 * Everything must fit in the rectangle (legend_height, legend_width)
 		 */
-		final ExpressionSheet sheet = colorProfiles.getAnalysisSheet().getExpression();
+		final Rectangle2D bounds = canvas.getBounds();
+
+		double legend_width;
+		double legend_height;
+		if (bounds.getHeight() < LEGEND_HEIGHT) {
+			// If diagram is too short, we use all the height available
+			legend_height = bounds.getHeight();
+			legend_width = LEGEND_WIDTH * legend_height / LEGEND_HEIGHT;
+		} else {
+			legend_width = LEGEND_WIDTH;
+			legend_height = LEGEND_HEIGHT;
+		}
+
 		final int textHeight = FontProperties.DEFAULT_FONT.getSize() * 2;
-		final double x = (diagram.getMaxX() + margin + 5);
 		final double textSpace = TEXT_PADDING + textHeight;
-		final double width = (legend_width - 20);
-		final double centerY = diagram.getMinY() + (diagram.getMaxY() - diagram.getMinY()) * 0.5;
-		final double height = legend_height - 3 * (textSpace);
-		final double y = centerY - 0.5 * height;
-		background(canvas, x, y, width, height, textSpace);
-		colorbar(canvas, sheet, x, width, height, y);
-		ticks(canvas, index, colorProfiles, x, y, width, height, col);
-		text(canvas, index, textHeight, x, y, width, height, col);
+		double total_width = bounds.getWidth() + legend_width;
+		bottomTextBox = NodePropertiesFactory.get(bounds.getMinX(), bounds.getMaxY(), total_width, textHeight);
+
+		final double centerY = bounds.getMinY() + bounds.getHeight() * 0.5;
+
+		colorBarX = bounds.getMaxX() + LEGEND_TO_DIAGRAM_SPACE + BACKGROUND_PADDING;
+		colorBarWidth = (legend_width - 2 * BACKGROUND_PADDING);
+		colorBarHeight = legend_height - 2 * (BACKGROUND_PADDING + textSpace);
+		colorBarY = centerY - 0.5 * colorBarHeight;
+
+		colorbar();
+		background(textSpace);
+		text(textSpace);
+		bottomText(0);
 	}
 
-	private static void background(DiagramCanvas canvas, double x, double y, double width, double height, double textSpace) {
-		// 1 grey background
+	public void setCol(int col) {
+		clearTicks();
+		ticks(col);
+		bottomText(col);
+
+	}
+
+	private void clearTicks() {
+		canvas.getLegendTicks().clear();
+		canvas.getLegendTickArrows().clear();
+	}
+
+	private void bottomText(int col) {
+		final String text = String.format(Locale.UK, "%d/%d: %s", (col + 1),
+				index.getExpressionColumns().size(),
+				index.getExpressionColumns().get(col));
+		canvas.getLegendBottomText().clear();
+		canvas.getLegendBottomText().add(Color.BLACK, text, bottomTextBox, 0, 0);
+
+	}
+
+	private void background(double textSpace) {
 		final Shape background = new RoundRectangle2D.Double(
-				x - BACKGROUND_PADDING,
-				y - (textSpace + BACKGROUND_PADDING),
-				width + 2 * BACKGROUND_PADDING,
-				height + 3 * textSpace + 2 * BACKGROUND_PADDING,
+				colorBarX - BACKGROUND_PADDING,
+				colorBarY - (textSpace + BACKGROUND_PADDING),
+				colorBarWidth + 2 * BACKGROUND_PADDING,
+				colorBarHeight + 2 * textSpace + 2 * BACKGROUND_PADDING,
 				20, 20);
-		final Color border = new Color(175, 175, 175);
-		final Color bg = new Color(220, 220, 220);
 		final Stroke stroke = StrokeProperties.StrokeStyle.SEGMENT.getStroke(false);
-		canvas.getLegendBackground().add(bg, border, stroke, background);
+		canvas.getLegendBackground().add(BACKGROUND_FILL, BACKGROUND_BORDER, stroke, background);
 	}
 
-	private static void colorbar(DiagramCanvas canvas, ExpressionSheet sheet, double x, double width, double height, double y) {
-		// 2 color bar
-		float baseY = (float) (y + height);
+	private void colorbar() {
+		final GradientSheet gradient;
+		if (index.getAnalysisType() == AnalysisType.EXPRESSION) {
+			gradient = profiles.getAnalysisSheet().getExpression().getGradient();
+		} else
+			gradient = profiles.getAnalysisSheet().getEnrichment().getGradient();
+
+		float baseY = (float) (colorBarY + colorBarHeight);
 		final Paint paint;
-		if (sheet.getGradient().getStop() == null)
+		if (gradient.getStop() == null)
 			paint = new GradientPaint(
-					(float) x, baseY, sheet.getGradient().getMax(),
-					(float) x, (float) y, sheet.getGradient().getMin());
+					(float) colorBarX, baseY, gradient.getMax(),
+					(float) colorBarX, (float) colorBarY, gradient.getMin());
 		else {
 			paint = new LinearGradientPaint(
-					(float) x, baseY,
-					(float) x, (float) y,
+					(float) colorBarX, baseY,
+					(float) colorBarX, (float) colorBarY,
 					new float[]{0, 0.5f, 1},
-					new Color[]{sheet.getGradient().getMax(),
-							sheet.getGradient().getStop(),
-							sheet.getGradient().getMin()});
+					new Color[]{gradient.getMax(),
+							gradient.getStop(),
+							gradient.getMin()});
 		}
-		canvas.getLegendBar().add(paint, new Rectangle2D.Double(x, y, width, height));
+		canvas.getLegendBar().add(paint, new Rectangle2D.Double(colorBarX, colorBarY, colorBarWidth, colorBarHeight));
 	}
 
-	private static void ticks(DiagramCanvas canvas, DiagramIndex index, ColorProfiles colors, double x, double y, double width, double height, int col) {
+	private void ticks(int col) {
 		if (index.getSelected() == null) return;
 		final List<FoundEntity> expressions = index.getSelected().getExpressions();
 		if (expressions == null) return;
@@ -120,58 +196,40 @@ public class LegendRenderer {
 		final Color limitColor, valueColor;
 		if (nMax == null) {
 			limitColor = null;
-			valueColor = colors.getDiagramSheet().getProperties().getSelection();
+			valueColor = profiles.getDiagramSheet().getProperties().getSelection();
 		} else {
-			limitColor = colors.getDiagramSheet().getProperties().getSelection();
-			valueColor = colors.getAnalysisSheet().getExpression().getLegend().getMedian();
+			limitColor = profiles.getDiagramSheet().getProperties().getSelection();
+			valueColor = profiles.getAnalysisSheet().getExpression().getLegend().getMedian();
 		}
-		drawTick(canvas, index, x, y, width, height, nValue, stroke, valueColor);
-		drawTick(canvas, index, x, y, width, height, nMax, stroke, limitColor);
-		drawTick(canvas, index, x, y, width, height, nMin, stroke, limitColor);
+		drawTick(nValue, stroke, valueColor);
+		drawTick(nMax, stroke, limitColor);
+		drawTick(nMin, stroke, limitColor);
 	}
 
-	private static void drawTick(DiagramCanvas canvas, DiagramIndex index, double x, double y, double width, double height, Double value, Stroke stroke, Color limitColor) {
+	private void drawTick(Double value, Stroke stroke, Color limitColor) {
 		if (value != null) {
-			final double rightX = x + width;
-			final double y1 = getY1(index.getMinExpression(), index.getMaxExpression(), y, height, value);
-			final Shape line = new Line2D.Double(x, y1, rightX, y1);
+			final double rightX = colorBarX + colorBarWidth;
+			final double y1 = getY1(index.getMinExpression(), index.getMaxExpression(), colorBarY, colorBarHeight, value);
+			final Shape line = new Line2D.Double(colorBarX, y1, rightX, y1);
 			canvas.getLegendTicks().add(limitColor, stroke, line);
 			final Shape arrow = arrow(rightX - 1, y1);
 			canvas.getLegendTickArrows().add(limitColor, arrow);
 		}
 	}
 
-	private static Shape arrow(double x, double y) {
-		final Path2D arrow = new Path2D.Double();
-		arrow.moveTo(x, y);
-		arrow.lineTo(x + ARROW_SIZE, y + ARROW_SIZE);
-		arrow.lineTo(x + ARROW_SIZE, y - ARROW_SIZE);
-		arrow.closePath();
-		return arrow;
-	}
-
-	private static double getY1(double min, double max, double y, double height, double val) {
-		//  y1 - y     max - val
-		// -------- = -----------
-		//  height     max - min
-		return (max - val) / (max - min) * (height) + y;
-	}
-
-	private static void text(DiagramCanvas canvas, DiagramIndex index, int textHeight, double x, double y, double width, double height, int col) {
-		final float b = (float) (y + height);
-		// 4 text
+	private void text(double textSpace) {
+		final float b = (float) (colorBarY + colorBarHeight);
 		// There is not TextCenteredLayer, so we use a regular TextLayer
 		// and use boxes to center the texts
-		final NodeProperties top = NodePropertiesFactory.get(x - 10,
-				y - textHeight - TEXT_PADDING, width + 20, textHeight);
-		final NodeProperties bottom = NodePropertiesFactory.get(x - 10,
-				b + TEXT_PADDING, width + 20, textHeight);
-		final double max = index.getMaxExpression();
-		final double min = index.getMinExpression();
-		canvas.getLegendText().add(Color.BLACK, LEGEND_FORMAT.format(max), top, 0, 0);
-		canvas.getLegendText().add(Color.BLACK, LEGEND_FORMAT.format(min), bottom, 0, 0);
-		final NodeProperties progress = NodePropertiesFactory.get(x - 10,
-				b + TEXT_PADDING + textHeight, width + 20, textHeight);
-		canvas.getLegendText().add(Color.BLACK, String.format("%d/%d", col + 1, index.getExpressionSize()), progress, 0,0);
+		final NodeProperties top = NodePropertiesFactory.get(colorBarX - 10,
+				colorBarY - textSpace - TEXT_PADDING, colorBarWidth + 20, textSpace);
+		final NodeProperties bottom = NodePropertiesFactory.get(colorBarX - 10,
+				b + TEXT_PADDING, colorBarWidth + 20, textSpace);
+		final double topValue;
+		final double bottomValue;
+		topValue = index.getMaxExpression();
+		bottomValue = index.getMinExpression();
+		canvas.getLegendText().add(Color.BLACK, LEGEND_FORMAT.format(topValue), top, 0, 0);
+		canvas.getLegendText().add(Color.BLACK, LEGEND_FORMAT.format(bottomValue), bottom, 0, 0);
 	}
 }

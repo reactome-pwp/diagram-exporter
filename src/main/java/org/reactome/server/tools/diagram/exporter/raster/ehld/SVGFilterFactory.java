@@ -25,7 +25,6 @@ class SVGFilterFactory {
 		final Element morpho = document.createElementNS(SVG_NAMESPACE_URI, SVG_FE_MORPHOLOGY_TAG);
 		morpho.setAttribute(SVG_IN_ATTRIBUTE, prefix + 1);
 		morpho.setAttribute(SVG_OPERATOR_ATTRIBUTE, SVG_DILATE_VALUE);
-		morpho.setAttribute(SVG_FILTER_UNITS_ATTRIBUTE, SVG_OBJECT_BOUNDING_BOX_VALUE);
 		morpho.setAttribute(SVG_RADIUS_ATTRIBUTE, String.valueOf(width));
 		morpho.setAttribute(SVG_RESULT_ATTRIBUTE, prefix + 2);
 
@@ -34,9 +33,9 @@ class SVGFilterFactory {
 		final Element source = document.createElementNS(SVG_NAMESPACE_URI, SVG_FE_MERGE_NODE_TAG);
 		source.setAttribute(SVG_IN_ATTRIBUTE, SVG_SOURCE_GRAPHIC_VALUE);
 		final Element in = document.createElementNS(SVG_NAMESPACE_URI, SVG_FE_MERGE_NODE_TAG);
-		in.setAttribute(SVG_IN_ATTRIBUTE, prefix + 1);
-//		merge.appendChild(source);
+		in.setAttribute(SVG_IN_ATTRIBUTE, prefix + 2);
 		merge.appendChild(in);
+		merge.appendChild(source);
 		merge.setAttribute(SVG_RESULT_ATTRIBUTE, prefix + "Result");
 
 		final Element filter = document.createElementNS(SVG_NAMESPACE_URI, SVG_FILTER_TAG);

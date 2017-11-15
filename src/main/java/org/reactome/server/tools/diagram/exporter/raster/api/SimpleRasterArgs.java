@@ -3,8 +3,8 @@ package org.reactome.server.tools.diagram.exporter.raster.api;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
 import java.awt.*;
+import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class SimpleRasterArgs implements RasterArgs {
@@ -97,7 +97,7 @@ public class SimpleRasterArgs implements RasterArgs {
 		return flags;
 	}
 
-	public void setFlags(java.util.List<String> flags) {
+	public void setFlags(Collection<String> flags) {
 		if (flags != null)
 			this.flags = new HashSet<>(flags);
 	}
@@ -106,7 +106,7 @@ public class SimpleRasterArgs implements RasterArgs {
 		return selected;
 	}
 
-	public void setSelected(List<String> selected) {
+	public void setSelected(Collection<String> selected) {
 		if (selected != null)
 			this.selected = new HashSet<>(selected);
 	}
