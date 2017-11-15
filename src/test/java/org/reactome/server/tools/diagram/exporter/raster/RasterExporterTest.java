@@ -8,18 +8,14 @@ import org.junit.Test;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.api.SimpleRasterArgs;
-import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
@@ -166,10 +162,8 @@ public class RasterExporterTest {
 			final BufferedImage image = RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
 			final File file = new File(IMAGES_FOLDER, stId + "." + ext);
 			ImageIO.write(image, ext, file);
-		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | IOException | EHLDException e) {
+		} catch (Exception e) {
 			Assert.fail(e.getMessage());
-		} catch (AnalysisServerError | AnalysisException analysisServerError) {
-			analysisServerError.printStackTrace();
 		}
 	}
 
@@ -181,10 +175,8 @@ public class RasterExporterTest {
 			args.setFlags(flags);
 			args.setProfiles(new ColorProfiles(profile, "standard", "cyan"));
 			RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
-		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | EHLDException e) {
+		} catch (Exception e) {
 			Assert.fail(e.getMessage());
-		} catch (AnalysisServerError | AnalysisException analysisServerError) {
-			analysisServerError.printStackTrace();
 		}
 	}
 

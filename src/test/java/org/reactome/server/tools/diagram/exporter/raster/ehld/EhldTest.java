@@ -3,13 +3,8 @@ package org.reactome.server.tools.diagram.exporter.raster.ehld;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
-import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
-import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.RasterExporter;
 import org.reactome.server.tools.diagram.exporter.raster.api.SimpleRasterArgs;
-import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
 
 import java.util.Arrays;
 
@@ -30,7 +25,7 @@ public class EhldTest {
 		try {
 			args.setFactor(3.);
 			RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
-		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | EHLDException | AnalysisServerError | AnalysisException e) {
+		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
 	}
@@ -43,7 +38,7 @@ public class EhldTest {
 		args.setFlags(Arrays.asList("R-HSA-109606"));
 		try {
 			RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
-		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | EHLDException | AnalysisServerError | AnalysisException e) {
+		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
 	}
@@ -54,7 +49,7 @@ public class EhldTest {
 		args.setSelected(Arrays.asList("R-HSA-109606"));
 		try {
 			RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
-		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | EHLDException | AnalysisServerError | AnalysisException e) {
+		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
 	}
@@ -65,7 +60,7 @@ public class EhldTest {
 		args.setSelected(Arrays.asList("R-HSA-109606"));
 		try {
 			RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
-		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | EHLDException | AnalysisServerError | AnalysisException e) {
+		} catch (Exception e) {
 			Assert.fail(e.getMessage());
 		}
 	}

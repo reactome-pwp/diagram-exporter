@@ -94,8 +94,12 @@ public class LegendRenderer {
 
 		final int textHeight = FontProperties.DEFAULT_FONT.getSize() * 2;
 		final double textSpace = TEXT_PADDING + textHeight;
-		double total_width = bounds.getWidth() + legend_width;
-		bottomTextBox = NodePropertiesFactory.get(bounds.getMinX(), bounds.getMaxY(), total_width, textHeight);
+
+		final double bottomWidth = bounds.getWidth() + legend_width;
+		final double bottomHeight = FontProperties.LEGEND_FONT.getSize() * 1.5;
+		final double bottomY = bounds.getMaxY() + LEGEND_TO_DIAGRAM_SPACE;
+		final double bottomX = bounds.getMinX();
+		bottomTextBox = NodePropertiesFactory.get(bottomX, bottomY, bottomWidth, bottomHeight);
 
 		final double centerY = bounds.getMinY() + bounds.getHeight() * 0.5;
 
@@ -127,7 +131,7 @@ public class LegendRenderer {
 				index.getExpressionColumns().size(),
 				index.getExpressionColumns().get(col));
 		canvas.getLegendBottomText().clear();
-		canvas.getLegendBottomText().add(Color.BLACK, text, bottomTextBox, 0, 0);
+		canvas.getLegendBottomText().add(text, Color.BLACK, bottomTextBox, 0, 0, FontProperties.LEGEND_FONT);
 
 	}
 
@@ -229,7 +233,7 @@ public class LegendRenderer {
 		final double bottomValue;
 		topValue = index.getMaxExpression();
 		bottomValue = index.getMinExpression();
-		canvas.getLegendText().add(Color.BLACK, LEGEND_FORMAT.format(topValue), top, 0, 0);
-		canvas.getLegendText().add(Color.BLACK, LEGEND_FORMAT.format(bottomValue), bottom, 0, 0);
+		canvas.getLegendText().add(LEGEND_FORMAT.format(topValue), Color.BLACK, top, 0, 0, FontProperties.DEFAULT_FONT);
+		canvas.getLegendText().add(LEGEND_FORMAT.format(bottomValue), Color.BLACK, bottom, 0, 0, FontProperties.DEFAULT_FONT);
 	}
 }

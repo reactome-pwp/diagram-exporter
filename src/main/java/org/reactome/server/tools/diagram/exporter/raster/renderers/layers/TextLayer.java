@@ -16,29 +16,36 @@ import java.util.Map;
  */
 public class TextLayer extends CommonLayer {
 
-	private Map<Color, Collection<RenderableText>> texts = new HashMap<>();
+	private Map<Font, Map<Color, Collection<RenderableText>>> texts = new HashMap<>();
 
-	public void add(Color color, String text, NodeProperties limits, double padding, double splitText) {
-		texts.computeIfAbsent(color, k -> new LinkedList<>())
+	public void add(String text, Color color, NodeProperties limits, double padding, double splitText, Font font) {
+		texts
+				.computeIfAbsent(font, k -> new HashMap<>())
+				.computeIfAbsent(color, k -> new LinkedList<>())
 				.add(new RenderableText(text, limits, padding, splitText));
 		addShape(new Rectangle2D.Double(limits.getX(), limits.getY(), limits.getWidth(), limits.getHeight()));
 	}
 
-	public void add(Color color, String text, Coordinate position) {
-		texts.computeIfAbsent(color, k -> new LinkedList<>())
+	public void add(Color color, String text, Coordinate position, Font font) {
+		texts
+				.computeIfAbsent(font, k -> new HashMap<>())
+				.computeIfAbsent(color, k -> new LinkedList<>())
 				.add(new RenderableText(text, position));
 	}
 
 	@Override
 	public void render(Graphics2D graphics) {
-		texts.forEach((color, renderableTexts) -> {
-			graphics.setPaint(color);
-			renderableTexts.forEach(text -> {
-				if (text.limits != null)
-					TextRenderer.drawText(graphics, text.text, text.limits, text.padding, text.splitText);
-				else if (text.position != null) {
-					TextRenderer.drawTextSingleLine(graphics, text.text, text.position);
-				}
+		texts.forEach((font, items) -> {
+			graphics.setFont(font);
+			items.forEach((color, renderableTexts) -> {
+				graphics.setPaint(color);
+				renderableTexts.forEach(text -> {
+					if (text.limits != null)
+						TextRenderer.drawText(graphics, text.text, text.limits, text.padding, text.splitText);
+					else if (text.position != null) {
+						TextRenderer.drawTextSingleLine(graphics, text.text, text.position);
+					}
+				});
 			});
 		});
 	}

@@ -111,7 +111,17 @@ public class DiagramIndex {
 		return args.getFlags().stream()
 				.map(this::getDiagramObjectId)
 				.filter(Objects::nonNull)
+				.flatMap(this::getAncestors)
 				.collect(Collectors.toList());
+	}
+
+	private Stream<Long> getAncestors(Long id) {
+		final Set<Long> ids = new HashSet<>();
+		ids.add(id);
+		final EntityNode node = graphIndex.get(id);
+		if (node.getParents() != null)
+			node.getParents().forEach(parentId -> getAncestors(parentId).forEach(ids::add));
+		return ids.stream();
 	}
 
 	private Long getDiagramObjectId(String string) {
@@ -147,7 +157,7 @@ public class DiagramIndex {
 	private void decorateNodes(List<Long> sel, List<Long> flg) {
 		if (sel.isEmpty() && flg.isEmpty())
 			return;
-		diagram.getNodes().forEach(node -> {
+		diagram.getNodes().forEach((Node node) -> {
 			if (sel.contains(node.getReactomeId())) {
 				final NodeDecorator decorator = getNodeDecorator(node.getId());
 				decorator.setSelected(true);
@@ -180,7 +190,6 @@ public class DiagramIndex {
 				getEdgeDecorator(reaction.getId()).setFlag(true);
 		});
 	}
-
 
 	/**
 	 * Adds the reaction to the haloReaction set, participating nodes to

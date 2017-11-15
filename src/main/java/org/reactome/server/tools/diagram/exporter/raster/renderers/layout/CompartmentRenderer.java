@@ -9,6 +9,7 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties;
 
@@ -83,7 +84,7 @@ public class CompartmentRenderer {
 		}
 		compartments.forEach(compartment ->
 				canvas.getCompartmentText().add(text, compartment.getDisplayName(),
-						compartment.getTextPosition().add(GWU_CORRECTION)));
+						compartment.getTextPosition().add(GWU_CORRECTION), FontProperties.DEFAULT_FONT));
 	}
 
 }
