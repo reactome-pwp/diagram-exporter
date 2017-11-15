@@ -20,7 +20,6 @@ import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -154,23 +153,20 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 
 	public double expression(ColorProfiles colorProfiles, DiagramIndex index, NodeRenderInfo info, int t) {
 		// Sorted during index
-		final List<FoundEntity> expressions = info.getDecorator().getExpressions();
+		final List<FoundEntity> expressions = info.getDecorator().getHitExpressions();
 		double splitText = 0.0;
 		if (expressions != null) {
-			final List<FoundEntity> withExpression = expressions.stream()
-					.filter(Objects::nonNull)
-					.collect(Collectors.toList());
-			final List<Double> values = withExpression.stream()
+			final List<Double> values = expressions.stream()
 					.map(participant -> participant.getExp().get(t))
 					.collect(Collectors.toList());
-			final int size = expressions.size();
+			final int size = info.getDecorator().getTotalExpressions();
 
 			final NodeProperties prop = info.getNode().getProp();
 			final double x = prop.getX();
 			final double y = prop.getY();
 			final double height = prop.getHeight();
 			final double partSize = prop.getWidth() / size;
-			splitText = (double) values.size() / expressions.size();
+			splitText = (double) values.size() / size;
 
 			final double max = index.getMaxExpression();
 			final double min = index.getMinExpression();

@@ -3,78 +3,84 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.*;
 
 import java.awt.*;
-import java.util.stream.Stream;
+import java.awt.geom.Rectangle2D;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class DiagramCanvas {
 
-	private FillLayer compartmentFill = new FillLayerImpl();
-	private DrawLayer compartmentBorder = new DrawLayerImpl();
-	private TextLayer compartmentText = new TextLayerImpl();
-	private DrawLayer fadeOutSegments = new DrawLayerImpl();
-	private FillLayer fadeOutNodeBackground = new FillLayerImpl();
-	private DrawLayer fadeOutNodeBorder = new DrawLayerImpl();
-	private TextLayer fadeOutText = new TextLayerImpl();
-	private DrawLayer segments = new DrawLayerImpl();
-	private DrawLayer flags = new DrawLayerImpl();
-	private DrawLayer halo = new DrawLayerImpl();
-	private DrawLayer nodeBorder = new DrawLayerImpl();
-	private TextLayer text = new TextLayerImpl();
-	private TextLayer notes = new TextLayerImpl();
-	private FillLayer nodeAnalysis = new FillLayerImpl();
-	private DrawLayer cross = new DrawLayerImpl();
-	private FillLayer nodeBackground = new FillLayerImpl();
-	private FillLayer nodeForeground = new FillLayerImpl();
-	private FillLayer fadeOutNodeForeground = new FillLayerImpl();
-	private FillDrawLayer edgeShapes = new FillDrawLayerImpl();
-	private FillDrawLayer fadeOutEdgeShapes = new FillDrawLayerImpl();
-	private FillDrawLayer attachments = new FillDrawLayerImpl();
-	private FillDrawLayer fadeOutAttachments = new FillDrawLayerImpl();
-	private FillDrawLayer legendBackground = new FillDrawLayerImpl();
-	private TextLayer legendText = new TextLayerImpl();
-	private FillLayer legendBar = new FillLayerImpl();
-	private DrawLayer legendTicks = new DrawLayerImpl();
-	private FillLayer legendTickArrows = new FillLayerImpl();
+	private FillLayer compartmentFill = new FillLayer();
+	private DrawLayer compartmentBorder = new DrawLayer();
+	private TextLayer compartmentText = new TextLayer();
+	private DrawLayer fadeOutSegments = new DrawLayer();
+	private FillLayer fadeOutNodeBackground = new FillLayer();
+	private DrawLayer fadeOutNodeBorder = new DrawLayer();
+	private TextLayer fadeOutText = new TextLayer();
+	private DrawLayer segments = new DrawLayer();
+	private DrawLayer flags = new DrawLayer();
+	private DrawLayer halo = new DrawLayer();
+	private DrawLayer nodeBorder = new DrawLayer();
+	private TextLayer text = new TextLayer();
+	private TextLayer notes = new TextLayer();
+	private FillLayer nodeAnalysis = new FillLayer();
+	private DrawLayer cross = new DrawLayer();
+	private FillLayer nodeBackground = new FillLayer();
+	private FillLayer nodeForeground = new FillLayer();
+	private FillLayer fadeOutNodeForeground = new FillLayer();
+	private FillDrawLayer edgeShapes = new FillDrawLayer();
+	private FillDrawLayer fadeOutEdgeShapes = new FillDrawLayer();
+	private FillDrawLayer attachments = new FillDrawLayer();
+	private FillDrawLayer fadeOutAttachments = new FillDrawLayer();
+	private FillDrawLayer legendBackground = new FillDrawLayer();
+	private TextLayer legendText = new TextLayer();
+	private FillLayer legendBar = new FillLayer();
+	private DrawLayer legendTicks = new DrawLayer();
+	private FillLayer legendTickArrows = new FillLayer();
+	private TextLayer legendBottomText = new TextLayer();
+
+	private final List<Layer> layers = Arrays.asList(
+			compartmentFill,
+			compartmentBorder,
+			compartmentText,
+
+			fadeOutSegments,
+			fadeOutEdgeShapes,
+			fadeOutNodeBackground,
+			fadeOutNodeForeground,
+			fadeOutNodeBorder,
+			fadeOutAttachments,
+			fadeOutText,
+
+			cross,
+			flags,
+			halo,
+
+			segments,
+			edgeShapes,
+			nodeBackground,
+			nodeAnalysis,
+			nodeForeground,
+			nodeBorder,
+			attachments,
+			text,
+
+			notes,
+			legendBackground,
+			legendBar,
+			legendTicks,
+			legendTickArrows,
+			legendText,
+			legendBottomText
+	);
 
 	public DiagramCanvas() {
 	}
 
 	public void render(Graphics2D graphics) {
-		Stream.of(
-				compartmentFill,
-				compartmentBorder,
-				compartmentText,
-
-				fadeOutSegments,
-				fadeOutEdgeShapes,
-				fadeOutNodeBackground,
-				fadeOutNodeForeground,
-				fadeOutNodeBorder,
-				fadeOutAttachments,
-				fadeOutText,
-
-				cross,
-				flags,
-				halo,
-
-				segments,
-				edgeShapes,
-				nodeBackground,
-				nodeAnalysis,
-				nodeForeground,
-				nodeBorder,
-				attachments,
-				text,
-
-				notes,
-				legendBackground,
-				legendBar,
-				legendTicks,
-				legendTickArrows,
-				legendText
-		).forEach(layer -> layer.render(graphics));
+		layers.forEach(layer -> layer.render(graphics));
 	}
 
 	public DrawLayer getCompartmentBorder() {
@@ -183,5 +189,22 @@ public class DiagramCanvas {
 
 	public TextLayer getLegendText() {
 		return legendText;
+	}
+
+	public Rectangle2D getBounds() {
+		double x = Double.MAX_VALUE, y = Double.MAX_VALUE, maxX = 0, maxY = 0;
+		for (Layer layer : layers) {
+			final Rectangle2D bounds = layer.getBounds();
+			if (bounds == null) continue;
+			if (bounds.getX() < x) x = bounds.getX();
+			if (bounds.getY() < y) y = bounds.getY();
+			if (bounds.getMaxX() > maxX) maxX = bounds.getMaxX();
+			if (bounds.getMaxY() > maxY) maxY = bounds.getMaxY();
+		}
+		return new Rectangle2D.Double(x, y, maxX - x, maxY - y);
+	}
+
+	public TextLayer getLegendBottomText() {
+		return legendBottomText;
 	}
 }

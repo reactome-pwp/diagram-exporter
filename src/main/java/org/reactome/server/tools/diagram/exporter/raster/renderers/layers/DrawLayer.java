@@ -1,13 +1,38 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layers;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
- * Layer for drawings, like lines or borders.
- *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
-public interface DrawLayer extends Layer {
+public class DrawLayer extends CommonLayer {
 
-	void add(Color color, Stroke stroke, Shape shape);
+	private Map<Color, Map<Stroke, List<Shape>>> shapes = new HashMap<>();
+
+	public void add(Color color, Stroke stroke, Shape shape) {
+		addShape(shape);
+		shapes.computeIfAbsent(color, k -> new HashMap<>())
+				.computeIfAbsent(stroke, k -> new LinkedList<>())
+				.add(shape);
+	}
+
+	@Override
+	public void render(Graphics2D graphics) {
+		shapes.forEach((color, strokes) -> {
+			graphics.setPaint(color);
+			strokes.forEach((stroke, shapes) -> {
+				graphics.setStroke(stroke);
+				shapes.forEach(graphics::draw);
+			});
+		});
+	}
+
+	@Override
+	public void clear() {
+		shapes.clear();
+	}
 }

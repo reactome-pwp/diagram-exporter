@@ -105,8 +105,8 @@ public class ColorFactory {
 //		final String b = String.format(Locale.UK, "%.2f", color.getBlue() * INV_255);
 //		final String a = String.format(Locale.UK, "%.2f", color.getAlpha() * INV_255);
 		final float r = color.getRed() * INV_255;
-		final float g = color.getBlue() * INV_255;
-		final float b = color.getGreen() * INV_255;
+		final float g = color.getGreen() * INV_255;
+		final float b = color.getBlue() * INV_255;
 		final float a = color.getAlpha() * INV_255;
 		// RR RG RB RA R
 		// GR GG GB GA G

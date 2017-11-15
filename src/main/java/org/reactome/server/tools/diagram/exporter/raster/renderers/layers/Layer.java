@@ -1,6 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layers;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 
 /**
  * Virtual layer. At any time it is passed a graphics and has to render things
@@ -13,4 +14,6 @@ public interface Layer {
 	void render(Graphics2D graphics);
 
 	void clear();
+
+	Rectangle2D getBounds();
 }
