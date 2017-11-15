@@ -7,6 +7,7 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.EdgeRenderInfo;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
 
 import java.awt.Color;
@@ -70,7 +71,7 @@ public class EdgeRenderer extends AbstractRenderer {
 					shape.getA().getX(), shape.getA().getY(),
 					shape.getB().getX() - shape.getA().getX(),
 					shape.getB().getY() - shape.getA().getY());
-			info.getTextLayer().add(info.getLineColor(), shape.getS(), limits, 1, 0);
+			info.getTextLayer().add(shape.getS(), info.getLineColor(), limits, 1, 0, FontProperties.DEFAULT_FONT);
 		}
 	}
 
@@ -96,7 +97,7 @@ public class EdgeRenderer extends AbstractRenderer {
 						stShape.getA().getX(), stShape.getA().getY(),
 						stShape.getB().getX() - stShape.getA().getX(),
 						stShape.getB().getY() - stShape.getA().getY());
-		info.getTextLayer().add(info.getLineColor(), text, limits, 1, 0);
+		info.getTextLayer().add(text, info.getLineColor(), limits, 1, 0, FontProperties.DEFAULT_FONT);
 	}
 
 	/**

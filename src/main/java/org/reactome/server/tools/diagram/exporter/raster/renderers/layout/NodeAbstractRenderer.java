@@ -10,10 +10,7 @@ import org.reactome.server.tools.diagram.exporter.common.analysis.model.FoundEnt
 import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.NodeRenderInfo;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.RendererProperties;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.ShapeFactory;
+import org.reactome.server.tools.diagram.exporter.raster.renderers.common.*;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.DrawLayer;
 
 import java.awt.*;
@@ -105,7 +102,7 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 						shape.getA().getX(), shape.getA().getY(),
 						shape.getB().getX() - shape.getA().getX(),
 						shape.getB().getY() - shape.getA().getY());
-				info.getTextLayer().add(text, shape.getS(), limits, 1, 0);
+				info.getTextLayer().add(shape.getS(), text, limits, 1, 0, FontProperties.DEFAULT_FONT);
 			}
 		});
 	}
@@ -128,10 +125,10 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 			// as splitText is in background dimensions,
 			// we need to change it to foreground percentage
 			splitText = (prop.getX() + splitText * prop.getWidth() - limits.getX()) / limits.getWidth();
-			info.getTextLayer().add(info.getTextColor(), info.getNode().getDisplayName(), limits, 1, splitText);
+			info.getTextLayer().add(info.getNode().getDisplayName(), info.getTextColor(), limits, 1, splitText, FontProperties.DEFAULT_FONT);
 		} else
-			info.getTextLayer().add(info.getTextColor(), info.getNode().getDisplayName(),
-					info.getNode().getProp(), RendererProperties.NODE_TEXT_PADDING, splitText);
+			info.getTextLayer().add(info.getNode().getDisplayName(), info.getTextColor(),
+					info.getNode().getProp(), RendererProperties.NODE_TEXT_PADDING, splitText, FontProperties.DEFAULT_FONT);
 	}
 
 	public void enrichment(ColorProfiles colorProfiles, NodeRenderInfo info) {
