@@ -21,7 +21,7 @@ public class EhldTest {
 
 	@Test
 	public void testPng() {
-		final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-449147", "png");
+		final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-1640170", "png");
 		try {
 			args.setFactor(3.);
 			RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);

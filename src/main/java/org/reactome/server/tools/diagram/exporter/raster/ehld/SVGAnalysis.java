@@ -156,7 +156,7 @@ public class SVGAnalysis {
 		if (pValue >= 0 && pValue <= MAX_P_VALUE) {
 			double val = pValue / MAX_P_VALUE;
 			analysisColor = ColorFactory.interpolate(gradient, val);
-			if (args.getSelected().contains(stId)) {
+			if (args.getSelected() != null && args.getSelected().contains(stId)) {
 				final Color selection = args.getProfiles().getDiagramSheet().getProperties().getSelection();
 				SVGLegendRenderer.tick(document, val, selection);
 			}
@@ -227,7 +227,7 @@ public class SVGAnalysis {
 		final NodeList texts = base.getElementsByTagName(SVG_TEXT_TAG);
 		IntStream.range(0, texts.getLength())
 				.mapToObj(texts::item)
-				.forEach(base::removeChild);
+				.forEach(textNode -> textNode.getParentNode().removeChild(textNode));
 		base.setAttribute(SVG_ID_ATTRIBUTE, OVERLAY_BASE_ + stId);
 		base.setAttribute(SVGConstants.SVG_FILL_ATTRIBUTE, HIT_BASE_COLOR);
 		base.setAttribute(SVGConstants.SVG_STROKE_ATTRIBUTE, HIT_BASIS_STROKE_COLOUR);

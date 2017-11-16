@@ -254,10 +254,11 @@ public class DiagramIndex {
 	 * the fill area.
 	 */
 	private void subPathways(String token, String resource) throws AnalysisServerError, AnalysisException {
-		// 1 extract list of subPathways stId (for ProcessNodes)
+		// 1 extract list of dbIds for ProcessNodes
 		final List<String> subPathways = diagram.getNodes().stream()
 				.filter(node -> node.getRenderableClass().equals("ProcessNode"))
-				.map(node -> graphIndex.get(node.getReactomeId()).getStId())
+				.map(DiagramObject::getReactomeId)
+				.map(String::valueOf)
 				.collect(Collectors.toList());
 		if (subPathways.isEmpty())
 			return;
@@ -283,8 +284,14 @@ public class DiagramIndex {
 	 * Computes the list of expressions of components. For each diagram object,
 	 * except ProcessNodes, you get a list of lists of doubles
 	 */
-	private void expression(String token, String stId, String resource) throws AnalysisServerError, AnalysisException {
-		final FoundElements foundElements = AnalysisClient.getFoundElements(stId, token, resource);
+	private void expression(String token, String stId, String resource) throws AnalysisServerError {
+		final FoundElements foundElements;
+		try {
+			foundElements = AnalysisClient.getFoundElements(stId, token, resource);
+		} catch (AnalysisException e) {
+			// token is valid, but this pathway has no analysis
+			return;
+		}
 		// Index analysis nodes via mapsTo
 		final Map<String, FoundEntity> analysisIndex = new HashMap<>();
 		foundElements.getEntities().forEach(analysisNode ->
@@ -305,8 +312,15 @@ public class DiagramIndex {
 	}
 
 	/** Computes only the relation of hit found components and found component */
-	private void enrichment(String token, String stId, String resource) throws AnalysisException, AnalysisServerError {
-		final FoundElements analysisNodes = AnalysisClient.getFoundElements(stId, token, resource);
+	private void enrichment(String token, String stId, String resource) throws AnalysisServerError {
+		final FoundElements analysisNodes;
+		try {
+			analysisNodes = AnalysisClient.getFoundElements(stId, token, resource);
+		} catch (AnalysisException e) {
+			// In this case, analysis token is valid, but stId is not int the analysis
+			// no need to overlay analysis
+			return;
+		}
 		// foundEntity.getMapsTo().getIds() -> graphNode.getIdentifier()
 		final Set<String> identifiers = analysisNodes.getEntities().stream()
 				.map(FoundEntity::getMapsTo)
