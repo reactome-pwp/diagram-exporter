@@ -12,6 +12,7 @@ import org.reactome.server.tools.diagram.exporter.common.analysis.model.Analysis
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDRuntimeException;
 import org.reactome.server.tools.diagram.exporter.raster.gif.AnimatedGifEncoder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -100,7 +101,7 @@ public class EHLDRenderer {
 			transcoder.transcode(input, null);
 			return transcoder.getImage();
 		} catch (TranscoderException e) {
-			throw new EHLDException(e.getMessage());
+			throw new EHLDRuntimeException(e.getMessage());
 		}
 	}
 
