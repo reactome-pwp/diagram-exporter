@@ -22,6 +22,7 @@ import java.util.Collection;
 public class AnalysisClient {
 
 	private static String SERVER = "http://localhost";
+	private static String SERVICE = "/AnalysisService";
 
 	private static ObjectMapper mapper = null;
 
@@ -33,10 +34,13 @@ public class AnalysisClient {
 		SERVER = server;
 	}
 
+	public static void setService(String service) {
+		SERVICE = service;
+	}
+
 	public static FoundElements getFoundElements(String pathway, String token, String resource) throws AnalysisException, AnalysisServerError {
 		try {
-			URL url = new URL(SERVER + "/AnalysisService/token/" + URLEncoder.encode(token, "UTF8") + "/found/all/" + pathway + "?resource=" + resource);
-
+			URL url = new URL(SERVER + SERVICE + "/token/" + URLEncoder.encode(token, "UTF8") + "/found/all/" + pathway + "?resource=" + resource);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
 			connection.setRequestProperty("Response-Type", "application/json");
@@ -56,8 +60,7 @@ public class AnalysisClient {
 
 	public static PathwaySummary[] getPathwaysSummary(Collection<String> pathways, String token, String resource) throws AnalysisServerError, AnalysisException {
 		try {
-			URL url = new URL(SERVER + "/AnalysisService/token/" + token + "/filter/pathways?resource=" + resource);
-
+			URL url = new URL(SERVER + SERVICE + "/token/" + token + "/filter/pathways?resource=" + resource);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setRequestProperty("Content-Type", "text/plain");
@@ -82,8 +85,7 @@ public class AnalysisClient {
 
 	public static AnalysisResult performAnalysis(String sample) throws AnalysisServerError, AnalysisException {
 		try {
-			URL url = new URL(AnalysisClient.SERVER + "/AnalysisService/identifiers/?pageSize=1&page1");
-
+			URL url = new URL(AnalysisClient.SERVER + SERVICE + "/identifiers/?pageSize=1&page1");
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setRequestProperty("Content-Type", "text/plain");
@@ -116,7 +118,7 @@ public class AnalysisClient {
 
 	public static AnalysisResult getAnalysisResult(String token) throws AnalysisServerError {
 		try {
-			URL url = new URL(AnalysisClient.SERVER + "/AnalysisService/token/" + token);
+			URL url = new URL(AnalysisClient.SERVER + SERVICE + "/token/" + token);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("GET");
 			connection.setRequestProperty("Content-Type", "text/plain");
