@@ -28,6 +28,6 @@ public class SetRenderer extends NodeAbstractRenderer {
 
 	@Override
 	public Color getForegroundFill(ColorProfiles colors, DiagramIndex index) {
-		return new Color(0, 0, 0, 0);
+		return new Color(0, 0, 0, 0);  // Transparent
 	}
 }

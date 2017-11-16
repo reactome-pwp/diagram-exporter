@@ -26,8 +26,6 @@ import java.util.stream.Collectors;
 
 public class RasterExporterTest {
 
-//	private static final String host = "http://reactomerelease.oicr.on.ca/download/current/diagram/";
-
 	private static final File IMAGES_FOLDER = new File("test-images");
 	private static final String MODERN = "modern";
 	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/diagram";
