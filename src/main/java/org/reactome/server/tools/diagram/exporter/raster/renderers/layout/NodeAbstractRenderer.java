@@ -115,7 +115,7 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 		}
 	}
 
-	private void text(NodeRenderInfo info, double splitText) {
+	protected void text(NodeRenderInfo info, double splitText) {
 		if (info.getForegroundShape() != null) {
 			final NodeProperties prop = info.getNode().getProp();
 			final Rectangle2D bounds = info.getForegroundShape().getBounds2D();
