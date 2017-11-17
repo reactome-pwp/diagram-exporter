@@ -43,7 +43,7 @@ public class EHLDRenderer {
 	}
 
 	public BufferedImage render() throws EHLDException {
-//		SVGDecoratorRenderer.selectAndFlag(document, args);
+		SVGDecoratorRenderer.selectAndFlag(document, args);
 		final SVGAnalysis svgAnalysis = new SVGAnalysis(document, args);
 		svgAnalysis.analysis();
 		return renderImage();
