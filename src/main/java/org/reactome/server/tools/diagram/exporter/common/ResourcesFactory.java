@@ -13,11 +13,13 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDMalformedException;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ProfileResources;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.svg.SVGDocument;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -132,9 +134,11 @@ public class ResourcesFactory {
 	}
 
 	public static SVGDocument getEHLD(String EHLDPath, String stId) throws EHLDException {
-		final Path path = Paths.get(EHLDPath, stId + ".svg");
+		final File file = new File(EHLDPath, stId + ".svg");
+		if (!file.exists())
+			throw new EHLDNotFoundException("EHLD not found for " + stId);
 		try {
-			return DOCUMENT_FACTORY.createSVGDocument(path.toUri().toString());
+			return DOCUMENT_FACTORY.createSVGDocument(file.getPath());
 		} catch (IOException e) {
 			throw new EHLDMalformedException("EHLD document is not valid " + stId);
 		}

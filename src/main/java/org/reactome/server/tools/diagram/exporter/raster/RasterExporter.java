@@ -9,6 +9,9 @@ import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.EHLDRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDMalformedException;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDNotFoundException;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDRuntimeException;
 
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
@@ -71,10 +74,14 @@ public class RasterExporter {
 				final DiagramRenderer renderer = new DiagramRenderer(args, diagramPath);
 				return renderer.render();
 			}
-		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | EHLDException e) {
+		} catch (DiagramJsonNotFoundException | EHLDNotFoundException e) {
 			throw new Exception(String.format("there is no diagram for '%s'", args.getStId()), e);
+		} catch (DiagramJsonDeserializationException | EHLDMalformedException e) {
+			throw new Exception(String.format("problems reading diagram of '%s'", args.getStId()), e);
 		} catch (AnalysisServerError | AnalysisException e) {
 			throw new Exception(String.format("analysis token not valid '%s'", args.getToken()), e);
+		} catch (EHLDRuntimeException e) {
+			throw new Exception(String.format("an exception happened rendering %s", args.getStId()), e);
 		}
 	}
 
