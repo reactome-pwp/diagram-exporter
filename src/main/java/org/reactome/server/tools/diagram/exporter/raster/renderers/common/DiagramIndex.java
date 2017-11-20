@@ -246,7 +246,8 @@ public class DiagramIndex {
 			minExpression = result.getExpression().getMin();
 			expressionColumns = result.getExpression().getColumnNames();
 			expression(args.getToken(), stId, resource);
-		} else if (analysisType == AnalysisType.OVERREPRESENTATION)
+		} else if (analysisType == AnalysisType.OVERREPRESENTATION ||
+				analysisType == AnalysisType.SPECIES_COMPARISON)
 			enrichment(args.getToken(), stId, resource);
 	}
 
