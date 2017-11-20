@@ -49,7 +49,7 @@ public class SimpleRasterArgs implements RasterArgs {
 	}
 
 	public void setFormat(String format) {
-		this.format = format;
+		this.format = format == null ? "png" : format.trim().toLowerCase();
 	}
 
 	/** color profiles for diagram, analysis and interactors */

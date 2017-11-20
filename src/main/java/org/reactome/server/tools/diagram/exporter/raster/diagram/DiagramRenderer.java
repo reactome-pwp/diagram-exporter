@@ -98,7 +98,7 @@ public class DiagramRenderer implements RasterRenderer {
 		int offsetX = (int) ((MARGIN - bounds.getMinX()) * factor + 0.5);
 		int offsetY = (int) ((MARGIN - bounds.getMinY()) * factor + 0.5);
 
-		final String ext = args.getFormat().toLowerCase();
+		final String ext = args.getFormat();
 		final BufferedImage image = createImage(width, height, ext);
 		final Graphics2D graphics = createGraphics(image, ext, factor, offsetX, offsetY);
 		long start = System.nanoTime();
@@ -240,7 +240,7 @@ public class DiagramRenderer implements RasterRenderer {
 			legendRenderer = new LegendRenderer(canvas, index, colorProfiles);
 			legendRenderer.addLegend();
 			if (args.getColumn() == null) {
-				if (!args.getFormat().equalsIgnoreCase("gif"))
+				if (!args.getFormat().equals("gif"))
 					legendRenderer.setCol(0);
 			} else legendRenderer.setCol(args.getColumn());
 		}

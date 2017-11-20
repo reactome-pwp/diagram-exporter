@@ -13,7 +13,7 @@ public class JsonRasterArgs implements RasterArgs {
 
 	private String stId;
 	private Double factor = 1.;
-	private String format;
+	private String format = "png";
 	private String token;
 	private Set<String> flags;
 	private Set<String> selected;
@@ -46,7 +46,7 @@ public class JsonRasterArgs implements RasterArgs {
 	}
 
 	public void setFormat(String format) {
-		this.format = format;
+		this.format = format == null ? "png" : format.trim().toLowerCase();
 	}
 
 	public ColorProfiles getProfiles() {
