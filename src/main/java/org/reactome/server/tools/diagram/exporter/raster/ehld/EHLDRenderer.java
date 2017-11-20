@@ -1,34 +1,44 @@
 package org.reactome.server.tools.diagram.exporter.raster.ehld;
 
+import org.apache.batik.transcoder.Transcoder;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.ImageTranscoder;
+import org.apache.batik.transcoder.svg2svg.SVGTranscoder;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisResult;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
+import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDRuntimeException;
 import org.reactome.server.tools.diagram.exporter.raster.gif.AnimatedGifEncoder;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.w3c.dom.svg.SVGDocument;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static org.apache.batik.util.SVGConstants.*;
 
-public class EHLDRenderer {
+/**
+ * Main class to create a render from an EHLD.
+ */
+public class EHLDRenderer implements RasterRenderer {
 
 	private static final Set<String> TRANSPARENT_FORMATS = new HashSet<>(Collections.singletonList("png"));
 	private static final Set<String> NO_TRANSPARENT_FORMATS = new HashSet<>(Arrays.asList("jpg", "jpeg", "gif"));
@@ -42,16 +52,51 @@ public class EHLDRenderer {
 		this.args = args;
 	}
 
-	public BufferedImage render() throws EHLDException {
-		SVGDecoratorRenderer.selectAndFlag(document, args);
+	@Override
+	public BufferedImage render() {
+		// TODO: disabled because is unstable with batik
+//		SVGDecoratorRenderer.selectAndFlag(document, args);
 		final SVGAnalysis svgAnalysis = new SVGAnalysis(document, args);
+		disableMasks();
 		svgAnalysis.analysis();
-		return renderImage();
+		updateDocumentDimensions();
+		// TODO: remove to production, but don't remove from here
+		// toFile();
+		return toImage();
 	}
 
-	private BufferedImage renderImage() throws EHLDException {
-		updateDocumentDimensions();
-		return toImage(document);
+	private void toFile() {
+		try {
+			final File file = new File("/media/pascual/Disco1TB/reactome/ehld2/", args.getStId() + ".svg");
+			final TranscoderInput input = new TranscoderInput(document);
+			final TranscoderOutput output = new TranscoderOutput(new FileWriter(file));
+			final Transcoder transcoder = new SVGTranscoder();
+			transcoder.transcode(input, output);
+		} catch (IOException | TranscoderException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void disableMasks() {
+		final NodeList styleList = document.getRootElement().getElementsByTagNameNS(SVG_NAMESPACE_URI, SVG_STYLE_ATTRIBUTE);
+		final Node style = styleList.getLength() > 0 ? styleList.item(0) : null;
+		final NodeList masks = document.getElementsByTagNameNS(SVG_NAMESPACE_URI, SVG_MASK_TAG);
+		final List<Element> maskNodes = IntStream.range(0, masks.getLength())
+				.mapToObj(masks::item)
+				.map(Element.class::cast)
+				.collect(Collectors.toList());
+		maskNodes.forEach(mask -> {
+			mask.getParentNode().removeChild(mask);
+			removeMaskFromStyle(style, mask.getAttribute(SVG_ID_ATTRIBUTE));
+		});
+
+	}
+
+	private void removeMaskFromStyle(Node style, String maskId) {
+		if (style == null)
+			return;
+		final String maskRef = String.format("mask:url(#%s);", maskId);
+		style.setTextContent(style.getTextContent().replace(maskRef, ""));
 	}
 
 	private void updateDocumentDimensions() {
@@ -90,11 +135,9 @@ public class EHLDRenderer {
 		//    3: set width and height on Transcoder
 		document.getRootElement().setAttribute(SVG_WIDTH_ATTRIBUTE, String.format(Locale.UK, "%.3f", width * args.getFactor()));
 		document.getRootElement().setAttribute(SVG_HEIGHT_ATTRIBUTE, String.format(Locale.UK, "%.3f", height * args.getFactor()));
-//		transcoder.addTranscodingHint(SVGAbstractTranscoder.KEY_WIDTH, w);
-//		transcoder.addTranscodingHint(SVGAbstractTranscoder.KEY_HEIGHT, h);
 	}
 
-	private BufferedImage toImage(Document document) throws EHLDException {
+	private BufferedImage toImage() {
 		try {
 			final TranscoderInput input = new TranscoderInput(document);
 			final BufferedImageTranscoder transcoder = new BufferedImageTranscoder(args);
@@ -111,6 +154,7 @@ public class EHLDRenderer {
 		AnalysisType analysisType = AnalysisType.getType(result.getSummary().getType());
 		if (analysisType != AnalysisType.EXPRESSION)
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
+		// TODO: disabled because is unstable with batik
 //		SVGDecoratorRenderer.selectAndFlag(document, args);
 		final SVGAnalysis svgAnalysis = new SVGAnalysis(document, args);
 		svgAnalysis.analysis();
@@ -119,11 +163,10 @@ public class EHLDRenderer {
 		final AnimatedGifEncoder encoder = new AnimatedGifEncoder();
 		encoder.setDelay(1000);
 		encoder.setRepeat(0);
-		encoder.setQuality(1);
 		encoder.start(os);
 		for (int expressionColumn = 0; expressionColumn < result.getExpression().getColumnNames().size(); expressionColumn++) {
 			svgAnalysis.setColumn(expressionColumn);
-			final BufferedImage image = toImage(document);
+			final BufferedImage image = toImage();
 			encoder.addFrame(image);
 		}
 		encoder.finish();
@@ -132,7 +175,7 @@ public class EHLDRenderer {
 	/**
 	 * There is no a standard BufferedImageTranscoder, although all Transcorders
 	 * use BufferedImages as the raster. This class exposes that BufferedImage,
-	 * so no need to store in a File.
+	 * so no need to store them in a File.
 	 */
 	private static class BufferedImageTranscoder extends ImageTranscoder {
 
