@@ -122,6 +122,8 @@ public class DiagramIndex {
 		final Set<Long> ids = new HashSet<>();
 		ids.add(id);
 		final EntityNode node = graphIndex.get(id);
+		if (node == null)
+			return ids.stream();
 		if (node.getParents() != null)
 			node.getParents().forEach(parentId -> getAncestors(parentId).forEach(ids::add));
 		return ids.stream();
@@ -246,7 +248,8 @@ public class DiagramIndex {
 			minExpression = result.getExpression().getMin();
 			expressionColumns = result.getExpression().getColumnNames();
 			expression(args.getToken(), stId, resource);
-		} else if (analysisType == AnalysisType.OVERREPRESENTATION)
+		} else if (analysisType == AnalysisType.OVERREPRESENTATION ||
+				analysisType == AnalysisType.SPECIES_COMPARISON)
 			enrichment(args.getToken(), stId, resource);
 	}
 

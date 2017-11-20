@@ -1,6 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.ehld;
 
 import org.apache.batik.util.SVGConstants;
+import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
 import org.w3c.dom.Element;
@@ -23,7 +24,8 @@ import static org.apache.batik.util.SVGConstants.*;
  */
 class SVGLegendRenderer {
 
-	private static final DecimalFormat LEGEND_FORMAT = new DecimalFormat("#.##E0", DecimalFormatSymbols.getInstance(Locale.UK));
+	private static final DecimalFormat EXPRESSION_FORMAT = new DecimalFormat("#.##E0", DecimalFormatSymbols.getInstance(Locale.UK));
+	private static final DecimalFormat ENRICHMENT_FORMAT = new DecimalFormat("#.##", DecimalFormatSymbols.getInstance(Locale.UK));
 
 	private static final String GRADIENT_BOX = "gradient-box";
 	private static final double RX = 8.0;
@@ -36,7 +38,7 @@ class SVGLegendRenderer {
 	private static final int FONT_SIZE = 12;
 	private static final String TICKS = "ticks";
 
-	static void legend(SVGDocument document, GradientSheet gradientSheet, double top, double bottom) {
+	static void legend(SVGDocument document, GradientSheet gradientSheet, double top, double bottom, AnalysisType analysisType) {
 		final double bgWidth = LEGEND_WIDTH + 2 * BG_PADDING;
 		final double bgHeight = LEGEND_HEIGHT + 2 * BG_PADDING;
 		final double spaceWidth = bgWidth + 2 * BG_PADDING;
@@ -73,19 +75,22 @@ class SVGLegendRenderer {
 
 		final double centerX = width + 2 * BG_PADDING + 0.5 * LEGEND_WIDTH;
 
+		final DecimalFormat formatter = analysisType == AnalysisType.EXPRESSION
+				? EXPRESSION_FORMAT
+				: ENRICHMENT_FORMAT;
 		final Element topText = document.createElementNS(SVG_NAMESPACE_URI, SVG_TEXT_TAG);
 		topText.setAttribute(SVG_X_ATTRIBUTE, String.valueOf(centerX));
 		topText.setAttribute(SVG_Y_ATTRIBUTE, String.valueOf((height - LEGEND_HEIGHT) * 0.5 - TEXT_PADDING));
 		topText.setAttribute(SVG_TEXT_ANCHOR_ATTRIBUTE, SVG_MIDDLE_VALUE);
 		topText.setAttribute(SVG_STYLE_ATTRIBUTE, "font-size: " + FONT_SIZE);
-		topText.setTextContent(LEGEND_FORMAT.format(top));
+		topText.setTextContent(formatter.format(top));
 
 		final Element bottomText = document.createElementNS(SVG_NAMESPACE_URI, SVG_TEXT_TAG);
 		bottomText.setAttribute(SVG_X_ATTRIBUTE, String.valueOf(centerX));
 		bottomText.setAttribute(SVG_Y_ATTRIBUTE, String.valueOf((height + LEGEND_HEIGHT) * 0.5 + TEXT_PADDING + FONT_SIZE));
 		bottomText.setAttribute(SVG_TEXT_ANCHOR_ATTRIBUTE, SVG_MIDDLE_VALUE);
 		bottomText.setAttribute(SVG_STYLE_ATTRIBUTE, "font-size: " + FONT_SIZE);
-		bottomText.setTextContent(LEGEND_FORMAT.format(bottom));
+		bottomText.setTextContent(formatter.format(bottom));
 
 		legend.appendChild(background);
 		legend.appendChild(gradientBox);

@@ -5,7 +5,6 @@ import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.FoundEntity;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
@@ -61,12 +60,17 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 	}
 
 	private double analysis(ColorProfiles colorProfiles, DiagramIndex index, NodeRenderInfo info, int t) {
-		double splitText = 0.0;
-		if (index.getAnalysisType() == AnalysisType.EXPRESSION)
-			splitText = expression(colorProfiles, index, info, t);
-		else if (index.getAnalysisType() == AnalysisType.OVERREPRESENTATION)
-			enrichment(colorProfiles, info);
-		return splitText;
+		switch (index.getAnalysisType()) {
+			case SPECIES_COMPARISON:
+			case OVERREPRESENTATION:
+				enrichment(colorProfiles, info);
+				return 0.0;
+			case EXPRESSION:
+				return expression(colorProfiles, index, info, t);
+			case NONE:
+			default:
+				return 0.0;
+		}
 	}
 
 	public void foreground(NodeRenderInfo info) {
