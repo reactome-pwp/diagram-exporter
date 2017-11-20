@@ -110,6 +110,7 @@ public class LegendRenderer {
 		colorbar();
 		background(textSpace);
 		text(textSpace);
+		// This is needed to allocate space in canvas
 		bottomText(0);
 	}
 

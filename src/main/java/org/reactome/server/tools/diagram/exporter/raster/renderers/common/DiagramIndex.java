@@ -50,6 +50,7 @@ public class DiagramIndex {
 	private double maxExpression = Double.MAX_VALUE;
 	private double minExpression = 0;
 	private AnalysisType analysisType = AnalysisType.NONE;
+	/** node used when a legend is displayed */
 	private NodeDecorator selected;
 	private List<String> expressionColumns;
 
@@ -70,6 +71,7 @@ public class DiagramIndex {
 	}
 
 	private void index() {
+		// Indexes to map layout <-> graph
 		diagramIndex = new HashMap<>();
 		reactomeIndex = new HashMap<>();
 		Stream.of(diagram.getEdges(), diagram.getNodes(), diagram.getLinks())
@@ -82,6 +84,7 @@ public class DiagramIndex {
 		graph.getNodes().forEach(item -> graphIndex.put(item.getDbId(), item));
 		reactionIds = new HashSet<>();
 		graph.getEdges().forEach(event -> reactionIds.add(event.getDbId()));
+		// Add connectors to reactions, so they can be rendered together
 		diagram.getNodes().stream()
 				.map(Node::getConnectors)
 				.flatMap(Collection::stream)
@@ -134,6 +137,7 @@ public class DiagramIndex {
 		} catch (NumberFormatException ignored) {
 			// ignored, not a dbId
 		}
+		// TODO: would it be faster if index of stIds, dbIds, identifier and geneNames?
 		// Nodes
 		for (EntityNode node : graph.getNodes()) {
 			// stId
@@ -154,17 +158,17 @@ public class DiagramIndex {
 		return null;
 	}
 
-	private void decorateNodes(List<Long> sel, List<Long> flg) {
-		if (sel.isEmpty() && flg.isEmpty())
+	private void decorateNodes(List<Long> selected, List<Long> flags) {
+		if (selected.isEmpty() && flags.isEmpty())
 			return;
 		diagram.getNodes().forEach((Node node) -> {
-			if (sel.contains(node.getReactomeId())) {
+			if (selected.contains(node.getReactomeId())) {
 				final NodeDecorator decorator = getNodeDecorator(node.getId());
 				decorator.setSelected(true);
 				decorator.setHalo(true);
 				// Only one node should be selected. If there is more than one
 				// node selected, then take the last one.
-				selected = decorator;
+				this.selected = decorator;
 				node.getConnectors().forEach(connector -> {
 					final Edge reaction = (Edge) diagramIndex.get(connector.getEdgeId());
 					// When a node is selected, the nodes in the same reaction
@@ -173,20 +177,20 @@ public class DiagramIndex {
 					haloEdgeParticipants(reaction);
 				});
 			}
-			if (flg.contains(node.getReactomeId()))
+			if (flags.contains(node.getReactomeId()))
 				getNodeDecorator(node.getId()).setFlag(true);
 		});
 	}
 
-	private void decorateReactions(List<Long> sel, List<Long> flg) {
+	private void decorateReactions(List<Long> selected, List<Long> flags) {
 		diagram.getEdges().forEach(reaction -> {
-			if (sel.contains(reaction.getReactomeId())) {
+			if (selected.contains(reaction.getReactomeId())) {
 				final EdgeDecorator decorator = getEdgeDecorator(reaction.getId());
 				decorator.setSelected(true);
 				decorator.setHalo(true);
 				haloEdgeParticipants(reaction);
 			}
-			if (flg.contains(reaction.getReactomeId()))
+			if (flags.contains(reaction.getReactomeId()))
 				getEdgeDecorator(reaction.getId()).setFlag(true);
 		});
 	}
@@ -227,7 +231,6 @@ public class DiagramIndex {
 		if (args.getToken() == null || args.getToken().isEmpty())
 			return;
 		final String stId = graph.getStId();
-
 		final AnalysisResult result = AnalysisClient.getAnalysisResult(args.getToken());
 		final List<ResourceSummary> summaryList = result.getResourceSummary();
 		final ResourceSummary resourceSummary = summaryList.size() == 2
@@ -235,7 +238,9 @@ public class DiagramIndex {
 				: summaryList.get(0);
 		final String resource = resourceSummary.getResource();
 		analysisType = AnalysisType.getType(result.getSummary().getType());
+		// Get subpathways (green boxes) % of analysis area
 		subPathways(args.getToken(), resource);
+		// TODO: add species comparison?
 		if (analysisType == AnalysisType.EXPRESSION) {
 			maxExpression = result.getExpression().getMax();
 			minExpression = result.getExpression().getMin();
@@ -243,8 +248,6 @@ public class DiagramIndex {
 			expression(args.getToken(), stId, resource);
 		} else if (analysisType == AnalysisType.OVERREPRESENTATION)
 			enrichment(args.getToken(), stId, resource);
-
-
 	}
 
 	/**
@@ -266,17 +269,16 @@ public class DiagramIndex {
 		final PathwaySummary[] pathwaysSummary = AnalysisClient.getPathwaysSummary(subPathways, token, resource);
 		// extract %
 		for (PathwaySummary summary : pathwaysSummary) {
+			final DiagramObject diagramNode = reactomeIndex.get(summary.getDbId());
+			if (diagramNode == null) continue;
 			final EntityStatistics entities = summary.getEntities();
-			if (entities != null) {
-				int found = entities.getFound();
-				int total = entities.getTotal();
-				double percentage = (double) found / total;
-				if (percentage < MIN_ENRICHMENT && percentage > 0)
-					percentage = MIN_ENRICHMENT;
-				final DiagramObject diagramNode = reactomeIndex.get(summary.getDbId());
-				if (diagramNode != null)
-					getNodeDecorator(diagramNode.getId()).setEnrichment(percentage);
-			}
+			if (entities == null) continue;
+			int found = entities.getFound();
+			int total = entities.getTotal();
+			double percentage = (double) found / total;
+			if (percentage < MIN_ENRICHMENT && percentage > 0)
+				percentage = MIN_ENRICHMENT;
+			getNodeDecorator(diagramNode.getId()).setEnrichment(percentage);
 		}
 	}
 
@@ -288,17 +290,20 @@ public class DiagramIndex {
 		final FoundElements foundElements;
 		try {
 			foundElements = AnalysisClient.getFoundElements(stId, token, resource);
+			if (foundElements == null) return;
 		} catch (AnalysisException e) {
 			// token is valid, but this pathway has no analysis
 			return;
 		}
+		// analysis -> graph: analysis.mapsTo.id.contains(graph.identifier)
+		// graph -> layout:   layout.reactomeId == graph.dbId
 		// Index analysis nodes via mapsTo
 		final Map<String, FoundEntity> analysisIndex = new HashMap<>();
 		foundElements.getEntities().forEach(analysisNode ->
 				analysisNode.getMapsTo().stream()
 						.map(IdentifierMap::getIds)
 						.flatMap(Collection::stream)
-						.forEach(identifier -> analysisIndex.put(identifier, analysisNode)));
+						.forEach(id -> analysisIndex.put(id, analysisNode)));
 
 		diagram.getNodes().forEach(diagramNode -> {
 			final EntityNode graphNode = graphIndex.get(diagramNode.getReactomeId());
@@ -316,12 +321,13 @@ public class DiagramIndex {
 		final FoundElements analysisNodes;
 		try {
 			analysisNodes = AnalysisClient.getFoundElements(stId, token, resource);
+			if (analysisNodes == null) return;
 		} catch (AnalysisException e) {
 			// In this case, analysis token is valid, but stId is not int the analysis
 			// no need to overlay analysis
 			return;
 		}
-		// foundEntity.getMapsTo().getIds() -> graphNode.getIdentifier()
+		// analysis -> graph: analysis.mapsTo.id.contains(graph.identifier)
 		final Set<String> identifiers = analysisNodes.getEntities().stream()
 				.map(FoundEntity::getMapsTo)
 				.flatMap(Collection::stream)

@@ -6,9 +6,7 @@ import org.junit.Test;
 import org.reactome.server.tools.diagram.exporter.raster.RasterExporter;
 import org.reactome.server.tools.diagram.exporter.raster.api.SimpleRasterArgs;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.Arrays;
 
 public class EhldTest {
@@ -23,12 +21,12 @@ public class EhldTest {
 	}
 
 	@Test
-	public void testPng() {
-		final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-382551", "jpg");
+	public void testRaster() {
+		final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-382551", "png");
 		try {
 			args.setFactor(3.);
 			final BufferedImage image = RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
-			ImageIO.write(image, args.getFormat(), new File(args.getStId() + "." + args.getFormat()));
+//			ImageIO.write(image, args.getFormat(), new File(args.getStId() + "." + args.getFormat()));
 
 		} catch (Exception e) {
 			Assert.fail(e.getMessage());
@@ -36,7 +34,7 @@ public class EhldTest {
 	}
 
 	@Test
-	public void testPngDecorated() {
+	public void testDecorator() {
 		final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-109581", "png");
 		args.setFactor(2.0);
 		args.setSelected(Arrays.asList("R-HSA-109606"));
