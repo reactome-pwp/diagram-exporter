@@ -72,6 +72,16 @@ public class GeneRenderer extends NodeAbstractRenderer {
 	}
 
 	@Override
+	protected void flag(NodeRenderInfo info) {
+		if (info.getDecorator().isFlag()) {
+			final Shape line = line(info.getNode().getProp());
+			info.getHaloLayer().add(info.getFlagColor(), info.getFlagStroke(), line);
+			final Shape arrow = arrow(info.getNode().getProp());
+			info.getHaloLayer().add(info.getFlagColor(), info.getFlagStroke(), arrow);
+		}
+	}
+
+	@Override
 	public Color getForegroundFill(ColorProfiles colors, DiagramIndex index) {
 		return index.getAnalysisType() == AnalysisType.NONE
 				? colors.getDiagramSheet().getGene().getFill()

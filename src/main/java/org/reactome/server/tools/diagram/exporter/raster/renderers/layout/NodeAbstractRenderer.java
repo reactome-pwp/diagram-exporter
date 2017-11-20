@@ -33,10 +33,10 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 		final NodeRenderInfo info = new NodeRenderInfo(node, index, colorProfiles, canvas, this);
 		flag(info);
 		halo(info);
-		background(info);
 		// color profiles for the gradients
 		// index for the analysis max and min
 		double splitText = analysis(colorProfiles, index, info, t);
+		background(info);
 		foreground(info);
 		attachment(info);
 		border(info);
@@ -44,7 +44,7 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 		cross(info);
 	}
 
-	private void flag(NodeRenderInfo info) {
+	protected void flag(NodeRenderInfo info) {
 		if (info.getDecorator().isFlag())
 			info.getFlagLayer().add(info.getFlagColor(), info.getFlagStroke(), info.getBackgroundShape());
 	}
@@ -76,9 +76,9 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 	}
 
 	protected void border(NodeRenderInfo info) {
-		DrawLayer layer = info.getBorderLayer();
-		Stroke borderStroke = info.getBorderStroke();
-		Color borderColor = info.getBorderColor();
+		final DrawLayer layer = info.getBorderLayer();
+		final Stroke borderStroke = info.getBorderStroke();
+		final Color borderColor = info.getBorderColor();
 		if (info.getBackgroundShape() != null)
 			layer.add(borderColor, borderStroke, info.getBackgroundShape());
 		if (info.getForegroundShape() != null)
@@ -177,6 +177,7 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 				final Area fillArea = new Area(rect);
 				fillArea.intersect(new Area(info.getBackgroundShape()));
 				info.getAnalysisLayer().add(color, fillArea);
+				info.getBackgroundArea().subtract(fillArea);
 			}
 		}
 		return splitText;
