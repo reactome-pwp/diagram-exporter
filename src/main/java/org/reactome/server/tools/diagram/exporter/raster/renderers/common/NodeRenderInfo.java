@@ -19,7 +19,7 @@ import java.awt.geom.Area;
  * When a node is renderer, there are a lot of decisions that must be made.
  * Colors, shapes, dashing... And these decisions depends on more than one
  * element: node, renderer, color profile, decorator, token. The
- * NodeRendererInfo takes all these decisions and give you basic getters
+ * NodeRendererInfo takes all these decisions.
  *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
