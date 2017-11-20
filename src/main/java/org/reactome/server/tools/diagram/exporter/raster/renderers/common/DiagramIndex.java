@@ -122,6 +122,8 @@ public class DiagramIndex {
 		final Set<Long> ids = new HashSet<>();
 		ids.add(id);
 		final EntityNode node = graphIndex.get(id);
+		if (node == null)
+			return ids.stream();
 		if (node.getParents() != null)
 			node.getParents().forEach(parentId -> getAncestors(parentId).forEach(ids::add));
 		return ids.stream();
