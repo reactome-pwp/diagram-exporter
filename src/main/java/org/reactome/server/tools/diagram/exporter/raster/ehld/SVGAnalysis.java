@@ -105,7 +105,7 @@ public class SVGAnalysis {
 		SVGUtil.addInlineStyle(document, OVERLAY_TEXT_CLASS, OVERLAY_TEXT_STYLE);
 		SVGUtil.addInlineStyle(document, ANALYSIS_INFO_CLASS, ANALYSIS_INFO_STYLE);
 		final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getEnrichment().getGradient();
-		SVGLegendRenderer.legend(document, gradient, 0, MAX_P_VALUE);
+		SVGLegendRenderer.legend(document, gradient, 0, MAX_P_VALUE, AnalysisType.OVERREPRESENTATION);
 
 		// Calculate document dimensions
 		// Must be done to get children dimensions
@@ -328,7 +328,7 @@ public class SVGAnalysis {
 			SVGUtil.addInlineStyle(document, ANALYSIS_INFO_CLASS, ANALYSIS_INFO_STYLE);
 
 			final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getExpression().getGradient();
-			SVGLegendRenderer.legend(document, gradient, expression.getMax(), expression.getMin());
+			SVGLegendRenderer.legend(document, gradient, expression.getMax(), expression.getMin(), AnalysisType.EXPRESSION);
 
 			final List<String> pathways = regions.stream()
 					.map(id -> id.substring(REGION_.length()))

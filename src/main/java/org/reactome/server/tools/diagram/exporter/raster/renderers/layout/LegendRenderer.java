@@ -29,7 +29,8 @@ public class LegendRenderer {
 	private static final int LEGEND_TO_DIAGRAM_SPACE = 15;
 	private static final int LEGEND_WIDTH = 70;
 	private static final int LEGEND_HEIGHT = 350;
-	private static final DecimalFormat LEGEND_FORMAT = new DecimalFormat("#.##E0", DecimalFormatSymbols.getInstance(Locale.UK));
+	private static final DecimalFormat EXPRESSION_FORMAT = new DecimalFormat("#.##E0", DecimalFormatSymbols.getInstance(Locale.UK));
+	private static final DecimalFormat ENRICHMENT_FORMAT = new DecimalFormat("#.##", DecimalFormatSymbols.getInstance(Locale.UK));
 	/** value to create ticks arrows */
 	private static final int ARROW_SIZE = 5;
 	/** space between texts and color bar */
@@ -228,11 +229,13 @@ public class LegendRenderer {
 				colorBarY - textSpace - TEXT_PADDING, colorBarWidth + 20, textSpace);
 		final NodeProperties bottom = NodePropertiesFactory.get(colorBarX - 10,
 				b + TEXT_PADDING, colorBarWidth + 20, textSpace);
-		final double topValue;
-		final double bottomValue;
-		topValue = index.getMaxExpression();
-		bottomValue = index.getMinExpression();
-		canvas.getLegendText().add(LEGEND_FORMAT.format(topValue), Color.BLACK, top, 0, 0, FontProperties.DEFAULT_FONT);
-		canvas.getLegendText().add(LEGEND_FORMAT.format(bottomValue), Color.BLACK, bottom, 0, 0, FontProperties.DEFAULT_FONT);
+		final DecimalFormat formatter = this.index.getAnalysisType() == AnalysisType.EXPRESSION
+				? EXPRESSION_FORMAT
+				: ENRICHMENT_FORMAT;
+		final String topText = formatter.format(index.getMaxExpression());
+		final String bottomText = formatter.format(index.getMinExpression());
+
+		canvas.getLegendText().add(topText, Color.BLACK, top, 0, 0, FontProperties.DEFAULT_FONT);
+		canvas.getLegendText().add(bottomText, Color.BLACK, bottom, 0, 0, FontProperties.DEFAULT_FONT);
 	}
 }
