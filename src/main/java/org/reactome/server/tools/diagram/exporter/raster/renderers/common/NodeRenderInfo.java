@@ -19,7 +19,7 @@ import java.awt.geom.Area;
  * When a node is renderer, there are a lot of decisions that must be made.
  * Colors, shapes, dashing... And these decisions depends on more than one
  * element: node, renderer, color profile, decorator, token. The
- * NodeRendererInfo takes all these decisions and give you basic getters
+ * NodeRendererInfo takes all these decisions.
  *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
@@ -71,10 +71,10 @@ public class NodeRenderInfo extends DiagramObjectInfo {
 	 * @param renderer associated renderer
 	 */
 	public NodeRenderInfo(NodeCommon node, DiagramIndex index, ColorProfiles colors, DiagramCanvas canvas, NodeAbstractRenderer renderer) {
+		this.node = node;
 		this.decorator = index.getNodeDecorator(node.getId());
 		this.foregroundShape = renderer.foregroundShape(node);
 		this.backgroundShape = renderer.backgroundShape(node);
-		this.node = node;
 		this.foregroundColor = renderer.getForegroundFill(colors, index);
 
 		final DiagramSheet diagramSheet = colors.getDiagramSheet();
@@ -129,8 +129,10 @@ public class NodeRenderInfo extends DiagramObjectInfo {
 				textColor = profile.getLighterText();
 
 				if (index.getAnalysisType() == AnalysisType.OVERREPRESENTATION
+						&& decorator.getEnrichment() != null
 						&& decorator.getEnrichment() > 0)
 					attachmentsFill = colors.getAnalysisSheet().getEnrichment().getGradient().getMax();
+				// TODO: if analysisType == enrichment -> same color as node
 				else attachmentsFill = backgroundColor;
 
 				if (decorator.isSelected()) {

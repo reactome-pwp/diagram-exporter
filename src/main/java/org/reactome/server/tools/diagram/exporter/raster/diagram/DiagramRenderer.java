@@ -8,6 +8,8 @@ import org.reactome.server.tools.diagram.exporter.common.analysis.exception.Anal
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
+import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.TraceLogger;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.gif.AnimatedGifEncoder;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
@@ -21,10 +23,7 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Logger;
 
 /**
@@ -32,7 +31,7 @@ import java.util.logging.Logger;
  *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
-public class DiagramRenderer {
+public class DiagramRenderer implements RasterRenderer {
 
 	/*
 	 * physical size of image using the best print quality (600 ppi).
@@ -74,6 +73,7 @@ public class DiagramRenderer {
 	 * @throws DiagramJsonDeserializationException if diagram is malformed
 	 */
 	public DiagramRenderer(RasterArgs args, String diagramPath) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException, AnalysisException, AnalysisServerError {
+		TraceLogger.trace(args.getStId());
 		final Graph graph = ResourcesFactory.getGraph(diagramPath, args.getStId());
 		diagram = ResourcesFactory.getDiagram(diagramPath, args.getStId());
 		this.args = args;
@@ -86,6 +86,7 @@ public class DiagramRenderer {
 	 *
 	 * @return a RenderedImage with the given dimensions
 	 */
+	@Override
 	public BufferedImage render() {
 		canvas = new DiagramCanvas();
 		layout();
@@ -100,7 +101,9 @@ public class DiagramRenderer {
 		final String ext = args.getFormat().toLowerCase();
 		final BufferedImage image = createImage(width, height, ext);
 		final Graphics2D graphics = createGraphics(image, ext, factor, offsetX, offsetY);
+		long start = System.nanoTime();
 		canvas.render(graphics);
+		TraceLogger.trace(String.format(Locale.UK, "[diagram exporter] %10.3f painting canvas%n", ((System.nanoTime() - start) / 1e6)));
 		return image;
 	}
 
@@ -236,8 +239,10 @@ public class DiagramRenderer {
 		if (index.getAnalysisType() == AnalysisType.EXPRESSION) {
 			legendRenderer = new LegendRenderer(canvas, index, colorProfiles);
 			legendRenderer.addLegend();
-			if (args.getColumn() != null)
-				legendRenderer.setCol(args.getColumn());
+			if (args.getColumn() == null) {
+				if (!args.getFormat().equalsIgnoreCase("gif"))
+					legendRenderer.setCol(0);
+			} else legendRenderer.setCol(args.getColumn());
 		}
 	}
 

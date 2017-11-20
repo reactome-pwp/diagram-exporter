@@ -8,9 +8,16 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Stream;
 
 public class ColorProfiles {
+	private static final Map<String, AnalysisSheet> ANALYSIS_SHEET_MAP = new TreeMap<>();
+	private static final Map<String, DiagramSheet> DIAGRAM_SHEET_MAP = new TreeMap<>();
+	private static final Map<String, InteractorsSheet> INTERACTORS_SHEET_MAP = new TreeMap<>();
+
 	private static final String DEFAULT_DIAGRAM_PROFILE = "modern";
 	private static final String DEFAULT_ANALYSIS_PROFILE = "standard";
 	private static final String DEFAULT_INTERACTORS_PROFILE = "cyan";
@@ -18,23 +25,54 @@ public class ColorProfiles {
 	private DiagramSheet diagramSheet;
 	private AnalysisSheet analysisSheet;
 
-	public ColorProfiles(String diagram, String analysis, String interactors) {
-		diagramSheet = getSheet(DiagramSheetImpl.class, DEFAULT_DIAGRAM_PROFILE, "diagram", diagram);
-		analysisSheet = getSheet(AnalysisSheetImpl.class, DEFAULT_ANALYSIS_PROFILE, "analysis", analysis);
-		interactorsSheet = getSheet(InteractorsSheetImpl.class, DEFAULT_INTERACTORS_PROFILE, "interactors", interactors);
+	static {
+		Stream.of("modern", "standard")
+				.forEach(profile -> DIAGRAM_SHEET_MAP.put(profile, getSheet(DiagramSheetImpl.class, "diagram", profile)));
+		Stream.of("standard", "copper plus", "strosobar")
+				.forEach(profile -> ANALYSIS_SHEET_MAP.put(profile, getSheet(AnalysisSheetImpl.class, "analysis", profile)));
+		Stream.of("cyan", "teal")
+				.forEach(profile -> INTERACTORS_SHEET_MAP.put(profile, getSheet(InteractorsSheetImpl.class, "interactors", profile)));
 	}
 
-	private <T> T getSheet(Class<T> clazz, String defaultValue, String prefix, String name) {
-		if (name == null)
-			name = defaultValue;
+	public ColorProfiles(String diagram, String analysis, String interactors) {
+//		diagramSheet = getSheet(DiagramSheetImpl.class, DEFAULT_DIAGRAM_PROFILE, "diagram", diagram);
+//		analysisSheet = getSheet(AnalysisSheetImpl.class, DEFAULT_ANALYSIS_PROFILE, "analysis", analysis);
+//		interactorsSheet = getSheet(InteractorsSheetImpl.class, DEFAULT_INTERACTORS_PROFILE, "interactors", interactors);
+		diagramSheet = getDiagramSheet(diagram);
+		analysisSheet = getAnalysisSheet(analysis);
+		interactorsSheet = getInteractorsSheet(interactors);
+	}
+
+	private InteractorsSheet getInteractorsSheet(String interactors) {
+		return interactors != null && INTERACTORS_SHEET_MAP.containsKey(interactors.toLowerCase())
+				? INTERACTORS_SHEET_MAP.get(interactors.toLowerCase())
+				: INTERACTORS_SHEET_MAP.get(DEFAULT_INTERACTORS_PROFILE);
+	}
+
+	private AnalysisSheet getAnalysisSheet(String analysis) {
+		return analysis != null && ANALYSIS_SHEET_MAP.containsKey(analysis.toLowerCase())
+				? ANALYSIS_SHEET_MAP.get(analysis.toLowerCase())
+				: ANALYSIS_SHEET_MAP.get(DEFAULT_ANALYSIS_PROFILE);
+	}
+
+	private DiagramSheet getDiagramSheet(String diagram) {
+		return diagram != null && DIAGRAM_SHEET_MAP.containsKey(diagram.toLowerCase())
+				? DIAGRAM_SHEET_MAP.get(diagram.toLowerCase())
+				: DIAGRAM_SHEET_MAP.get(DEFAULT_DIAGRAM_PROFILE);
+	}
+
+	@JsonCreator
+	public ColorProfiles(Map<String, Object> delegate) {
+		diagramSheet = getDiagramSheet((String) delegate.get("diagram"));
+		analysisSheet = getAnalysisSheet((String) delegate.get("analysis"));
+		interactorsSheet = getInteractorsSheet((String) delegate.get("interactors"));
+	}
+
+	private static <T> T getSheet(Class<T> clazz, String prefix, String name) {
 		String filename = String.format("%s_%s.json", prefix, name.toLowerCase());
-		InputStream resource = getClass().getResourceAsStream(filename);
-		if (resource == null) {
-			filename = String.format("%s_%s.json", prefix, defaultValue);
-			resource = getClass().getResourceAsStream(filename);
-		}
+		InputStream resource = ColorProfiles.class.getResourceAsStream(filename);
 		try {
-			final String json = IOUtils.toString(resource);
+			final String json = IOUtils.toString(resource, Charset.defaultCharset());
 			final ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
 			return mapper.readValue(json, clazz);
@@ -55,13 +93,4 @@ public class ColorProfiles {
 	public InteractorsSheet getInteractorsSheet() {
 		return interactorsSheet;
 	}
-
-	@JsonCreator
-	public ColorProfiles(Map<String, Object> delegate) {
-		final String diagram = (String) delegate.get("diagram");
-		final String analysis = (String) delegate.get("analysis");
-		final String interactors = (String) delegate.get("interactors");
-		diagramSheet = getSheet(DiagramSheetImpl.class, DEFAULT_DIAGRAM_PROFILE, "diagram", diagram);
-		analysisSheet = getSheet(AnalysisSheetImpl.class, DEFAULT_ANALYSIS_PROFILE, "analysis", analysis);
-		interactorsSheet = getSheet(InteractorsSheetImpl.class, DEFAULT_INTERACTORS_PROFILE, "interactors", interactors);	}
 }

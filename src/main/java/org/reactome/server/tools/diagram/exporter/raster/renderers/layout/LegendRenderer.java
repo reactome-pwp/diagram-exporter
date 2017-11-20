@@ -21,7 +21,6 @@ import java.text.DecimalFormatSymbols;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class LegendRenderer {
@@ -111,6 +110,7 @@ public class LegendRenderer {
 		colorbar();
 		background(textSpace);
 		text(textSpace);
+		// This is needed to allocate space in canvas
 		bottomText(0);
 	}
 
@@ -174,13 +174,12 @@ public class LegendRenderer {
 	private void ticks(int col) {
 		if (index.getSelected() == null) return;
 		final List<FoundEntity> expressions = index.getSelected().getHitExpressions();
-		if (expressions == null) return;
+		if (expressions == null || expressions.isEmpty()) return;
 		// Calculate which ticks to draw: (min, median, max) or (value)
 		Double nMax;
 		Double nMin;
 		Double nValue;
 		final List<Double> values = expressions.stream()
-				.filter(Objects::nonNull)
 				.map(value -> value.getExp().get(col))
 				.collect(Collectors.toList());
 		if (values.size() == 1) {

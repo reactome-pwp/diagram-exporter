@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 
 public class ColorSheetTest {
 
@@ -212,7 +213,7 @@ public class ColorSheetTest {
 	public void testAnalysisDiagram() {
 		try {
 			final InputStream resource = getClass().getResourceAsStream("analysis.json");
-			final String json = IOUtils.toString(resource);
+			final String json = IOUtils.toString(resource, Charset.defaultCharset());
 			AnalysisSheet analysisSheet = new ObjectMapper().readValue(json, AnalysisSheetImpl.class);
 			Assert.assertEquals("Copper Plus", analysisSheet.getName());
 			Assert.assertEquals(new Color(251, 140, 0), analysisSheet.getRibbon());
