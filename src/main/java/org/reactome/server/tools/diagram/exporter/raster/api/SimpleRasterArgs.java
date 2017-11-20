@@ -22,7 +22,7 @@ public class SimpleRasterArgs implements RasterArgs {
 
 	public SimpleRasterArgs(String stId, String format) {
 		this.stId = stId;
-		this.format = format;
+		setFormat(format);
 	}
 
 	/** diagram stable identifier */
