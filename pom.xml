@@ -39,7 +39,7 @@
 
     <properties>
         <diagram.reader.version>1.1.0</diagram.reader.version>
-        <batik.transcoder>1.9.1</batik.transcoder>
+        <batik.version>1.9.1</batik.version>
         <aspose.version>17.7</aspose.version>
         <logback.version>1.1.10</logback.version>
         <commons.io.version>2.5</commons.io.version>
@@ -70,7 +70,13 @@
         <dependency>
             <groupId>org.apache.xmlgraphics</groupId>
             <artifactId>batik-transcoder</artifactId>
-            <version>${batik.transcoder}</version>
+            <version>${batik.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-codec</artifactId>
+            <version>${batik.version}</version>
         </dependency>
 
         <dependency>
