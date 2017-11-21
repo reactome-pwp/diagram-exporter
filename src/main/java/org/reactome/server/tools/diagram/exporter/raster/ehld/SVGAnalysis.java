@@ -225,9 +225,9 @@ public class SVGAnalysis {
 		final Element base = (Element) overlay.cloneNode(true);
 		// remove text elements
 		final NodeList texts = base.getElementsByTagName(SVG_TEXT_TAG);
-		IntStream.range(0, texts.getLength())
-				.mapToObj(texts::item)
-				.forEach(textNode -> textNode.getParentNode().removeChild(textNode));
+		List<Node> textNodes = IntStream.range(0, texts.getLength())
+				.mapToObj(texts::item).collect(Collectors.toList());
+		textNodes.forEach(textNode -> textNode.getParentNode().removeChild(textNode));
 		base.setAttribute(SVG_ID_ATTRIBUTE, OVERLAY_BASE_ + stId);
 		base.setAttribute(SVGConstants.SVG_FILL_ATTRIBUTE, HIT_BASE_COLOR);
 		base.setAttribute(SVGConstants.SVG_STROKE_ATTRIBUTE, HIT_BASIS_STROKE_COLOUR);
@@ -248,9 +248,9 @@ public class SVGAnalysis {
 		group.appendChild(clone);
 		// Add texts to group
 		final NodeList textss = clone.getElementsByTagName(SVG_TEXT_TAG);
-		IntStream.range(0, textss.getLength())
-				.mapToObj(textss::item)
-				.map(Element.class::cast)
+		textNodes = IntStream.range(0, textss.getLength())
+				.mapToObj(textss::item).collect(Collectors.toList());
+				textNodes.stream().map(Element.class::cast)
 				.forEach(node -> {
 					SVGUtil.addClass(node, OVERLAY_TEXT_CLASS);
 					group.appendChild(node);
