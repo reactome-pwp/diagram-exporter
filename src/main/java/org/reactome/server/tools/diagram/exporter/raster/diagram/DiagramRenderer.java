@@ -236,14 +236,14 @@ public class DiagramRenderer implements RasterRenderer {
 	}
 
 	private void legend() {
+		legendRenderer = new LegendRenderer(canvas, index, colorProfiles);
 		if (index.getAnalysisType() == AnalysisType.EXPRESSION) {
-			legendRenderer = new LegendRenderer(canvas, index, colorProfiles);
 			legendRenderer.addLegend();
 			if (args.getColumn() == null) {
 				if (!args.getFormat().equals("gif"))
 					legendRenderer.setCol(0);
 			} else legendRenderer.setCol(args.getColumn());
-		}
+		} else legendRenderer.addLogo();
 	}
 
 }

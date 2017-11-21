@@ -40,6 +40,7 @@ public class DiagramCanvas {
 	private DrawLayer legendTicks = new DrawLayer();
 	private FillLayer legendTickArrows = new FillLayer();
 	private TextLayer legendBottomText = new TextLayer();
+	private ImageLayer logoLayer = new ImageLayer();
 
 	private final List<Layer> layers = Arrays.asList(
 			compartmentFill,
@@ -73,7 +74,8 @@ public class DiagramCanvas {
 			legendTicks,
 			legendTickArrows,
 			legendText,
-			legendBottomText
+			legendBottomText,
+			logoLayer
 	);
 
 	public DiagramCanvas() {
@@ -206,5 +208,9 @@ public class DiagramCanvas {
 
 	public TextLayer getLegendBottomText() {
 		return legendBottomText;
+	}
+
+	public ImageLayer getLogoLayer() {
+		return logoLayer;
 	}
 }
