@@ -1,6 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.renderers.layout;
 
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
+import org.reactome.server.tools.diagram.data.layout.impl.CoordinateFactory;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.FoundEntity;
@@ -11,11 +12,14 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.Diagra
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.StrokeProperties;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Collections;
@@ -24,6 +28,8 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class LegendRenderer {
+
+	private static final double LOGO_WIDTH = 200;
 
 	/** space from diagram to legend */
 	private static final int LEGEND_TO_DIAGRAM_SPACE = 15;
@@ -48,6 +54,7 @@ public class LegendRenderer {
 	private double colorBarHeight;
 	private double colorBarWidth;
 	private NodeProperties bottomTextBox;
+	private int logo_height;
 
 	public LegendRenderer(DiagramCanvas canvas, DiagramIndex index, ColorProfiles profiles) {
 		this.canvas = canvas;
@@ -81,6 +88,9 @@ public class LegendRenderer {
 		 */
 		final Rectangle2D bounds = canvas.getBounds();
 
+		// logo
+		addLogo();
+
 		double legend_width;
 		double legend_height;
 		if (bounds.getHeight() < LEGEND_HEIGHT) {
@@ -95,8 +105,8 @@ public class LegendRenderer {
 		final int textHeight = FontProperties.DEFAULT_FONT.getSize() * 2;
 		final double textSpace = TEXT_PADDING + textHeight;
 
-		final double bottomWidth = bounds.getWidth() + legend_width;
-		final double bottomHeight = FontProperties.LEGEND_FONT.getSize() * 1.5;
+		final double bottomWidth = bounds.getWidth() + legend_width - LOGO_WIDTH;
+		final double bottomHeight = logo_height;
 		final double bottomY = bounds.getMaxY() + LEGEND_TO_DIAGRAM_SPACE;
 		final double bottomX = bounds.getMinX();
 		bottomTextBox = NodePropertiesFactory.get(bottomX, bottomY, bottomWidth, bottomHeight);
@@ -237,5 +247,23 @@ public class LegendRenderer {
 
 		canvas.getLegendText().add(topText, Color.BLACK, top, 0, 0, FontProperties.DEFAULT_FONT);
 		canvas.getLegendText().add(bottomText, Color.BLACK, bottom, 0, 0, FontProperties.DEFAULT_FONT);
+	}
+
+	public void addLogo() {
+		try {
+			final InputStream resource = getClass().getResourceAsStream("Reactome_Imagotype_Positive_50mm.png");
+			final Image logo = ImageIO.read(resource);
+			double factor = LOGO_WIDTH / logo.getWidth(null);
+			int width = (int) (factor * logo.getWidth(null));
+			logo_height = (int) (factor * logo.getHeight(null));
+			final Image scaledLogo = logo.getScaledInstance(width, logo_height, Image.SCALE_DEFAULT);
+
+			final Rectangle2D bounds = this.canvas.getBounds();
+			final double x = bounds.getMaxX() - scaledLogo.getWidth(null);
+			final double y = bounds.getMaxY() + LEGEND_TO_DIAGRAM_SPACE;
+			this.canvas.getLogoLayer().add(scaledLogo, CoordinateFactory.get(x, y));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
