@@ -129,9 +129,9 @@ public class SVGAnalysis {
 	}
 
 	private List<String> getRegions() {
-		final NodeList childNodes = document.getRootElement().getChildNodes();
-		return IntStream.range(0, childNodes.getLength())
-				.mapToObj(childNodes::item)
+		final NodeList groups = document.getRootElement().getElementsByTagNameNS(SVG_NAMESPACE_URI, SVG_G_TAG);
+		return IntStream.range(0, groups.getLength())
+				.mapToObj(groups::item)
 				.filter(SVGElement.class::isInstance)
 				.map(SVGElement.class::cast)
 				.map(SVGElement::getId)
@@ -221,6 +221,10 @@ public class SVGAnalysis {
 		//  - OVERLAYCLONE (enrichment)
 		//  - texts
 		final Element overlay = document.getElementById(OVERLAY_ + stId);
+		if (overlay == null) {
+			System.err.println(stId + " has no overlay");
+			return;
+		}
 
 		final Element base = (Element) overlay.cloneNode(true);
 		// remove text elements
