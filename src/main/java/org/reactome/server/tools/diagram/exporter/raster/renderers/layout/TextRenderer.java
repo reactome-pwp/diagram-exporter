@@ -13,15 +13,19 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Where the magic of the texts happens. Two methods are provided:
+ * <code>drawTextSingleLine()</code> for drawing texts in one line, regardless
+ * of the width of the line, and <code>drawText()</code> for drawing the text
+ * inside a box, wrapping and shrinking it if necessary.
+ *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class TextRenderer {
 
 	private static final List<Character> WORD_SPLIT_CHARS = Arrays.asList(':', '.', '-', ',', ')', '/', '+');
 	private static final float SHADOW_OFFSET = 0.5f;
-
-	public static final Color ANALYSIS_SHADOW_COLOR = Color.GRAY;
-	public static final Color ANALYSIS_TEXT_COLOR = Color.WHITE;
+	private static final Color ANALYSIS_SHADOW_COLOR = Color.GRAY;
+	private static final Color ANALYSIS_TEXT_COLOR = Color.WHITE;
 
 	/**
 	 * Displays text in the assigned space. If the text does not fit in one
@@ -33,7 +37,10 @@ public class TextRenderer {
 	 * @param text      text to display
 	 * @param limits    box where text should be fit
 	 * @param padding   minimum distance from any of the box sides to the text
-	 * @param splitText
+	 * @param splitText position (0 to 1) where the text should be split using
+	 *                  white/blue color. Only for analysis. 0 means all in
+	 *                  normal color, 1, all in white. When splitText is greater
+	 *                  than 0. A shadow is added to the whole text.
 	 */
 	public static void drawText(Graphics2D graphics, String text, NodeProperties limits, double padding, double splitText) {
 		final NodeProperties bounds = NodePropertiesFactory.get(
@@ -41,62 +48,58 @@ public class TextRenderer {
 				limits.getY() + padding,
 				limits.getWidth() - 2 * padding,
 				limits.getHeight() - 2 * padding);
+		// splitText slightly decreases, as the box is smaller
 		splitText = (limits.getX() + splitText * limits.getWidth() - bounds.getX()) / bounds.getWidth();
 		drawText(graphics, text, bounds.getX(), bounds.getY(),
 				bounds.getWidth(), bounds.getHeight(), splitText);
 	}
 
-	private static void drawText(Graphics2D graphics2D, String text, double x, double y, double width, double height, double splitText) {
-		// Start reducing the size of the font till text fits in the limits
-		Font font = graphics2D.getFont();
+	private static void drawText(Graphics2D graphics, String text, double x, double y, double width, double height, double splitText) {
+		// Fit the text
+		Font font = graphics.getFont();
 		List<String> lines;
-		while ((lines = fit(text, font, graphics2D, width, height)) == null)
+		while ((lines = fit(text, font, graphics, width, height)) == null)
 			font = font.deriveFont(font.getSize() - 1f);
 
-		// Impossible to fit even at font size 1. May happen with thumbnails
+		// Impossible to fit even with font size 1. May happen with thumbnails.
+		// Don't draw anything
 		if (lines.isEmpty()) return;
 
 		Area whiteArea = null;
 		Area colorArea = null;
-//		Area shadowArea = null;
-		if (splitText > 0 && splitText < 1) {
-			// +1 for thw shadow
-			whiteArea = new Area(new Rectangle2D.Double(
-					x, y, width * splitText, height));
-//			shadowArea = new Area(new Rectangle2D.Double(
-//					x - SHADOW_OFFSET, y + SHADOW_OFFSET, width * splitText + SHADOW_OFFSET, height));
-			colorArea = new Area(new Rectangle2D.Double(
-					x + width * splitText, y, width * (1 - splitText), height));
+		if (splitText > 0 && splitText <= 1) {
+			whiteArea = new Area(new Rectangle2D.Double(x, y, width * splitText, height));
+			colorArea = new Area(new Rectangle2D.Double(x + width * splitText, y, width * (1 - splitText), height));
 		}
-		final Font old = graphics2D.getFont();
-		graphics2D.setFont(font);
+		final Font old = graphics.getFont();
+		graphics.setFont(font);
 
-		final int lineHeight = graphics2D.getFontMetrics().getHeight();
+		final int lineHeight = graphics.getFontMetrics().getHeight();
 		final int textHeight = lines.size() * lineHeight;
 		final double centerX = x + width * 0.5;
 		double yOffset = y + (height - textHeight) * 0.5;
 		// Centering at ascent gives a more natural view (centers at -)
 		// https://goo.gl/x1EExY [difference between ascent/descent/height]
-		yOffset += graphics2D.getFontMetrics().getAscent();
+		yOffset += graphics.getFontMetrics().getAscent();
 		for (int i = 0; i < lines.size(); i++) {
 			final String line = lines.get(i);
-			final int lineWidth = computeWidth(line, graphics2D);
+			final int lineWidth = computeWidth(line, graphics);
 			final float left = (float) (centerX - 0.5 * lineWidth);
 			final float base = (float) (yOffset + i * lineHeight);
 			if (whiteArea != null) {
-				final Paint oldPaint = graphics2D.getPaint();
-				graphics2D.setPaint(ANALYSIS_SHADOW_COLOR);
-				graphics2D.drawString(line, left - SHADOW_OFFSET, base + SHADOW_OFFSET);
-				graphics2D.setClip(whiteArea);
-				graphics2D.setPaint(ANALYSIS_TEXT_COLOR);
-				graphics2D.drawString(line, left, base);
-				graphics2D.setPaint(oldPaint);
-				graphics2D.setClip(colorArea);
-				graphics2D.drawString(line, left, base);
-				graphics2D.setClip(null);
-			} else graphics2D.drawString(line, left, base);
+				final Paint textColor = graphics.getPaint();
+				graphics.setPaint(ANALYSIS_SHADOW_COLOR);
+				graphics.drawString(line, left - SHADOW_OFFSET, base + SHADOW_OFFSET);
+				graphics.setClip(whiteArea);
+				graphics.setPaint(ANALYSIS_TEXT_COLOR);
+				graphics.drawString(line, left, base);
+				graphics.setPaint(textColor);
+				graphics.setClip(colorArea);
+				graphics.drawString(line, left, base);
+				graphics.setClip(null);
+			} else graphics.drawString(line, left, base);
 		}
-		graphics2D.setFont(old);
+		graphics.setFont(old);
 	}
 
 	/**
@@ -107,6 +110,11 @@ public class TextRenderer {
 	 */
 	private static List<String> fit(String text, Font font, Graphics2D graphics, double maxWidth, double maxHeight) {
 		if (font.getSize() < 1) return Collections.emptyList();
+		// Test if text fits in 1 line
+		if (computeWidth(text, font, graphics) < maxWidth
+				&& computeHeight(1, font, graphics) < maxHeight)
+			return Collections.singletonList(text);
+
 		final List<String> lines = new LinkedList<>();
 		final String[] words = text.trim().split(" ");
 		String line = "";
@@ -133,7 +141,7 @@ public class TextRenderer {
 						// Start a new line with part
 						lines.add(line);
 						line = part;
-						if (computeHeight(lines, font, graphics) > maxHeight)
+						if (computeHeight(lines.size(), font, graphics) > maxHeight)
 							return null;
 					}
 					firstPart = false;
@@ -141,13 +149,13 @@ public class TextRenderer {
 			}
 		}
 		if (!line.isEmpty()) lines.add(line);
-		if (computeHeight(lines, font, graphics) > maxHeight)
+		if (computeHeight(lines.size(), font, graphics) > maxHeight)
 			return null;
 		else return lines;
 	}
 
-	private static int computeHeight(List<String> lines, Font font, Graphics2D graphics) {
-		return lines.size() * graphics.getFontMetrics(font).getHeight();
+	private static int computeHeight(int lines, Font font, Graphics2D graphics) {
+		return lines * graphics.getFontMetrics(font).getHeight();
 	}
 
 	private static int computeWidth(String text, Font font, Graphics2D graphics) {
@@ -163,7 +171,7 @@ public class TextRenderer {
 	 * <pre>:.-,)/+</pre>
 	 * The split characters are inserted as the last character of the fragment
 	 *
-	 * For instance <pre>splitWord("p-T402-PAK2(213-524)")</pre> will result in
+	 * For example <pre>splitWord("p-T402-PAK2(213-524)")</pre> will result in
 	 * <pre>{"p-", "T402-", "PAK2(", "213-", "524)"}</pre>
 	 */
 	private static List<String> splitWord(String word) {
