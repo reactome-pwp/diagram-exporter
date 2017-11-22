@@ -128,7 +128,7 @@ public class DiagramRenderer implements RasterRenderer {
 		encoder.setRepeat(0);
 //		encoder.setQuality(1);
 		encoder.start(outputStream);
-		for (int t = 0; t < index.getExpressionColumns().size(); t++) {
+		for (int t = 0; t < index.getExpressionColumnNames().size(); t++) {
 			final BufferedImage image = frame(factor, width, height, offsetX, offsetY, t);
 			encoder.addFrame(image);
 		}
@@ -238,12 +238,18 @@ public class DiagramRenderer implements RasterRenderer {
 	private void legend() {
 		legendRenderer = new LegendRenderer(canvas, index, colorProfiles);
 		if (index.getAnalysisType() == AnalysisType.EXPRESSION) {
+			// We add the legend first, so the logo is aligned to the right margin
 			legendRenderer.addLegend();
-			if (args.getColumn() == null) {
-				if (!args.getFormat().equals("gif"))
-					legendRenderer.setCol(0);
-			} else legendRenderer.setCol(args.getColumn());
-		} else legendRenderer.addLogo();
+			legendRenderer.addLogo();
+			if (args.getColumn() != null) {
+				legendRenderer.setCol(args.getColumn());
+			} else if (!args.getFormat().equals("gif"))
+				legendRenderer.setCol(0);
+		} else if (index.getAnalysisType() != AnalysisType.NONE) {
+			legendRenderer.addLogo();
+			legendRenderer.infoText();
+		}
+		else legendRenderer.addLogo();
 	}
 
 }

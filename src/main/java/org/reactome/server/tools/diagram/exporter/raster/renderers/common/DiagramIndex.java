@@ -53,6 +53,7 @@ public class DiagramIndex {
 	/** node used when a legend is displayed */
 	private NodeDecorator selected;
 	private List<String> expressionColumns;
+	private String analysisName;
 
 
 	/**
@@ -96,7 +97,7 @@ public class DiagramIndex {
 		final List<Long> flg = getFlagged();
 		decorateNodes(sel, flg);
 		decorateReactions(sel, flg);
-		collectAnalysis();
+		addAnalysisData();
 	}
 
 	private List<Long> getSelectedIds() {
@@ -229,7 +230,7 @@ public class DiagramIndex {
 	/**
 	 * Extracts analysis information and attaches it to each diagram node.
 	 */
-	private void collectAnalysis() throws AnalysisServerError, AnalysisException {
+	private void addAnalysisData() throws AnalysisServerError, AnalysisException {
 		if (args.getToken() == null || args.getToken().isEmpty())
 			return;
 		final String stId = graph.getStId();
@@ -238,11 +239,13 @@ public class DiagramIndex {
 		final ResourceSummary resourceSummary = summaryList.size() == 2
 				? summaryList.get(1)
 				: summaryList.get(0);
+		// result.getSummary().getFileName() seems to be null
+		analysisName = result.getSummary().getSampleName();
+
 		final String resource = resourceSummary.getResource();
 		analysisType = AnalysisType.getType(result.getSummary().getType());
 		// Get subpathways (green boxes) % of analysis area
 		subPathways(args.getToken(), resource);
-		// TODO: add species comparison?
 		if (analysisType == AnalysisType.EXPRESSION) {
 			maxExpression = result.getExpression().getMax();
 			minExpression = result.getExpression().getMin();
@@ -402,8 +405,12 @@ public class DiagramIndex {
 		return selected;
 	}
 
-	public List<String> getExpressionColumns() {
+	public List<String> getExpressionColumnNames() {
 		return expressionColumns;
+	}
+
+	public String getAnalysisName() {
+		return analysisName;
 	}
 
 	/**
