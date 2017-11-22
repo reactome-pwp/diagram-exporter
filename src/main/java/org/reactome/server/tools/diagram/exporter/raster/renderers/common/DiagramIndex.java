@@ -23,9 +23,10 @@ import java.util.stream.Stream;
  *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
+// TODO: split in a class for analysis, a class for decorators and a class for the index
 public class DiagramIndex {
 
-	private static final double MIN_ENRICHMENT = 0.05;
+	public static final double MIN_ENRICHMENT = 0.05;
 	private final Diagram diagram;
 	private final Graph graph;
 	private final HashMap<Long, DiagramObjectDecorator> index;
@@ -47,13 +48,11 @@ public class DiagramIndex {
 	 */
 	private HashSet<Long> reactionIds;
 
-	private double maxExpression = Double.MAX_VALUE;
-	private double minExpression = 0;
 	private AnalysisType analysisType = AnalysisType.NONE;
 	/** node used when a legend is displayed */
 	private NodeDecorator selected;
-	private List<String> expressionColumns;
 	private String analysisName;
+	private AnalysisResult result;
 
 
 	/**
@@ -93,40 +92,40 @@ public class DiagramIndex {
 	}
 
 	private void collect() throws AnalysisException, AnalysisServerError {
-		final List<Long> sel = getSelectedIds();
-		final List<Long> flg = getFlagged();
+		final Set<Long> sel = getSelectedIds();
+		final Set<Long> flg = getFlagged();
 		decorateNodes(sel, flg);
 		decorateReactions(sel, flg);
 		addAnalysisData();
 	}
 
-	private List<Long> getSelectedIds() {
+	private Set<Long> getSelectedIds() {
 		if (args.getSelected() == null)
-			return Collections.emptyList();
+			return Collections.emptySet();
 		return args.getSelected().stream()
 				.map(this::getDiagramObjectId)
 				.filter(Objects::nonNull)
-				.collect(Collectors.toList());
+				.collect(Collectors.toSet());
 	}
 
-	private List<Long> getFlagged() {
+	private Set<Long> getFlagged() {
 		if (args.getFlags() == null)
-			return Collections.emptyList();
+			return Collections.emptySet();
 		return args.getFlags().stream()
 				.map(this::getDiagramObjectId)
 				.filter(Objects::nonNull)
-				.flatMap(this::getAncestors)
-				.collect(Collectors.toList());
+				.flatMap(this::streamMeAndAncestors)
+				.collect(Collectors.toSet());
 	}
 
-	private Stream<Long> getAncestors(Long id) {
+	private Stream<Long> streamMeAndAncestors(Long id) {
 		final Set<Long> ids = new HashSet<>();
 		ids.add(id);
 		final EntityNode node = graphIndex.get(id);
 		if (node == null)
 			return ids.stream();
 		if (node.getParents() != null)
-			node.getParents().forEach(parentId -> getAncestors(parentId).forEach(ids::add));
+			node.getParents().forEach(parentId -> streamMeAndAncestors(parentId).forEach(ids::add));
 		return ids.stream();
 	}
 
@@ -141,6 +140,8 @@ public class DiagramIndex {
 			// ignored, not a dbId
 		}
 		// TODO: would it be faster if index of stIds, dbIds, identifier and geneNames?
+		// Pros: avoid iterating through the list of nodes and edges
+		// Cons: index the list of nodes and edges just for a few selected of flag items
 		// Nodes
 		for (EntityNode node : graph.getNodes()) {
 			// stId
@@ -161,7 +162,7 @@ public class DiagramIndex {
 		return null;
 	}
 
-	private void decorateNodes(List<Long> selected, List<Long> flags) {
+	private void decorateNodes(Collection<Long> selected, Collection<Long> flags) {
 		if (selected.isEmpty() && flags.isEmpty())
 			return;
 		diagram.getNodes().forEach((Node node) -> {
@@ -185,7 +186,7 @@ public class DiagramIndex {
 		});
 	}
 
-	private void decorateReactions(List<Long> selected, List<Long> flags) {
+	private void decorateReactions(Collection<Long> selected, Collection<Long> flags) {
 		diagram.getEdges().forEach(reaction -> {
 			if (selected.contains(reaction.getReactomeId())) {
 				final EdgeDecorator decorator = getEdgeDecorator(reaction.getId());
@@ -234,26 +235,32 @@ public class DiagramIndex {
 		if (args.getToken() == null || args.getToken().isEmpty())
 			return;
 		final String stId = graph.getStId();
-		final AnalysisResult result = AnalysisClient.getAnalysisResult(args.getToken());
+		result = AnalysisClient.getAnalysisResult(args.getToken());
 		final List<ResourceSummary> summaryList = result.getResourceSummary();
 		final ResourceSummary resourceSummary = summaryList.size() == 2
 				? summaryList.get(1)
 				: summaryList.get(0);
 		// result.getSummary().getFileName() seems to be null
 		analysisName = result.getSummary().getSampleName();
-
-		final String resource = resourceSummary.getResource();
+		String resource = args.getResource() == null
+				? resourceSummary.getResource()
+				: args.getResource();
 		analysisType = AnalysisType.getType(result.getSummary().getType());
 		// Get subpathways (green boxes) % of analysis area
 		subPathways(args.getToken(), resource);
-		if (analysisType == AnalysisType.EXPRESSION) {
-			maxExpression = result.getExpression().getMax();
-			minExpression = result.getExpression().getMin();
-			expressionColumns = result.getExpression().getColumnNames();
-			expression(args.getToken(), stId, resource);
-		} else if (analysisType == AnalysisType.OVERREPRESENTATION ||
-				analysisType == AnalysisType.SPECIES_COMPARISON)
-			enrichment(args.getToken(), stId, resource);
+
+		final FoundElements foundElements;
+		try {
+			foundElements = AnalysisClient.getFoundElements(stId, args.getToken(), resource);
+			if (foundElements == null) return;
+			if (analysisType == AnalysisType.EXPRESSION) {
+				expression(foundElements);
+			} else if (analysisType == AnalysisType.OVERREPRESENTATION ||
+					analysisType == AnalysisType.SPECIES_COMPARISON)
+				enrichment(foundElements);
+		} catch (AnalysisException e) {
+			// token is valid, but this pathway has no analysis
+		}
 	}
 
 	/**
@@ -292,15 +299,7 @@ public class DiagramIndex {
 	 * Computes the list of expressions of components. For each diagram object,
 	 * except ProcessNodes, you get a list of lists of doubles
 	 */
-	private void expression(String token, String stId, String resource) throws AnalysisServerError {
-		final FoundElements foundElements;
-		try {
-			foundElements = AnalysisClient.getFoundElements(stId, token, resource);
-			if (foundElements == null) return;
-		} catch (AnalysisException e) {
-			// token is valid, but this pathway has no analysis
-			return;
-		}
+	private void expression(FoundElements foundElements) {
 		// analysis -> graph: analysis.mapsTo.id.contains(graph.identifier)
 		// graph -> layout:   layout.reactomeId == graph.dbId
 		// Index analysis nodes via mapsTo
@@ -323,18 +322,9 @@ public class DiagramIndex {
 	}
 
 	/** Computes only the relation of hit found components and found component */
-	private void enrichment(String token, String stId, String resource) throws AnalysisServerError {
-		final FoundElements analysisNodes;
-		try {
-			analysisNodes = AnalysisClient.getFoundElements(stId, token, resource);
-			if (analysisNodes == null) return;
-		} catch (AnalysisException e) {
-			// In this case, analysis token is valid, but stId is not int the analysis
-			// no need to overlay analysis
-			return;
-		}
+	private void enrichment(FoundElements foundElements) {
 		// analysis -> graph: analysis.mapsTo.id.contains(graph.identifier)
-		final Set<String> identifiers = analysisNodes.getEntities().stream()
+		final Set<String> identifiers = foundElements.getEntities().stream()
 				.map(FoundEntity::getMapsTo)
 				.flatMap(Collection::stream)
 				.map(IdentifierMap::getIds)
@@ -389,14 +379,6 @@ public class DiagramIndex {
 		return (EdgeDecorator) index.computeIfAbsent(id, k -> new EdgeDecorator());
 	}
 
-	public double getMaxExpression() {
-		return maxExpression;
-	}
-
-	public double getMinExpression() {
-		return minExpression;
-	}
-
 	public AnalysisType getAnalysisType() {
 		return analysisType;
 	}
@@ -405,12 +387,12 @@ public class DiagramIndex {
 		return selected;
 	}
 
-	public List<String> getExpressionColumnNames() {
-		return expressionColumns;
-	}
-
 	public String getAnalysisName() {
 		return analysisName;
+	}
+
+	public AnalysisResult getResult() {
+		return result;
 	}
 
 	/**
@@ -492,5 +474,4 @@ public class DiagramIndex {
 			return totalExpressions;
 		}
 	}
-
 }
