@@ -62,10 +62,10 @@ public class ColorProfiles {
 	}
 
 	@JsonCreator
-	public ColorProfiles(Map<String, Object> delegate) {
-		diagramSheet = getDiagramSheet((String) delegate.get("diagram"));
-		analysisSheet = getAnalysisSheet((String) delegate.get("analysis"));
-		interactorsSheet = getInteractorsSheet((String) delegate.get("interactors"));
+	public ColorProfiles(Map<String, Object> profiles) {
+		diagramSheet = getDiagramSheet((String) profiles.get("diagram"));
+		analysisSheet = getAnalysisSheet((String) profiles.get("analysis"));
+		interactorsSheet = getInteractorsSheet((String) profiles.get("interactors"));
 	}
 
 	private static <T> T getSheet(Class<T> clazz, String prefix, String name) {

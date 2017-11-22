@@ -10,7 +10,6 @@ import java.util.Set;
 
 public class JsonRasterArgs implements RasterArgs {
 
-
 	private String stId;
 	private Double factor = 1.;
 	private String format = "png";
