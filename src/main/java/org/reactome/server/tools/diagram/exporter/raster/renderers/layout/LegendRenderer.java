@@ -48,6 +48,7 @@ public class LegendRenderer {
 	private static final double BACKGROUND_PADDING = 10;
 	private static final Color BACKGROUND_BORDER = new Color(175, 175, 175);
 	private static final Color BACKGROUND_FILL = new Color(220, 220, 220);
+	private static final double MIN_LOGO_WIDTH = 50;
 	private final DiagramCanvas canvas;
 	private final DiagramIndex index;
 	private final ColorProfiles profiles;
@@ -273,6 +274,7 @@ public class LegendRenderer {
 			final BufferedImage logo = getLogo();
 			logo_width = bounds.getWidth() * RELATIVE_LOGO_WIDTH;
 			if (logo_width > logo.getWidth()) logo_width = logo.getWidth();
+			if (logo_width < MIN_LOGO_WIDTH) logo_width = MIN_LOGO_WIDTH;
 			logo_height = logo_width / logo.getWidth() * logo.getHeight();
 
 			final NodeProperties limits = NodePropertiesFactory.get(
