@@ -68,8 +68,7 @@ public class RasterExporter {
 	 */
 	public static BufferedImage export(RasterArgs args, String diagramPath, String EHLDPath) throws Exception {
 		try {
-			final RasterRenderer renderer;
-			renderer = hasEHLD.contains(args.getStId())
+			final RasterRenderer renderer = hasEHLD.contains(args.getStId())
 					? new EHLDRenderer(args, EHLDPath)
 					: new DiagramRenderer(args, diagramPath);
 			final Dimension dimension = renderer.getDimension();
@@ -112,15 +111,14 @@ public class RasterExporter {
 	 * </pre>
 	 * </code>
 	 */
-	public static void exportToGif(RasterArgs args, String diagramPath, String ehldPath, OutputStream os) throws Exception {
+	public static void exportToGif(RasterArgs args, String diagramPath, String EHLDPath, OutputStream os) throws Exception {
 		try {
-			if (hasEHLD.contains(args.getStId())) {
-				final EHLDRenderer renderer = new EHLDRenderer(args, ehldPath);
-				renderer.renderToAnimatedGif(os);
-			} else {
-				final DiagramRenderer renderer = new DiagramRenderer(args, diagramPath);
-				renderer.renderToAnimatedGif(os);
-			}
+			final RasterRenderer renderer = hasEHLD.contains(args.getStId())
+					? new EHLDRenderer(args, EHLDPath)
+					: new DiagramRenderer(args, diagramPath);
+			final Dimension dimension = renderer.getDimension();
+			double size = dimension.getHeight() * dimension.getWidth();
+			renderer.renderToAnimatedGif(os);
 		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | EHLDException e) {
 			throw new Exception(String.format("there is no diagram for '%s'", args.getStId()), e);
 		} catch (AnalysisServerError | AnalysisException e) {
