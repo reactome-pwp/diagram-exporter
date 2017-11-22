@@ -7,7 +7,7 @@ Diagram Exporter
 This project includes methods for exporting a given diagram into an image (png, jpeg or jpeg) or a PowerPoint file.
 
  * [Power point exporter](src/main/java/org/reactome/server/tools/diagram/exporter/pptx/README.md)
- * [Image exporter](src/main/java/org/reactome/server/tools/diagram/exporter/raster/README.md)
+ * [Raster exporter](src/main/java/org/reactome/server/tools/diagram/exporter/raster/README.md)
 
 
 ### Pre-requirements
@@ -30,7 +30,7 @@ mvn clean package
 <dependency>
     <groupId>org.reactome.server.tools</groupId>
     <artifactId>diagram-exporter</artifactId>
-    <version>1.0.0</version>
+    <version>1.2.0-SNAPSHOT</version>
 </dependency>
 ```
 
