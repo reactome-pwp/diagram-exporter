@@ -116,7 +116,7 @@ public class RasterExporterTest {
 	@Test
 	public void testLowQuality() {
 		final String stId = "R-HSA-2173782";
-		renderSilent(stId, "png", 1 , null, null, MODERN);
+		renderSilent(stId, "png", 1, null, null, MODERN);
 	}
 
 	@Test
@@ -137,6 +137,13 @@ public class RasterExporterTest {
 		final double max = 2.9;
 		final DecimalFormat NF = new DecimalFormat("#.##E0", DecimalFormatSymbols.getInstance(Locale.UK));
 		Assert.assertEquals("2.9E0", NF.format(max));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testScaleLImit() {
+		final int factor = 0;
+		final SimpleRasterArgs args = new SimpleRasterArgs("stid", "png");
+		args.setFactor(factor);
 	}
 
 	private List<Long> getIdsFor(String prot, Graph graph) {
