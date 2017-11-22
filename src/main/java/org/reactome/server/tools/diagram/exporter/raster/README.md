@@ -27,7 +27,6 @@ String ehldPath = "path/to/ehld";
 final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-169911", "jpg");
 args.setFactor(3.);
 args.setProfiles(new ColorProfiles("standard", null, null));
-args.setBackground("#444444");
 
 final BufferedImage image = RasterExporter.export(args, diagramPath, ehldPath);
 
