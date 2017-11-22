@@ -67,10 +67,15 @@ public class DiagramRenderer implements RasterRenderer {
 	 * Creates a DiagramRenderer
 	 *
 	 * @param args        arguments for rendering
-	 * @param diagramPath
+	 * @param diagramPath path where to find the json files for the layout and
+	 *                    the graph data
 	 *
 	 * @throws DiagramJsonNotFoundException        if diagram is not found
 	 * @throws DiagramJsonDeserializationException if diagram is malformed
+	 * @throws AnalysisException                   when problems with the
+	 *                                             analysis data
+	 * @throws AnalysisServerError                 if some error happens in the
+	 *                                             Analysis Server
 	 */
 	public DiagramRenderer(RasterArgs args, String diagramPath) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException, AnalysisException, AnalysisServerError {
 		TraceLogger.trace(args.getStId());
@@ -79,6 +84,17 @@ public class DiagramRenderer implements RasterRenderer {
 		this.args = args;
 		this.colorProfiles = args.getProfiles();
 		this.index = new DiagramIndex(diagram, graph, args);
+		canvas = new DiagramCanvas();
+		layout();
+	}
+
+	@Override
+	public Dimension getDimension() {
+		final Rectangle2D bounds = canvas.getBounds();
+		double factor = args.getFactor();
+		int width = (int) ((2 * MARGIN + bounds.getWidth()) * factor + 0.5);
+		int height = (int) ((2 * MARGIN + bounds.getHeight()) * factor + 0.5);
+		return new Dimension(width, height);
 	}
 
 	/**
@@ -88,11 +104,9 @@ public class DiagramRenderer implements RasterRenderer {
 	 */
 	@Override
 	public BufferedImage render() {
-		canvas = new DiagramCanvas();
-		layout();
-
 		final Rectangle2D bounds = canvas.getBounds();
-		double factor = limitFactor(bounds, MAX_IMAGE_SIZE);
+//		double factor = limitFactor(bounds, MAX_IMAGE_SIZE);
+		double factor = args.getFactor();
 		int width = (int) ((2 * MARGIN + bounds.getWidth()) * factor + 0.5);
 		int height = (int) ((2 * MARGIN + bounds.getHeight()) * factor + 0.5);
 		int offsetX = (int) ((MARGIN - bounds.getMinX()) * factor + 0.5);
@@ -113,11 +127,10 @@ public class DiagramRenderer implements RasterRenderer {
 	public void renderToAnimatedGif(OutputStream outputStream) throws IOException {
 		if (index.getAnalysisType() != AnalysisType.EXPRESSION)
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
-		canvas = new DiagramCanvas();
-		layout();
 
 		final Rectangle2D bounds = canvas.getBounds();
-		double factor = limitFactor(bounds, MAX_GIF_SIZE);
+//		double factor = limitFactor(bounds, MAX_GIF_SIZE);
+		double factor = args.getFactor();
 		int width = (int) ((2 * MARGIN + bounds.getWidth()) * factor + 0.5);
 		int height = (int) ((2 * MARGIN + bounds.getHeight()) * factor + 0.5);
 		int offsetX = (int) ((MARGIN - bounds.getMinX()) * factor + 0.5);
@@ -159,7 +172,7 @@ public class DiagramRenderer implements RasterRenderer {
 		if (size > maxSize) {
 			final double newFactor = Math.sqrt(maxSize / ((MARGIN + bounds.getWidth()) * (MARGIN + bounds.getHeight())));
 			log.warning(String.format(
-					"Diagram %s is too large. Quality reduced from %.1f to %.2f -> (%d x %d)",
+					"Diagram %s is too large. Quality reduced from %.2f to %.2f -> (%d x %d)",
 					diagram.getStableId(), args.getFactor(), newFactor, (int) (bounds.getWidth() * newFactor), (int) (bounds.getHeight() * newFactor)));
 			return newFactor;
 		}
@@ -248,8 +261,7 @@ public class DiagramRenderer implements RasterRenderer {
 		} else if (index.getAnalysisType() != AnalysisType.NONE) {
 			legendRenderer.addLogo();
 			legendRenderer.infoText();
-		}
-		else legendRenderer.addLogo();
+		} else legendRenderer.addLogo();
 	}
 
 }

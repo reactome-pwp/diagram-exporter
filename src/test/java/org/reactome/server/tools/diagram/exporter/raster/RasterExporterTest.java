@@ -1,10 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
 
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
@@ -100,7 +97,7 @@ public class RasterExporterTest {
 	@Test
 	public void testHighQuality() {
 		final String stId = "R-HSA-391251";
-		renderToFile(stId, "png", 10, null, null, MODERN);
+		renderToFile(stId, "png", 3, null, null, MODERN);
 	}
 
 	@Test
@@ -123,6 +120,7 @@ public class RasterExporterTest {
 	}
 
 	@Test
+	@Ignore("Renderers do not limit diagram size anymore")
 	public void testVeryHugeQuality() {
 		final String stId = "R-HSA-2173782";
 		renderToFile(stId, "jpg", 10000, null, null, MODERN);

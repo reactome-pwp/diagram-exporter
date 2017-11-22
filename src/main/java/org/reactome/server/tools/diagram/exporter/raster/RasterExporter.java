@@ -13,6 +13,7 @@ import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDMalf
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDRuntimeException;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -63,17 +64,17 @@ public class RasterExporter {
 	 *
 	 * @param args        arguments for the export
 	 * @param diagramPath location of diagrams
-	 * @param ehldPath    location of EHLDs
+	 * @param EHLDPath    location of EHLDs
 	 */
-	public static BufferedImage export(RasterArgs args, String diagramPath, String ehldPath) throws Exception {
+	public static BufferedImage export(RasterArgs args, String diagramPath, String EHLDPath) throws Exception {
 		try {
-			if (hasEHLD.contains(args.getStId())) {
-				final EHLDRenderer renderer = new EHLDRenderer(args, ehldPath);
-				return renderer.render();
-			} else {
-				final DiagramRenderer renderer = new DiagramRenderer(args, diagramPath);
-				return renderer.render();
-			}
+			final RasterRenderer renderer;
+			renderer = hasEHLD.contains(args.getStId())
+					? new EHLDRenderer(args, EHLDPath)
+					: new DiagramRenderer(args, diagramPath);
+			final Dimension dimension = renderer.getDimension();
+			double size = dimension.getHeight() * dimension.getWidth();
+			return renderer.render();
 		} catch (DiagramJsonNotFoundException | EHLDNotFoundException e) {
 			throw new Exception(String.format("there is no diagram for '%s'", args.getStId()), e);
 		} catch (DiagramJsonDeserializationException | EHLDMalformedException e) {

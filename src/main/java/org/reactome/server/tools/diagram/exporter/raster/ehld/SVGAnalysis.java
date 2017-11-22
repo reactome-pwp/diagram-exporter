@@ -66,24 +66,34 @@ public class SVGAnalysis {
 	private final RasterArgs args;
 	private AnalysisResult result;
 	private Map<String, EntityStatistics> entityStats;
+	private AnalysisType analysisType;
 
 	public SVGAnalysis(SVGDocument document, RasterArgs args) {
 		this.document = document;
 		this.args = args;
+		getAnalysisResult(args);
+	}
+
+	private void getAnalysisResult(RasterArgs args) {
+		if (args.getToken() == null) return;
+		try {
+			result = AnalysisClient.getAnalysisResult(args.getToken());
+			analysisType = AnalysisType.getType(result.getSummary().getType());
+		} catch (AnalysisServerError analysisServerError) {
+			analysisServerError.printStackTrace();
+		}
 	}
 
 	public void analysis() {
-		if (args.getToken() == null) return;
+		if (result == null) return;
 		final java.util.List<String> regions = getRegions();
 		if (regions.isEmpty()) return;
 		try {
-			result = AnalysisClient.getAnalysisResult(args.getToken());
 			final java.util.List<ResourceSummary> summaryList = result.getResourceSummary();
 			final ResourceSummary resourceSummary = summaryList.size() == 2
 					? summaryList.get(1)
 					: summaryList.get(0);
 			final String resource = resourceSummary.getResource();
-			AnalysisType analysisType = AnalysisType.getType(result.getSummary().getType());
 			if (analysisType == AnalysisType.OVERREPRESENTATION) {
 				enrichment(regions, resource);
 			} else if (analysisType == AnalysisType.EXPRESSION) {
@@ -355,7 +365,7 @@ public class SVGAnalysis {
 
 	}
 
-	void setColumn(int expressionColumn) throws AnalysisServerError, AnalysisException {
+	void setColumn(int expressionColumn)  {
 		SVGLegendRenderer.clearTicks(document);
 		final ExpressionSummary expression = result.getExpression();
 		final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getExpression().getGradient();
@@ -372,5 +382,13 @@ public class SVGAnalysis {
 				}
 			}
 		});
+	}
+
+	AnalysisType getAnalysisType() {
+		return analysisType;
+	}
+
+	AnalysisResult getAnalysisResult() {
+		return result;
 	}
 }
