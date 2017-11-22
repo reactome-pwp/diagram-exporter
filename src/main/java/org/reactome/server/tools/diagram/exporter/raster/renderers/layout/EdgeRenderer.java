@@ -23,13 +23,7 @@ import java.util.Objects;
  */
 public class EdgeRenderer extends AbstractRenderer {
 
-	/**
-	 * Renders an edge and the connectors associated to it.
-	 *  @param canvas where to render
-	 * @param item   the edge to render
-	 * @param index  the diagram index
-	 * @param t
-	 */
+
 	@Override
 	public void draw(DiagramCanvas canvas, DiagramObject item, ColorProfiles colorProfiles, DiagramIndex index, int t) {
 		final EdgeCommon edge = (EdgeCommon) item;
@@ -57,7 +51,7 @@ public class EdgeRenderer extends AbstractRenderer {
 		rShapes.forEach(shape -> renderShape(canvas, info, shape));
 	}
 
-	private void renderShape(DiagramCanvas canvas, EdgeRenderInfo info, org.reactome.server.tools.diagram.data.layout.Shape shape) {
+	private void renderShape(DiagramCanvas canvas, EdgeRenderInfo info, Shape shape) {
 		final List<java.awt.Shape> javaShapes = ShapeFactory.getShapes(shape);
 		// 2.1 halo
 		if (info.getDecorator().isHalo())

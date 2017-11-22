@@ -66,42 +66,63 @@ public class SVGAnalysis {
 	private final RasterArgs args;
 	private AnalysisResult result;
 	private Map<String, EntityStatistics> entityStats;
+	private AnalysisType analysisType;
+	private List<String> pathways;
 
 	public SVGAnalysis(SVGDocument document, RasterArgs args) {
 		this.document = document;
 		this.args = args;
+		collectAnalysisResult();
 	}
 
-	public void analysis() {
+	private void collectAnalysisResult() {
 		if (args.getToken() == null) return;
-		final java.util.List<String> regions = getRegions();
-		if (regions.isEmpty()) return;
 		try {
 			result = AnalysisClient.getAnalysisResult(args.getToken());
-			final java.util.List<ResourceSummary> summaryList = result.getResourceSummary();
+			analysisType = AnalysisType.getType(result.getSummary().getType());
+			final List<ResourceSummary> summaryList = result.getResourceSummary();
+
 			final ResourceSummary resourceSummary = summaryList.size() == 2
 					? summaryList.get(1)
 					: summaryList.get(0);
-			final String resource = resourceSummary.getResource();
-			AnalysisType analysisType = AnalysisType.getType(result.getSummary().getType());
-			if (analysisType == AnalysisType.OVERREPRESENTATION) {
-				enrichment(regions, resource);
-			} else if (analysisType == AnalysisType.EXPRESSION) {
-				expression(regions, resource, result.getExpression());
-			}
+			// TODO: take from args
+			final String resource = args.getResource() == null
+					? resourceSummary.getResource()
+					: args.getResource();
 
+			final List<String> regions = getRegions();
+			if (regions.isEmpty()) return;
+			pathways = regions.stream()
+					.map(id -> id.substring(REGION_.length()))
+					.collect(Collectors.toList());
+			entityStats = getStats(args.getToken(), resource, pathways);
 		} catch (AnalysisServerError | AnalysisException analysisServerError) {
 			analysisServerError.printStackTrace();
 		}
 	}
 
-	private void enrichment(List<String> regions, String resource) throws AnalysisServerError, AnalysisException {
-		final List<String> pathways = regions.stream()
-				.map(id -> id.substring(REGION_.length()))
-				.collect(Collectors.toList());
+	private Map<String, EntityStatistics> getStats(String token, String resource, List<String> pathways) throws AnalysisServerError, AnalysisException {
+		final PathwaySummary[] pathwaysSummary = AnalysisClient.getPathwaysSummary(pathways, token, resource);
+		final Map<String, EntityStatistics> stats = new HashMap<>();
+		for (PathwaySummary summary : pathwaysSummary)
+			stats.put(summary.getStId(), summary.getEntities());
+		return stats;
+	}
 
-		final Map<String, EntityStatistics> entityStats = getStats(args.getToken(), resource, pathways);
+	public void analysis() {
+		if (result == null) return;
+		switch (analysisType) {
+			case OVERREPRESENTATION:
+			case SPECIES_COMPARISON:
+				enrichment();
+				break;
+			case EXPRESSION:
+				expression();
+				break;
+		}
+	}
 
+	private void enrichment() {
 		SVGUtil.addInlineStyle(document, OVERLAY_TEXT_CLASS, OVERLAY_TEXT_STYLE);
 		SVGUtil.addInlineStyle(document, ANALYSIS_INFO_CLASS, ANALYSIS_INFO_STYLE);
 		final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getEnrichment().getGradient();
@@ -120,12 +141,23 @@ public class SVGAnalysis {
 		});
 	}
 
-	private Map<String, EntityStatistics> getStats(String token, String resource, List<String> pathways) throws AnalysisServerError, AnalysisException {
-		final PathwaySummary[] pathwaysSummary = AnalysisClient.getPathwaysSummary(pathways, token, resource);
-		final Map<String, EntityStatistics> stats = new HashMap<>();
-		for (PathwaySummary summary : pathwaysSummary)
-			stats.put(summary.getStId(), summary.getEntities());
-		return stats;
+	private void expression() {
+		SVGUtil.addInlineStyle(document, OVERLAY_TEXT_CLASS, OVERLAY_TEXT_STYLE);
+		SVGUtil.addInlineStyle(document, ANALYSIS_INFO_CLASS, ANALYSIS_INFO_STYLE);
+
+		final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getExpression().getGradient();
+		SVGLegendRenderer.legend(document, gradient, result.getExpression().getMax(), result.getExpression().getMin(), AnalysisType.EXPRESSION);
+
+		// Analysis info text is centered to ANALINFO group. To get the
+		// center of each ANALINFO group we must build the whole document.
+		cloned = (Document) document.cloneNode(true);
+		builder.build(context, cloned);
+
+		pathways.forEach(stId -> {
+			final EntityStatistics stats = entityStats.getOrDefault(stId, null);
+			overlayExpression(stId, stats, result.getExpression());
+			analysisInfo(stId, stats);
+		});
 	}
 
 	private List<String> getRegions() {
@@ -254,7 +286,7 @@ public class SVGAnalysis {
 		final NodeList textss = clone.getElementsByTagName(SVG_TEXT_TAG);
 		textNodes = IntStream.range(0, textss.getLength())
 				.mapToObj(textss::item).collect(Collectors.toList());
-				textNodes.stream().map(Element.class::cast)
+		textNodes.stream().map(Element.class::cast)
 				.forEach(node -> {
 					SVGUtil.addClass(node, OVERLAY_TEXT_CLASS);
 					group.appendChild(node);
@@ -326,36 +358,7 @@ public class SVGAnalysis {
 				.mapToObj(element.getChildNodes()::item);
 	}
 
-	private void expression(List<String> regions, String resource, ExpressionSummary expression) {
-		try {
-			SVGUtil.addInlineStyle(document, OVERLAY_TEXT_CLASS, OVERLAY_TEXT_STYLE);
-			SVGUtil.addInlineStyle(document, ANALYSIS_INFO_CLASS, ANALYSIS_INFO_STYLE);
-
-			final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getExpression().getGradient();
-			SVGLegendRenderer.legend(document, gradient, expression.getMax(), expression.getMin(), AnalysisType.EXPRESSION);
-
-			final List<String> pathways = regions.stream()
-					.map(id -> id.substring(REGION_.length()))
-					.collect(Collectors.toList());
-			entityStats = getStats(args.getToken(), resource, pathways);
-
-			// Analysis info text is centered to ANALINFO group. To get the
-			// center of each ANALINFO group we must render the whole document.
-			cloned = (Document) document.cloneNode(true);
-			builder.build(context, cloned);
-
-			pathways.forEach(s -> {
-				final EntityStatistics stats = entityStats.getOrDefault(s, null);
-				overlayExpression(s, stats, expression);
-				analysisInfo(s, stats);
-			});
-		} catch (AnalysisServerError | AnalysisException e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	void setColumn(int expressionColumn) throws AnalysisServerError, AnalysisException {
+	void setColumn(int expressionColumn) {
 		SVGLegendRenderer.clearTicks(document);
 		final ExpressionSummary expression = result.getExpression();
 		final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getExpression().getGradient();
@@ -372,5 +375,13 @@ public class SVGAnalysis {
 				}
 			}
 		});
+	}
+
+	AnalysisType getAnalysisType() {
+		return analysisType;
+	}
+
+	AnalysisResult getAnalysisResult() {
+		return result;
 	}
 }

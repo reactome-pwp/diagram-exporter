@@ -15,10 +15,10 @@ public class SimpleRasterArgs implements RasterArgs {
 	private String token;
 	private Set<String> flags;
 	private Set<String> selected;
-
 	private ColorProfiles profiles;
 	private Color background;
 	private Integer column;
+	private String resource;
 
 	public SimpleRasterArgs(String stId, String format) {
 		this.stId = stId;
@@ -39,8 +39,21 @@ public class SimpleRasterArgs implements RasterArgs {
 		return factor;
 	}
 
-	public void setFactor(Double factor) {
-		this.factor = factor;
+	public void setFactor(Integer factor) {
+		if (factor != null)
+			this.factor = scale(factor);
+	}
+
+	private double scale(int factor) {
+		if (factor < 1 || factor > 10)
+			throw new IllegalArgumentException("factor must be in the range [1-10]");
+		if (factor < 5) {
+			return interpolate(factor, 1, 5, 0.1, 1);
+		} else return interpolate(factor, 5, 10, 1, 3);
+	}
+
+	private double interpolate(double x, double min, double max, double dest_min, double dest_max){
+		return (x - min) / (max - min) * (dest_max - dest_min) + dest_min;
 	}
 
 	/** output image format (png, jpg, gif) */
@@ -93,6 +106,15 @@ public class SimpleRasterArgs implements RasterArgs {
 		this.column = column;
 	}
 
+	@Override
+	public String getResource() {
+		return resource;
+	}
+
+	public void setResource(String resource) {
+		this.resource = resource;
+	}
+
 	public Set<String> getFlags() {
 		return flags;
 	}
@@ -110,4 +132,5 @@ public class SimpleRasterArgs implements RasterArgs {
 		if (selected != null)
 			this.selected = new HashSet<>(selected);
 	}
+
 }

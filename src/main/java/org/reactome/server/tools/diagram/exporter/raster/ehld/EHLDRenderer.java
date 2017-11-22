@@ -7,10 +7,6 @@ import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.ImageTranscoder;
 import org.apache.batik.transcoder.svg2svg.SVGTranscoder;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
-import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisResult;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
@@ -50,10 +46,11 @@ public class EHLDRenderer implements RasterRenderer {
 	public EHLDRenderer(RasterArgs args, String ehldPath) throws EHLDException {
 		this.document = ResourcesFactory.getEHLD(ehldPath, args.getStId());
 		this.args = args;
+		virtualRendering(args);
+
 	}
 
-	@Override
-	public BufferedImage render() {
+	private void virtualRendering(RasterArgs args) {
 		// TODO: disabled because is unstable with batik
 //		SVGDecoratorRenderer.selectAndFlag(document, args);
 		final SVGAnalysis svgAnalysis = new SVGAnalysis(document, args);
@@ -62,6 +59,19 @@ public class EHLDRenderer implements RasterRenderer {
 		updateDocumentDimensions();
 		// TODO: remove to production, but don't remove from here
 		// toFile();
+	}
+
+	@Override
+	public Dimension getDimension() {
+		final String viewBox = document.getRootElement().getAttribute(SVG_VIEW_BOX_ATTRIBUTE);
+		final String[] values = viewBox.split(" ");
+		final double width = Double.valueOf(values[2]);
+		final double height = Double.valueOf(values[3]);
+		return new Dimension((int) (width + 0.5), (int) (height + 0.5));
+	}
+
+	@Override
+	public BufferedImage render() {
 		return toImage();
 	}
 
@@ -148,15 +158,14 @@ public class EHLDRenderer implements RasterRenderer {
 		}
 	}
 
-	public void renderToAnimatedGif(OutputStream os) throws AnalysisServerError, EHLDException, IOException, AnalysisException {
-		// Check if analysis token is OK
-		final AnalysisResult result = AnalysisClient.getAnalysisResult(args.getToken());
-		AnalysisType analysisType = AnalysisType.getType(result.getSummary().getType());
-		if (analysisType != AnalysisType.EXPRESSION)
+	public void renderToAnimatedGif(OutputStream os) throws IOException {
+		final SVGAnalysis svgAnalysis = new SVGAnalysis(document, args);
+		if (svgAnalysis.getAnalysisType() != AnalysisType.EXPRESSION)
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
+
 		// TODO: disabled because is unstable with batik
 //		SVGDecoratorRenderer.selectAndFlag(document, args);
-		final SVGAnalysis svgAnalysis = new SVGAnalysis(document, args);
+
 		svgAnalysis.analysis();
 		updateDocumentDimensions();
 
@@ -164,7 +173,7 @@ public class EHLDRenderer implements RasterRenderer {
 		encoder.setDelay(1000);
 		encoder.setRepeat(0);
 		encoder.start(os);
-		for (int expressionColumn = 0; expressionColumn < result.getExpression().getColumnNames().size(); expressionColumn++) {
+		for (int expressionColumn = 0; expressionColumn < svgAnalysis.getAnalysisResult().getExpression().getColumnNames().size(); expressionColumn++) {
 			svgAnalysis.setColumn(expressionColumn);
 			final BufferedImage image = toImage();
 			encoder.addFrame(image);

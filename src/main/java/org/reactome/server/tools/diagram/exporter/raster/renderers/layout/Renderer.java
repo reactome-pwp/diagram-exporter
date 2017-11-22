@@ -12,6 +12,13 @@ import org.reactome.server.tools.diagram.exporter.raster.renderers.common.Diagra
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public interface Renderer {
-
+	/**
+	 * Renders an edge and the connectors associated to it.
+	 *
+	 * @param canvas where to render
+	 * @param item   the edge to render
+	 * @param index  the diagram index
+	 * @param t      expression column
+	 */
 	void draw(DiagramCanvas canvas, DiagramObject item, ColorProfiles colorProfiles, DiagramIndex index, int t);
 }

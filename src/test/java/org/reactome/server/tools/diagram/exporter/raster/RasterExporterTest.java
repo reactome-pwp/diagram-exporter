@@ -1,10 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
 
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
@@ -100,7 +97,7 @@ public class RasterExporterTest {
 	@Test
 	public void testHighQuality() {
 		final String stId = "R-HSA-391251";
-		renderToFile(stId, "png", 10, null, null, MODERN);
+		renderToFile(stId, "png", 3, null, null, MODERN);
 	}
 
 	@Test
@@ -119,10 +116,11 @@ public class RasterExporterTest {
 	@Test
 	public void testLowQuality() {
 		final String stId = "R-HSA-2173782";
-		renderSilent(stId, "png", 0.1, null, null, MODERN);
+		renderSilent(stId, "png", 1, null, null, MODERN);
 	}
 
 	@Test
+	@Ignore("Renderers do not limit diagram size anymore")
 	public void testVeryHugeQuality() {
 		final String stId = "R-HSA-2173782";
 		renderToFile(stId, "jpg", 10000, null, null, MODERN);
@@ -141,6 +139,13 @@ public class RasterExporterTest {
 		Assert.assertEquals("2.9E0", NF.format(max));
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testScaleLImit() {
+		final int factor = 0;
+		final SimpleRasterArgs args = new SimpleRasterArgs("stid", "png");
+		args.setFactor(factor);
+	}
+
 	private List<Long> getIdsFor(String prot, Graph graph) {
 		// Also parents
 		return graph.getNodes().stream()
@@ -150,7 +155,7 @@ public class RasterExporterTest {
 				.collect(Collectors.toList());
 	}
 
-	private void renderToFile(String stId, String ext, double factor, List<String> selected, List<String> flags, String profile) {
+	private void renderToFile(String stId, String ext, int factor, List<String> selected, List<String> flags, String profile) {
 		try {
 			final SimpleRasterArgs args = new SimpleRasterArgs(stId, ext);
 			args.setFactor(factor);
@@ -165,7 +170,7 @@ public class RasterExporterTest {
 		}
 	}
 
-	private void renderSilent(String stId, String ext, double factor, List<String> selected, List<String> flags, String profile) {
+	private void renderSilent(String stId, String ext, int factor, List<String> selected, List<String> flags, String profile) {
 		try {
 			final SimpleRasterArgs args = new SimpleRasterArgs(stId, ext);
 			args.setFactor(factor);

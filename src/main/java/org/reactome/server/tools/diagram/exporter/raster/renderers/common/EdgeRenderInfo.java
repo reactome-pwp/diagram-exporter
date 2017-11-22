@@ -16,10 +16,6 @@ import java.util.LinkedList;
 
 public class EdgeRenderInfo extends DiagramObjectInfo {
 
-	private final boolean fadeout;
-	private final boolean disease;
-	private final boolean dashed;
-
 	private final DrawLayer segmentsLayer;
 	private final FillDrawLayer shapeLayer;
 	private final TextLayer textLayer;
@@ -39,9 +35,8 @@ public class EdgeRenderInfo extends DiagramObjectInfo {
 		final DiagramSheet diagramSheet = colorProfiles.getDiagramSheet();
 		final NodeColorSheet profile = getNodeColorSheet(edge.getRenderableClass(), diagramSheet);
 
-		fadeout = edge.getIsFadeOut() != null && edge.getIsFadeOut();
-		disease = edge.getIsDisease() != null && edge.getIsDisease();
-		this.dashed = dashed;
+		boolean fadeout = edge.getIsFadeOut() != null && edge.getIsFadeOut();
+		boolean disease = edge.getIsDisease() != null && edge.getIsDisease();
 
 		haloStroke = StrokeProperties.StrokeStyle.HALO.getStroke(false);
 		if (decorator.isSelected()) {
