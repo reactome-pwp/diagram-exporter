@@ -59,6 +59,7 @@ public class DiagramRenderer implements RasterRenderer {
 	private final DiagramIndex index;
 	private final ColorProfiles colorProfiles;
 	private final RasterArgs args;
+	private final double factor;
 	private DiagramCanvas canvas;
 	private LegendRenderer legendRenderer;
 
@@ -86,12 +87,13 @@ public class DiagramRenderer implements RasterRenderer {
 		this.index = new DiagramIndex(diagram, graph, args);
 		canvas = new DiagramCanvas();
 		layout();
+		final Rectangle2D bounds = canvas.getBounds();
+		factor = limitFactor(bounds, MAX_IMAGE_SIZE);
 	}
 
 	@Override
 	public Dimension getDimension() {
 		final Rectangle2D bounds = canvas.getBounds();
-		double factor = args.getFactor();
 		int width = (int) ((2 * MARGIN + bounds.getWidth()) * factor + 0.5);
 		int height = (int) ((2 * MARGIN + bounds.getHeight()) * factor + 0.5);
 		return new Dimension(width, height);
@@ -105,8 +107,6 @@ public class DiagramRenderer implements RasterRenderer {
 	@Override
 	public BufferedImage render() {
 		final Rectangle2D bounds = canvas.getBounds();
-//		double factor = limitFactor(bounds, MAX_IMAGE_SIZE);
-		double factor = args.getFactor();
 		int width = (int) ((2 * MARGIN + bounds.getWidth()) * factor + 0.5);
 		int height = (int) ((2 * MARGIN + bounds.getHeight()) * factor + 0.5);
 		int offsetX = (int) ((MARGIN - bounds.getMinX()) * factor + 0.5);
@@ -129,8 +129,8 @@ public class DiagramRenderer implements RasterRenderer {
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
 
 		final Rectangle2D bounds = canvas.getBounds();
-//		double factor = limitFactor(bounds, MAX_GIF_SIZE);
-		double factor = args.getFactor();
+		double factor = limitFactor(bounds, MAX_GIF_SIZE);
+//		double factor = args.getFactor();
 		int width = (int) ((2 * MARGIN + bounds.getWidth()) * factor + 0.5);
 		int height = (int) ((2 * MARGIN + bounds.getHeight()) * factor + 0.5);
 		int offsetX = (int) ((MARGIN - bounds.getMinX()) * factor + 0.5);

@@ -68,4 +68,5 @@ public interface RasterArgs {
 	 */
 	Integer getColumn();
 
+	String getResource();
 }
