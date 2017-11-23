@@ -143,7 +143,7 @@ public class RasterExporterTest {
 	public void testScaleLImit() {
 		final int factor = 0;
 		final SimpleRasterArgs args = new SimpleRasterArgs("stid", "png");
-		args.setFactor(factor);
+		args.setQuality(factor);
 	}
 
 	private List<Long> getIdsFor(String prot, Graph graph) {
@@ -158,7 +158,7 @@ public class RasterExporterTest {
 	private void renderToFile(String stId, String ext, int factor, List<String> selected, List<String> flags, String profile) {
 		try {
 			final SimpleRasterArgs args = new SimpleRasterArgs(stId, ext);
-			args.setFactor(factor);
+			args.setQuality(factor);
 			args.setSelected(selected);
 			args.setFlags(flags);
 			args.setProfiles(new ColorProfiles(profile, "standard", "cyan"));
@@ -173,7 +173,7 @@ public class RasterExporterTest {
 	private void renderSilent(String stId, String ext, int factor, List<String> selected, List<String> flags, String profile) {
 		try {
 			final SimpleRasterArgs args = new SimpleRasterArgs(stId, ext);
-			args.setFactor(factor);
+			args.setQuality(factor);
 			args.setSelected(selected);
 			args.setFlags(flags);
 			args.setProfiles(new ColorProfiles(profile, "standard", "cyan"));

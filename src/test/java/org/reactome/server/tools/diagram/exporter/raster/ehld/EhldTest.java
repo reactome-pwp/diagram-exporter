@@ -24,7 +24,7 @@ public class EhldTest {
 	public void testRaster() {
 		final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-382551", "png");
 		try {
-			args.setFactor(5);
+			args.setQuality(5);
 			final BufferedImage image = RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
 //			ImageIO.write(image, args.getFormat(), new File(args.getStId() + "." + args.getFormat()));
 
@@ -36,9 +36,9 @@ public class EhldTest {
 	@Test
 	public void testDecorator() {
 		final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-109581", "png");
-		args.setFactor(8);
+		args.setQuality(8);
 		args.setSelected(Arrays.asList("R-HSA-109606"));
-		args.setFlags(Arrays.asList("R-HSA-109606"));
+//		args.setFlags(Arrays.asList("R-HSA-109606")); // we need the content service for this
 		try {
 			RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
 		} catch (Exception e) {

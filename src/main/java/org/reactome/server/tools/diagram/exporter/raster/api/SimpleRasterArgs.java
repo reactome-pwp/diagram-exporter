@@ -39,9 +39,9 @@ public class SimpleRasterArgs implements RasterArgs {
 		return factor;
 	}
 
-	public void setFactor(Integer factor) {
-		if (factor != null)
-			this.factor = scale(factor);
+	public void setQuality(Integer quality) {
+		if (quality != null)
+			this.factor = scale(quality);
 	}
 
 	private double scale(int factor) {
