@@ -293,7 +293,7 @@ public class LegendRenderer {
 
 	/** Returns the first logo that has a width greater than logo_width */
 	private BufferedImage getLogo() throws IOException {
-		final String filename = "Reactome_Imagotype_Positive_100mm.png";
+		final String filename = "reactome_logo_100pxW_50T.png";
 		final InputStream resource = getClass().getResourceAsStream(filename);
 		return ImageIO.read(resource);
 	}
