@@ -46,7 +46,7 @@ class SVGDecoratorRenderer {
 
 	private static void addFilters(SVGDocument document, RasterArgs args) {
 		final Color selection = args.getProfiles().getDiagramSheet().getProperties().getSelection();
-		final Element selectionFilter = SVGFilterFactory.createBorderFilter(document, selection, 7, "selection");
+		final Element selectionFilter = SVGFilterFactory.createBorderFilter(document, selection, 4, "selection");
 		selectionFilter.setAttribute(SVG_ID_ATTRIBUTE, SELECTION_FILTER);
 
 		final Color flagColor = args.getProfiles().getDiagramSheet().getProperties().getFlag();
