@@ -38,7 +38,7 @@ public class EhldTest {
 		final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-109581", "png");
 		args.setQuality(8);
 		args.setSelected(Arrays.asList("R-HSA-109606"));
-		args.setFlags(Arrays.asList("R-HSA-109606"));
+//		args.setFlags(Arrays.asList("R-HSA-109606")); // we need the content service for this
 		try {
 			RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
 		} catch (Exception e) {
