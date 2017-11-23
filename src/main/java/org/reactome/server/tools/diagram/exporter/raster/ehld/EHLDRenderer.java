@@ -42,6 +42,7 @@ public class EHLDRenderer implements RasterRenderer {
 	private static final float MARGIN = 15;
 	private final SVGDocument document;
 	private final RasterArgs args;
+	private SVGAnalysis svgAnalysis;
 
 	public EHLDRenderer(RasterArgs args, String ehldPath) throws EHLDException {
 		this.document = ResourcesFactory.getEHLD(ehldPath, args.getStId());
@@ -51,10 +52,9 @@ public class EHLDRenderer implements RasterRenderer {
 	}
 
 	private void virtualRendering(RasterArgs args) {
-		// TODO: disabled because is unstable with batik
-//		SVGDecoratorRenderer.selectAndFlag(document, args);
-		final SVGAnalysis svgAnalysis = new SVGAnalysis(document, args);
+		SVGDecoratorRenderer.selectAndFlag(document, args);
 		disableMasks();
+		svgAnalysis = new SVGAnalysis(document, args);
 		svgAnalysis.analysis();
 		updateDocumentDimensions();
 		// TODO: remove to production, but don't remove from here
@@ -159,15 +159,8 @@ public class EHLDRenderer implements RasterRenderer {
 	}
 
 	public void renderToAnimatedGif(OutputStream os) throws IOException {
-		final SVGAnalysis svgAnalysis = new SVGAnalysis(document, args);
 		if (svgAnalysis.getAnalysisType() != AnalysisType.EXPRESSION)
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
-
-		// TODO: disabled because is unstable with batik
-//		SVGDecoratorRenderer.selectAndFlag(document, args);
-
-		svgAnalysis.analysis();
-		updateDocumentDimensions();
 
 		final AnimatedGifEncoder encoder = new AnimatedGifEncoder();
 		encoder.setDelay(1000);

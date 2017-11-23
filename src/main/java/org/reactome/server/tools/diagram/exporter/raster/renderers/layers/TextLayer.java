@@ -42,9 +42,8 @@ public class TextLayer extends CommonLayer {
 				renderableTexts.forEach(text -> {
 					if (text.limits != null)
 						TextRenderer.drawText(graphics, text.text, text.limits, text.padding, text.splitText);
-					else if (text.position != null) {
+					else if (text.position != null)
 						TextRenderer.drawTextSingleLine(graphics, text.text, text.position);
-					}
 				});
 			});
 		});

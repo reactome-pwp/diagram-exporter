@@ -47,9 +47,7 @@ class SVGFilterFactory {
 		filter.appendChild(matrix);
 		filter.appendChild(morpho);
 		filter.appendChild(merge);
-
-//		filter.setAttribute(SVG_STYLE_ATTRIBUTE, SVG_COLOR_INTERPOLATION_ATTRIBUTE);
-
+		filter.setAttribute(SVG_STYLE_ATTRIBUTE, "color-interpolation-filters:sRGB");
 		return filter;
 	}
 
@@ -60,8 +58,9 @@ class SVGFilterFactory {
 	 * @param filter1 first filter
 	 * @param filter2 second filter
 	 */
-	public static Element combineFilters(Document document, Element filter1, Element filter2) {
-		final SVGElement filter = (SVGElement) document.createElementNS(SVG_NAMESPACE_URI, SVG_FILTER_TAG);
+	static Element combineFilters(Document document, Element filter1, Element filter2) {
+		final Element filter = document.createElementNS(SVG_NAMESPACE_URI, SVG_FILTER_TAG);
+		filter.setAttribute(SVG_STYLE_ATTRIBUTE, "color-interpolation-filters:sRGB");
 		for (int i = 0; i < filter1.getChildNodes().getLength(); i++)
 			filter.appendChild(filter1.getChildNodes().item(i).cloneNode(true));
 		for (int i = 0; i < filter2.getChildNodes().getLength(); i++)

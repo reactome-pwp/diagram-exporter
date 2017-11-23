@@ -141,7 +141,7 @@ public class DiagramRenderer implements RasterRenderer {
 		encoder.setRepeat(0);
 //		encoder.setQuality(1);
 		encoder.start(outputStream);
-		for (int t = 0; t < index.getExpressionColumnNames().size(); t++) {
+		for (int t = 0; t < index.getResult().getExpression().getColumnNames().size(); t++) {
 			final BufferedImage image = frame(factor, width, height, offsetX, offsetY, t);
 			encoder.addFrame(image);
 		}
@@ -155,7 +155,7 @@ public class DiagramRenderer implements RasterRenderer {
 			final NodeAbstractRenderer renderer = (NodeAbstractRenderer) RendererFactory.get(node.getRenderableClass());
 			// TODO: this operation is costly, should we maintain all the NodeRenderInfo in an index
 			final NodeRenderInfo info = new NodeRenderInfo(node, index, colorProfiles, canvas, renderer);
-			renderer.expression(colorProfiles, index, info, t);
+			renderer.expression(colorProfiles, info, index, t);
 		});
 		// Update legend
 		legendRenderer.setCol(t);

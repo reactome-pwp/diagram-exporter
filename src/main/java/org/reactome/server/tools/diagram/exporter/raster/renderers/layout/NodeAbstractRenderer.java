@@ -9,6 +9,7 @@ import org.reactome.server.tools.diagram.exporter.common.analysis.model.FoundEnt
 import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.common.*;
 import org.reactome.server.tools.diagram.exporter.raster.renderers.layers.DrawLayer;
 
@@ -66,7 +67,7 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 				enrichment(colorProfiles, info);
 				return 0.0;
 			case EXPRESSION:
-				return expression(colorProfiles, index, info, t);
+				return expression(colorProfiles, info, index, t);
 			case NONE:
 			default:
 				return 0.0;
@@ -139,21 +140,27 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 		final Double percentage = info.getDecorator().getEnrichment();
 		final NodeProperties prop = info.getNode().getProp();
 		if (percentage != null && percentage > 0) {
-			final Color analysisColor = colorProfiles.getAnalysisSheet().getEnrichment().getGradient().getMax();
-			final Area enrichment = new Area(info.getBackgroundShape());
-			final Rectangle2D rectangle = new Rectangle2D.Double(
+			final Color color = colorProfiles.getAnalysisSheet().getEnrichment().getGradient().getMax();
+			final Area enrichmentArea = new Area(info.getBackgroundShape());
+			final Rectangle2D clip = new Rectangle2D.Double(
 					prop.getX(),
 					prop.getY(),
 					prop.getWidth() * percentage,
 					prop.getHeight());
-			enrichment.intersect(new Area(rectangle));
-			info.getBackgroundArea().subtract(enrichment);
-			info.getAnalysisLayer().add(analysisColor, enrichment);
+			enrichmentArea.intersect(new Area(clip));
+			info.getBackgroundArea().subtract(enrichmentArea);
+			info.getAnalysisLayer().add(color, enrichmentArea);
 		}
 	}
 
-	public double expression(ColorProfiles colorProfiles, DiagramIndex index, NodeRenderInfo info, int t) {
-		// Sorted during index
+	/**
+	 * Adds expression strips for the node in info.
+	 *
+	 * @return a number, between 0 and 1 indicating where to split the text for
+	 * this node. If 0, text will not be modified. If 1, all the text will be
+	 * white.
+	 */
+	public double expression(ColorProfiles colorProfiles, NodeRenderInfo info, DiagramIndex index, int t) {
 		final List<FoundEntity> expressions = info.getDecorator().getHitExpressions();
 		double splitText = 0.0;
 		if (expressions != null) {
@@ -169,13 +176,14 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 			final double partSize = prop.getWidth() / size;
 			splitText = (double) values.size() / size;
 
-			final double max = index.getMaxExpression();
-			final double min = index.getMinExpression();
+			final double max = index.getResult().getExpression().getMax();
+			final double min = index.getResult().getExpression().getMin();
 			final double delta = 1 / (max - min);  // only one division
 			for (int i = 0; i < values.size(); i++) {
 				final double val = values.get(i);
 				final double scale = 1 - (val - min) * delta;
-				final Color color = ColorFactory.interpolate(colorProfiles.getAnalysisSheet().getExpression().getGradient(), scale);
+				final GradientSheet gradient = colorProfiles.getAnalysisSheet().getExpression().getGradient();
+				final Color color = ColorFactory.interpolate(gradient, scale);
 				final Rectangle2D rect = new Rectangle2D.Double(
 						x + i * partSize, y, partSize, height);
 				final Area fillArea = new Area(rect);

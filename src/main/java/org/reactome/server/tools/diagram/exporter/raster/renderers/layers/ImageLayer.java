@@ -7,6 +7,9 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Layer to include raster images to the canvas.
+ */
 public class ImageLayer extends CommonLayer {
 
 	private List<ImageLayout> images = new ArrayList<>();
@@ -18,20 +21,13 @@ public class ImageLayer extends CommonLayer {
 
 	@Override
 	public void render(Graphics2D graphics) {
-		images.forEach(imageLayout -> {
-//			final AffineTransform oldTransform = graphics.getTransform();
-//			final AffineTransform transform = new AffineTransform();
-//			transform.translate(oldTransform.getTranslateX(), transform.getTranslateY());
-//			graphics.setTransform(transform);
-//			graphics.drawImage(imageLayout.image, imageLayout.coordinate.getX().intValue(), imageLayout.coordinate.getY().intValue(), null);
-//			graphics.setTransform(oldTransform);
-			graphics.drawImage(imageLayout.image,
-					imageLayout.bounds.getX().intValue(),
-					imageLayout.bounds.getY().intValue(),
-					imageLayout.bounds.getWidth().intValue(),
-					imageLayout.bounds.getHeight().intValue(),
-					null);
-				}
+		images.forEach(imageLayout ->
+				graphics.drawImage(imageLayout.image,
+						imageLayout.bounds.getX().intValue(),
+						imageLayout.bounds.getY().intValue(),
+						imageLayout.bounds.getWidth().intValue(),
+						imageLayout.bounds.getHeight().intValue(),
+						null)
 		);
 	}
 

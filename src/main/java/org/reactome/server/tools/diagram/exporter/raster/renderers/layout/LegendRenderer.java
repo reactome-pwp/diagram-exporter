@@ -32,8 +32,7 @@ import java.util.stream.Collectors;
  */
 public class LegendRenderer {
 
-
-	public static final double RELATIVE_LOGO_WIDTH = 0.1;
+	private static final double RELATIVE_LOGO_WIDTH = 0.1;
 	/** space from diagram to legend */
 	private static final int LEGEND_TO_DIAGRAM_SPACE = 15;
 	private static final int LEGEND_WIDTH = 70;
@@ -122,17 +121,18 @@ public class LegendRenderer {
 				? ""
 				: String.format("[%s] ", index.getAnalysisName());
 		final String info = String.format(Locale.UK, "%d/%d: %s", (col + 1),
-				index.getExpressionColumnNames().size(),
-				index.getExpressionColumnNames().get(col));
+				index.getResult().getExpression().getColumnNames().size(),
+				index.getResult().getExpression().getColumnNames().get(col));
 		canvas.getLegendBottomText().clear();
 		canvas.getLegendBottomText().add(prefix + info, Color.BLACK, bottomTextBox, 0, 0, FontProperties.LEGEND_FONT);
 	}
 
+	/**
+	 * Adds a text in the bottom of the image with the name of the analysis.
+	 */
 	public void infoText() {
-		if (index.getAnalysisName() == null)
-			return;
-		if (bottomTextBox == null)
-			createBottomTextBox();
+		if (index.getAnalysisName() == null) return;
+		if (bottomTextBox == null) createBottomTextBox();
 		canvas.getLegendBottomText().clear();
 		canvas.getLegendBottomText().add(index.getAnalysisName(), Color.BLACK, bottomTextBox, 0, 0, FontProperties.LEGEND_FONT);
 	}
@@ -151,10 +151,9 @@ public class LegendRenderer {
 
 	private void addColorBar() {
 		final GradientSheet gradient;
-		if (index.getAnalysisType() == AnalysisType.EXPRESSION) {
-			gradient = profiles.getAnalysisSheet().getExpression().getGradient();
-		} else
-			gradient = profiles.getAnalysisSheet().getEnrichment().getGradient();
+		gradient = index.getAnalysisType() == AnalysisType.EXPRESSION
+				? profiles.getAnalysisSheet().getExpression().getGradient()
+				: profiles.getAnalysisSheet().getEnrichment().getGradient();
 
 		final Paint paint;
 		if (gradient.getStop() == null)
@@ -224,7 +223,9 @@ public class LegendRenderer {
 	private void drawTick(Double value, Stroke stroke, Color limitColor) {
 		if (value == null) return;
 		// Interpolate value in expression range
-		final double val = (value - index.getMinExpression()) / (index.getMaxExpression() - index.getMinExpression());
+		final double min = index.getResult().getExpression().getMin();
+		final double max = index.getResult().getExpression().getMax();
+		final double val = (value - min) / (max - min);
 		// Extrapolate to colorBar height
 		// In expression analysis, min is in the bottom
 		final double y1 = colorBar.getMaxY() - colorBar.getHeight() * val;
@@ -255,12 +256,15 @@ public class LegendRenderer {
 				(float) colorBar.getMaxY() + TEXT_PADDING,
 				textWidth, textHeight);
 
-		final DecimalFormat formatter = this.index.getAnalysisType() == AnalysisType.EXPRESSION
-				? EXPRESSION_FORMAT
-				: ENRICHMENT_FORMAT;
-		final String topText = formatter.format(index.getMaxExpression());
-		final String bottomText = formatter.format(index.getMinExpression());
-
+		final String topText;
+		final String bottomText;
+		if (index.getAnalysisType() == AnalysisType.EXPRESSION) {
+			topText = EXPRESSION_FORMAT.format(index.getResult().getExpression().getMax());
+			bottomText = EXPRESSION_FORMAT.format(index.getResult().getExpression().getMin());
+		} else {
+			topText = ENRICHMENT_FORMAT.format(0);
+			bottomText = ENRICHMENT_FORMAT.format(DiagramIndex.MIN_ENRICHMENT);
+		}
 		canvas.getLegendText().add(topText, Color.BLACK, top, 0, 0, FontProperties.DEFAULT_FONT);
 		canvas.getLegendText().add(bottomText, Color.BLACK, bottom, 0, 0, FontProperties.DEFAULT_FONT);
 	}

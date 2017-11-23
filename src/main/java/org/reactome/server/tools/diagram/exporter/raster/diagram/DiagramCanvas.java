@@ -69,12 +69,14 @@ public class DiagramCanvas {
 			text,
 
 			notes,
+
 			legendBackground,
 			legendBar,
 			legendTicks,
 			legendTickArrows,
 			legendText,
 			legendBottomText,
+
 			logoLayer
 	);
 
