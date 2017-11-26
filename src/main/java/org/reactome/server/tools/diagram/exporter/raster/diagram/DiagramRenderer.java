@@ -11,12 +11,13 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.TraceLogger;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.FontProperties;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.NodeRenderInfo;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layers.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layout.*;
 import org.reactome.server.tools.diagram.exporter.raster.gif.AnimatedGifEncoder;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.DiagramIndex;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.FontProperties;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.common.NodeRenderInfo;
-import org.reactome.server.tools.diagram.exporter.raster.renderers.layout.*;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
