@@ -4,7 +4,6 @@ import org.apache.batik.bridge.BridgeContext;
 import org.apache.batik.bridge.GVTBuilder;
 import org.apache.batik.bridge.UserAgentAdapter;
 import org.apache.batik.gvt.GraphicsNode;
-import org.apache.batik.util.SVGConstants;
 import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
@@ -20,6 +19,7 @@ import org.w3c.dom.svg.SVGDocument;
 import org.w3c.dom.svg.SVGElement;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.HashMap;
@@ -35,7 +35,7 @@ import static org.apache.batik.util.SVGConstants.*;
 public class SVGAnalysis {
 	static final String REGION_ = "REGION-";
 	private static final double MAX_P_VALUE = 0.05;
-	private static final int HALF_FONT_SIZE = 4;
+	private static final int TEXT_V_ALIGN = 4;
 	private static final String OVERLAY_TEXT_STYLE = "{ fill: #000000 !important; stroke:#000000; stroke-width:0.5px }";
 	private static final String ANALYSIS_INFO_STYLE = "{ opacity: 1 !important; -webkit-transition: all .9s ease-in-out;  -moz-transition: all .9s ease-in-out; transition: all .9s ease-in-out;}";
 	private static final String HIT_BASE_COLOR = "#FFFFFF";
@@ -54,6 +54,7 @@ public class SVGAnalysis {
 	private static final double OVERLAY_OPACITY = 0.9;
 	private final static GVTBuilder builder = new GVTBuilder();
 	private final static BridgeContext context = new BridgeContext(new UserAgentAdapter());
+	private static final String BOTTOM_TEXT = "bottom-text";
 	/*
 	 * If you are asking why there is a cloned Document here, the short answer
 	 * is: text centering. The long answer is that we are using a builder to
@@ -69,7 +70,7 @@ public class SVGAnalysis {
 	private AnalysisType analysisType;
 	private List<String> pathways;
 
-	public SVGAnalysis(SVGDocument document, RasterArgs args) {
+	SVGAnalysis(SVGDocument document, RasterArgs args) {
 		this.document = document;
 		this.args = args;
 		collectAnalysisResult();
@@ -85,7 +86,6 @@ public class SVGAnalysis {
 			final ResourceSummary resourceSummary = summaryList.size() == 2
 					? summaryList.get(1)
 					: summaryList.get(0);
-			// TODO: take from args
 			final String resource = args.getResource() == null
 					? resourceSummary.getResource()
 					: args.getResource();
@@ -147,6 +147,7 @@ public class SVGAnalysis {
 
 		final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getExpression().getGradient();
 		SVGLegendRenderer.legend(document, gradient, result.getExpression().getMax(), result.getExpression().getMin(), AnalysisType.EXPRESSION);
+		addBottomTextGroup();
 
 		// Analysis info text is centered to ANALINFO group. To get the
 		// center of each ANALINFO group we must build the whole document.
@@ -265,19 +266,19 @@ public class SVGAnalysis {
 				.mapToObj(texts::item).collect(Collectors.toList());
 		textNodes.forEach(textNode -> textNode.getParentNode().removeChild(textNode));
 		base.setAttribute(SVG_ID_ATTRIBUTE, OVERLAY_BASE_ + stId);
-		base.setAttribute(SVGConstants.SVG_FILL_ATTRIBUTE, HIT_BASE_COLOR);
-		base.setAttribute(SVGConstants.SVG_STROKE_ATTRIBUTE, HIT_BASIS_STROKE_COLOUR);
-		base.setAttribute(SVGConstants.SVG_STROKE_WIDTH_ATTRIBUTE, HIT_BASIS_STROKE_WIDTH);
+		base.setAttribute(SVG_FILL_ATTRIBUTE, HIT_BASE_COLOR);
+		base.setAttribute(SVG_STROKE_ATTRIBUTE, HIT_BASIS_STROKE_COLOUR);
+		base.setAttribute(SVG_STROKE_WIDTH_ATTRIBUTE, HIT_BASIS_STROKE_WIDTH);
 
 		final Element clone = (Element) overlay.cloneNode(true);
 		clone.setAttribute(SVG_ID_ATTRIBUTE, OVERLAY_CLONE_ + stId);
-		clone.setAttribute(SVGConstants.SVG_CLIP_PATH_ATTRIBUTE, SVGUtil.toURL(CLIPPING_PATH + stId));
-		clone.removeAttribute(SVGConstants.SVG_FILTER_ATTRIBUTE);
-		clone.removeAttribute(SVGConstants.SVG_TRANSFORM_ATTRIBUTE);
+		clone.setAttribute(SVG_CLIP_PATH_ATTRIBUTE, SVGUtil.toURL(CLIPPING_PATH + stId));
+		clone.removeAttribute(SVG_FILTER_ATTRIBUTE);
+		clone.removeAttribute(SVG_TRANSFORM_ATTRIBUTE);
 
 		// Batik does not support rgba format colors, only HEX + opacity
-		clone.setAttribute(SVGConstants.SVG_FILL_ATTRIBUTE, ColorFactory.hex(color));
-		clone.setAttribute(SVGConstants.SVG_OPACITY_ATTRIBUTE, String.valueOf(OVERLAY_OPACITY));
+		clone.setAttribute(SVG_FILL_ATTRIBUTE, ColorFactory.hex(color));
+		clone.setAttribute(SVG_OPACITY_ATTRIBUTE, String.valueOf(OVERLAY_OPACITY));
 
 		final Element group = document.createElementNS(SVG_NAMESPACE_URI, SVG_G_TAG);
 		group.appendChild(base);
@@ -338,19 +339,19 @@ public class SVGAnalysis {
 				NUMBER_FORMAT.format(entities.getFdr()));
 		text.setTextContent(msg);
 
-//		// Center text
+		// Center text
 		final Element clonedElement = cloned.getElementById(element.getAttribute(SVG_ID_ATTRIBUTE));
 		final GraphicsNode box = builder.build(context, clonedElement);
 
 		double centerX = box.getSensitiveBounds().getCenterX();
 		// Vertical centering must be done manually, since BATIK does not
 		// support aligment-baseline either dominant-baseline
-		double centerY = box.getSensitiveBounds().getCenterY() + HALF_FONT_SIZE;
+		double centerY = box.getSensitiveBounds().getCenterY() + TEXT_V_ALIGN;
 
-		text.removeAttribute(SVGConstants.SVG_TRANSFORM_ATTRIBUTE);
-		text.setAttribute(SVGConstants.SVG_TEXT_ANCHOR_ATTRIBUTE, SVG_MIDDLE_VALUE);
-		text.setAttribute(SVGConstants.SVG_X_ATTRIBUTE, String.valueOf(centerX));
-		text.setAttribute(SVGConstants.SVG_Y_ATTRIBUTE, String.valueOf(centerY));
+		text.removeAttribute(SVG_TRANSFORM_ATTRIBUTE);
+		text.setAttribute(SVG_TEXT_ANCHOR_ATTRIBUTE, SVG_MIDDLE_VALUE);
+		text.setAttribute(SVG_X_ATTRIBUTE, String.valueOf(centerX));
+		text.setAttribute(SVG_Y_ATTRIBUTE, String.valueOf(centerY));
 	}
 
 	private Stream<Node> streamChildren(Element element) {
@@ -358,6 +359,10 @@ public class SVGAnalysis {
 				.mapToObj(element.getChildNodes()::item);
 	}
 
+	/**
+	 * Change the visible expression column. This will modify the color of the
+	 * OVERLAY areas and the ticks in the legend.
+	 */
 	void setColumn(int expressionColumn) {
 		SVGLegendRenderer.clearTicks(document);
 		final ExpressionSummary expression = result.getExpression();
@@ -375,6 +380,51 @@ public class SVGAnalysis {
 				}
 			}
 		});
+		updateInfoText(expressionColumn);
+	}
+
+	private void updateInfoText(int expressionColumn) {
+		final String prefix = String.format("[%s] ", result.getSummary().getSampleName());
+		final String info = String.format(Locale.UK, "%d/%d: %s", (expressionColumn + 1),
+				result.getExpression().getColumnNames().size(),
+				result.getExpression().getColumnNames().get(expressionColumn));
+		final Element text = document.getElementById(BOTTOM_TEXT);
+		text.setTextContent(prefix + info);
+	}
+
+	private void addBottomTextGroup() {
+		final Rectangle2D viewBox = getViewBox();
+		double centerX = viewBox.getCenterX();
+		double centerY = viewBox.getHeight() + 15;
+
+		// Use only Arial Bold 12pt
+		final Element bottomText = document.createElementNS(SVG_NAMESPACE_URI, SVG_TEXT_TAG);
+		bottomText.setAttribute(SVG_ID_ATTRIBUTE, BOTTOM_TEXT);
+		bottomText.setAttribute(SVG_FONT_FAMILY_ATTRIBUTE, "Arial");
+		bottomText.setAttribute(SVG_FONT_SIZE_ATTRIBUTE, "12px");
+		bottomText.setAttribute(SVG_FONT_WEIGHT_ATTRIBUTE, "bold");
+		bottomText.setAttribute(SVG_TEXT_ANCHOR_ATTRIBUTE, SVG_MIDDLE_VALUE);
+		bottomText.setAttribute(SVG_X_ATTRIBUTE, String.valueOf(centerX));
+		bottomText.setAttribute(SVG_Y_ATTRIBUTE, String.valueOf(centerY));
+
+		final Element group = document.createElementNS(SVG_NAMESPACE_URI, SVG_G_TAG);
+		group.setAttribute(SVG_ID_ATTRIBUTE, BOTTOM_TEXT + "-group");
+		document.getRootElement().appendChild(group);
+		group.appendChild(bottomText);
+
+		// Update viewBox
+		final String newVB = String.format(Locale.UK, "0 0 %.3f %.3f", viewBox.getWidth(), viewBox.getHeight() + 30);
+		document.getRootElement().setAttribute(SVG_VIEW_BOX_ATTRIBUTE, newVB);
+	}
+
+	private Rectangle2D getViewBox() {
+		final String viewBox = document.getRootElement().getAttribute(SVG_VIEW_BOX_ATTRIBUTE);
+		final String[] split = viewBox.split(" ");
+		return new Rectangle2D.Double(
+				Double.valueOf(split[0]),
+				Double.valueOf(split[1]),
+				Double.valueOf(split[2]),
+				Double.valueOf(split[3]));
 	}
 
 	AnalysisType getAnalysisType() {

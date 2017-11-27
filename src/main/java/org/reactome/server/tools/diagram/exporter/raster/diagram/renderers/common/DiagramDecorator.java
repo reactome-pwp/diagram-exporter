@@ -13,6 +13,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Includes the selection, flag and halo information for each node and
+ * reaction and adds it to the corresponding DiagramObjectDecorator.
+ */
 public class DiagramDecorator {
 
 	private final DiagramIndex index;
@@ -63,19 +67,20 @@ public class DiagramDecorator {
 		return args.getFlags().stream()
 				.map(this::getDiagramObjectId)
 				.filter(Objects::nonNull)
-				.flatMap(this::streamMeAndAncestors)
+				.map(this::getHitElements)
+				.flatMap(Collection::stream)
 				.collect(Collectors.toSet());
 	}
 
-	private Stream<Long> streamMeAndAncestors(Long id) {
+	private Collection<Long> getHitElements(Long id) {
 		final Set<Long> ids = new HashSet<>();
 		ids.add(id);
 		final EntityNode node = graphIndex.get(id);
 		if (node == null)
-			return ids.stream();
+			return ids;
 		if (node.getParents() != null)
-			node.getParents().forEach(parentId -> streamMeAndAncestors(parentId).forEach(ids::add));
-		return ids.stream();
+			node.getParents().forEach(parentId -> ids.addAll(getHitElements(parentId)));
+		return ids;
 	}
 
 	private Long getDiagramObjectId(String string) {

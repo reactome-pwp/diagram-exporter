@@ -48,7 +48,6 @@ public class EHLDRenderer implements RasterRenderer {
 		this.document = ResourcesFactory.getEHLD(ehldPath, args.getStId());
 		this.args = args;
 		virtualRendering(args);
-
 	}
 
 	private void virtualRendering(RasterArgs args) {
@@ -57,8 +56,6 @@ public class EHLDRenderer implements RasterRenderer {
 		svgAnalysis = new SVGAnalysis(document, args);
 		svgAnalysis.analysis();
 		updateDocumentDimensions();
-		// TODO: remove to production, but don't remove from here
-		// toFile();
 	}
 
 	@Override
