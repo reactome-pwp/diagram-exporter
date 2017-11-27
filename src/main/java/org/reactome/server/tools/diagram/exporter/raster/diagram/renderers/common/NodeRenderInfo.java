@@ -107,7 +107,7 @@ public class NodeRenderInfo extends DiagramObjectInfo {
 			borderLayer = canvas.getNodeBorder();
 			textLayer = canvas.getText();
 			attachmentsLayer = canvas.getAttachments();
-			if (index.getAnalysisType() == AnalysisType.NONE) {
+			if (index.getAnalysis().getType() == AnalysisType.NONE) {
 //				attachmentsFill = colors.getDiagramSheet().getAttachment().getFill();
 				textColor = profile.getText();
 				backgroundColor = profile.getFill();
@@ -124,7 +124,7 @@ public class NodeRenderInfo extends DiagramObjectInfo {
 				backgroundColor = profile.getLighterFill();
 				textColor = profile.getLighterText();
 
-				if (index.getAnalysisType() == AnalysisType.OVERREPRESENTATION
+				if (index.getAnalysis().getType() == AnalysisType.OVERREPRESENTATION
 						&& decorator.getEnrichment() != null
 						&& decorator.getEnrichment() > 0)
 					attachmentsFill = colors.getAnalysisSheet().getEnrichment().getGradient().getMax();

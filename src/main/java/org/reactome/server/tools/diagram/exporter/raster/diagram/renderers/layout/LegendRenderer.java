@@ -4,6 +4,7 @@ import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.FoundEntity;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.DiagramAnalysis;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.StrokeProperties;
@@ -117,12 +118,12 @@ public class LegendRenderer {
 	private void infoText(int col) {
 		if (bottomTextBox == null)
 			createBottomTextBox();
-		final String prefix = index.getAnalysisName() == null
+		final String prefix = index.getAnalysis().getAnalysisName() == null
 				? ""
-				: String.format("[%s] ", index.getAnalysisName());
+				: String.format("[%s] ", index.getAnalysis().getAnalysisName());
 		final String info = String.format(Locale.UK, "%d/%d: %s", (col + 1),
-				index.getResult().getExpression().getColumnNames().size(),
-				index.getResult().getExpression().getColumnNames().get(col));
+				index.getAnalysis().getResult().getExpression().getColumnNames().size(),
+				index.getAnalysis().getResult().getExpression().getColumnNames().get(col));
 		canvas.getLegendBottomText().clear();
 		canvas.getLegendBottomText().add(prefix + info, Color.BLACK, bottomTextBox, 0, 0, FontProperties.LEGEND_FONT);
 	}
@@ -131,10 +132,10 @@ public class LegendRenderer {
 	 * Adds a text in the bottom of the image with the name of the analysis.
 	 */
 	public void infoText() {
-		if (index.getAnalysisName() == null) return;
+		if (index.getAnalysis().getAnalysisName() == null) return;
 		if (bottomTextBox == null) createBottomTextBox();
 		canvas.getLegendBottomText().clear();
-		canvas.getLegendBottomText().add(index.getAnalysisName(), Color.BLACK, bottomTextBox, 0, 0, FontProperties.LEGEND_FONT);
+		canvas.getLegendBottomText().add(index.getAnalysis().getAnalysisName(), Color.BLACK, bottomTextBox, 0, 0, FontProperties.LEGEND_FONT);
 	}
 
 	private void addBackground(double textHeight) {
@@ -151,7 +152,7 @@ public class LegendRenderer {
 
 	private void addColorBar() {
 		final GradientSheet gradient;
-		gradient = index.getAnalysisType() == AnalysisType.EXPRESSION
+		gradient = index.getAnalysis().getType() == AnalysisType.EXPRESSION
 				? profiles.getAnalysisSheet().getExpression().getGradient()
 				: profiles.getAnalysisSheet().getEnrichment().getGradient();
 
@@ -173,38 +174,40 @@ public class LegendRenderer {
 	}
 
 	private void ticks(int col) {
-		if (index.getSelected() == null) return;
-		final List<FoundEntity> expressions = index.getSelected().getHitExpressions();
-		if (expressions == null || expressions.isEmpty()) return;
-		// Calculate which ticks to draw: (min, median, max) or (value)
-		Double nMax;
-		Double nMin;
-		Double nValue;
-		final List<Double> values = expressions.stream()
-				.map(value -> value.getExp().get(col))
-				.collect(Collectors.toList());
-		if (values.size() == 1) {
-			nValue = values.get(0);
-			nMax = nMin = null;
-		} else {
-			Collections.sort(values);
-			nMin = values.get(0);
-			nMax = values.get(values.size() - 1);
-			nValue = getMedian(values);
-		}
+		if (index.getDecorator().getSelected() == null) return;
+		for (Long id : index.getDecorator().getSelected()) {
+			final List<FoundEntity> expressions = index.getNodeDecorator(id).getHitExpressions();
+			if (expressions == null || expressions.isEmpty()) return;
+			// Calculate which ticks to draw: (min, median, max) or (value)
+			Double nMax;
+			Double nMin;
+			Double nValue;
+			final List<Double> values = expressions.stream()
+					.map(value -> value.getExp().get(col))
+					.collect(Collectors.toList());
+			if (values.size() == 1) {
+				nValue = values.get(0);
+				nMax = nMin = null;
+			} else {
+				Collections.sort(values);
+				nMin = values.get(0);
+				nMax = values.get(values.size() - 1);
+				nValue = getMedian(values);
+			}
 
-		final Stroke stroke = StrokeProperties.StrokeStyle.SEGMENT.getStroke(false);
-		final Color limitColor, valueColor;
-		if (nMax == null) {
-			limitColor = null;
-			valueColor = profiles.getDiagramSheet().getProperties().getSelection();
-		} else {
-			limitColor = profiles.getDiagramSheet().getProperties().getSelection();
-			valueColor = profiles.getAnalysisSheet().getExpression().getLegend().getMedian();
+			final Stroke stroke = StrokeProperties.StrokeStyle.SEGMENT.getStroke(false);
+			final Color limitColor, valueColor;
+			if (nMax == null) {
+				limitColor = null;
+				valueColor = profiles.getDiagramSheet().getProperties().getSelection();
+			} else {
+				limitColor = profiles.getDiagramSheet().getProperties().getSelection();
+				valueColor = profiles.getAnalysisSheet().getExpression().getLegend().getMedian();
+			}
+			drawTick(nValue, stroke, valueColor);
+			drawTick(nMax, stroke, limitColor);
+			drawTick(nMin, stroke, limitColor);
 		}
-		drawTick(nValue, stroke, valueColor);
-		drawTick(nMax, stroke, limitColor);
-		drawTick(nMin, stroke, limitColor);
 	}
 
 	/**
@@ -223,8 +226,8 @@ public class LegendRenderer {
 	private void drawTick(Double value, Stroke stroke, Color limitColor) {
 		if (value == null) return;
 		// Interpolate value in expression range
-		final double min = index.getResult().getExpression().getMin();
-		final double max = index.getResult().getExpression().getMax();
+		final double min = index.getAnalysis().getResult().getExpression().getMin();
+		final double max = index.getAnalysis().getResult().getExpression().getMax();
 		final double val = (value - min) / (max - min);
 		// Extrapolate to colorBar height
 		// In expression analysis, min is in the bottom
@@ -258,12 +261,12 @@ public class LegendRenderer {
 
 		final String topText;
 		final String bottomText;
-		if (index.getAnalysisType() == AnalysisType.EXPRESSION) {
-			topText = EXPRESSION_FORMAT.format(index.getResult().getExpression().getMax());
-			bottomText = EXPRESSION_FORMAT.format(index.getResult().getExpression().getMin());
+		if (index.getAnalysis().getType() == AnalysisType.EXPRESSION) {
+			topText = EXPRESSION_FORMAT.format(index.getAnalysis().getResult().getExpression().getMax());
+			bottomText = EXPRESSION_FORMAT.format(index.getAnalysis().getResult().getExpression().getMin());
 		} else {
 			topText = ENRICHMENT_FORMAT.format(0);
-			bottomText = ENRICHMENT_FORMAT.format(DiagramIndex.MIN_ENRICHMENT);
+			bottomText = ENRICHMENT_FORMAT.format(DiagramAnalysis.MIN_ENRICHMENT);
 		}
 		canvas.getLegendText().add(topText, Color.BLACK, top, 0, 0, FontProperties.DEFAULT_FONT);
 		canvas.getLegendText().add(bottomText, Color.BLACK, bottom, 0, 0, FontProperties.DEFAULT_FONT);

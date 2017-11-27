@@ -1,10 +1,10 @@
 /**
  * This package contains the renderer for regular diagrams.
- *
+ * <p>
  * <code>
  * <pre>
  *     RasterArgs args = new SimpleRasterArgs(stId, "png");
- *     RasterRenderer renderer = new DiagramRenderer(args, dPath);
+ *     RasterRenderer renderer = new DiagramRenderer(args, diagramPath);
  *     Dimension dimension = renderer.getDimension();
  *     BufferedImage image = renderer.render();
  * </pre>

@@ -23,6 +23,7 @@ import java.util.Locale;
 
 public class AnalysisClient {
 
+	public static final String SPECIES_SERVICE = "/species/homoSapiens/%s/?pageSize=1&page1";
 	private static String SERVER = "http://localhost";
 	private static String SERVICE = "/AnalysisService";
 
@@ -149,6 +150,24 @@ public class AnalysisClient {
 					throw new AnalysisException(getObject(AnalysisError.class, error));
 			}
 		} catch (DeserializationException | AnalysisException | IOException e) {
+			throw new AnalysisServerError(e.getMessage());
+		}
+	}
+
+	public static AnalysisResult preformSpeciesComparison(String species) throws AnalysisException, AnalysisServerError {
+		try {
+			URL url = new URL(AnalysisClient.SERVER + SERVICE + String.format(SPECIES_SERVICE, species));
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestProperty("Response-Type", "application/json");
+			switch (connection.getResponseCode()) {
+				case 200:
+					String json = IOUtils.toString(connection.getInputStream(), Charset.defaultCharset());
+					return getObject(AnalysisResult.class, json);
+				default:
+					String error = IOUtils.toString(connection.getInputStream(), Charset.defaultCharset());
+					throw new AnalysisException(getObject(AnalysisError.class, error));
+			}
+		} catch (IOException | DeserializationException e) {
 			throw new AnalysisServerError(e.getMessage());
 		}
 	}

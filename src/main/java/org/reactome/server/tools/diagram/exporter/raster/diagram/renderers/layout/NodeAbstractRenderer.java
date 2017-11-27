@@ -61,7 +61,7 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 	}
 
 	private double analysis(ColorProfiles colorProfiles, DiagramIndex index, NodeRenderInfo info, int t) {
-		switch (index.getAnalysisType()) {
+		switch (index.getAnalysis().getType()) {
 			case SPECIES_COMPARISON:
 			case OVERREPRESENTATION:
 				enrichment(colorProfiles, info);
@@ -176,8 +176,8 @@ public abstract class NodeAbstractRenderer extends AbstractRenderer {
 			final double partSize = prop.getWidth() / size;
 			splitText = (double) values.size() / size;
 
-			final double max = index.getResult().getExpression().getMax();
-			final double min = index.getResult().getExpression().getMin();
+			final double max = index.getAnalysis().getResult().getExpression().getMax();
+			final double min = index.getAnalysis().getResult().getExpression().getMin();
 			final double delta = 1 / (max - min);  // only one division
 			for (int i = 0; i < values.size(); i++) {
 				final double val = values.get(i);

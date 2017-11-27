@@ -126,7 +126,7 @@ public class DiagramRenderer implements RasterRenderer {
 	 * Animated GIF are generated into a temp File
 	 */
 	public void renderToAnimatedGif(OutputStream outputStream) throws IOException {
-		if (index.getAnalysisType() != AnalysisType.EXPRESSION)
+		if (index.getAnalysis().getType() != AnalysisType.EXPRESSION)
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
 
 		final Rectangle2D bounds = canvas.getBounds();
@@ -142,7 +142,7 @@ public class DiagramRenderer implements RasterRenderer {
 		encoder.setRepeat(0);
 //		encoder.setQuality(1);
 		encoder.start(outputStream);
-		for (int t = 0; t < index.getResult().getExpression().getColumnNames().size(); t++) {
+		for (int t = 0; t < index.getAnalysis().getResult().getExpression().getColumnNames().size(); t++) {
 			final BufferedImage image = frame(factor, width, height, offsetX, offsetY, t);
 			encoder.addFrame(image);
 		}
@@ -251,7 +251,7 @@ public class DiagramRenderer implements RasterRenderer {
 
 	private void legend() {
 		legendRenderer = new LegendRenderer(canvas, index, colorProfiles);
-		if (index.getAnalysisType() == AnalysisType.EXPRESSION) {
+		if (index.getAnalysis().getType() == AnalysisType.EXPRESSION) {
 			// We add the legend first, so the logo is aligned to the right margin
 			legendRenderer.addLegend();
 			legendRenderer.addLogo();
@@ -259,7 +259,7 @@ public class DiagramRenderer implements RasterRenderer {
 				legendRenderer.setCol(args.getColumn());
 			} else if (!args.getFormat().equals("gif"))
 				legendRenderer.setCol(0);
-		} else if (index.getAnalysisType() != AnalysisType.NONE) {
+		} else if (index.getAnalysis().getType() != AnalysisType.NONE) {
 			legendRenderer.addLogo();
 			legendRenderer.infoText();
 		} else legendRenderer.addLogo();

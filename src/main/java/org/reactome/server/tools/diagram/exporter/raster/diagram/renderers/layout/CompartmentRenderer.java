@@ -47,7 +47,7 @@ public class CompartmentRenderer {
 		final Color innerColor;
 		final Color text;
 		final Color border;
-		if (index.getAnalysisType() == AnalysisType.NONE) {
+		if (index.getAnalysis().getType() == AnalysisType.NONE) {
 			border = profile.getDiagramSheet().getCompartment().getStroke();
 			text = profile.getDiagramSheet().getCompartment().getText();
 			fill = profile.getDiagramSheet().getCompartment().getFill();

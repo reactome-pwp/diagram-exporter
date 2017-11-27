@@ -34,7 +34,7 @@ public class ProcessNodeRenderer extends NodeAbstractRenderer {
 
 	@Override
 	public Color getForegroundFill(ColorProfiles colors, DiagramIndex index) {
-		return index.getAnalysisType() == AnalysisType.NONE
+		return index.getAnalysis().getType() == AnalysisType.NONE
 				? INNER_COLOR
 				: ANALYSIS_INNER_COLOR;
 	}

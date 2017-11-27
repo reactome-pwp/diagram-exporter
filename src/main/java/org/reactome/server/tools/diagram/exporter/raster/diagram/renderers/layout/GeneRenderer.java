@@ -83,7 +83,7 @@ public class GeneRenderer extends NodeAbstractRenderer {
 
 	@Override
 	public Color getForegroundFill(ColorProfiles colors, DiagramIndex index) {
-		return index.getAnalysisType() == AnalysisType.NONE
+		return index.getAnalysis().getType() == AnalysisType.NONE
 				? colors.getDiagramSheet().getGene().getFill()
 				: colors.getDiagramSheet().getGene().getLighterFill();
 	}
