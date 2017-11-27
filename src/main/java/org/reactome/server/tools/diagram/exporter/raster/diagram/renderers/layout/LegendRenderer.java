@@ -177,7 +177,7 @@ public class LegendRenderer {
 		if (index.getDecorator().getSelected() == null) return;
 		for (Long id : index.getDecorator().getSelected()) {
 			final List<FoundEntity> expressions = index.getNodeDecorator(id).getHitExpressions();
-			if (expressions == null || expressions.isEmpty()) return;
+			if (expressions == null || expressions.isEmpty()) continue;
 			// Calculate which ticks to draw: (min, median, max) or (value)
 			Double nMax;
 			Double nMin;

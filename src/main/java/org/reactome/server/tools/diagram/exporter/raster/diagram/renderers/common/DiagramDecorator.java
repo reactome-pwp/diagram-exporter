@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * Includes the selection, flag and halo information for each node and
- * reaction and adds it to the corresponding DiagramObjectDecorator.
+ * Includes the selection, flag and halo information for each node and reaction
+ * and adds it to the corresponding DiagramObjectDecorator.
  */
 public class DiagramDecorator {
 
@@ -26,7 +26,7 @@ public class DiagramDecorator {
 	private Map<Long, EntityNode> graphIndex;
 	private Map<Long, DiagramObject> diagramIndex;
 	private Set<Long> reactionIds;
-	private Set<Long> selected;
+	private Set<Long> selected = new TreeSet<>();
 
 	DiagramDecorator(DiagramIndex index, RasterArgs args, Graph graph, Diagram diagram) {
 		this.index = index;
@@ -46,10 +46,10 @@ public class DiagramDecorator {
 		reactionIds = new HashSet<>();
 		graph.getEdges().forEach(event -> reactionIds.add(event.getDbId()));
 
-		selected = getSelectedIds();
+		final Set<Long> sel = getSelectedIds();
 		final Set<Long> flg = getFlagged();
-		decorateNodes(selected, flg);
-		decorateReactions(selected, flg);
+		decorateNodes(sel, flg);
+		decorateReactions(sel, flg);
 	}
 
 	private Set<Long> getSelectedIds() {
@@ -119,11 +119,12 @@ public class DiagramDecorator {
 	private void decorateNodes(Collection<Long> selected, Collection<Long> flags) {
 		if (selected.isEmpty() && flags.isEmpty())
 			return;
-		diagram.getNodes().forEach((Node node) -> {
+		diagram.getNodes().forEach(node -> {
 			if (selected.contains(node.getReactomeId())) {
 				final DiagramIndex.NodeDecorator decorator = index.getNodeDecorator(node.getId());
 				decorator.setSelected(true);
 				decorator.setHalo(true);
+				this.selected.addAll(graphIndex.get(node.getReactomeId()).getDiagramIds());
 				node.getConnectors().forEach(connector -> {
 					final Edge reaction = (Edge) diagramIndex.get(connector.getEdgeId());
 					// When a node is selected, the nodes in the same reaction

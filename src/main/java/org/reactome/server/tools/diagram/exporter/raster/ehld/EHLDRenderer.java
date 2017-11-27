@@ -1,11 +1,9 @@
 package org.reactome.server.tools.diagram.exporter.raster.ehld;
 
-import org.apache.batik.transcoder.Transcoder;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.ImageTranscoder;
-import org.apache.batik.transcoder.svg2svg.SVGTranscoder;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
@@ -20,8 +18,6 @@ import org.w3c.dom.svg.SVGDocument;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
@@ -70,18 +66,6 @@ public class EHLDRenderer implements RasterRenderer {
 	@Override
 	public BufferedImage render() {
 		return toImage();
-	}
-
-	private void toFile() {
-		try {
-			final File file = new File("/media/pascual/Disco1TB/reactome/ehld2/", args.getStId() + ".svg");
-			final TranscoderInput input = new TranscoderInput(document);
-			final TranscoderOutput output = new TranscoderOutput(new FileWriter(file));
-			final Transcoder transcoder = new SVGTranscoder();
-			transcoder.transcode(input, output);
-		} catch (IOException | TranscoderException e) {
-			e.printStackTrace();
-		}
 	}
 
 	private void disableMasks() {
