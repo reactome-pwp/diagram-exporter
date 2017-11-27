@@ -42,6 +42,7 @@ public class ContentServiceClient {
 					}, json);
 				default:
 					String error = IOUtils.toString(connection.getInputStream(), Charset.defaultCharset());
+					// TODO: throw proper error
 					// This is throwing a DeseralizationException
 //					throw new AnalysisException(getObject(AnalysisError.class, error));
 			}
