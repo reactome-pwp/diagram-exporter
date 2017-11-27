@@ -23,7 +23,6 @@ import java.util.Objects;
  */
 public class EdgeRenderer extends AbstractRenderer {
 
-
 	@Override
 	public void draw(DiagramCanvas canvas, DiagramObject item, ColorProfiles colorProfiles, DiagramIndex index, int t) {
 		final EdgeCommon edge = (EdgeCommon) item;

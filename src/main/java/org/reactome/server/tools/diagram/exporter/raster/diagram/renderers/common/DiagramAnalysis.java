@@ -90,9 +90,8 @@ public class DiagramAnalysis {
 		// Get subpathways (green boxes) % of analysis area
 		subPathways(args.getToken(), resource);
 
-		final FoundElements foundElements;
 		try {
-			foundElements = AnalysisClient.getFoundElements(stId, args.getToken(), resource);
+			final FoundElements foundElements = AnalysisClient.getFoundElements(stId, args.getToken(), resource);
 			if (foundElements == null) return;
 			if (type == AnalysisType.EXPRESSION) {
 				expression(foundElements);

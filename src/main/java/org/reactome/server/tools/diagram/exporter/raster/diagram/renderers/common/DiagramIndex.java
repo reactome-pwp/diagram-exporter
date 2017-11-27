@@ -38,11 +38,11 @@ public class DiagramIndex {
 		analysis = new DiagramAnalysis(this, args, graph, diagram);
 	}
 
-	public NodeDecorator getNodeDecorator(long id) {
+	public NodeDecorator getNodeDecorator(Long id) {
 		return (NodeDecorator) index.computeIfAbsent(id, k -> new NodeDecorator());
 	}
 
-	public EdgeDecorator getEdgeDecorator(long id) {
+	public EdgeDecorator getEdgeDecorator(Long id) {
 		return (EdgeDecorator) index.computeIfAbsent(id, k -> new EdgeDecorator());
 	}
 
