@@ -10,6 +10,7 @@ import java.util.List;
 public class FillLayer extends CommonLayer {
 
 	private final List<DrawObject> objects = new LinkedList<>();
+
 	public void add(Paint color, Shape shape) {
 		addShape(shape);
 		objects.add(new DrawObject(shape, color));
@@ -25,6 +26,7 @@ public class FillLayer extends CommonLayer {
 
 	@Override
 	public void clear() {
+		super.clear();
 		objects.clear();
 	}
 
@@ -32,7 +34,7 @@ public class FillLayer extends CommonLayer {
 		private final Shape shape;
 		private final Paint color;
 
-		public DrawObject(Shape shape, Paint color) {
+		DrawObject(Shape shape, Paint color) {
 			this.shape = shape;
 			this.color = color;
 		}

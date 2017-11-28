@@ -27,6 +27,7 @@ public class DrawLayer extends CommonLayer {
 
 	@Override
 	public void clear() {
+		super.clear();
 		objects.clear();
 	}
 
