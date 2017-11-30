@@ -34,4 +34,9 @@ public abstract class CommonLayer implements Layer {
 				maxY = shape.getBounds2D().getMaxY();
 		}
 	}
+
+	@Override
+	public void clear() {
+		minX = minY = maxY = maxX = null;
+	}
 }

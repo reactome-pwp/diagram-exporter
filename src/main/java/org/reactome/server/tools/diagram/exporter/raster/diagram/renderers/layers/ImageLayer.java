@@ -33,6 +33,7 @@ public class ImageLayer extends CommonLayer {
 
 	@Override
 	public void clear() {
+		super.clear();
 		images.clear();
 	}
 
