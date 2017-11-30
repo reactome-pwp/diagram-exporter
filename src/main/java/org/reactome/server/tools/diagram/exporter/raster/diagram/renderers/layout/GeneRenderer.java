@@ -33,19 +33,13 @@ public class GeneRenderer extends NodeAbstractRenderer {
 	}
 
 	@Override
-	public Shape backgroundShape(NodeCommon item) {
-		return null;
-	}
-
-	@Override
-	public Shape foregroundShape(NodeCommon node) {
+	public Shape backgroundShape(NodeCommon node) {
 		final NodeProperties prop = node.getProp();
 		final double x = prop.getX();
 		final double y = prop.getY();
 		final double width = prop.getWidth();
 		final double height = prop.getHeight();
-		return ShapeFactory.getGeneFillShape(x, y, width, height);
-	}
+		return ShapeFactory.getGeneFillShape(x, y, width, height);	}
 
 	private Shape line(NodeProperties prop) {
 		final double x = prop.getX();
@@ -90,7 +84,7 @@ public class GeneRenderer extends NodeAbstractRenderer {
 
 	@Override
 	protected void text(NodeRenderInfo info, double splitText) {
-		final Rectangle2D bounds = info.getForegroundShape().getBounds2D();
+		final Rectangle2D bounds = info.getBackgroundShape().getBounds2D();
 		if (bounds.getHeight() > FontProperties.DEFAULT_FONT.getSize()) {
 			final NodeProperties limits = NodePropertiesFactory.get(
 					bounds.getX(), bounds.getY(), bounds.getWidth(),
