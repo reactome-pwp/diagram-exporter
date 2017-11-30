@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.reactome.server.tools.diagram.exporter.raster.RasterExporter;
-import org.reactome.server.tools.diagram.exporter.raster.api.SimpleRasterArgs;
+import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 
 import java.awt.image.BufferedImage;
 import java.util.Arrays;
@@ -22,7 +22,7 @@ public class EhldTest {
 
 	@Test
 	public void testRaster() {
-		final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-382551", "png");
+		final RasterArgs args = new RasterArgs("R-HSA-382551", "png");
 		try {
 			args.setQuality(5);
 			final BufferedImage image = RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
@@ -35,7 +35,7 @@ public class EhldTest {
 
 	@Test
 	public void testDecorator() {
-		final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-109581", "png");
+		final RasterArgs args = new RasterArgs("R-HSA-109581", "png");
 		args.setQuality(8);
 		args.setSelected(Arrays.asList("R-HSA-109606"));
 //		args.setFlags(Arrays.asList("R-HSA-109606")); // we need the content service for this
@@ -48,7 +48,7 @@ public class EhldTest {
 
 	@Test
 	public void testJpeg() {
-		final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-109581", "jpeg");
+		final RasterArgs args = new RasterArgs("R-HSA-109581", "jpeg");
 		args.setSelected(Arrays.asList("R-HSA-109606"));
 		try {
 			RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);
@@ -59,7 +59,7 @@ public class EhldTest {
 
 	@Test
 	public void testGif() {
-		final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-109581", "gif");
+		final RasterArgs args = new RasterArgs("R-HSA-109581", "gif");
 		args.setSelected(Arrays.asList("R-HSA-109606"));
 		try {
 			RasterExporter.export(args, DIAGRAM_PATH, EHLD_PATH);

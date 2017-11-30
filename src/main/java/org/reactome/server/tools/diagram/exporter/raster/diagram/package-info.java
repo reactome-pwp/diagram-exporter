@@ -3,7 +3,7 @@
  * <p>
  * <code>
  * <pre>
- *     RasterArgs args = new SimpleRasterArgs(stId, "png");
+ *     RasterArgs args = new RasterArgs(stId, "png");
  *     RasterRenderer renderer = new DiagramRenderer(args, diagramPath);
  *     Dimension dimension = renderer.getDimension();
  *     BufferedImage image = renderer.render();

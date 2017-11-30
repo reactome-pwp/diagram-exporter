@@ -24,7 +24,7 @@ String diagramPath = "path/to/diagram";
 // You will also find a file containing a list of available EHLD: https://reactome.org/download/current/ehld/svgsummary.txt
 String ehldPath = "path/to/ehld";
 
-final SimpleRasterArgs args = new SimpleRasterArgs("R-HSA-169911", "jpg");
+final RasterArgs args = new RasterArgs("R-HSA-169911", "jpg");
 args.setFactor(3.);
 args.setProfiles(new ColorProfiles("standard", null, null));
 

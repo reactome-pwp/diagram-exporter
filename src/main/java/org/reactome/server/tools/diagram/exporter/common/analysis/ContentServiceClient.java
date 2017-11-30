@@ -16,8 +16,8 @@ import java.util.List;
 public class ContentServiceClient {
 
 	private static String HOST = "http://localhost";
-	private static String SERVICE = "/ContentService/";
-	private static final String QUERY = "data/diagram/%s/entities/%s?pathways=%s";
+	private static String SERVICE = "/ContentService";
+	private static final String QUERY = "/data/diagram/%s/entities/%s?pathways=%s";
 	private static ObjectMapper mapper = new ObjectMapper();
 
 	public static void setHost(String host) {

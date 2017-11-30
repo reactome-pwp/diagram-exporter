@@ -5,9 +5,11 @@ import org.junit.*;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
+import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
+import org.reactome.server.tools.diagram.exporter.common.analysis.ContentServiceClient;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
-import org.reactome.server.tools.diagram.exporter.raster.api.SimpleRasterArgs;
+import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
 import javax.imageio.ImageIO;
@@ -30,7 +32,12 @@ public class RasterExporterTest {
 
 	@BeforeClass
 	public static void beforeClass() {
-		IMAGES_FOLDER.mkdirs();
+		AnalysisClient.setServer("https://reactomedev.oicr.on.ca");
+		AnalysisClient.setService("/AnalysisService");
+		ContentServiceClient.setHost("https://reactomedev.oicr.on.ca");
+		ContentServiceClient.setService("/ContentService");
+		if (!IMAGES_FOLDER.mkdirs())
+			System.err.println("Couldn't create dir for testing " + IMAGES_FOLDER);
 	}
 
 	@AfterClass
@@ -48,6 +55,30 @@ public class RasterExporterTest {
 			System.err.println("Couldn't delete " + dir);
 	}
 
+	// TODO: simple -> Chemical, Complex, Entity, EntitySet, Gene, ProcessNode, Protein and RNA
+	// TODO: selection -> reaction
+	// TODO: selection -> Chemical, Complex, Entity, EntitySet, Gene, ProcessNode, Protein and RNA
+	// TODO: flag -> Chemical, Complex, Entity, EntitySet, Gene, ProcessNode, Protein and RNA
+
+	// TODO: profiles -> no standard/null/wrong
+
+	// TODO: enrichment -> Chemical, Complex, Entity, EntitySet, Gene, ProcessNode, Protein and RNA
+	// TODO: species comparison -> Chemical, Complex, Entity, EntitySet, Gene, ProcessNode, Protein and RNA
+	// TODO: expression -> Chemical, Complex, Entity, EntitySet, Gene, ProcessNode, Protein and RNA
+
+	// TODO: expression/enrichment + selecting non hit element
+
+	@Test
+	public void  testSimpleDiagram() {
+		// These 3 diagrams contain all the types of nodes:
+		// Chemical, Complex, Entity, EntitySet, Gene, ProcessNode, Protein and RNA
+		final List<String> stIds = Arrays.asList(
+				"R-HSA-5687128", "R-HSA-376176", "R-HSA-69620");
+		for (String stId : stIds) {
+			final RasterArgs args = new RasterArgs(stId, "png");
+		}
+	}
+
 	@Test
 	public void testDecorationNormal() {
 		final String stId = "R-HSA-169911"; // Regulation of apoptosis
@@ -58,7 +89,6 @@ public class RasterExporterTest {
 //			final List<Long> analysis = getIdsFor("Q13177", graph);
 			final List<String> flags = getIdsFor("O60313", graph).stream()
 					.map(String::valueOf).collect(Collectors.toList());
-			;
 			selected.add("211734");
 			renderSilent(stId, "png", 1, selected, flags, MODERN);
 		} catch (DiagramJsonDeserializationException | DiagramJsonNotFoundException e) {
@@ -142,7 +172,7 @@ public class RasterExporterTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void testScaleLImit() {
 		final int factor = 0;
-		final SimpleRasterArgs args = new SimpleRasterArgs("stid", "png");
+		final RasterArgs args = new RasterArgs("stid", "png");
 		args.setQuality(factor);
 	}
 
@@ -157,7 +187,7 @@ public class RasterExporterTest {
 
 	private void renderToFile(String stId, String ext, int factor, List<String> selected, List<String> flags, String profile) {
 		try {
-			final SimpleRasterArgs args = new SimpleRasterArgs(stId, ext);
+			final RasterArgs args = new RasterArgs(stId, ext);
 			args.setQuality(factor);
 			args.setSelected(selected);
 			args.setFlags(flags);
@@ -172,7 +202,7 @@ public class RasterExporterTest {
 
 	private void renderSilent(String stId, String ext, int factor, List<String> selected, List<String> flags, String profile) {
 		try {
-			final SimpleRasterArgs args = new SimpleRasterArgs(stId, ext);
+			final RasterArgs args = new RasterArgs(stId, ext);
 			args.setQuality(factor);
 			args.setSelected(selected);
 			args.setFlags(flags);
@@ -182,5 +212,4 @@ public class RasterExporterTest {
 			Assert.fail(e.getMessage());
 		}
 	}
-
 }

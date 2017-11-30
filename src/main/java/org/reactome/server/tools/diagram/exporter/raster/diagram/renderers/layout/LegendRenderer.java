@@ -95,19 +95,10 @@ public class LegendRenderer {
 		addLabels(textHeight);
 	}
 
-	private void createBottomTextBox() {
-		final Rectangle2D bounds = canvas.getBounds();
-		final double x = bounds.getMinX();
-		final double y = bounds.getMaxY() - logo_height;
-		final double width = bounds.getWidth() - logo_width;
-		final double height = logo_height;
-		bottomTextBox = NodePropertiesFactory.get(x, y, width, height);
-	}
-
-	public void setCol(int col) {
+	public void setCol(int col, String title) {
 		clearTicks();
 		ticks(col);
-		infoText(col);
+		infoText(col, title);
 	}
 
 	private void clearTicks() {
@@ -115,27 +106,28 @@ public class LegendRenderer {
 		canvas.getLegendTickArrows().clear();
 	}
 
-	private void infoText(int col) {
-		if (bottomTextBox == null)
-			createBottomTextBox();
-		final String prefix = index.getAnalysis().getAnalysisName() == null
-				? ""
-				: String.format("[%s] ", index.getAnalysis().getAnalysisName());
-		final String info = String.format(Locale.UK, "%d/%d: %s", (col + 1),
+	private void infoText(int col, String title) {
+		String text = "";
+		if (title != null) text = title + " ";
+		text += String.format("[%s] ", index.getAnalysis().getAnalysisName());
+		text += String.format(Locale.UK, "%d/%d: %s", (col + 1),
 				index.getAnalysis().getResult().getExpression().getColumnNames().size(),
 				index.getAnalysis().getResult().getExpression().getColumnNames().get(col));
 		canvas.getLegendBottomText().clear();
-		canvas.getLegendBottomText().add(prefix + info, Color.BLACK, bottomTextBox, 0, 0, FontProperties.LEGEND_FONT);
+		canvas.getLegendBottomText().add(text, Color.BLACK, bottomTextBox, 0, 0, FontProperties.LEGEND_FONT);
 	}
 
 	/**
 	 * Adds a text in the bottom of the image with the name of the analysis.
 	 */
-	public void infoText() {
-		if (index.getAnalysis().getAnalysisName() == null) return;
-		if (bottomTextBox == null) createBottomTextBox();
+	public void infoText(String title) {
+		String text = "";
+		if (title != null) text = title + " ";
+		if (index.getAnalysis().getAnalysisName() !=  null)
+			text += index.getAnalysis().getAnalysisName();
+		if (text.isEmpty()) return;
 		canvas.getLegendBottomText().clear();
-		canvas.getLegendBottomText().add(index.getAnalysis().getAnalysisName(), Color.BLACK, bottomTextBox, 0, 0, FontProperties.LEGEND_FONT);
+		canvas.getLegendBottomText().add(text, Color.BLACK, bottomTextBox, 0, 0, FontProperties.LEGEND_FONT);
 	}
 
 	private void addBackground(double textHeight) {
@@ -289,6 +281,8 @@ public class LegendRenderer {
 					bounds.getMaxY() + LEGEND_TO_DIAGRAM_SPACE,
 					logo_width, logo_height);
 			this.canvas.getLogoLayer().add(logo, limits);
+			// Now we can reserve the rest of space for the text
+			createBottomTextBox();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -299,5 +293,14 @@ public class LegendRenderer {
 		final String filename = "reactome_logo_100pxW_50T.png";
 		final InputStream resource = getClass().getResourceAsStream(filename);
 		return ImageIO.read(resource);
+	}
+
+	private void createBottomTextBox() {
+		final Rectangle2D bounds = canvas.getBounds();
+		final double x = bounds.getMinX();
+		final double y = bounds.getMaxY() - logo_height;
+		final double width = bounds.getWidth() - logo_width;
+		final double height = logo_height;
+		bottomTextBox = NodePropertiesFactory.get(x, y, width, height);
 	}
 }
