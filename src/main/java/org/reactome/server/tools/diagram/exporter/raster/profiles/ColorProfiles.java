@@ -1,7 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.raster.profiles;
 
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
@@ -27,17 +26,14 @@ public class ColorProfiles {
 
 	static {
 		Stream.of("modern", "standard")
-				.forEach(profile -> DIAGRAM_SHEET_MAP.put(profile, getSheet(DiagramSheetImpl.class, "diagram", profile)));
+				.forEach(profile -> DIAGRAM_SHEET_MAP.put(profile, getSheet(DiagramSheet.class, "diagram", profile)));
 		Stream.of("standard", "copper plus", "strosobar")
-				.forEach(profile -> ANALYSIS_SHEET_MAP.put(profile, getSheet(AnalysisSheetImpl.class, "analysis", profile)));
+				.forEach(profile -> ANALYSIS_SHEET_MAP.put(profile, getSheet(AnalysisSheet.class, "analysis", profile)));
 		Stream.of("cyan", "teal")
-				.forEach(profile -> INTERACTORS_SHEET_MAP.put(profile, getSheet(InteractorsSheetImpl.class, "interactors", profile)));
+				.forEach(profile -> INTERACTORS_SHEET_MAP.put(profile, getSheet(InteractorsSheet.class, "interactors", profile)));
 	}
 
 	public ColorProfiles(String diagram, String analysis, String interactors) {
-//		diagramSheet = getSheet(DiagramSheetImpl.class, DEFAULT_DIAGRAM_PROFILE, "diagram", diagram);
-//		analysisSheet = getSheet(AnalysisSheetImpl.class, DEFAULT_ANALYSIS_PROFILE, "analysis", analysis);
-//		interactorsSheet = getSheet(InteractorsSheetImpl.class, DEFAULT_INTERACTORS_PROFILE, "interactors", interactors);
 		diagramSheet = getDiagramSheet(diagram);
 		analysisSheet = getAnalysisSheet(analysis);
 		interactorsSheet = getInteractorsSheet(interactors);
@@ -59,13 +55,6 @@ public class ColorProfiles {
 		return diagram != null && DIAGRAM_SHEET_MAP.containsKey(diagram.toLowerCase())
 				? DIAGRAM_SHEET_MAP.get(diagram.toLowerCase())
 				: DIAGRAM_SHEET_MAP.get(DEFAULT_DIAGRAM_PROFILE);
-	}
-
-	@JsonCreator
-	public ColorProfiles(Map<String, Object> profiles) {
-		diagramSheet = getDiagramSheet((String) profiles.get("diagram"));
-		analysisSheet = getAnalysisSheet((String) profiles.get("analysis"));
-		interactorsSheet = getInteractorsSheet((String) profiles.get("interactors"));
 	}
 
 	private static <T> T getSheet(Class<T> clazz, String prefix, String name) {

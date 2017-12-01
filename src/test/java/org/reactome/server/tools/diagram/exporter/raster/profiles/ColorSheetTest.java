@@ -29,7 +29,7 @@ public class ColorSheetTest {
 				" }";
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			final NodeColorSheet sheet = mapper.readValue(nodeSheet, NodeColorSheetImpl.class);
+			final NodeColorSheet sheet = mapper.readValue(nodeSheet, NodeColorSheet.class);
 			Assert.assertEquals(new Color(235, 178, 121, 127), sheet.getFill());
 			Assert.assertEquals(new Color(242, 203, 165, 127), sheet.getFadeOutFill());
 			Assert.assertEquals(new Color(242, 203, 165, 127), sheet.getLighterFill());
@@ -56,7 +56,7 @@ public class ColorSheetTest {
 				"}";
 		final ObjectMapper mapper = new ObjectMapper();
 		try {
-			final ThumbnailColorSheet thumbnailSheet = mapper.readValue(sheet, ThumbnailColorSheetIml.class);
+			final ThumbnailColorSheet thumbnailSheet = mapper.readValue(sheet, ThumbnailColorSheet.class);
 			Assert.assertEquals(new Color(255, 119, 0), thumbnailSheet.getNode());
 			Assert.assertEquals(new Color(255, 255, 255), thumbnailSheet.getEdge());
 			Assert.assertEquals(new Color(0, 0, 17), thumbnailSheet.getHovering());
@@ -82,7 +82,7 @@ public class ColorSheetTest {
 				"}";
 		final ObjectMapper mapper = new ObjectMapper();
 		try {
-			final PropertiesColorSheet propertiesSheet = mapper.readValue(json, PropertiesColorSheetImpl.class);
+			final PropertiesColorSheet propertiesSheet = mapper.readValue(json, PropertiesColorSheet.class);
 			Assert.assertEquals(new Color(223, 223, 0), propertiesSheet.getHovering());
 			Assert.assertEquals(new Color(223, 223, 0), propertiesSheet.getHighlight());
 			Assert.assertEquals(new Color(77, 77, 255), propertiesSheet.getSelection());
@@ -104,7 +104,7 @@ public class ColorSheetTest {
 			final String json = IOUtils.toString(resource);
 			final ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
-			final DiagramSheet diagramSheet = mapper.readValue(json, DiagramSheetImpl.class);
+			final DiagramSheet diagramSheet = mapper.readValue(json, DiagramSheet.class);
 			Assert.assertEquals("Modern", diagramSheet.getName());
 			Assert.assertNotNull(diagramSheet.getProperties());
 			Assert.assertNotNull(diagramSheet.getAttachment());
@@ -139,7 +139,7 @@ public class ColorSheetTest {
 				"}";
 		final ObjectMapper mapper = new ObjectMapper();
 		try {
-			final GradientSheet gradientSheet = mapper.readValue(json, GradientSheetImpl.class);
+			final GradientSheet gradientSheet = mapper.readValue(json, GradientSheet.class);
 			Assert.assertEquals(new Color(255, 255, 202), gradientSheet.getMin());
 			Assert.assertNull(gradientSheet.getStop());
 			Assert.assertEquals(new Color(255, 255, 80), gradientSheet.getMax());
@@ -160,7 +160,7 @@ public class ColorSheetTest {
 				"}";
 		final ObjectMapper mapper = new ObjectMapper();
 		try {
-			final EnrichmentSheet enrichmentSheet = mapper.readValue(json, EnrichmentSheetImpl.class);
+			final EnrichmentSheet enrichmentSheet = mapper.readValue(json, EnrichmentSheet.class);
 			Assert.assertEquals(new Color(0, 0, 0), enrichmentSheet.getText());
 			Assert.assertNotNull(enrichmentSheet.getGradient());
 		} catch (IOException e) {
@@ -176,7 +176,7 @@ public class ColorSheetTest {
 				"}";
 		final ObjectMapper mapper = new ObjectMapper();
 		try {
-			final LegendSheet legendSheet = mapper.readValue(json, LegendSheetImpl.class);
+			final LegendSheet legendSheet = mapper.readValue(json, LegendSheet.class);
 			Assert.assertEquals(new Color(0, 0, 0), legendSheet.getMedian());
 			Assert.assertEquals(new Color(255, 0, 0), legendSheet.getHover());
 		} catch (IOException e) {
@@ -200,7 +200,7 @@ public class ColorSheetTest {
 				"}";
 		final ObjectMapper mapper = new ObjectMapper();
 		try {
-			final ExpressionSheetImpl expressionSheet = mapper.readValue(json, ExpressionSheetImpl.class);
+			final ExpressionSheet expressionSheet = mapper.readValue(json, ExpressionSheet.class);
 			Assert.assertEquals(new Color(255, 255, 255), expressionSheet.getText());
 			Assert.assertNotNull(expressionSheet.getGradient());
 			Assert.assertNotNull(expressionSheet.getLegend());
@@ -214,7 +214,7 @@ public class ColorSheetTest {
 		try {
 			final InputStream resource = getClass().getResourceAsStream("analysis.json");
 			final String json = IOUtils.toString(resource, Charset.defaultCharset());
-			AnalysisSheet analysisSheet = new ObjectMapper().readValue(json, AnalysisSheetImpl.class);
+			AnalysisSheet analysisSheet = new ObjectMapper().readValue(json, AnalysisSheet.class);
 			Assert.assertEquals("Copper Plus", analysisSheet.getName());
 			Assert.assertEquals(new Color(251, 140, 0), analysisSheet.getRibbon());
 			Assert.assertNotNull(analysisSheet.getEnrichment());
@@ -230,7 +230,7 @@ public class ColorSheetTest {
 		try {
 			final InputStream resource = getClass().getResourceAsStream("interactors.json");
 			final String json = IOUtils.toString(resource);
-			InteractorsSheet interactorsSheet = new ObjectMapper().readValue(json, InteractorsSheetImpl.class);
+			InteractorsSheet interactorsSheet = new ObjectMapper().readValue(json, InteractorsSheet.class);
 			Assert.assertEquals("Cyan", interactorsSheet.getName());
 			Assert.assertNotNull(interactorsSheet.getChemical());
 			Assert.assertNotNull(interactorsSheet.getProtein());

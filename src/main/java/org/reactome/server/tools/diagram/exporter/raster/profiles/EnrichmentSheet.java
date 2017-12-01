@@ -1,11 +1,23 @@
 package org.reactome.server.tools.diagram.exporter.raster.profiles;
 
+
 import java.awt.*;
 
-public interface EnrichmentSheet {
+public class EnrichmentSheet {
 
-	Color getText();
+	private GradientSheet gradient;
+	private Color text;
 
-	GradientSheet getGradient();
+	public Color getText() {
+		return text;
+	}
+
+	public GradientSheet getGradient() {
+		return gradient;
+	}
+
+	public void setText(String color) {
+		this.text = ColorFactory.parseColor(color);
+	}
 
 }

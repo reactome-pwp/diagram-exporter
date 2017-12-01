@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 public class ColorFactory {
 	private final static Pattern RGBA = Pattern.compile("^rgba\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*((0.[0-9]+)|[01]|1.0*)\\s*\\)$");
 
+	private final static Pattern RGB = Pattern.compile("rgba\\((.*)\\)");
 	// speed up with a color cache
 	// of course, this shouldn't be necessary if the Profiles already had the
 	// colors parsed

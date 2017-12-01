@@ -1,8 +1,23 @@
 package org.reactome.server.tools.diagram.exporter.raster.profiles;
 
-public interface InteractorsSheet extends ColorSheet {
+public class InteractorsSheet {
 
-	NodeColorSheet getChemical();
+	private String name;
+	private NodeColorSheet protein;
+	private NodeColorSheet chemical;
 
-	NodeColorSheet getProtein();
+
+	public String getName() {
+		return name;
+	}
+
+
+	public NodeColorSheet getChemical() {
+		return chemical;
+	}
+
+
+	public NodeColorSheet getProtein() {
+		return protein;
+	}
 }
