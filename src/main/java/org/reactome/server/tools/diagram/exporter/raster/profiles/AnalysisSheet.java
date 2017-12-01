@@ -6,8 +6,7 @@ import java.awt.*;
  * Implementation of AnalysisSheet tested with JacksonXML.
  */
 @SuppressWarnings("unused")
-public class AnalysisSheet {
-	private String name;
+public class AnalysisSheet extends ColorSheet {
 	private ExpressionSheet expression;
 	private EnrichmentSheet enrichment;
 	private Color ribbon;
@@ -28,7 +27,4 @@ public class AnalysisSheet {
 		this.ribbon = ColorFactory.parseColor(color);
 	}
 
-	public String getName() {
-		return name;
-	}
 }

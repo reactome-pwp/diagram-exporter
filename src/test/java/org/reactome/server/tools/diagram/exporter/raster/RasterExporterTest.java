@@ -40,7 +40,7 @@ public class RasterExporterTest {
 	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/diagram";
 
 	// Set to true for visual inspection of tests
-	private static final boolean save = false;
+	private static final boolean save = true;
 
 	private static String ENRICHMENT_TOKEN;
 	private static String EXPRESSION_TOKEN;

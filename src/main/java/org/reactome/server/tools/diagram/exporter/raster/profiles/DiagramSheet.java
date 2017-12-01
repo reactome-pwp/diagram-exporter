@@ -1,8 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.profiles;
 
-public class DiagramSheet {
+public class DiagramSheet extends ColorSheet {
 
-	private String name;
 	private PropertiesColorSheet properties;
 	private NodeColorSheet attachment;
 	private NodeColorSheet chemical;
@@ -99,12 +98,5 @@ public class DiagramSheet {
 		return thumbnail;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 }
