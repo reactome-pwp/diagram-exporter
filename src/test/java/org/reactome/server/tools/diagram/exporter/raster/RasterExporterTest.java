@@ -38,7 +38,7 @@ public class RasterExporterTest {
 	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/diagram";
 
 	// Set to true for visual inspection of tests
-	private static final boolean save = false;
+	private static final boolean save = true;
 
 	private static String ENRICHMENT_TOKEN;
 	private static String EXPRESSION_TOKEN;
@@ -87,10 +87,11 @@ public class RasterExporterTest {
 
 	@AfterClass
 	public static void afterClass() {
-		if (save) removeDir(IMAGES_FOLDER);
+		if (!save) removeDir(IMAGES_FOLDER);
 	}
 
 	private static void removeDir(File dir) {
+		if (!dir.exists()) return;
 		final File[] files = dir.listFiles();
 		if (files != null)
 			for (File file : files)
@@ -212,6 +213,7 @@ public class RasterExporterTest {
 	public void testSpeciesComparison() {
 		RasterArgs args = new RasterArgs("R-HSA-5687128", "png");
 		args.setToken(SPECIES_TOKEN);
+		args.setWriteTitle(true);
 		render(args);
 	}
 
@@ -219,6 +221,7 @@ public class RasterExporterTest {
 	public void testEnrichment() {
 		RasterArgs args = new RasterArgs("R-HSA-69620", "png");
 		args.setToken(ENRICHMENT_TOKEN);
+		args.setWriteTitle(true);
 		render(args);
 	}
 
@@ -226,6 +229,7 @@ public class RasterExporterTest {
 	public void testExpression() {
 		RasterArgs args = new RasterArgs("R-HSA-69620", "png");
 		args.setToken(EXPRESSION_TOKEN);
+		args.setWriteTitle(true);
 		render(args);
 		// FIXME: attachments color!!
 	}
