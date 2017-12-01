@@ -124,7 +124,8 @@ public class NodeRenderInfo extends DiagramObjectInfo {
 				backgroundColor = profile.getLighterFill();
 				textColor = profile.getLighterText();
 
-				if (index.getAnalysis().getType() == AnalysisType.OVERREPRESENTATION
+				if ((index.getAnalysis().getType() == AnalysisType.OVERREPRESENTATION
+						|| index.getAnalysis().getType() == AnalysisType.SPECIES_COMPARISON)
 						&& decorator.getEnrichment() != null
 						&& decorator.getEnrichment() > 0)
 					attachmentsFill = colors.getAnalysisSheet().getEnrichment().getGradient().getMax();
