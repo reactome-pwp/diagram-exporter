@@ -124,6 +124,7 @@ public class DiagramIndex {
 		void setHitExpressions(List<FoundEntity> hitExpressions) {
 			this.hitExpressions = hitExpressions.stream()
 					.filter(Objects::nonNull)
+					.distinct()
 					.sorted((Comparator.comparing(IdentifierSummary::getId)))
 					.collect(Collectors.toList());
 			this.totalExpressions = hitExpressions.size();
