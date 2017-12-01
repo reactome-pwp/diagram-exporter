@@ -20,7 +20,9 @@ import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -38,7 +40,7 @@ public class RasterExporterTest {
 	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/diagram";
 
 	// Set to true for visual inspection of tests
-	private static final boolean save = true;
+	private static final boolean save = false;
 
 	private static String ENRICHMENT_TOKEN;
 	private static String EXPRESSION_TOKEN;
@@ -47,7 +49,7 @@ public class RasterExporterTest {
 	@BeforeClass
 	public static void beforeClass() {
 		initAnalysisTokens();
-		if (save) createImagesFolder();
+		createImagesFolder();
 	}
 
 	private static void createImagesFolder() {
@@ -234,23 +236,49 @@ public class RasterExporterTest {
 		// FIXME: attachments color!!
 	}
 
+	@Test
+	public void testAnimatedGif() {
+		final ColorProfiles profiles = new ColorProfiles("modern", "copper plus", "teal");
+		final RasterArgs args = new RasterArgs("R-HSA-109606", "gif");
+		args.setSelected(Arrays.asList("R-HSA-114255"));
+		args.setToken(EXPRESSION_TOKEN);
+		args.setProfiles(profiles);
+		renderGif(args);
+	}
+
 	private void render(RasterArgs args) {
 		try {
 			final DiagramRenderer renderer = new DiagramRenderer(args, DIAGRAM_PATH);
 			final BufferedImage image = renderer.render();
 			if (save) {
-				final String filename = String.format("%s_%s_%s_%s.%s",
-						args.getStId(),
-						args.getQuality(),
-						args.getProfiles().getDiagramSheet().getName(),
-						getAnalysisType(args.getToken()),
-						args.getFormat());
+				final String filename = getFileName(args);
 				ImageIO.write(image, args.getFormat(), new File(IMAGES_FOLDER, filename));
 			}
 		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | AnalysisServerError | AnalysisException | IOException e) {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
+	}
+
+	private void renderGif(RasterArgs args) {
+		try {
+			final DiagramRenderer renderer = new DiagramRenderer(args, DIAGRAM_PATH);
+			final File file = new File(IMAGES_FOLDER, getFileName(args));
+			final OutputStream os = new FileOutputStream(file);
+			renderer.renderToAnimatedGif(os);
+		} catch (IOException | DiagramJsonNotFoundException | DiagramJsonDeserializationException | AnalysisException | AnalysisServerError e) {
+			e.printStackTrace();
+			Assert.fail(e.getMessage());
+		}
+	}
+
+	private String getFileName(RasterArgs args) {
+		return String.format("%s_%s_%s_%s.%s",
+				args.getStId(),
+				args.getQuality(),
+				args.getProfiles().getDiagramSheet().getName(),
+				getAnalysisType(args.getToken()),
+				args.getFormat());
 	}
 
 	private String getAnalysisType(String token) {
