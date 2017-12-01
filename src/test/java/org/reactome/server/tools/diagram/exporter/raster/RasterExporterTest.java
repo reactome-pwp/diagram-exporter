@@ -27,6 +27,7 @@ import java.nio.charset.Charset;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.IntStream;
@@ -34,7 +35,6 @@ import java.util.stream.IntStream;
 public class RasterExporterTest {
 
 	// TODO: expression/enrichment + selecting non hit element
-	// TODO: animated GIF
 
 	private static final File IMAGES_FOLDER = new File("test-images");
 	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/diagram";
@@ -142,7 +142,6 @@ public class RasterExporterTest {
 		// RNA, Entity
 		args.setSelected(Arrays.asList("R-HSA-6803386", "R-ALL-176104"));
 		render(args);
-		// FIXME: increase selection width
 	}
 
 	@Test
@@ -174,7 +173,6 @@ public class RasterExporterTest {
 		// Gene, Complex, ProcessNode
 		args.setFlags(Arrays.asList("R-HSA-9010561", "R-HSA-428873", "R-HSA-5627117"));
 		render(args);
-		// FIXME: increase flag width
 		// REPORT: ProcessNode not flagged in PathwayBrowser
 
 		args = new RasterArgs("R-HSA-69620", "png");
@@ -193,7 +191,7 @@ public class RasterExporterTest {
 		render(args);
 		args = new RasterArgs("R-HSA-5467343", "png");
 		// Gene
-		args.setSelected(Arrays.asList("R-HSA-5251547"));
+		args.setSelected(Collections.singletonList("R-HSA-5251547"));
 		render(args);
 	}
 
@@ -240,7 +238,7 @@ public class RasterExporterTest {
 	public void testAnimatedGif() {
 		final ColorProfiles profiles = new ColorProfiles("modern", "copper plus", "teal");
 		final RasterArgs args = new RasterArgs("R-HSA-109606", "gif");
-		args.setSelected(Arrays.asList("R-HSA-114255"));
+		args.setSelected(Collections.singletonList("R-HSA-114255"));
 		args.setToken(EXPRESSION_TOKEN);
 		args.setProfiles(profiles);
 		renderGif(args);

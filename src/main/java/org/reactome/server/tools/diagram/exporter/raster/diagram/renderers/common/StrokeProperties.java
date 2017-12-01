@@ -14,9 +14,9 @@ public class StrokeProperties {
 
 	private static final float SEGMENT_WIDTH = 1;
 	private static final float BORDER_WIDTH = 2;
-	private static final float SELECTION_WIDTH = 2;
+	private static final float SELECTION_WIDTH = 3;
 	private static final float HALO_WIDTH = 5;
-	private static final float FLAG_WIDTH = 7;
+	private static final float FLAG_WIDTH = 8;
 
 	private static final float DASH_SIZE = 5;
 	private static final float DASH_SPACE = 5;
