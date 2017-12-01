@@ -154,7 +154,7 @@ public class AnalysisClient {
 		}
 	}
 
-	public static AnalysisResult preformSpeciesComparison(String species) throws AnalysisException, AnalysisServerError {
+	public static AnalysisResult performSpeciesComparison(String species) throws AnalysisException, AnalysisServerError {
 		try {
 			URL url = new URL(AnalysisClient.SERVER + SERVICE + String.format(SPECIES_SERVICE, species));
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();

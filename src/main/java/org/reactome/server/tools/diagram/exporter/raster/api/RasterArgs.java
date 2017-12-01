@@ -1,72 +1,153 @@
 package org.reactome.server.tools.diagram.exporter.raster.api;
 
-
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
 import java.awt.*;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
-/** Arguments for the diagram exporter */
-public interface RasterArgs {
+public class RasterArgs {
+
+	private String stId;
+	private String format;
+	private String token;
+	private Set<String> flags;
+	private Set<String> selected;
+	private ColorProfiles profiles;
+	private Color background;
+	private Integer column;
+	private String resource;
+	private Boolean writeTitle;
+	private Integer quality = 5;
+	private Double factor = scale(quality);
+
+	public RasterArgs(String stId, String format) {
+		this.stId = stId;
+		setFormat(format);
+	}
+
+	/** diagram stable identifier */
+	public String getStId() {
+		return stId;
+	}
+
+	public void setStId(String stId) {
+		this.stId = stId;
+	}
 
 	/**
-	 * @return diagram stable identifier
+	 * Only for internal purpose. The quality is interpreted as a factor to
+	 * scale the image. The scale goes from 0.1 to 3.
 	 */
-	String getStId();
+	public Double getFactor() {
+		return factor;
+	}
+
+	private double scale(int quality) {
+		if (quality < 1 || quality > 10)
+			throw new IllegalArgumentException("quality must be in the range [1-10]");
+		if (quality < 5) {
+			return interpolate(quality, 1, 5, 0.1, 1);
+		} else return interpolate(quality, 5, 10, 1, 3);
+	}
+
+	private double interpolate(double x, double min, double max, double dest_min, double dest_max) {
+		return (x - min) / (max - min) * (dest_max - dest_min) + dest_min;
+	}
+
+	/** output image format (png, jpg, gif) */
+	public String getFormat() {
+		return format;
+	}
+
+	public void setFormat(String format) {
+		this.format = format == null ? "png" : format.trim().toLowerCase();
+	}
+
+	/** color profiles for diagram, analysis and interactors */
+	public ColorProfiles getProfiles() {
+		if (profiles == null)
+			profiles = new ColorProfiles(null, null, null);
+		return profiles;
+	}
+
+	public void setProfiles(ColorProfiles profiles) {
+		this.profiles = profiles;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	/** Analysis token */
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	/** Background color when no transparency is available */
+	public Color getBackground() {
+		return background;
+	}
+
+	public void setBackground(Color color) {
+		this.background = color;
+	}
 
 	/**
-	 * @return factor or scale. Resulting diagram dimension will be <em>(width *
-	 * factor, height * factor)</em>
+	 * In case an expression analysis is run, the column to show. Leave it null
+	 * to generate a GIF with all the columns. May take longer.
 	 */
-	Double getFactor();
+	public Integer getColumn() {
+		return column;
+	}
 
-	/**
-	 * @return output image format: PNG, JPG, JPEG or GIF. Case insensitive.
-	 */
-	String getFormat();
+	public void setColumn(Integer column) {
+		this.column = column;
+	}
 
-	/**
-	 * @return analysis token. EXPRESSION or ENRICHMENT supported.
-	 */
-	String getToken();
+	public String getResource() {
+		return resource;
+	}
 
-	/**
-	 * @return list of elements to be flagged: stIds, dbIds, identifiers or gene
-	 * names.
-	 */
-	Set<String> getFlags();
+	public void setResource(String resource) {
+		this.resource = resource;
+	}
 
-	/**
-	 * @return list of elements to be selected: stIds, dbIds, identifiers or
-	 * gene names.
-	 */
-	Set<String> getSelected();
+	public Boolean getWriteTitle() {
+		return writeTitle;
+	}
 
-	/**
-	 * Names of the color profiles to use.
-	 * <p>
-	 * <table> <tr> <th>profile</th> <th>values</th> <th>default</th> </tr> <tr>
-	 * <td>diagram</td> <td>modern, standard</td> <td>modern</td> </tr> <tr>
-	 * <td>analysis</td> <td>standard, copper plus, strosobar</td>
-	 * <td>standard</td> </tr> <tr> <td>interactors</td> <td>cyan, teal</td>
-	 * <td>cyan</td> </tr> </table>
-	 *
-	 * @return color profiles (diagram, analysis and interactors)
-	 */
-	ColorProfiles getProfiles();
+	public void setWriteTitle(Boolean writeTitle) {
+		this.writeTitle = writeTitle;
+	}
 
-	/**
-	 * @return for non transparent image formats, color of the background.
-	 */
-	Color getBackground();
+	public Set<String> getFlags() {
+		return flags;
+	}
 
-	/**
-	 * @return if there is an expression analysis in the token, the column where
-	 * to take expression values (0 is the first). If null, first is used (0).
-	 * If <strong>format</strong> is <em>gif</em> and <strong>column</strong> is
-	 * <em>null</em> then the result will be an animated gif.
-	 */
-	Integer getColumn();
+	public void setFlags(Collection<String> flags) {
+		if (flags != null)
+			this.flags = new HashSet<>(flags);
+	}
 
-	String getResource();
+	public Set<String> getSelected() {
+		return selected;
+	}
+
+	public void setSelected(Collection<String> selected) {
+		if (selected != null)
+			this.selected = new HashSet<>(selected);
+	}
+
+	public Integer getQuality() {
+		return quality;
+	}
+
+	public void setQuality(Integer quality) {
+		if (quality != null) {
+			this.quality = quality;
+			this.factor = scale(quality);
+		}
+	}
 }

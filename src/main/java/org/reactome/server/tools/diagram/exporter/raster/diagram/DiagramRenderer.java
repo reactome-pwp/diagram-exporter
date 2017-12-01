@@ -61,6 +61,7 @@ public class DiagramRenderer implements RasterRenderer {
 	private final ColorProfiles colorProfiles;
 	private final RasterArgs args;
 	private final double factor;
+	private final String title;
 	private DiagramCanvas canvas;
 	private LegendRenderer legendRenderer;
 
@@ -83,6 +84,9 @@ public class DiagramRenderer implements RasterRenderer {
 		TraceLogger.trace(args.getStId());
 		final Graph graph = ResourcesFactory.getGraph(diagramPath, args.getStId());
 		diagram = ResourcesFactory.getDiagram(diagramPath, args.getStId());
+		this.title = args.getWriteTitle() != null && args.getWriteTitle()
+				? diagram.getDisplayName()
+				: null;
 		this.args = args;
 		this.colorProfiles = args.getProfiles();
 		this.index = new DiagramIndex(diagram, graph, args);
@@ -159,7 +163,7 @@ public class DiagramRenderer implements RasterRenderer {
 			renderer.expression(colorProfiles, info, index, t);
 		});
 		// Update legend
-		legendRenderer.setCol(t);
+		legendRenderer.setCol(t, diagram.getDisplayName());
 		final BufferedImage image = createImage(width, height, "gif");
 		final Graphics2D graphics = createGraphics(image, "gif", factor, offsetX, offsetY);
 		canvas.render(graphics);
@@ -256,13 +260,13 @@ public class DiagramRenderer implements RasterRenderer {
 			legendRenderer.addLegend();
 			legendRenderer.addLogo();
 			if (args.getColumn() != null) {
-				legendRenderer.setCol(args.getColumn());
+				legendRenderer.setCol(args.getColumn(), title);
 			} else if (!args.getFormat().equals("gif"))
-				legendRenderer.setCol(0);
-		} else if (index.getAnalysis().getType() != AnalysisType.NONE) {
+				legendRenderer.setCol(0, title);
+		} else {
 			legendRenderer.addLogo();
-			legendRenderer.infoText();
-		} else legendRenderer.addLogo();
+			legendRenderer.infoText(title);
+		}
 	}
 
 }

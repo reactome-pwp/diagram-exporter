@@ -1,5 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layout;
 
+import org.apache.commons.io.IOUtils;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
@@ -21,11 +22,11 @@ import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 /**
@@ -49,6 +50,23 @@ public class LegendRenderer {
 	private static final Color BACKGROUND_BORDER = new Color(175, 175, 175);
 	private static final Color BACKGROUND_FILL = new Color(220, 220, 220);
 	private static final double MIN_LOGO_WIDTH = 50;
+	private static final Map<Long, String> SPECIES = new TreeMap<>();
+
+	// FIXME: hardcoded the species name because it is not reported in AnalysisResult
+	static {
+		final InputStream resource = LegendRenderer.class.getResourceAsStream("species.txt");
+		try {
+			IOUtils.readLines(resource, Charset.defaultCharset())
+					.forEach(s -> {
+						final String[] row = s.split("\t");
+						SPECIES.put(Long.valueOf(row[0]), row[1]);
+					});
+		} catch (IOException e) {
+			// Shouldn't happen
+			e.printStackTrace();
+		}
+	}
+
 	private final DiagramCanvas canvas;
 	private final DiagramIndex index;
 	private final ColorProfiles profiles;
@@ -95,19 +113,10 @@ public class LegendRenderer {
 		addLabels(textHeight);
 	}
 
-	private void createBottomTextBox() {
-		final Rectangle2D bounds = canvas.getBounds();
-		final double x = bounds.getMinX();
-		final double y = bounds.getMaxY() - logo_height;
-		final double width = bounds.getWidth() - logo_width;
-		final double height = logo_height;
-		bottomTextBox = NodePropertiesFactory.get(x, y, width, height);
-	}
-
-	public void setCol(int col) {
+	public void setCol(int col, String title) {
 		clearTicks();
 		ticks(col);
-		infoText(col);
+		infoText(col, title);
 	}
 
 	private void clearTicks() {
@@ -115,27 +124,41 @@ public class LegendRenderer {
 		canvas.getLegendTickArrows().clear();
 	}
 
-	private void infoText(int col) {
-		if (bottomTextBox == null)
-			createBottomTextBox();
-		final String prefix = index.getAnalysis().getAnalysisName() == null
-				? ""
-				: String.format("[%s] ", index.getAnalysis().getAnalysisName());
-		final String info = String.format(Locale.UK, "%d/%d: %s", (col + 1),
+	private void infoText(int col, String title) {
+		// title [analysis name] 1/5 sample
+		// [analysis name] 1/5 sample
+		String text = "";
+		if (title != null) text = title + " ";
+		text += String.format("[%s] %d/%d %s",
+				index.getAnalysis().getAnalysisName(),
+				(col + 1),
 				index.getAnalysis().getResult().getExpression().getColumnNames().size(),
 				index.getAnalysis().getResult().getExpression().getColumnNames().get(col));
 		canvas.getLegendBottomText().clear();
-		canvas.getLegendBottomText().add(prefix + info, Color.BLACK, bottomTextBox, 0, 0, FontProperties.LEGEND_FONT);
+		canvas.getLegendBottomText().add(text, Color.BLACK, bottomTextBox, 0, 0, FontProperties.LEGEND_FONT);
 	}
 
 	/**
 	 * Adds a text in the bottom of the image with the name of the analysis.
 	 */
-	public void infoText() {
-		if (index.getAnalysis().getAnalysisName() == null) return;
-		if (bottomTextBox == null) createBottomTextBox();
+	public void infoText(String title) {
+		String text = "";
+		if (index.getAnalysis().getType() == AnalysisType.NONE) {
+			if (title != null) text = title;
+		} else if (index.getAnalysis().getType() == AnalysisType.OVERREPRESENTATION) {
+			// [title: ]analysis name
+			if (title != null) text = title + ": ";
+			if (index.getAnalysis().getAnalysisName() != null)
+				text += index.getAnalysis().getAnalysisName();
+		} else if (index.getAnalysis().getType() == AnalysisType.SPECIES_COMPARISON) {
+			// [title: ]species name
+			if (title != null) text = title + ": ";
+			text += SPECIES.get(index.getAnalysis().getResult().getSummary().getSpecies());
+		}
+		if (text.trim().isEmpty()) return;
 		canvas.getLegendBottomText().clear();
-		canvas.getLegendBottomText().add(index.getAnalysis().getAnalysisName(), Color.BLACK, bottomTextBox, 0, 0, FontProperties.LEGEND_FONT);
+		canvas.getLegendBottomText().add(text, Color.BLACK, bottomTextBox, 0, 0, FontProperties.LEGEND_FONT);
+
 	}
 
 	private void addBackground(double textHeight) {
@@ -289,6 +312,8 @@ public class LegendRenderer {
 					bounds.getMaxY() + LEGEND_TO_DIAGRAM_SPACE,
 					logo_width, logo_height);
 			this.canvas.getLogoLayer().add(logo, limits);
+			// Now we can reserve the rest of space for the text
+			createBottomTextBox();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -299,5 +324,14 @@ public class LegendRenderer {
 		final String filename = "reactome_logo_100pxW_50T.png";
 		final InputStream resource = getClass().getResourceAsStream(filename);
 		return ImageIO.read(resource);
+	}
+
+	private void createBottomTextBox() {
+		final Rectangle2D bounds = canvas.getBounds();
+		final double x = bounds.getMinX();
+		final double y = bounds.getMaxY() - logo_height;
+		final double width = bounds.getWidth() - logo_width;
+		final double height = logo_height;
+		bottomTextBox = NodePropertiesFactory.get(x, y, width, height);
 	}
 }

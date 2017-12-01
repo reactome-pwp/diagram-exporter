@@ -4,7 +4,7 @@
  * diagrams, although its usage is similar:
  * <code>
  * <pre>
- *     RasterArgs args = new SimpleRasterArgs(stId, "png");
+ *     RasterArgs args = new RasterArgs(stId, "png");
  *     RasterRenderer renderer = new EHLDRenderer(args, EHLDPath);
  *     Dimension dimension = renderer.getDimension();
  *     BufferedImage image = renderer.render();
