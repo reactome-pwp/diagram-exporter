@@ -7,10 +7,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class RasterArgs implements RasterArgs {
+public class RasterArgs {
 
 	private String stId;
-	private Double factor = 1.;
 	private String format;
 	private String token;
 	private Set<String> flags;
@@ -20,6 +19,8 @@ public class RasterArgs implements RasterArgs {
 	private Integer column;
 	private String resource;
 	private Boolean writeTitle;
+	private Integer quality = 5;
+	private Double factor = scale(quality);
 
 	public RasterArgs(String stId, String format) {
 		this.stId = stId;
@@ -35,22 +36,20 @@ public class RasterArgs implements RasterArgs {
 		this.stId = stId;
 	}
 
-	/** quality of output image. number of pixels per point in the diagram */
+	/**
+	 * Only for internal purpose. The quality is interpreted as a factor to
+	 * scale the image. The scale goes from 0.1 to 3.
+	 */
 	public Double getFactor() {
 		return factor;
 	}
 
-	public void setQuality(Integer quality) {
-		if (quality != null)
-			this.factor = scale(quality);
-	}
-
-	private double scale(int factor) {
-		if (factor < 1 || factor > 10)
-			throw new IllegalArgumentException("factor must be in the range [1-10]");
-		if (factor < 5) {
-			return interpolate(factor, 1, 5, 0.1, 1);
-		} else return interpolate(factor, 5, 10, 1, 3);
+	private double scale(int quality) {
+		if (quality < 1 || quality > 10)
+			throw new IllegalArgumentException("quality must be in the range [1-10]");
+		if (quality < 5) {
+			return interpolate(quality, 1, 5, 0.1, 1);
+		} else return interpolate(quality, 5, 10, 1, 3);
 	}
 
 	private double interpolate(double x, double min, double max, double dest_min, double dest_max) {
@@ -107,7 +106,6 @@ public class RasterArgs implements RasterArgs {
 		this.column = column;
 	}
 
-	@Override
 	public String getResource() {
 		return resource;
 	}
@@ -116,7 +114,6 @@ public class RasterArgs implements RasterArgs {
 		this.resource = resource;
 	}
 
-	@Override
 	public Boolean getWriteTitle() {
 		return writeTitle;
 	}
@@ -143,4 +140,14 @@ public class RasterArgs implements RasterArgs {
 			this.selected = new HashSet<>(selected);
 	}
 
+	public Integer getQuality() {
+		return quality;
+	}
+
+	public void setQuality(Integer quality) {
+		if (quality != null) {
+			this.quality = quality;
+			this.factor = scale(quality);
+		}
+	}
 }
