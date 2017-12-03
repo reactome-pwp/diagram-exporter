@@ -2,8 +2,8 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram.renderables;
 
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layout.ChemicalRenderer;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layout.NodeAbstractRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.ChemicalRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.NodeAbstractRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.NodeColorSheet;
 

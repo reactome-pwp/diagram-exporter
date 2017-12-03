@@ -4,10 +4,10 @@ import org.reactome.server.tools.diagram.data.layout.Connector;
 import org.reactome.server.tools.diagram.data.layout.EdgeCommon;
 import org.reactome.server.tools.diagram.data.layout.Segment;
 import org.reactome.server.tools.diagram.data.layout.Shape;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.DiagramIndex;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.ShapeFactory;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layers.DiagramCanvas;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layout.EdgeRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.EdgeRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
 import java.util.Arrays;

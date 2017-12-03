@@ -11,12 +11,12 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.TraceLogger;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.DiagramIndex;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.FontProperties;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layers.DiagramCanvas;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layout.CompartmentRenderer;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layout.LegendRenderer;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layout.NoteRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.CompartmentRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.LegendRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.NoteRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.gif.AnimatedGifEncoder;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 

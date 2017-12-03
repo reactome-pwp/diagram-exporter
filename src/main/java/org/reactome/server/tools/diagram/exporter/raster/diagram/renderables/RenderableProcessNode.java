@@ -1,8 +1,8 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.renderables;
 
 import org.reactome.server.tools.diagram.data.layout.Node;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.ShapeFactory;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layout.ProcessNodeRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.ProcessNodeRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.NodeColorSheet;
 
