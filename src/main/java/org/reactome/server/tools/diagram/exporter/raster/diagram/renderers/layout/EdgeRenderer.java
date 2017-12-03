@@ -13,6 +13,9 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.commo
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.StrokeStyle;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layers.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layers.DrawLayer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layers.FillDrawLayer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layers.TextLayer;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
 import java.awt.*;
@@ -30,9 +33,9 @@ public class EdgeRenderer extends ObjectRenderer {
 		final Color fillColor = getFillColor(edge, colorProfiles, index);
 		segments(edge, linesColor, canvas, colorProfiles);
 		shapes(edge, linesColor, fillColor, canvas, colorProfiles);
-		stoichiometryText(edge, linesColor, canvas);
 		// stoichiometry text is not in stoichiometry.getShape().getS()
 		// but in stoichiometry.getValue()
+		stoichiometryText(edge, linesColor, canvas);
 	}
 
 	@Override
@@ -40,9 +43,10 @@ public class EdgeRenderer extends ObjectRenderer {
 		//fadeout -> analysis -> normal
 		if (renderableNode.isFadeOut())
 			return renderableNode.getColorProfile(colorProfiles).getFadeOutFill();
-		// report: lighterfill of reaction is grey as text
-		if (index.getAnalysis().getType() != AnalysisType.NONE)
+		if (index.getAnalysis().getType() != AnalysisType.NONE) {
+			// report: lighterfill of reaction is grey (modern profile) as text
 			return renderableNode.getColorProfile(colorProfiles).getFill();
+		}
 		return renderableNode.getColorProfile(colorProfiles).getFill();
 	}
 
@@ -52,7 +56,10 @@ public class EdgeRenderer extends ObjectRenderer {
 					colorProfiles.getDiagramSheet().getProperties().getHalo(),
 					StrokeStyle.HALO.get(edge.isDashed())
 			));
-		edge.getSegments().forEach(shape -> canvas.getSegments().add(shape,
+		final DrawLayer layer = edge.isFadeOut()
+				? canvas.getFadeOutSegments()
+				: canvas.getSegments();
+		edge.getSegments().forEach(shape -> layer.add(shape,
 				linesColor, StrokeStyle.SEGMENT.get(edge.isDashed())));
 	}
 
@@ -65,17 +72,26 @@ public class EdgeRenderer extends ObjectRenderer {
 			final Color color = shape.getEmpty() != null && shape.getEmpty()
 					? fillColor
 					: linesColor;
-			canvas.getEdgeShapes().add(awtShape, color, linesColor, StrokeStyle.BORDER.get(edge.isDashed()));
+			final FillDrawLayer layer = edge.isFadeOut()
+					? canvas.getFadeOutEdgeShapes()
+					: canvas.getEdgeShapes();
+			layer.add(awtShape, color, linesColor, StrokeStyle.BORDER.get(edge.isDashed()));
+			if (shape.getType().equals("DOUBLE_CIRCLE"))
+				layer.add(ShapeFactory.innerCircle(shape), color, linesColor, StrokeStyle.BORDER.get(edge.isDashed()));
+			final TextLayer textLayer = edge.isFadeOut()
+					? canvas.getFadeOutText()
+					: canvas.getText();
 			if (shape.getS() != null && !shape.getS().isEmpty()) {
 				final NodeProperties limits = NodePropertiesFactory.get(
 						shape.getA().getX(), shape.getA().getY(),
 						shape.getB().getX() - shape.getA().getX(),
 						shape.getB().getY() - shape.getA().getY());
-				canvas.getText().add(shape.getS(), linesColor, limits, 1, 0, FontProperties.DEFAULT_FONT);
+				textLayer.add(shape.getS(), linesColor, limits, 1, 0, FontProperties.DEFAULT_FONT);
 			}
 		});
 	}
 
+	@SuppressWarnings("unused")
 	private void flag(RenderableEdge edge, DiagramCanvas canvas, ColorProfiles colorProfiles, java.awt.Shape awtShape) {
 		canvas.getFlags().add(awtShape,
 				colorProfiles.getDiagramSheet().getProperties().getFlag(),
@@ -85,7 +101,7 @@ public class EdgeRenderer extends ObjectRenderer {
 	private void halo(RenderableEdge edge, DiagramCanvas canvas, ColorProfiles colorProfiles, java.awt.Shape awtShape) {
 		canvas.getHalo().add(awtShape,
 				colorProfiles.getDiagramSheet().getProperties().getHalo(),
-				StrokeStyle.BORDER.get(edge.isDashed()));
+				StrokeStyle.HALO.get(edge.isDashed()));
 	}
 
 	private void stoichiometryText(RenderableEdge edge, Color linesColor, DiagramCanvas canvas) {

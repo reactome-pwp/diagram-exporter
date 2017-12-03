@@ -3,7 +3,10 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layo
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.FoundEntity;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.*;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.FontProperties;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.ShapeFactory;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.StrokeStyle;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layers.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layers.TextLayer;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
@@ -23,6 +26,8 @@ import java.util.stream.Collectors;
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public abstract class NodeAbstractRenderer extends ObjectRenderer {
+
+	static final double NODE_TEXT_PADDING = 5;
 
 	public void draw(RenderableNode renderableNode, DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
 		if (renderableNode.isFlag())
@@ -102,7 +107,7 @@ public abstract class NodeAbstractRenderer extends ObjectRenderer {
 	 */
 	public double expression(RenderableNode renderableNode, DiagramCanvas canvas, DiagramIndex index, ColorProfiles colorProfiles, int t) {
 		final List<FoundEntity> expressions = renderableNode.getHitExpressions();
-		double splitText = 0.0;
+		double textSplit = 0.0;
 		if (expressions != null) {
 			final List<Double> values = expressions.stream()
 					.map(participant -> participant.getExp().get(t))
@@ -114,7 +119,7 @@ public abstract class NodeAbstractRenderer extends ObjectRenderer {
 			final double y = prop.getY();
 			final double height = prop.getHeight();
 			final double partSize = prop.getWidth() / size;
-			splitText = (double) values.size() / size;
+			textSplit = (double) values.size() / size;
 
 			final double max = index.getAnalysis().getResult().getExpression().getMax();
 			final double min = index.getAnalysis().getResult().getExpression().getMin();
@@ -132,30 +137,17 @@ public abstract class NodeAbstractRenderer extends ObjectRenderer {
 				renderableNode.getBackgroundArea().subtract(expressionArea);
 			}
 		}
-		return splitText;
+		if (this instanceof SetRenderer || this instanceof ComplexRenderer)
+			return textSplit;
+		// report: if proteins have expression values their text should change to white
+		return 0.0;
 	}
 
-	public void cross(RenderableNode renderableNode, DiagramCanvas canvas, ColorProfiles colorProfiles) {
+	protected void cross(RenderableNode renderableNode, DiagramCanvas canvas, ColorProfiles colorProfiles) {
 		final Color color = colorProfiles.getDiagramSheet().getProperties().getDisease();
 		final List<Shape> cross = ShapeFactory.cross(renderableNode.getNode().getProp());
 		cross.forEach(line -> canvas.getCross().add(line, color, StrokeStyle.BORDER.get(renderableNode.isDashed())));
 	}
-
-//	protected void text(NodeRenderInfo info, double splitText) {
-//		if (info.getForegroundShape() != null) {
-//			final NodeProperties prop = info.getNode().getProp();
-//			final Rectangle2D bounds = info.getForegroundShape().getBounds2D();
-//			final NodeProperties limits = NodePropertiesFactory.get(
-//					bounds.getX(), bounds.getY(), bounds.getWidth(),
-//					bounds.getHeight());
-//			// as splitText is in background dimensions,
-//			// we need to change it to foreground percentage
-//			splitText = (prop.getX() + splitText * prop.getWidth() - limits.getX()) / limits.getWidth();
-//			info.getTextLayer().add(info.getNode().getDisplayName(), info.getTextColor(), limits, 1, splitText, FontProperties.DEFAULT_FONT);
-//		} else
-//			info.getTextLayer().add(info.getNode().getDisplayName(), info.getTextColor(),
-//					info.getNode().getProp(), RendererProperties.NODE_TEXT_PADDING, splitText, FontProperties.DEFAULT_FONT);
-//	}
 
 	public void text(RenderableNode renderableNode, DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, double textSplit) {
 		final TextLayer layer = renderableNode.isFadeOut()
@@ -165,7 +157,7 @@ public abstract class NodeAbstractRenderer extends ObjectRenderer {
 		layer.add(renderableNode.getNode().getDisplayName(),
 				color,
 				renderableNode.getNode().getProp(),
-				RendererProperties.NODE_TEXT_PADDING,
+				NODE_TEXT_PADDING,
 				textSplit,
 				FontProperties.DEFAULT_FONT);
 	}

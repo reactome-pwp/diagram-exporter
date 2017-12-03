@@ -67,7 +67,7 @@ public class TextRenderer {
 
 		Area whiteArea = null;
 		Area colorArea = null;
-		if (splitText > 0 && splitText <= 1) {
+		if (splitText > 0) {
 			whiteArea = new Area(new Rectangle2D.Double(x, y, width * splitText, height));
 			colorArea = new Area(new Rectangle2D.Double(x + width * splitText, y, width * (1 - splitText), height));
 		}
