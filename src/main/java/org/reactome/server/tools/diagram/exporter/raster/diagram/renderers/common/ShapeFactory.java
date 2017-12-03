@@ -15,6 +15,13 @@ import java.util.List;
  */
 public class ShapeFactory {
 
+	private static final double COMPLEX_RECT_ARC_WIDTH = 6;
+	private static final double ROUND_RECT_ARC_WIDTH = 8;
+	private static final double RNA_LOOP_WIDTH = 16;
+	private static final double GENE_SYMBOL_WIDTH = 50;
+	private static final double GENE_SYMBOL_PAD = 4;
+	private static final double ARROW_LENGTH = 8;
+
 	/**
 	 * Creates a rectangle with edged corners (an octagon)
 	 *
@@ -26,7 +33,7 @@ public class ShapeFactory {
 	 * @return an edged rectangle
 	 */
 	public static Shape getCornedRectangle(double x, double y, double width, double height) {
-		final double corner = RendererProperties.COMPLEX_RECT_ARC_WIDTH;
+		final double corner = COMPLEX_RECT_ARC_WIDTH;
 		final int[] xs = new int[]{
 				(int) (x + corner),
 				(int) (x + width - corner),
@@ -52,32 +59,23 @@ public class ShapeFactory {
 		return new Polygon(xs, ys, xs.length);
 	}
 
-	public static Shape getGeneFillShape(NodeProperties prop) {
-		return getGeneFillShape(prop.getX(), prop.getY(), prop.getWidth(), prop.getHeight());
-	}
-
 	/**
 	 * Creates the shape of the gene fill, a bottom rounded rectangle.
 	 *
-	 * @param x      top left x coordinate
-	 * @param y      top left y coordinate
-	 * @param width  width
-	 * @param height height
-	 *
 	 * @return the gene fill shape
 	 */
-	public static Shape getGeneFillShape(double x, double y, double width, double height) {
+	public static Shape getGeneFillShape(NodeProperties prop) {
 		final GeneralPath path = new GeneralPath();
-		final double y1 = y + 0.5 * RendererProperties.GENE_SYMBOL_WIDTH;
-		final double bottom = y + height;
-		final double arcWidth = RendererProperties.ROUND_RECT_ARC_WIDTH;
-		final double right = x + width;
-		path.moveTo(x, y1);
+		final double y1 = prop.getY() + 0.5 * GENE_SYMBOL_WIDTH;
+		final double bottom = (double) prop.getY() + prop.getHeight();
+		final double arcWidth = ROUND_RECT_ARC_WIDTH;
+		final double right = (double) prop.getX() + prop.getWidth();
+		path.moveTo(prop.getX(), y1);
 		path.lineTo(right, y1);
 		path.lineTo(right, bottom - arcWidth);
 		path.quadTo(right, bottom, right - arcWidth, bottom);
-		path.lineTo(x + arcWidth, bottom);
-		path.quadTo(x, bottom, x, bottom - arcWidth);
+		path.lineTo(prop.getX() + arcWidth, bottom);
+		path.quadTo(prop.getX(), bottom, prop.getX(), bottom - arcWidth);
 		path.closePath();
 		return path;
 	}
@@ -93,14 +91,14 @@ public class ShapeFactory {
 	 */
 	public static Shape getGeneLine(double x, double y, double width) {
 		// Horizontal line
-		final double y1 = y + 0.5 * RendererProperties.GENE_SYMBOL_WIDTH;
+		final double y1 = y + 0.5 * GENE_SYMBOL_WIDTH;
 		final double right = x + width;
 		final Path2D path = new GeneralPath();
 		path.moveTo(x, y1);
 		path.lineTo(right, y1);
 		// Vertical line
-		final double x1 = right - RendererProperties.GENE_SYMBOL_PAD;
-		final double y2 = y1 - 0.5 * RendererProperties.GENE_SYMBOL_WIDTH;
+		final double x1 = right - GENE_SYMBOL_PAD;
+		final double y2 = y1 - 0.5 * GENE_SYMBOL_WIDTH;
 		path.moveTo(x1, y1);
 		path.lineTo(x1, y2);
 		// another very short horizontal line
@@ -117,47 +115,17 @@ public class ShapeFactory {
 	 */
 	public static Shape getGeneArrow(double x, double y, double width) {
 		final double right = x + width;
-		final double toX = right + RendererProperties.ARROW_LENGTH;
-		final double y1 = y + 0.5 * RendererProperties.GENE_SYMBOL_WIDTH;
-		final double y2 = y1 - 0.5 * RendererProperties.GENE_SYMBOL_WIDTH;
+		final double toX = right + ARROW_LENGTH;
+		final double y1 = y + 0.5 * GENE_SYMBOL_WIDTH;
+		final double y2 = y1 - 0.5 * GENE_SYMBOL_WIDTH;
 		final Path2D triangle = new GeneralPath();
 		triangle.moveTo(toX, y2);
-		final double ay = y2 + 0.5 * RendererProperties.ARROW_LENGTH;
-		final double by = y2 - 0.5 * RendererProperties.ARROW_LENGTH;
+		final double ay = y2 + 0.5 * ARROW_LENGTH;
+		final double by = y2 - 0.5 * ARROW_LENGTH;
 		triangle.lineTo(right, ay);
 		triangle.lineTo(right, by);
 		triangle.closePath();
 		return triangle;
-	}
-
-	public static Shape getRnaShape(double x, double y, double width, double height) {
-		final double loopWidth = RendererProperties.RNA_LOOP_WIDTH;
-		double right = x + width;
-		double bottom = y + height;
-		final Path2D path = new GeneralPath();
-
-		double xAux = x + loopWidth;
-		double yAux = y + loopWidth / 2;
-		path.moveTo(xAux, yAux);
-		xAux = right - loopWidth;
-		path.lineTo(xAux, yAux);
-		yAux = y + height / 2;
-		path.quadTo(right, y, right, yAux);
-
-		xAux = right - loopWidth;
-		yAux = bottom - loopWidth / 2;
-		path.quadTo(right, bottom, xAux, yAux);
-
-		xAux = x + loopWidth;
-		path.lineTo(xAux, yAux);
-		yAux = y + height / 2;
-		path.quadTo(x, bottom, x, yAux);
-
-		xAux = x + loopWidth;
-		yAux = y + loopWidth / 2;
-		path.quadTo(x, y, xAux, yAux);
-		path.closePath();
-		return path;
 	}
 
 	public static Shape roundedRectangle(NodeProperties properties) {
@@ -171,8 +139,8 @@ public class ShapeFactory {
 				y,
 				width,
 				height,
-				RendererProperties.ROUND_RECT_ARC_WIDTH,
-				RendererProperties.ROUND_RECT_ARC_WIDTH);
+				ROUND_RECT_ARC_WIDTH,
+				ROUND_RECT_ARC_WIDTH);
 	}
 
 	public static Shape roundedRectangle(NodeProperties prop, double padding) {
@@ -186,8 +154,8 @@ public class ShapeFactory {
 				y + padding,
 				width - 2 * padding,
 				height - 2 * padding,
-				RendererProperties.ROUND_RECT_ARC_WIDTH,
-				RendererProperties.ROUND_RECT_ARC_WIDTH);
+				ROUND_RECT_ARC_WIDTH,
+				ROUND_RECT_ARC_WIDTH);
 	}
 
 	private static Shape arrow(org.reactome.server.tools.diagram.data.layout.Shape shape) {
@@ -222,7 +190,7 @@ public class ShapeFactory {
 				2 * shape.getR());
 	}
 
-	private static Shape innerCircle(org.reactome.server.tools.diagram.data.layout.Shape shape) {
+	public static Shape innerCircle(org.reactome.server.tools.diagram.data.layout.Shape shape) {
 		final double x = shape.getC().getX() - shape.getR1();
 		final double y = shape.getC().getY() - shape.getR1();
 		return new Ellipse2D.Double(
@@ -300,6 +268,31 @@ public class ShapeFactory {
 	}
 
 	public static Shape getRnaShape(NodeProperties prop) {
-		return getRnaShape(prop.getX(), prop.getY(), prop.getWidth(), prop.getHeight());
+		double right = (double) prop.getX() + prop.getWidth();
+		double bottom = prop.getY() + (double) prop.getHeight();
+		final Path2D path = new GeneralPath();
+
+		double xAux = prop.getX() + RNA_LOOP_WIDTH;
+		double yAux = prop.getY() + RNA_LOOP_WIDTH / 2;
+		path.moveTo(xAux, yAux);
+		xAux = right - RNA_LOOP_WIDTH;
+		path.lineTo(xAux, yAux);
+		yAux = prop.getY() + prop.getHeight() / 2;
+		path.quadTo(right, prop.getY(), right, yAux);
+
+		xAux = right - RNA_LOOP_WIDTH;
+		yAux = bottom - RNA_LOOP_WIDTH / 2;
+		path.quadTo(right, bottom, xAux, yAux);
+
+		xAux = prop.getX() + RNA_LOOP_WIDTH;
+		path.lineTo(xAux, yAux);
+		yAux = prop.getY() + prop.getHeight() / 2;
+		path.quadTo(prop.getX(), bottom, prop.getX(), yAux);
+
+		xAux = prop.getX() + RNA_LOOP_WIDTH;
+		yAux = prop.getY() + RNA_LOOP_WIDTH / 2;
+		path.quadTo(prop.getX(), prop.getY(), xAux, yAux);
+		path.closePath();
+		return path;
 	}
 }
