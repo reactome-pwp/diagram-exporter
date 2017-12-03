@@ -8,7 +8,7 @@ import org.reactome.server.tools.diagram.exporter.common.analysis.model.Analysis
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.ShapeFactory;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.StrokeProperties;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.StrokeStyle;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layers.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
@@ -42,7 +42,7 @@ public class CompartmentRenderer {
 
 
 	public void draw(DiagramCanvas canvas, List<Compartment> compartments, ColorProfiles profile, DiagramIndex index) {
-		final Stroke stroke = StrokeProperties.StrokeStyle.BORDER.getStroke(false);
+		final Stroke stroke = StrokeStyle.BORDER.get(false);
 		final Color fill;
 		final Color innerColor;
 		final Color text;
@@ -76,11 +76,11 @@ public class CompartmentRenderer {
 			if (inner.get(i) != null) {
 				final Area inn = new Area(inner.get(i));
 				out.subtract(inn);
-				canvas.getCompartmentFill().add(innerColor, inn);
-				canvas.getCompartmentBorder().add(border, stroke, inn);
+				canvas.getCompartmentFill().add(inn, innerColor);
+				canvas.getCompartmentBorder().add(inn, border, stroke);
 			}
-			canvas.getCompartmentFill().add(fill, out);
-			canvas.getCompartmentBorder().add(border, stroke, outer.get(i));
+			canvas.getCompartmentFill().add(out, fill);
+			canvas.getCompartmentBorder().add(outer.get(i), border, stroke);
 		}
 		compartments.forEach(compartment ->
 				canvas.getCompartmentText().add(text, compartment.getDisplayName(),

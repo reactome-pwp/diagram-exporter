@@ -13,20 +13,20 @@ public class FillDrawLayer extends CommonLayer {
 
 	private List<DrawObject> objects = new LinkedList<>();
 
-	public void add(Paint fillColor, Paint borderColor, Stroke borderStroke, Shape shape) {
+	public void add(Shape shape, Paint fillColor, Paint borderColor, Stroke borderStroke) {
 		addShape(shape);
 		objects.add(new DrawObject(shape, fillColor, borderColor, borderStroke));
 	}
 
 	@Override
 	public void render(Graphics2D graphics) {
-		objects.forEach(object -> {
+		for (DrawObject object : objects) {
 			graphics.setPaint(object.fill);
 			graphics.fill(object.shape);
 			graphics.setPaint(object.border);
 			graphics.setStroke(object.stroke);
 			graphics.draw(object.shape);
-		});
+		}
 	}
 
 	@Override

@@ -11,7 +11,7 @@ public class FillLayer extends CommonLayer {
 
 	private final List<DrawObject> objects = new LinkedList<>();
 
-	public void add(Paint color, Shape shape) {
+	public void add(Shape shape, Paint color) {
 		addShape(shape);
 		objects.add(new DrawObject(shape, color));
 	}

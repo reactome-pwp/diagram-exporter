@@ -5,12 +5,12 @@ import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
-import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.*;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 /**
  * Computes the analysis data of the diagram. Adds to the DiagramIndex the
  * analysis info of each node. If the analysis is an ENRICHMENT or
- * SPECIES_COMPARISON, adds to each NodeDecorator the percentage covered by the
+ * SPECIES_COMPARISON, adds to each RenderableNode the percentage covered by the
  * analysis. If it is an EXPRESSION analysis, adds the hitExpression values. If
  * there is no analysis, it doesn't add anything.
  */
@@ -62,11 +62,6 @@ public class DiagramAnalysis {
 				.forEach(item -> diagramIndex.put(item.getReactomeId(), item));
 		graphIndex = new HashMap<>();
 		graph.getNodes().forEach(item -> graphIndex.put(item.getDbId(), item));
-		// Add connectors to reactions, so they can be rendered together
-		diagram.getNodes().stream()
-				.map(Node::getConnectors)
-				.flatMap(Collection::stream)
-				.forEach(connector -> index.getEdgeDecorator(connector.getEdgeId()).getConnectors().add(connector));
 	}
 
 	/**
@@ -131,7 +126,7 @@ public class DiagramAnalysis {
 			double percentage = (double) found / total;
 			if (percentage < MIN_VISIBLE_ENRICHMENT && percentage > 0)
 				percentage = MIN_VISIBLE_ENRICHMENT;
-			index.getNodeDecorator(diagramNode.getId()).setEnrichment(percentage);
+			index.getNode(diagramNode.getId()).setEnrichment(percentage);
 		}
 	}
 
@@ -156,8 +151,8 @@ public class DiagramAnalysis {
 			final List<FoundEntity> leaves = getLeaves(graphNode).stream()
 					.map(leafId -> analysisIndex.get(graphIndex.get(leafId).getIdentifier()))
 					.collect(Collectors.toList());
-			final DiagramIndex.NodeDecorator decorator = index.getNodeDecorator(diagramNode.getId());
-			decorator.setHitExpressions(leaves);
+			final RenderableNode renderableNode = index.getNode(diagramNode.getId());
+			renderableNode.setHitExpressions(leaves);
 		});
 	}
 
@@ -183,7 +178,7 @@ public class DiagramAnalysis {
 					final EntityNode graphNode = graphIndex.get(diagramNode.getReactomeId());
 					if (graphNode != null) {
 						double percentage = getPercentage(graphNodeHit, graphNode);
-						index.getNodeDecorator(diagramNode.getId()).setEnrichment(percentage);
+						index.getNode(diagramNode.getId()).setEnrichment(percentage);
 					}
 				});
 	}

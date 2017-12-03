@@ -6,7 +6,6 @@ import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import java.awt.*;
 import java.awt.geom.*;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -51,6 +50,10 @@ public class ShapeFactory {
 				(int) y
 		};
 		return new Polygon(xs, ys, xs.length);
+	}
+
+	public static Shape getGeneFillShape(NodeProperties prop) {
+		return getGeneFillShape(prop.getX(), prop.getY(), prop.getWidth(), prop.getHeight());
 	}
 
 	/**
@@ -248,19 +251,17 @@ public class ShapeFactory {
 	 *
 	 * @return a list of java shapes
 	 */
-	// TODO: Is it ok to return a list of shapes just because of the inner circle?
-	public static List<Shape> getShapes(org.reactome.server.tools.diagram.data.layout.Shape shape) {
+	public static Shape getShape(org.reactome.server.tools.diagram.data.layout.Shape shape) {
 		switch (shape.getType()) {
 			case "ARROW":
-				return Collections.singletonList(arrow(shape));
+				return (arrow(shape));
 			case "BOX":
-				return Collections.singletonList(box(shape));
+				return (box(shape));
 			case "CIRCLE":
-				return Collections.singletonList(circle(shape));
 			case "DOUBLE_CIRCLE":
-				return Arrays.asList(circle(shape), innerCircle(shape));
+				return (circle(shape));
 			case "STOP":
-				return Collections.singletonList(stop(shape));
+				return (stop(shape));
 			default:
 				throw new RuntimeException("Do not know shape " + shape.getType());
 		}
@@ -273,11 +274,16 @@ public class ShapeFactory {
 
 	public static List<Shape> cross(NodeProperties properties) {
 		return Arrays.asList(
-				new Line2D.Double(properties.getX(), properties.getY(),
+				new Line2D.Double(
+						properties.getX(),
+						properties.getY(),
 						properties.getX() + properties.getWidth(),
 						properties.getY() + properties.getHeight()),
-				new Line2D.Double(properties.getX(), properties.getY() + properties.getHeight(),
-						properties.getX() + properties.getWidth(), properties.getY())
+				new Line2D.Double(
+						properties.getX(),
+						properties.getY() + properties.getHeight(),
+						properties.getX() + properties.getWidth(),
+						properties.getY())
 		);
 	}
 
@@ -291,5 +297,9 @@ public class ShapeFactory {
 
 	public static Shape rectangle(NodeProperties prop) {
 		return new Rectangle2D.Double(prop.getX(), prop.getY(), prop.getWidth(), prop.getHeight());
+	}
+
+	public static Shape getRnaShape(NodeProperties prop) {
+		return getRnaShape(prop.getX(), prop.getY(), prop.getWidth(), prop.getHeight());
 	}
 }

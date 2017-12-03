@@ -5,13 +5,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Lines and borders.
+ *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class DrawLayer extends CommonLayer {
 
 	private List<DrawObject> objects = new LinkedList<>();
 
-	public void add(Color color, Stroke stroke, Shape shape) {
+	public void add(Shape shape, Color color, Stroke stroke) {
 		addShape(shape);
 		objects.add(new DrawObject(shape, color, stroke));
 	}

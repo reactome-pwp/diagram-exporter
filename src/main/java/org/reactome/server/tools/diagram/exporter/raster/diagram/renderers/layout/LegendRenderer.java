@@ -8,7 +8,7 @@ import org.reactome.server.tools.diagram.exporter.common.analysis.model.FoundEnt
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.DiagramAnalysis;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.FontProperties;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.StrokeProperties;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.StrokeStyle;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layers.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
@@ -169,8 +169,8 @@ public class LegendRenderer {
 				colorBar.getWidth() + 2 * BACKGROUND_PADDING,
 				colorBar.getHeight() + 2 * textSpace,
 				20, 20);
-		final Stroke stroke = StrokeProperties.StrokeStyle.SEGMENT.getStroke(false);
-		canvas.getLegendBackground().add(BACKGROUND_FILL, BACKGROUND_BORDER, stroke, background);
+		final Stroke stroke = StrokeStyle.SEGMENT.get(false);
+		canvas.getLegendBackground().add(background, BACKGROUND_FILL, BACKGROUND_BORDER, stroke);
 	}
 
 	private void addColorBar() {
@@ -193,13 +193,13 @@ public class LegendRenderer {
 							gradient.getStop(),
 							gradient.getMin()});
 		}
-		canvas.getLegendBar().add(paint, colorBar);
+		canvas.getLegendBar().add(colorBar, paint);
 	}
 
 	private void ticks(int col) {
 		if (index.getDecorator().getSelected() == null) return;
 		for (Long id : index.getDecorator().getSelected()) {
-			final List<FoundEntity> expressions = index.getNodeDecorator(id).getHitExpressions();
+			final List<FoundEntity> expressions = index.getNode(id).getHitExpressions();
 			if (expressions == null || expressions.isEmpty()) continue;
 			// Calculate which ticks to draw: (min, median, max) or (value)
 			Double nMax;
@@ -218,7 +218,7 @@ public class LegendRenderer {
 				nValue = getMedian(values);
 			}
 
-			final Stroke stroke = StrokeProperties.StrokeStyle.SEGMENT.getStroke(false);
+			final Stroke stroke = StrokeStyle.SEGMENT.get(false);
 			final Color limitColor, valueColor;
 			if (nMax == null) {
 				limitColor = null;
@@ -256,10 +256,10 @@ public class LegendRenderer {
 		// In expression analysis, min is in the bottom
 		final double y1 = colorBar.getMaxY() - colorBar.getHeight() * val;
 		final Shape line = new Line2D.Double(colorBar.getX(), y1, colorBar.getMaxX(), y1);
-		canvas.getLegendTicks().add(limitColor, stroke, line);
+		canvas.getLegendTicks().add(line, limitColor, stroke);
 		// Notice the -1. It puts the arrow over the line
 		final Shape arrow = arrow(colorBar.getMaxX() - 1, y1);
-		canvas.getLegendTickArrows().add(limitColor, arrow);
+		canvas.getLegendTickArrows().add(arrow, limitColor);
 	}
 
 	private Shape arrow(double x, double y) {

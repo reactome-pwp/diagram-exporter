@@ -1,7 +1,5 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layout;
 
-import org.reactome.server.tools.diagram.data.layout.EdgeCommon;
-
 /**
  * Renderer for flow lines.
  *
@@ -9,8 +7,4 @@ import org.reactome.server.tools.diagram.data.layout.EdgeCommon;
  */
 public class FlowLineRenderer extends LinkRenderer {
 
-	@Override
-	protected boolean dashed(EdgeCommon edge) {
-		return false;
-	}
 }

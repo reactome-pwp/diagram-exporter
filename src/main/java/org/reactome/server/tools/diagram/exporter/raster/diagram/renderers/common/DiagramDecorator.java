@@ -8,6 +8,8 @@ import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.Edge;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableEdge;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -15,7 +17,7 @@ import java.util.stream.Stream;
 
 /**
  * Includes the selection, flag and halo information for each node and reaction
- * and adds it to the corresponding DiagramObjectDecorator.
+ * and adds it to the corresponding RenderableObject.
  */
 public class DiagramDecorator {
 
@@ -121,33 +123,33 @@ public class DiagramDecorator {
 			return;
 		diagram.getNodes().forEach(node -> {
 			if (selected.contains(node.getReactomeId())) {
-				final DiagramIndex.NodeDecorator decorator = index.getNodeDecorator(node.getId());
-				decorator.setSelected(true);
-				decorator.setHalo(true);
+				final RenderableNode renderableNode = index.getNode(node.getId());
+				renderableNode.setSelected(true);
+				renderableNode.setHalo(true);
 				this.selected.addAll(graphIndex.get(node.getReactomeId()).getDiagramIds());
 				node.getConnectors().forEach(connector -> {
 					final Edge reaction = (Edge) diagramIndex.get(connector.getEdgeId());
 					// When a node is selected, the nodes in the same reaction
 					// are haloed
-					index.getEdgeDecorator(reaction.getId()).setHalo(true);
+					index.getEdge(reaction.getId()).setHalo(true);
 					haloEdgeParticipants(reaction);
 				});
 			}
 			if (flags.contains(node.getReactomeId()))
-				index.getNodeDecorator(node.getId()).setFlag(true);
+				index.getNode(node.getId()).setFlag(true);
 		});
 	}
 
 	private void decorateReactions(Collection<Long> selected, Collection<Long> flags) {
 		diagram.getEdges().forEach(reaction -> {
 			if (selected.contains(reaction.getReactomeId())) {
-				final DiagramIndex.EdgeDecorator decorator = index.getEdgeDecorator(reaction.getId());
-				decorator.setSelected(true);
-				decorator.setHalo(true);
+				final RenderableEdge renderableEdge = index.getEdge(reaction.getId());
+				renderableEdge.setSelected(true);
+				renderableEdge.setHalo(true);
 				haloEdgeParticipants(reaction);
 			}
 			if (flags.contains(reaction.getReactomeId()))
-				index.getEdgeDecorator(reaction.getId()).setFlag(true);
+				index.getEdge(reaction.getId()).setFlag(true);
 		});
 	}
 
@@ -165,7 +167,7 @@ public class DiagramDecorator {
 				.map(part -> diagramIndex.get(part.getId()))
 				.map(Node.class::cast)
 				.filter(node -> node.getIsFadeOut() == null || !node.getIsFadeOut())
-				.forEach(node -> index.getNodeDecorator(node.getId()).setHalo(true));
+				.forEach(node -> index.getNode(node.getId()).setHalo(true));
 	}
 
 	public Set<Long> getSelected() {

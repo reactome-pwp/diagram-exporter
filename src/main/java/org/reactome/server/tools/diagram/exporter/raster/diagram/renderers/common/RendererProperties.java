@@ -8,8 +8,6 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.comm
  */
 public class RendererProperties {
 
-	public static double SET_PADDING = 4;
-	public static double PROCESS_NODE_PADDING = 10;
 	public static double NODE_TEXT_PADDING = 5;
 
 	static double COMPLEX_RECT_ARC_WIDTH = 6;

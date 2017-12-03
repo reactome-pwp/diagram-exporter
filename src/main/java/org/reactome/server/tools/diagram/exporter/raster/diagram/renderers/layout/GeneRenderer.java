@@ -1,10 +1,15 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layout;
 
-import org.reactome.server.tools.diagram.data.layout.NodeCommon;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.*;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableGene;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.FontProperties;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.RendererProperties;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.StrokeStyle;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layers.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layers.TextLayer;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
 import java.awt.*;
@@ -16,81 +21,65 @@ import java.awt.geom.Rectangle2D;
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class GeneRenderer extends NodeAbstractRenderer {
-
 	@Override
-	protected void border(NodeRenderInfo info) {
-		final Shape line = line(info.getNode().getProp());
-		info.getBorderLayer().add(info.getBorderColor(), info.getBorderStroke(), line);
-		final Shape arrow = arrow(info.getNode().getProp());
-		info.getBorderLayer().add(info.getBorderColor(), info.getBorderStroke(), arrow);
-	}
-
-	@Override
-	public void foreground(NodeRenderInfo info) {
-		super.foreground(info);
-		final Shape arrow = arrow(info.getNode().getProp());
-		info.getFgLayer().add(info.getForegroundColor(), arrow);
-	}
-
-	@Override
-	public Shape backgroundShape(NodeCommon node) {
-		final NodeProperties prop = node.getProp();
-		final double x = prop.getX();
-		final double y = prop.getY();
-		final double width = prop.getWidth();
-		final double height = prop.getHeight();
-		return ShapeFactory.getGeneFillShape(x, y, width, height);	}
-
-	private Shape line(NodeProperties prop) {
-		final double x = prop.getX();
-		final double y = prop.getY();
-		final double width = prop.getWidth();
-		return ShapeFactory.getGeneLine(x, y, width);
-	}
-
-	private Shape arrow(NodeProperties prop) {
-		final double x = prop.getX();
-		final double y = prop.getY();
-		final double width = prop.getWidth();
-		return ShapeFactory.getGeneArrow(x, y, width);
-	}
-
-	@Override
-	protected void halo(NodeRenderInfo info) {
-		if (info.getDecorator().isHalo()) {
-			final Shape line = line(info.getNode().getProp());
-			info.getHaloLayer().add(info.getHaloColor(), info.getHaloStroke(), line);
-			final Shape arrow = arrow(info.getNode().getProp());
-			info.getHaloLayer().add(info.getHaloColor(), info.getHaloStroke(), arrow);
+	public void background(RenderableNode renderableNode, DiagramCanvas canvas, DiagramIndex index, ColorProfiles colorProfiles) {
+		RenderableGene renderableGene = (RenderableGene) renderableNode;
+		final Color fill = getFillColor(renderableNode, colorProfiles, index);
+		final Color border = getStrokeColor(renderableNode, colorProfiles, index);
+		if (renderableNode.isFadeOut()) {
+			canvas.getFadeOutNodeBackground().add(renderableNode.getBackgroundArea(), fill);
+			canvas.getFadeOutNodeBackground().add(renderableGene.getArrow(), fill);
+			canvas.getFadeOutNodeBorder().add(renderableGene.getLine(), border, StrokeStyle.BORDER.get(renderableGene.isDashed()));
+			canvas.getFadeOutNodeBorder().add(renderableGene.getArrow(), border, StrokeStyle.BORDER.get(renderableGene.isDashed()));
+		} else {
+			canvas.getNodeForeground().add(renderableNode.getBackgroundArea(), fill);
+			canvas.getNodeForeground().add(renderableGene.getArrow(), fill);
+			canvas.getNodeBorder().add(renderableGene.getLine(), border, StrokeStyle.BORDER.get(renderableGene.isDashed()));
+			canvas.getNodeBorder().add(renderableGene.getArrow(), border, StrokeStyle.BORDER.get(renderableGene.isDashed()));
 		}
 	}
 
 	@Override
-	protected void flag(NodeRenderInfo info) {
-		if (info.getDecorator().isFlag()) {
-			final Shape line = line(info.getNode().getProp());
-			info.getHaloLayer().add(info.getFlagColor(), info.getFlagStroke(), line);
-			final Shape arrow = arrow(info.getNode().getProp());
-			info.getHaloLayer().add(info.getFlagColor(), info.getFlagStroke(), arrow);
-		}
+	public void halo(RenderableNode renderableNode, DiagramCanvas canvas, ColorProfiles colorProfiles) {
+		RenderableGene renderableGene = (RenderableGene) renderableNode;
+		canvas.getHalo().add(renderableGene.getArrow(),
+				colorProfiles.getDiagramSheet().getProperties().getHalo(),
+				StrokeStyle.HALO.get(renderableGene.isDashed()));
+		canvas.getHalo().add(renderableGene.getLine(),
+				colorProfiles.getDiagramSheet().getProperties().getHalo(),
+				StrokeStyle.HALO.get(renderableGene.isDashed()));
 	}
 
 	@Override
-	public Color getForegroundFill(ColorProfiles colors, DiagramIndex index) {
-		return index.getAnalysis().getType() == AnalysisType.NONE
-				? colors.getDiagramSheet().getGene().getFill()
-				: colors.getDiagramSheet().getGene().getLighterFill();
+	public void flag(RenderableNode renderableNode, DiagramCanvas canvas, ColorProfiles colorProfiles) {
+		RenderableGene renderableGene = (RenderableGene) renderableNode;
+		canvas.getFlags().add(renderableGene.getArrow(),
+				colorProfiles.getDiagramSheet().getProperties().getHalo(),
+				StrokeStyle.FLAG.get(renderableGene.isDashed()));
+		canvas.getFlags().add(renderableGene.getLine(),
+				colorProfiles.getDiagramSheet().getProperties().getHalo(),
+				StrokeStyle.FLAG.get(renderableGene.isDashed()));
 	}
 
 	@Override
-	protected void text(NodeRenderInfo info, double splitText) {
-		final Rectangle2D bounds = info.getBackgroundShape().getBounds2D();
+	public void text(RenderableNode renderableNode, DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, double textSplit) {
+		final TextLayer textLayer = renderableNode.isFadeOut()
+				? canvas.getFadeOutText()
+				: canvas.getText();
+		Color textColor = getTextColor(renderableNode, colorProfiles, index);
+		final Rectangle2D bounds = renderableNode.getBackgroundShape().getBounds2D();
 		if (bounds.getHeight() > FontProperties.DEFAULT_FONT.getSize()) {
 			final NodeProperties limits = NodePropertiesFactory.get(
 					bounds.getX(), bounds.getY(), bounds.getWidth(),
 					bounds.getHeight());
-			info.getTextLayer().add(info.getNode().getDisplayName(), info.getTextColor(), limits, RendererProperties.NODE_TEXT_PADDING, splitText, FontProperties.DEFAULT_FONT);
+			textLayer.add(renderableNode.getNode().getDisplayName(),
+					textColor, limits, RendererProperties.NODE_TEXT_PADDING,
+					textSplit, FontProperties.DEFAULT_FONT);
 		} else
-			info.getTextLayer().add(info.getNode().getDisplayName(), info.getTextColor(), info.getNode().getProp(), RendererProperties.NODE_TEXT_PADDING, splitText, FontProperties.DEFAULT_FONT);
+			textLayer.add(renderableNode.getNode().getDisplayName(), textColor,
+					renderableNode.getNode().getProp(), RendererProperties.NODE_TEXT_PADDING,
+					textSplit, FontProperties.DEFAULT_FONT);
+
 	}
+
 }
