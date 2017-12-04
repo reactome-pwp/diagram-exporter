@@ -154,6 +154,7 @@ public class LegendRenderer {
 		} else if (index.getAnalysis().getType() == AnalysisType.SPECIES_COMPARISON) {
 			// [title: ]species name
 			if (title != null) text = title + ": ";
+			// report: getSummary().getSpeciesName() is always null
 			text += SPECIES.get(index.getAnalysis().getResult().getSummary().getSpecies());
 		}
 		if (text.trim().isEmpty()) return;
@@ -330,7 +331,6 @@ public class LegendRenderer {
 		}
 	}
 
-	/** Returns the first logo that has a width greater than logo_width */
 	private BufferedImage getLogo() throws IOException {
 		final String filename = "reactome_logo_100pxW_50T.png";
 		final InputStream resource = getClass().getResourceAsStream(filename);

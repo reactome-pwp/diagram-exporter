@@ -52,5 +52,6 @@ public abstract class RenderableObject {
 		return fadeOut;
 	}
 
+	/** Get the proper NodeColorSheet for this Object */
 	public abstract NodeColorSheet getColorProfile(ColorProfiles colorProfiles);
 }
