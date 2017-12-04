@@ -2,7 +2,8 @@
   "dbId" : 69620,
   "stableId" : "R-HSA-69620",
   "displayName" : "Diagram of Cell Cycle Checkpoints",
-  "nodes" : [ {
+  "nodes" : [
+    {
     "id" : 5,
     "reactomeId" : 182558,
     "displayName" : "CDKN1A,CDKN1B",
@@ -9833,7 +9834,8 @@
       }
     } ]
   } ],
-  "edges" : [ {
+  "edges" : [
+    {
     "id" : 386,
     "reactomeId" : 141422,
     "displayName" : "MAD2 converted  to an inhibitory state via interaction with Mad1",
@@ -14198,7 +14200,8 @@
       "id" : 385
     } ]
   } ],
-  "compartments" : [ {
+  "compartments" : [
+    {
     "id" : 9,
     "reactomeId" : 70101,
     "displayName" : "cytosol",

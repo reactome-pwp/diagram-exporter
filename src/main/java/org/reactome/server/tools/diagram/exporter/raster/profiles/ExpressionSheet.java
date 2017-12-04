@@ -1,8 +1,9 @@
 package org.reactome.server.tools.diagram.exporter.raster.profiles;
 
-public interface ExpressionSheet extends EnrichmentSheet {
+public class ExpressionSheet extends EnrichmentSheet {
+	private LegendSheet legend;
 
-	LegendSheet getLegend();
-
-
+	public LegendSheet getLegend() {
+		return legend;
+	}
 }

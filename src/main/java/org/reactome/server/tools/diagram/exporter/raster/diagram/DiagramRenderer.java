@@ -11,18 +11,18 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.TraceLogger;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.DiagramIndex;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.FontProperties;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.common.NodeRenderInfo;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layers.DiagramCanvas;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.layout.*;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.CompartmentRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.LegendRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.NoteRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.gif.AnimatedGifEncoder;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
 import java.util.logging.Logger;
@@ -129,7 +129,7 @@ public class DiagramRenderer implements RasterRenderer {
 	/**
 	 * Animated GIF are generated into a temp File
 	 */
-	public void renderToAnimatedGif(OutputStream outputStream) throws IOException {
+	public void renderToAnimatedGif(OutputStream outputStream) {
 		if (index.getAnalysis().getType() != AnalysisType.EXPRESSION)
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
 
@@ -155,13 +155,8 @@ public class DiagramRenderer implements RasterRenderer {
 
 	private BufferedImage frame(double factor, int width, int height, int offsetX, int offsetY, int t) {
 		canvas.getNodeAnalysis().clear();
-		// Update expression layer
-		diagram.getNodes().forEach(node -> {
-			final NodeAbstractRenderer renderer = (NodeAbstractRenderer) RendererFactory.get(node.getRenderableClass());
-			// TODO: this operation is costly, should we maintain all the NodeRenderInfo in an index
-			final NodeRenderInfo info = new NodeRenderInfo(node, index, colorProfiles, canvas, renderer);
-			renderer.expression(colorProfiles, info, index, t);
-		});
+		index.getNodes().forEach(renderableNode ->
+				renderableNode.renderAnalysis(canvas, colorProfiles, index, t));
 		// Update legend
 		legendRenderer.setCol(t, diagram.getDisplayName());
 		final BufferedImage image = createImage(width, height, "gif");
@@ -218,7 +213,6 @@ public class DiagramRenderer implements RasterRenderer {
 
 	private void layout() {
 		compartments();
-		links();
 		nodes();
 		notes();
 		edges();
@@ -230,22 +224,12 @@ public class DiagramRenderer implements RasterRenderer {
 		renderer.draw(canvas, diagram.getCompartments(), colorProfiles, index);
 	}
 
-	private void links() {
-		diagram.getLinks().forEach(link ->
-				RendererFactory.get(link.getRenderableClass())
-						.draw(canvas, link, colorProfiles, index, T));
-	}
-
 	private void nodes() {
-		diagram.getNodes().forEach(node ->
-				RendererFactory.get(node.getRenderableClass())
-						.draw(canvas, node, colorProfiles, index, T));
+		index.getNodes().forEach(node -> node.render(canvas, colorProfiles, index, T));
 	}
 
 	private void edges() {
-		final EdgeRenderer renderer = new EdgeRenderer();
-		diagram.getEdges().forEach(edge ->
-				renderer.draw(canvas, edge, colorProfiles, index, T));
+		index.getEdges().forEach(edge -> edge.render(canvas, colorProfiles, index));
 	}
 
 	private void notes() {

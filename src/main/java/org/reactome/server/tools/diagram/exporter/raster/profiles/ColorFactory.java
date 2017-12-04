@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
  * Parse colors in hex RGB (#FF0000) and rgba(255,255,0, 0.5)
  */
 public class ColorFactory {
-	private final static Pattern RGBA = Pattern.compile("^rgba\\(\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*(0|[1-9]\\d?|1\\d\\d?|2[0-4]\\d|25[0-5])\\s*,\\s*((0.[0-9]+)|[01]|1.0*)\\s*\\)$");
 
+	private final static Pattern RGBA = Pattern.compile("rgba\\((.*)\\)");
 	// speed up with a color cache
 	// of course, this shouldn't be necessary if the Profiles already had the
 	// colors parsed
@@ -40,13 +40,13 @@ public class ColorFactory {
 
 	private static Color rgbaToColor(String input) {
 		final Matcher m = RGBA.matcher(input);
-		if (m.matches()) {
-			return new Color(Integer.parseInt(m.group(1)),
-					Integer.parseInt(m.group(2)),
-					Integer.parseInt(m.group(3)),
-					(int) (Float.parseFloat(m.group(4)) * 255f));
-		}
-		return null;
+		if (!m.matches()) return null;
+		final String[] rgba = m.group(1).split(",");
+		return new Color(
+				Integer.parseInt(rgba[0].trim()),
+				Integer.parseInt(rgba[1].trim()),
+				Integer.parseInt(rgba[2].trim()),
+				(int) (255 * Float.parseFloat(rgba[3].trim())));
 	}
 
 	public static Color blend(Color back, Color front) {

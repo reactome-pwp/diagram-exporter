@@ -1,48 +1,102 @@
 package org.reactome.server.tools.diagram.exporter.raster.profiles;
 
-/**
- * Diagram color profile. Contains a common Properties and a NodeColorSheet for
- * each renderableClass.
- */
-public interface DiagramSheet extends ColorSheet {
+public class DiagramSheet extends ColorSheet {
 
-	PropertiesColorSheet getProperties();
+	private PropertiesColorSheet properties;
+	private NodeColorSheet attachment;
+	private NodeColorSheet chemical;
+	private NodeColorSheet compartment;
+	private NodeColorSheet complex;
+	private NodeColorSheet entity;
+	private NodeColorSheet entitySet;
+	private NodeColorSheet flowLine;
+	private NodeColorSheet gene;
+	private NodeColorSheet interactor;
+	private NodeColorSheet link;
+	private NodeColorSheet note;
+	private NodeColorSheet otherEntity;
+	private NodeColorSheet processNode;
+	private NodeColorSheet protein;
+	private NodeColorSheet reaction;
+	private NodeColorSheet rna;
+	private NodeColorSheet stoichiometry;
+	private ThumbnailColorSheet thumbnail;
 
-	NodeColorSheet getAttachment();
+	public PropertiesColorSheet getProperties() {
+		return properties;
+	}
 
-	NodeColorSheet getChemical();
+	public NodeColorSheet getAttachment() {
+		return attachment;
+	}
 
-	NodeColorSheet getCompartment();
+	public NodeColorSheet getChemical() {
+		return chemical;
+	}
 
-	NodeColorSheet getComplex();
+	public NodeColorSheet getCompartment() {
+		return compartment;
+	}
 
-	NodeColorSheet getEntity();
+	public NodeColorSheet getComplex() {
+		return complex;
+	}
 
-	NodeColorSheet getEntitySet();
+	public NodeColorSheet getEntity() {
+		return entity;
+	}
 
-	NodeColorSheet getFlowLine();
+	public NodeColorSheet getEntitySet() {
+		return entitySet;
+	}
 
-	NodeColorSheet getGene();
+	public NodeColorSheet getFlowLine() {
+		return flowLine;
+	}
 
-	NodeColorSheet getInteractor();
+	public NodeColorSheet getGene() {
+		return gene;
+	}
 
-	NodeColorSheet getLink();
+	public NodeColorSheet getInteractor() {
+		return interactor;
+	}
 
-	NodeColorSheet getNote();
+	public NodeColorSheet getLink() {
+		return link;
+	}
 
-	NodeColorSheet getOtherEntity();
+	public NodeColorSheet getNote() {
+		return note;
+	}
 
-	NodeColorSheet getProcessNode();
+	public NodeColorSheet getOtherEntity() {
+		return otherEntity;
+	}
 
-	NodeColorSheet getProtein();
+	public NodeColorSheet getProcessNode() {
+		return processNode;
+	}
 
-	NodeColorSheet getReaction();
+	public NodeColorSheet getProtein() {
+		return protein;
+	}
 
-	NodeColorSheet getRna();
+	public NodeColorSheet getReaction() {
+		return reaction;
+	}
 
-	NodeColorSheet getStoichiometry();
+	public NodeColorSheet getRna() {
+		return rna;
+	}
 
-	ThumbnailColorSheet getThumbnail();
+	public NodeColorSheet getStoichiometry() {
+		return stoichiometry;
+	}
+
+	public ThumbnailColorSheet getThumbnail() {
+		return thumbnail;
+	}
 
 
 }

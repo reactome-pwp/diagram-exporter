@@ -3,24 +3,28 @@ package org.reactome.server.tools.diagram.exporter.raster.profiles;
 import java.awt.*;
 
 /**
- * Color profile for Analysis. Matches a JSON with analysis structure:
- * enrichment and expression.
+ * Implementation of AnalysisSheet tested with JacksonXML.
  */
-public interface AnalysisSheet extends ColorSheet {
+@SuppressWarnings("unused")
+public class AnalysisSheet extends ColorSheet {
+	private ExpressionSheet expression;
+	private EnrichmentSheet enrichment;
+	private Color ribbon;
 
-	/**
-	 * Color profile for expressions
-	 */
-	ExpressionSheet getExpression();
+	public ExpressionSheet getExpression() {
+		return expression;
+	}
 
-	/**
-	 * Color profile for enrichment
-	 */
-	EnrichmentSheet getEnrichment();
+	public EnrichmentSheet getEnrichment() {
+		return enrichment;
+	}
 
-	/**
-	 * Color for ribbons
-	 */
-	Color getRibbon();
+	public Color getRibbon() {
+		return ribbon;
+	}
+
+	public void setRibbon(String color) {
+		this.ribbon = ColorFactory.parseColor(color);
+	}
 
 }
