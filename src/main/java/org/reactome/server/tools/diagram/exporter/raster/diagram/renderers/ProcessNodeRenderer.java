@@ -2,13 +2,13 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram.renderers;
 
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.TextLayer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
 import java.awt.*;
@@ -32,16 +32,26 @@ public class ProcessNodeRenderer extends NodeAbstractRenderer {
 		final Color fill = index.getAnalysis().getType() == AnalysisType.NONE
 				? INNER_COLOR
 				: ANALYSIS_INNER_COLOR;
-		final Color border = getStrokeColor(renderableNode, colorProfiles, index);
+		final Color innerBorder = getInnerStrokeColor(renderableNode, colorProfiles, index);
+		final Stroke stroke = StrokeStyle.BORDER.get(renderableNode.isDashed());
 		if (renderableNode.isFadeOut()) {
 			canvas.getFadeOutNodeForeground().add(rectangle, fill);
-			canvas.getFadeOutNodeBorder().add(rectangle, border, StrokeStyle.BORDER.get(renderableNode.isDashed()));
+			canvas.getFadeOutNodeBorder().add(rectangle, innerBorder, stroke);
 		} else {
 			canvas.getNodeForeground().add(rectangle, fill);
-			canvas.getNodeBorder().add(rectangle, border, StrokeStyle.BORDER.get(renderableNode.isDashed()));
+			canvas.getNodeBorder().add(rectangle, innerBorder, stroke);
 		}
-
 	}
+
+	/** Inner border is not selected */
+	private Color getInnerStrokeColor(RenderableNode renderableNode, ColorProfiles colorProfiles, DiagramIndex index) {
+		if (renderableNode.isDisease())
+			return colorProfiles.getDiagramSheet().getProperties().getDisease();
+		if (renderableNode.isFadeOut())
+			return renderableNode.getColorProfile(colorProfiles).getFadeOutStroke();
+		if (index.getAnalysis().getType() != AnalysisType.NONE)
+			return renderableNode.getColorProfile(colorProfiles).getLighterStroke();
+		return renderableNode.getColorProfile(colorProfiles).getStroke();	}
 
 	@Override
 	public double expression(RenderableNode renderableNode, DiagramCanvas canvas, DiagramIndex index, ColorProfiles colorProfiles, int t) {

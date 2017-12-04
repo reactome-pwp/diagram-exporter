@@ -126,7 +126,7 @@ public class DiagramDecorator {
 				final RenderableNode renderableNode = index.getNode(node.getId());
 				renderableNode.setSelected(true);
 				renderableNode.setHalo(true);
-				this.selected.addAll(graphIndex.get(node.getReactomeId()).getDiagramIds());
+				this.selected.add(node.getId());
 				node.getConnectors().forEach(connector -> {
 					final Edge reaction = (Edge) diagramIndex.get(connector.getEdgeId());
 					// When a node is selected, the nodes in the same reaction

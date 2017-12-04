@@ -31,6 +31,7 @@ public abstract class RenderableNode extends RenderableObject {
 	private List<FoundEntity> hitExpressions;
 	private Double enrichment;
 	private Integer totalExpressions;
+	private Double expressionValue;
 
 	public RenderableNode(Node node) {
 		super(node);
@@ -95,5 +96,13 @@ public abstract class RenderableNode extends RenderableObject {
 	}
 	public boolean isDashed() {
 		return dashed;
+	}
+
+	public void setExpressionValue(Double expressionValue) {
+		this.expressionValue = expressionValue;
+	}
+
+	public Double getExpressionValue() {
+		return expressionValue;
 	}
 }

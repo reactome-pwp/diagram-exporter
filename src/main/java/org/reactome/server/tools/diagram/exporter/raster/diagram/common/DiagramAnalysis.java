@@ -111,8 +111,7 @@ public class DiagramAnalysis {
 				.map(DiagramObject::getReactomeId)
 				.map(String::valueOf)
 				.collect(Collectors.toList());
-		if (subPathways.isEmpty())
-			return;
+		if (subPathways.isEmpty()) return;
 		// 2 get subPathways summary
 		final PathwaySummary[] pathwaysSummary = AnalysisClient.getPathwaysSummary(subPathways, token, resource);
 		// extract %
@@ -126,8 +125,22 @@ public class DiagramAnalysis {
 			double percentage = (double) found / total;
 			if (percentage < MIN_VISIBLE_ENRICHMENT && percentage > 0)
 				percentage = MIN_VISIBLE_ENRICHMENT;
-			index.getNode(diagramNode.getId()).setEnrichment(percentage);
+			final RenderableNode node = index.getNode(diagramNode.getId());
+			node.setEnrichment(percentage);
+			node.setExpressionValue(getMedian(entities.getExp()));
 		}
+	}
+
+	private Double getMedian(List<Double> exp) {
+		if (exp.isEmpty()) return null;
+		if (exp.size() == 1) return exp.get(0);
+		// Avoid modifying original list
+		final List<Double> numbers = new ArrayList<>(exp);
+		Collections.sort(numbers);
+		int half = numbers.size() / 2;
+		if (numbers.size() % 2 == 0)
+			return 0.5 * (numbers.get(half - 1) + numbers.get(half));
+		return numbers.get(half);
 	}
 
 	/**

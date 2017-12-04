@@ -10,6 +10,7 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramI
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
 
@@ -199,37 +200,47 @@ public class LegendRenderer {
 	private void ticks(int col) {
 		if (index.getDecorator().getSelected() == null) return;
 		for (Long id : index.getDecorator().getSelected()) {
-			final List<FoundEntity> expressions = index.getNode(id).getHitExpressions();
-			if (expressions == null || expressions.isEmpty()) continue;
-			// Calculate which ticks to draw: (min, median, max) or (value)
-			Double nMax;
-			Double nMin;
-			Double nValue;
-			final List<Double> values = expressions.stream()
-					.map(value -> value.getExp().get(col))
-					.collect(Collectors.toList());
-			if (values.size() == 1) {
-				nValue = values.get(0);
-				nMax = nMin = null;
+			final RenderableNode node = index.getNode(id);
+			// ProcessNode
+			if (node.getEnrichment() != null
+					&& node.getEnrichment() > 0
+					&& node.getExpressionValue() != null) {
+				double value = node.getExpressionValue();
+				drawTick(value, StrokeStyle.SEGMENT.get(false), profiles.getDiagramSheet().getProperties().getSelection());
 			} else {
-				Collections.sort(values);
-				nMin = values.get(0);
-				nMax = values.get(values.size() - 1);
-				nValue = getMedian(values);
-			}
+				// The rest of the world
+				final List<FoundEntity> expressions = node.getHitExpressions();
+				if (expressions == null || expressions.isEmpty()) continue;
+				// Calculate which ticks to draw: (min, median, max) or (value)
+				Double nMax;
+				Double nMin;
+				Double nValue;
+				final List<Double> values = expressions.stream()
+						.map(value -> value.getExp().get(col))
+						.collect(Collectors.toList());
+				if (values.size() == 1) {
+					nValue = values.get(0);
+					nMax = nMin = null;
+				} else {
+					Collections.sort(values);
+					nMin = values.get(0);
+					nMax = values.get(values.size() - 1);
+					nValue = getMedian(values);
+				}
 
-			final Stroke stroke = StrokeStyle.SEGMENT.get(false);
-			final Color limitColor, valueColor;
-			if (nMax == null) {
-				limitColor = null;
-				valueColor = profiles.getDiagramSheet().getProperties().getSelection();
-			} else {
-				limitColor = profiles.getDiagramSheet().getProperties().getSelection();
-				valueColor = profiles.getAnalysisSheet().getExpression().getLegend().getMedian();
+				final Stroke stroke = StrokeStyle.SEGMENT.get(false);
+				final Color limitColor, valueColor;
+				if (nMax == null) {
+					limitColor = null;
+					valueColor = profiles.getDiagramSheet().getProperties().getSelection();
+				} else {
+					limitColor = profiles.getDiagramSheet().getProperties().getSelection();
+					valueColor = profiles.getAnalysisSheet().getExpression().getLegend().getMedian();
+				}
+				drawTick(nValue, stroke, valueColor);
+				drawTick(nMax, stroke, limitColor);
+				drawTick(nMin, stroke, limitColor);
 			}
-			drawTick(nValue, stroke, valueColor);
-			drawTick(nMax, stroke, limitColor);
-			drawTick(nMin, stroke, limitColor);
 		}
 	}
 

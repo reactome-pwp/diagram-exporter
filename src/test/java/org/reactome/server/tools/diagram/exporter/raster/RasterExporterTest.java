@@ -34,13 +34,12 @@ import java.util.stream.IntStream;
 
 public class RasterExporterTest {
 
-	// TODO: expression/enrichment + selecting non hit element
-
 	private static final File IMAGES_FOLDER = new File("test-images");
 	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/diagram";
 
 	// Set to true for visual inspection of tests
-	private static final boolean save = false;
+	// todo: don't forget to set to false before pushing
+	private static final boolean save = true;
 
 	private static String EXPRESSION_TOKEN2;
 	private static String ENRICHMENT_TOKEN;
@@ -137,8 +136,6 @@ public class RasterExporterTest {
 		// Gene, Complex, ProcessNode
 		args.setSelected(Arrays.asList("R-HSA-9010561", "R-HSA-428873", "R-HSA-5627117"));
 		render(args);
-		// FIXME: the arrow in gene is not filled with selection color
-		// FIXME: inner rectangle of ProcessNode is not drawn with selection color
 
 		args = new RasterArgs("R-HSA-69620", "png");
 		// RNA, Entity
@@ -153,14 +150,13 @@ public class RasterExporterTest {
 		// Connectors: filled stop
 		args.setSelected(Arrays.asList("R-HSA-1168423", "R-HSA-1168459", "R-HSA-982810", "R-HSA-982775"));
 		render(args);
-		// REPORT: stoichiometry black in PathwayBrowser
+		// REPORT: stoichiometry text color is always black in PathwayBrowser
 
 		args = new RasterArgs("R-HSA-877300", "png");
 		// Reactions: Association, Dissociation
 		// Connectors: empty circle, filled arrow, empty arrow
 		args.setSelected(Arrays.asList("R-HSA-877269", "R-HSA-873927"));
 		render(args);
-		// FIXME: dissociation circumferences merge
 	}
 
 	@Test
@@ -169,7 +165,7 @@ public class RasterExporterTest {
 		// EntitySet, Protein, Chemical
 		args.setFlags(Arrays.asList("R-HSA-5692706", "R-HSA-5687026", "R-ALL-29358"));
 		render(args);
-		// FIXME: chemical flag does not work with name
+		// FIXME: chemical flag does not work with name (CTP)
 
 		args = new RasterArgs("R-HSA-376176", "png");
 		// Gene, Complex, ProcessNode
@@ -237,6 +233,7 @@ public class RasterExporterTest {
 
 	@Test
 	public void testExpressionSelectUnhit() {
+		// My favourite diagram had to be here
 		final RasterArgs args = new RasterArgs("R-HSA-432047", "gif");
 		args.setToken(EXPRESSION_TOKEN2);
 		args.setSelected(Collections.singletonList("R-HSA-432253"));
@@ -251,6 +248,24 @@ public class RasterExporterTest {
 		args.setToken(EXPRESSION_TOKEN);
 		args.setProfiles(profiles);
 		renderGif(args);
+	}
+
+	@Test
+	public void testDisease() {
+		// EntitySet hiding another EntitySet
+		final RasterArgs args = new RasterArgs("R-HSA-5657560", "png");
+		args.setSelected(Collections.singletonList("R-HSA-5656438"));
+		render(args);
+	}
+
+	@Test
+	public void testDiseaseProcessNodeWithAnalysis() {
+		// This could be the definition of a corner case
+		final RasterArgs args = new RasterArgs("R-HSA-1643713", "png");
+		args.setToken(EXPRESSION_TOKEN);
+		args.setSelected(Collections.singletonList("R-HSA-5637815"));
+		render(args);
+		// report: processNodes have no outer red border when hit by analysis
 	}
 
 	private void render(RasterArgs args) {
@@ -280,11 +295,22 @@ public class RasterExporterTest {
 	}
 
 	private String getFileName(RasterArgs args) {
-		return String.format("%s_%s_%s_%s.%s",
+		String decorators = "";
+		if (args.getSelected() != null && !args.getSelected().isEmpty())
+			decorators += "s" + args.getSelected().size();
+		if (args.getFlags() != null && !args.getFlags().isEmpty())
+			decorators += "f" + args.getFlags().size();
+		if (!decorators.isEmpty())
+			decorators = "_" + decorators;
+		String analysis = "";
+		if (args.getToken() != null)
+			analysis += "_" + getAnalysisType(args.getToken());
+		return String.format("%s_%s_%s%s%s.%s",
 				args.getStId(),
 				args.getQuality(),
 				args.getProfiles().getDiagramSheet().getName(),
-				getAnalysisType(args.getToken()),
+				decorators,
+				analysis,
 				args.getFormat());
 	}
 
