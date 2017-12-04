@@ -40,8 +40,9 @@ public class RasterExporterTest {
 	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/diagram";
 
 	// Set to true for visual inspection of tests
-	private static final boolean save = true;
+	private static final boolean save = false;
 
+	private static String EXPRESSION_TOKEN2;
 	private static String ENRICHMENT_TOKEN;
 	private static String EXPRESSION_TOKEN;
 	private static String SPECIES_TOKEN;
@@ -63,26 +64,27 @@ public class RasterExporterTest {
 		ContentServiceClient.setHost("https://reactomedev.oicr.on.ca");
 		ContentServiceClient.setService("/ContentService");
 		try {
-			SPECIES_TOKEN = createSpeciesComparisonToken();
-			ENRICHMENT_TOKEN = createEnrichmentToken();
-			EXPRESSION_TOKEN = createExpressionToken();
+			SPECIES_TOKEN = createSpeciesComparisonToken("48898");
+			ENRICHMENT_TOKEN = createEnrichmentToken("enrichment_data.txt");
+			EXPRESSION_TOKEN = createExpressionToken("expression_data.txt");
+			EXPRESSION_TOKEN2 = createExpressionToken("expression_data2.txt");
 		} catch (AnalysisException | AnalysisServerError | IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private static String createSpeciesComparisonToken() throws AnalysisException, AnalysisServerError {
-		return AnalysisClient.performSpeciesComparison("48898").getSummary().getToken();
+	private static String createSpeciesComparisonToken(String species) throws AnalysisException, AnalysisServerError {
+		return AnalysisClient.performSpeciesComparison(species).getSummary().getToken();
 	}
 
-	private static String createEnrichmentToken() throws IOException, AnalysisServerError, AnalysisException {
-		final String query = IOUtils.toString(RasterExporterTest.class.getResourceAsStream("enrichment_data.txt"), Charset.defaultCharset());
+	private static String createEnrichmentToken(String resource) throws IOException, AnalysisServerError, AnalysisException {
+		final String query = IOUtils.toString(RasterExporterTest.class.getResourceAsStream(resource), Charset.defaultCharset());
 		final AnalysisResult result = AnalysisClient.performAnalysis(query);
 		return result.getSummary().getToken();
 	}
 
-	private static String createExpressionToken() throws IOException, AnalysisException, AnalysisServerError {
-		final String query = IOUtils.toString(RasterExporterTest.class.getResourceAsStream("expression_data.txt"), Charset.defaultCharset());
+	private static String createExpressionToken(String resource) throws IOException, AnalysisException, AnalysisServerError {
+		final String query = IOUtils.toString(RasterExporterTest.class.getResourceAsStream(resource), Charset.defaultCharset());
 		final AnalysisResult result = AnalysisClient.performAnalysis(query);
 		return result.getSummary().getToken();
 	}
@@ -231,7 +233,14 @@ public class RasterExporterTest {
 		args.setToken(EXPRESSION_TOKEN);
 		args.setWriteTitle(true);
 		render(args);
-		// FIXME: attachments color!!
+	}
+
+	@Test
+	public void testExpressionSelectUnhit() {
+		final RasterArgs args = new RasterArgs("R-HSA-432047", "gif");
+		args.setToken(EXPRESSION_TOKEN2);
+		args.setSelected(Collections.singletonList("R-HSA-432253"));
+		render(args);
 	}
 
 	@Test
