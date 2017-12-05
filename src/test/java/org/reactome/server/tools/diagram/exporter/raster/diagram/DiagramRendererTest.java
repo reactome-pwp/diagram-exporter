@@ -19,12 +19,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.IntStream;
 
 public class DiagramRendererTest {
@@ -234,13 +231,6 @@ public class DiagramRendererTest {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
-	}
-
-	@Test
-	public void testLegendFormat() {
-		final double max = 2.9;
-		final DecimalFormat NF = new DecimalFormat("#.##E0", DecimalFormatSymbols.getInstance(Locale.UK));
-		Assert.assertEquals("2.9E0", NF.format(max));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
