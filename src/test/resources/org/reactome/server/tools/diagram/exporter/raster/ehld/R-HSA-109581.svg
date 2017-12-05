@@ -1,348 +1,348 @@
 <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1283.871 695.838">
     <defs>
         <style>
-            .cls-1 {
-            fill: url(#radial-gradient);
-            }
-            .cls-2 {
-            fill: url(#radial-gradient-2);
-            }
-            .cls-3 {
-            fill: #4f98af;
-            }
-            .cls-4,
-            .cls-5,
-            .cls-58,
-            .cls-93,
-            .cls-94,
-            .cls-95,
-            .cls-96,
-            .cls-97 {
-            fill: none;
-            }
-            .cls-4 {
-            stroke: #0f6c91;
-            }
-            .cls-4,
-            .cls-93,
-            .cls-94,
-            .cls-95,
-            .cls-96,
-            .cls-97 {
-            stroke-miterlimit: 10;
-            }
-            .cls-4,
-            .cls-5,
-            .cls-58 {
-            stroke-width: 2px;
-            }
-            .cls-5 {
-            stroke: #1b7f9e;
-            stroke-dasharray: 0.5 3;
-            }
-            .cls-5,
-            .cls-58 {
-            stroke-linecap: round;
-            stroke-linejoin: round;
-            }
-            .cls-56,
-            .cls-6 {
-            isolation: isolate;
-            }
-            .cls-7 {
-            fill: url(#radial-gradient-3);
-            }
-            .cls-8 {
-            fill: #5656a5;
-            }
-            .cls-9 {
-            fill: url(#radial-gradient-4);
-            }
-            .cls-10 {
-            fill: #4b4b96;
-            }
-            .cls-11 {
-            fill: url(#radial-gradient-5);
-            }
-            .cls-12 {
-            fill: url(#radial-gradient-6);
-            }
-            .cls-13 {
-            fill: url(#radial-gradient-7);
-            }
-            .cls-14 {
-            fill: url(#linear-gradient);
-            }
-            .cls-15 {
-            fill: #ad342d;
-            }
-            .cls-16 {
-            opacity: 0.5;
-            }
-            .cls-17 {
-            fill: #2f9ec2;
-            }
-            .cls-18 {
-            fill: #d1eaf2;
-            }
-            .cls-19 {
-            fill: #9bd1e2;
-            }
-            .cls-20,
-            .cls-23,
-            .cls-25 {
-            fill: #58c3e5;
-            }
-            .cls-20 {
-            opacity: 0.25;
-            }
-            .cls-21 {
-            fill: #80c4da;
-            }
-            .cls-22 {
-            fill: #65b7d2;
-            }
-            .cls-23 {
-            opacity: 0.5;
-            }
-            .cls-24 {
-            fill: #4aabca;
-            }
-            .cls-25 {
-            opacity: 0.75;
-            }
-            .cls-26,
-            .cls-82 {
-            opacity: 0;
-            }
-            .cls-27,
-            .cls-48,
-            .cls-56,
-            .cls-82 {
-            fill: #fff;
-            }
-            .cls-28 {
-            fill: url(#linear-gradient-2);
-            }
-            .cls-29 {
-            fill: url(#radial-gradient-8);
-            }
-            .cls-30 {
-            fill: url(#radial-gradient-9);
-            }
-            .cls-31 {
-            fill: url(#linear-gradient-3);
-            }
-            .cls-32 {
-            fill: url(#linear-gradient-4);
-            }
-            .cls-33 {
-            fill: url(#radial-gradient-10);
-            }
-            .cls-34 {
-            fill: url(#radial-gradient-11);
-            }
-            .cls-35 {
-            fill: url(#linear-gradient-5);
-            }
-            .cls-36 {
-            fill: url(#linear-gradient-6);
-            }
-            .cls-37 {
-            fill: url(#radial-gradient-12);
-            }
-            .cls-38 {
-            fill: url(#radial-gradient-13);
-            }
-            .cls-39 {
-            fill: url(#radial-gradient-14);
-            }
-            .cls-40 {
-            fill: url(#radial-gradient-15);
-            }
-            .cls-41 {
-            fill: url(#radial-gradient-16);
-            }
-            .cls-42 {
-            fill: url(#radial-gradient-17);
-            }
-            .cls-43 {
-            fill: url(#radial-gradient-18);
-            }
-            .cls-44 {
-            fill: url(#radial-gradient-19);
-            }
-            .cls-45 {
-            fill: url(#linear-gradient-7);
-            }
-            .cls-46 {
-            fill: url(#linear-gradient-8);
-            }
-            .cls-47 {
-            fill: #4200a8;
-            }
-            .cls-48,
-            .cls-98 {
-            font-size: 12px;
-            }
-            .cls-48,
-            .cls-56,
-            .cls-98 {
-            font-family: Arial-BoldMT, Arial;
-            font-weight: 700;
-            }
-            .cls-49 {
-            letter-spacing: -0.074em;
-            }
-            .cls-50 {
-            fill: #0f82bc;
-            }
-            .cls-51 {
-            letter-spacing: -0.037em;
-            }
-            .cls-52 {
-            letter-spacing: -0.018em;
-            }
-            .cls-53 {
-            letter-spacing: -0.055em;
-            }
-            .cls-54 {
-            letter-spacing: -0.092em;
-            }
-            .cls-55 {
-            fill: #c6c6c6;
-            }
-            .cls-56 {
-            font-size: 9px;
-            }
-            .cls-57 {
-            fill: #2c52f7;
-            }
-            .cls-58 {
-            stroke: #a6b8ff;
-            }
-            .cls-59 {
-            fill: url(#radial-gradient-20);
-            }
-            .cls-60 {
-            fill: url(#radial-gradient-21);
-            }
-            .cls-61 {
-            fill: url(#radial-gradient-22);
-            }
-            .cls-62 {
-            fill: url(#radial-gradient-23);
-            }
-            .cls-63 {
-            fill: url(#radial-gradient-24);
-            }
-            .cls-64 {
-            fill: url(#radial-gradient-25);
-            }
-            .cls-65 {
-            fill: url(#radial-gradient-26);
-            }
-            .cls-66 {
-            fill: url(#radial-gradient-27);
-            }
-            .cls-67 {
-            fill: url(#radial-gradient-28);
-            }
-            .cls-68 {
-            fill: url(#radial-gradient-29);
-            }
-            .cls-69 {
-            fill: url(#radial-gradient-30);
-            }
-            .cls-70 {
-            fill: url(#radial-gradient-31);
-            }
-            .cls-71 {
-            fill: url(#radial-gradient-32);
-            }
-            .cls-72 {
-            fill: url(#radial-gradient-33);
-            }
-            .cls-73 {
-            fill: url(#radial-gradient-34);
-            }
-            .cls-74 {
-            fill: url(#radial-gradient-35);
-            }
-            .cls-75 {
-            fill: url(#radial-gradient-36);
-            }
-            .cls-76 {
-            fill: url(#radial-gradient-37);
-            }
-            .cls-77 {
-            fill: url(#radial-gradient-38);
-            }
-            .cls-78 {
-            fill: url(#radial-gradient-39);
-            }
-            .cls-79 {
-            fill: url(#radial-gradient-40);
-            }
-            .cls-80 {
-            fill: url(#linear-gradient-9);
-            }
-            .cls-81 {
-            fill: #86376b;
-            }
-            .cls-83 {
-            fill: url(#linear-gradient-10);
-            }
-            .cls-84 {
-            fill: #b80000;
-            }
-            .cls-85 {
-            fill: url(#linear-gradient-11);
-            }
-            .cls-86 {
-            fill: url(#linear-gradient-12);
-            }
-            .cls-87 {
-            fill: #f90;
-            }
-            .cls-88 {
-            fill: url(#linear-gradient-13);
-            }
-            .cls-89 {
-            fill: url(#linear-gradient-14);
-            }
-            .cls-90 {
-            fill: url(#linear-gradient-15);
-            }
-            .cls-91 {
-            fill: #4286ff;
-            }
-            .cls-92 {
-            fill: #0052af;
-            }
-            .cls-93,
-            .cls-94,
-            .cls-95,
-            .cls-96,
-            .cls-97 {
-            stroke-width: 8px;
-            }
-            .cls-93 {
-            stroke: url(#linear-gradient-16);
-            }
-            .cls-94 {
-            stroke: url(#linear-gradient-17);
-            }
-            .cls-95 {
-            stroke: url(#linear-gradient-18);
-            }
-            .cls-96 {
-            stroke: url(#linear-gradient-19);
-            }
-            .cls-97 {
-            stroke: url(#linear-gradient-20);
-            }
-        </style>
+        	.cls-1 {
+    			fill: url(#radial-gradient);
+			}
+			.cls-2 {
+			    fill: url(#radial-gradient-2);
+			}
+			.cls-3 {
+			    fill: #4f98af;
+			}
+			.cls-4,
+			.cls-5,
+			.cls-58,
+			.cls-93,
+			.cls-94,
+			.cls-95,
+			.cls-96,
+			.cls-97 {
+			    fill: none;
+			}
+			.cls-4 {
+			    stroke: #0f6c91;
+			}
+			.cls-4,
+			.cls-93,
+			.cls-94,
+			.cls-95,
+			.cls-96,
+			.cls-97 {
+			    stroke-miterlimit: 10;
+			}
+			.cls-4,
+			.cls-5,
+			.cls-58 {
+			    stroke-width: 2px;
+			}
+			.cls-5 {
+			    stroke: #1b7f9e;
+			    stroke-dasharray: 0.5 3;
+			}
+			.cls-5,
+			.cls-58 {
+			    stroke-linecap: round;
+			    stroke-linejoin: round;
+			}
+			.cls-56,
+			.cls-6 {
+			    isolation: isolate;
+			}
+			.cls-7 {
+			    fill: url(#radial-gradient-3);
+			}
+			.cls-8 {
+			    fill: #5656a5;
+			}
+			.cls-9 {
+			    fill: url(#radial-gradient-4);
+			}
+			.cls-10 {
+			    fill: #4b4b96;
+			}
+			.cls-11 {
+			    fill: url(#radial-gradient-5);
+			}
+			.cls-12 {
+			    fill: url(#radial-gradient-6);
+			}
+			.cls-13 {
+			    fill: url(#radial-gradient-7);
+			}
+			.cls-14 {
+			    fill: url(#linear-gradient);
+			}
+			.cls-15 {
+			    fill: #ad342d;
+			}
+			.cls-16 {
+			    opacity: 0.5;
+			}
+			.cls-17 {
+			    fill: #2f9ec2;
+			}
+			.cls-18 {
+			    fill: #d1eaf2;
+			}
+			.cls-19 {
+			    fill: #9bd1e2;
+			}
+			.cls-20,
+			.cls-23,
+			.cls-25 {
+			    fill: #58c3e5;
+			}
+			.cls-20 {
+			    opacity: 0.25;
+			}
+			.cls-21 {
+			    fill: #80c4da;
+			}
+			.cls-22 {
+			    fill: #65b7d2;
+			}
+			.cls-23 {
+			    opacity: 0.5;
+			}
+			.cls-24 {
+			    fill: #4aabca;
+			}
+			.cls-25 {
+			    opacity: 0.75;
+			}
+			.cls-26,
+			.cls-82 {
+			    opacity: 0;
+			}
+			.cls-27,
+			.cls-48,
+			.cls-56,
+			.cls-82 {
+			    fill: #fff;
+			}
+			.cls-28 {
+			    fill: url(#linear-gradient-2);
+			}
+			.cls-29 {
+			    fill: url(#radial-gradient-8);
+			}
+			.cls-30 {
+			    fill: url(#radial-gradient-9);
+			}
+			.cls-31 {
+			    fill: url(#linear-gradient-3);
+			}
+			.cls-32 {
+			    fill: url(#linear-gradient-4);
+			}
+			.cls-33 {
+			    fill: url(#radial-gradient-10);
+			}
+			.cls-34 {
+			    fill: url(#radial-gradient-11);
+			}
+			.cls-35 {
+			    fill: url(#linear-gradient-5);
+			}
+			.cls-36 {
+			    fill: url(#linear-gradient-6);
+			}
+			.cls-37 {
+			    fill: url(#radial-gradient-12);
+			}
+			.cls-38 {
+			    fill: url(#radial-gradient-13);
+			}
+			.cls-39 {
+			    fill: url(#radial-gradient-14);
+			}
+			.cls-40 {
+			    fill: url(#radial-gradient-15);
+			}
+			.cls-41 {
+			    fill: url(#radial-gradient-16);
+			}
+			.cls-42 {
+			    fill: url(#radial-gradient-17);
+			}
+			.cls-43 {
+			    fill: url(#radial-gradient-18);
+			}
+			.cls-44 {
+			    fill: url(#radial-gradient-19);
+			}
+			.cls-45 {
+			    fill: url(#linear-gradient-7);
+			}
+			.cls-46 {
+			    fill: url(#linear-gradient-8);
+			}
+			.cls-47 {
+			    fill: #4200a8;
+			}
+			.cls-48,
+			.cls-98 {
+			    font-size: 12px;
+			}
+			.cls-48,
+			.cls-56,
+			.cls-98 {
+			    font-family: Arial-BoldMT, Arial;
+			    font-weight: 700;
+			}
+			.cls-49 {
+			    letter-spacing: -0.074em;
+			}
+			.cls-50 {
+			    fill: #0f82bc;
+			}
+			.cls-51 {
+			    letter-spacing: -0.037em;
+			}
+			.cls-52 {
+			    letter-spacing: -0.018em;
+			}
+			.cls-53 {
+			    letter-spacing: -0.055em;
+			}
+			.cls-54 {
+			    letter-spacing: -0.092em;
+			}
+			.cls-55 {
+			    fill: #c6c6c6;
+			}
+			.cls-56 {
+			    font-size: 9px;
+			}
+			.cls-57 {
+			    fill: #2c52f7;
+			}
+			.cls-58 {
+			    stroke: #a6b8ff;
+			}
+			.cls-59 {
+			    fill: url(#radial-gradient-20);
+			}
+			.cls-60 {
+			    fill: url(#radial-gradient-21);
+			}
+			.cls-61 {
+			    fill: url(#radial-gradient-22);
+			}
+			.cls-62 {
+			    fill: url(#radial-gradient-23);
+			}
+			.cls-63 {
+			    fill: url(#radial-gradient-24);
+			}
+			.cls-64 {
+			    fill: url(#radial-gradient-25);
+			}
+			.cls-65 {
+			    fill: url(#radial-gradient-26);
+			}
+			.cls-66 {
+			    fill: url(#radial-gradient-27);
+			}
+			.cls-67 {
+			    fill: url(#radial-gradient-28);
+			}
+			.cls-68 {
+			    fill: url(#radial-gradient-29);
+			}
+			.cls-69 {
+			    fill: url(#radial-gradient-30);
+			}
+			.cls-70 {
+			    fill: url(#radial-gradient-31);
+			}
+			.cls-71 {
+			    fill: url(#radial-gradient-32);
+			}
+			.cls-72 {
+			    fill: url(#radial-gradient-33);
+			}
+			.cls-73 {
+			    fill: url(#radial-gradient-34);
+			}
+			.cls-74 {
+			    fill: url(#radial-gradient-35);
+			}
+			.cls-75 {
+			    fill: url(#radial-gradient-36);
+			}
+			.cls-76 {
+			    fill: url(#radial-gradient-37);
+			}
+			.cls-77 {
+			    fill: url(#radial-gradient-38);
+			}
+			.cls-78 {
+			    fill: url(#radial-gradient-39);
+			}
+			.cls-79 {
+			    fill: url(#radial-gradient-40);
+			}
+			.cls-80 {
+			    fill: url(#linear-gradient-9);
+			}
+			.cls-81 {
+			    fill: #86376b;
+			}
+			.cls-83 {
+			    fill: url(#linear-gradient-10);
+			}
+			.cls-84 {
+			    fill: #b80000;
+			}
+			.cls-85 {
+			    fill: url(#linear-gradient-11);
+			}
+			.cls-86 {
+			    fill: url(#linear-gradient-12);
+			}
+			.cls-87 {
+			    fill: #f90;
+			}
+			.cls-88 {
+			    fill: url(#linear-gradient-13);
+			}
+			.cls-89 {
+			    fill: url(#linear-gradient-14);
+			}
+			.cls-90 {
+			    fill: url(#linear-gradient-15);
+			}
+			.cls-91 {
+			    fill: #4286ff;
+			}
+			.cls-92 {
+			    fill: #0052af;
+			}
+			.cls-93,
+			.cls-94,
+			.cls-95,
+			.cls-96,
+			.cls-97 {
+			    stroke-width: 8px;
+			}
+			.cls-93 {
+			    stroke: url(#linear-gradient-16);
+			}
+			.cls-94 {
+			    stroke: url(#linear-gradient-17);
+			}
+			.cls-95 {
+			    stroke: url(#linear-gradient-18);
+			}
+			.cls-96 {
+			    stroke: url(#linear-gradient-19);
+			}
+			.cls-97 {
+			    stroke: url(#linear-gradient-20);
+			}
+		</style>
         <radialGradient id="radial-gradient" cx="674.226" cy="383.667" r="634.409" gradientTransform="translate(-32.29 137.36) scale(1 0.518)" gradientUnits="userSpaceOnUse">
             <stop offset="0.459" stop-color="#572645" />
             <stop offset="0.581" stop-color="#866379" />

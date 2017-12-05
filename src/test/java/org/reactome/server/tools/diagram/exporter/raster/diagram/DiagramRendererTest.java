@@ -1,20 +1,16 @@
-package org.reactome.server.tools.diagram.exporter.raster;
+package org.reactome.server.tools.diagram.exporter.raster.diagram;
 
 
-import org.apache.commons.io.IOUtils;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
-import org.reactome.server.tools.diagram.exporter.common.analysis.ContentServiceClient;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisResult;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
+import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
 import javax.imageio.ImageIO;
@@ -23,7 +19,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Arrays;
@@ -32,7 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.IntStream;
 
-public class RasterExporterTest {
+public class DiagramRendererTest {
 
 	private static final File IMAGES_FOLDER = new File("test-images");
 	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/diagram";
@@ -41,67 +36,14 @@ public class RasterExporterTest {
 	// todo: don't forget to set to false before pushing
 	private static final boolean save = false;
 
-	private static String EXPRESSION_TOKEN2;
-	private static String ENRICHMENT_TOKEN;
-	private static String EXPRESSION_TOKEN;
-	private static String SPECIES_TOKEN;
-
 	@BeforeClass
 	public static void beforeClass() {
-		initAnalysisTokens();
-		createImagesFolder();
-	}
-
-	private static void createImagesFolder() {
-		if (!IMAGES_FOLDER.exists() && !IMAGES_FOLDER.mkdirs())
-			System.err.println("Couldn't create dir for testing " + IMAGES_FOLDER);
-	}
-
-	private static void initAnalysisTokens() {
-		AnalysisClient.setServer("https://reactomedev.oicr.on.ca");
-		AnalysisClient.setService("/AnalysisService");
-		ContentServiceClient.setHost("https://reactomedev.oicr.on.ca");
-		ContentServiceClient.setService("/ContentService");
-		try {
-			SPECIES_TOKEN = createSpeciesComparisonToken("48898");
-			ENRICHMENT_TOKEN = createEnrichmentToken("enrichment_data.txt");
-			EXPRESSION_TOKEN = createExpressionToken("expression_data.txt");
-			EXPRESSION_TOKEN2 = createExpressionToken("expression_data2.txt");
-		} catch (AnalysisException | AnalysisServerError | IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	private static String createSpeciesComparisonToken(String species) throws AnalysisException, AnalysisServerError {
-		return AnalysisClient.performSpeciesComparison(species).getSummary().getToken();
-	}
-
-	private static String createEnrichmentToken(String resource) throws IOException, AnalysisServerError, AnalysisException {
-		final String query = IOUtils.toString(RasterExporterTest.class.getResourceAsStream(resource), Charset.defaultCharset());
-		final AnalysisResult result = AnalysisClient.performAnalysis(query);
-		return result.getSummary().getToken();
-	}
-
-	private static String createExpressionToken(String resource) throws IOException, AnalysisException, AnalysisServerError {
-		final String query = IOUtils.toString(RasterExporterTest.class.getResourceAsStream(resource), Charset.defaultCharset());
-		final AnalysisResult result = AnalysisClient.performAnalysis(query);
-		return result.getSummary().getToken();
+		TestUtils.createDir(IMAGES_FOLDER);
 	}
 
 	@AfterClass
 	public static void afterClass() {
-		if (!save) removeDir(IMAGES_FOLDER);
-	}
-
-	private static void removeDir(File dir) {
-		if (!dir.exists()) return;
-		final File[] files = dir.listFiles();
-		if (files != null)
-			for (File file : files)
-				if (!file.delete())
-					System.err.println("Couldn't delete " + file);
-		if (!dir.delete())
-			System.err.println("Couldn't delete " + dir);
+		if (!save) TestUtils.removeDir(IMAGES_FOLDER);
 	}
 
 	@Test
@@ -210,7 +152,7 @@ public class RasterExporterTest {
 	@Test
 	public void testSpeciesComparison() {
 		RasterArgs args = new RasterArgs("R-HSA-5687128", "png");
-		args.setToken(SPECIES_TOKEN);
+		args.setToken(TestUtils.createSpeciesComparisonToken("48898"));
 		args.setWriteTitle(true);
 		render(args);
 	}
@@ -218,7 +160,7 @@ public class RasterExporterTest {
 	@Test
 	public void testEnrichment() {
 		RasterArgs args = new RasterArgs("R-HSA-69620", "png");
-		args.setToken(ENRICHMENT_TOKEN);
+		args.setToken(TestUtils.createEnrichmentToken("enrichment_data.txt"));
 		args.setWriteTitle(true);
 		render(args);
 	}
@@ -226,7 +168,7 @@ public class RasterExporterTest {
 	@Test
 	public void testExpression() {
 		RasterArgs args = new RasterArgs("R-HSA-69620", "png");
-		args.setToken(EXPRESSION_TOKEN);
+		args.setToken(TestUtils.createExpressionToken("expression_data.txt"));
 		args.setWriteTitle(true);
 		render(args);
 	}
@@ -235,7 +177,7 @@ public class RasterExporterTest {
 	public void testExpressionSelectUnhit() {
 		// My favourite diagram had to be here
 		final RasterArgs args = new RasterArgs("R-HSA-432047", "gif");
-		args.setToken(EXPRESSION_TOKEN2);
+		args.setToken(TestUtils.createExpressionToken("expression_data2.txt"));
 		args.setSelected(Collections.singletonList("R-HSA-432253"));
 		render(args);
 	}
@@ -245,7 +187,7 @@ public class RasterExporterTest {
 		final ColorProfiles profiles = new ColorProfiles("modern", "copper plus", "teal");
 		final RasterArgs args = new RasterArgs("R-HSA-109606", "gif");
 		args.setSelected(Collections.singletonList("R-HSA-114255"));
-		args.setToken(EXPRESSION_TOKEN);
+		args.setToken(TestUtils.createExpressionToken("expression_data.txt"));
 		args.setProfiles(profiles);
 		renderGif(args);
 	}
@@ -262,7 +204,7 @@ public class RasterExporterTest {
 	public void testDiseaseProcessNodeWithAnalysis() {
 		// This could be the definition of a corner case
 		final RasterArgs args = new RasterArgs("R-HSA-1643713", "png");
-		args.setToken(EXPRESSION_TOKEN);
+		args.setToken(TestUtils.createExpressionToken("expression_data.txt"));
 		args.setSelected(Collections.singletonList("R-HSA-5637815"));
 		render(args);
 		// report: processNodes have no outer red border when hit by analysis
@@ -273,7 +215,7 @@ public class RasterExporterTest {
 			final DiagramRenderer renderer = new DiagramRenderer(args, DIAGRAM_PATH);
 			final BufferedImage image = renderer.render();
 			if (save) {
-				final String filename = getFileName(args);
+				final String filename = TestUtils.getFileName(args);
 				ImageIO.write(image, args.getFormat(), new File(IMAGES_FOLDER, filename));
 			}
 		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | AnalysisServerError | AnalysisException | IOException e) {
@@ -285,44 +227,13 @@ public class RasterExporterTest {
 	private void renderGif(RasterArgs args) {
 		try {
 			final DiagramRenderer renderer = new DiagramRenderer(args, DIAGRAM_PATH);
-			final File file = new File(IMAGES_FOLDER, getFileName(args));
+			final File file = new File(IMAGES_FOLDER, TestUtils.getFileName(args));
 			final OutputStream os = new FileOutputStream(file);
 			renderer.renderToAnimatedGif(os);
 		} catch (IOException | DiagramJsonNotFoundException | DiagramJsonDeserializationException | AnalysisException | AnalysisServerError e) {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
-	}
-
-	private String getFileName(RasterArgs args) {
-		String decorators = "";
-		if (args.getSelected() != null && !args.getSelected().isEmpty())
-			decorators += "s" + args.getSelected().size();
-		if (args.getFlags() != null && !args.getFlags().isEmpty())
-			decorators += "f" + args.getFlags().size();
-		if (!decorators.isEmpty())
-			decorators = "_" + decorators;
-		String analysis = "";
-		if (args.getToken() != null)
-			analysis += "_" + getAnalysisType(args.getToken());
-		return String.format("%s_%s_%s%s%s.%s",
-				args.getStId(),
-				args.getQuality(),
-				args.getProfiles().getDiagramSheet().getName(),
-				decorators,
-				analysis,
-				args.getFormat());
-	}
-
-	private String getAnalysisType(String token) {
-		if (token == null) return "none";
-		if (token.equals(ENRICHMENT_TOKEN))
-			return "enrichment";
-		if (token.equals(EXPRESSION_TOKEN))
-			return "expression";
-		if (token.equals(SPECIES_TOKEN))
-			return "species";
-		return "unknown";
 	}
 
 	@Test

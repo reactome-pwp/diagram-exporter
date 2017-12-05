@@ -96,7 +96,6 @@ class SVGDecoratorRenderer {
 			if (responses == null) return;
 			responses.forEach(contentServiceResponse -> pathwaysHit.add(contentServiceResponse.getStId()));
 		});
-		System.out.println(pathwaysHit);
 		return pathwaysHit;
 	}
 }
