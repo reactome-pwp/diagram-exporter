@@ -5,6 +5,7 @@ import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
+import org.reactome.server.tools.diagram.exporter.common.LruCache;
 import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
@@ -26,6 +27,7 @@ import java.util.stream.Stream;
 public class DiagramAnalysis {
 
 	public static final double MIN_ENRICHMENT = 0.05;
+	private static final LruCache<String, AnalysisResult> CACHE = new LruCache<>(5);
 	private static final double MIN_VISIBLE_ENRICHMENT = 0.05;
 	private final DiagramIndex index;
 	private final RasterArgs args;
@@ -70,8 +72,7 @@ public class DiagramAnalysis {
 	private void addAnalysisData() throws AnalysisServerError, AnalysisException {
 		if (args.getToken() == null || args.getToken().isEmpty())
 			return;
-		final String stId = graph.getStId();
-		result = AnalysisClient.getAnalysisResult(args.getToken());
+		updateResult();
 		final List<ResourceSummary> summaryList = result.getResourceSummary();
 		final ResourceSummary resourceSummary = summaryList.size() == 2
 				? summaryList.get(1)
@@ -84,9 +85,8 @@ public class DiagramAnalysis {
 		type = AnalysisType.getType(result.getSummary().getType());
 		// Get subpathways (green boxes) % of analysis area
 		subPathways(args.getToken(), resource);
-
 		try {
-			final FoundElements foundElements = AnalysisClient.getFoundElements(stId, args.getToken(), resource);
+			final FoundElements foundElements = AnalysisClient.getFoundElements(args.getStId(), args.getToken(), resource);
 			if (foundElements == null) return;
 			if (type == AnalysisType.EXPRESSION) {
 				expression(foundElements);
@@ -95,6 +95,15 @@ public class DiagramAnalysis {
 				enrichment(foundElements);
 		} catch (AnalysisException e) {
 			// token is valid, but this pathway has no analysis
+		}
+	}
+
+	private void updateResult() throws AnalysisServerError {
+		if (CACHE.has(args.getToken()))
+			result = CACHE.get(args.getToken());
+		else {
+			result = AnalysisClient.getAnalysisResult(args.getToken());
+			CACHE.put(args.getToken(), result);
 		}
 	}
 

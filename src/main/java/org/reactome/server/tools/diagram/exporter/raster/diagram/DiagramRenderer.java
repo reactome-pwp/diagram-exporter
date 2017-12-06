@@ -9,7 +9,6 @@ import org.reactome.server.tools.diagram.exporter.common.analysis.model.Analysis
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
-import org.reactome.server.tools.diagram.exporter.raster.TraceLogger;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
@@ -24,7 +23,10 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.OutputStream;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -81,7 +83,6 @@ public class DiagramRenderer implements RasterRenderer {
 	 *                                             Analysis Server
 	 */
 	public DiagramRenderer(RasterArgs args, String diagramPath) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException, AnalysisException, AnalysisServerError {
-		TraceLogger.trace(args.getStId());
 		final Graph graph = ResourcesFactory.getGraph(diagramPath, args.getStId());
 		diagram = ResourcesFactory.getDiagram(diagramPath, args.getStId());
 		this.title = args.getWriteTitle() != null && args.getWriteTitle()
@@ -120,9 +121,7 @@ public class DiagramRenderer implements RasterRenderer {
 		final String ext = args.getFormat();
 		final BufferedImage image = createImage(width, height, ext);
 		final Graphics2D graphics = createGraphics(image, ext, factor, offsetX, offsetY);
-		long start = System.nanoTime();
 		canvas.render(graphics);
-		TraceLogger.trace(String.format(Locale.UK, "[diagram exporter] %10.3f painting canvas%n", ((System.nanoTime() - start) / 1e6)));
 		return image;
 	}
 
