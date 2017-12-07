@@ -18,7 +18,7 @@ public class ShapeFactory {
 	private static final double COMPLEX_RECT_ARC_WIDTH = 6;
 	private static final double ROUND_RECT_ARC_WIDTH = 8;
 	private static final double RNA_LOOP_WIDTH = 16;
-	private static final double GENE_SYMBOL_WIDTH = 50;
+	private static final double GENE_SYMBOL_Y_OFFSET = 50;
 	private static final double GENE_SYMBOL_PAD = 4;
 	private static final double ARROW_LENGTH = 8;
 
@@ -66,7 +66,7 @@ public class ShapeFactory {
 	 */
 	public static Shape getGeneFillShape(NodeProperties prop) {
 		final GeneralPath path = new GeneralPath();
-		final double y1 = prop.getY() + 0.5 * GENE_SYMBOL_WIDTH;
+		final double y1 = prop.getY() + 0.5 * GENE_SYMBOL_Y_OFFSET;
 		final double bottom = (double) prop.getY() + prop.getHeight();
 		final double arcWidth = ROUND_RECT_ARC_WIDTH;
 		final double right = (double) prop.getX() + prop.getWidth();
@@ -81,49 +81,38 @@ public class ShapeFactory {
 	}
 
 	/**
-	 * Returns a path with two perpendicular lines.
-	 *
-	 * @param x     top left x coordinate
-	 * @param y     top left y coordinate
-	 * @param width width
-	 *
-	 * @return a path of two perpendicular lines
+	 * Returns a path with three perpendicular lines.
 	 */
-	public static Shape getGeneLine(double x, double y, double width) {
-		// Horizontal line
-		final double y1 = y + 0.5 * GENE_SYMBOL_WIDTH;
-		final double right = x + width;
+	public static Shape getGeneLine(NodeProperties prop) {
+		final double y1 = prop.getY() + 0.5 * GENE_SYMBOL_Y_OFFSET;
+		final double maxX = prop.getX() + prop.getWidth();
 		final Path2D path = new GeneralPath();
-		path.moveTo(x, y1);
-		path.lineTo(right, y1);
+		// Horizontal line
+		path.moveTo(prop.getX(), y1);
+		path.lineTo(maxX, y1);
 		// Vertical line
-		final double x1 = right - GENE_SYMBOL_PAD;
-		final double y2 = y1 - 0.5 * GENE_SYMBOL_WIDTH;
+		final double x1 = maxX - GENE_SYMBOL_PAD;
 		path.moveTo(x1, y1);
-		path.lineTo(x1, y2);
+		path.lineTo(x1, prop.getY());
 		// another very short horizontal line
-		path.lineTo(right, y2);
+		path.lineTo(maxX, prop.getY());
 		return path;
 	}
 
 	/**
-	 * @param x     top left x coordinate
-	 * @param y     top left y coordinate
-	 * @param width width
+	 * Creates the arrow shape of a gene.
 	 *
 	 * @return the gene arrow
 	 */
-	public static Shape getGeneArrow(double x, double y, double width) {
-		final double right = x + width;
-		final double toX = right + ARROW_LENGTH;
-		final double y1 = y + 0.5 * GENE_SYMBOL_WIDTH;
-		final double y2 = y1 - 0.5 * GENE_SYMBOL_WIDTH;
+	public static Shape getGeneArrow(NodeProperties prop) {
+		final double maxX = prop.getX() + prop.getWidth();
+		final double arrowX = maxX + ARROW_LENGTH;
+		final double ay = prop.getY() + 0.5 * ARROW_LENGTH;
+		final double by = prop.getY() - 0.5 * ARROW_LENGTH;
 		final Path2D triangle = new GeneralPath();
-		triangle.moveTo(toX, y2);
-		final double ay = y2 + 0.5 * ARROW_LENGTH;
-		final double by = y2 - 0.5 * ARROW_LENGTH;
-		triangle.lineTo(right, ay);
-		triangle.lineTo(right, by);
+		triangle.moveTo(arrowX, prop.getY());
+		triangle.lineTo(maxX, ay);
+		triangle.lineTo(maxX, by);
 		triangle.closePath();
 		return triangle;
 	}
@@ -156,6 +145,31 @@ public class ShapeFactory {
 				height - 2 * padding,
 				ROUND_RECT_ARC_WIDTH,
 				ROUND_RECT_ARC_WIDTH);
+	}
+
+	/**
+	 * Returns a list of java.awt.shapes that make up the reactome Shape.
+	 * Although most of the shapes are unique, the double circle returns two
+	 * circles.
+	 *
+	 * @param shape reactome shape
+	 *
+	 * @return a list of java shapes
+	 */
+	public static Shape getShape(org.reactome.server.tools.diagram.data.layout.Shape shape) {
+		switch (shape.getType()) {
+			case "ARROW":
+				return (arrow(shape));
+			case "BOX":
+				return (box(shape));
+			case "CIRCLE":
+			case "DOUBLE_CIRCLE":
+				return (circle(shape));
+			case "STOP":
+				return (stop(shape));
+			default:
+				throw new RuntimeException("Do not know shape " + shape.getType());
+		}
 	}
 
 	private static Shape arrow(org.reactome.server.tools.diagram.data.layout.Shape shape) {
@@ -210,34 +224,8 @@ public class ShapeFactory {
 		);
 	}
 
-	/**
-	 * Returns a list of java.awt.shapes that make up the reactome Shape.
-	 * Although most of the shapes are unique, the double circle returns two
-	 * circles.
-	 *
-	 * @param shape reactome shape
-	 *
-	 * @return a list of java shapes
-	 */
-	public static Shape getShape(org.reactome.server.tools.diagram.data.layout.Shape shape) {
-		switch (shape.getType()) {
-			case "ARROW":
-				return (arrow(shape));
-			case "BOX":
-				return (box(shape));
-			case "CIRCLE":
-			case "DOUBLE_CIRCLE":
-				return (circle(shape));
-			case "STOP":
-				return (stop(shape));
-			default:
-				throw new RuntimeException("Do not know shape " + shape.getType());
-		}
-	}
-
 	public static Shape line(Coordinate from, Coordinate to) {
-		return new Line2D.Double(from.getX(),
-				from.getY(), to.getX(), to.getY());
+		return new Line2D.Double(from.getX(), from.getY(), to.getX(), to.getY());
 	}
 
 	public static List<Shape> cross(NodeProperties properties) {
@@ -268,30 +256,27 @@ public class ShapeFactory {
 	}
 
 	public static Shape getRnaShape(NodeProperties prop) {
-		double right = (double) prop.getX() + prop.getWidth();
-		double bottom = prop.getY() + (double) prop.getHeight();
+		final double xoffset = RNA_LOOP_WIDTH;
+		final double yoffset = 0.5 * RNA_LOOP_WIDTH;
+		double x = prop.getX();
+		double maxX = prop.getX() + prop.getWidth();
+		double x1 = x + xoffset;
+		double x2 = maxX - xoffset;
+
+		double y = prop.getY();
+		double centerY = prop.getY() + 0.5 * prop.getHeight();
+		double maxY = prop.getY() + prop.getHeight();
+		double y1 = prop.getY() + yoffset;
+		double y2 = maxY - yoffset;
+
 		final Path2D path = new GeneralPath();
-
-		double xAux = prop.getX() + RNA_LOOP_WIDTH;
-		double yAux = prop.getY() + RNA_LOOP_WIDTH / 2;
-		path.moveTo(xAux, yAux);
-		xAux = right - RNA_LOOP_WIDTH;
-		path.lineTo(xAux, yAux);
-		yAux = prop.getY() + prop.getHeight() / 2;
-		path.quadTo(right, prop.getY(), right, yAux);
-
-		xAux = right - RNA_LOOP_WIDTH;
-		yAux = bottom - RNA_LOOP_WIDTH / 2;
-		path.quadTo(right, bottom, xAux, yAux);
-
-		xAux = prop.getX() + RNA_LOOP_WIDTH;
-		path.lineTo(xAux, yAux);
-		yAux = prop.getY() + prop.getHeight() / 2;
-		path.quadTo(prop.getX(), bottom, prop.getX(), yAux);
-
-		xAux = prop.getX() + RNA_LOOP_WIDTH;
-		yAux = prop.getY() + RNA_LOOP_WIDTH / 2;
-		path.quadTo(prop.getX(), prop.getY(), xAux, yAux);
+		path.moveTo(x1, y1);
+		path.lineTo(x2, y1);
+		path.quadTo(maxX, y, maxX, centerY);
+		path.quadTo(maxX, maxY, x2, y2);
+		path.lineTo(x1, y2);
+		path.quadTo(x, maxY, x, centerY);
+		path.quadTo(x, y, x1, y1);
 		path.closePath();
 		return path;
 	}

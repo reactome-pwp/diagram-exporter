@@ -13,18 +13,12 @@ public class RenderableGene extends RenderableNode {
 	private static GeneRenderer renderer = new GeneRenderer();
 
 	private final Shape arrow;
-	private final Shape line;
+	private final Shape lines;
 
 	RenderableGene(Node node) {
 		super(node);
-		line = ShapeFactory.getGeneLine(
-				getNode().getProp().getX(),
-				getNode().getProp().getY(),
-				getNode().getProp().getWidth());
-		arrow = ShapeFactory.getGeneArrow(
-				getNode().getProp().getX(),
-				getNode().getProp().getY(),
-				getNode().getProp().getWidth());
+		lines = ShapeFactory.getGeneLine(getNode().getProp());
+		arrow = ShapeFactory.getGeneArrow(getNode().getProp());
 	}
 
 	@Override
@@ -46,7 +40,7 @@ public class RenderableGene extends RenderableNode {
 		return arrow;
 	}
 
-	public Shape getLine() {
-		return line;
+	public Shape getLines() {
+		return lines;
 	}
 }
