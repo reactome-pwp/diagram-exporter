@@ -24,8 +24,7 @@ import java.util.Map;
  */
 public class TestUtils {
 
-//	private static final String TODAYS_SERVER = "https://reactomerelease.oicr.on.ca";
-	public static final String TODAYS_SERVER = "https://reactomedev.oicr.on.ca";
+	private static final String TODAYS_SERVER = "https://reactomedev.oicr.on.ca";
 
 	private static final Map<String, String> enrichments = new HashMap<>();
 	private static final Map<String, String> expressions = new HashMap<>();
@@ -34,7 +33,7 @@ public class TestUtils {
 	static {
 		AnalysisClient.setServer(TODAYS_SERVER);
 		AnalysisClient.setService("/AnalysisService");
-		ContentServiceClient.setHost("https://reactomedev.oicr.on.ca");
+		ContentServiceClient.setHost(TODAYS_SERVER);
 		ContentServiceClient.setService("/ContentService");
 	}
 

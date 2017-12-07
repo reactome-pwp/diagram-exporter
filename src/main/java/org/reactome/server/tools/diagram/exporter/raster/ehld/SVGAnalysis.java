@@ -4,6 +4,7 @@ import org.apache.batik.bridge.BridgeContext;
 import org.apache.batik.bridge.GVTBuilder;
 import org.apache.batik.bridge.UserAgentAdapter;
 import org.apache.batik.gvt.GraphicsNode;
+import org.reactome.server.tools.diagram.exporter.common.LruCache;
 import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
@@ -34,6 +35,8 @@ import static org.apache.batik.util.SVGConstants.*;
 
 public class SVGAnalysis {
 	static final String REGION_ = "REGION-";
+
+	private static final LruCache<String, AnalysisResult> cache = new LruCache<>();
 	private static final double MAX_P_VALUE = 0.05;
 	private static final int TEXT_V_ALIGN = 4;
 	private static final String OVERLAY_TEXT_STYLE = "{ fill: #000000 !important; stroke:#000000; stroke-width:0.5px }";
@@ -79,7 +82,12 @@ public class SVGAnalysis {
 	private void collectAnalysisResult() {
 		if (args.getToken() == null) return;
 		try {
-			result = AnalysisClient.getAnalysisResult(args.getToken());
+			if (cache.has(args.getToken()))
+				result = cache.get(args.getToken());
+			else {
+				result = AnalysisClient.getAnalysisResult(args.getToken());
+				cache.put(args.getToken(), result);
+			}
 			analysisType = AnalysisType.getType(result.getSummary().getType());
 			final List<ResourceSummary> summaryList = result.getResourceSummary();
 

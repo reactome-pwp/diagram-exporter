@@ -22,7 +22,7 @@ import java.awt.geom.Rectangle2D;
 public class GeneRenderer extends NodeAbstractRenderer {
 	@Override
 	public void background(RenderableNode renderableNode, DiagramCanvas canvas, DiagramIndex index, ColorProfiles colorProfiles) {
-		RenderableGene renderableGene = (RenderableGene) renderableNode;
+		final RenderableGene renderableGene = (RenderableGene) renderableNode;
 		final Color fill = getFillColor(renderableNode, colorProfiles, index);
 		final Color border = getStrokeColor(renderableNode, colorProfiles, index);
 		// report: genes are not dashed in PathwayBrowser, although json file says needDashedBorder
@@ -30,12 +30,12 @@ public class GeneRenderer extends NodeAbstractRenderer {
 		if (renderableNode.isFadeOut()) {
 			canvas.getFadeOutNodeBackground().add(renderableNode.getBackgroundArea(), fill);
 			canvas.getFadeOutNodeBackground().add(renderableGene.getArrow(), fill);
-			canvas.getFadeOutNodeBorder().add(renderableGene.getLine(), border, stroke);
+			canvas.getFadeOutNodeBorder().add(renderableGene.getLines(), border, stroke);
 			canvas.getFadeOutNodeBorder().add(renderableGene.getArrow(), border, stroke);
 		} else {
 			canvas.getNodeBackground().add(renderableNode.getBackgroundArea(), fill);
 			canvas.getNodeBackground().add(renderableGene.getArrow(), fill);
-			canvas.getNodeBorder().add(renderableGene.getLine(), border, stroke);
+			canvas.getNodeBorder().add(renderableGene.getLines(), border, stroke);
 			canvas.getNodeBorder().add(renderableGene.getArrow(), border, stroke);
 		}
 	}
@@ -46,7 +46,7 @@ public class GeneRenderer extends NodeAbstractRenderer {
 		final Color color = colorProfiles.getDiagramSheet().getProperties().getHalo();
 		final Stroke stroke = StrokeStyle.HALO.get(false);
 		canvas.getHalo().add(renderableGene.getArrow(), color, stroke);
-		canvas.getHalo().add(renderableGene.getLine(), color, stroke);
+		canvas.getHalo().add(renderableGene.getLines(), color, stroke);
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class GeneRenderer extends NodeAbstractRenderer {
 		final Color color = colorProfiles.getDiagramSheet().getProperties().getHalo();
 		final Stroke stroke = StrokeStyle.FLAG.get(false);
 		canvas.getFlags().add(renderableGene.getArrow(), color, stroke);
-		canvas.getFlags().add(renderableGene.getLine(), color, stroke);
+		canvas.getFlags().add(renderableGene.getLines(), color, stroke);
 	}
 
 	@Override
