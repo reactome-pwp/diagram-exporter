@@ -2,13 +2,13 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram.renderers;
 
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.exporter.common.analysis.model.FoundEntity;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.TextLayer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
@@ -68,6 +68,7 @@ public abstract class NodeAbstractRenderer extends ObjectRenderer {
 	}
 
 	public double analysis(RenderableNode renderableNode, DiagramCanvas canvas, DiagramIndex index, ColorProfiles colorProfiles, int t) {
+		if (renderableNode.isFadeOut()) return 0.0;
 		switch (index.getAnalysis().getType()) {
 			case SPECIES_COMPARISON:
 			case OVERREPRESENTATION:
