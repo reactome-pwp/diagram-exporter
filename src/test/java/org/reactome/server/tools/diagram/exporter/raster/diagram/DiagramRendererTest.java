@@ -31,7 +31,7 @@ public class DiagramRendererTest {
 
 	// Set to true for visual inspection of tests
 	// todo: don't forget to set to false before pushing
-	private static final boolean save = false;
+	private static final boolean save = true;
 
 	@BeforeClass
 	public static void beforeClass() {
@@ -205,6 +205,14 @@ public class DiagramRendererTest {
 		args.setSelected(Collections.singletonList("R-HSA-5637815"));
 		render(args);
 		// report: processNodes have no outer red border when hit by analysis
+	}
+
+	@Test
+	public void testDecoratedFadeout() {
+		// Fadeout elements can't be decorated (selected, haloed, flagged)
+		final RasterArgs args = new RasterArgs("R-HSA-5683371", "jpg");
+		args.setSelected(Arrays.asList("29356","71185"));
+		render(args);
 	}
 
 	private void render(RasterArgs args) {
