@@ -157,7 +157,7 @@ public class DiagramRenderer implements RasterRenderer {
 		index.getNodes().forEach(renderableNode ->
 				renderableNode.renderAnalysis(canvas, colorProfiles, index, t));
 		// Update legend
-		legendRenderer.setCol(t, diagram.getDisplayName());
+		legendRenderer.setCol(t, title);
 		final BufferedImage image = createImage(width, height, "gif");
 		final Graphics2D graphics = createGraphics(image, "gif", factor, offsetX, offsetY);
 		canvas.render(graphics);
