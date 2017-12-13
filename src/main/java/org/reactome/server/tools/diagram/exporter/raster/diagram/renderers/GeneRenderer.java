@@ -52,7 +52,7 @@ public class GeneRenderer extends NodeAbstractRenderer {
 	@Override
 	public void flag(RenderableNode renderableNode, DiagramCanvas canvas, ColorProfiles colorProfiles) {
 		final RenderableGene renderableGene = (RenderableGene) renderableNode;
-		final Color color = colorProfiles.getDiagramSheet().getProperties().getHalo();
+		final Color color = colorProfiles.getDiagramSheet().getProperties().getFlag();
 		final Stroke stroke = StrokeStyle.FLAG.get(false);
 		canvas.getFlags().add(renderableGene.getArrow(), color, stroke);
 		canvas.getFlags().add(renderableGene.getLines(), color, stroke);
