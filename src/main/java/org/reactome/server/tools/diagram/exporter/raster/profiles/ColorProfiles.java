@@ -70,20 +70,20 @@ public class ColorProfiles {
 	}
 
 	private InteractorsSheet getInteractorsSheet(String interactors) {
-		return interactors != null && INTERACTORS_SHEETS.containsKey(interactors)
-				? INTERACTORS_SHEETS.get(interactors)
+		return interactors != null && INTERACTORS_SHEETS.containsKey(interactors.toLowerCase())
+				? INTERACTORS_SHEETS.get(interactors.toLowerCase())
 				: INTERACTORS_SHEETS.get(DEFAULT_INTERACTORS_PROFILE);
 	}
 
 	private AnalysisSheet getAnalysisSheet(String analysis) {
-		return analysis != null && ANALYSIS_SHEETS.containsKey(analysis)
-				? ANALYSIS_SHEETS.get(analysis)
+		return analysis != null && ANALYSIS_SHEETS.containsKey(analysis.toLowerCase())
+				? ANALYSIS_SHEETS.get(analysis.toLowerCase())
 				: ANALYSIS_SHEETS.get(DEFAULT_ANALYSIS_PROFILE);
 	}
 
 	private DiagramSheet getDiagramSheet(String diagram) {
-		return diagram != null && DIAGRAM_SHEETS.containsKey(diagram)
-				? DIAGRAM_SHEETS.get(diagram)
+		return diagram != null && DIAGRAM_SHEETS.containsKey(diagram.toLowerCase())
+				? DIAGRAM_SHEETS.get(diagram.toLowerCase())
 				: DIAGRAM_SHEETS.get(DEFAULT_DIAGRAM_PROFILE);
 	}
 

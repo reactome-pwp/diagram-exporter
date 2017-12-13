@@ -207,6 +207,14 @@ public class DiagramRendererTest {
 		// report: processNodes have no outer red border when hit by analysis
 	}
 
+	@Test
+	public void testDecoratedFadeout() {
+		// Fadeout elements can't be decorated (selected, haloed, flagged)
+		final RasterArgs args = new RasterArgs("R-HSA-5683371", "jpg");
+		args.setSelected(Arrays.asList("29356","71185"));
+		render(args);
+	}
+
 	private void render(RasterArgs args) {
 		try {
 			final DiagramRenderer renderer = new DiagramRenderer(args, DIAGRAM_PATH);
