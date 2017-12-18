@@ -72,20 +72,3 @@ OutputStream os = new FileOutputStream(file);
 RasterRenderer.renderToGif(stId, diagramPath, ehldPath, os);
 os.close();
 ```
-
-## Status
-
-feature|diagram|ehld
----|---|---
-png|Yes|Yes
-jpg, jpeg|Yes|Yes
-gif|Yes|Yes
-animated gif|Yes|Yes
-selection|Yes|No\*
-flag|Yes|No\*
-expression analysis|Yes|Yes
-enrichment analysis|Yes|Yes
-background color|Yes|Yes
-expression column|Yes|Yes
-
-\* Due to a known bug in the SVG rendering (https://issues.apache.org/jira/browse/BATIK-1207) selection and flagging are temporarily deactivated.
