@@ -87,21 +87,21 @@ public class EhldRendererTest {
 	@Test
 	public void testEnrichment() {
 		final RasterArgs args = new RasterArgs("R-HSA-109582", "png");
-		args.setToken(TestUtils.createEnrichmentToken("enrichment_data.txt"));
+		args.setToken(TestUtils.performAnalysis("enrichment_data.txt"));
 		render(args);
 	}
 
 	@Test
 	public void testExpression() {
 		final RasterArgs args = new RasterArgs("R-HSA-6806667", "gif");
-		args.setToken(TestUtils.createExpressionToken("expression_data.txt"));
+		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
 		renderGif(args);
 	}
 
 	@Test
 	public void testAnimatedGif() {
 		final RasterArgs args = new RasterArgs("R-HSA-69278", "gif");
-		args.setToken(TestUtils.createExpressionToken("expression_data.txt"));
+		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
 		args.setSelected(Arrays.asList("R-HSA-69242", "R-HSA-68886"));
 		args.setProfiles(new ColorProfiles("modern", "copper plus", "cyan"));
 		renderGif(args);

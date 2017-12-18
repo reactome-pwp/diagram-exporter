@@ -157,7 +157,7 @@ public class DiagramRendererTest {
 	@Test
 	public void testEnrichment() {
 		RasterArgs args = new RasterArgs("R-HSA-69620", "png");
-		args.setToken(TestUtils.createEnrichmentToken("enrichment_data.txt"));
+		args.setToken(TestUtils.performAnalysis("enrichment_data.txt"));
 		args.setWriteTitle(true);
 		render(args);
 	}
@@ -165,7 +165,7 @@ public class DiagramRendererTest {
 	@Test
 	public void testExpression() {
 		RasterArgs args = new RasterArgs("R-HSA-69620", "png");
-		args.setToken(TestUtils.createExpressionToken("expression_data.txt"));
+		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
 		args.setWriteTitle(true);
 		render(args);
 	}
@@ -174,7 +174,7 @@ public class DiagramRendererTest {
 	public void testExpressionSelectUnhit() {
 		// My favourite diagram had to be here
 		final RasterArgs args = new RasterArgs("R-HSA-432047", "gif");
-		args.setToken(TestUtils.createExpressionToken("expression_data2.txt"));
+		args.setToken(TestUtils.performAnalysis("expression_data2.txt"));
 		args.setSelected(Collections.singletonList("R-HSA-432253"));
 		render(args);
 	}
@@ -184,7 +184,7 @@ public class DiagramRendererTest {
 		final ColorProfiles profiles = new ColorProfiles("modern", "copper plus", "teal");
 		final RasterArgs args = new RasterArgs("R-HSA-109606", "gif");
 		args.setSelected(Collections.singletonList("R-HSA-114255"));
-		args.setToken(TestUtils.createExpressionToken("expression_data.txt"));
+		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
 		args.setProfiles(profiles);
 		renderGif(args);
 	}
@@ -201,7 +201,7 @@ public class DiagramRendererTest {
 	public void testDiseaseProcessNodeWithAnalysis() {
 		// This could be the definition of a corner case
 		final RasterArgs args = new RasterArgs("R-HSA-1643713", "png");
-		args.setToken(TestUtils.createExpressionToken("expression_data.txt"));
+		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
 		args.setSelected(Collections.singletonList("R-HSA-5637815"));
 		render(args);
 		// report: processNodes have no outer red border when hit by analysis

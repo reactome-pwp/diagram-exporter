@@ -6,7 +6,7 @@ import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient
 import org.reactome.server.tools.diagram.exporter.common.analysis.ContentServiceClient;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisResult;
+import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisSummary;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramRendererTest;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.EhldRendererTest;
@@ -26,9 +26,7 @@ public class TestUtils {
 
 	private static final String TODAYS_SERVER = "https://reactomedev.oicr.on.ca";
 
-	private static final Map<String, String> enrichments = new HashMap<>();
-	private static final Map<String, String> expressions = new HashMap<>();
-	private static final Map<String, String> species = new HashMap<>();
+	private static Map<String, AnalysisSummary> cache = new HashMap<>();
 
 	static {
 		AnalysisClient.setServer(TODAYS_SERVER);
@@ -38,12 +36,12 @@ public class TestUtils {
 	}
 
 	public static String createSpeciesComparisonToken(String species) {
-		if (TestUtils.species.containsKey(species))
-			return TestUtils.species.get(species);
+		if (cache.containsKey(species))
+			return cache.get(species).getToken();
 		try {
-			final String token = AnalysisClient.performSpeciesComparison(species).getSummary().getToken();
-			TestUtils.species.put(species, token);
-			return token;
+			final AnalysisSummary summary = AnalysisClient.performSpeciesComparison(species).getSummary();
+			cache.put(species, summary);
+			return summary.getToken();
 		} catch (AnalysisException | AnalysisServerError e) {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
@@ -51,33 +49,14 @@ public class TestUtils {
 		return null;
 	}
 
-	public static String createEnrichmentToken(String resource) {
-		if (enrichments.containsKey(resource))
-			return enrichments.get(resource);
+	public static String performAnalysis(String resource) {
+		if (cache.containsKey(resource)) return cache.get(resource).getToken();
 		try {
 			final String query = IOUtils.toString(TestUtils.class.getResourceAsStream(resource), Charset.defaultCharset());
-			final AnalysisResult result = AnalysisClient.performAnalysis(query);
-			final String token = result.getSummary().getToken();
-			enrichments.put(resource, token);
-			return token;
+			final AnalysisSummary summary = AnalysisClient.performAnalysis(query).getSummary();
+			cache.put(resource, summary);
+			return summary.getToken();
 		} catch (AnalysisServerError | IOException | AnalysisException e) {
-			e.printStackTrace();
-			Assert.fail(e.getMessage());
-		}
-		return null;
-	}
-
-	public static String createExpressionToken(String resource) {
-		if (expressions.containsKey(resource))
-			return expressions.get(resource);
-		try {
-			final String query;
-			query = IOUtils.toString(TestUtils.class.getResourceAsStream(resource), Charset.defaultCharset());
-			final AnalysisResult result = AnalysisClient.performAnalysis(query);
-			final String token = result.getSummary().getToken();
-			expressions.put(resource, token);
-			return token;
-		} catch (IOException | AnalysisServerError | AnalysisException e) {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
@@ -105,14 +84,11 @@ public class TestUtils {
 	}
 
 	private static String getAnalysisType(String token) {
-		if (token == null) return "none";
-		if (enrichments.values().contains(token))
-			return "enrichment";
-		if (expressions.values().contains(token))
-			return "expression";
-		if (species.values().contains(token))
-			return "species";
-		return "unknown";
+		if (token == null) return "NONE";
+		for (AnalysisSummary summary : cache.values())
+			if (summary.getToken().equals(token))
+				return summary.getType();
+		return "UNKNOWN";
 	}
 
 	public static void createDir(File file) {
