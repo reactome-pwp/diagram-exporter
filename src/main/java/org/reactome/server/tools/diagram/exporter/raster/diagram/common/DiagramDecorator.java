@@ -122,7 +122,7 @@ public class DiagramDecorator {
 		if (selected.isEmpty() && flags.isEmpty())
 			return;
 		diagram.getNodes().forEach(node -> {
-			if (node.getIsFadeOut() == null || node.getIsFadeOut())
+			if (node.getIsFadeOut() != null && node.getIsFadeOut())
 				return;
 			if (selected.contains(node.getReactomeId())) {
 				final RenderableNode renderableNode = index.getNode(node.getId());
@@ -144,7 +144,7 @@ public class DiagramDecorator {
 
 	private void decorateReactions(Collection<Long> selected, Collection<Long> flags) {
 		diagram.getEdges().forEach(reaction -> {
-			if (reaction.getIsFadeOut() == null || reaction.getIsFadeOut())
+			if (reaction.getIsFadeOut() != null && reaction.getIsFadeOut())
 				return;
 			if (selected.contains(reaction.getReactomeId())) {
 				final RenderableEdge renderableEdge = index.getEdge(reaction.getId());
