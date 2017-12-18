@@ -173,7 +173,7 @@
   },
   "reaction": {
     "fill": "#FFFFFF",
-    "fadeOutFill": "#6E6E6E",
+    "fadeOutFill": "#FFFFFF",
     "lighterFill": "#6E6E6E",
     "stroke": "#000000",
     "fadeOutStroke": "#6E6E6E",

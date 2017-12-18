@@ -25,9 +25,19 @@
             <pattern>%d %-5level [%thread] %logger{0}: %msg%n</pattern>
         </encoder>
     </appender>
+    <appender name="TRACE" class="ch.qos.logback.core.FileAppender">
+        <append>false</append>
+        <file>./logs/diagram-exporter-trace.log</file>
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
 
-    <logger name="infoLogger" level="INFO" additivity="false">
+    <logger name="infoLogger" level="TRACE" additivity="false">
         <appender-ref ref="FILE"/>
+    </logger>
+    <logger name="trace" level="TRACE" additivity="false">
+        <appender-ref ref="TRACE"/>
     </logger>
 
     <root level="ERROR">

@@ -4,12 +4,12 @@
 
     <groupId>org.reactome.server.tools</groupId>
     <artifactId>diagram-exporter</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <packaging>jar</packaging>
 
     <name>Diagram Exporter</name>
 
-    <description>Export Pathway diagram into PowerPoint.</description>
+    <description>Export Pathway diagram into PowerPoint or PNG</description>
     <url>http://reactome.org</url>
     <organization>
         <name>The European Bioinformatics Institute</name>
@@ -24,6 +24,12 @@
             <organization>http://www.ebi.ac.uk/</organization>
         </developer>
         <developer>
+            <id>plorente</id>
+            <name>Pascual Lorente</name>
+            <email>plorente@ebi.ac.uk</email>
+            <organization>http://www.ebi.ac.uk/</organization>
+        </developer>
+        <developer>
             <id>amundo</id>
             <name>Antonio Fabregat Mundo</name>
             <email>amundo@ebi.ac.uk</email>
@@ -33,6 +39,7 @@
 
     <properties>
         <diagram.reader.version>1.1.0</diagram.reader.version>
+        <batik.version>1.9.1</batik.version>
         <aspose.version>17.7</aspose.version>
         <logback.version>1.1.10</logback.version>
         <commons.io.version>2.5</commons.io.version>
@@ -57,6 +64,19 @@
             <groupId>org.reactome.server.tools</groupId>
             <artifactId>diagram-reader</artifactId>
             <version>${diagram.reader.version}</version>
+        </dependency>
+
+        <!-- EHLD related dependencies -->
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-transcoder</artifactId>
+            <version>${batik.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-codec</artifactId>
+            <version>${batik.version}</version>
         </dependency>
 
         <dependency>
@@ -157,6 +177,21 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.1.2</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -206,6 +241,17 @@
         <repository>
             <id>aspose-maven-repository</id>
             <url>http://maven.aspose.com/repository/ext-release-local</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+        <repository>
+            <id>mygrid-maven-repository</id>
+            <url>http://www.mygrid.org.uk/maven/repository/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
