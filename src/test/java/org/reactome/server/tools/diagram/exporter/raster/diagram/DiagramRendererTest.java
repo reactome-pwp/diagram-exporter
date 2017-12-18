@@ -211,7 +211,7 @@ public class DiagramRendererTest {
 	public void testDecoratedFadeout() {
 		// Fadeout elements can't be decorated (selected, haloed, flagged)
 		final RasterArgs args = new RasterArgs("R-HSA-5683371", "jpg");
-		args.setSelected(Arrays.asList("29356","71185"));
+		args.setSelected(Arrays.asList("29356", "71185"));
 		render(args);
 	}
 
@@ -243,9 +243,8 @@ public class DiagramRendererTest {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testScaleLimits() {
-		final int factor = 0;
 		final RasterArgs args = new RasterArgs("stid", "png");
-		args.setQuality(factor);
+		args.setQuality(0);
 	}
 
 }
