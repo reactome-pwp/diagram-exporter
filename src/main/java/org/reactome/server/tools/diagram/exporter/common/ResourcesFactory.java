@@ -54,13 +54,11 @@ public class ResourcesFactory {
 	 *                                             formed
 	 */
 	public static DiagramProfile getDiagramProfile(String name) throws DiagramProfileException, DiagramJsonDeserializationException {
-		if (name == null)
-			name = DEFAULT_DIAGRAM_PROFILE;
+		if (name == null) name = DEFAULT_DIAGRAM_PROFILE;
 		logger.trace("Getting Profile [{}]", name);
-		final String file = "diagram_" + name.toLowerCase() + ".json";
+		final String file = "/profiles/" + name.toLowerCase() + ".json";
 		InputStream resource = ProfileResources.class.getResourceAsStream(file);
-		if (resource == null)
-			resource = ProfileResources.class.getResourceAsStream(DEFAULT_DIAGRAM_PROFILE);
+		if (resource == null) resource = ProfileResources.class.getResourceAsStream("/profiles/" + DEFAULT_DIAGRAM_PROFILE +".json");
 		try {
 			if (resource == null) {
 				logger.error("Could not read diagram color profile {}", name);
