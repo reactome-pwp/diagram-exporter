@@ -69,9 +69,7 @@ public class RasterExporter {
 	 */
 	public static BufferedImage export(RasterArgs args, String diagramPath, String EHLDPath) throws Exception {
 		try {
-			final RasterRenderer renderer = hasEHLD.contains(args.getStId())
-					? new EHLDRenderer(args, EHLDPath)
-					: new DiagramRenderer(args, diagramPath);
+			final RasterRenderer renderer = getRenderer(args, diagramPath, EHLDPath);
 			final Dimension dimension = renderer.getDimension();
 			double size = dimension.getHeight() * dimension.getWidth();
 			return renderer.render();
@@ -114,11 +112,7 @@ public class RasterExporter {
 	 */
 	public static void exportToGif(RasterArgs args, String diagramPath, String EHLDPath, OutputStream os) throws Exception {
 		try {
-			final RasterRenderer renderer = hasEHLD.contains(args.getStId())
-					? new EHLDRenderer(args, EHLDPath)
-					: new DiagramRenderer(args, diagramPath);
-			final Dimension dimension = renderer.getDimension();
-			double size = dimension.getHeight() * dimension.getWidth();
+			final RasterRenderer renderer = getRenderer(args, diagramPath, EHLDPath);
 			renderer.renderToAnimatedGif(os);
 		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | EHLDException e) {
 			throw new Exception(String.format("there is no diagram for '%s'", args.getStId()), e);
@@ -158,9 +152,7 @@ public class RasterExporter {
 	 */
 	public static SVGDocument exportToSVG(RasterArgs args, String diagramPath, String EHLDPath) throws Exception {
 		try {
-			final RasterRenderer renderer = hasEHLD.contains(args.getStId())
-					? new EHLDRenderer(args, EHLDPath)
-					: new DiagramRenderer(args, diagramPath);
+			final RasterRenderer renderer = getRenderer(args, diagramPath, EHLDPath);
 			return renderer.renderToSVG();
 		} catch (EHLDException | DiagramJsonNotFoundException | DiagramJsonDeserializationException e) {
 			throw new Exception(String.format("there is no diagram for '%s'", args.getStId()), e);
@@ -170,4 +162,19 @@ public class RasterExporter {
 
 	}
 
+	/**
+	 * Creates a proper RasterRenderer depending on the type of the source
+	 * diagram (standard or enhanced).
+	 *
+	 * @param args        to create the renderer
+	 * @param diagramPath path where standard diagrams are located
+	 * @param EHLDPath    path where EHLD are located
+	 */
+	private static RasterRenderer getRenderer(RasterArgs args, String diagramPath, String EHLDPath)
+			throws DiagramJsonNotFoundException, DiagramJsonDeserializationException,
+			EHLDException, AnalysisException, AnalysisServerError {
+		return hasEHLD.contains(args.getStId())
+				? new EHLDRenderer(args, EHLDPath)
+				: new DiagramRenderer(args, diagramPath);
+	}
 }
