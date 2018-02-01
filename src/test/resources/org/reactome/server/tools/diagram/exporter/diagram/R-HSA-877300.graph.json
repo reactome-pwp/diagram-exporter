@@ -1,0 +1,2158 @@
+{
+  "dbId" : 877300,
+  "stId" : "R-HSA-877300",
+  "nodes" : [ {
+    "dbId" : 1031695,
+    "stId" : "R-HSA-1031695",
+    "displayName" : "GBP [cytosol]",
+    "schemaClass" : "CandidateSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 258 ],
+    "children" : [ 1031693, 1031692, 1031691, 1015673, 1031689, 1031698, 1031696 ]
+  }, {
+    "dbId" : 983055,
+    "stId" : "R-HSA-983055",
+    "displayName" : "HLA class I histocompatibility antigen, Cw-6 alpha chain precursor [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q29963",
+    "geneNames" : [ "HLA-C", "HLAC" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 1031694,
+    "stId" : "R-HSA-1031694",
+    "displayName" : "FCGRA [plasma membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 260 ],
+    "children" : [ 197835, 1031697 ]
+  }, {
+    "dbId" : 1031693,
+    "stId" : "R-HSA-1031693",
+    "displayName" : "GBP6 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q6ZN66",
+    "geneNames" : [ "GBP6" ],
+    "parents" : [ 1031695 ]
+  }, {
+    "dbId" : 983053,
+    "stId" : "R-HSA-983053",
+    "displayName" : "class I MHC B81 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q31610",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 1031692,
+    "stId" : "R-HSA-1031692",
+    "displayName" : "GBP5 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q96PP8",
+    "geneNames" : [ "GBP5", "UNQ2427/PRO4987" ],
+    "parents" : [ 1031695 ]
+  }, {
+    "dbId" : 983052,
+    "stId" : "R-HSA-983052",
+    "displayName" : "class I MHC B37 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P18463",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 1031691,
+    "stId" : "R-HSA-1031691",
+    "displayName" : "GBP4 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q96PP9",
+    "geneNames" : [ "GBP4" ],
+    "parents" : [ 1031695 ]
+  }, {
+    "dbId" : 1031690,
+    "stId" : "R-HSA-1031690",
+    "displayName" : "IFN-gamma upregulated CAMs [plasma membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 266 ],
+    "children" : [ 197683, 1031688, 197834, 190987 ]
+  }, {
+    "dbId" : 1031689,
+    "stId" : "R-HSA-1031689",
+    "displayName" : "GBP7 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q8N8V2",
+    "geneNames" : [ "GBP7", "GBP4L" ],
+    "parents" : [ 1031695 ]
+  }, {
+    "dbId" : 983049,
+    "stId" : "R-HSA-983049",
+    "displayName" : "class I MHC B46 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30484",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983048,
+    "stId" : "R-HSA-983048",
+    "displayName" : "class I MHC B82 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q29718",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 1031688,
+    "stId" : "R-HSA-1031688",
+    "displayName" : "CD44 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P16070",
+    "geneNames" : [ "CD44", "LHR", "MDU2", "MDU3", "MIC4" ],
+    "parents" : [ 1031690 ]
+  }, {
+    "dbId" : 983047,
+    "stId" : "R-HSA-983047",
+    "displayName" : "class I MHC B78 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30498",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983046,
+    "stId" : "R-HSA-983046",
+    "displayName" : "class I MHC B54 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30492",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 190987,
+    "stId" : "R-HSA-190987",
+    "displayName" : "NCAM1 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P13591",
+    "geneNames" : [ "NCAM1", "NCAM" ],
+    "parents" : [ 1031690 ]
+  }, {
+    "dbId" : 983045,
+    "stId" : "R-HSA-983045",
+    "displayName" : "class I MHC B18 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30466",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983044,
+    "stId" : "R-HSA-983044",
+    "displayName" : "HLA class I histocompatibility antigen, Cw-7 alpha chain precursor [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P10321",
+    "geneNames" : [ "HLA-C", "HLAC" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 197640,
+    "stId" : "R-HSA-197640",
+    "displayName" : "HLA class II histocompatibility antigen, DRB1-9 beta chain precursor [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9TQE0",
+    "geneNames" : [ "HLA-DRB1" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 2130476,
+    "stId" : "R-HSA-2130476",
+    "displayName" : "HLA II beta chain [plasma membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "parents" : [ 2213189 ],
+    "children" : [ 1235088, 882031, 1235089, 197573, 197578, 197577, 197640, 197647, 197644, 197649, 197648, 1235082, 1235083, 1235086, 1235087, 882032, 882035, 1235084, 882034, 1235085 ]
+  }, {
+    "dbId" : 197647,
+    "stId" : "R-HSA-197647",
+    "displayName" : "HLA class II histocompatibility antigen, DQB1*0602 beta chain precursor [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P01920",
+    "geneNames" : [ "HLA-DQB1", "HLA-DQB" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 983042,
+    "stId" : "R-HSA-983042",
+    "displayName" : "class I MHC B27 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P03989",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983041,
+    "stId" : "R-HSA-983041",
+    "displayName" : "class I MHC B47 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30485",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 197644,
+    "stId" : "R-HSA-197644",
+    "displayName" : "HLA class II histocompatibility antigen, DRB1-15 beta chain [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P01911",
+    "geneNames" : [ "HLA-DRB1", "HLA-DRB2" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 983071,
+    "stId" : "R-HSA-983071",
+    "displayName" : "class I MHC B53 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30491",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 1031710,
+    "stId" : "R-HSA-1031710",
+    "displayName" : "GAF bound to GAS promoter element [nucleoplasm]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 256 ],
+    "children" : [ 1031708, 873824 ]
+  }, {
+    "dbId" : 983069,
+    "stId" : "R-HSA-983069",
+    "displayName" : "class I MHC B15 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30464",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 197649,
+    "stId" : "R-HSA-197649",
+    "displayName" : "HLA class II histocompatibility antigen, DQ beta 2 chain [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P05538",
+    "geneNames" : [ "HLA-DQB2", "HLA-DXB" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 1031708,
+    "stId" : "R-ALL-1031708",
+    "displayName" : "GAS promoter region in IFNG-regulated genes [nucleoplasm]",
+    "schemaClass" : "OtherEntity",
+    "diagramIds" : [ 255 ],
+    "parents" : [ 1031710 ]
+  }, {
+    "dbId" : 197648,
+    "stId" : "R-HSA-197648",
+    "displayName" : "HLA class II histocompatibility antigen, DP [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P04440",
+    "geneNames" : [ "HLA-DPB1", "HLA-DP1B" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 983067,
+    "stId" : "R-HSA-983067",
+    "displayName" : "class I MHC B49 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30487",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 1031707,
+    "stId" : "R-HSA-1031707",
+    "displayName" : "MT2A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 263 ],
+    "identifier" : "P02795",
+    "geneNames" : [ "MT2A", "CES1", "MT2" ]
+  }, {
+    "dbId" : 983066,
+    "stId" : "R-HSA-983066",
+    "displayName" : "class I MHC B13 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30461",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 1031706,
+    "stId" : "R-HSA-1031706",
+    "displayName" : "PML [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 264 ],
+    "identifier" : "P29590",
+    "geneNames" : [ "PML", "MYL", "PP8675", "RNF71", "TRIM19" ]
+  }, {
+    "dbId" : 983065,
+    "stId" : "R-HSA-983065",
+    "displayName" : "HLA class I histocompatibility antigen, alpha chain G precursor [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P17693",
+    "geneNames" : [ "HLA-G", "HLA-6.0", "HLAG" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 1031705,
+    "stId" : "R-HSA-1031705",
+    "displayName" : "SP100 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 269 ],
+    "identifier" : "P23497",
+    "geneNames" : [ "SP100" ]
+  }, {
+    "dbId" : 983064,
+    "stId" : "R-HSA-983064",
+    "displayName" : "HLA class I histocompatibility antigen, Cw-4 alpha chain precursor [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30504",
+    "geneNames" : [ "HLA-C", "HLAC" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 1031704,
+    "stId" : "R-HSA-1031704",
+    "displayName" : "IFI30 [lysosomal lumen]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 270 ],
+    "identifier" : "P13284",
+    "geneNames" : [ "IFI30", "GILT", "IP30" ]
+  }, {
+    "dbId" : 983063,
+    "stId" : "R-HSA-983063",
+    "displayName" : "B2M(21-119) [endoplasmic reticulum lumen]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 267 ],
+    "identifier" : "P61769",
+    "geneNames" : [ "B2M", "CDABP0092", "HDCMA22P" ]
+  }, {
+    "dbId" : 1031702,
+    "stId" : "R-HSA-1031702",
+    "displayName" : "CIITA [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 259 ],
+    "identifier" : "P33076",
+    "geneNames" : [ "CIITA", "MHC2TA" ]
+  }, {
+    "dbId" : 983062,
+    "stId" : "R-HSA-983062",
+    "displayName" : "class I MHC B73 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q31612",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983061,
+    "stId" : "R-HSA-983061",
+    "displayName" : "class I MHC B44 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30481",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983059,
+    "stId" : "R-HSA-983059",
+    "displayName" : "HLA class I histocompatibility antigen, Cw-5 alpha chain precursor [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9TNN7",
+    "geneNames" : [ "HLA-C", "HLAC" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 1031698,
+    "stId" : "R-HSA-1031698",
+    "displayName" : "GBP1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P32455",
+    "geneNames" : [ "GBP1" ],
+    "parents" : [ 1031695 ]
+  }, {
+    "dbId" : 1031697,
+    "stId" : "R-HSA-1031697",
+    "displayName" : "FCGR1B [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q92637",
+    "geneNames" : [ "FCGR1B", "IGFRB" ],
+    "parents" : [ 1031694 ]
+  }, {
+    "dbId" : 983057,
+    "stId" : "R-HSA-983057",
+    "displayName" : "class I MHC B38 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q95365",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 1031696,
+    "stId" : "R-HSA-1031696",
+    "displayName" : "GBP3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9H0R5",
+    "geneNames" : [ "GBP3" ],
+    "parents" : [ 1031695 ]
+  }, {
+    "dbId" : 983087,
+    "stId" : "R-HSA-983087",
+    "displayName" : "class I MHC B42 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30480",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983086,
+    "stId" : "R-HSA-983086",
+    "displayName" : "HLA class I histocompatibility antigen, Cw-3 alpha chain precursor [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P04222",
+    "geneNames" : [ "HLA-C", "HLAC" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983080,
+    "stId" : "R-HSA-983080",
+    "displayName" : "class I MHC B41 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30479",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983079,
+    "stId" : "R-HSA-983079",
+    "displayName" : "class I MHC B58 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P10319",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983077,
+    "stId" : "R-HSA-983077",
+    "displayName" : "class I MHC B40 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q04826",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983075,
+    "stId" : "R-HSA-983075",
+    "displayName" : "HLA class I histocompatibility antigen, A-2 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P01892",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983073,
+    "stId" : "R-HSA-983073",
+    "displayName" : "class I MHC B7 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P01889",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983072,
+    "stId" : "R-HSA-983072",
+    "displayName" : "class I MHC B39 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30475",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 197683,
+    "stId" : "R-HSA-197683",
+    "displayName" : "ICAM1 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P05362",
+    "geneNames" : [ "ICAM1" ],
+    "parents" : [ 1031690 ]
+  }, {
+    "dbId" : 983102,
+    "stId" : "R-HSA-983102",
+    "displayName" : "HLA class I histocompatibility antigen, A-1 alpha chain precursor [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30443",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983101,
+    "stId" : "R-HSA-983101",
+    "displayName" : "class I MHC B59 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q29940",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983100,
+    "stId" : "R-HSA-983100",
+    "displayName" : "HLA class I histocompatibility antigen, A-3 alpha chain precursor [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P04439",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 419376,
+    "stId" : "R-HSA-419376",
+    "displayName" : "PTAFR [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 262 ],
+    "identifier" : "P25105",
+    "geneNames" : [ "PTAFR", "PAFR" ]
+  }, {
+    "dbId" : 983096,
+    "stId" : "R-HSA-983096",
+    "displayName" : "class I MHC B14 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30462",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983094,
+    "stId" : "R-HSA-983094",
+    "displayName" : "class I MHC B45 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30483",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983093,
+    "stId" : "R-HSA-983093",
+    "displayName" : "HLA class I histocompatibility antigen, alpha chain F precursor [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30511",
+    "geneNames" : [ "HLA-F", "HLA-5.4", "HLAF" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983092,
+    "stId" : "R-HSA-983092",
+    "displayName" : "class I MHC B50 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30488",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983090,
+    "stId" : "R-HSA-983090",
+    "displayName" : "HLA class I histocompatibility antigen, E alpha chain precursor [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P13747",
+    "geneNames" : [ "HLA-E", "HLA-6.2", "HLAE" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 5624341,
+    "stId" : "R-HSA-5624341",
+    "displayName" : "TRIM10 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9UDY6",
+    "geneNames" : [ "TRIM10", "RFB30", "RNF9" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 5624340,
+    "stId" : "R-HSA-5624340",
+    "displayName" : "TRIM62 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9BVG3",
+    "geneNames" : [ "TRIM62" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 983117,
+    "stId" : "R-HSA-983117",
+    "displayName" : "Class I MHC heavy chain (MHC HC) [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 261 ],
+    "children" : [ 983055, 983053, 983052, 983049, 983048, 983047, 983046, 983045, 983044, 3318206, 3318207, 983042, 983041, 983071, 983069, 983067, 983066, 983065, 983064, 983062, 983061, 983059, 983057, 983087, 983086, 983080, 983079, 983077, 983075, 983073, 983072, 983102, 983101, 983100, 983096, 983094, 983093, 983092, 983090, 983110, 983109, 983108, 983107, 983106, 983105, 983104, 3318224, 8855907, 8855905, 2220877, 2220876, 2220879, 2220878, 2220881, 3318210, 983038, 3318211, 2220883, 3318208, 2220882, 3318209, 2220885, 3318214, 2220884, 3318215, 3318212, 3318218, 3318219, 3318216, 3318217, 3318222, 3318223, 3318220, 3318221 ]
+  }, {
+    "dbId" : 879183,
+    "stId" : "R-HSA-879183",
+    "displayName" : "IRF9 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q00978",
+    "geneNames" : [ "IRF9", "ISGF3G" ],
+    "parents" : [ 1015695 ]
+  }, {
+    "dbId" : 5624343,
+    "stId" : "R-HSA-5624343",
+    "displayName" : "TRIM29 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q14134",
+    "geneNames" : [ "TRIM29", "ATDC" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 5624342,
+    "stId" : "R-HSA-5624342",
+    "displayName" : "TRIM5 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9C035",
+    "geneNames" : [ "TRIM5", "RNF88" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 5624338,
+    "stId" : "R-HSA-5624338",
+    "displayName" : "TRIM48 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q8IWZ4",
+    "geneNames" : [ "TRIM48", "RNF101" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 983110,
+    "stId" : "R-HSA-983110",
+    "displayName" : "class I MHC B55 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30493",
+    "geneNames" : [ "HLA-B", "HLAB", "CDABP0067" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 5624348,
+    "stId" : "R-HSA-5624348",
+    "displayName" : "TRIM2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9C040",
+    "geneNames" : [ "TRIM2", "KIAA0517", "RNF86" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 983109,
+    "stId" : "R-HSA-983109",
+    "displayName" : "class I MHC B56 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30495",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983108,
+    "stId" : "R-HSA-983108",
+    "displayName" : "class I MHC B52 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30490",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 5624350,
+    "stId" : "R-HSA-5624350",
+    "displayName" : "TRIM68 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q6AZZ1",
+    "geneNames" : [ "TRIM68", "GC109", "RNF137", "SS56" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 983107,
+    "stId" : "R-HSA-983107",
+    "displayName" : "class I MHC B8 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30460",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 5624345,
+    "stId" : "R-HSA-5624345",
+    "displayName" : "TRIM14 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q14142",
+    "geneNames" : [ "TRIM14", "KIAA0129" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 983106,
+    "stId" : "R-HSA-983106",
+    "displayName" : "class I MHC B51 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P18464",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 5624344,
+    "stId" : "R-HSA-5624344",
+    "displayName" : "TRIM3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "O75382",
+    "geneNames" : [ "TRIM3", "BERP", "RNF22", "RNF97" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 983105,
+    "stId" : "R-HSA-983105",
+    "displayName" : "class I MHC B57 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P18465",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 5624347,
+    "stId" : "R-HSA-5624347",
+    "displayName" : "TRIM31 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9BZY9",
+    "geneNames" : [ "TRIM31", "C6orf13", "RNF" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 983104,
+    "stId" : "R-HSA-983104",
+    "displayName" : "class I MHC B35 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30685",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 5624346,
+    "stId" : "R-HSA-5624346",
+    "displayName" : "INFG induced TRIMs [cytosol]",
+    "schemaClass" : "CandidateSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 293 ],
+    "children" : [ 5624341, 5624340, 5624343, 5624342, 918186, 5624338, 5624348, 5624350, 5624345, 5624344, 5624347, 5624325, 5624324, 5624327, 5624353, 976027, 5624323, 5624354, 5624333, 5624332, 5624329, 976051, 5624328, 5624330 ]
+  }, {
+    "dbId" : 5624325,
+    "stId" : "R-HSA-5624325",
+    "displayName" : "TRIM38 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "O00635",
+    "geneNames" : [ "TRIM38", "RNF15", "RORET" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 5624324,
+    "stId" : "R-HSA-5624324",
+    "displayName" : "TRIM26 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q12899",
+    "geneNames" : [ "TRIM26", "RNF95", "ZNF173" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 5624327,
+    "stId" : "R-HSA-5624327",
+    "displayName" : "PML [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P29590",
+    "geneNames" : [ "PML", "MYL", "PP8675", "RNF71", "TRIM19" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 5624323,
+    "stId" : "R-HSA-5624323",
+    "displayName" : "TRIM35 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9UPQ4",
+    "geneNames" : [ "TRIM35", "HLS5", "KIAA1098" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 5624333,
+    "stId" : "R-HSA-5624333",
+    "displayName" : "TRIM34 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9BYJ4",
+    "geneNames" : [ "TRIM34", "IFP1", "RNF21" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 5624332,
+    "stId" : "R-HSA-5624332",
+    "displayName" : "TRIM8 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9BZR9",
+    "geneNames" : [ "TRIM8", "GERP", "RNF27" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 5624329,
+    "stId" : "R-HSA-5624329",
+    "displayName" : "TRIM45 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9H8W5",
+    "geneNames" : [ "TRIM45", "RNF99" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 5624328,
+    "stId" : "R-HSA-5624328",
+    "displayName" : "TRIM17 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9Y577",
+    "geneNames" : [ "TRIM17", "RBCC", "RNF16", "TERF" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 5624330,
+    "stId" : "R-HSA-5624330",
+    "displayName" : "TRIM6 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9C030",
+    "geneNames" : [ "TRIM6", "RNF89" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 204910,
+    "stId" : "R-HSA-204910",
+    "displayName" : "SOCS1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "O15524",
+    "geneNames" : [ "SOCS1", "SSI1", "TIP3" ],
+    "parents" : [ 877267 ]
+  }, {
+    "dbId" : 5624353,
+    "stId" : "R-HSA-5624353",
+    "displayName" : "TRIM46 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q7Z4K8",
+    "geneNames" : [ "TRIM46", "TRIFIC" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 5624354,
+    "stId" : "R-HSA-5624354",
+    "displayName" : "TRIM22 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q8IYM9",
+    "geneNames" : [ "TRIM22", "RNF94", "STAF50" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 913524,
+    "stId" : "R-HSA-913524",
+    "displayName" : "p-Y701-STAT1-1 dimer [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 873817 ],
+    "children" : [ 873791 ]
+  }, {
+    "dbId" : 1235088,
+    "stId" : "R-HSA-1235088",
+    "displayName" : "HLA class II histocompatibility antigen, DRB1-8 beta chain [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q30134",
+    "geneNames" : [ "HLA-DRB1" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 1235089,
+    "stId" : "R-HSA-1235089",
+    "displayName" : "HLA class II histocompatibility antigen, DRB1-11 beta chain [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P20039",
+    "geneNames" : [ "HLA-DRB1" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 2130597,
+    "stId" : "R-HSA-2130597",
+    "displayName" : "HLA II alpha chain [plasma membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "parents" : [ 2213189 ],
+    "children" : [ 197586, 197585, 197588, 197576 ]
+  }, {
+    "dbId" : 976027,
+    "stId" : "R-HSA-976027",
+    "displayName" : "MID1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "O15344",
+    "geneNames" : [ "MID1", "FXY", "RNF59", "TRIM18", "XPRF" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 1235082,
+    "stId" : "R-HSA-1235082",
+    "displayName" : "HLA class II histocompatibility antigen, DRB1-10 beta chain [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q30167",
+    "geneNames" : [ "HLA-DRB1" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 1235083,
+    "stId" : "R-HSA-1235083",
+    "displayName" : "HLA class II histocompatibility antigen, DR beta 5 chain [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q30154",
+    "geneNames" : [ "HLA-DRB5" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 1235086,
+    "stId" : "R-HSA-1235086",
+    "displayName" : "HLA class II histocompatibility antigen, DRB1-13 beta chain [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q5Y7A7",
+    "geneNames" : [ "HLA-DRB1" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 1235087,
+    "stId" : "R-HSA-1235087",
+    "displayName" : "HLA class II histocompatibility antigen, DRB1-14 beta chain [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9GIY3",
+    "geneNames" : [ "HLA-DRB1" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 1235084,
+    "stId" : "R-HSA-1235084",
+    "displayName" : "HLA class II histocompatibility antigen, DRB1-12 beta chain [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q95IE3",
+    "geneNames" : [ "HLA-DRB1" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 1235085,
+    "stId" : "R-HSA-1235085",
+    "displayName" : "HLA class II histocompatibility antigen, DRB1-7 beta chain [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P13761",
+    "geneNames" : [ "HLA-DRB1" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 918186,
+    "stId" : "R-HSA-918186",
+    "displayName" : "TRIM25 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q14258",
+    "geneNames" : [ "TRIM25", "EFP", "RNF147", "ZNF147" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 29356,
+    "stId" : "R-ALL-29356",
+    "displayName" : "H2O [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 225 ],
+    "identifier" : "15377"
+  }, {
+    "dbId" : 29370,
+    "stId" : "R-ALL-29370",
+    "displayName" : "ADP [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 25, 31, 34, 42, 215 ],
+    "identifier" : "16761"
+  }, {
+    "dbId" : 29372,
+    "stId" : "R-ALL-29372",
+    "displayName" : "Pi [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 226 ],
+    "identifier" : "18367"
+  }, {
+    "dbId" : 976051,
+    "stId" : "R-HSA-976051",
+    "displayName" : "TRIM21 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P19474",
+    "geneNames" : [ "TRIM21", "RNF81", "RO52", "SSA1" ],
+    "parents" : [ 5624346 ]
+  }, {
+    "dbId" : 210620,
+    "stId" : "R-HSA-210620",
+    "displayName" : "JAK2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "O60674",
+    "geneNames" : [ "JAK2" ],
+    "parents" : [ 873808 ]
+  }, {
+    "dbId" : 210625,
+    "stId" : "R-HSA-210625",
+    "displayName" : "PTPN1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 224 ],
+    "identifier" : "P18031",
+    "geneNames" : [ "PTPN1", "PTP1B" ],
+    "parents" : [ 997298 ]
+  }, {
+    "dbId" : 197835,
+    "stId" : "R-HSA-197835",
+    "displayName" : "FCGR1A [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P12314",
+    "geneNames" : [ "FCGR1A", "FCG1", "FCGR1", "IGFR1" ],
+    "parents" : [ 1031694 ]
+  }, {
+    "dbId" : 197834,
+    "stId" : "R-HSA-197834",
+    "displayName" : "VCAM1 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P19320",
+    "geneNames" : [ "VCAM1", "L1CAM" ],
+    "parents" : [ 1031690 ]
+  }, {
+    "dbId" : 877267,
+    "stId" : "R-HSA-877267",
+    "displayName" : "SOCS-1 and SOCS-3 [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 163 ],
+    "parents" : [ 873821 ],
+    "children" : [ 204910, 873794 ]
+  }, {
+    "dbId" : 450281,
+    "stId" : "R-HSA-450281",
+    "displayName" : "IRF7 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q92985",
+    "geneNames" : [ "IRF7" ],
+    "parents" : [ 1015695 ]
+  }, {
+    "dbId" : 877304,
+    "stId" : "R-HSA-877304",
+    "displayName" : "SUMO1 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 200 ],
+    "identifier" : "P63165",
+    "geneNames" : [ "SUMO1", "SMT3C", "SMT3H3", "UBL1", "OK/SW-cl.43" ],
+    "parents" : [ 877297 ]
+  }, {
+    "dbId" : 909563,
+    "stId" : "R-HSA-909563",
+    "displayName" : "p-S727,Y701-STAT1-1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P42224-1",
+    "geneNames" : [ "STAT1" ],
+    "parents" : [ 873827 ]
+  }, {
+    "dbId" : 877307,
+    "stId" : "R-HSA-877307",
+    "displayName" : "PIAS1 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 199 ],
+    "identifier" : "O75925",
+    "geneNames" : [ "PIAS1", "DDXBP1" ],
+    "parents" : [ 877297 ]
+  }, {
+    "dbId" : 909556,
+    "stId" : "R-HSA-909556",
+    "displayName" : "p-STAT1 dimer bound to p-IFNGR1 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 212 ],
+    "children" : [ 873814, 873827 ]
+  }, {
+    "dbId" : 877297,
+    "stId" : "R-HSA-877297",
+    "displayName" : "p-STAT1 dimer:PIAS:SUMO1 [nucleoplasm]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 201 ],
+    "children" : [ 877304, 877307, 873824 ]
+  }, {
+    "dbId" : 162563,
+    "stId" : "R-HSA-162563",
+    "displayName" : "PTPN11 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q06124",
+    "geneNames" : [ "PTPN11", "PTP2C", "SHPTP2" ],
+    "parents" : [ 997298 ]
+  }, {
+    "dbId" : 909568,
+    "stId" : "R-HSA-909568",
+    "displayName" : "CaMKII and PKC-delta [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 216 ],
+    "children" : [ 58200, 445374 ]
+  }, {
+    "dbId" : 947486,
+    "stId" : "R-HSA-947486",
+    "displayName" : "OAS1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P00973",
+    "geneNames" : [ "OAS1", "OIAS" ],
+    "parents" : [ 1015696 ]
+  }, {
+    "dbId" : 197938,
+    "stId" : "R-HSA-197938",
+    "displayName" : "PTPN6 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 165 ],
+    "identifier" : "P29350",
+    "geneNames" : [ "PTPN6", "HCP", "PTP1C" ],
+    "parents" : [ 997298 ]
+  }, {
+    "dbId" : 873791,
+    "stId" : "R-HSA-873791",
+    "displayName" : "p-Y701-STAT1-1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P42224-1",
+    "geneNames" : [ "STAT1" ],
+    "parents" : [ 913524 ]
+  }, {
+    "dbId" : 451898,
+    "stId" : "R-HSA-451898",
+    "displayName" : "JAK1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P23458",
+    "geneNames" : [ "JAK1", "JAK1A", "JAK1B" ],
+    "parents" : [ 873803 ]
+  }, {
+    "dbId" : 873805,
+    "stId" : "R-HSA-873805",
+    "displayName" : "p-IFNGR1:p-JAK1 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 873826 ],
+    "children" : [ 451921, 873798 ]
+  }, {
+    "dbId" : 873807,
+    "stId" : "R-HSA-873807",
+    "displayName" : "IFNGR1:p-JAK1 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 873800 ],
+    "children" : [ 451921, 629623 ]
+  }, {
+    "dbId" : 873800,
+    "stId" : "R-HSA-873800",
+    "displayName" : "IFNGR complex with p-JAK [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 873820 ],
+    "children" : [ 873807, 873819 ]
+  }, {
+    "dbId" : 873803,
+    "stId" : "R-HSA-873803",
+    "displayName" : "IFNGR1:JAK1 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 873830, 873810 ],
+    "children" : [ 451898, 629623 ]
+  }, {
+    "dbId" : 873799,
+    "stId" : "R-HSA-873799",
+    "displayName" : "p-Y1007-JAK2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "O60674",
+    "geneNames" : [ "JAK2" ],
+    "parents" : [ 873819 ]
+  }, {
+    "dbId" : 873798,
+    "stId" : "R-HSA-873798",
+    "displayName" : "p-Y440-IFNGR1 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P15260",
+    "geneNames" : [ "IFNGR1" ],
+    "parents" : [ 873805 ]
+  }, {
+    "dbId" : 380745,
+    "stId" : "R-HSA-380745",
+    "displayName" : "STAT1-1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 38 ],
+    "identifier" : "P42224-1",
+    "geneNames" : [ "STAT1" ],
+    "parents" : [ 873828 ]
+  }, {
+    "dbId" : 873792,
+    "stId" : "R-HSA-873792",
+    "displayName" : "p-S727,Y701-STAT1-1 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P42224-1",
+    "geneNames" : [ "STAT1" ],
+    "parents" : [ 873824 ]
+  }, {
+    "dbId" : 873794,
+    "stId" : "R-HSA-873794",
+    "displayName" : "SOCS3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "O14543",
+    "geneNames" : [ "SOCS3", "CIS3", "SSI3" ],
+    "parents" : [ 877267 ]
+  }, {
+    "dbId" : 873821,
+    "stId" : "R-HSA-873821",
+    "displayName" : "IFNG:IFNGR1:JAK1:IFNGR2:p-JAK2:SOCS-1/-3 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 159 ],
+    "children" : [ 873811, 877267 ]
+  }, {
+    "dbId" : 873820,
+    "stId" : "R-HSA-873820",
+    "displayName" : "IFNG:IFNGR1:p-JAK1:IFNGR2:p-JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 30 ],
+    "children" : [ 873823, 873800 ]
+  }, {
+    "dbId" : 873823,
+    "stId" : "R-HSA-873823",
+    "displayName" : "IFNG homodimer [extracellular region]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 2 ],
+    "parents" : [ 873820, 873829, 873814, 873811 ],
+    "children" : [ 629621 ]
+  }, {
+    "dbId" : 873817,
+    "stId" : "R-HSA-873817",
+    "displayName" : "p-STAT1(Y701) bound to p-IFNGR1 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 43 ],
+    "children" : [ 913524, 873814 ]
+  }, {
+    "dbId" : 873819,
+    "stId" : "R-HSA-873819",
+    "displayName" : "IFNGR2:p-JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 873800, 873830, 873826 ],
+    "children" : [ 873799, 629620 ]
+  }, {
+    "dbId" : 451921,
+    "stId" : "R-HSA-451921",
+    "displayName" : "p-Y-JAK1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P23458",
+    "geneNames" : [ "JAK1", "JAK1A", "JAK1B" ],
+    "parents" : [ 873805, 873807 ]
+  }, {
+    "dbId" : 58200,
+    "stId" : "R-HSA-58200",
+    "displayName" : "PRKCD [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q05655",
+    "geneNames" : [ "PRKCD" ],
+    "parents" : [ 909568 ]
+  }, {
+    "dbId" : 873814,
+    "stId" : "R-HSA-873814",
+    "displayName" : "IFNG:p-IFNGR1:p-JAK1:IFNGR2:p-JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 35 ],
+    "parents" : [ 873817, 873828, 909556 ],
+    "children" : [ 873823, 873826 ]
+  }, {
+    "dbId" : 873808,
+    "stId" : "R-HSA-873808",
+    "displayName" : "IFNGR2:JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 873810 ],
+    "children" : [ 629620, 210620 ]
+  }, {
+    "dbId" : 873811,
+    "stId" : "R-HSA-873811",
+    "displayName" : "IFNG:IFNGR1:JAK1:IFNGR2:p-JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 24 ],
+    "parents" : [ 873821 ],
+    "children" : [ 873823, 873830 ]
+  }, {
+    "dbId" : 873810,
+    "stId" : "R-HSA-873810",
+    "displayName" : "IFNGR1:JAK1:INFG2:JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 3 ],
+    "parents" : [ 873829 ],
+    "children" : [ 873803, 873808 ]
+  }, {
+    "dbId" : 882031,
+    "stId" : "R-HSA-882031",
+    "displayName" : "HLA class II histocompatibility antigen, DRB1-4 beta chain [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P13760",
+    "geneNames" : [ "HLA-DRB1" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 2213189,
+    "stId" : "R-HSA-2213189",
+    "displayName" : "MHC class II alpha/beta dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 292 ],
+    "children" : [ 2130597, 2130476 ]
+  }, {
+    "dbId" : 873829,
+    "stId" : "R-HSA-873829",
+    "displayName" : "IFNG:IFNGR1:JAK1:IFNGR2:JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 4 ],
+    "children" : [ 873823, 873810 ]
+  }, {
+    "dbId" : 166251,
+    "stId" : "R-HSA-166251",
+    "displayName" : "IRF3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q14653",
+    "geneNames" : [ "IRF3" ],
+    "parents" : [ 1015695 ]
+  }, {
+    "dbId" : 873828,
+    "stId" : "R-HSA-873828",
+    "displayName" : "STAT1 bound to p-IFNGR1 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 39 ],
+    "children" : [ 873814, 380745 ]
+  }, {
+    "dbId" : 873830,
+    "stId" : "R-HSA-873830",
+    "displayName" : "IFNGR complex with p-JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 873811 ],
+    "children" : [ 873803, 873819 ]
+  }, {
+    "dbId" : 2220877,
+    "stId" : "R-HSA-2220877",
+    "displayName" : "HLA class I histocompatibility antigen, Cw-2 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30501",
+    "geneNames" : [ "HLA-C", "HLAC" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 873824,
+    "stId" : "R-HSA-873824",
+    "displayName" : "IFNG-activated factor (GAF) [nucleoplasm]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 48 ],
+    "parents" : [ 1031710, 877297 ],
+    "children" : [ 873792 ]
+  }, {
+    "dbId" : 2220876,
+    "stId" : "R-HSA-2220876",
+    "displayName" : "HLA class I histocompatibility antigen, Cw-17 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q95604",
+    "geneNames" : [ "HLA-C", "D6S204", "HLA-JY3", "HLAC" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 2220879,
+    "stId" : "R-HSA-2220879",
+    "displayName" : "HLA class I histocompatibility antigen, Cw-15 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q07000",
+    "geneNames" : [ "HLA-C", "HLAC" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 873827,
+    "stId" : "R-HSA-873827",
+    "displayName" : "IFNG-activated factor (GAF) [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 45 ],
+    "parents" : [ 909556 ],
+    "children" : [ 909563 ]
+  }, {
+    "dbId" : 2220878,
+    "stId" : "R-HSA-2220878",
+    "displayName" : "HLA class I histocompatibility antigen, Cw-18 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q29865",
+    "geneNames" : [ "HLA-C", "HLAC" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 873826,
+    "stId" : "R-HSA-873826",
+    "displayName" : "p-IFNGR1:pJAK1:IFNGR2:p-JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 873814 ],
+    "children" : [ 873805, 873819 ]
+  }, {
+    "dbId" : 113518,
+    "stId" : "R-ALL-113518",
+    "displayName" : "H2O [nucleoplasm]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 236 ],
+    "identifier" : "15377"
+  }, {
+    "dbId" : 2220881,
+    "stId" : "R-HSA-2220881",
+    "displayName" : "HLA class I histocompatibility antigen, Cw-8 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30505",
+    "geneNames" : [ "HLA-C", "HLAC" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 1015679,
+    "stId" : "R-HSA-1015679",
+    "displayName" : "IRF4 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q15306",
+    "geneNames" : [ "IRF4", "MUM1" ],
+    "parents" : [ 1015695 ]
+  }, {
+    "dbId" : 1015678,
+    "stId" : "R-HSA-1015678",
+    "displayName" : "OASL [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q15646",
+    "geneNames" : [ "OASL", "TRIP14" ],
+    "parents" : [ 1015696 ]
+  }, {
+    "dbId" : 2220883,
+    "stId" : "R-HSA-2220883",
+    "displayName" : "HLA class I histocompatibility antigen, Cw-14 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30510",
+    "geneNames" : [ "HLA-C", "HLAC" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 2220882,
+    "stId" : "R-HSA-2220882",
+    "displayName" : "HLA class I histocompatibility antigen, Cw-16 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q29960",
+    "geneNames" : [ "HLA-C", "HLAC" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 1015676,
+    "stId" : "R-HSA-1015676",
+    "displayName" : "IRF5 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q13568",
+    "geneNames" : [ "IRF5" ],
+    "parents" : [ 1015695 ]
+  }, {
+    "dbId" : 2220885,
+    "stId" : "R-HSA-2220885",
+    "displayName" : "HLA class I histocompatibility antigen, Cw-12 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30508",
+    "geneNames" : [ "HLA-C", "HLAC" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 2220884,
+    "stId" : "R-HSA-2220884",
+    "displayName" : "HLA class I histocompatibility antigen, Cw-1 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30499",
+    "geneNames" : [ "HLA-C", "HLAC" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 1015673,
+    "stId" : "R-HSA-1015673",
+    "displayName" : "GBP2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P32456",
+    "geneNames" : [ "GBP2" ],
+    "parents" : [ 1031695 ]
+  }, {
+    "dbId" : 1015672,
+    "stId" : "R-HSA-1015672",
+    "displayName" : "OAS3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9Y6K5",
+    "geneNames" : [ "OAS3", "P/OKcl.4" ],
+    "parents" : [ 1015696 ]
+  }, {
+    "dbId" : 1015670,
+    "stId" : "R-HSA-1015670",
+    "displayName" : "IRF6 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "O14896",
+    "geneNames" : [ "IRF6" ],
+    "parents" : [ 1015695 ]
+  }, {
+    "dbId" : 629621,
+    "stId" : "R-HSA-629621",
+    "displayName" : "IFNG [extracellular region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P01579",
+    "geneNames" : [ "IFNG" ],
+    "parents" : [ 873823 ]
+  }, {
+    "dbId" : 629620,
+    "stId" : "R-HSA-629620",
+    "displayName" : "IFNGR2 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P38484",
+    "geneNames" : [ "IFNGR2", "IFNGT1" ],
+    "parents" : [ 873819, 873808 ]
+  }, {
+    "dbId" : 882032,
+    "stId" : "R-HSA-882032",
+    "displayName" : "HLA class II histocompatibility antigen, DR beta 4 chain [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P13762",
+    "geneNames" : [ "HLA-DRB4" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 629623,
+    "stId" : "R-HSA-629623",
+    "displayName" : "IFNGR1 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P15260",
+    "geneNames" : [ "IFNGR1" ],
+    "parents" : [ 873807, 873803 ]
+  }, {
+    "dbId" : 882035,
+    "stId" : "R-HSA-882035",
+    "displayName" : "HLA class II histocompatibility antigen, DRB1-16 beta chain [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q29974",
+    "geneNames" : [ "HLA-DRB1" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 882034,
+    "stId" : "R-HSA-882034",
+    "displayName" : "HLA class II histocompatibility antigen, DRB1-1 beta chain [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P04229",
+    "geneNames" : [ "HLA-DRB1" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 1015695,
+    "stId" : "R-HSA-1015695",
+    "displayName" : "IRF 1-9 [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 268 ],
+    "children" : [ 1015679, 879183, 1015676, 1015686, 1015670, 166251, 1015685, 1015681, 450281 ]
+  }, {
+    "dbId" : 1015689,
+    "stId" : "R-HSA-1015689",
+    "displayName" : "OAS2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P29728",
+    "geneNames" : [ "OAS2" ],
+    "parents" : [ 1015696 ]
+  }, {
+    "dbId" : 1015686,
+    "stId" : "R-HSA-1015686",
+    "displayName" : "IRF1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P10914",
+    "geneNames" : [ "IRF1" ],
+    "parents" : [ 1015695 ]
+  }, {
+    "dbId" : 1015685,
+    "stId" : "R-HSA-1015685",
+    "displayName" : "IRF8 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q02556",
+    "geneNames" : [ "IRF8", "ICSBP1" ],
+    "parents" : [ 1015695 ]
+  }, {
+    "dbId" : 3318206,
+    "stId" : "R-HSA-3318206",
+    "displayName" : "HLA class I histocompatibility antigen, A-66 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30457",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 3318207,
+    "stId" : "R-HSA-3318207",
+    "displayName" : "HLA class I histocompatibility antigen, A-34 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30453",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 1015681,
+    "stId" : "R-HSA-1015681",
+    "displayName" : "IRF2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P14316",
+    "geneNames" : [ "IRF2" ],
+    "parents" : [ 1015695 ]
+  }, {
+    "dbId" : 113550,
+    "stId" : "R-ALL-113550",
+    "displayName" : "Pi [nucleoplasm]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 245 ],
+    "identifier" : "18367"
+  }, {
+    "dbId" : 1015696,
+    "stId" : "R-HSA-1015696",
+    "displayName" : "OAS proteins [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 265 ],
+    "children" : [ 947486, 1015678, 1015689, 1015672 ]
+  }, {
+    "dbId" : 997295,
+    "stId" : "R-HSA-997295",
+    "displayName" : "PTPN2-1 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 232 ],
+    "identifier" : "P17706-2",
+    "geneNames" : [ "PTPN2", "PTPT" ]
+  }, {
+    "dbId" : 997294,
+    "stId" : "R-HSA-997294",
+    "displayName" : "STAT1-1 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 230 ],
+    "identifier" : "P42224-1",
+    "geneNames" : [ "STAT1" ]
+  }, {
+    "dbId" : 445366,
+    "stId" : "R-HSA-445366",
+    "displayName" : "CaMKII alpha/beta [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "parents" : [ 445374 ],
+    "children" : [ 445371, 445368 ]
+  }, {
+    "dbId" : 445374,
+    "stId" : "R-HSA-445374",
+    "displayName" : "CaMKII [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 909568 ],
+    "children" : [ 445366, 445372 ]
+  }, {
+    "dbId" : 113592,
+    "stId" : "R-ALL-113592",
+    "displayName" : "ATP [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 23, 29, 33, 41, 214 ],
+    "identifier" : "15422"
+  }, {
+    "dbId" : 445372,
+    "stId" : "R-HSA-445372",
+    "displayName" : "CaMKII delta/gamma [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "parents" : [ 445374 ],
+    "children" : [ 445370, 445369 ]
+  }, {
+    "dbId" : 445370,
+    "stId" : "R-HSA-445370",
+    "displayName" : "p-T287-CAMK2D [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q13557",
+    "geneNames" : [ "CAMK2D", "CAMKD" ],
+    "parents" : [ 445372 ]
+  }, {
+    "dbId" : 445371,
+    "stId" : "R-HSA-445371",
+    "displayName" : "p-T287-CAMK2B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q13554",
+    "geneNames" : [ "CAMK2B", "CAM2", "CAMK2", "CAMKB" ],
+    "parents" : [ 445366 ]
+  }, {
+    "dbId" : 997298,
+    "stId" : "R-HSA-997298",
+    "displayName" : "PTPs-SHP1/2/PTP1B [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 227 ],
+    "children" : [ 162563, 197938, 210625 ]
+  }, {
+    "dbId" : 445368,
+    "stId" : "R-HSA-445368",
+    "displayName" : "p-T286-CAMK2A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9UQM7",
+    "geneNames" : [ "CAMK2A", "CAMKA", "KIAA0968" ],
+    "parents" : [ 445366 ]
+  }, {
+    "dbId" : 445369,
+    "stId" : "R-HSA-445369",
+    "displayName" : "p-T287-CAMK2G [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q13555",
+    "geneNames" : [ "CAMK2G", "CAMK", "CAMK-II", "CAMKG" ],
+    "parents" : [ 445372 ]
+  }, {
+    "dbId" : 197573,
+    "stId" : "R-HSA-197573",
+    "displayName" : "HLA class II histocompatibility antigen, DR-1 beta chain precursor [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P01912",
+    "geneNames" : [ "HLA-DRB1" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 197578,
+    "stId" : "R-HSA-197578",
+    "displayName" : "HLA class II histocompatibility antigen, DQ [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P01920",
+    "geneNames" : [ "HLA-DQB1", "HLA-DQB" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 197577,
+    "stId" : "R-HSA-197577",
+    "displayName" : "HLA class II histocompatibility antigen, DRB3-1 beta chain precursor [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P79483",
+    "geneNames" : [ "HLA-DRB3" ],
+    "parents" : [ 2130476 ]
+  }, {
+    "dbId" : 197576,
+    "stId" : "R-HSA-197576",
+    "displayName" : "HLA class II histocompatibility antigen, DQ [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P01906",
+    "geneNames" : [ "HLA-DQA2", "HLA-DXA" ],
+    "parents" : [ 2130597 ]
+  }, {
+    "dbId" : 197586,
+    "stId" : "R-HSA-197586",
+    "displayName" : "HLA class II histocompatibility antigen, DP alpha chain precursor [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P20036",
+    "geneNames" : [ "HLA-DPA1", "HLA-DP1A", "HLASB" ],
+    "parents" : [ 2130597 ]
+  }, {
+    "dbId" : 197585,
+    "stId" : "R-HSA-197585",
+    "displayName" : "HLA class II histocompatibility antigen, DQ [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P01909",
+    "geneNames" : [ "HLA-DQA1" ],
+    "parents" : [ 2130597 ]
+  }, {
+    "dbId" : 197588,
+    "stId" : "R-HSA-197588",
+    "displayName" : "HLA class II histocompatibility antigen, DR alpha chain precursor [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P01903",
+    "geneNames" : [ "HLA-DRA", "HLA-DRA1" ],
+    "parents" : [ 2130597 ]
+  }, {
+    "dbId" : 3318224,
+    "stId" : "R-HSA-3318224",
+    "displayName" : "HLA class I histocompatibility antigen, A-23 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30447",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 8855907,
+    "stId" : "R-HSA-8855907",
+    "displayName" : "HLA-H [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P01893",
+    "geneNames" : [ "HLA-H", "HLAH" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 8855905,
+    "stId" : "R-HSA-8855905",
+    "displayName" : "HLA-B [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30486",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 3318210,
+    "stId" : "R-HSA-3318210",
+    "displayName" : "HLA class I histocompatibility antigen, A-26 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30450",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 983038,
+    "stId" : "R-HSA-983038",
+    "displayName" : "class I MHC B67 [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q29836",
+    "geneNames" : [ "HLA-B", "HLAB" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 3318211,
+    "stId" : "R-HSA-3318211",
+    "displayName" : "HLA class I histocompatibility antigen, A-29 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30512",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 3318208,
+    "stId" : "R-HSA-3318208",
+    "displayName" : "HLA class I histocompatibility antigen, A-33 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P16190",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 3318209,
+    "stId" : "R-HSA-3318209",
+    "displayName" : "HLA class I histocompatibility antigen, A-31 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P16189",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 3318214,
+    "stId" : "R-HSA-3318214",
+    "displayName" : "HLA class I histocompatibility antigen, A-80 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q09160",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 3318215,
+    "stId" : "R-HSA-3318215",
+    "displayName" : "HLA class I histocompatibility antigen, A-25 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P18462",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 3318212,
+    "stId" : "R-HSA-3318212",
+    "displayName" : "HLA class I histocompatibility antigen, A-68 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P01891",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 3318218,
+    "stId" : "R-HSA-3318218",
+    "displayName" : "HLA class I histocompatibility antigen, A-36 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30455",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 3318219,
+    "stId" : "R-HSA-3318219",
+    "displayName" : "HLA class I histocompatibility antigen, A-69 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P10316",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 3318216,
+    "stId" : "R-HSA-3318216",
+    "displayName" : "HLA class I histocompatibility antigen, A-74 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30459",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 3318217,
+    "stId" : "R-HSA-3318217",
+    "displayName" : "HLA class I histocompatibility antigen, A-11 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P13746",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 3318222,
+    "stId" : "R-HSA-3318222",
+    "displayName" : "HLA class I histocompatibility antigen, A-32 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P10314",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 3318223,
+    "stId" : "R-HSA-3318223",
+    "displayName" : "HLA class I histocompatibility antigen, A-30 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P16188",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 3318220,
+    "stId" : "R-HSA-3318220",
+    "displayName" : "HLA class I histocompatibility antigen, A-43 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P30456",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  }, {
+    "dbId" : 3318221,
+    "stId" : "R-HSA-3318221",
+    "displayName" : "HLA class I histocompatibility antigen, A-24 alpha chain [integral component of lumenal side of endoplasmic reticulum membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P05534",
+    "geneNames" : [ "HLA-A", "HLAA" ],
+    "parents" : [ 983117 ]
+  } ],
+  "edges" : [ {
+    "dbId" : 997326,
+    "stId" : "R-HSA-997326",
+    "displayName" : "Dephosphorylation of p-STAT1 dimer by nuclear isoform of TCPTP",
+    "schemaClass" : "Reaction",
+    "inputs" : [ 873824, 113518 ],
+    "outputs" : [ 997294, 113550 ],
+    "catalysts" : [ 997295 ],
+    "diagramIds" : [ 228 ]
+  }, {
+    "dbId" : 873924,
+    "stId" : "R-HSA-873924",
+    "displayName" : "Phosphorylation of IFNGR1 by JAK kinases",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 873918 ],
+    "following" : [ 873924 ],
+    "inputs" : [ 873820, 113592 ],
+    "outputs" : [ 29370, 873814 ],
+    "catalysts" : [ 873820 ],
+    "diagramIds" : [ 32 ]
+  }, {
+    "dbId" : 873927,
+    "stId" : "R-HSA-873927",
+    "displayName" : "Release of STAT1 dimer from active receptor unit",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 909552 ],
+    "following" : [ 873927 ],
+    "inputs" : [ 909556 ],
+    "outputs" : [ 873814, 873827 ],
+    "diagramIds" : [ 44 ]
+  }, {
+    "dbId" : 873926,
+    "stId" : "R-HSA-873926",
+    "displayName" : "Interaction of IFNG with IFNGR",
+    "schemaClass" : "Reaction",
+    "following" : [ 873926 ],
+    "inputs" : [ 873823, 873810 ],
+    "outputs" : [ 873829 ],
+    "diagramIds" : [ 1 ]
+  }, {
+    "dbId" : 1031716,
+    "stId" : "R-HSA-1031716",
+    "displayName" : "Expression of IFNG-stimulated genes",
+    "schemaClass" : "BlackBoxEvent",
+    "outputs" : [ 1031695, 1015695, 1031694, 983117, 2213189, 1031690, 5624346, 1031707, 1031706, 1031705, 419376, 1031704, 983063, 1031702, 1015696 ],
+    "activators" : [ 1031710 ],
+    "diagramIds" : [ 257 ]
+  }, {
+    "dbId" : 873921,
+    "stId" : "R-HSA-873921",
+    "displayName" : "Binding of STAT1 to p-IFNGR1",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 873924 ],
+    "following" : [ 873921 ],
+    "inputs" : [ 873814, 380745 ],
+    "outputs" : [ 873828 ],
+    "diagramIds" : [ 37 ]
+  }, {
+    "dbId" : 877281,
+    "stId" : "R-HSA-877281",
+    "displayName" : "PIAS1 binds p-STAT1 dimer",
+    "schemaClass" : "Reaction",
+    "inputs" : [ 877304, 877307, 873824 ],
+    "outputs" : [ 877297 ],
+    "diagramIds" : [ 198 ]
+  }, {
+    "dbId" : 1031713,
+    "stId" : "R-HSA-1031713",
+    "displayName" : "GAF binds the GAS promoter elements in the IFNG-regulated genes",
+    "schemaClass" : "Reaction",
+    "inputs" : [ 1031708, 873824 ],
+    "outputs" : [ 1031710 ],
+    "diagramIds" : [ 254 ]
+  }, {
+    "dbId" : 873922,
+    "stId" : "R-HSA-873922",
+    "displayName" : "Phosphorylation of STAT1 by JAK kinases",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 873921 ],
+    "following" : [ 873922 ],
+    "inputs" : [ 113592, 873828 ],
+    "outputs" : [ 873817, 29370 ],
+    "catalysts" : [ 873828 ],
+    "diagramIds" : [ 40 ]
+  }, {
+    "dbId" : 873917,
+    "stId" : "R-HSA-873917",
+    "displayName" : "Translocation of STAT1 dimer to nucleus",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 873927 ],
+    "inputs" : [ 873827 ],
+    "outputs" : [ 873824 ],
+    "diagramIds" : [ 47 ]
+  }, {
+    "dbId" : 877308,
+    "stId" : "R-HSA-877308",
+    "displayName" : "Dephosphorylation of JAKs by PTPs",
+    "schemaClass" : "Reaction",
+    "inputs" : [ 873820, 29356 ],
+    "outputs" : [ 873829, 29372 ],
+    "catalysts" : [ 997298 ],
+    "diagramIds" : [ 164 ]
+  }, {
+    "dbId" : 873919,
+    "stId" : "R-HSA-873919",
+    "displayName" : "Phosphorylation of JAK2",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 873926 ],
+    "following" : [ 873919 ],
+    "inputs" : [ 873829, 113592 ],
+    "outputs" : [ 29370, 873811 ],
+    "catalysts" : [ 873829 ],
+    "diagramIds" : [ 22 ]
+  }, {
+    "dbId" : 873918,
+    "stId" : "R-HSA-873918",
+    "displayName" : "Transphosphorylation of JAK1",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 873919 ],
+    "following" : [ 873918 ],
+    "inputs" : [ 113592, 873811 ],
+    "outputs" : [ 873820, 29370 ],
+    "catalysts" : [ 873811 ],
+    "inhibitors" : [ 873821, 197938 ],
+    "diagramIds" : [ 28 ]
+  }, {
+    "dbId" : 877269,
+    "stId" : "R-HSA-877269",
+    "displayName" : "SOCS-1 and SOCS-3 binds to p-JAK2",
+    "schemaClass" : "Reaction",
+    "inputs" : [ 873811, 877267 ],
+    "outputs" : [ 873821 ],
+    "diagramIds" : [ 162 ]
+  }, {
+    "dbId" : 909552,
+    "stId" : "R-HSA-909552",
+    "displayName" : "Phosphorylation of STAT1 at Ser727",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 873922 ],
+    "following" : [ 909552 ],
+    "inputs" : [ 873817, 113592 ],
+    "outputs" : [ 909556, 29370 ],
+    "catalysts" : [ 909568 ],
+    "diagramIds" : [ 213 ]
+  } ],
+  "subpathways" : [ {
+    "dbId" : 877312,
+    "stId" : "R-HSA-877312",
+    "displayName" : "Regulation of IFNG signaling",
+    "events" : [ 877308, 997326, 877269, 877281 ]
+  } ]
+}
