@@ -139,6 +139,7 @@ public class EHLDRenderer implements RasterRenderer {
 		}
 	}
 
+	@Override
 	public void renderToAnimatedGif(OutputStream os) throws IOException {
 		if (svgAnalysis.getAnalysisType() != AnalysisType.EXPRESSION)
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
@@ -153,6 +154,11 @@ public class EHLDRenderer implements RasterRenderer {
 			encoder.addFrame(image);
 		}
 		encoder.finish();
+	}
+
+	@Override
+	public SVGDocument renderToSVG() {
+		return document;
 	}
 
 	/**

@@ -1,5 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
+import org.w3c.dom.svg.SVGDocument;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -33,4 +35,6 @@ public interface RasterRenderer {
 	 * @throws IOException as thrown in {@link OutputStream#write(byte[])}
 	 */
 	void renderToAnimatedGif(OutputStream outputStream) throws IOException;
+
+	SVGDocument renderToSVG();
 }

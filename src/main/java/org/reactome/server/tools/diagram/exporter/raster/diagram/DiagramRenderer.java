@@ -1,5 +1,8 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram;
 
+import org.apache.batik.anim.dom.SVG12DOMImplementation;
+import org.apache.batik.svggen.SVGGraphics2D;
+import org.apache.batik.util.SVGConstants;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
@@ -18,6 +21,8 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.Legen
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.NoteRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.gif.AnimatedGifEncoder;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.svg.SVGDocument;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -58,6 +63,7 @@ public class DiagramRenderer implements RasterRenderer {
 	private static final Set<String> TRANSPARENT_FORMATS = new HashSet<>(Collections.singletonList("png"));
 	private static final Set<String> NO_TRANSPARENT_FORMATS = new HashSet<>(Arrays.asList("jpg", "jpeg", "gif"));
 	private static final int T = 0;
+	private static final DOMImplementation SVG_IMPL = SVG12DOMImplementation.getDOMImplementation();
 	private final Diagram diagram;
 	private final DiagramIndex index;
 	private final ColorProfiles colorProfiles;
@@ -128,6 +134,7 @@ public class DiagramRenderer implements RasterRenderer {
 	/**
 	 * Animated GIF are generated into a temp File
 	 */
+	@Override
 	public void renderToAnimatedGif(OutputStream outputStream) {
 		if (index.getAnalysis().getType() != AnalysisType.EXPRESSION)
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
@@ -150,6 +157,28 @@ public class DiagramRenderer implements RasterRenderer {
 			encoder.addFrame(image);
 		}
 		encoder.finish();
+	}
+
+	@Override
+	public SVGDocument renderToSVG() {
+		final SVGDocument document = (SVGDocument) SVG_IMPL.createDocument(SVGConstants.SVG_NAMESPACE_URI, "svg", null);
+		final SVGGraphics2D graphics2D = new SVGGraphics2D(document);
+		graphics2D.setFont(FontProperties.DEFAULT_FONT);
+		canvas.render(graphics2D);
+		// Do not know how to extract SVG doc from SVGGraphics2D, so I take the
+		// root and append to my document as root
+		document.removeChild(document.getRootElement());
+		document.appendChild(graphics2D.getRoot());
+
+		final Rectangle2D bounds = canvas.getBounds();
+		int width = (int) ((2 * MARGIN + bounds.getWidth()) + 0.5);
+		int height = (int) ((2 * MARGIN + bounds.getHeight()) + 0.5);
+		int minX = (int) ((MARGIN - bounds.getMinX()) + 0.5);
+		int minY = (int) ((MARGIN - bounds.getMinY()) + 0.5);
+
+		final String viewBox = String.format("%d %d %d %d", -minX, -minY, width, height);
+		document.getRootElement().setAttribute(SVGConstants.SVG_VIEW_BOX_ATTRIBUTE, viewBox);
+		return document;
 	}
 
 	private BufferedImage frame(double factor, int width, int height, int offsetX, int offsetY, int t) {

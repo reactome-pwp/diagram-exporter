@@ -12,6 +12,7 @@ import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDExce
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDMalformedException;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDRuntimeException;
+import org.w3c.dom.svg.SVGDocument;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -122,6 +123,48 @@ public class RasterExporter {
 		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | EHLDException e) {
 			throw new Exception(String.format("there is no diagram for '%s'", args.getStId()), e);
 		} catch (AnalysisServerError | AnalysisException e) {
+			throw new Exception(String.format("analysis token not valid '%s'", args.getToken()), e);
+		}
+
+	}
+
+
+	/**
+	 * Creates a SVG document from the diagram, adding, if asked, selection,
+	 * flagging and analysis.
+	 * <p>
+	 * You need a SVGTranscoder to save the SVGDocument<code>
+	 * <pre>
+	 * SVGDocument document = renderer.renderToSVG();
+	 * SVGTranscoder transcoder = new SVGTranscoder();
+	 * TranscoderInput input = new TranscoderInput(document);
+	 * FileWriter writer = new FileWriter(new File("output.svg"));
+	 * TranscoderOutput output = new TranscoderOutput(writer);
+	 * transcoder.transcode(input, output);
+	 * </pre>
+	 * </code>
+	 * <p>
+	 * To send through a HTTP connection <code>
+	 * <pre>
+	 * SVGDocument document = renderer.renderToSVG();
+	 * SVGTranscoder transcoder = new SVGTranscoder();
+	 * TranscoderInput input = new TranscoderInput(document);
+	 * OutputStream os = connection.getOutputStream();
+	 * TranscoderOutput output = new TranscoderOutput(new
+	 * OutputStreamWriter(os));
+	 * transcoder.transcode(input, output);
+	 * </pre>
+	 * </code>
+	 */
+	public static SVGDocument exportToSVG(RasterArgs args, String diagramPath, String EHLDPath) throws Exception {
+		try {
+			final RasterRenderer renderer = hasEHLD.contains(args.getStId())
+					? new EHLDRenderer(args, EHLDPath)
+					: new DiagramRenderer(args, diagramPath);
+			return renderer.renderToSVG();
+		} catch (EHLDException | DiagramJsonNotFoundException | DiagramJsonDeserializationException e) {
+			throw new Exception(String.format("there is no diagram for '%s'", args.getStId()), e);
+		} catch (AnalysisException | AnalysisServerError e) {
 			throw new Exception(String.format("analysis token not valid '%s'", args.getToken()), e);
 		}
 
