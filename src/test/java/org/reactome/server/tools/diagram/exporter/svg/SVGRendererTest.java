@@ -1,9 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.svg;
 
 import org.apache.batik.transcoder.TranscoderException;
-import org.apache.batik.transcoder.TranscoderInput;
-import org.apache.batik.transcoder.TranscoderOutput;
-import org.apache.batik.transcoder.svg2svg.SVGTranscoder;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -11,6 +8,7 @@ import org.reactome.server.tools.diagram.exporter.common.analysis.exception.Anal
 import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
+import org.reactome.server.tools.diagram.exporter.raster.DiagramOutput;
 import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
@@ -20,7 +18,6 @@ import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDExce
 import org.w3c.dom.svg.SVGDocument;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
 public class SVGRendererTest {
@@ -31,7 +28,7 @@ public class SVGRendererTest {
 
 	// Set to true for visual inspection of tests
 	// todo: don't forget to set to false before pushing
-	private static final boolean save = true;
+	private static final boolean save = false;
 
 	@BeforeClass
 	public static void beforeClass() {
@@ -44,37 +41,27 @@ public class SVGRendererTest {
 	}
 
 	@Test
-	public void testDiagram() throws AnalysisException, AnalysisServerError, DiagramJsonNotFoundException, DiagramJsonDeserializationException, TranscoderException {
+	public void testDiagram() throws AnalysisException, AnalysisServerError, DiagramJsonNotFoundException, DiagramJsonDeserializationException, TranscoderException, IOException {
+		// Create SVG
 		final RasterArgs args = new RasterArgs("R-HSA-109606", "svg");
 		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
 		final RasterRenderer renderer = new DiagramRenderer(args, DIAGRAM_PATH);
 		final SVGDocument document = renderer.renderToSVG();
-		final SVGTranscoder transcoder = new SVGTranscoder();
-
-		final TranscoderInput input = new TranscoderInput(document);
-		try (FileWriter writer = new FileWriter(new File(SVG_FOLDER, TestUtils.getFileName(args)))) {
-			final TranscoderOutput output = new TranscoderOutput(writer);
-			transcoder.transcode(input, output);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		// Save to file
+		final File file = new File(SVG_FOLDER, TestUtils.getFileName(args));
+		DiagramOutput.save(document, file);
 	}
 
 	@Test
-	public void testEHLD() throws EHLDException, TranscoderException {
+	public void testEHLD() throws EHLDException, TranscoderException, IOException {
+		// Create svg
 		final RasterArgs args = new RasterArgs("R-HSA-74160", "svg");
 		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
 		final RasterRenderer renderer = new EHLDRenderer(args, EHLD_PATH);
 		final SVGDocument document = renderer.renderToSVG();
-		final SVGTranscoder transcoder = new SVGTranscoder();
-
-		final TranscoderInput input = new TranscoderInput(document);
-		try (FileWriter writer = new FileWriter(new File(SVG_FOLDER, TestUtils.getFileName(args)))) {
-			final TranscoderOutput output = new TranscoderOutput(writer);
-			transcoder.transcode(input, output);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		// Save to file
+		final File file = new File(SVG_FOLDER, TestUtils.getFileName(args));
+		DiagramOutput.save(document, file);
 	}
 
 }

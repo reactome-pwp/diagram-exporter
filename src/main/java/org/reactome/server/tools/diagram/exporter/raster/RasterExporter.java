@@ -43,15 +43,13 @@ public class RasterExporter {
 	 * Service layer that provides access to the raster exporter. This service
 	 * outputs the result as a BufferedImage, not to a File.
 	 * <p>
-	 * To save the image to an URL: <code>
+	 * To save the image to an URL use DiagramOutput: <code>
 	 * <pre>
 	 * BufferedImage image = RasterExporter.export(args, dPath, ePath);
 	 * URL url = new URL("http://host.com/");
 	 * HttpUrlConnection connection = (HttpUrlConnection)
 	 * url.openConnection();
-	 * connection.setDoOutput(true);  // your url must support writing
-	 * OutputStream os = connection.getOutputStream();
-	 * ImageIO.write(image, ext, os);
+	 * DiagramOutput.save(image, connection);
 	 * </pre>
 	 * </code>
 	 * <p>
@@ -59,7 +57,7 @@ public class RasterExporter {
 	 * <pre>
 	 * BufferedImage image = RasterExporter.export(args, dPath, ePath);
 	 * File file = new File(path, stId + ".png");
-	 * ImageIO.write(image, ext, file);
+	 * DiagramOutput.save(image, ext, file);
 	 * </pre>
 	 * </code>
 	 *
@@ -86,9 +84,9 @@ public class RasterExporter {
 
 	/**
 	 * Generates an animated GIF with as many frames as columns in the analysis
-	 * token. args.getColumn() is ignored. Animated GIFs are written directly
-	 * into an <code>{@link OutputStream}</code>. There is no Java class that
-	 * supports storing a GIF in memory.
+	 * token. args.getColumn() is ignored. Animated GIFs must be written
+	 * directly into an <code>{@link OutputStream}</code>. There is no Java
+	 * class that supports storing a GIF in memory.
 	 * <p>
 	 * To save the GIF to an URL: <code>
 	 * <pre>
@@ -103,7 +101,6 @@ public class RasterExporter {
 	 * <p>
 	 * To save to a File <code>
 	 * <pre>
-	 * BufferedImage image = RasterExporter.export(args, dPath, ePath);
 	 * File file = new File(path, stId + ".png");
 	 * OutputStream os = new FileOutputStream(file);
 	 * RasterExporter.exportToGif(args, dPath, ePath, os);
@@ -127,26 +124,19 @@ public class RasterExporter {
 	 * Creates a SVG document from the diagram, adding, if asked, selection,
 	 * flagging and analysis.
 	 * <p>
-	 * You need a SVGTranscoder to save the SVGDocument<code>
+	 * Use DiagramOutput to save your results.<code>
 	 * <pre>
-	 * SVGDocument document = renderer.renderToSVG();
-	 * SVGTranscoder transcoder = new SVGTranscoder();
-	 * TranscoderInput input = new TranscoderInput(document);
-	 * FileWriter writer = new FileWriter(new File("output.svg"));
-	 * TranscoderOutput output = new TranscoderOutput(writer);
-	 * transcoder.transcode(input, output);
+	 * SVGDocument document = RasterExporter.exportToSVG(args, diagramPath,
+	 * EHLDPath);
+	 * DiagramOutput.save(document, new File("output.svg");
 	 * </pre>
 	 * </code>
 	 * <p>
 	 * To send through a HTTP connection <code>
 	 * <pre>
-	 * SVGDocument document = renderer.renderToSVG();
-	 * SVGTranscoder transcoder = new SVGTranscoder();
-	 * TranscoderInput input = new TranscoderInput(document);
-	 * OutputStream os = connection.getOutputStream();
-	 * TranscoderOutput output = new TranscoderOutput(new
-	 * OutputStreamWriter(os));
-	 * transcoder.transcode(input, output);
+	 * SVGDocument document = RasterExporter.exportToSVG(args, diagramPath,
+	 * EHLDPath);
+	 * DiagramOutput.save(document, connection);
 	 * </pre>
 	 * </code>
 	 */
