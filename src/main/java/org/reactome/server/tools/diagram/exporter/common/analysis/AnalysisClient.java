@@ -21,7 +21,7 @@ import java.util.Collection;
 
 public class AnalysisClient {
 
-	public static final String SPECIES_SERVICE = "/species/homoSapiens/%s/?pageSize=1&page1";
+	private static final String SPECIES_SERVICE = "/species/homoSapiens/%s/?pageSize=1&page1";
 	private static String SERVER = "http://localhost";
 	private static String SERVICE = "/AnalysisService";
 

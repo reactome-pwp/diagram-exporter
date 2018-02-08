@@ -75,7 +75,8 @@ public class DiagramRenderer implements RasterRenderer {
 
 
 	/**
-	 * Creates a DiagramRenderer
+	 * Creates a DiagramRenderer. The constructor will create an internal
+	 * representation of the Diagram in a DiagramCanvas.
 	 *
 	 * @param args        arguments for rendering
 	 * @param diagramPath path where to find the json files for the layout and

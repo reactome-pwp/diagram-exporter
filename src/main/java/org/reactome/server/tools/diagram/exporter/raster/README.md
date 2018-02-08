@@ -1,15 +1,14 @@
 [<img src=https://user-images.githubusercontent.com/6883670/31999264-976dfb86-b98a-11e7-9432-0316345a72ea.png height=75 />](https://reactome.org)
 
-# Raster exporter
+# Image exporter
 Exports diagrams as images. Current supported formats are:
 
 * png (transparent background)
 * jpg, jpeg, gif (white background)
+* svg
 
-The diagram is generated using the diagram JSON file, so you may notice  small differences with Pathway Browser.
-
-With the raster exporter you can generate High Definition images up to 100 megapixels.
-
+Diagrams are generated using the diagram source files, so you may notice small differences with Pathway Browser. With the raster exporter you can generate High Definition images up to 100 megapixels.
+When an EHLD source is available
 Images are generated from the EHLD if it is available.
 
 ## Exporting a diagram

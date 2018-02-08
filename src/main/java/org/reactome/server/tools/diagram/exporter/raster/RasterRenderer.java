@@ -8,20 +8,18 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * Render Reactome pathway diagrams into {@link BufferedImage}.
+ * Render Reactome pathway diagrams. Diagrams can be exported to raster
+ * (BufferedImage), or SVG (SVGDocument).
  */
 public interface RasterRenderer {
 
 	/**
 	 * Get the final dimensions of the image
-	 * @return the diagram final dimensions
 	 */
 	Dimension getDimension();
 
 	/**
 	 * Renders the diagram into a BufferedImage
-	 *
-	 * @return a BufferedImage that contains the diagram
 	 */
 	BufferedImage render();
 
@@ -36,5 +34,8 @@ public interface RasterRenderer {
 	 */
 	void renderToAnimatedGif(OutputStream outputStream) throws IOException;
 
+	/**
+	 * Renders the diagram into a SVGDocument.
+	 */
 	SVGDocument renderToSVG();
 }
