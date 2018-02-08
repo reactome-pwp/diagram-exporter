@@ -64,4 +64,16 @@ public class SVGRendererTest {
 		DiagramOutput.save(document, file);
 	}
 
+	@Test
+	public void testEhldFont() throws EHLDException, IOException, TranscoderException {
+		// Create svg
+		final RasterArgs args = new RasterArgs("R-HSA-69278", "svg");
+		final RasterRenderer renderer = new EHLDRenderer(args, EHLD_PATH);
+		final SVGDocument document = renderer.renderToSVG();
+		// Save to file
+		final File file = new File(SVG_FOLDER, TestUtils.getFileName(args));
+		DiagramOutput.save(document, file);
+		// REPORT: partial fix. EHLDs don't follow SVG standards (Illustrator)
+	}
+
 }
