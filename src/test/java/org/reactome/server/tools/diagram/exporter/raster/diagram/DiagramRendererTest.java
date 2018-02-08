@@ -190,6 +190,16 @@ public class DiagramRendererTest {
 	}
 
 	@Test
+	public void testAnimatedGif2() {
+		final ColorProfiles profiles = new ColorProfiles("modern", "copper plus", "teal");
+		final RasterArgs args = new RasterArgs("R-HSA-432047", "gif");
+		args.setProfiles(profiles);
+		args.setSelected(Collections.singleton("R-ALL-879874"));
+		args.setToken(TestUtils.performAnalysis("expression_data2.txt"));
+		renderGif(args);
+	}
+
+	@Test
 	public void testDisease() {
 		// EntitySet hiding another EntitySet
 		final RasterArgs args = new RasterArgs("R-HSA-5657560", "png");
