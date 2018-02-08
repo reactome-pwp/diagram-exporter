@@ -4,12 +4,12 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.reactome.server.tools.diagram.exporter.raster.DiagramOutput;
 import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -107,13 +107,21 @@ public class EhldRendererTest {
 		renderGif(args);
 	}
 
+	@Test
+	public void testVisualArtifacts() {
+		final RasterArgs args = new RasterArgs("R-HSA-69278", "png");
+		// FIXME: text in server not properly shown
+		// FIXME: masks!!
+		render(args);
+	}
+
 	private void render(RasterArgs args) {
 		try {
 			final EHLDRenderer renderer = new EHLDRenderer(args, EHLD_PATH);
 			final BufferedImage image = renderer.render();
 			if (save) {
 				final String filename = TestUtils.getFileName(args);
-				ImageIO.write(image, args.getFormat(), new File(IMAGES_FOLDER, filename));
+				DiagramOutput.save(image, args.getFormat(), new File(IMAGES_FOLDER, filename));
 			}
 		} catch (EHLDException | IOException e) {
 			e.printStackTrace();
