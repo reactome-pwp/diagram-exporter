@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -33,8 +32,7 @@ public class RasterExporter {
 
 	public static void initialise(String svgSummaryFile) {
 		try {
-			final List<String> lines = IOUtils.readLines(new FileInputStream(svgSummaryFile), Charset.defaultCharset());
-			hasEHLD.addAll(lines);
+			hasEHLD = new HashSet<>(IOUtils.readLines(new FileInputStream(svgSummaryFile), Charset.defaultCharset()));
 		} catch (IOException ignored) {
 		}
 	}
