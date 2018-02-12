@@ -4,8 +4,8 @@ import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.ImageTranscoder;
+import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
@@ -43,15 +43,42 @@ public class EHLDRenderer implements RasterRenderer {
 	public EHLDRenderer(RasterArgs args, String ehldPath) throws EHLDException {
 		this.document = ResourcesFactory.getEHLD(ehldPath, args.getStId());
 		this.args = args;
-		virtualRendering(args);
+		layout();
 	}
 
-	private void virtualRendering(RasterArgs args) {
-		SVGDecoratorRenderer.selectAndFlag(document, args);
+	private void layout() {
 		disableMasks();
+		SVGDecoratorRenderer.selectAndFlag(document, args);
 		svgAnalysis = new SVGAnalysis(document, args);
 		svgAnalysis.analysis();
+		fixFont();
 		updateDocumentDimensions();
+	}
+
+	/**
+	 * Defensive programming rule #324: Illustrator exports custom fonts.
+	 * Instead of <pre><code>
+	 * h1 {
+	 *  font-family: Arial;
+	 *  font-weight: 700;
+	 }
+	 * </code></pre>
+	 * it exports like this:
+	 * <pre><code>
+	 * h1 {
+	 *  font-family: Arial-BoldMT, Arial;
+	 *  font-weight: 700;
+	 }
+	 * </code></pre>
+	 * what, in some cases, applies Bold twice.
+	 *
+	 */
+	private void fixFont() {
+		final String arialBoldMT = "Arial-BoldMT,";
+		final NodeList styleList = document.getRootElement().getElementsByTagNameNS(SVG_NAMESPACE_URI, SVG_STYLE_ATTRIBUTE);
+		final Node style = styleList.getLength() > 0 ? styleList.item(0) : null;
+		if (style != null)
+			style.setTextContent(style.getTextContent().replace(arialBoldMT, ""));
 	}
 
 	@Override
@@ -65,27 +92,27 @@ public class EHLDRenderer implements RasterRenderer {
 
 	@Override
 	public BufferedImage render() {
-		return toImage();
+		return rasterize();
 	}
 
 	private void disableMasks() {
-		final NodeList styleList = document.getRootElement().getElementsByTagNameNS(SVG_NAMESPACE_URI, SVG_STYLE_ATTRIBUTE);
-		final Node style = styleList.getLength() > 0 ? styleList.item(0) : null;
+		// Remove each mask from its parent
 		final NodeList masks = document.getElementsByTagNameNS(SVG_NAMESPACE_URI, SVG_MASK_TAG);
 		final List<Element> maskNodes = IntStream.range(0, masks.getLength())
 				.mapToObj(masks::item)
 				.map(Element.class::cast)
 				.collect(Collectors.toList());
-		maskNodes.forEach(mask -> {
-			mask.getParentNode().removeChild(mask);
-			removeMaskFromStyle(style, mask.getAttribute(SVG_ID_ATTRIBUTE));
-		});
-
+		maskNodes.forEach(mask -> mask.getParentNode().removeChild(mask));
+		// Remove from defs/style
+		// This is not necessary, as they are not referenced anymore,
+		// but will keep the SVG document clear
+		final NodeList styleList = document.getRootElement().getElementsByTagNameNS(SVG_NAMESPACE_URI, SVG_STYLE_ATTRIBUTE);
+		final Node style = styleList.getLength() > 0 ? styleList.item(0) : null;
+		if (style != null)
+			maskNodes.forEach(mask -> removeMaskFromStyle(style, mask.getAttribute(SVG_ID_ATTRIBUTE)));
 	}
 
 	private void removeMaskFromStyle(Node style, String maskId) {
-		if (style == null)
-			return;
 		final String maskRef = String.format("mask:url(#%s);", maskId);
 		style.setTextContent(style.getTextContent().replace(maskRef, ""));
 	}
@@ -128,7 +155,10 @@ public class EHLDRenderer implements RasterRenderer {
 		document.getRootElement().setAttribute(SVG_HEIGHT_ATTRIBUTE, String.format(Locale.UK, "%.3f", height * args.getFactor()));
 	}
 
-	private BufferedImage toImage() {
+	/**
+	 * Generates a raster from document.
+	 */
+	private BufferedImage rasterize() {
 		try {
 			final TranscoderInput input = new TranscoderInput(document);
 			final BufferedImageTranscoder transcoder = new BufferedImageTranscoder(args);
@@ -139,6 +169,7 @@ public class EHLDRenderer implements RasterRenderer {
 		}
 	}
 
+	@Override
 	public void renderToAnimatedGif(OutputStream os) throws IOException {
 		if (svgAnalysis.getAnalysisType() != AnalysisType.EXPRESSION)
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
@@ -147,18 +178,23 @@ public class EHLDRenderer implements RasterRenderer {
 		encoder.setDelay(1000);
 		encoder.setRepeat(0);
 		encoder.start(os);
-		for (int expressionColumn = 0; expressionColumn < svgAnalysis.getAnalysisResult().getExpression().getColumnNames().size(); expressionColumn++) {
+		for (int expressionColumn = 0; expressionColumn < svgAnalysis.getAnalysisResult().getExpressionSummary().getColumnNames().size(); expressionColumn++) {
 			svgAnalysis.setColumn(expressionColumn);
-			final BufferedImage image = toImage();
+			final BufferedImage image = rasterize();
 			encoder.addFrame(image);
 		}
 		encoder.finish();
 	}
 
+	@Override
+	public SVGDocument renderToSVG() {
+		return document;
+	}
+
 	/**
 	 * There is no a standard BufferedImageTranscoder, although all Transcorders
 	 * use BufferedImages as the raster. This class exposes that BufferedImage,
-	 * so no need to store them in a File.
+	 * so ther is no need to store them in a File.
 	 */
 	private static class BufferedImageTranscoder extends ImageTranscoder {
 
@@ -178,8 +214,7 @@ public class EHLDRenderer implements RasterRenderer {
 			if (TRANSPARENT_FORMATS.contains(format)) {
 				return new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 			} else if (NO_TRANSPARENT_FORMATS.contains(format)) {
-				final BufferedImage image;
-				image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+				final BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
 				final Graphics2D graphics = image.createGraphics();
 				graphics.setBackground(background);
 				graphics.clearRect(0, 0, image.getWidth(), image.getHeight());

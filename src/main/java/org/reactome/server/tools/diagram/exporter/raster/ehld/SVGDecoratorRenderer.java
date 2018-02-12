@@ -1,8 +1,8 @@
 package org.reactome.server.tools.diagram.exporter.raster.ehld;
 
 import org.apache.batik.util.SVGConstants;
-import org.reactome.server.tools.diagram.exporter.common.analysis.ContentServiceClient;
-import org.reactome.server.tools.diagram.exporter.common.analysis.content.ContentServiceResponse;
+import org.reactome.server.tools.diagram.exporter.common.content.ContentServiceClient;
+import org.reactome.server.tools.diagram.exporter.common.content.ContentServiceResponse;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

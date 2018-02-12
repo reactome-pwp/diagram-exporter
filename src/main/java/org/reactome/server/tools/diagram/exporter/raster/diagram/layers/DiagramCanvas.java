@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Just a few layers.
+ *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class DiagramCanvas {
@@ -81,6 +83,10 @@ public class DiagramCanvas {
 	public DiagramCanvas() {
 	}
 
+	/**
+	 * loops through layers in order, calling {@link Layer#render(Graphics2D)}
+	 * for each. This should create an Image in graphics.
+	 */
 	public void render(Graphics2D graphics) {
 		layers.forEach(layer -> layer.render(graphics));
 	}
@@ -193,6 +199,19 @@ public class DiagramCanvas {
 		return legendText;
 	}
 
+	public TextLayer getLegendBottomText() {
+		return legendBottomText;
+	}
+
+	public ImageLayer getLogoLayer() {
+		return logoLayer;
+	}
+
+	/**
+	 * Calculate and get the bounds of the Canvas. Runs through layers, asking
+	 * for each bounds. Don't use as a getter, since every call recomputes the
+	 * bounds.
+	 */
 	public Rectangle2D getBounds() {
 		double x = Double.MAX_VALUE, y = Double.MAX_VALUE, maxX = 0, maxY = 0;
 		for (Layer layer : layers) {
@@ -204,13 +223,5 @@ public class DiagramCanvas {
 			if (bounds.getMaxY() > maxY) maxY = bounds.getMaxY();
 		}
 		return new Rectangle2D.Double(x, y, maxX - x, maxY - y);
-	}
-
-	public TextLayer getLegendBottomText() {
-		return legendBottomText;
-	}
-
-	public ImageLayer getLogoLayer() {
-		return logoLayer;
 	}
 }

@@ -1,0 +1,124 @@
+{
+  "dbId" : 1643713,
+  "stableId" : "R-HSA-1643713",
+  "displayName" : "Diagram of Signaling by EGFR in Cancer",
+  "nodes" : [ {
+    "id" : 12,
+    "reactomeId" : 5637815,
+    "displayName" : "Signaling by Ligand-Responsive EGFR Variants in Cancer",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "ProcessNode",
+    "position" : {
+      "x" : 370,
+      "y" : 192
+    },
+    "isDisease" : true,
+    "minX" : 164,
+    "maxX" : 576,
+    "minY" : 161,
+    "maxY" : 224,
+    "prop" : {
+      "x" : 164,
+      "y" : 161,
+      "width" : 412,
+      "height" : 63
+    },
+    "textPosition" : {
+      "x" : 199,
+      "y" : 178
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 204
+    },
+    "fgColor" : {
+      "r" : 0,
+      "g" : 0,
+      "b" : 0
+    },
+    "connectors" : [ ]
+  }, {
+    "id" : 13,
+    "reactomeId" : 5638302,
+    "displayName" : "Signaling by Overexpressed Wild-Type EGFR in Cancer",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "ProcessNode",
+    "position" : {
+      "x" : 371,
+      "y" : 277
+    },
+    "isDisease" : true,
+    "minX" : 164,
+    "maxX" : 578,
+    "minY" : 245,
+    "maxY" : 309,
+    "prop" : {
+      "x" : 164,
+      "y" : 245,
+      "width" : 414,
+      "height" : 64
+    },
+    "textPosition" : {
+      "x" : 205,
+      "y" : 262
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 204
+    },
+    "fgColor" : {
+      "r" : 0,
+      "g" : 0,
+      "b" : 0
+    },
+    "connectors" : [ ]
+  }, {
+    "id" : 14,
+    "reactomeId" : 5637812,
+    "displayName" : "Signaling by EGFRvIII in Cancer",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "ProcessNode",
+    "position" : {
+      "x" : 372,
+      "y" : 113
+    },
+    "isDisease" : true,
+    "minX" : 165,
+    "maxX" : 579,
+    "minY" : 83,
+    "maxY" : 143,
+    "prop" : {
+      "x" : 165,
+      "y" : 83,
+      "width" : 414,
+      "height" : 60
+    },
+    "textPosition" : {
+      "x" : 276,
+      "y" : 98
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 204
+    },
+    "fgColor" : {
+      "r" : 0,
+      "g" : 0,
+      "b" : 0
+    },
+    "connectors" : [ ]
+  } ],
+  "edges" : [ ],
+  "compartments" : [ ],
+  "notes" : [ ],
+  "links" : [ ],
+  "shadows" : [ ],
+  "minX" : 164,
+  "maxX" : 579,
+  "minY" : 83,
+  "maxY" : 309,
+  "disease" : false
+}

@@ -33,8 +33,9 @@ local.properties
 *.lic
 *.lic.xml
 
-#Ignoring the folder where the resulting images for tests are placed
+# Some tests may create images in disk
 test-images
+test-svg
 
 #Ignore the logs
 *.log

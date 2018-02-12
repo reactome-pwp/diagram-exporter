@@ -1,8 +1,8 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.renderables;
 
+import org.reactome.server.analysis.core.result.model.FoundEntity;
+import org.reactome.server.analysis.core.result.model.IdentifierSummary;
 import org.reactome.server.tools.diagram.data.layout.Node;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.FoundEntity;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.IdentifierSummary;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.NodeAbstractRenderer;

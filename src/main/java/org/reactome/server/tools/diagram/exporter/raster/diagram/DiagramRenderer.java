@@ -1,11 +1,15 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram;
 
+import org.apache.batik.anim.dom.SVG12DOMImplementation;
+import org.apache.batik.svggen.SVGGraphics2D;
+import org.apache.batik.util.SVGConstants;
+import org.reactome.server.analysis.core.model.AnalysisType;
+import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
+import org.reactome.server.tools.diagram.exporter.common.AnalysisException;
+import org.reactome.server.tools.diagram.exporter.common.AnalysisServerError;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
@@ -18,6 +22,8 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.Legen
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.NoteRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.gif.AnimatedGifEncoder;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.svg.SVGDocument;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -58,6 +64,7 @@ public class DiagramRenderer implements RasterRenderer {
 	private static final Set<String> TRANSPARENT_FORMATS = new HashSet<>(Collections.singletonList("png"));
 	private static final Set<String> NO_TRANSPARENT_FORMATS = new HashSet<>(Arrays.asList("jpg", "jpeg", "gif"));
 	private static final int T = 0;
+	private static final DOMImplementation SVG_IMPL = SVG12DOMImplementation.getDOMImplementation();
 	private final Diagram diagram;
 	private final DiagramIndex index;
 	private final ColorProfiles colorProfiles;
@@ -69,7 +76,8 @@ public class DiagramRenderer implements RasterRenderer {
 
 
 	/**
-	 * Creates a DiagramRenderer
+	 * Creates a DiagramRenderer. The constructor will create an internal
+	 * representation of the Diagram in a DiagramCanvas.
 	 *
 	 * @param args        arguments for rendering
 	 * @param diagramPath path where to find the json files for the layout and
@@ -82,7 +90,7 @@ public class DiagramRenderer implements RasterRenderer {
 	 * @throws AnalysisServerError                 if some error happens in the
 	 *                                             Analysis Server
 	 */
-	public DiagramRenderer(RasterArgs args, String diagramPath) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException, AnalysisException, AnalysisServerError {
+	public DiagramRenderer(RasterArgs args, String diagramPath) throws Exception {
 		final Graph graph = ResourcesFactory.getGraph(diagramPath, args.getStId());
 		diagram = ResourcesFactory.getDiagram(diagramPath, args.getStId());
 		this.title = args.getWriteTitle() != null && args.getWriteTitle()
@@ -91,6 +99,21 @@ public class DiagramRenderer implements RasterRenderer {
 		this.args = args;
 		this.colorProfiles = args.getProfiles();
 		this.index = new DiagramIndex(diagram, graph, args);
+		canvas = new DiagramCanvas();
+		layout();
+		final Rectangle2D bounds = canvas.getBounds();
+		factor = limitFactor(bounds, MAX_IMAGE_SIZE);
+	}
+
+	public DiagramRenderer(RasterArgs args, String diagramPath, AnalysisStoredResult result) throws Exception {
+		final Graph graph = ResourcesFactory.getGraph(diagramPath, args.getStId());
+		diagram = ResourcesFactory.getDiagram(diagramPath, args.getStId());
+		this.title = args.getWriteTitle() != null && args.getWriteTitle()
+				? diagram.getDisplayName()
+				: null;
+		this.args = args;
+		this.colorProfiles = args.getProfiles();
+		this.index = new DiagramIndex(diagram, graph, args, result);
 		canvas = new DiagramCanvas();
 		layout();
 		final Rectangle2D bounds = canvas.getBounds();
@@ -128,6 +151,7 @@ public class DiagramRenderer implements RasterRenderer {
 	/**
 	 * Animated GIF are generated into a temp File
 	 */
+	@Override
 	public void renderToAnimatedGif(OutputStream outputStream) {
 		if (index.getAnalysis().getType() != AnalysisType.EXPRESSION)
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
@@ -145,11 +169,33 @@ public class DiagramRenderer implements RasterRenderer {
 		encoder.setRepeat(0);
 //		encoder.setQuality(1);
 		encoder.start(outputStream);
-		for (int t = 0; t < index.getAnalysis().getResult().getExpression().getColumnNames().size(); t++) {
+		for (int t = 0; t < index.getAnalysis().getResult().getExpressionSummary().getColumnNames().size(); t++) {
 			final BufferedImage image = frame(factor, width, height, offsetX, offsetY, t);
 			encoder.addFrame(image);
 		}
 		encoder.finish();
+	}
+
+	@Override
+	public SVGDocument renderToSVG() {
+		final SVGDocument document = (SVGDocument) SVG_IMPL.createDocument(SVGConstants.SVG_NAMESPACE_URI, "svg", null);
+		final SVGGraphics2D graphics2D = new SVGGraphics2D(document);
+		graphics2D.setFont(FontProperties.DEFAULT_FONT);
+		canvas.render(graphics2D);
+		// Do not know how to extract SVG doc from SVGGraphics2D, so I take the
+		// root and append to my document as root
+		document.removeChild(document.getRootElement());
+		document.appendChild(graphics2D.getRoot());
+
+		final Rectangle2D bounds = canvas.getBounds();
+		int width = (int) ((2 * MARGIN + bounds.getWidth()) + 0.5);
+		int height = (int) ((2 * MARGIN + bounds.getHeight()) + 0.5);
+		int minX = (int) ((MARGIN - bounds.getMinX()) + 0.5);
+		int minY = (int) ((MARGIN - bounds.getMinY()) + 0.5);
+
+		final String viewBox = String.format("%d %d %d %d", -minX, -minY, width, height);
+		document.getRootElement().setAttribute(SVGConstants.SVG_VIEW_BOX_ATTRIBUTE, viewBox);
+		return document;
 	}
 
 	private BufferedImage frame(double factor, int width, int height, int offsetX, int offsetY, int t) {

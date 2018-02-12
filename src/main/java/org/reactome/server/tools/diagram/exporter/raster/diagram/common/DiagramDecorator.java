@@ -97,7 +97,7 @@ public class DiagramDecorator {
 		}
 		// TODO: would it be faster if index of stIds, dbIds, identifier and geneNames?
 		// Pros: avoid iterating through the list of nodes and edges
-		// Cons: index the list of nodes and edges just for a few selected of flag items
+		// Cons: index the list of nodes and edges just for a few selected or flag items
 		// Nodes
 		for (EntityNode node : graph.getNodes()) {
 			// stId

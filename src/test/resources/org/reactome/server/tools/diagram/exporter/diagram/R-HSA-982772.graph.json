@@ -1,0 +1,1162 @@
+{
+  "dbId" : 982772,
+  "stId" : "R-HSA-982772",
+  "nodes" : [ {
+    "dbId" : 982799,
+    "stId" : "R-HSA-982799",
+    "displayName" : "Growth hormone oligomer [extracellular region]",
+    "schemaClass" : "Polymer",
+    "speciesID" : 48887,
+    "diagramIds" : [ 107 ]
+  }, {
+    "dbId" : 507919,
+    "stId" : "R-HSA-507919",
+    "displayName" : "p-STAT5 dimer [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 135 ],
+    "children" : [ 507929 ]
+  }, {
+    "dbId" : 1168921,
+    "stId" : "R-HSA-1168921",
+    "displayName" : "Growth Hormone:Growth Hormone Receptor-JAK2 dimer:LYN [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 54 ],
+    "children" : [ 982813, 354251 ]
+  }, {
+    "dbId" : 1469978,
+    "stId" : "R-HSA-1469978",
+    "displayName" : "p-STAT5 [nucleoplasm]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "parents" : [ 508012 ],
+    "children" : [ 508016, 507995 ]
+  }, {
+    "dbId" : 982814,
+    "stId" : "R-HSA-982814",
+    "displayName" : "Growth Hormone [extracellular region]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 22 ],
+    "parents" : [ 1168384, 1169232, 982813, 1168898, 1172021, 1169225, 1362492, 1168856 ],
+    "children" : [ 422070, 982809 ]
+  }, {
+    "dbId" : 1168385,
+    "stId" : "R-HSA-1168385",
+    "displayName" : "GHR activated [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P10912",
+    "geneNames" : [ "GHR" ],
+    "parents" : [ 1168869, 1168397 ]
+  }, {
+    "dbId" : 74769,
+    "stId" : "R-HSA-74769",
+    "displayName" : "IRS1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P35568",
+    "geneNames" : [ "IRS1" ],
+    "parents" : [ 198273 ]
+  }, {
+    "dbId" : 1168384,
+    "stId" : "R-HSA-1168384",
+    "displayName" : "Growth Hormone: Activated Growth Hormone Receptor-JAK2 dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 25 ],
+    "parents" : [ 1364055 ],
+    "children" : [ 982814, 1168387 ]
+  }, {
+    "dbId" : 1168387,
+    "stId" : "R-HSA-1168387",
+    "displayName" : "Activated Growth Hormone Receptor:JAK2 dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1168384 ],
+    "children" : [ 1168397 ]
+  }, {
+    "dbId" : 982813,
+    "stId" : "R-HSA-982813",
+    "displayName" : "Growth Hormone: Growth Hormone Receptor-JAK2 dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 23 ],
+    "parents" : [ 1168921 ],
+    "children" : [ 982814, 982764 ]
+  }, {
+    "dbId" : 1168898,
+    "stId" : "R-HSA-1168898",
+    "displayName" : "Growth Hormone: Tyrosine phosphorylated Growth Hormone Receptor-p(Y1007)-JAK2 dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 41 ],
+    "parents" : [ 1169217, 1168901, 1168902, 1169227, 1169243, 1169198 ],
+    "children" : [ 982814, 1168890 ]
+  }, {
+    "dbId" : 109842,
+    "stId" : "R-HSA-109842",
+    "displayName" : "p-T202,Y204-MAPK3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P27361",
+    "geneNames" : [ "MAPK3", "ERK1", "PRKM3" ],
+    "parents" : [ 169289 ]
+  }, {
+    "dbId" : 1168901,
+    "stId" : "R-HSA-1168901",
+    "displayName" : "Growth Hormone:Tyrosine phosphorylated Growth Hormone Receptor-p(Y1007)-JAK2 dimer:p-STAT5 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 49 ],
+    "children" : [ 1168898, 507929 ]
+  }, {
+    "dbId" : 74772,
+    "stId" : "R-HSA-74772",
+    "displayName" : "p-Y-IRS1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P35568",
+    "geneNames" : [ "IRS1" ],
+    "parents" : [ 112322 ]
+  }, {
+    "dbId" : 982809,
+    "stId" : "R-HSA-982809",
+    "displayName" : "GH2 [extracellular region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P01242",
+    "geneNames" : [ "GH2" ],
+    "parents" : [ 982814 ]
+  }, {
+    "dbId" : 74774,
+    "stId" : "R-HSA-74774",
+    "displayName" : "p-Y-IRS2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9Y4H2",
+    "geneNames" : [ "IRS2" ],
+    "parents" : [ 112322 ]
+  }, {
+    "dbId" : 1168902,
+    "stId" : "R-HSA-1168902",
+    "displayName" : "Growth Hormone:Tyrosine phosphorylated Growth Hormone Receptor-p(Y1007)-JAK2 dimer:STAT5 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 45 ],
+    "children" : [ 1168898, 452094 ]
+  }, {
+    "dbId" : 1168904,
+    "stId" : "R-HSA-1168904",
+    "displayName" : "p-5Y-GHR(19-638) [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P10912",
+    "geneNames" : [ "GHR" ],
+    "parents" : [ 1169223, 1168892 ]
+  }, {
+    "dbId" : 1671683,
+    "stId" : "R-HSA-1671683",
+    "displayName" : "PRLR ligands:Activated PRLR:p-Y1007-JAK2 dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1364054 ],
+    "children" : [ 1172021, 1364075 ]
+  }, {
+    "dbId" : 1168397,
+    "stId" : "R-HSA-1168397",
+    "displayName" : "Activated Growth Hormone Receptor:JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1168387 ],
+    "children" : [ 1168385, 210620 ]
+  }, {
+    "dbId" : 109853,
+    "stId" : "R-HSA-109853",
+    "displayName" : "p-T185,Y187-MAPK1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P28482",
+    "geneNames" : [ "MAPK1", "ERK2", "PRKM1", "PRKM2" ],
+    "parents" : [ 169289 ]
+  }, {
+    "dbId" : 507929,
+    "stId" : "R-HSA-507929",
+    "displayName" : "p-STAT5A, p-STAT5B [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 51 ],
+    "parents" : [ 1168901, 507919 ],
+    "children" : [ 507939, 507936 ]
+  }, {
+    "dbId" : 507939,
+    "stId" : "R-HSA-507939",
+    "displayName" : "p-Y699-STAT5B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P51692",
+    "geneNames" : [ "STAT5B" ],
+    "parents" : [ 507929 ]
+  }, {
+    "dbId" : 1172021,
+    "stId" : "R-HSA-1172021",
+    "displayName" : "Prolactin receptor ligands [extracellular region]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "parents" : [ 976956, 1671683 ],
+    "children" : [ 982814, 976984, 1172022 ]
+  }, {
+    "dbId" : 1169204,
+    "stId" : "R-HSA-1169204",
+    "displayName" : "SOCS2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "O14508",
+    "geneNames" : [ "SOCS2", "CIS2", "SSI2", "STATI2" ],
+    "parents" : [ 1169189, 1169199 ]
+  }, {
+    "dbId" : 1362481,
+    "stId" : "R-HSA-1362481",
+    "displayName" : "GHBP:GHR [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 110 ],
+    "children" : [ 1168821, 982779 ]
+  }, {
+    "dbId" : 507936,
+    "stId" : "R-HSA-507936",
+    "displayName" : "p-Y694-STAT5A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P42229",
+    "geneNames" : [ "STAT5A", "STAT5" ],
+    "parents" : [ 507929 ]
+  }, {
+    "dbId" : 1172022,
+    "stId" : "R-HSA-1172022",
+    "displayName" : "Placental lactogen [extracellular region]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1172021 ],
+    "children" : [ 158417, 5622079 ]
+  }, {
+    "dbId" : 1362492,
+    "stId" : "R-HSA-1362492",
+    "displayName" : "GHBP:GH [extracellular region]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 113 ],
+    "children" : [ 982814, 1168821 ]
+  }, {
+    "dbId" : 1169213,
+    "stId" : "R-HSA-1169213",
+    "displayName" : "CISH [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9NSE2",
+    "geneNames" : [ "CISH", "G18" ],
+    "parents" : [ 1169189, 1169199 ]
+  }, {
+    "dbId" : 1671734,
+    "stId" : "R-HSA-1671734",
+    "displayName" : "Activated PRLR:JAK2 dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 976956 ],
+    "children" : [ 1977936 ]
+  }, {
+    "dbId" : 197938,
+    "stId" : "R-HSA-197938",
+    "displayName" : "PTPN6 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 92 ],
+    "identifier" : "P29350",
+    "geneNames" : [ "PTPN6", "HCP", "PTP1C" ],
+    "parents" : [ 1169239, 1169243 ]
+  }, {
+    "dbId" : 976956,
+    "stId" : "R-HSA-976956",
+    "displayName" : "PRLR ligands:Activated PRLR:JAK2 dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1364055, 1675475 ],
+    "children" : [ 1172021, 1671734 ]
+  }, {
+    "dbId" : 1169186,
+    "stId" : "R-HSA-1169186",
+    "displayName" : "Growth Hormone: Activated Growth Hormone Receptor:p(Y1007)-JAK2 dimer:p(Y701)-STAT1/p(Y705)-STAT3 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 66 ],
+    "children" : [ 1169218, 1168856 ]
+  }, {
+    "dbId" : 1169189,
+    "stId" : "R-HSA-1169189",
+    "displayName" : "CIS, SOCS1-3 [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 70 ],
+    "parents" : [ 1169217 ],
+    "children" : [ 1169204, 1169213, 204910, 873794 ]
+  }, {
+    "dbId" : 1169199,
+    "stId" : "R-HSA-1169199",
+    "displayName" : "SOCS [cytosol]",
+    "schemaClass" : "CandidateSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 77 ],
+    "parents" : [ 1169198 ],
+    "children" : [ 1169204, 1169213, 204910, 873794 ]
+  }, {
+    "dbId" : 1169198,
+    "stId" : "R-HSA-1169198",
+    "displayName" : "Growth Hormone: Tyrosine phosphorylated Growth Hormone Receptor-p(Y1007)-JAK2 dimer:SOCS [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 78 ],
+    "children" : [ 1168898, 1169199 ]
+  }, {
+    "dbId" : 1169233,
+    "stId" : "R-HSA-1169233",
+    "displayName" : "Growth Hormone:p(Y332,487,627)-Growth Hormone Receptor-p(Y1007)-JAK2 dimer:SHP2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 84 ],
+    "children" : [ 1169232, 210625 ]
+  }, {
+    "dbId" : 1169232,
+    "stId" : "R-HSA-1169232",
+    "displayName" : "Growth Hormone:p(Y332,487,627)-Growth Hormone Receptor-p(Y1007)-JAK2 dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1169233 ],
+    "children" : [ 982814, 1169231 ]
+  }, {
+    "dbId" : 1364053,
+    "stId" : "R-HSA-1364053",
+    "displayName" : "Activated PRLR:p(Y1007)-JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1364075 ],
+    "children" : [ 1977933, 873799 ]
+  }, {
+    "dbId" : 1364054,
+    "stId" : "R-HSA-1364054",
+    "displayName" : "Activated cytokine-like hormone receptors, p-Y1007-JAK2 [plasma membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 117 ],
+    "children" : [ 1168856, 1671683 ]
+  }, {
+    "dbId" : 1364055,
+    "stId" : "R-HSA-1364055",
+    "displayName" : "Activated cytokine-like hormone receptors [plasma membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 114 ],
+    "children" : [ 1168384, 976956 ]
+  }, {
+    "dbId" : 380737,
+    "stId" : "R-HSA-380737",
+    "displayName" : "STAT5B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P51692",
+    "geneNames" : [ "STAT5B" ],
+    "parents" : [ 452094 ]
+  }, {
+    "dbId" : 1169239,
+    "stId" : "R-HSA-1169239",
+    "displayName" : "Growth Hormone: Tyrosine phosphorylated Growth Hormone Receptor-JAK2 dimer:SHP1 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 95 ],
+    "children" : [ 197938, 1169225 ]
+  }, {
+    "dbId" : 169291,
+    "stId" : "R-HSA-169291",
+    "displayName" : "MAPKs [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 56 ],
+    "children" : [ 59282, 59284 ]
+  }, {
+    "dbId" : 873799,
+    "stId" : "R-HSA-873799",
+    "displayName" : "p-Y1007-JAK2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "O60674",
+    "geneNames" : [ "JAK2" ],
+    "parents" : [ 1364053, 1168869, 1168892, 1169228 ]
+  }, {
+    "dbId" : 1169243,
+    "stId" : "R-HSA-1169243",
+    "displayName" : "Growth Hormone: Tyrosine phosphorylated Growth Hormone Receptor-p(Y1007)-JAK2 dimer:SHP1 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 93 ],
+    "children" : [ 197938, 1168898 ]
+  }, {
+    "dbId" : 169289,
+    "stId" : "R-HSA-169289",
+    "displayName" : "p-T,Y MAPKs [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 59 ],
+    "children" : [ 109842, 109853 ]
+  }, {
+    "dbId" : 380747,
+    "stId" : "R-HSA-380747",
+    "displayName" : "STAT5A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P42229",
+    "geneNames" : [ "STAT5A", "STAT5" ],
+    "parents" : [ 452094 ]
+  }, {
+    "dbId" : 1977936,
+    "stId" : "R-HSA-1977936",
+    "displayName" : "Activated PRLR:JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1671734 ],
+    "children" : [ 1977933, 210620 ]
+  }, {
+    "dbId" : 873794,
+    "stId" : "R-HSA-873794",
+    "displayName" : "SOCS3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "O14543",
+    "geneNames" : [ "SOCS3", "CIS3", "SSI3" ],
+    "parents" : [ 1169189, 1169199 ]
+  }, {
+    "dbId" : 1169217,
+    "stId" : "R-HSA-1169217",
+    "displayName" : "Growth Hormone: Tyrosine phosphorylated Growth Hormone Receptor-p(Y1007)-JAK2 dimer:CIS/SOCS1-3 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 71 ],
+    "children" : [ 1168898, 1169189 ]
+  }, {
+    "dbId" : 1169218,
+    "stId" : "R-HSA-1169218",
+    "displayName" : "p(Y701)-STAT1, p(Y705)-STAT3 [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "parents" : [ 1169186 ],
+    "children" : [ 3132766, 914048 ]
+  }, {
+    "dbId" : 1977933,
+    "stId" : "R-HSA-1977933",
+    "displayName" : "PRLR [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P16471",
+    "geneNames" : [ "PRLR" ],
+    "parents" : [ 1364053, 1977936 ]
+  }, {
+    "dbId" : 1169221,
+    "stId" : "R-HSA-1169221",
+    "displayName" : "Growth Hormone: Tyrosine phosphorylated Growth Hormone Receptor-JAK2 dimer:SHP2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 88 ],
+    "children" : [ 210625, 1169225 ]
+  }, {
+    "dbId" : 1169223,
+    "stId" : "R-HSA-1169223",
+    "displayName" : "Tyrosine phosphorylated Growth Hormone Receptor:JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1169224 ],
+    "children" : [ 1168904, 210620 ]
+  }, {
+    "dbId" : 976984,
+    "stId" : "R-HSA-976984",
+    "displayName" : "PRL [extracellular region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P01236",
+    "geneNames" : [ "PRL" ],
+    "parents" : [ 1172021 ]
+  }, {
+    "dbId" : 1169225,
+    "stId" : "R-HSA-1169225",
+    "displayName" : "Growth Hormone: Tyrosine phosphorylated Growth Hormone Receptor-JAK2 dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1169221, 1169239 ],
+    "children" : [ 982814, 1169224 ]
+  }, {
+    "dbId" : 1169224,
+    "stId" : "R-HSA-1169224",
+    "displayName" : "Tyrosine phosphorylated Growth Hormone Receptor-JAK2 dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1169225 ],
+    "children" : [ 1169223 ]
+  }, {
+    "dbId" : 1169227,
+    "stId" : "R-HSA-1169227",
+    "displayName" : "Growth Hormone: Tyrosine phosphorylated Growth Hormone Receptor-p(Y1007)-JAK2 dimer:SHP2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 81 ],
+    "children" : [ 210625, 1168898 ]
+  }, {
+    "dbId" : 1169226,
+    "stId" : "R-HSA-1169226",
+    "displayName" : "p-Y332,Y487,Y627-GHR(19-638) [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P10912",
+    "geneNames" : [ "GHR" ],
+    "parents" : [ 1169228 ]
+  }, {
+    "dbId" : 507995,
+    "stId" : "R-HSA-507995",
+    "displayName" : "p-Y694-STAT5A [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P42229",
+    "geneNames" : [ "STAT5A", "STAT5" ],
+    "parents" : [ 1469978 ]
+  }, {
+    "dbId" : 1169228,
+    "stId" : "R-HSA-1169228",
+    "displayName" : "p(Y332,487,627)-Growth Hormone Receptor:p(Y1007)-JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1169231 ],
+    "children" : [ 873799, 1169226 ]
+  }, {
+    "dbId" : 1169231,
+    "stId" : "R-HSA-1169231",
+    "displayName" : "p(Y332,487,627)-Growth Hormone Receptor:p(Y1007)-JAK2 dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1169232 ],
+    "children" : [ 1169228 ]
+  }, {
+    "dbId" : 5622079,
+    "stId" : "R-HSA-5622079",
+    "displayName" : "CSH1 [extracellular region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P0DML2",
+    "geneNames" : [ "CSH1" ],
+    "parents" : [ 1172022 ]
+  }, {
+    "dbId" : 508012,
+    "stId" : "R-HSA-508012",
+    "displayName" : "p-STAT5 dimer [nucleoplasm]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 137 ],
+    "children" : [ 1469978 ]
+  }, {
+    "dbId" : 204910,
+    "stId" : "R-HSA-204910",
+    "displayName" : "SOCS1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "O15524",
+    "geneNames" : [ "SOCS1", "SSI1", "TIP3" ],
+    "parents" : [ 1169189, 1169199 ]
+  }, {
+    "dbId" : 3132766,
+    "stId" : "R-HSA-3132766",
+    "displayName" : "p-Y701-STAT1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P42224",
+    "geneNames" : [ "STAT1" ],
+    "parents" : [ 1169218 ]
+  }, {
+    "dbId" : 508016,
+    "stId" : "R-HSA-508016",
+    "displayName" : "p-Y699-STAT5B [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P51692",
+    "geneNames" : [ "STAT5B" ],
+    "parents" : [ 1469978 ]
+  }, {
+    "dbId" : 1169263,
+    "stId" : "R-HSA-1169263",
+    "displayName" : "GHR(19-638) [endosome lumen]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 103 ],
+    "identifier" : "P10912",
+    "geneNames" : [ "GHR" ]
+  }, {
+    "dbId" : 629622,
+    "stId" : "R-HSA-629622",
+    "displayName" : "STAT1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P42224",
+    "geneNames" : [ "STAT1" ],
+    "parents" : [ 1112559 ]
+  }, {
+    "dbId" : 1364075,
+    "stId" : "R-HSA-1364075",
+    "displayName" : "Activated PRLR:p(Y1007)-JAK2 dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1671683 ],
+    "children" : [ 1364053 ]
+  }, {
+    "dbId" : 198273,
+    "stId" : "R-HSA-198273",
+    "displayName" : "IRS1,2 [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 34 ],
+    "children" : [ 74769, 57528 ]
+  }, {
+    "dbId" : 914048,
+    "stId" : "R-HSA-914048",
+    "displayName" : "p-Y705-STAT3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P40763",
+    "geneNames" : [ "STAT3", "APRF" ],
+    "parents" : [ 1169218 ]
+  }, {
+    "dbId" : 59282,
+    "stId" : "R-HSA-59282",
+    "displayName" : "MAPK1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P28482",
+    "geneNames" : [ "MAPK1", "ERK2", "PRKM1", "PRKM2" ],
+    "parents" : [ 169291 ]
+  }, {
+    "dbId" : 59284,
+    "stId" : "R-HSA-59284",
+    "displayName" : "MAPK3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P27361",
+    "geneNames" : [ "MAPK3", "ERK1", "PRKM3" ],
+    "parents" : [ 169291 ]
+  }, {
+    "dbId" : 1168821,
+    "stId" : "R-HSA-1168821",
+    "displayName" : "GHR(19-256) [extracellular region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 98 ],
+    "identifier" : "P10912",
+    "geneNames" : [ "GHR" ],
+    "parents" : [ 1362481, 1362492 ]
+  }, {
+    "dbId" : 179878,
+    "stId" : "R-HSA-179878",
+    "displayName" : "ADAM17 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 100 ],
+    "identifier" : "P78536",
+    "geneNames" : [ "ADAM17", "CSVP", "TACE" ]
+  }, {
+    "dbId" : 539044,
+    "stId" : "R-HSA-539044",
+    "displayName" : "STAT3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P40763",
+    "geneNames" : [ "STAT3", "APRF" ],
+    "parents" : [ 1112559 ]
+  }, {
+    "dbId" : 29356,
+    "stId" : "R-ALL-29356",
+    "displayName" : "H2O [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 83, 87 ],
+    "identifier" : "15377"
+  }, {
+    "dbId" : 422070,
+    "stId" : "R-HSA-422070",
+    "displayName" : "GH1 [extracellular region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "P01241",
+    "geneNames" : [ "GH1" ],
+    "parents" : [ 982814 ]
+  }, {
+    "dbId" : 1168803,
+    "stId" : "R-HSA-1168803",
+    "displayName" : "GHR(257-638) [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 99 ],
+    "identifier" : "P10912",
+    "geneNames" : [ "GHR" ]
+  }, {
+    "dbId" : 57528,
+    "stId" : "R-HSA-57528",
+    "displayName" : "IRS2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9Y4H2",
+    "geneNames" : [ "IRS2" ],
+    "parents" : [ 198273 ]
+  }, {
+    "dbId" : 113592,
+    "stId" : "R-ALL-113592",
+    "displayName" : "ATP [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 29, 39, 47, 57, 65, 122 ],
+    "identifier" : "15422"
+  }, {
+    "dbId" : 29370,
+    "stId" : "R-ALL-29370",
+    "displayName" : "ADP [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 36, 40, 48, 58, 67, 123 ],
+    "identifier" : "16761"
+  }, {
+    "dbId" : 29372,
+    "stId" : "R-ALL-29372",
+    "displayName" : "Pi [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 85, 89, 96 ],
+    "identifier" : "18367"
+  }, {
+    "dbId" : 210620,
+    "stId" : "R-HSA-210620",
+    "displayName" : "JAK2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 17 ],
+    "identifier" : "O60674",
+    "geneNames" : [ "JAK2" ],
+    "parents" : [ 1169223, 982774, 1168397, 1977936 ]
+  }, {
+    "dbId" : 210625,
+    "stId" : "R-HSA-210625",
+    "displayName" : "PTPN1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 80 ],
+    "identifier" : "P18031",
+    "geneNames" : [ "PTPN1", "PTP1B" ],
+    "parents" : [ 1169233, 1169221, 1169227 ]
+  }, {
+    "dbId" : 112322,
+    "stId" : "R-HSA-112322",
+    "displayName" : "p-Y-IRS1,p-Y-IRS2 [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 35 ],
+    "children" : [ 74772, 74774 ]
+  }, {
+    "dbId" : 1675482,
+    "stId" : "R-HSA-1675482",
+    "displayName" : "SH2B1-2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "identifier" : "Q9NRF2-2",
+    "geneNames" : [ "SH2B1", "KIAA1299", "SH2B" ],
+    "parents" : [ 1675475 ]
+  }, {
+    "dbId" : 1168856,
+    "stId" : "R-HSA-1168856",
+    "displayName" : "Growth Hormone: Activated Growth Hormone Receptor- p(Y1007)-JAK2 dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 30 ],
+    "parents" : [ 1364054, 1169186, 1169146 ],
+    "children" : [ 982814, 1168860 ]
+  }, {
+    "dbId" : 1675475,
+    "stId" : "R-HSA-1675475",
+    "displayName" : "PRLR ligands:Activated PRLR:JAK2 dimer:SH2B1 beta [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 120 ],
+    "children" : [ 976956, 1675482 ]
+  }, {
+    "dbId" : 1168860,
+    "stId" : "R-HSA-1168860",
+    "displayName" : "Activated Growth Hormone Receptor:p(Y1007)-JAK2 dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1168856 ],
+    "children" : [ 1168869 ]
+  }, {
+    "dbId" : 354251,
+    "stId" : "R-HSA-354251",
+    "displayName" : "LYN [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 53 ],
+    "identifier" : "P07948",
+    "geneNames" : [ "LYN", "JTK8" ],
+    "parents" : [ 1168921 ]
+  }, {
+    "dbId" : 158417,
+    "stId" : "R-ALL-158417",
+    "displayName" : "Zn2+ [extracellular region]",
+    "schemaClass" : "SimpleEntity",
+    "identifier" : "29105",
+    "parents" : [ 1172022 ]
+  }, {
+    "dbId" : 982764,
+    "stId" : "R-HSA-982764",
+    "displayName" : "Growth Hormone Receptor-JAK2 dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 20 ],
+    "parents" : [ 982813 ],
+    "children" : [ 982774 ]
+  }, {
+    "dbId" : 1168890,
+    "stId" : "R-HSA-1168890",
+    "displayName" : "Tyrosine phosphorylated Growth Hormone Receptor:p(Y1007)-JAK2 dimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1168898 ],
+    "children" : [ 1168892 ]
+  }, {
+    "dbId" : 1169146,
+    "stId" : "R-HSA-1169146",
+    "displayName" : "Growth Hormone: Activated Growth Hormone Receptor:p(Y1007)-JAK2 dimer:STAT1/STAT3 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 62 ],
+    "children" : [ 1168856, 1112559 ]
+  }, {
+    "dbId" : 1168892,
+    "stId" : "R-HSA-1168892",
+    "displayName" : "Tyrosine phosphorylated Growth Hormone Receptor:p(Y1007)-JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1168890 ],
+    "children" : [ 1168904, 873799 ]
+  }, {
+    "dbId" : 1168869,
+    "stId" : "R-HSA-1168869",
+    "displayName" : "Activated Growth Hormone Receptor:p(Y1007)-JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "parents" : [ 1168860 ],
+    "children" : [ 1168385, 873799 ]
+  }, {
+    "dbId" : 982779,
+    "stId" : "R-HSA-982779",
+    "displayName" : "GHR(19-638) [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesID" : 48887,
+    "diagramIds" : [ 16 ],
+    "identifier" : "P10912",
+    "geneNames" : [ "GHR" ],
+    "parents" : [ 1362481, 982774 ]
+  }, {
+    "dbId" : 982774,
+    "stId" : "R-HSA-982774",
+    "displayName" : "Growth Hormone Receptor:JAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesID" : 48887,
+    "diagramIds" : [ 18 ],
+    "parents" : [ 982764 ],
+    "children" : [ 982779, 210620 ]
+  }, {
+    "dbId" : 452094,
+    "stId" : "R-HSA-452094",
+    "displayName" : "STAT5A,STAT5B [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 44 ],
+    "parents" : [ 1168902 ],
+    "children" : [ 380737, 380747 ]
+  }, {
+    "dbId" : 1112559,
+    "stId" : "R-HSA-1112559",
+    "displayName" : "STAT1, STAT3 [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesID" : 48887,
+    "diagramIds" : [ 61 ],
+    "parents" : [ 1169146 ],
+    "children" : [ 539044, 629622 ]
+  } ],
+  "edges" : [ {
+    "dbId" : 452102,
+    "stId" : "R-HSA-452102",
+    "displayName" : "Phosphorylated STAT5 dimerizes",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 919404, 8983005, 1295540, 921155, 1168894 ],
+    "following" : [ 452102 ],
+    "inputs" : [ 507929 ],
+    "outputs" : [ 507919 ],
+    "diagramIds" : [ 134 ]
+  }, {
+    "dbId" : 1168789,
+    "stId" : "R-HSA-1168789",
+    "displayName" : "GHR internalization",
+    "schemaClass" : "BlackBoxEvent",
+    "inputs" : [ 982779 ],
+    "outputs" : [ 1169263 ],
+    "diagramIds" : [ 102 ]
+  }, {
+    "dbId" : 982792,
+    "stId" : "R-HSA-982792",
+    "displayName" : "Growth hormone receptor binds JAK2",
+    "schemaClass" : "Reaction",
+    "following" : [ 982792 ],
+    "inputs" : [ 982779, 210620 ],
+    "outputs" : [ 982774 ],
+    "diagramIds" : [ 15 ]
+  }, {
+    "dbId" : 1168768,
+    "stId" : "R-HSA-1168768",
+    "displayName" : "JAK2 binds STAT1/3",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 982810 ],
+    "following" : [ 1168768 ],
+    "inputs" : [ 1168856, 1112559 ],
+    "outputs" : [ 1169146 ],
+    "diagramIds" : [ 60 ]
+  }, {
+    "dbId" : 982810,
+    "stId" : "R-HSA-982810",
+    "displayName" : "JAK2 phosphorylation",
+    "schemaClass" : "BlackBoxEvent",
+    "preceding" : [ 982768, 1671687 ],
+    "following" : [ 982810 ],
+    "inputs" : [ 1364055, 113592 ],
+    "outputs" : [ 1364054, 29370 ],
+    "activators" : [ 1675475 ],
+    "diagramIds" : [ 28 ]
+  }, {
+    "dbId" : 1168839,
+    "stId" : "R-HSA-1168839",
+    "displayName" : "SHP1 (PTPN6) binds JAK2 in the receptor complex",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 982807 ],
+    "following" : [ 1168839 ],
+    "inputs" : [ 197938, 1168898 ],
+    "outputs" : [ 1169243 ],
+    "diagramIds" : [ 91 ]
+  }, {
+    "dbId" : 1168777,
+    "stId" : "R-HSA-1168777",
+    "displayName" : "Metalloprotease cleavage of GHR",
+    "schemaClass" : "Reaction",
+    "inputs" : [ 982779 ],
+    "outputs" : [ 1168803, 1168821 ],
+    "catalysts" : [ 179878 ],
+    "diagramIds" : [ 97 ]
+  }, {
+    "dbId" : 1168393,
+    "stId" : "R-HSA-1168393",
+    "displayName" : "STAT5 association with GHR",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 982807 ],
+    "following" : [ 1168393 ],
+    "inputs" : [ 1168898, 452094 ],
+    "outputs" : [ 1168902 ],
+    "diagramIds" : [ 43 ]
+  }, {
+    "dbId" : 982807,
+    "stId" : "R-HSA-982807",
+    "displayName" : "JAK2 phosphorylation of GHR",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 982810 ],
+    "following" : [ 982807 ],
+    "inputs" : [ 1168856, 113592 ],
+    "outputs" : [ 1168898, 29370 ],
+    "catalysts" : [ 1168856 ],
+    "diagramIds" : [ 38 ]
+  }, {
+    "dbId" : 1168456,
+    "stId" : "R-HSA-1168456",
+    "displayName" : "Growth hormone receptor binds Lyn",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 982778 ],
+    "following" : [ 1168456 ],
+    "inputs" : [ 982813, 354251 ],
+    "outputs" : [ 1168921 ],
+    "diagramIds" : [ 52 ]
+  }, {
+    "dbId" : 1168459,
+    "stId" : "R-HSA-1168459",
+    "displayName" : "Lyn activates ERK",
+    "schemaClass" : "BlackBoxEvent",
+    "preceding" : [ 1168456 ],
+    "inputs" : [ 169291, 113592 ],
+    "outputs" : [ 29370, 169289 ],
+    "catalysts" : [ 1168921 ],
+    "diagramIds" : [ 55 ]
+  }, {
+    "dbId" : 1168394,
+    "stId" : "R-HSA-1168394",
+    "displayName" : "STAT5 tyrosine phosphorylation",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 1168393 ],
+    "following" : [ 1168394 ],
+    "inputs" : [ 1168902, 113592 ],
+    "outputs" : [ 1168901, 29370 ],
+    "catalysts" : [ 1168902 ],
+    "diagramIds" : [ 46 ]
+  }, {
+    "dbId" : 1362485,
+    "stId" : "R-HSA-1362485",
+    "displayName" : "GHBP binds GH",
+    "schemaClass" : "Reaction",
+    "inputs" : [ 982814, 1168821 ],
+    "outputs" : [ 1362492 ],
+    "diagramIds" : [ 111 ]
+  }, {
+    "dbId" : 982765,
+    "stId" : "R-HSA-982765",
+    "displayName" : "Growth hormone forms dimers and oligomers",
+    "schemaClass" : "Polymerisation",
+    "inputs" : [ 982814 ],
+    "outputs" : [ 982799 ],
+    "diagramIds" : [ 106 ]
+  }, {
+    "dbId" : 507937,
+    "stId" : "R-HSA-507937",
+    "displayName" : "STAT5 dimers translocate to the nucleus and bind to specific DNA sequences",
+    "schemaClass" : "BlackBoxEvent",
+    "preceding" : [ 452102 ],
+    "inputs" : [ 507919 ],
+    "outputs" : [ 508012 ],
+    "diagramIds" : [ 136 ]
+  }, {
+    "dbId" : 1169210,
+    "stId" : "R-HSA-1169210",
+    "displayName" : "PTP1B dephosphorylates JAK2",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 1168445 ],
+    "inputs" : [ 1169227, 29356 ],
+    "outputs" : [ 1169221, 29372 ],
+    "catalysts" : [ 1169227 ],
+    "diagramIds" : [ 86 ]
+  }, {
+    "dbId" : 1168445,
+    "stId" : "R-HSA-1168445",
+    "displayName" : "PTP1B binds the GH receptor complex",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 982807 ],
+    "following" : [ 1168445 ],
+    "inputs" : [ 210625, 1168898 ],
+    "outputs" : [ 1169227 ],
+    "diagramIds" : [ 79 ]
+  }, {
+    "dbId" : 1168767,
+    "stId" : "R-HSA-1168767",
+    "displayName" : "JAK2 phosphorylates STAT1/STAT3",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 1168768 ],
+    "inputs" : [ 113592, 1169146 ],
+    "outputs" : [ 1169186, 29370 ],
+    "catalysts" : [ 1169146 ],
+    "diagramIds" : [ 64 ]
+  }, {
+    "dbId" : 1168894,
+    "stId" : "R-HSA-1168894",
+    "displayName" : "p-STAT5A/B dissociates from the Growth Hormone receptor",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 1168394 ],
+    "following" : [ 1168894 ],
+    "inputs" : [ 1168901 ],
+    "outputs" : [ 1168898, 507929 ],
+    "diagramIds" : [ 50 ]
+  }, {
+    "dbId" : 982778,
+    "stId" : "R-HSA-982778",
+    "displayName" : "Growth hormone binds the growth hormone receptor",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 982775 ],
+    "following" : [ 982778 ],
+    "inputs" : [ 982814, 982764 ],
+    "outputs" : [ 982813 ],
+    "diagramIds" : [ 21 ]
+  }, {
+    "dbId" : 1169188,
+    "stId" : "R-HSA-1169188",
+    "displayName" : "SHP1 (PTPN6) dephosphorylates JAK2",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 1168839 ],
+    "inputs" : [ 1169243 ],
+    "outputs" : [ 1169239, 29372 ],
+    "catalysts" : [ 1169243 ],
+    "diagramIds" : [ 94 ]
+  }, {
+    "dbId" : 1362465,
+    "stId" : "R-HSA-1362465",
+    "displayName" : "GHBP binds GHR",
+    "schemaClass" : "Reaction",
+    "inputs" : [ 1168821, 982779 ],
+    "outputs" : [ 1362481 ],
+    "diagramIds" : [ 109 ]
+  }, {
+    "dbId" : 1168423,
+    "stId" : "R-HSA-1168423",
+    "displayName" : "JAK2 phosphorylation of IRS-1/2",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 982810 ],
+    "inputs" : [ 198273, 113592 ],
+    "outputs" : [ 112322, 29370 ],
+    "catalysts" : [ 1168856 ],
+    "diagramIds" : [ 32 ]
+  }, {
+    "dbId" : 1168809,
+    "stId" : "R-HSA-1168809",
+    "displayName" : "SOCS binding to GHR",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 982807 ],
+    "inputs" : [ 1168898, 1169189 ],
+    "outputs" : [ 1169217 ],
+    "diagramIds" : [ 69 ]
+  }, {
+    "dbId" : 1169192,
+    "stId" : "R-HSA-1169192",
+    "displayName" : "PTP1B dephosphorylates GHR",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 1168445 ],
+    "inputs" : [ 1169227, 29356 ],
+    "outputs" : [ 1169233, 29372 ],
+    "catalysts" : [ 1169227 ],
+    "diagramIds" : [ 82 ]
+  }, {
+    "dbId" : 982775,
+    "stId" : "R-HSA-982775",
+    "displayName" : "Growth hormone receptor dimerizes",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 982792 ],
+    "following" : [ 982775 ],
+    "inputs" : [ 982774 ],
+    "outputs" : [ 982764 ],
+    "inhibitors" : [ 1362481 ],
+    "diagramIds" : [ 19 ]
+  }, {
+    "dbId" : 1168813,
+    "stId" : "R-HSA-1168813",
+    "displayName" : "SOCS binding to JAK2",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 982807 ],
+    "inputs" : [ 1168898, 1169199 ],
+    "outputs" : [ 1169198 ],
+    "diagramIds" : [ 76 ]
+  }, {
+    "dbId" : 982768,
+    "stId" : "R-HSA-982768",
+    "displayName" : "GH:GHR:JAK2 complex undergoes a conformational change",
+    "schemaClass" : "BlackBoxEvent",
+    "preceding" : [ 982778 ],
+    "following" : [ 982768 ],
+    "inputs" : [ 982813 ],
+    "outputs" : [ 1168384 ],
+    "diagramIds" : [ 24 ]
+  } ]
+}

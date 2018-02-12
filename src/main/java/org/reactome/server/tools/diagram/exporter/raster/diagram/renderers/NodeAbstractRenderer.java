@@ -1,7 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.renderers;
 
+import org.reactome.server.analysis.core.result.model.FoundEntity;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.FoundEntity;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
@@ -69,13 +69,14 @@ public abstract class NodeAbstractRenderer extends ObjectRenderer {
 
 	public double analysis(RenderableNode renderableNode, DiagramCanvas canvas, DiagramIndex index, ColorProfiles colorProfiles, int t) {
 		if (renderableNode.isFadeOut()) return 0.0;
+		if (index.getAnalysis().getType() == null)
+			return 0.0;
 		switch (index.getAnalysis().getType()) {
 			case SPECIES_COMPARISON:
 			case OVERREPRESENTATION:
 				return enrichment(renderableNode, canvas, colorProfiles);
 			case EXPRESSION:
 				return expression(renderableNode, canvas, index, colorProfiles, t);
-			case NONE:
 			default:
 				return 0.0;
 		}
@@ -122,8 +123,8 @@ public abstract class NodeAbstractRenderer extends ObjectRenderer {
 			final double partSize = prop.getWidth() / size;
 			textSplit = (double) values.size() / size;
 
-			final double max = index.getAnalysis().getResult().getExpression().getMax();
-			final double min = index.getAnalysis().getResult().getExpression().getMin();
+			final double max = index.getAnalysis().getResult().getExpressionSummary().getMax();
+			final double min = index.getAnalysis().getResult().getExpressionSummary().getMin();
 			final double delta = 1 / (max - min);  // only one division
 			for (int i = 0; i < values.size(); i++) {
 				final double val = values.get(i);

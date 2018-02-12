@@ -1,10 +1,10 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.renderers;
 
 import org.apache.commons.io.IOUtils;
+import org.reactome.server.analysis.core.model.AnalysisType;
+import org.reactome.server.analysis.core.result.model.FoundEntity;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.FoundEntity;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramAnalysis;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
@@ -133,8 +133,8 @@ public class LegendRenderer {
 		text += String.format("[%s] %d/%d %s",
 				index.getAnalysis().getAnalysisName(),
 				(col + 1),
-				index.getAnalysis().getResult().getExpression().getColumnNames().size(),
-				index.getAnalysis().getResult().getExpression().getColumnNames().get(col));
+				index.getAnalysis().getResult().getExpressionSummary().getColumnNames().size(),
+				index.getAnalysis().getResult().getExpressionSummary().getColumnNames().get(col));
 		canvas.getLegendBottomText().clear();
 		canvas.getLegendBottomText().add(text, Color.BLACK, bottomTextBox, 0, 0, FontProperties.LEGEND_FONT);
 	}
@@ -144,7 +144,7 @@ public class LegendRenderer {
 	 */
 	public void infoText(String title) {
 		String text = "";
-		if (index.getAnalysis().getType() == AnalysisType.NONE) {
+		if (index.getAnalysis().getType() == null) {
 			if (title != null) text = title;
 		} else if (index.getAnalysis().getType() == AnalysisType.OVERREPRESENTATION) {
 			// [title: ]analysis name
@@ -261,8 +261,8 @@ public class LegendRenderer {
 	private void drawTick(Double value, Stroke stroke, Color limitColor) {
 		if (value == null) return;
 		// Interpolate value in expression range
-		final double min = index.getAnalysis().getResult().getExpression().getMin();
-		final double max = index.getAnalysis().getResult().getExpression().getMax();
+		final double min = index.getAnalysis().getResult().getExpressionSummary().getMin();
+		final double max = index.getAnalysis().getResult().getExpressionSummary().getMax();
 		final double val = (value - min) / (max - min);
 		// Extrapolate to colorBar height
 		// In expression analysis, min is in the bottom
@@ -297,8 +297,8 @@ public class LegendRenderer {
 		final String topText;
 		final String bottomText;
 		if (index.getAnalysis().getType() == AnalysisType.EXPRESSION) {
-			topText = EXPRESSION_FORMAT.format(index.getAnalysis().getResult().getExpression().getMax());
-			bottomText = EXPRESSION_FORMAT.format(index.getAnalysis().getResult().getExpression().getMin());
+			topText = EXPRESSION_FORMAT.format(index.getAnalysis().getResult().getExpressionSummary().getMax());
+			bottomText = EXPRESSION_FORMAT.format(index.getAnalysis().getResult().getExpressionSummary().getMin());
 		} else {
 			topText = ENRICHMENT_FORMAT.format(0);
 			bottomText = ENRICHMENT_FORMAT.format(DiagramAnalysis.MIN_ENRICHMENT);
