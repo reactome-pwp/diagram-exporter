@@ -1,5 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.common;
 
+import org.reactome.server.analysis.core.result.utils.TokenUtils;
 import org.reactome.server.tools.diagram.data.graph.EntityNode;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
@@ -26,6 +27,10 @@ import java.util.stream.Stream;
  */
 public class DiagramAnalysis {
 
+	public static void initialise(String tokensFolder) {
+		token = new TokenUtils(tokensFolder);
+	}
+
 	public static final double MIN_ENRICHMENT = 0.05;
 	private static final LruCache<String, AnalysisResult> CACHE = new LruCache<>(5);
 	private static final double MIN_VISIBLE_ENRICHMENT = 0.05;
@@ -39,6 +44,8 @@ public class DiagramAnalysis {
 
 	private AnalysisType type = AnalysisType.NONE;
 	private String analysisName;
+
+	private static TokenUtils token = null;
 
 	DiagramAnalysis(DiagramIndex index, RasterArgs args, Graph graph, Diagram diagram) throws AnalysisException, AnalysisServerError {
 		this.index = index;
