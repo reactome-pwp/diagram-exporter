@@ -45,6 +45,7 @@
         <commons.io.version>2.5</commons.io.version>
         <jasp.version>2.1</jasp.version>
         <junit.version>4.12</junit.version>
+        <analysis.core.version>3.1.0-SNAPSHOT</analysis.core.version>
 
         <!--build-->
         <jdk.version>1.8</jdk.version>
@@ -59,11 +60,16 @@
 
     <dependencies>
 
-        <!-- Diagram Reader -->
+        <!-- Reactome dependencies -->
         <dependency>
             <groupId>org.reactome.server.tools</groupId>
             <artifactId>diagram-reader</artifactId>
             <version>${diagram.reader.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.reactome.server.tools</groupId>
+            <artifactId>analysis-core</artifactId>
+            <version>${analysis.core.version}</version>
         </dependency>
 
         <!-- EHLD related dependencies -->
@@ -215,8 +221,9 @@
     <!-- Repositories -->
     <repositories>
 
+        <!-- EBI repo -->
         <repository>
-            <id>nexus-ebi-repo-release</id>
+            <id>nexus-ebi-repo</id>
             <name>The EBI internal repository</name>
             <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
             <releases>
@@ -226,10 +233,11 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
+        <!-- EBI SNAPSHOT repo -->
         <repository>
-            <id>nexus-ebi-repo-snapshot</id>
-            <name>The EBI internal repository</name>
-            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-repo/</url>
+            <id>nexus-ebi-snapshot-repo</id>
+            <name>The EBI internal snapshot repository</name>
+            <url>http://www.ebi.ac.uk/Tools/maven/repos/content/groups/ebi-snapshots/</url>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -237,6 +245,7 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+
 
         <repository>
             <id>aspose-maven-repository</id>
