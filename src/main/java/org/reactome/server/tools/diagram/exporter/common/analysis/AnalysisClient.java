@@ -1,4 +1,4 @@
-package org.reactome.server.tools.diagram.exporter.common;
+package org.reactome.server.tools.diagram.exporter.common.analysis;
 
 import org.reactome.server.analysis.core.result.utils.TokenUtils;
 

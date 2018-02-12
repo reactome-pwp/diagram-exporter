@@ -10,7 +10,7 @@ import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
-import org.reactome.server.tools.diagram.exporter.common.AnalysisClient;
+import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 

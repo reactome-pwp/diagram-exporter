@@ -1,10 +1,9 @@
-package org.reactome.server.tools.diagram.exporter.common.analysis;
+package org.reactome.server.tools.diagram.exporter.common.content;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.reactome.server.tools.diagram.data.exception.DeserializationException;
-import org.reactome.server.tools.diagram.exporter.common.analysis.content.ContentServiceResponse;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

@@ -10,7 +10,7 @@ import org.reactome.server.analysis.core.result.model.EntityStatistics;
 import org.reactome.server.analysis.core.result.model.ExpressionSummary;
 import org.reactome.server.analysis.core.result.model.PathwaySummary;
 import org.reactome.server.analysis.core.result.model.ResourceSummary;
-import org.reactome.server.tools.diagram.exporter.common.AnalysisClient;
+import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;

@@ -1,4 +1,4 @@
-package org.reactome.server.tools.diagram.exporter.common.analysis.content;
+package org.reactome.server.tools.diagram.exporter.common.content;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
