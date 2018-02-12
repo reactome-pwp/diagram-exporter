@@ -27,14 +27,9 @@ public class EhldRendererTest {
 
 	// Set to true for visual inspection of tests
 	// todo: don't forget to set to false before pushing
-	private static final boolean save = true;
+	private static final boolean save = false;
 
-	// Available tokens:
-	// [OVERREPRES] MjAxODAyMTIxMTI5MzdfMQ==
-	// [OVERREPRES] MjAxODAyMTIxMTMwMTRfMg==
-	// [EXPRESSION] MjAxODAyMTIxMTMwNDhfMw==
-	// [EXPRESSION] MjAxODAyMTIxMTMxMTZfNA==
-	// [SPECIES]    MjAxODAyMTIxMTMyMzdfNQ==
+
 
 	// todo: R-HSA-1474165,
 	@BeforeClass
@@ -94,23 +89,21 @@ public class EhldRendererTest {
 	@Test
 	public void testEnrichment() {
 		final RasterArgs args = new RasterArgs("R-HSA-109582", "png");
-		args.setToken("MjAxODAyMTIxMTMwMTRfMg==");
+		args.setToken(TestUtils.TOKEN_OVER_1);
 		render(args);
 	}
 
 	@Test
 	public void testExpression() {
 		final RasterArgs args = new RasterArgs("R-HSA-6806667", "gif");
-		args.setToken("MjAxODAyMTIxMTMwNDhfMw==");
-//		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
+		args.setToken(TestUtils.TOKEN_EXPRESSION_1);
 		renderGif(args);
 	}
 
 	@Test
 	public void testAnimatedGif() {
 		final RasterArgs args = new RasterArgs("R-HSA-69278", "gif");
-		args.setToken("MjAxODAyMTIxMTMwNDhfMw==");
-//		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
+		args.setToken(TestUtils.TOKEN_EXPRESSION_1);
 		args.setSelected(Arrays.asList("R-HSA-69242", "R-HSA-68886"));
 		args.setProfiles(new ColorProfiles("modern", "copper plus", "cyan"));
 		renderGif(args);

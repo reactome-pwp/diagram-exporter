@@ -26,19 +26,12 @@ import java.util.stream.IntStream;
 
 public class DiagramRendererTest {
 
-	// Available tokens:
-	// [OVERREPRES] MjAxODAyMTIxMTI5MzdfMQ==
-	// [OVERREPRES] MjAxODAyMTIxMTMwMTRfMg==
-	// [EXPRESSION] MjAxODAyMTIxMTMwNDhfMw==
-	// [EXPRESSION] MjAxODAyMTIxMTMxMTZfNA==
-	// [SPECIES]    MjAxODAyMTIxMTMyMzdfNQ==
-
 	private static final File IMAGES_FOLDER = new File("test-images");
 	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/diagram";
 
 	// Set to true for visual inspection of tests
 	// todo: don't forget to set to false before pushing
-	private static final boolean save = true;
+	private static final boolean save = false;
 
 	@BeforeClass
 	public static void beforeClass() {
@@ -137,6 +130,7 @@ public class DiagramRendererTest {
 		// Gene
 		args.setSelected(Collections.singletonList("R-HSA-5251547"));
 		render(args);
+		// FIXME: node overlay top-left
 	}
 
 	@Test
@@ -156,7 +150,7 @@ public class DiagramRendererTest {
 	@Test
 	public void testSpeciesComparison() {
 		RasterArgs args = new RasterArgs("R-HSA-5687128", "png");
-		args.setToken("MjAxODAyMTIxMTMyMzdfNQ==");
+		args.setToken(TestUtils.TOKEN_SPECIES);
 		args.setWriteTitle(true);
 		render(args);
 	}
@@ -164,7 +158,7 @@ public class DiagramRendererTest {
 	@Test
 	public void testEnrichment() {
 		RasterArgs args = new RasterArgs("R-HSA-69620", "png");
-		args.setToken("MjAxODAyMTIxMTI5MzdfMQ==");
+		args.setToken(TestUtils.TOKEN_OVER_1);
 		args.setWriteTitle(true);
 		render(args);
 	}
@@ -172,7 +166,7 @@ public class DiagramRendererTest {
 	@Test
 	public void testExpression() {
 		RasterArgs args = new RasterArgs("R-HSA-69620", "png");
-//		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
+		args.setToken(TestUtils.TOKEN_EXPRESSION_1);
 		args.setWriteTitle(true);
 		render(args);
 	}
@@ -181,7 +175,7 @@ public class DiagramRendererTest {
 	public void testExpressionSelectUnhit() {
 		// My favourite diagram had to be here
 		final RasterArgs args = new RasterArgs("R-HSA-432047", "gif");
-		args.setToken("MjAxODAyMTIxMTMwNDhfMw==");
+		args.setToken(TestUtils.TOKEN_EXPRESSION_1);
 		args.setSelected(Collections.singletonList("R-HSA-432253"));
 		render(args);
 	}
@@ -191,7 +185,7 @@ public class DiagramRendererTest {
 		final ColorProfiles profiles = new ColorProfiles("modern", "copper plus", "teal");
 		final RasterArgs args = new RasterArgs("R-HSA-109606", "gif");
 		args.setSelected(Collections.singletonList("R-HSA-114255"));
-		args.setToken("MjAxODAyMTIxMTMxMTZfNA==");
+		args.setToken(TestUtils.TOKEN_EXPRESSION_2);
 		args.setProfiles(profiles);
 		renderGif(args);
 	}
@@ -202,7 +196,7 @@ public class DiagramRendererTest {
 		final RasterArgs args = new RasterArgs("R-HSA-432047", "gif");
 		args.setProfiles(profiles);
 		args.setSelected(Collections.singleton("R-ALL-879874"));
-		args.setToken("MjAxODAyMTIxMTMxMTZfNA==");
+		args.setToken(TestUtils.TOKEN_EXPRESSION_2);
 		renderGif(args);
 	}
 
@@ -218,7 +212,7 @@ public class DiagramRendererTest {
 	public void testDiseaseProcessNodeWithAnalysis() {
 		// This could be the definition of a corner case
 		final RasterArgs args = new RasterArgs("R-HSA-1643713", "png");
-		args.setToken("MjAxODAyMTIxMTMxMTZfNA==");
+		args.setToken(TestUtils.TOKEN_EXPRESSION_2);
 		args.setSelected(Collections.singletonList("R-HSA-5637815"));
 		render(args);
 		// report: processNodes have no outer red border when hit by analysis

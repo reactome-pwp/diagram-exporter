@@ -20,6 +20,12 @@ public class TestUtils {
 
 	private static final String TODAYS_SERVER = "https://reactomedev.oicr.on.ca";
 
+	public static final String TOKEN_OVER_1 = "MjAxODAyMTIxMTI5MzdfMQ==";
+	public static final String TOKEN_OVER_2 = "MjAxODAyMTIxMTMwMTRfMg==";
+	public static final String TOKEN_EXPRESSION_1 = "MjAxODAyMTIxMTMwNDhfMw==";
+	public static final String TOKEN_EXPRESSION_2 = "MjAxODAyMTIxMTMxMTZfNA==";
+	public static final String TOKEN_SPECIES = "MjAxODAyMTIxMTMyMzdfNQ==";
+
 	private static final String tokenPath = "src/test/resources/org/reactome/server/tools/diagram/exporter/analysis";
 
 	private static Map<String, AnalysisStoredResult> cache = new HashMap<>();
