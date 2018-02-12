@@ -2,7 +2,7 @@ package org.reactome.server.tools.diagram.exporter.raster;
 
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
-import org.reactome.server.tools.diagram.exporter.common.analysis.ContentServiceClient;
+import org.reactome.server.tools.diagram.exporter.common.content.ContentServiceClient;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramRendererTest;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.EhldRendererTest;
