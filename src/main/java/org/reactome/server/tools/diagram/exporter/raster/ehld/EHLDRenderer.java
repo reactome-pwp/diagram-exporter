@@ -4,8 +4,8 @@ import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.ImageTranscoder;
+import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
@@ -178,7 +178,7 @@ public class EHLDRenderer implements RasterRenderer {
 		encoder.setDelay(1000);
 		encoder.setRepeat(0);
 		encoder.start(os);
-		for (int expressionColumn = 0; expressionColumn < svgAnalysis.getAnalysisResult().getExpression().getColumnNames().size(); expressionColumn++) {
+		for (int expressionColumn = 0; expressionColumn < svgAnalysis.getAnalysisResult().getExpressionSummary().getColumnNames().size(); expressionColumn++) {
 			svgAnalysis.setColumn(expressionColumn);
 			final BufferedImage image = rasterize();
 			encoder.addFrame(image);

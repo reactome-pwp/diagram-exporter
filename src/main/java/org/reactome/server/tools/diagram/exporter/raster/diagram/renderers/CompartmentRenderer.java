@@ -4,7 +4,6 @@ import org.reactome.server.tools.diagram.data.layout.Bound;
 import org.reactome.server.tools.diagram.data.layout.Compartment;
 import org.reactome.server.tools.diagram.data.layout.Coordinate;
 import org.reactome.server.tools.diagram.data.layout.impl.CoordinateFactory;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
@@ -47,7 +46,7 @@ public class CompartmentRenderer {
 		final Color innerColor;
 		final Color text;
 		final Color border;
-		if (index.getAnalysis().getType() == AnalysisType.NONE) {
+		if (index.getAnalysis().getType() == null) {
 			border = profile.getDiagramSheet().getCompartment().getStroke();
 			text = profile.getDiagramSheet().getCompartment().getText();
 			fill = profile.getDiagramSheet().getCompartment().getFill();

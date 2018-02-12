@@ -1,7 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.ehld;
 
 import org.apache.batik.util.SVGConstants;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
+import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
 import org.w3c.dom.Element;

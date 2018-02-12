@@ -4,10 +4,6 @@ import org.apache.batik.transcoder.TranscoderException;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
-import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
-import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.DiagramOutput;
 import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
@@ -26,6 +22,13 @@ public class SVGRendererTest {
 	private static final String EHLD_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/ehld";
 	private static final File SVG_FOLDER = new File("test-svg");
 
+	// Available tokens:
+	// [OVERREPRES] MjAxODAyMTIxMTI5MzdfMQ==
+	// [OVERREPRES] MjAxODAyMTIxMTMwMTRfMg==
+	// [EXPRESSION] MjAxODAyMTIxMTMwNDhfMw==
+	// [EXPRESSION] MjAxODAyMTIxMTMxMTZfNA==
+	// [SPECIES]    MjAxODAyMTIxMTMyMzdfNQ==
+
 	// Set to true for visual inspection of tests
 	// todo: don't forget to set to false before pushing
 	private static final boolean save = false;
@@ -41,10 +44,10 @@ public class SVGRendererTest {
 	}
 
 	@Test
-	public void testDiagram() throws AnalysisException, AnalysisServerError, DiagramJsonNotFoundException, DiagramJsonDeserializationException, TranscoderException, IOException {
+	public void testDiagram() throws Exception {
 		// Create SVG
 		final RasterArgs args = new RasterArgs("R-HSA-109606", "svg");
-		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
+		args.setToken("MjAxODAyMTIxMTI5MzdfMQ==");
 		final RasterRenderer renderer = new DiagramRenderer(args, DIAGRAM_PATH);
 		final SVGDocument document = renderer.renderToSVG();
 		// Save to file
@@ -56,7 +59,7 @@ public class SVGRendererTest {
 	public void testEHLD() throws EHLDException, TranscoderException, IOException {
 		// Create svg
 		final RasterArgs args = new RasterArgs("R-HSA-74160", "svg");
-		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
+//		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
 		final RasterRenderer renderer = new EHLDRenderer(args, EHLD_PATH);
 		final SVGDocument document = renderer.renderToSVG();
 		// Save to file

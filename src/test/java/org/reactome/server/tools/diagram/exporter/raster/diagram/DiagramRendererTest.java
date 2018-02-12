@@ -5,8 +5,8 @@ import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
+import org.reactome.server.tools.diagram.exporter.common.AnalysisException;
+import org.reactome.server.tools.diagram.exporter.common.AnalysisServerError;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
@@ -26,12 +26,19 @@ import java.util.stream.IntStream;
 
 public class DiagramRendererTest {
 
+	// Available tokens:
+	// [OVERREPRES] MjAxODAyMTIxMTI5MzdfMQ==
+	// [OVERREPRES] MjAxODAyMTIxMTMwMTRfMg==
+	// [EXPRESSION] MjAxODAyMTIxMTMwNDhfMw==
+	// [EXPRESSION] MjAxODAyMTIxMTMxMTZfNA==
+	// [SPECIES]    MjAxODAyMTIxMTMyMzdfNQ==
+
 	private static final File IMAGES_FOLDER = new File("test-images");
 	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/diagram";
 
 	// Set to true for visual inspection of tests
 	// todo: don't forget to set to false before pushing
-	private static final boolean save = false;
+	private static final boolean save = true;
 
 	@BeforeClass
 	public static void beforeClass() {
@@ -149,7 +156,7 @@ public class DiagramRendererTest {
 	@Test
 	public void testSpeciesComparison() {
 		RasterArgs args = new RasterArgs("R-HSA-5687128", "png");
-		args.setToken(TestUtils.createSpeciesComparisonToken("48898"));
+		args.setToken("MjAxODAyMTIxMTMyMzdfNQ==");
 		args.setWriteTitle(true);
 		render(args);
 	}
@@ -157,7 +164,7 @@ public class DiagramRendererTest {
 	@Test
 	public void testEnrichment() {
 		RasterArgs args = new RasterArgs("R-HSA-69620", "png");
-		args.setToken(TestUtils.performAnalysis("enrichment_data.txt"));
+		args.setToken("MjAxODAyMTIxMTI5MzdfMQ==");
 		args.setWriteTitle(true);
 		render(args);
 	}
@@ -165,7 +172,7 @@ public class DiagramRendererTest {
 	@Test
 	public void testExpression() {
 		RasterArgs args = new RasterArgs("R-HSA-69620", "png");
-		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
+//		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
 		args.setWriteTitle(true);
 		render(args);
 	}
@@ -174,7 +181,7 @@ public class DiagramRendererTest {
 	public void testExpressionSelectUnhit() {
 		// My favourite diagram had to be here
 		final RasterArgs args = new RasterArgs("R-HSA-432047", "gif");
-		args.setToken(TestUtils.performAnalysis("expression_data2.txt"));
+		args.setToken("MjAxODAyMTIxMTMwNDhfMw==");
 		args.setSelected(Collections.singletonList("R-HSA-432253"));
 		render(args);
 	}
@@ -184,7 +191,7 @@ public class DiagramRendererTest {
 		final ColorProfiles profiles = new ColorProfiles("modern", "copper plus", "teal");
 		final RasterArgs args = new RasterArgs("R-HSA-109606", "gif");
 		args.setSelected(Collections.singletonList("R-HSA-114255"));
-		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
+		args.setToken("MjAxODAyMTIxMTMxMTZfNA==");
 		args.setProfiles(profiles);
 		renderGif(args);
 	}
@@ -195,7 +202,7 @@ public class DiagramRendererTest {
 		final RasterArgs args = new RasterArgs("R-HSA-432047", "gif");
 		args.setProfiles(profiles);
 		args.setSelected(Collections.singleton("R-ALL-879874"));
-		args.setToken(TestUtils.performAnalysis("expression_data2.txt"));
+		args.setToken("MjAxODAyMTIxMTMxMTZfNA==");
 		renderGif(args);
 	}
 
@@ -211,7 +218,7 @@ public class DiagramRendererTest {
 	public void testDiseaseProcessNodeWithAnalysis() {
 		// This could be the definition of a corner case
 		final RasterArgs args = new RasterArgs("R-HSA-1643713", "png");
-		args.setToken(TestUtils.performAnalysis("expression_data.txt"));
+		args.setToken("MjAxODAyMTIxMTMxMTZfNA==");
 		args.setSelected(Collections.singletonList("R-HSA-5637815"));
 		render(args);
 		// report: processNodes have no outer red border when hit by analysis
@@ -233,7 +240,10 @@ public class DiagramRendererTest {
 				final String filename = TestUtils.getFileName(args);
 				ImageIO.write(image, args.getFormat(), new File(IMAGES_FOLDER, filename));
 			}
-		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | AnalysisServerError | AnalysisException | IOException e) {
+		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | IOException | AnalysisServerError | AnalysisException e) {
+			e.printStackTrace();
+			Assert.fail(e.getMessage());
+		} catch (Exception e) {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
@@ -245,9 +255,11 @@ public class DiagramRendererTest {
 			final File file = new File(IMAGES_FOLDER, TestUtils.getFileName(args));
 			final OutputStream os = new FileOutputStream(file);
 			renderer.renderToAnimatedGif(os);
-		} catch (IOException | DiagramJsonNotFoundException | DiagramJsonDeserializationException | AnalysisException | AnalysisServerError e) {
+		} catch (IOException | DiagramJsonNotFoundException | DiagramJsonDeserializationException | AnalysisServerError | AnalysisException e) {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 

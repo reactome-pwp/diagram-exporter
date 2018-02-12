@@ -3,12 +3,13 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram;
 import org.apache.batik.anim.dom.SVG12DOMImplementation;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.batik.util.SVGConstants;
+import org.reactome.server.analysis.core.model.AnalysisType;
+import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
+import org.reactome.server.tools.diagram.exporter.common.AnalysisException;
+import org.reactome.server.tools.diagram.exporter.common.AnalysisServerError;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
@@ -89,7 +90,7 @@ public class DiagramRenderer implements RasterRenderer {
 	 * @throws AnalysisServerError                 if some error happens in the
 	 *                                             Analysis Server
 	 */
-	public DiagramRenderer(RasterArgs args, String diagramPath) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException, AnalysisException, AnalysisServerError {
+	public DiagramRenderer(RasterArgs args, String diagramPath) throws Exception {
 		final Graph graph = ResourcesFactory.getGraph(diagramPath, args.getStId());
 		diagram = ResourcesFactory.getDiagram(diagramPath, args.getStId());
 		this.title = args.getWriteTitle() != null && args.getWriteTitle()
@@ -98,6 +99,21 @@ public class DiagramRenderer implements RasterRenderer {
 		this.args = args;
 		this.colorProfiles = args.getProfiles();
 		this.index = new DiagramIndex(diagram, graph, args);
+		canvas = new DiagramCanvas();
+		layout();
+		final Rectangle2D bounds = canvas.getBounds();
+		factor = limitFactor(bounds, MAX_IMAGE_SIZE);
+	}
+
+	public DiagramRenderer(RasterArgs args, String diagramPath, AnalysisStoredResult result) throws Exception {
+		final Graph graph = ResourcesFactory.getGraph(diagramPath, args.getStId());
+		diagram = ResourcesFactory.getDiagram(diagramPath, args.getStId());
+		this.title = args.getWriteTitle() != null && args.getWriteTitle()
+				? diagram.getDisplayName()
+				: null;
+		this.args = args;
+		this.colorProfiles = args.getProfiles();
+		this.index = new DiagramIndex(diagram, graph, args, result);
 		canvas = new DiagramCanvas();
 		layout();
 		final Rectangle2D bounds = canvas.getBounds();
@@ -153,7 +169,7 @@ public class DiagramRenderer implements RasterRenderer {
 		encoder.setRepeat(0);
 //		encoder.setQuality(1);
 		encoder.start(outputStream);
-		for (int t = 0; t < index.getAnalysis().getResult().getExpression().getColumnNames().size(); t++) {
+		for (int t = 0; t < index.getAnalysis().getResult().getExpressionSummary().getColumnNames().size(); t++) {
 			final BufferedImage image = frame(factor, width, height, offsetX, offsetY, t);
 			encoder.addFrame(image);
 		}

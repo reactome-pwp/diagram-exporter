@@ -1,9 +1,8 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.renderers;
 
+import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
@@ -11,6 +10,7 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeSt
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.FillDrawLayer;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.TextLayer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
@@ -61,7 +61,7 @@ public class ProteinRenderer extends NodeAbstractRenderer {
 		if (renderableNode.isFadeOut())
 			return renderableNode.getColorProfile(colorProfiles).getFadeOutFill();
 
-		if (index.getAnalysis().getType() == AnalysisType.NONE)
+		if (index.getAnalysis().getType() == null)
 			return renderableNode.getColorProfile(colorProfiles).getFill();
 
 		// enrichment
@@ -78,8 +78,8 @@ public class ProteinRenderer extends NodeAbstractRenderer {
 			return renderableNode.getColorProfile(colorProfiles).getLighterFill();
 		} else {
 			final double exp = renderableNode.getHitExpressions().get(0).getExp().get(t);
-			final double min = index.getAnalysis().getResult().getExpression().getMin();
-			final double max = index.getAnalysis().getResult().getExpression().getMax();
+			final double min = index.getAnalysis().getResult().getExpressionSummary().getMin();
+			final double max = index.getAnalysis().getResult().getExpressionSummary().getMax();
 			final double value = 1 - (exp - min) / (max - min);
 			return ColorFactory.interpolate(colorProfiles.getAnalysisSheet().getExpression().getGradient(), value);
 		}

@@ -1,16 +1,16 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.common;
 
-import org.reactome.server.analysis.core.result.utils.TokenUtils;
+import org.reactome.server.analysis.core.model.AnalysisType;
+import org.reactome.server.analysis.core.result.AnalysisStoredResult;
+import org.reactome.server.analysis.core.result.exception.ResourceGoneException;
+import org.reactome.server.analysis.core.result.exception.ResourceNotFoundException;
+import org.reactome.server.analysis.core.result.model.*;
 import org.reactome.server.tools.diagram.data.graph.EntityNode;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
-import org.reactome.server.tools.diagram.exporter.common.LruCache;
-import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.*;
+import org.reactome.server.tools.diagram.exporter.common.AnalysisClient;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 
@@ -27,12 +27,7 @@ import java.util.stream.Stream;
  */
 public class DiagramAnalysis {
 
-	public static void initialise(String tokensFolder) {
-		token = new TokenUtils(tokensFolder);
-	}
-
 	public static final double MIN_ENRICHMENT = 0.05;
-	private static final LruCache<String, AnalysisResult> CACHE = new LruCache<>(5);
 	private static final double MIN_VISIBLE_ENRICHMENT = 0.05;
 	private final DiagramIndex index;
 	private final RasterArgs args;
@@ -40,23 +35,40 @@ public class DiagramAnalysis {
 	private final Diagram diagram;
 	private Map<Long, DiagramObject> diagramIndex;
 	private Map<Long, EntityNode> graphIndex;
-	private AnalysisResult result;
 
-	private AnalysisType type = AnalysisType.NONE;
-	private String analysisName;
+	private AnalysisType type = null;
 
-	private static TokenUtils token = null;
+	private AnalysisStoredResult asr;
 
-	DiagramAnalysis(DiagramIndex index, RasterArgs args, Graph graph, Diagram diagram) throws AnalysisException, AnalysisServerError {
+	public DiagramAnalysis(String token, DiagramIndex index, RasterArgs args, Graph graph, Diagram diagram) throws Exception {
+		this(index, args, graph, diagram);
+		try {
+			if (token != null)
+				this.asr = AnalysisClient.token.getFromToken(token);
+		} catch (ResourceGoneException | ResourceNotFoundException e) {
+			throw new Exception(e);
+		}
+		initialise();
+	}
+
+	public DiagramAnalysis(AnalysisStoredResult asr, DiagramIndex index, RasterArgs args, Graph graph, Diagram diagram) {
+		this(index, args, graph, diagram);
+		this.asr = asr;
+		initialise();
+	}
+
+	private DiagramAnalysis(DiagramIndex index, RasterArgs args, Graph graph, Diagram diagram) {
 		this.index = index;
 		this.args = args;
 		this.graph = graph;
 		this.diagram = diagram;
+	}
+
+	private void initialise() {
 		index();
 		addAnalysisData();
 		clearIndex();
 	}
-
 
 	private void clearIndex() {
 		diagramIndex = null;
@@ -76,42 +88,29 @@ public class DiagramAnalysis {
 	/**
 	 * Extracts analysis information and attaches it to each diagram node.
 	 */
-	private void addAnalysisData() throws AnalysisServerError, AnalysisException {
+	private void addAnalysisData() {
 		if (args.getToken() == null || args.getToken().isEmpty())
 			return;
-		updateResult();
-		final List<ResourceSummary> summaryList = result.getResourceSummary();
+//		final List<ResourceSummary> summaryList = result.getResourceSummary();
+		final List<ResourceSummary> summaryList = asr.getResourceSummary();
 		final ResourceSummary resourceSummary = summaryList.size() == 2
 				? summaryList.get(1)
 				: summaryList.get(0);
 		// result.getSummary().getFileName() seems to be null
-		analysisName = result.getSummary().getSampleName();
+//		analysisName = result.getSummary().getSampleName();
 		String resource = args.getResource() == null
 				? resourceSummary.getResource()
 				: args.getResource();
-		type = AnalysisType.getType(result.getSummary().getType());
+		type = AnalysisType.getType(asr.getSummary().getType());
 		// Get subpathways (green boxes) % of analysis area
-		subPathways(args.getToken(), resource);
-		try {
-			final FoundElements foundElements = AnalysisClient.getFoundElements(args.getStId(), args.getToken(), resource);
-			if (foundElements == null) return;
-			if (type == AnalysisType.EXPRESSION) {
-				expression(foundElements);
-			} else if (type == AnalysisType.OVERREPRESENTATION ||
-					type == AnalysisType.SPECIES_COMPARISON)
-				enrichment(foundElements);
-		} catch (AnalysisException e) {
-			// token is valid, but this pathway has no analysis
-		}
-	}
-
-	private void updateResult() throws AnalysisServerError {
-		if (CACHE.has(args.getToken()))
-			result = CACHE.get(args.getToken());
-		else {
-			result = AnalysisClient.getAnalysisResult(args.getToken());
-			CACHE.put(args.getToken(), result);
-		}
+		subPathways(resource);
+		final FoundElements foundElements = asr.getFoundElmentsForPathway(args.getStId(), resource);
+		if (foundElements == null) return;
+		if (type == AnalysisType.EXPRESSION) {
+			expression(foundElements);
+		} else if (type == AnalysisType.OVERREPRESENTATION ||
+				type == AnalysisType.SPECIES_COMPARISON)
+			enrichment(foundElements);
 	}
 
 	/**
@@ -120,7 +119,7 @@ public class DiagramAnalysis {
 	 * entities.getFound() / entities.getTotal() to compute the percentage of
 	 * the fill area.
 	 */
-	private void subPathways(String token, String resource) throws AnalysisServerError, AnalysisException {
+	private void subPathways(String resource) {
 		// 1 extract list of dbIds for ProcessNodes
 		final List<String> subPathways = diagram.getNodes().stream()
 				.filter(node -> node.getRenderableClass().equals("ProcessNode"))
@@ -129,7 +128,8 @@ public class DiagramAnalysis {
 				.collect(Collectors.toList());
 		if (subPathways.isEmpty()) return;
 		// 2 get subPathways summary
-		final PathwaySummary[] pathwaysSummary = AnalysisClient.getPathwaysSummary(subPathways, token, resource);
+//		final PathwaySummary[] pathwaysSummary = AnalysisClient.getPathwaysSummary(subPathways, token, resource);
+		final List<PathwaySummary> pathwaysSummary = asr.filterByPathways(subPathways, resource);
 		// extract %
 		for (PathwaySummary summary : pathwaysSummary) {
 			final EntityStatistics entities = summary.getEntities();
@@ -240,11 +240,11 @@ public class DiagramAnalysis {
 	}
 
 	public String getAnalysisName() {
-		return analysisName;
+		return asr.getSummary().getSampleName();
 	}
 
-	public AnalysisResult getResult() {
-		return result;
+	public AnalysisStoredResult getResult() {
+		return asr;
 	}
 
 }

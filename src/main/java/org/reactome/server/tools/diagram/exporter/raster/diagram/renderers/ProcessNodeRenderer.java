@@ -1,7 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.renderers;
 
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
@@ -29,7 +28,7 @@ public class ProcessNodeRenderer extends NodeAbstractRenderer {
 	public void draw(RenderableNode renderableNode, DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
 		super.draw(renderableNode, canvas, colorProfiles, index, t);
 		final Shape rectangle = ShapeFactory.rectangle(renderableNode.getNode().getProp(), PROCESS_NODE_PADDING);
-		final Color fill = index.getAnalysis().getType() == AnalysisType.NONE
+		final Color fill = index.getAnalysis().getType() == null
 				? INNER_COLOR
 				: ANALYSIS_INNER_COLOR;
 		final Color innerBorder = getInnerStrokeColor(renderableNode, colorProfiles, index);
@@ -49,9 +48,10 @@ public class ProcessNodeRenderer extends NodeAbstractRenderer {
 			return colorProfiles.getDiagramSheet().getProperties().getDisease();
 		if (renderableNode.isFadeOut())
 			return renderableNode.getColorProfile(colorProfiles).getFadeOutStroke();
-		if (index.getAnalysis().getType() != AnalysisType.NONE)
+		if (index.getAnalysis().getType() != null)
 			return renderableNode.getColorProfile(colorProfiles).getLighterStroke();
-		return renderableNode.getColorProfile(colorProfiles).getStroke();	}
+		return renderableNode.getColorProfile(colorProfiles).getStroke();
+	}
 
 	@Override
 	public double expression(RenderableNode renderableNode, DiagramCanvas canvas, DiagramIndex index, ColorProfiles colorProfiles, int t) {

@@ -1,8 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
 import org.apache.commons.io.IOUtils;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
@@ -73,8 +71,8 @@ public class RasterExporter {
 			throw new Exception(String.format("there is no diagram for '%s'", args.getStId()), e);
 		} catch (DiagramJsonDeserializationException | EHLDMalformedException e) {
 			throw new Exception(String.format("problems reading diagram of '%s'", args.getStId()), e);
-		} catch (AnalysisServerError | AnalysisException e) {
-			throw new Exception(String.format("analysis token not valid '%s'", args.getToken()), e);
+//		} catch (AnalysisServerError | AnalysisException e) {
+//			throw new Exception(String.format("analysis token not valid '%s'", args.getToken()), e);
 		} catch (EHLDRuntimeException e) {
 			throw new Exception(String.format("an exception happened rendering %s", args.getStId()), e);
 		}
@@ -111,8 +109,8 @@ public class RasterExporter {
 			renderer.renderToAnimatedGif(os);
 		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | EHLDException e) {
 			throw new Exception(String.format("there is no diagram for '%s'", args.getStId()), e);
-		} catch (AnalysisServerError | AnalysisException e) {
-			throw new Exception(String.format("analysis token not valid '%s'", args.getToken()), e);
+//		} catch (AnalysisServerError | AnalysisException e) {
+//			throw new Exception(String.format("analysis token not valid '%s'", args.getToken()), e);
 		}
 
 	}
@@ -144,8 +142,8 @@ public class RasterExporter {
 			return renderer.renderToSVG();
 		} catch (EHLDException | DiagramJsonNotFoundException | DiagramJsonDeserializationException e) {
 			throw new Exception(String.format("there is no diagram for '%s'", args.getStId()), e);
-		} catch (AnalysisException | AnalysisServerError e) {
-			throw new Exception(String.format("analysis token not valid '%s'", args.getToken()), e);
+//		} catch (AnalysisException | AnalysisServerError e) {
+//			throw new Exception(String.format("analysis token not valid '%s'", args.getToken()), e);
 		}
 
 	}
@@ -159,8 +157,7 @@ public class RasterExporter {
 	 * @param EHLDPath    path where EHLD are located
 	 */
 	private static RasterRenderer getRenderer(RasterArgs args, String diagramPath, String EHLDPath)
-			throws DiagramJsonNotFoundException, DiagramJsonDeserializationException,
-			EHLDException, AnalysisException, AnalysisServerError {
+			throws Exception {
 		return hasEHLD.contains(args.getStId())
 				? new EHLDRenderer(args, EHLDPath)
 				: new DiagramRenderer(args, diagramPath);

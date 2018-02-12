@@ -1,19 +1,13 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
-import org.apache.commons.io.IOUtils;
-import org.junit.Assert;
-import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
+import org.reactome.server.analysis.core.result.AnalysisStoredResult;
+import org.reactome.server.tools.diagram.exporter.common.AnalysisClient;
 import org.reactome.server.tools.diagram.exporter.common.analysis.ContentServiceClient;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisException;
-import org.reactome.server.tools.diagram.exporter.common.analysis.exception.AnalysisServerError;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisSummary;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramRendererTest;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.EhldRendererTest;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,41 +20,18 @@ public class TestUtils {
 
 	private static final String TODAYS_SERVER = "https://reactomedev.oicr.on.ca";
 
-	private static Map<String, AnalysisSummary> cache = new HashMap<>();
+	private static final String tokenPath = "src/test/resources/org/reactome/server/tools/diagram/exporter/analysis";
+
+	private static Map<String, AnalysisStoredResult> cache = new HashMap<>();
 
 	static {
-		AnalysisClient.setServer(TODAYS_SERVER);
-		AnalysisClient.setService("/AnalysisService");
 		ContentServiceClient.setHost(TODAYS_SERVER);
 		ContentServiceClient.setService("/ContentService");
+		AnalysisClient.initialise(tokenPath);
 	}
 
-	public static String createSpeciesComparisonToken(String species) {
-		if (cache.containsKey(species))
-			return cache.get(species).getToken();
-		try {
-			final AnalysisSummary summary = AnalysisClient.performSpeciesComparison(species).getSummary();
-			cache.put(species, summary);
-			return summary.getToken();
-		} catch (AnalysisException | AnalysisServerError e) {
-			e.printStackTrace();
-			Assert.fail(e.getMessage());
-		}
-		return null;
-	}
-
-	public static String performAnalysis(String resource) {
-		if (cache.containsKey(resource)) return cache.get(resource).getToken();
-		try {
-			final String query = IOUtils.toString(TestUtils.class.getResourceAsStream(resource), Charset.defaultCharset());
-			final AnalysisSummary summary = AnalysisClient.performAnalysis(query).getSummary();
-			cache.put(resource, summary);
-			return summary.getToken();
-		} catch (AnalysisServerError | IOException | AnalysisException e) {
-			e.printStackTrace();
-			Assert.fail(e.getMessage());
-		}
-		return null;
+	public static AnalysisStoredResult getResult(String token) {
+		return cache.get(token);
 	}
 
 	public static String getFileName(RasterArgs args) {
@@ -85,10 +56,12 @@ public class TestUtils {
 
 	private static String getAnalysisType(String token) {
 		if (token == null) return "NONE";
-		for (AnalysisSummary summary : cache.values())
-			if (summary.getToken().equals(token))
-				return summary.getType();
-		return "UNKNOWN";
+		final AnalysisStoredResult asr = AnalysisClient.token.getFromToken(token);
+		return asr == null ? "UNKNOWN" : asr.getSummary().getType();
+		//		for (AnalysisStoredResult summary : cache.values())
+//			if (summary.getSummary().getToken().equals(token))
+//				return summary.getSummary().getType();
+//		return "UNKNOWN";
 	}
 
 	public static void createDir(File file) {

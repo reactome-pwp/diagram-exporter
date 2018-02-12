@@ -5,9 +5,6 @@ import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.Shape;
 import org.reactome.server.tools.diagram.data.layout.Stoichiometry;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
-import org.reactome.server.tools.diagram.exporter.common.analysis.model.AnalysisType;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableEdge;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableObject;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
@@ -16,6 +13,8 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramC
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DrawLayer;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.FillDrawLayer;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.TextLayer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableEdge;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableObject;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
 import java.awt.*;
@@ -43,7 +42,7 @@ public class EdgeRenderer extends ObjectRenderer {
 		//fadeout -> analysis -> normal
 		if (renderableNode.isFadeOut())
 			return renderableNode.getColorProfile(colorProfiles).getFadeOutFill();
-		if (index.getAnalysis().getType() != AnalysisType.NONE) {
+		if (index.getAnalysis().getType() != null) {
 			// report: lighterfill of reaction is grey (modern profile) as text
 			return renderableNode.getColorProfile(colorProfiles).getFill();
 		}
