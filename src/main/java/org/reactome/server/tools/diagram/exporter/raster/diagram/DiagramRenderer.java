@@ -90,21 +90,6 @@ public class DiagramRenderer implements RasterRenderer {
 	 * @throws AnalysisServerError                 if some error happens in the
 	 *                                             Analysis Server
 	 */
-	public DiagramRenderer(RasterArgs args, String diagramPath) throws Exception {
-		final Graph graph = ResourcesFactory.getGraph(diagramPath, args.getStId());
-		diagram = ResourcesFactory.getDiagram(diagramPath, args.getStId());
-		this.title = args.getWriteTitle() != null && args.getWriteTitle()
-				? diagram.getDisplayName()
-				: null;
-		this.args = args;
-		this.colorProfiles = args.getProfiles();
-		this.index = new DiagramIndex(diagram, graph, args);
-		canvas = new DiagramCanvas();
-		layout();
-		final Rectangle2D bounds = canvas.getBounds();
-		factor = limitFactor(bounds, MAX_IMAGE_SIZE);
-	}
-
 	public DiagramRenderer(RasterArgs args, String diagramPath, AnalysisStoredResult result) throws Exception {
 		final Graph graph = ResourcesFactory.getGraph(diagramPath, args.getStId());
 		diagram = ResourcesFactory.getDiagram(diagramPath, args.getStId());

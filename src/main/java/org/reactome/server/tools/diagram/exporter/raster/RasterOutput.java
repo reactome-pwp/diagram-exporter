@@ -14,7 +14,7 @@ import java.net.HttpURLConnection;
 /**
  * Supporting class to output generated diagrams.
  */
-public class DiagramOutput {
+public class RasterOutput {
 
 	/**
 	 * Saves document into file.
@@ -29,7 +29,7 @@ public class DiagramOutput {
 
 	/**
 	 * Shortcut for <code>save(document, os, true)</code>. See {@link
-	 * DiagramOutput#save(SVGDocument, OutputStream, boolean)}
+	 * RasterOutput#save(SVGDocument, OutputStream, boolean)}
 	 */
 	public static void save(SVGDocument document, OutputStream os) throws TranscoderException, IOException {
 		save(document, os, true);
@@ -52,7 +52,7 @@ public class DiagramOutput {
 	/**
 	 * Shortcut for <code>save(document, connection, true)</code>.
 	 *
-	 * @see DiagramOutput#save(SVGDocument, HttpURLConnection, boolean)
+	 * @see RasterOutput#save(SVGDocument, HttpURLConnection, boolean)
 	 */
 	public static void save(SVGDocument document, HttpURLConnection connection) throws TranscoderException, IOException {
 		save(document, connection, true);
@@ -76,7 +76,7 @@ public class DiagramOutput {
 	/**
 	 * Shortcut for <code>save(image, ext, os, true)</code>.
 	 *
-	 * @see DiagramOutput#save(BufferedImage, String, OutputStream, boolean)
+	 * @see RasterOutput#save(BufferedImage, String, OutputStream, boolean)
 	 */
 	public static void save(BufferedImage image, String ext, OutputStream os) throws IOException {
 		save(image, ext, os, true);
@@ -96,7 +96,7 @@ public class DiagramOutput {
 	/**
 	 * Shortcut for <code>save(image, ext, connection, true)</code>
 	 *
-	 * @see DiagramOutput#save(BufferedImage, String, HttpURLConnection,
+	 * @see RasterOutput#save(BufferedImage, String, HttpURLConnection,
 	 * boolean)
 	 */
 	public static void save(BufferedImage image, String ext, HttpURLConnection connection) throws IOException {

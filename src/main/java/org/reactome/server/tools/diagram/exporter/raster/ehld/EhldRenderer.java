@@ -5,6 +5,7 @@ import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.ImageTranscoder;
 import org.reactome.server.analysis.core.model.AnalysisType;
+import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
@@ -30,7 +31,7 @@ import static org.apache.batik.util.SVGConstants.*;
 /**
  * Main class to create a render from an EHLD.
  */
-public class EHLDRenderer implements RasterRenderer {
+public class EhldRenderer implements RasterRenderer {
 
 	private static final Set<String> TRANSPARENT_FORMATS = new HashSet<>(Collections.singletonList("png"));
 	private static final Set<String> NO_TRANSPARENT_FORMATS = new HashSet<>(Arrays.asList("jpg", "jpeg", "gif"));
@@ -39,8 +40,10 @@ public class EHLDRenderer implements RasterRenderer {
 	private final SVGDocument document;
 	private final RasterArgs args;
 	private SVGAnalysis svgAnalysis;
+	private AnalysisStoredResult result;
 
-	public EHLDRenderer(RasterArgs args, String ehldPath) throws EHLDException {
+	public EhldRenderer(RasterArgs args, String ehldPath, AnalysisStoredResult result) throws EHLDException {
+		this.result = result;
 		this.document = ResourcesFactory.getEHLD(ehldPath, args.getStId());
 		this.args = args;
 		layout();
@@ -49,7 +52,7 @@ public class EHLDRenderer implements RasterRenderer {
 	private void layout() {
 		disableMasks();
 		SVGDecoratorRenderer.selectAndFlag(document, args);
-		svgAnalysis = new SVGAnalysis(document, args);
+		svgAnalysis = new SVGAnalysis(document, args, result);
 		svgAnalysis.analysis();
 		fixFont();
 		updateDocumentDimensions();
