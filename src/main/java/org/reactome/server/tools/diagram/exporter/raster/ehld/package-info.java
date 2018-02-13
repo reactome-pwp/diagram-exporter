@@ -5,7 +5,7 @@
  * <code>
  * <pre>
  *     RasterArgs args = new RasterArgs(stId, "png");
- *     RasterRenderer renderer = new EHLDRenderer(args, EHLDPath);
+ *     RasterRenderer renderer = new EhldRenderer(args, EHLDPath);
  *     Dimension dimension = renderer.getDimension();
  *     BufferedImage image = renderer.render();
  * </pre>

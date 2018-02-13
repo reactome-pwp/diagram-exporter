@@ -10,7 +10,6 @@ import org.reactome.server.analysis.core.result.model.EntityStatistics;
 import org.reactome.server.analysis.core.result.model.ExpressionSummary;
 import org.reactome.server.analysis.core.result.model.PathwaySummary;
 import org.reactome.server.analysis.core.result.model.ResourceSummary;
-import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
@@ -74,16 +73,15 @@ public class SVGAnalysis {
 	private AnalysisType analysisType;
 	private List<String> pathways;
 
-	SVGAnalysis(SVGDocument document, RasterArgs args) {
+	SVGAnalysis(SVGDocument document, RasterArgs args, AnalysisStoredResult result) {
 		this.document = document;
 		this.args = args;
-
+		this.result = result;
 		collectAnalysisResult();
 	}
 
 	private void collectAnalysisResult() {
-		if (args.getToken() == null) return;
-		result = AnalysisClient.token.getFromToken(args.getToken());
+		if (result == null) return;
 		analysisType = AnalysisType.getType(result.getSummary().getType());
 		final List<ResourceSummary> summaryList = result.getResourceSummary();
 
@@ -99,12 +97,11 @@ public class SVGAnalysis {
 		pathways = regions.stream()
 				.map(id -> id.substring(REGION_.length()))
 				.collect(Collectors.toList());
-		entityStats = getStats(args.getToken(), resource, pathways);
+		entityStats = getStats(resource, pathways);
 
 	}
 
-	private Map<String, EntityStatistics> getStats(String token, String resource, List<String> pathways) {
-//		final PathwaySummary[] pathwaysSummary = AnalysisClient.getPathwaysSummary(pathways, token, resource);
+	private Map<String, EntityStatistics> getStats(String resource, List<String> pathways) {
 		final List<PathwaySummary> pathwaysSummary = result.filterByPathways(pathways, resource);
 		final Map<String, EntityStatistics> stats = new HashMap<>();
 		for (PathwaySummary summary : pathwaysSummary)

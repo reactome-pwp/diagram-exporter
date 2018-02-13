@@ -1,51 +1,20 @@
 package org.reactome.server.tools.diagram.exporter.raster.ehld;
 
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.reactome.server.tools.diagram.exporter.raster.DiagramOutput;
 import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
-import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.IntStream;
 
 public class EhldRendererTest {
 
-	private static final File IMAGES_FOLDER = new File("test-images");
-
-	private static final String EHLD_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/ehld";
-
-	// Set to true for visual inspection of tests
-	// todo: don't forget to set to false before pushing
-	private static final boolean save = false;
-
-
-
-	// todo: R-HSA-1474165,
-	@BeforeClass
-	public static void beforeClass() {
-		TestUtils.createDir(IMAGES_FOLDER);
-	}
-
-	@AfterClass
-	public static void afterClass() {
-		if (!save) TestUtils.removeDir(IMAGES_FOLDER);
-	}
-
 	@Test
 	public void testBasicEHLD() {
 		final RasterArgs args = new RasterArgs("R-HSA-382551", "png");
-		render(args);
+		TestUtils.render(args, null);
 	}
 
 	@Test
@@ -55,7 +24,7 @@ public class EhldRendererTest {
 		for (String stId : stIds) {
 			for (String format : formats) {
 				final RasterArgs args = new RasterArgs(stId, format);
-				render(args);
+				TestUtils.render(args, null);
 			}
 		}
 	}
@@ -66,7 +35,7 @@ public class EhldRendererTest {
 		IntStream.range(1, 11)
 				.forEach(quality -> {
 					args.setQuality(quality);
-					render(args);
+					TestUtils.render(args, null);
 				});
 	}
 
@@ -75,7 +44,7 @@ public class EhldRendererTest {
 		final RasterArgs args = new RasterArgs("R-HSA-109581", "png");
 		args.setQuality(8);
 		args.setSelected(Collections.singletonList("R-HSA-109606"));
-		render(args);
+		TestUtils.render(args, null);
 	}
 
 	@Test
@@ -83,21 +52,21 @@ public class EhldRendererTest {
 		final RasterArgs args = new RasterArgs("R-HSA-74160", "png");
 		args.setSelected(Arrays.asList("R-HSA-109606", "R-HSA-169911"));
 		args.setFlags(Collections.singletonList("CTP"));
-		render(args);
+		TestUtils.render(args, null);
 	}
 
 	@Test
 	public void testEnrichment() {
 		final RasterArgs args = new RasterArgs("R-HSA-109582", "png");
 		args.setToken(TestUtils.TOKEN_OVER_1);
-		render(args);
+		TestUtils.render(args, null);
 	}
 
 	@Test
 	public void testExpression() {
 		final RasterArgs args = new RasterArgs("R-HSA-6806667", "gif");
 		args.setToken(TestUtils.TOKEN_EXPRESSION_1);
-		renderGif(args);
+		TestUtils.renderGif(args, null);
 	}
 
 	@Test
@@ -106,7 +75,7 @@ public class EhldRendererTest {
 		args.setToken(TestUtils.TOKEN_EXPRESSION_1);
 		args.setSelected(Arrays.asList("R-HSA-69242", "R-HSA-68886"));
 		args.setProfiles(new ColorProfiles("modern", "copper plus", "cyan"));
-		renderGif(args);
+		TestUtils.renderGif(args, null);
 	}
 
 	@Test
@@ -114,33 +83,7 @@ public class EhldRendererTest {
 		final RasterArgs args = new RasterArgs("R-HSA-69278", "png");
 		// FIXME: text in server not properly shown
 		// FIXME: masks!!
-		render(args);
-	}
-
-	private void render(RasterArgs args) {
-		try {
-			final EHLDRenderer renderer = new EHLDRenderer(args, EHLD_PATH);
-			final BufferedImage image = renderer.render();
-			if (save) {
-				final String filename = TestUtils.getFileName(args);
-				DiagramOutput.save(image, args.getFormat(), new File(IMAGES_FOLDER, filename));
-			}
-		} catch (EHLDException | IOException e) {
-			e.printStackTrace();
-			Assert.fail(e.getMessage());
-		}
-	}
-
-	private void renderGif(RasterArgs args) {
-		try {
-			final EHLDRenderer renderer = new EHLDRenderer(args, EHLD_PATH);
-			final File file = new File(IMAGES_FOLDER, TestUtils.getFileName(args));
-			final OutputStream os = new FileOutputStream(file);
-			renderer.renderToAnimatedGif(os);
-		} catch (IOException | EHLDException e) {
-			e.printStackTrace();
-			Assert.fail(e.getMessage());
-		}
+		TestUtils.render(args, null);
 	}
 
 

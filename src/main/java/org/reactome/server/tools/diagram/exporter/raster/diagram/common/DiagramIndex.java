@@ -34,13 +34,6 @@ public class DiagramIndex {
 	 * @param diagram diagram with nodes and reactions
 	 * @param graph   background graph
 	 */
-	public DiagramIndex(Diagram diagram, Graph graph, RasterArgs args) throws Exception {
-		index(diagram);
-		decorator = new DiagramDecorator(this, args, graph, diagram);
-		analysis = new DiagramAnalysis(args.getToken(), this, args, graph, diagram);
-
-	}
-
 	public DiagramIndex(Diagram diagram, Graph graph, RasterArgs args, AnalysisStoredResult result) {
 		index(diagram);
 		decorator = new DiagramDecorator(this, args, graph, diagram);

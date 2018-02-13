@@ -1,47 +1,18 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram;
 
 
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.reactome.server.tools.diagram.exporter.common.AnalysisException;
-import org.reactome.server.tools.diagram.exporter.common.AnalysisServerError;
-import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
-import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
+import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
 public class DiagramRendererTest {
-
-	private static final File IMAGES_FOLDER = new File("test-images");
-	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/diagram";
-
-	// Set to true for visual inspection of tests
-	// todo: don't forget to set to false before pushing
-	private static final boolean save = false;
-
-	@BeforeClass
-	public static void beforeClass() {
-		TestUtils.createDir(IMAGES_FOLDER);
-	}
-
-	@AfterClass
-	public static void afterClass() {
-		if (!save) TestUtils.removeDir(IMAGES_FOLDER);
-	}
 
 	@Test
 	public void testSimpleDiagram() {
@@ -51,7 +22,7 @@ public class DiagramRendererTest {
 		final List<String> formats = Arrays.asList("PNG", "jpg", "Gif");
 		for (String stId : stIds)
 			for (String format : formats)
-				render(new RasterArgs(stId, format));
+				TestUtils.render(new RasterArgs(stId, format), null);
 	}
 
 	@Test
@@ -60,7 +31,7 @@ public class DiagramRendererTest {
 				.forEach(quality -> {
 					final RasterArgs args = new RasterArgs("R-HSA-376176", "jpg");
 					args.setQuality(quality);
-					render(args);
+					TestUtils.render(args, null);
 				});
 	}
 
@@ -69,17 +40,17 @@ public class DiagramRendererTest {
 		RasterArgs args = new RasterArgs("R-HSA-5687128", "png");
 		// EntitySet, Protein, Chemical
 		args.setSelected(Arrays.asList("R-HSA-5692706", "R-HSA-5687026", "R-ALL-29358"));
-		render(args);
+		TestUtils.render(args, null);
 
 		args = new RasterArgs("R-HSA-376176", "png");
 		// Gene, Complex, ProcessNode
 		args.setSelected(Arrays.asList("R-HSA-9010561", "R-HSA-428873", "R-HSA-5627117"));
-		render(args);
+		TestUtils.render(args, null);
 
 		args = new RasterArgs("R-HSA-69620", "png");
 		// RNA, Entity
 		args.setSelected(Arrays.asList("R-HSA-6803386", "R-ALL-176104"));
-		render(args);
+		TestUtils.render(args, null);
 	}
 
 	@Test
@@ -88,14 +59,14 @@ public class DiagramRendererTest {
 		// Reactions: Transition, Omitted Process, Uncertain, Association
 		// Connectors: filled stop
 		args.setSelected(Arrays.asList("R-HSA-1168423", "R-HSA-1168459", "R-HSA-982810", "R-HSA-982775"));
-		render(args);
+		TestUtils.render(args, null);
 		// REPORT: stoichiometry text color is always black in PathwayBrowser
 
 		args = new RasterArgs("R-HSA-877300", "png");
 		// Reactions: Association, Dissociation
 		// Connectors: empty circle, filled arrow, empty arrow
 		args.setSelected(Arrays.asList("R-HSA-877269", "R-HSA-873927"));
-		render(args);
+		TestUtils.render(args, null);
 	}
 
 	@Test
@@ -103,19 +74,19 @@ public class DiagramRendererTest {
 		RasterArgs args = new RasterArgs("R-HSA-5687128", "png");
 		// EntitySet, Protein, Chemical
 		args.setFlags(Arrays.asList("R-HSA-5692706", "R-HSA-5687026", "R-ALL-29358"));
-		render(args);
+		TestUtils.render(args, null);
 		// FIXME: chemical flag does not work with name (CTP)
 
 		args = new RasterArgs("R-HSA-376176", "png");
 		// Gene, Complex, ProcessNode
 		args.setFlags(Arrays.asList("R-HSA-9010561", "R-HSA-428873", "R-HSA-5627117"));
-		render(args);
+		TestUtils.render(args, null);
 		// REPORT: ProcessNode not flagged in PathwayBrowser
 
 		args = new RasterArgs("R-HSA-69620", "png");
 		// RNA, Entity
 		args.setFlags(Arrays.asList("R-HSA-6803386", "R-ALL-176104"));
-		render(args);
+		TestUtils.render(args, null);
 	}
 
 	@Test
@@ -125,11 +96,11 @@ public class DiagramRendererTest {
 		args.setSelected(Arrays.asList("R-HIV-165543", "R-HIV-173808", "R-HIV-173120", "R-HSA-167286"));
 		args.setFlags(Arrays.asList("R-HIV-165543", "R-HIV-173808", "R-HIV-173120", "R-HSA-167286"));
 
-		render(args);
+		TestUtils.render(args, null);
 		args = new RasterArgs("R-HSA-5467343", "png");
 		// Gene
 		args.setSelected(Collections.singletonList("R-HSA-5251547"));
-		render(args);
+		TestUtils.render(args, null);
 		// FIXME: node overlay top-left
 	}
 
@@ -142,7 +113,7 @@ public class DiagramRendererTest {
 			for (String format : formats) {
 				RasterArgs args = new RasterArgs(stId, format);
 				args.setProfiles(new ColorProfiles(diagramProfile, null, null));
-				render(args);
+				TestUtils.render(args, null);
 			}
 		}
 	}
@@ -152,7 +123,7 @@ public class DiagramRendererTest {
 		RasterArgs args = new RasterArgs("R-HSA-5687128", "png");
 		args.setToken(TestUtils.TOKEN_SPECIES);
 		args.setWriteTitle(true);
-		render(args);
+		TestUtils.render(args, null);
 	}
 
 	@Test
@@ -160,7 +131,7 @@ public class DiagramRendererTest {
 		RasterArgs args = new RasterArgs("R-HSA-69620", "png");
 		args.setToken(TestUtils.TOKEN_OVER_1);
 		args.setWriteTitle(true);
-		render(args);
+		TestUtils.render(args, null);
 	}
 
 	@Test
@@ -168,7 +139,7 @@ public class DiagramRendererTest {
 		RasterArgs args = new RasterArgs("R-HSA-69620", "png");
 		args.setToken(TestUtils.TOKEN_EXPRESSION_1);
 		args.setWriteTitle(true);
-		render(args);
+		TestUtils.render(args, null);
 	}
 
 	@Test
@@ -177,7 +148,7 @@ public class DiagramRendererTest {
 		final RasterArgs args = new RasterArgs("R-HSA-432047", "gif");
 		args.setToken(TestUtils.TOKEN_EXPRESSION_1);
 		args.setSelected(Collections.singletonList("R-HSA-432253"));
-		render(args);
+		TestUtils.render(args, null);
 	}
 
 	@Test
@@ -187,7 +158,7 @@ public class DiagramRendererTest {
 		args.setSelected(Collections.singletonList("R-HSA-114255"));
 		args.setToken(TestUtils.TOKEN_EXPRESSION_2);
 		args.setProfiles(profiles);
-		renderGif(args);
+		TestUtils.renderGif(args, null);
 	}
 
 	@Test
@@ -197,7 +168,7 @@ public class DiagramRendererTest {
 		args.setProfiles(profiles);
 		args.setSelected(Collections.singleton("R-ALL-879874"));
 		args.setToken(TestUtils.TOKEN_EXPRESSION_2);
-		renderGif(args);
+		TestUtils.renderGif(args, null);
 	}
 
 	@Test
@@ -205,7 +176,7 @@ public class DiagramRendererTest {
 		// EntitySet hiding another EntitySet
 		final RasterArgs args = new RasterArgs("R-HSA-5657560", "png");
 		args.setSelected(Collections.singletonList("R-HSA-5656438"));
-		render(args);
+		TestUtils.render(args, null);
 	}
 
 	@Test
@@ -214,7 +185,7 @@ public class DiagramRendererTest {
 		final RasterArgs args = new RasterArgs("R-HSA-1643713", "png");
 		args.setToken(TestUtils.TOKEN_EXPRESSION_2);
 		args.setSelected(Collections.singletonList("R-HSA-5637815"));
-		render(args);
+		TestUtils.render(args, null);
 		// report: processNodes have no outer red border when hit by analysis
 	}
 
@@ -223,38 +194,14 @@ public class DiagramRendererTest {
 		// Fadeout elements can't be decorated (selected, haloed, flagged)
 		final RasterArgs args = new RasterArgs("R-HSA-5683371", "jpg");
 		args.setSelected(Arrays.asList("29356", "71185"));
-		render(args);
+		TestUtils.render(args, null);
 	}
 
-	private void render(RasterArgs args) {
-		try {
-			final DiagramRenderer renderer = new DiagramRenderer(args, DIAGRAM_PATH);
-			final BufferedImage image = renderer.render();
-			if (save) {
-				final String filename = TestUtils.getFileName(args);
-				ImageIO.write(image, args.getFormat(), new File(IMAGES_FOLDER, filename));
-			}
-		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | IOException | AnalysisServerError | AnalysisException e) {
-			e.printStackTrace();
-			Assert.fail(e.getMessage());
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail(e.getMessage());
-		}
-	}
-
-	private void renderGif(RasterArgs args) {
-		try {
-			final DiagramRenderer renderer = new DiagramRenderer(args, DIAGRAM_PATH);
-			final File file = new File(IMAGES_FOLDER, TestUtils.getFileName(args));
-			final OutputStream os = new FileOutputStream(file);
-			renderer.renderToAnimatedGif(os);
-		} catch (IOException | DiagramJsonNotFoundException | DiagramJsonDeserializationException | AnalysisServerError | AnalysisException e) {
-			e.printStackTrace();
-			Assert.fail(e.getMessage());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	@Test
+	public void testWithAnalysisResult() {
+		final AnalysisStoredResult result = TestUtils.getResult(TestUtils.TOKEN_OVER_1);
+		final RasterArgs args = new RasterArgs("R-HSA-1643713", "png");
+		TestUtils.render(args, result);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
