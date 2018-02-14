@@ -12,8 +12,8 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
-import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDMalformedException;
-import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDNotFoundException;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldMalformedException;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ProfileResources;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +22,7 @@ import org.w3c.dom.svg.SVGDocument;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -64,7 +65,7 @@ public class ResourcesFactory {
 				logger.error("Could not read diagram color profile {}", name);
 				throw new DiagramProfileException("Could not read diagram color profile " + name);
 			}
-			final String json = IOUtils.toString(resource);
+			final String json = IOUtils.toString(resource, Charset.defaultCharset());
 			return DiagramFactory.getProfile(json);
 		} catch (DeserializationException e) {
 			logger.error("Could not deserialize diagram color profile {}", name);
@@ -131,14 +132,14 @@ public class ResourcesFactory {
 		}
 	}
 
-	public static SVGDocument getEHLD(String EHLDPath, String stId) throws EHLDException {
-		final File file = new File(EHLDPath, stId + ".svg");
+	public static SVGDocument getEhld(String ehldPath, String stId) throws EHLDException {
+		final File file = new File(ehldPath, stId + ".svg");
 		if (!file.exists())
-			throw new EHLDNotFoundException("EHLD not found for " + stId);
+			throw new EhldNotFoundException("EHLD not found for " + stId);
 		try {
 			return DOCUMENT_FACTORY.createSVGDocument(file.getPath());
 		} catch (IOException e) {
-			throw new EHLDMalformedException("EHLD document is not valid " + stId);
+			throw new EhldMalformedException("EHLD document is not valid " + stId);
 		}
 	}
 }

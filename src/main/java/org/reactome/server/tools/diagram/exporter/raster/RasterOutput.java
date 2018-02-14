@@ -14,6 +14,7 @@ import java.net.HttpURLConnection;
 /**
  * Supporting class to output generated diagrams.
  */
+@SuppressWarnings("WeakerAccess")
 public class RasterOutput {
 
 	/**

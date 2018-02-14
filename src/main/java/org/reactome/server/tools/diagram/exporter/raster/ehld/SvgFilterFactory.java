@@ -10,7 +10,7 @@ import java.awt.*;
 
 import static org.apache.batik.util.SVGConstants.*;
 
-class SVGFilterFactory {
+class SvgFilterFactory {
 
 	static Element createBorderFilter(Document document, Color color, double width, String prefix) {
 

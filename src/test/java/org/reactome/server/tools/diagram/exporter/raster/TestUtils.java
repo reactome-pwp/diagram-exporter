@@ -61,7 +61,7 @@ public class TestUtils {
 		return TOKEN_UTILS.getFromToken(token);
 	}
 
-	public static String getFileName(RasterArgs args, AnalysisStoredResult result) {
+	private static String getFileName(RasterArgs args, AnalysisStoredResult result) {
 		String decorators = "";
 		if (args.getSelected() != null && !args.getSelected().isEmpty())
 			decorators += "s" + args.getSelected().size();
@@ -123,8 +123,7 @@ public class TestUtils {
 		try {
 			final File file = new File(OUTPUT_FOLDER, getFileName(args, result));
 			final OutputStream os = new FileOutputStream(file);
-			if (result == null)
-				EXPORTER.exportToGif(args, os);
+			if (result == null) EXPORTER.exportToGif(args, os);
 			else EXPORTER.exportToGif(args, os, result);
 		} catch (Exception e) {
 			e.printStackTrace();

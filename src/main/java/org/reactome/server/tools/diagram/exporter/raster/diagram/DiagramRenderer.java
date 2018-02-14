@@ -7,8 +7,6 @@ import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
-import org.reactome.server.tools.diagram.exporter.common.AnalysisException;
-import org.reactome.server.tools.diagram.exporter.common.AnalysisServerError;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
@@ -85,12 +83,8 @@ public class DiagramRenderer implements RasterRenderer {
 	 *
 	 * @throws DiagramJsonNotFoundException        if diagram is not found
 	 * @throws DiagramJsonDeserializationException if diagram is malformed
-	 * @throws AnalysisException                   when problems with the
-	 *                                             analysis data
-	 * @throws AnalysisServerError                 if some error happens in the
-	 *                                             Analysis Server
 	 */
-	public DiagramRenderer(RasterArgs args, String diagramPath, AnalysisStoredResult result) throws Exception {
+	public DiagramRenderer(RasterArgs args, String diagramPath, AnalysisStoredResult result) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException {
 		final Graph graph = ResourcesFactory.getGraph(diagramPath, args.getStId());
 		diagram = ResourcesFactory.getDiagram(diagramPath, args.getStId());
 		this.title = args.getWriteTitle() != null && args.getWriteTitle()

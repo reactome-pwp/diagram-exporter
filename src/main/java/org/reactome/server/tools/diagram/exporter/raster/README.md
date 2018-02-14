@@ -56,7 +56,7 @@ args.setFlags(Arrays.asList("PTEN"));
 ```
 
 ### Analysis
-Reactome offers a pathway analysis service that supports enrichment and expression analysis. The diagram exporter allows you to overlay the results of the analysis on top of the exported diagrams. To do so, use the token argument to specify the unique token assosiated with the performed analysis. To learn more about our Analysis Service and how to use it have a look to this [page](https://reactomere.org/dev/analysis).
+Reactome offers a pathway analysis service that supports enrichment and expression analysis. The diagram exporter allows you to overlay the results of the analysis on top of the exported diagrams. To do so, use the token argument to specify the unique token associated with the performed analysis. To learn more about our Analysis Service and how to use it have a look to this [page](https://reactomere.org/dev/analysis).
 ```java
 args.setToken("MjAxNzExMDYxMDQ3MzBfMzA%253D");
 ```

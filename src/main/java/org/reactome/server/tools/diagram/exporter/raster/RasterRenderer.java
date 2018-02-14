@@ -16,6 +16,7 @@ public interface RasterRenderer {
 	/**
 	 * Get the final dimensions of the image
 	 */
+	@SuppressWarnings("unused")
 	Dimension getDimension();
 
 	/**

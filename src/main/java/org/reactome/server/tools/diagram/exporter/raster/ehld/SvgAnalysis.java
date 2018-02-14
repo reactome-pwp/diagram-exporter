@@ -34,7 +34,7 @@ import java.util.stream.Stream;
 
 import static org.apache.batik.util.SVGConstants.*;
 
-public class SVGAnalysis {
+public class SvgAnalysis {
 	static final String REGION_ = "REGION-";
 
 	private static final double MAX_P_VALUE = 0.05;
@@ -73,7 +73,7 @@ public class SVGAnalysis {
 	private AnalysisType analysisType;
 	private List<String> pathways;
 
-	SVGAnalysis(SVGDocument document, RasterArgs args, AnalysisStoredResult result) {
+	SvgAnalysis(SVGDocument document, RasterArgs args, AnalysisStoredResult result) {
 		this.document = document;
 		this.args = args;
 		this.result = result;
@@ -123,10 +123,10 @@ public class SVGAnalysis {
 	}
 
 	private void enrichment() {
-		SVGUtil.addInlineStyle(document, OVERLAY_TEXT_CLASS, OVERLAY_TEXT_STYLE);
-		SVGUtil.addInlineStyle(document, ANALYSIS_INFO_CLASS, ANALYSIS_INFO_STYLE);
+		SvgUtil.addInlineStyle(document, OVERLAY_TEXT_CLASS, OVERLAY_TEXT_STYLE);
+		SvgUtil.addInlineStyle(document, ANALYSIS_INFO_CLASS, ANALYSIS_INFO_STYLE);
 		final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getEnrichment().getGradient();
-		SVGLegendRenderer.legend(document, gradient, 0, MAX_P_VALUE, AnalysisType.OVERREPRESENTATION);
+		SvgLegendRenderer.legend(document, gradient, 0, MAX_P_VALUE, AnalysisType.OVERREPRESENTATION);
 
 		// Calculate document dimensions
 		// Must be done to get children dimensions
@@ -142,11 +142,11 @@ public class SVGAnalysis {
 	}
 
 	private void expression() {
-		SVGUtil.addInlineStyle(document, OVERLAY_TEXT_CLASS, OVERLAY_TEXT_STYLE);
-		SVGUtil.addInlineStyle(document, ANALYSIS_INFO_CLASS, ANALYSIS_INFO_STYLE);
+		SvgUtil.addInlineStyle(document, OVERLAY_TEXT_CLASS, OVERLAY_TEXT_STYLE);
+		SvgUtil.addInlineStyle(document, ANALYSIS_INFO_CLASS, ANALYSIS_INFO_STYLE);
 
 		final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getExpression().getGradient();
-		SVGLegendRenderer.legend(document, gradient, result.getExpressionSummary().getMax(), result.getExpressionSummary().getMin(), AnalysisType.EXPRESSION);
+		SvgLegendRenderer.legend(document, gradient, result.getExpressionSummary().getMax(), result.getExpressionSummary().getMin(), AnalysisType.EXPRESSION);
 		addBottomTextGroup();
 
 		// Analysis info text is centered to ANALINFO group. To get the
@@ -191,7 +191,7 @@ public class SVGAnalysis {
 			analysisColor = ColorFactory.interpolate(gradient, val);
 			if (args.getSelected() != null && args.getSelected().contains(stId)) {
 				final Color selection = args.getProfiles().getDiagramSheet().getProperties().getSelection();
-				SVGLegendRenderer.tick(document, val, selection);
+				SvgLegendRenderer.tick(document, val, selection);
 			}
 
 		}
@@ -223,7 +223,7 @@ public class SVGAnalysis {
 			expressionColor = ColorFactory.interpolate(gradient, val);
 			if (args.getSelected() != null && args.getSelected().contains(stId)) {
 				final Color selection = args.getProfiles().getDiagramSheet().getProperties().getSelection();
-				SVGLegendRenderer.tick(document, val, selection);
+				SvgLegendRenderer.tick(document, val, selection);
 			}
 		}
 
@@ -245,7 +245,7 @@ public class SVGAnalysis {
 		clip.setAttribute(SVG_CLIP_PATH_UNITS_ATTRIBUTE, SVG_OBJECT_BOUNDING_BOX_VALUE);
 		clip.setAttribute(SVG_ID_ATTRIBUTE, CLIPPING_PATH + stId);
 		clip.appendChild(rect);
-		SVGUtil.appendToDefs(document, clip);
+		SvgUtil.appendToDefs(document, clip);
 	}
 
 	private void createOverlayNodes(Color color, String stId) {
@@ -272,7 +272,7 @@ public class SVGAnalysis {
 
 		final Element clone = (Element) overlay.cloneNode(true);
 		clone.setAttribute(SVG_ID_ATTRIBUTE, OVERLAY_CLONE_ + stId);
-		clone.setAttribute(SVG_CLIP_PATH_ATTRIBUTE, SVGUtil.toURL(CLIPPING_PATH + stId));
+		clone.setAttribute(SVG_CLIP_PATH_ATTRIBUTE, SvgUtil.toURL(CLIPPING_PATH + stId));
 		clone.removeAttribute(SVG_FILTER_ATTRIBUTE);
 		clone.removeAttribute(SVG_TRANSFORM_ATTRIBUTE);
 
@@ -289,7 +289,7 @@ public class SVGAnalysis {
 				.mapToObj(textss::item).collect(Collectors.toList());
 		textNodes.stream().map(Element.class::cast)
 				.forEach(node -> {
-					SVGUtil.addClass(node, OVERLAY_TEXT_CLASS);
+					SvgUtil.addClass(node, OVERLAY_TEXT_CLASS);
 					group.appendChild(node);
 				});
 		overlay.appendChild(group);
@@ -325,7 +325,7 @@ public class SVGAnalysis {
 	}
 
 	private void makeVisible(Element analysisInfo) {
-		SVGUtil.addClass(analysisInfo, ANALYSIS_INFO_CLASS);
+		SvgUtil.addClass(analysisInfo, ANALYSIS_INFO_CLASS);
 	}
 
 	private void setAnalysisInfoText(Element element, EntityStatistics entities) {
@@ -364,7 +364,7 @@ public class SVGAnalysis {
 	 * OVERLAY areas and the ticks in the legend.
 	 */
 	void setColumn(int expressionColumn) {
-		SVGLegendRenderer.clearTicks(document);
+		SvgLegendRenderer.clearTicks(document);
 		final ExpressionSummary expression = result.getExpressionSummary();
 		final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getExpression().getGradient();
 		entityStats.forEach((id, stats) -> {
@@ -376,7 +376,7 @@ public class SVGAnalysis {
 				overlay.setAttribute(SVG_FILL_ATTRIBUTE, ColorFactory.hex(color));
 				if (args.getSelected() != null && args.getSelected().contains(id)) {
 					final Color selection = args.getProfiles().getDiagramSheet().getProperties().getSelection();
-					SVGLegendRenderer.tick(document, val, selection);
+					SvgLegendRenderer.tick(document, val, selection);
 				}
 			}
 		});

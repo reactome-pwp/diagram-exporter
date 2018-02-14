@@ -17,9 +17,9 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static org.apache.batik.util.SVGConstants.*;
-import static org.reactome.server.tools.diagram.exporter.raster.ehld.SVGAnalysis.REGION_;
+import static org.reactome.server.tools.diagram.exporter.raster.ehld.SvgAnalysis.REGION_;
 
-class SVGDecoratorRenderer {
+class SvgDecoratorRenderer {
 
 	private static final String SELECTION_FILTER = "selection-filter";
 	private static final String FLAG_FILTER = "flag-filter";
@@ -43,13 +43,13 @@ class SVGDecoratorRenderer {
 
 		final Set<String> selAndFlag = new HashSet<>(selected);
 		selAndFlag.retainAll(flags);
-		setFilter(document, selAndFlag, SVGUtil.toURL(SELECTION_FLAG_FILTER));
+		setFilter(document, selAndFlag, SvgUtil.toURL(SELECTION_FLAG_FILTER));
 
 		selected.removeAll(selAndFlag);
-		setFilter(document, selected, SVGUtil.toURL(SELECTION_FILTER));
+		setFilter(document, selected, SvgUtil.toURL(SELECTION_FILTER));
 
 		flags.removeAll(selAndFlag);
-		setFilter(document, flags, SVGUtil.toURL(FLAG_FILTER));
+		setFilter(document, flags, SvgUtil.toURL(FLAG_FILTER));
 
 	}
 	private static List<String> getRegions(SVGDocument document) {
@@ -66,17 +66,17 @@ class SVGDecoratorRenderer {
 
 	private static void addFilters(SVGDocument document, RasterArgs args) {
 		final Color selection = args.getProfiles().getDiagramSheet().getProperties().getSelection();
-		final Element selectionFilter = SVGFilterFactory.createBorderFilter(document, selection, 4, "selection");
+		final Element selectionFilter = SvgFilterFactory.createBorderFilter(document, selection, 4, "selection");
 		selectionFilter.setAttribute(SVG_ID_ATTRIBUTE, SELECTION_FILTER);
 
 		final Color flagColor = args.getProfiles().getDiagramSheet().getProperties().getFlag();
-		final Element flagFilter = SVGFilterFactory.createBorderFilter(document, flagColor, 7, "flag");
+		final Element flagFilter = SvgFilterFactory.createBorderFilter(document, flagColor, 7, "flag");
 		flagFilter.setAttribute(SVG_ID_ATTRIBUTE, FLAG_FILTER);
 
-		final Element flagAndSelectionFilter = SVGFilterFactory.combineFilters(document, flagFilter, selectionFilter);
+		final Element flagAndSelectionFilter = SvgFilterFactory.combineFilters(document, flagFilter, selectionFilter);
 		flagAndSelectionFilter.setAttribute(SVG_ID_ATTRIBUTE, SELECTION_FLAG_FILTER);
 
-		SVGUtil.appendToDefs(document, selectionFilter, flagFilter, flagAndSelectionFilter);
+		SvgUtil.appendToDefs(document, selectionFilter, flagFilter, flagAndSelectionFilter);
 	}
 
 	private static void setFilter(Document document, Set<String> ids, String filter) {
