@@ -39,20 +39,20 @@ public class EhldRenderer implements RasterRenderer {
 	private static final float MARGIN = 15;
 	private final SVGDocument document;
 	private final RasterArgs args;
-	private SVGAnalysis svgAnalysis;
+	private SvgAnalysis svgAnalysis;
 	private AnalysisStoredResult result;
 
 	public EhldRenderer(RasterArgs args, String ehldPath, AnalysisStoredResult result) throws EHLDException {
 		this.result = result;
-		this.document = ResourcesFactory.getEHLD(ehldPath, args.getStId());
+		this.document = ResourcesFactory.getEhld(ehldPath, args.getStId());
 		this.args = args;
 		layout();
 	}
 
 	private void layout() {
 		disableMasks();
-		SVGDecoratorRenderer.selectAndFlag(document, args);
-		svgAnalysis = new SVGAnalysis(document, args, result);
+		SvgDecoratorRenderer.selectAndFlag(document, args);
+		svgAnalysis = new SvgAnalysis(document, args, result);
 		svgAnalysis.analysis();
 		fixFont();
 		updateDocumentDimensions();

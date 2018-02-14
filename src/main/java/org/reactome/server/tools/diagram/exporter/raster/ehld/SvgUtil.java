@@ -8,7 +8,7 @@ import org.w3c.dom.svg.SVGDocument;
 
 import static org.apache.batik.util.SVGConstants.*;
 
-public class SVGUtil {
+public class SvgUtil {
 
 	public static void addInlineStyle(SVGDocument document, String aClass, String style) {
 		final NodeList styles = document.getElementsByTagName(SVGConstants.SVG_STYLE_TAG);

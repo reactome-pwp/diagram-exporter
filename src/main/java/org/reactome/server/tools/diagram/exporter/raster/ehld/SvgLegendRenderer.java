@@ -22,7 +22,7 @@ import static org.apache.batik.util.SVGConstants.*;
 /**
  * Methods to add a legend to a document, including ticks.
  */
-class SVGLegendRenderer {
+class SvgLegendRenderer {
 
 	private static final DecimalFormat EXPRESSION_FORMAT = new DecimalFormat("#.##E0", DecimalFormatSymbols.getInstance(Locale.UK));
 	private static final DecimalFormat ENRICHMENT_FORMAT = new DecimalFormat("#.##", DecimalFormatSymbols.getInstance(Locale.UK));
@@ -65,7 +65,7 @@ class SVGLegendRenderer {
 		//         - stop max
 
 		final Element legendGradient = createGradient(document, gradientSheet);
-		SVGUtil.appendToDefs(document, legendGradient);
+		SvgUtil.appendToDefs(document, legendGradient);
 
 		final Element legend = document.createElementNS(SVG_NAMESPACE_URI, SVG_G_TAG);
 		legend.setAttribute(SVG_ID_ATTRIBUTE, "LEGEND");
@@ -119,7 +119,7 @@ class SVGLegendRenderer {
 		gradientBox.setAttribute(SVG_Y_ATTRIBUTE, String.valueOf((height - LEGEND_HEIGHT) * 0.5));
 		gradientBox.setAttribute(SVG_WIDTH_ATTRIBUTE, String.valueOf(LEGEND_WIDTH));
 		gradientBox.setAttribute(SVG_HEIGHT_ATTRIBUTE, String.valueOf(LEGEND_HEIGHT));
-		gradientBox.setAttribute(SVG_FILL_ATTRIBUTE, SVGUtil.toURL(LEGEND_GRADIENT));
+		gradientBox.setAttribute(SVG_FILL_ATTRIBUTE, SvgUtil.toURL(LEGEND_GRADIENT));
 		return gradientBox;
 	}
 
