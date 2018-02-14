@@ -13,7 +13,7 @@ import java.io.File;
  */
 
 @SuppressWarnings("unused")
-public class DiagramService {
+public class DiagramExporterService {
 
 	/**
 	 * Service layer that provides access to the pptx exporter This method
