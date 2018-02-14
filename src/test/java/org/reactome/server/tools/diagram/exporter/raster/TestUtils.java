@@ -1,6 +1,5 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.analysis.core.result.utils.TokenUtils;
@@ -12,9 +11,9 @@ import org.reactome.server.tools.diagram.exporter.raster.ehld.EhldRendererTest;
 import org.w3c.dom.svg.SVGDocument;
 
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.Set;
-import java.util.TreeSet;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 /**
  * Supporting methods for testing diagram renderering. It is used both in {@link
@@ -33,21 +32,16 @@ public class TestUtils {
 	private static final String ANALYSIS_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/analysis";
 	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/diagram";
 	private static final String EHLD_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/ehld";
+	private static final String SVG_SUMMARY = "src/test/resources/org/reactome/server/tools/diagram/exporter/svgsummary.txt";
 	private static final TokenUtils TOKEN_UTILS = new TokenUtils(ANALYSIS_PATH);
 
-	private static Set<String> EHLDS;
 	// Set to true for visual inspection of tests
 	// todo: don't forget to set to false before pushing
 	private static final boolean save = false;
 	private static final RasterExporter EXPORTER;
 
 	static {
-		try {
-			EHLDS = new TreeSet<>(IOUtils.readLines(new FileReader("src/test/resources/org/reactome/server/tools/diagram/exporter/svgsummary.txt")));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		EXPORTER = new RasterExporter(DIAGRAM_PATH, EHLD_PATH, ANALYSIS_PATH, EHLDS);
+		EXPORTER = new RasterExporter(DIAGRAM_PATH, EHLD_PATH, ANALYSIS_PATH, SVG_SUMMARY);
 		ContentServiceClient.setHost(TODAYS_SERVER);
 		ContentServiceClient.setService("/ContentService");
 		AnalysisClient.initialise(ANALYSIS_PATH);
