@@ -61,7 +61,7 @@ public class RasterExporter {
 	 *
 	 * @param args image arguments
 	 */
-	public BufferedImage export(RasterArgs args) throws Exception {
+	public BufferedImage export(RasterArgs args) throws AnalysisException, EHLDException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
 		return export(args, null);
 	}
 
