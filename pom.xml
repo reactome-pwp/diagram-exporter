@@ -84,6 +84,11 @@
             <artifactId>batik-codec</artifactId>
             <version>${batik.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>fop</artifactId>
+            <version>2.2</version>
+        </dependency>
 
         <dependency>
             <groupId>com.aspose</groupId>

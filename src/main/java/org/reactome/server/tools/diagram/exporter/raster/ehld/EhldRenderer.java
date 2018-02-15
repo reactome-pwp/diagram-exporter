@@ -46,8 +46,24 @@ public class EhldRenderer implements RasterRenderer {
 		this.result = result;
 		this.document = ResourcesFactory.getEhld(ehldPath, args.getStId());
 		this.args = args;
+//		loadFont();
 		layout();
 	}
+
+//	private void loadFont() {
+//		DefaultConfigurationBuilder builder = new DefaultConfigurationBuilder();
+//		try {
+//			final Configuration configuration = builder.build("/src/main/resources/org/reactome/server/tools/diagram/exporter/raster/diagram/renderers/fop.xml");
+//
+//		} catch (SAXException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} catch (ConfigurationException e) {
+//			e.printStackTrace();
+//		}
+//
+//	}
 
 	private void layout() {
 		disableMasks();
@@ -55,7 +71,14 @@ public class EhldRenderer implements RasterRenderer {
 		svgAnalysis = new SvgAnalysis(document, args, result);
 		svgAnalysis.analysis();
 		fixFont();
+//		fixFont2();
 		updateDocumentDimensions();
+	}
+
+	private void fixFont2() {
+		final Node style = document.getElementsByTagNameNS(SVG_NAMESPACE_URI, SVG_STYLE_ATTRIBUTE).item(0);
+		final String newStyle = style.getTextContent().replace("font-family:", "src:url(\"src/main/resources/org/reactome/server/tools/diagram/exporter/raster/fonts/arial.tff\"); font-family");
+		style.setTextContent(newStyle);
 	}
 
 	/**
@@ -80,8 +103,33 @@ public class EhldRenderer implements RasterRenderer {
 		final String arialBoldMT = "Arial-BoldMT,";
 		final NodeList styleList = document.getRootElement().getElementsByTagNameNS(SVG_NAMESPACE_URI, SVG_STYLE_ATTRIBUTE);
 		final Node style = styleList.getLength() > 0 ? styleList.item(0) : null;
-		if (style != null)
-			style.setTextContent(style.getTextContent().replace(arialBoldMT, ""));
+		if (style != null) {
+			String replace = style.getTextContent().replace(arialBoldMT, "Kavivanar,");
+			replace = "@font-face {\n" +
+					"  font-family: 'Kavivanar';\n" +
+					"  font-style: normal;\n" +
+					"  font-weight: 400;\n" +
+					"  src: local('Kavivanar Regular'), local('Kavivanar-Regular'), url(https://fonts.gstatic.com/s/kavivanar/v3/o-0IIpQgyXYSwhxP7_Jr8zRAW_0.woff2) format('woff2');\n" +
+					"  unicode-range: U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;\n" +
+					"}\n" +
+					"/* latin-ext */\n" +
+					"@font-face {\n" +
+					"  font-family: 'Kavivanar';\n" +
+					"  font-style: normal;\n" +
+					"  font-weight: 400;\n" +
+					"  src: local('Kavivanar Regular'), local('Kavivanar-Regular'), url(https://fonts.gstatic.com/s/kavivanar/v3/o-0IIpQgyXYSwhxP7_Jr6zRAW_0.woff2) format('woff2');\n" +
+					"  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n" +
+					"}\n" +
+					"/* latin */\n" +
+					"@font-face {\n" +
+					"  font-family: 'Kavivanar';\n" +
+					"  font-style: normal;\n" +
+					"  font-weight: 400;\n" +
+					"  src: local('Kavivanar Regular'), local('Kavivanar-Regular'), url(https://fonts.gstatic.com/s/kavivanar/v3/o-0IIpQgyXYSwhxP7_Jr5TRA.woff2) format('woff2');\n" +
+					"  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n" +
+					"}\n" + replace;
+			style.setTextContent(replace);
+		}
 	}
 
 	@Override

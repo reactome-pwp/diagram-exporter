@@ -22,9 +22,9 @@ public class SVGRendererTest {
 
 	@Test
 	public void testEhldFont() {
-		final RasterArgs args = new RasterArgs("R-HSA-69278", "svg");
-		TestUtils.renderSvg(args, null);
+		TestUtils.renderSvg(new RasterArgs("R-HSA-69278", "svg"), null);
 		// REPORT: partial fix. EHLDs don't follow SVG standards (Illustrator)
+		TestUtils.render(new RasterArgs("R-HSA-69278", "png"), null);
 	}
 
 }
