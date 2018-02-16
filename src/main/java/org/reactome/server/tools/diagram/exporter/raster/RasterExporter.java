@@ -63,11 +63,11 @@ public class RasterExporter {
 	private void loadFonts() {
 		final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		try {
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("raster/fonts/arial.ttf")));
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("raster/fonts/arialbd.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("fonts/arial.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("fonts/arialbd.ttf")));
 		} catch (FontFormatException | IOException e) {
 			// resources shouldn't throw exceptions
-			logger.error("Couldn't load arial font", e);
+			logger.error("Couldn't load font", e);
 		}
 	}
 
