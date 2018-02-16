@@ -3,7 +3,6 @@ package org.reactome.server.tools.diagram.exporter.raster;
 import org.junit.Assert;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.analysis.core.result.utils.TokenUtils;
-import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisClient;
 import org.reactome.server.tools.diagram.exporter.common.content.ContentServiceClient;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramRendererTest;
@@ -44,7 +43,6 @@ public class TestUtils {
 		EXPORTER = new RasterExporter(DIAGRAM_PATH, EHLD_PATH, ANALYSIS_PATH, SVG_SUMMARY);
 		ContentServiceClient.setHost(TODAYS_SERVER);
 		ContentServiceClient.setService("/ContentService");
-		AnalysisClient.initialise(ANALYSIS_PATH);
 		createDir(OUTPUT_FOLDER);
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 			if (!save) removeDir(OUTPUT_FOLDER);
