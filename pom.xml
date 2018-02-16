@@ -45,7 +45,7 @@
         <commons.io.version>2.5</commons.io.version>
         <jasp.version>2.1</jasp.version>
         <junit.version>4.12</junit.version>
-        <analysis.core.version>3.1.0</analysis.core.version>
+        <analysis.core.version>3.1.0-SNAPSHOT</analysis.core.version>
 
         <!--build-->
         <jdk.version>1.8</jdk.version>
@@ -126,7 +126,18 @@
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/*.ttf</exclude>
+                </excludes>
             </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.ttf</include>
+                </includes>
+            </resource>
+
         </resources>
 
         <testResources>

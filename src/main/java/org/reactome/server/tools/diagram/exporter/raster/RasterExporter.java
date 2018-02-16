@@ -12,12 +12,13 @@ import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.EhldRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.svg.SVGDocument;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -30,6 +31,7 @@ import java.util.TreeSet;
  */
 @Component
 public class RasterExporter {
+	private static final Logger logger = LoggerFactory.getLogger("infoLogger");
 
 	private final String diagramPath;
 	private final String ehldPath;
@@ -61,10 +63,11 @@ public class RasterExporter {
 	private void loadFonts() {
 		final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		try {
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/org/reactome/server/tools/diagram/exporter/raster/fonts/arial.ttf")));
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/org/reactome/server/tools/diagram/exporter/raster/fonts/arialbd.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("fonts/arial.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("fonts/arialbd.ttf")));
 		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
+			// resources shouldn't throw exceptions
+			logger.error("Couldn't load font", e);
 		}
 	}
 
