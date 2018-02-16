@@ -19,7 +19,6 @@ import org.w3c.dom.svg.SVGDocument;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
@@ -48,17 +47,6 @@ public class EhldRenderer implements RasterRenderer {
 		this.document = ResourcesFactory.getEhld(ehldPath, args.getStId());
 		this.args = args;
 		layout();
-		installFonts();
-	}
-
-	private void installFonts() {
-		final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		try {
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/org/reactome/server/tools/diagram/exporter/raster/fonts/arial.ttf")));
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/org/reactome/server/tools/diagram/exporter/raster/fonts/arialbd.ttf")));
-		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	private void layout() {

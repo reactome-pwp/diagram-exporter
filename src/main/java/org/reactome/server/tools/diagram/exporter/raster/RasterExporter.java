@@ -15,7 +15,9 @@ import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldExce
 import org.springframework.stereotype.Component;
 import org.w3c.dom.svg.SVGDocument;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -33,6 +35,16 @@ public class RasterExporter {
 	private final String ehldPath;
 	private final Set<String> ehld;
 	private final TokenUtils tokenUtils;
+
+	static  {
+		final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		try {
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/org/reactome/server/tools/diagram/exporter/raster/fonts/arial.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/org/reactome/server/tools/diagram/exporter/raster/fonts/arialbd.ttf")));
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	/**
 	 * Configures a new RasterExporter setting the resources paths.
