@@ -36,16 +36,6 @@ public class RasterExporter {
 	private final Set<String> ehld;
 	private final TokenUtils tokenUtils;
 
-	static  {
-		final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		try {
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/org/reactome/server/tools/diagram/exporter/raster/fonts/arial.ttf")));
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/org/reactome/server/tools/diagram/exporter/raster/fonts/arialbd.ttf")));
-		} catch (FontFormatException | IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	/**
 	 * Configures a new RasterExporter setting the resources paths.
 	 *
@@ -65,6 +55,17 @@ public class RasterExporter {
 			ehld = new HashSet<>();
 		}
 		this.ehld = ehld;
+		loadFonts();
+	}
+
+	private void loadFonts() {
+		final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		try {
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/org/reactome/server/tools/diagram/exporter/raster/fonts/arial.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/org/reactome/server/tools/diagram/exporter/raster/fonts/arialbd.ttf")));
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
