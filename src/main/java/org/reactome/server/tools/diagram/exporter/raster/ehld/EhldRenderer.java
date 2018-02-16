@@ -9,8 +9,8 @@ import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
-import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
-import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDRuntimeException;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldException;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldRuntimeException;
 import org.reactome.server.tools.diagram.exporter.raster.gif.AnimatedGifEncoder;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -19,6 +19,7 @@ import org.w3c.dom.svg.SVGDocument;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
@@ -42,28 +43,23 @@ public class EhldRenderer implements RasterRenderer {
 	private SvgAnalysis svgAnalysis;
 	private AnalysisStoredResult result;
 
-	public EhldRenderer(RasterArgs args, String ehldPath, AnalysisStoredResult result) throws EHLDException {
+	public EhldRenderer(RasterArgs args, String ehldPath, AnalysisStoredResult result) throws EhldException {
 		this.result = result;
 		this.document = ResourcesFactory.getEhld(ehldPath, args.getStId());
 		this.args = args;
-//		loadFont();
 		layout();
+		installFonts();
 	}
 
-//	private void loadFont() {
-//		DefaultConfigurationBuilder builder = new DefaultConfigurationBuilder();
-//		try {
-//			final Configuration configuration = builder.build("/src/main/resources/org/reactome/server/tools/diagram/exporter/raster/diagram/renderers/fop.xml");
-//
-//		} catch (SAXException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		} catch (ConfigurationException e) {
-//			e.printStackTrace();
-//		}
-//
-//	}
+	private void installFonts() {
+		final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		try {
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/org/reactome/server/tools/diagram/exporter/raster/fonts/arial.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src/main/resources/org/reactome/server/tools/diagram/exporter/raster/fonts/arialbd.ttf")));
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private void layout() {
 		disableMasks();
@@ -71,15 +67,9 @@ public class EhldRenderer implements RasterRenderer {
 		svgAnalysis = new SvgAnalysis(document, args, result);
 		svgAnalysis.analysis();
 		fixFont();
-//		fixFont2();
 		updateDocumentDimensions();
 	}
 
-	private void fixFont2() {
-		final Node style = document.getElementsByTagNameNS(SVG_NAMESPACE_URI, SVG_STYLE_ATTRIBUTE).item(0);
-		final String newStyle = style.getTextContent().replace("font-family:", "src:url(\"src/main/resources/org/reactome/server/tools/diagram/exporter/raster/fonts/arial.tff\"); font-family");
-		style.setTextContent(newStyle);
-	}
 
 	/**
 	 * Defensive programming rule #324: Illustrator exports custom fonts.
@@ -87,47 +77,23 @@ public class EhldRenderer implements RasterRenderer {
 	 * h1 {
 	 *  font-family: Arial;
 	 *  font-weight: 700;
-	 }
+	 * }
 	 * </code></pre>
 	 * it exports like this:
 	 * <pre><code>
 	 * h1 {
 	 *  font-family: Arial-BoldMT, Arial;
 	 *  font-weight: 700;
-	 }
+	 * }
 	 * </code></pre>
 	 * what, in some cases, applies Bold twice.
-	 *
 	 */
 	private void fixFont() {
 		final String arialBoldMT = "Arial-BoldMT,";
 		final NodeList styleList = document.getRootElement().getElementsByTagNameNS(SVG_NAMESPACE_URI, SVG_STYLE_ATTRIBUTE);
 		final Node style = styleList.getLength() > 0 ? styleList.item(0) : null;
 		if (style != null) {
-			String replace = style.getTextContent().replace(arialBoldMT, "Kavivanar,");
-			replace = "@font-face {\n" +
-					"  font-family: 'Kavivanar';\n" +
-					"  font-style: normal;\n" +
-					"  font-weight: 400;\n" +
-					"  src: local('Kavivanar Regular'), local('Kavivanar-Regular'), url(https://fonts.gstatic.com/s/kavivanar/v3/o-0IIpQgyXYSwhxP7_Jr8zRAW_0.woff2) format('woff2');\n" +
-					"  unicode-range: U+0964-0965, U+0B82-0BFA, U+200C-200D, U+20B9, U+25CC;\n" +
-					"}\n" +
-					"/* latin-ext */\n" +
-					"@font-face {\n" +
-					"  font-family: 'Kavivanar';\n" +
-					"  font-style: normal;\n" +
-					"  font-weight: 400;\n" +
-					"  src: local('Kavivanar Regular'), local('Kavivanar-Regular'), url(https://fonts.gstatic.com/s/kavivanar/v3/o-0IIpQgyXYSwhxP7_Jr6zRAW_0.woff2) format('woff2');\n" +
-					"  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;\n" +
-					"}\n" +
-					"/* latin */\n" +
-					"@font-face {\n" +
-					"  font-family: 'Kavivanar';\n" +
-					"  font-style: normal;\n" +
-					"  font-weight: 400;\n" +
-					"  src: local('Kavivanar Regular'), local('Kavivanar-Regular'), url(https://fonts.gstatic.com/s/kavivanar/v3/o-0IIpQgyXYSwhxP7_Jr5TRA.woff2) format('woff2');\n" +
-					"  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;\n" +
-					"}\n" + replace;
+			String replace = style.getTextContent().replace(arialBoldMT, "");
 			style.setTextContent(replace);
 		}
 	}
@@ -213,10 +179,11 @@ public class EhldRenderer implements RasterRenderer {
 		try {
 			final TranscoderInput input = new TranscoderInput(document);
 			final BufferedImageTranscoder transcoder = new BufferedImageTranscoder(args);
+
 			transcoder.transcode(input, null);
 			return transcoder.getImage();
 		} catch (TranscoderException e) {
-			throw new EHLDRuntimeException(e.getMessage());
+			throw new EhldRuntimeException(e.getMessage());
 		}
 	}
 

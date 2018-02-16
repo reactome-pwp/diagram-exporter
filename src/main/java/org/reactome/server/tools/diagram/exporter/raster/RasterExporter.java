@@ -11,7 +11,7 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.EhldRenderer;
-import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldException;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.svg.SVGDocument;
 
@@ -61,7 +61,7 @@ public class RasterExporter {
 	 *
 	 * @param args image arguments
 	 */
-	public BufferedImage export(RasterArgs args) throws AnalysisException, EHLDException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
+	public BufferedImage export(RasterArgs args) throws AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
 		return export(args, null);
 	}
 
@@ -71,7 +71,7 @@ public class RasterExporter {
 	 *
 	 * @param args image arguments
 	 */
-	public BufferedImage export(RasterArgs args, AnalysisStoredResult result) throws AnalysisException, EHLDException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
+	public BufferedImage export(RasterArgs args, AnalysisStoredResult result) throws AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
 		final RasterRenderer renderer = getRenderer(args, result);
 //		final Dimension dimension = renderer.getDimension();
 //		double size = dimension.getHeight() * dimension.getWidth();
@@ -84,7 +84,7 @@ public class RasterExporter {
 	 * directly into an <code>{@link OutputStream}</code>. There is no Java
 	 * class that supports storing a GIF in memory.
 	 */
-	public void exportToGif(RasterArgs args, OutputStream os) throws IOException, AnalysisException, EHLDException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
+	public void exportToGif(RasterArgs args, OutputStream os) throws IOException, AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
 		exportToGif(args, os, null);
 	}
 
@@ -94,7 +94,7 @@ public class RasterExporter {
 	 * directly into an <code>{@link OutputStream}</code>. There is no Java
 	 * class that supports storing a GIF in memory.
 	 */
-	public void exportToGif(RasterArgs args, OutputStream os, AnalysisStoredResult result) throws AnalysisException, EHLDException, DiagramJsonNotFoundException, DiagramJsonDeserializationException, IOException {
+	public void exportToGif(RasterArgs args, OutputStream os, AnalysisStoredResult result) throws AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException, IOException {
 		final RasterRenderer renderer = getRenderer(args, result);
 		renderer.renderToAnimatedGif(os);
 	}
@@ -103,7 +103,7 @@ public class RasterExporter {
 	 * Creates a SVG document from the diagram, adding, if asked, selection,
 	 * flagging and analysis.See {@link RasterOutput} for saving options.
 	 */
-	public SVGDocument exportToSvg(RasterArgs args) throws AnalysisException, EHLDException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
+	public SVGDocument exportToSvg(RasterArgs args) throws AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
 		return exportToSvg(args, null);
 	}
 
@@ -111,7 +111,7 @@ public class RasterExporter {
 	 * Creates a SVG document from the diagram, adding, if asked, selection,
 	 * flagging and analysis.See {@link RasterOutput} for saving options.
 	 */
-	public SVGDocument exportToSvg(RasterArgs args, AnalysisStoredResult result) throws AnalysisException, EHLDException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
+	public SVGDocument exportToSvg(RasterArgs args, AnalysisStoredResult result) throws AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
 		final RasterRenderer renderer = getRenderer(args, result);
 		return renderer.renderToSVG();
 	}
@@ -120,7 +120,7 @@ public class RasterExporter {
 	 * Creates a proper RasterRenderer depending on the type of the source
 	 * diagram (standard or enhanced).
 	 */
-	private RasterRenderer getRenderer(RasterArgs args, AnalysisStoredResult result) throws AnalysisException, EHLDException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
+	private RasterRenderer getRenderer(RasterArgs args, AnalysisStoredResult result) throws AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
 		result = getResult(args.getToken(), result);
 		return ehld.contains(args.getStId())
 				? new EhldRenderer(args, ehldPath, result)
