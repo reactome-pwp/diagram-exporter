@@ -84,7 +84,6 @@
             <artifactId>batik-codec</artifactId>
             <version>${batik.version}</version>
         </dependency>
-
         <dependency>
             <groupId>com.aspose</groupId>
             <artifactId>aspose-slides</artifactId>

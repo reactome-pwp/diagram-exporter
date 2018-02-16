@@ -11,7 +11,7 @@ import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
-import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EHLDException;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldException;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldMalformedException;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ProfileResources;
@@ -132,7 +132,7 @@ public class ResourcesFactory {
 		}
 	}
 
-	public static SVGDocument getEhld(String ehldPath, String stId) throws EHLDException {
+	public static SVGDocument getEhld(String ehldPath, String stId) throws EhldException {
 		final File file = new File(ehldPath, stId + ".svg");
 		if (!file.exists())
 			throw new EhldNotFoundException("EHLD not found for " + stId);
