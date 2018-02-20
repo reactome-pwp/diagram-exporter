@@ -6,10 +6,7 @@ import org.apache.batik.bridge.UserAgentAdapter;
 import org.apache.batik.gvt.GraphicsNode;
 import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
-import org.reactome.server.analysis.core.result.model.EntityStatistics;
-import org.reactome.server.analysis.core.result.model.ExpressionSummary;
-import org.reactome.server.analysis.core.result.model.PathwaySummary;
-import org.reactome.server.analysis.core.result.model.ResourceSummary;
+import org.reactome.server.analysis.core.result.model.*;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
@@ -72,6 +69,8 @@ public class SvgAnalysis {
 	private Map<String, EntityStatistics> entityStats;
 	private AnalysisType analysisType;
 	private List<String> pathways;
+	private String resource;
+	private AnalysisResult summary;
 
 	SvgAnalysis(SVGDocument document, RasterArgs args, AnalysisStoredResult result) {
 		this.document = document;
@@ -80,28 +79,32 @@ public class SvgAnalysis {
 		collectAnalysisResult();
 	}
 
-	private void collectAnalysisResult() {
-		if (result == null) return;
-		analysisType = AnalysisType.getType(result.getSummary().getType());
+	@SuppressWarnings("Duplicates")
+	private String getResource() {
+		if (args.getResource() != null) return args.getResource();
+		if (result == null) return null;
 		final List<ResourceSummary> summaryList = result.getResourceSummary();
-
 		final ResourceSummary resourceSummary = summaryList.size() == 2
 				? summaryList.get(1)
 				: summaryList.get(0);
-		final String resource = args.getResource() == null
-				? resourceSummary.getResource()
-				: args.getResource();
+		return resourceSummary.getResource();
+	}
 
+	private void collectAnalysisResult() {
+		if (result == null) return;
+		this.resource = getResource();
+		analysisType = AnalysisType.getType(result.getSummary().getType());
+		summary = result.getResultSummary(resource);
 		final List<String> regions = getRegions();
 		if (regions.isEmpty()) return;
 		pathways = regions.stream()
 				.map(id -> id.substring(REGION_.length()))
 				.collect(Collectors.toList());
-		entityStats = getStats(resource, pathways);
+		entityStats = getStats();
 
 	}
 
-	private Map<String, EntityStatistics> getStats(String resource, List<String> pathways) {
+	private Map<String, EntityStatistics> getStats() {
 		final List<PathwaySummary> pathwaysSummary = result.filterByPathways(pathways, resource);
 		final Map<String, EntityStatistics> stats = new HashMap<>();
 		for (PathwaySummary summary : pathwaysSummary)
@@ -146,7 +149,7 @@ public class SvgAnalysis {
 		SvgUtil.addInlineStyle(document, ANALYSIS_INFO_CLASS, ANALYSIS_INFO_STYLE);
 
 		final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getExpression().getGradient();
-		SvgLegendRenderer.legend(document, gradient, result.getExpressionSummary().getMax(), result.getExpressionSummary().getMin(), AnalysisType.EXPRESSION);
+		SvgLegendRenderer.legend(document, gradient, summary.getExpression().getMax(), summary.getExpression().getMin(), AnalysisType.EXPRESSION);
 		addBottomTextGroup();
 
 		// Analysis info text is centered to ANALINFO group. To get the
@@ -156,7 +159,7 @@ public class SvgAnalysis {
 
 		pathways.forEach(stId -> {
 			final EntityStatistics stats = entityStats.getOrDefault(stId, null);
-			overlayExpression(stId, stats, result.getExpressionSummary());
+			overlayExpression(stId, stats, summary.getExpression());
 			analysisInfo(stId, stats);
 		});
 	}
@@ -365,7 +368,7 @@ public class SvgAnalysis {
 	 */
 	void setColumn(int expressionColumn) {
 		SvgLegendRenderer.clearTicks(document);
-		final ExpressionSummary expression = result.getExpressionSummary();
+		final ExpressionSummary expression = summary.getExpression();
 		final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getExpression().getGradient();
 		entityStats.forEach((id, stats) -> {
 			final double value = stats.getExp().get(expressionColumn);
@@ -386,8 +389,8 @@ public class SvgAnalysis {
 	private void updateInfoText(int expressionColumn) {
 		final String prefix = String.format("[%s] ", result.getSummary().getSampleName());
 		final String info = String.format(Locale.UK, "%d/%d: %s", (expressionColumn + 1),
-				result.getExpressionSummary().getColumnNames().size(),
-				result.getExpressionSummary().getColumnNames().get(expressionColumn));
+				summary.getExpression().getColumnNames().size(),
+				summary.getExpression().getColumnNames().get(expressionColumn));
 		final Element text = document.getElementById(BOTTOM_TEXT);
 		text.setTextContent(prefix + info);
 	}
@@ -431,7 +434,7 @@ public class SvgAnalysis {
 		return analysisType;
 	}
 
-	AnalysisStoredResult getAnalysisResult() {
-		return result;
+	public ExpressionSummary getExpressionSummary() {
+		return summary.getExpression();
 	}
 }

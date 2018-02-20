@@ -25,6 +25,8 @@ public class SVGRendererTest {
 		TestUtils.renderSvg(new RasterArgs("R-HSA-69278", "svg"), null);
 		// REPORT: partial fix. EHLDs don't follow SVG standards (Illustrator)
 		TestUtils.render(new RasterArgs("R-HSA-69278", "png"), null);
+		TestUtils.renderSvg(new RasterArgs("R-HSA-69620", "svg"), null);
+		TestUtils.render(new RasterArgs("R-HSA-69620", "png"), null);
 	}
 
 }
