@@ -184,7 +184,7 @@ public class EhldRenderer implements RasterRenderer {
 		encoder.setDelay(1000);
 		encoder.setRepeat(0);
 		encoder.start(os);
-		for (int expressionColumn = 0; expressionColumn < svgAnalysis.getAnalysisResult().getExpressionSummary().getColumnNames().size(); expressionColumn++) {
+		for (int expressionColumn = 0; expressionColumn < svgAnalysis.getExpressionSummary().getColumnNames().size(); expressionColumn++) {
 			svgAnalysis.setColumn(expressionColumn);
 			final BufferedImage image = rasterize();
 			encoder.addFrame(image);

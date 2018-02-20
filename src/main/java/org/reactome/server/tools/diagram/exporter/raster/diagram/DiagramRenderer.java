@@ -148,7 +148,7 @@ public class DiagramRenderer implements RasterRenderer {
 		encoder.setRepeat(0);
 //		encoder.setQuality(1);
 		encoder.start(outputStream);
-		for (int t = 0; t < index.getAnalysis().getResult().getExpressionSummary().getColumnNames().size(); t++) {
+		for (int t = 0; t < index.getAnalysis().getResult().getExpression().getColumnNames().size(); t++) {
 			final BufferedImage image = frame(factor, width, height, offsetX, offsetY, t);
 			encoder.addFrame(image);
 		}
