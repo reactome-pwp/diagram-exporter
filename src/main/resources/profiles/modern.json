@@ -8,7 +8,7 @@
     "flag": "#FF00FF",
     "trigger": "#6666FF",
     "text": "#0000FF",
-    "button:": "#00FF00",
+    "button": "#00FF00",
     "disease": "#FF0000"
   },
   "attachment": {
@@ -160,6 +160,17 @@
     "fadeOutText": "#2020FF",
     "lighterText": "#1010FF"
   },
+  "encapsulatednode": {
+    "fill": "#34C265",
+    "fadeOutFill": "#D2CC97",
+    "lighterFill": "#DEE7C8",
+    "stroke": "#A0A0A0",
+    "fadeOutStroke": "#BFC78F",
+    "lighterStroke": "#9DBF91",
+    "text": "#0000FF",
+    "fadeOutText": "#2020FF",
+    "lighterText": "#1010FF"
+  },
   "protein": {
     "fill": "#8DC7BB",
     "fadeOutFill": "#C8C6A8",
@@ -173,7 +184,7 @@
   },
   "reaction": {
     "fill": "#FFFFFF",
-    "fadeOutFill": "#FFFFFF",
+    "fadeOutFill": "#6E6E6E",
     "lighterFill": "#6E6E6E",
     "stroke": "#000000",
     "fadeOutStroke": "#6E6E6E",
