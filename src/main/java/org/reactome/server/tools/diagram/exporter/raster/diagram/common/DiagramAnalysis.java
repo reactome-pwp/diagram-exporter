@@ -36,6 +36,7 @@ public class DiagramAnalysis {
 	private final AnalysisType type;
 	private AnalysisStoredResult result;
 	private String resource;
+	private AnalysisResult summary;
 
 	DiagramAnalysis(AnalysisStoredResult result, DiagramIndex index, RasterArgs args, Graph graph, Diagram diagram) {
 		this.index = index;
@@ -48,6 +49,7 @@ public class DiagramAnalysis {
 		initialise();
 	}
 
+	@SuppressWarnings("Duplicates")
 	private String getResource() {
 		if (args.getResource() != null) return args.getResource();
 		if (result == null) return null;
@@ -87,6 +89,7 @@ public class DiagramAnalysis {
 	 * Extracts analysis information and attaches it to each diagram node.
 	 */
 	private void addAnalysisData() {
+		this.summary = result.getResultSummary(resource);
 		// Get subpathways (green boxes) % of analysis area
 		subPathways();
 		foundElements();
@@ -116,7 +119,6 @@ public class DiagramAnalysis {
 				.collect(Collectors.toList());
 		if (subPathways.isEmpty()) return;
 		// 2 get subPathways summary
-//		final PathwaySummary[] pathwaysSummary = AnalysisClient.getPathwaysSummary(subPathways, token, resource);
 		final List<PathwaySummary> pathwaysSummary = result.filterByPathways(subPathways, resource);
 		// extract %
 		for (PathwaySummary summary : pathwaysSummary) {
@@ -231,8 +233,8 @@ public class DiagramAnalysis {
 		return result.getSummary().getSampleName();
 	}
 
-	public AnalysisStoredResult getResult() {
-		return result;
+	public AnalysisResult getResult() {
+		return summary;
 	}
 
 }

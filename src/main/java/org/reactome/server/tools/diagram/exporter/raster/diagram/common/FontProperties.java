@@ -7,8 +7,13 @@ import java.awt.*;
  */
 public class FontProperties {
 
-	public static final Font LEGEND_FONT = new Font("arial", Font.BOLD, 16);
-	public static final Font DEFAULT_FONT = new Font("arial", Font.BOLD, 8);
+	public static final Font LEGEND_FONT;
+	public static final Font DEFAULT_FONT;
+
+	static {
+		LEGEND_FONT = new Font("arial", Font.BOLD, 16);
+		DEFAULT_FONT = new Font("arial", Font.BOLD, 8);
+	}
 
 
 }

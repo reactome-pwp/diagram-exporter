@@ -78,8 +78,8 @@ public class ProteinRenderer extends NodeAbstractRenderer {
 			return renderableNode.getColorProfile(colorProfiles).getLighterFill();
 		} else {
 			final double exp = renderableNode.getHitExpressions().get(0).getExp().get(t);
-			final double min = index.getAnalysis().getResult().getExpressionSummary().getMin();
-			final double max = index.getAnalysis().getResult().getExpressionSummary().getMax();
+			final double min = index.getAnalysis().getResult().getExpression().getMin();
+			final double max = index.getAnalysis().getResult().getExpression().getMax();
 			final double value = 1 - (exp - min) / (max - min);
 			return ColorFactory.interpolate(colorProfiles.getAnalysisSheet().getExpression().getGradient(), value);
 		}

@@ -123,8 +123,8 @@ public abstract class NodeAbstractRenderer extends ObjectRenderer {
 			final double partSize = prop.getWidth() / size;
 			textSplit = (double) values.size() / size;
 
-			final double max = index.getAnalysis().getResult().getExpressionSummary().getMax();
-			final double min = index.getAnalysis().getResult().getExpressionSummary().getMin();
+			final double max = index.getAnalysis().getResult().getExpression().getMax();
+			final double min = index.getAnalysis().getResult().getExpression().getMin();
 			final double delta = 1 / (max - min);  // only one division
 			for (int i = 0; i < values.size(); i++) {
 				final double val = values.get(i);
