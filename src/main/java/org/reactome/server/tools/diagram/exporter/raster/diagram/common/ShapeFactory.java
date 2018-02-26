@@ -21,7 +21,7 @@ public class ShapeFactory {
 	private static final double GENE_SYMBOL_Y_OFFSET = 50;
 	private static final double GENE_SYMBOL_PAD = 4;
 	private static final double ARROW_LENGTH = 8;
-
+	private static final double ENCAPSULATED_TANH = Math.tanh(Math.PI / 9);
 	/**
 	 * Creates a rectangle with edged corners (an octagon)
 	 *
@@ -279,5 +279,33 @@ public class ShapeFactory {
 		path.quadTo(x, y, x1, y1);
 		path.closePath();
 		return path;
+	}
+
+	public static Shape hexagon(NodeProperties prop) {
+		return hexagon(prop, 0);
+	}
+
+	public static Shape hexagon(NodeProperties prop, double padding) {
+		final double x = prop.getX() + padding;
+		final double y = prop.getY() + padding;
+		final double maxX = x + prop.getWidth() - 2 * padding;
+		final double maxY = y + prop.getHeight() - 2 * padding;
+		final double width = maxX - x;
+		final double height = maxY - y;
+
+		final double corner = height / 2 * ENCAPSULATED_TANH;
+		final double x1 = x + corner;
+		final double x2 = maxX - corner;
+		final double centerY = y + 0.5 * (maxY - y);
+
+		final Path2D path2D = new GeneralPath();
+		path2D.moveTo(x, centerY);
+		path2D.lineTo(x1, y);
+		path2D.lineTo(x2, y);
+		path2D.lineTo(maxX, centerY);
+		path2D.lineTo(x2, maxY);
+		path2D.lineTo(x1, maxY);
+		path2D.closePath();
+		return path2D;
 	}
 }

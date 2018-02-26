@@ -17,6 +17,8 @@ public class RenderableFactory {
 				return new RenderableEntitySet(node);
 			case "ProcessNode":
 				return new RenderableProcessNode(node);
+			case "EncapsulatedNode":
+				return new RenderableEncapsulatedNode(node);
 			case "RNA":
 				return new RenderableRna(node);
 			case "Gene":
