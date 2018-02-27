@@ -290,7 +290,6 @@ public class ShapeFactory {
 		final double y = prop.getY() + padding;
 		final double maxX = x + prop.getWidth() - 2 * padding;
 		final double maxY = y + prop.getHeight() - 2 * padding;
-		final double width = maxX - x;
 		final double height = maxY - y;
 
 		final double corner = height / 2 * ENCAPSULATED_TANH;
