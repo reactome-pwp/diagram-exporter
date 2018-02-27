@@ -21,6 +21,7 @@ public class DiagramSheet extends ColorSheet {
 	private NodeColorSheet rna;
 	private NodeColorSheet stoichiometry;
 	private ThumbnailColorSheet thumbnail;
+	private NodeColorSheet encapsulatedNode;
 
 	public PropertiesColorSheet getProperties() {
 		return properties;
@@ -92,6 +93,10 @@ public class DiagramSheet extends ColorSheet {
 
 	public NodeColorSheet getStoichiometry() {
 		return stoichiometry;
+	}
+
+	public NodeColorSheet getEncapsulatedNode() {
+		return encapsulatedNode;
 	}
 
 	public ThumbnailColorSheet getThumbnail() {
