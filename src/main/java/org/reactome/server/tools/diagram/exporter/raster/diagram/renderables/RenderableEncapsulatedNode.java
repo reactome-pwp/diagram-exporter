@@ -28,7 +28,6 @@ public class RenderableEncapsulatedNode extends RenderableNode {
 
 	@Override
 	public NodeColorSheet getColorProfile(ColorProfiles colorProfiles) {
-		// todo: change to EncapsulatedNode
-		return colorProfiles.getDiagramSheet().getProcessNode();
+		return colorProfiles.getDiagramSheet().getEncapsulatedNode();
 	}
 }
