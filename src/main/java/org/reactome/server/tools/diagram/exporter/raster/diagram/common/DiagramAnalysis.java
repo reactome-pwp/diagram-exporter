@@ -113,7 +113,8 @@ public class DiagramAnalysis {
 	private void subPathways() {
 		// 1 extract list of dbIds for ProcessNodes
 		final List<String> subPathways = diagram.getNodes().stream()
-				.filter(node -> node.getRenderableClass().equals("ProcessNode"))
+				.filter(node -> node.getRenderableClass().equals("ProcessNode") || node
+				.getRenderableClass().equals("EncapsulatedNode"))
 				.map(DiagramObject::getReactomeId)
 				.map(String::valueOf)
 				.collect(Collectors.toList());
@@ -193,6 +194,7 @@ public class DiagramAnalysis {
 		// its associated graph node.
 		diagram.getNodes().stream()
 				.filter(node -> !node.getRenderableClass().equals("ProcessNode"))
+				.filter(node -> !node.getRenderableClass().equals("EncapsulatedNode"))
 				.forEach(diagramNode -> {
 					final EntityNode graphNode = graphIndex.get(diagramNode.getReactomeId());
 					if (graphNode != null) {
