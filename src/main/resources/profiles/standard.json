@@ -161,10 +161,10 @@
     "lighterText": "#000000"
   },
   "encapsulatednode": {
-    "fill": "#9EF99E",
+    "fill": "#CCFFCC",
     "fadeOutFill": "#CCDECC",
     "lighterFill": "#E2FFE2",
-    "stroke": "#777777",
+    "stroke": "#000000",
     "fadeOutStroke": "#000000",
     "lighterStroke": "#6C6C6C",
     "text": "#000000",

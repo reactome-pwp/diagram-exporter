@@ -66,6 +66,9 @@ public class SegmentUtil {
         } else if (pptxNode instanceof EncapsulatedPathway) {
             start = ((EncapsulatedPathway) pptxNode).getAnchorShape();
             anchorPoint = getAnchorPoint(start, end);
+        } else if (pptxNode instanceof EncapsulatedNode) {
+            start = ((EncapsulatedNode) pptxNode).getAnchorShape();
+            anchorPoint = getAnchorPoint(start, end);
         } else {
             anchorPoint = getAnchorPoint(start, end);
         }

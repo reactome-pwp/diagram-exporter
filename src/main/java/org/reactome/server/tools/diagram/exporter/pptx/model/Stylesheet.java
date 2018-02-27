@@ -297,6 +297,8 @@ public class Stylesheet {
                 return profile.getRna();
             case "stoichiometry":
                 return profile.getStoichiometry();
+            case "encapsulatednode":
+                return profile.getEncapsulatednode();
             default:
                 throw new IllegalArgumentException("Type " + type + " is not found in the JSON Profile.");
         }

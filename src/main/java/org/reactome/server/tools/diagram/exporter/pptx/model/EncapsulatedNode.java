@@ -10,16 +10,16 @@ import java.awt.*;
  * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
  */
 @SuppressWarnings("all")
-public class EncapsulatedPathway extends PPTXNode {
+public class EncapsulatedNode extends PPTXNode {
 
-    private static final String PROFILE_TYPE = "processnode";
-    private final int shapeType = ShapeType.Rectangle;
+    private static final String PROFILE_TYPE = "encapsulatednode";
+    private final int shapeType = ShapeType.Hexagon;
     private IAutoShape anchorShape;
     private byte shapeFillType = FillType.Solid;
     private byte lineFillType = FillType.Solid;
     private byte lineStyle = LineStyle.Single;
 
-    public EncapsulatedPathway(Node node, Adjustment adjustment, boolean flag, boolean select) {
+    public EncapsulatedNode(Node node, Adjustment adjustment, boolean flag, boolean select) {
         super(node, adjustment, flag, select);
     }
 

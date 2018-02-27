@@ -159,7 +159,7 @@ public class DiagramPresentation {
      * @return instance of PPTXNode
      */
     private PPTXNode getNode(Node node, Adjustment adjustment, boolean flag, boolean selected) {
-        PPTXNode pptxNode;
+        PPTXNode pptxNode = null;
         switch (node.getSchemaClass()) {
             case "Complex":
                 pptxNode = new Complex(node, adjustment, flag, selected);
@@ -187,12 +187,23 @@ public class DiagramPresentation {
                 pptxNode = new Chemical(node, adjustment, flag, selected);
                 break;
             case "Pathway":
-                pptxNode = new EncapsulatedPathway(node, adjustment, flag, selected);
+                if (Objects.equals(node.getRenderableClass(), "ProcessNode")) {
+                    pptxNode = new EncapsulatedPathway(node, adjustment, flag, selected);
+                }
+                if (Objects.equals(node.getRenderableClass(), "EncapsulatedNode")) {
+                    pptxNode = new EncapsulatedNode(node, adjustment, flag, selected);
+                }
                 break;
             default:
                 logger.error("Invalid schema class [{}]. Create the switch-case for the given class", node.getSchemaClass());
                 throw new IllegalArgumentException("Invalid schema class [" + node.getSchemaClass() + "]. Create the switch-case for the given class");
         }
+
+        if (pptxNode == null) {
+            logger.error("Invalid renderable class [{}]. Create the switch-case for the given class", node.getRenderableClass());
+            throw new IllegalArgumentException("Invalid renderable class [" + node.getRenderableClass() + "]. Create the switch-case for the given class");
+        }
+
         return pptxNode;
     }
 
