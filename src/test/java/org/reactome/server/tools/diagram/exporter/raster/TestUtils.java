@@ -29,8 +29,8 @@ public class TestUtils {
 	private static final File OUTPUT_FOLDER = new File("src/test/resources/org/reactome/server/tools/diagram/exporter/test-images");
 	private static final String TODAYS_SERVER = "https://reactomedev.oicr.on.ca";
 	private static final String ANALYSIS_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/analysis";
-	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/diagram";
-	private static final String EHLD_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/raster/ehld";
+	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/diagram";
+	private static final String EHLD_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/ehld";
 	private static final String SVG_SUMMARY = "src/test/resources/org/reactome/server/tools/diagram/exporter/svgsummary.txt";
 	private static final TokenUtils TOKEN_UTILS = new TokenUtils(ANALYSIS_PATH);
 

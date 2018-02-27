@@ -210,4 +210,11 @@ public class DiagramRendererTest {
 		args.setQuality(0);
 	}
 
+	@Test
+	public void testEncapsulatedPathways() {
+		final RasterArgs args = new RasterArgs("R-HSA-168164", "png");
+		final AnalysisStoredResult result = TestUtils.getResult(TestUtils.TOKEN_OVER_1);
+		TestUtils.render(args, result);
+	}
+
 }

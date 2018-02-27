@@ -101,7 +101,7 @@ public class ColorSheetTest {
 	public void testDiagramSheet() {
 		try {
 			final InputStream resource = getClass().getResourceAsStream("diagram.json");
-			final String json = IOUtils.toString(resource);
+			final String json = IOUtils.toString(resource, Charset.defaultCharset());
 			final ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
 			final DiagramSheet diagramSheet = mapper.readValue(json, DiagramSheet.class);
@@ -229,7 +229,7 @@ public class ColorSheetTest {
 	public void testInteractorsSheet() {
 		try {
 			final InputStream resource = getClass().getResourceAsStream("interactors.json");
-			final String json = IOUtils.toString(resource);
+			final String json = IOUtils.toString(resource, Charset.defaultCharset());
 			InteractorsSheet interactorsSheet = new ObjectMapper().readValue(json, InteractorsSheet.class);
 			Assert.assertEquals("Cyan", interactorsSheet.getName());
 			Assert.assertNotNull(interactorsSheet.getChemical());

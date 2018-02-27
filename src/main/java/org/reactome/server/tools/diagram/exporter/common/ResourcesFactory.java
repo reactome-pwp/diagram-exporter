@@ -8,13 +8,13 @@ import org.reactome.server.tools.diagram.data.exception.DeserializationException
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
+import org.reactome.server.tools.diagram.exporter.DiagramExporter;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldException;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldMalformedException;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldNotFoundException;
-import org.reactome.server.tools.diagram.exporter.raster.profiles.ProfileResources;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.svg.SVGDocument;
@@ -58,8 +58,9 @@ public class ResourcesFactory {
 		if (name == null) name = DEFAULT_DIAGRAM_PROFILE;
 		logger.trace("Getting Profile [{}]", name);
 		final String file = "/profiles/" + name.toLowerCase() + ".json";
-		InputStream resource = ProfileResources.class.getResourceAsStream(file);
-		if (resource == null) resource = ProfileResources.class.getResourceAsStream("/profiles/" + DEFAULT_DIAGRAM_PROFILE +".json");
+		InputStream resource = DiagramExporter.class.getResourceAsStream(file);
+		if (resource == null)
+			resource = DiagramExporter.class.getResourceAsStream("/profiles/" + DEFAULT_DIAGRAM_PROFILE + ".json");
 		try {
 			if (resource == null) {
 				logger.error("Could not read diagram color profile {}", name);
