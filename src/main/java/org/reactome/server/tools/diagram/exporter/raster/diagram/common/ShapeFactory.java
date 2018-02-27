@@ -22,6 +22,7 @@ public class ShapeFactory {
 	private static final double GENE_SYMBOL_PAD = 4;
 	private static final double ARROW_LENGTH = 8;
 	private static final double ENCAPSULATED_TANH = Math.tanh(Math.PI / 9);
+
 	/**
 	 * Creates a rectangle with edged corners (an octagon)
 	 *
@@ -292,7 +293,7 @@ public class ShapeFactory {
 		final double maxY = y + prop.getHeight() - 2 * padding;
 		final double height = maxY - y;
 
-		final double corner = height / 2 * ENCAPSULATED_TANH;
+		final double corner = height * 0.5 * ENCAPSULATED_TANH;
 		final double x1 = x + corner;
 		final double x2 = maxX - corner;
 		final double centerY = y + 0.5 * (maxY - y);
