@@ -2380,8 +2380,7 @@
       "x" : 99,
       "y" : 1225
     },
-    "connectors" : [ ],
-    "encapsulated" : true
+    "connectors" : [ ]
   }, {
     "id" : 4439,
     "reactomeId" : 5218859,
@@ -2406,8 +2405,7 @@
       "x" : 238,
       "y" : 1225
     },
-    "connectors" : [ ],
-    "encapsulated" : true
+    "connectors" : [ ]
   }, {
     "id" : 4057,
     "reactomeId" : 113595,
