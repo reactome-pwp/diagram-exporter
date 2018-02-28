@@ -58,8 +58,10 @@ public class EdgeRenderer extends ObjectRenderer {
 		final DrawLayer layer = edge.isFadeOut()
 				? canvas.getFadeOutSegments()
 				: canvas.getSegments();
-		edge.getSegments().forEach(shape -> layer.add(shape,
-				linesColor, StrokeStyle.SEGMENT.get(edge.isDashed())));
+		final Stroke stroke = edge.isSelected()
+				? StrokeStyle.SELECTION.get(edge.isDashed())
+				: StrokeStyle.SEGMENT.get(edge.isDashed());
+		edge.getSegments().forEach(shape -> layer.add(shape, linesColor, stroke));
 	}
 
 	private void shapes(RenderableEdge edge, Color linesColor, Color fillColor, DiagramCanvas canvas, ColorProfiles colorProfiles) {
