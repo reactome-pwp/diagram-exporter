@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 
-public class SVGRendererTest {
+public class SvgRendererTest {
 
 	@Test
 	public void testDiagram() {
@@ -14,7 +14,7 @@ public class SVGRendererTest {
 	}
 
 	@Test
-	public void testEHLD() {
+	public void testEhld() {
 		final RasterArgs args = new RasterArgs("R-HSA-74160", "svg");
 		args.setToken(TestUtils.TOKEN_EXPRESSION_1);
 		TestUtils.renderSvg(args, null);

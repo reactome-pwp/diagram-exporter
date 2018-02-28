@@ -13,6 +13,7 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramC
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
+import org.reactome.server.tools.diagram.exporter.raster.resources.Resources;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -55,7 +56,7 @@ public class LegendRenderer {
 
 	// FIXME: hardcoded the species name because it is not reported in AnalysisResult
 	static {
-		final InputStream resource = LegendRenderer.class.getResourceAsStream("species.txt");
+		final InputStream resource = Resources.class.getResourceAsStream("texts/species.txt");
 		try {
 			IOUtils.readLines(resource, Charset.defaultCharset())
 					.forEach(s -> {
@@ -329,8 +330,8 @@ public class LegendRenderer {
 	}
 
 	private BufferedImage getLogo() throws IOException {
-		final String filename = "reactome_logo_100pxW_50T.png";
-		final InputStream resource = getClass().getResourceAsStream(filename);
+		final String filename = "images/reactome_logo_100pxW_50T.png";
+		final InputStream resource = Resources.class.getResourceAsStream(filename);
 		return ImageIO.read(resource);
 	}
 

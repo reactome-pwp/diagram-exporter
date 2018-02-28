@@ -156,7 +156,7 @@ public class DiagramRenderer implements RasterRenderer {
 	}
 
 	@Override
-	public SVGDocument renderToSVG() {
+	public SVGDocument renderToSvg() {
 		final SVGDocument document = (SVGDocument) SVG_IMPL.createDocument(SVGConstants.SVG_NAMESPACE_URI, "svg", null);
 		final SVGGraphics2D graphics2D = new SVGGraphics2D(document);
 		graphics2D.setFont(FontProperties.DEFAULT_FONT);
