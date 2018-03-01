@@ -1,6 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram;
 
 import org.apache.batik.anim.dom.SVG12DOMImplementation;
+import org.apache.batik.svggen.SVGGeneratorContext;
 import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.batik.util.SVGConstants;
 import org.reactome.server.analysis.core.model.AnalysisType;
@@ -158,7 +159,9 @@ public class DiagramRenderer implements RasterRenderer {
 	@Override
 	public SVGDocument renderToSvg() {
 		final SVGDocument document = (SVGDocument) SVG_IMPL.createDocument(SVGConstants.SVG_NAMESPACE_URI, "svg", null);
-		final SVGGraphics2D graphics2D = new SVGGraphics2D(document);
+		final SVGGeneratorContext ctx = SVGGeneratorContext.createDefault(document);
+		ctx.setExtensionHandler(new GradientHandler());
+		final SVGGraphics2D graphics2D = new SVGGraphics2D(ctx, true);
 		graphics2D.setFont(FontProperties.DEFAULT_FONT);
 		canvas.render(graphics2D);
 		// Do not know how to extract SVG doc from SVGGraphics2D, so I take the

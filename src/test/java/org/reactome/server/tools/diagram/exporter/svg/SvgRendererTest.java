@@ -3,6 +3,9 @@ package org.reactome.server.tools.diagram.exporter.svg;
 import org.junit.Test;
 import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
+
+import java.util.Collections;
 
 public class SvgRendererTest {
 
@@ -27,6 +30,16 @@ public class SvgRendererTest {
 		TestUtils.render(new RasterArgs("R-HSA-69278", "png"), null);
 		TestUtils.renderSvg(new RasterArgs("R-HSA-69620", "svg"), null);
 		TestUtils.render(new RasterArgs("R-HSA-69620", "png"), null);
+	}
+
+	@Test
+	public void testLegend() {
+		final ColorProfiles profiles = new ColorProfiles("modern", "copper plus", "teal");
+		final RasterArgs args = new RasterArgs("R-HSA-432047", "png");
+		args.setProfiles(profiles);
+		args.setSelected(Collections.singleton("R-ALL-879874"));
+		args.setToken(TestUtils.TOKEN_OVER_1);
+		TestUtils.render(args, null);
 	}
 
 }
