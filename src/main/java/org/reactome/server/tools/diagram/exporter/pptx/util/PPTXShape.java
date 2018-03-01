@@ -229,7 +229,7 @@ public class PPTXShape {
         if (addHyperlink) {
             if (stId != null && stId >= 0) { // Avoiding wrong links to be generated
                 // Having the link is not possible to change the font color
-                portion.getPortionFormat().getHyperlinkManager().setExternalHyperlinkClick("http://www.reactome.org/content/detail/" + stId);
+                portion.getPortionFormat().getHyperlinkManager().setExternalHyperlinkClick("https://reactome.org/content/detail/" + stId);
             }
         }
 
