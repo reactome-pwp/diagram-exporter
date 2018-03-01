@@ -152,7 +152,6 @@ public class LegendRenderer {
 				text += ": " + index.getAnalysis().getAnalysisName();
 		} else if (index.getAnalysis().getType() == AnalysisType.SPECIES_COMPARISON) {
 			// title: species name
-			// REPORT: getSummary().getSpeciesName() is always null
 			text += ": " + SPECIES.get(index.getAnalysis().getResult().getSummary().getSpecies());
 		}
 		if (text.trim().isEmpty()) return;

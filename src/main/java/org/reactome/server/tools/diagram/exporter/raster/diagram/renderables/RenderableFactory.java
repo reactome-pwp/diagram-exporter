@@ -11,6 +11,8 @@ public class RenderableFactory {
 				return new RenderableProtein(node);
 			case "Chemical":
 				return new RenderableChemical(node);
+			case "ChemicalDrug":
+				return new RenderableChemicalDrug(node);
 			case "Complex":
 				return new RenderableComplex(node);
 			case "EntitySet":

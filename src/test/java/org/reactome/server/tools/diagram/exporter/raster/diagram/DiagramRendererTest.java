@@ -217,4 +217,9 @@ public class DiagramRendererTest {
 		TestUtils.render(args, result);
 	}
 
+	@Test
+	public void testChemicalDrug() {
+		final RasterArgs args = new RasterArgs("R-HSA-2894858", "png");
+		TestUtils.render(args, null);
+	}
 }
