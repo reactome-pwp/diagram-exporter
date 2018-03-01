@@ -220,6 +220,8 @@ public class DiagramRendererTest {
 	@Test
 	public void testChemicalDrug() {
 		final RasterArgs args = new RasterArgs("R-HSA-2894858", "png");
+		args.setQuality(10);
+		args.setSelected(Collections.singleton("113582"));
 		TestUtils.render(args, null);
 	}
 }

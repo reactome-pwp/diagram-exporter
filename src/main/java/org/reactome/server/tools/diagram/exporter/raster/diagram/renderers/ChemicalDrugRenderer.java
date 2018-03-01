@@ -22,6 +22,8 @@ import java.awt.*;
  */
 public class ChemicalDrugRenderer extends ChemicalRenderer {
 
+	private static final Color DRUG_COLOR = new Color(160, 0, 0);
+
 	@Override
 	public void draw(RenderableNode renderableNode, DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
 		super.draw(renderableNode, canvas, colorProfiles, index, t);
@@ -31,7 +33,7 @@ public class ChemicalDrugRenderer extends ChemicalRenderer {
 	private void chemicalBox(RenderableNode renderableNode, DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
 		final Color fill = getFillColor(renderableNode, colorProfiles, index, t);
 		final Color border = getAttachmentStrokeColor(renderableNode, colorProfiles, index);
-		final Color text = Color.RED;
+		final Color text = DRUG_COLOR;
 		final Stroke stroke = StrokeStyle.SEGMENT.get(renderableNode.isDashed());
 		final FillDrawLayer fillDrawLayer = renderableNode.isFadeOut()
 				? canvas.getFadeOutAttachments()
@@ -40,9 +42,9 @@ public class ChemicalDrugRenderer extends ChemicalRenderer {
 				? canvas.getFadeOutText()
 				: canvas.getText();
 		final NodeProperties prop = renderableNode.getNode().getProp();
-		final double x = prop.getX() + prop.getWidth() - 10;
-		final double y = prop.getY() + prop.getHeight() - 10;
-		final NodeProperties attachment = NodePropertiesFactory.get(x, y, 10, 10);
+		final double x = prop.getX() + prop.getWidth() - 14;
+		final double y = prop.getY() + prop.getHeight() - 7;
+		final NodeProperties attachment = NodePropertiesFactory.get(x, y, 14, 7);
 		final Shape shape = ShapeFactory.rectangle(attachment);
 		fillDrawLayer.add(shape, fill, border, stroke);
 		textLayer.add("Rx", text, attachment, 1, 0, FontProperties.DEFAULT_FONT);
@@ -93,7 +95,6 @@ public class ChemicalDrugRenderer extends ChemicalRenderer {
 			return renderableNode.getColorProfile(colorProfiles).getLighterStroke();
 		return renderableNode.getColorProfile(colorProfiles).getStroke();
 	}
-
 
 
 }
