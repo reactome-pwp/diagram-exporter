@@ -50,7 +50,6 @@ public class EhldRenderer implements RasterRenderer {
 	}
 
 	private void layout() {
-		disableMasks();
 		SvgDecoratorRenderer.selectAndFlag(document, args);
 		svgAnalysis = new SvgAnalysis(document, args, result);
 		svgAnalysis.analysis();
@@ -97,6 +96,7 @@ public class EhldRenderer implements RasterRenderer {
 
 	@Override
 	public BufferedImage render() {
+		disableMasks();
 		return rasterize();
 	}
 
@@ -180,6 +180,7 @@ public class EhldRenderer implements RasterRenderer {
 		if (svgAnalysis.getAnalysisType() != AnalysisType.EXPRESSION)
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
 
+		disableMasks();
 		final AnimatedGifEncoder encoder = new AnimatedGifEncoder();
 		encoder.setDelay(1000);
 		encoder.setRepeat(0);
@@ -193,7 +194,7 @@ public class EhldRenderer implements RasterRenderer {
 	}
 
 	@Override
-	public SVGDocument renderToSVG() {
+	public SVGDocument renderToSvg() {
 		return document;
 	}
 

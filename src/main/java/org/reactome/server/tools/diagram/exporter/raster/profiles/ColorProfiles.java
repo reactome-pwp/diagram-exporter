@@ -4,6 +4,7 @@ package org.reactome.server.tools.diagram.exporter.raster.profiles;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
+import org.reactome.server.tools.diagram.exporter.raster.resources.Resources;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,7 +58,7 @@ public class ColorProfiles {
 	}
 
 	private static <T> T getSheet(Class<T> clazz, String filename) {
-		InputStream resource = ColorProfiles.class.getResourceAsStream(filename);
+		InputStream resource = Resources.class.getResourceAsStream("profiles/" + filename);
 		try {
 			final String json = IOUtils.toString(resource, Charset.defaultCharset());
 			final ObjectMapper mapper = new ObjectMapper();

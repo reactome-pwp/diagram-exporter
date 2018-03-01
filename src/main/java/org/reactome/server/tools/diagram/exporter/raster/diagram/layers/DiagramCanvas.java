@@ -41,6 +41,7 @@ public class DiagramCanvas {
 	private FillLayer legendTickArrows = new FillLayer();
 	private TextLayer legendBottomText = new TextLayer();
 	private ImageLayer logoLayer = new ImageLayer();
+	private DrawLayer attachmentSelection = new DrawLayer();
 
 	private final List<Layer> layers = Arrays.asList(
 			compartmentFill,
@@ -58,6 +59,7 @@ public class DiagramCanvas {
 			cross,
 			flags,
 			halo,
+			attachmentSelection,
 
 			segments,
 			edgeShapes,
@@ -205,6 +207,10 @@ public class DiagramCanvas {
 
 	public ImageLayer getLogoLayer() {
 		return logoLayer;
+	}
+
+	public DrawLayer getAttachmentSelection() {
+		return attachmentSelection;
 	}
 
 	/**

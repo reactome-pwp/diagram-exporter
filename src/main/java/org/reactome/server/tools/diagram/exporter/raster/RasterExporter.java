@@ -12,12 +12,9 @@ import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.EhldRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.svg.SVGDocument;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.FileReader;
 import java.io.IOException;
@@ -31,7 +28,6 @@ import java.util.TreeSet;
  */
 @Component
 public class RasterExporter {
-	private static final Logger logger = LoggerFactory.getLogger("infoLogger");
 
 	private final String diagramPath;
 	private final String ehldPath;
@@ -57,18 +53,6 @@ public class RasterExporter {
 			ehld = new HashSet<>();
 		}
 		this.ehld = ehld;
-		loadFonts();
-	}
-
-	private void loadFonts() {
-		final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		try {
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("fonts/arial.ttf")));
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("fonts/arialbd.ttf")));
-		} catch (FontFormatException | IOException e) {
-			// resources shouldn't throw exceptions
-			logger.error("Couldn't load font", e);
-		}
 	}
 
 	/**
@@ -129,7 +113,7 @@ public class RasterExporter {
 	 */
 	public SVGDocument exportToSvg(RasterArgs args, AnalysisStoredResult result) throws AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
 		final RasterRenderer renderer = getRenderer(args, result);
-		return renderer.renderToSVG();
+		return renderer.renderToSvg();
 	}
 
 	/**

@@ -38,5 +38,5 @@ public interface RasterRenderer {
 	/**
 	 * Renders the diagram into a SVGDocument.
 	 */
-	SVGDocument renderToSVG();
+	SVGDocument renderToSvg();
 }
