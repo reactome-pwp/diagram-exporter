@@ -1,17 +1,22 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
+import org.apache.batik.transcoder.TranscoderException;
+import org.apache.commons.io.output.NullOutputStream;
 import org.junit.Assert;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.analysis.core.result.utils.TokenUtils;
+import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisException;
 import org.reactome.server.tools.diagram.exporter.common.content.ContentServiceClient;
+import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
+import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramRendererTest;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.EhldRendererTest;
-import org.w3c.dom.svg.SVGDocument;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldException;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 
 /**
@@ -98,44 +103,14 @@ public class TestUtils {
 
 	public static void render(RasterArgs args, AnalysisStoredResult result) {
 		try {
-			final BufferedImage image = result == null
-					? EXPORTER.export(args)
-					: EXPORTER.export(args, result);
-			if (save) {
-				final String filename = getFileName(args, result);
-				RasterOutput.save(image, args.getFormat(), new File(OUTPUT_FOLDER, filename));
-			}
-		} catch (Exception e) {
+			final OutputStream os = save
+					? new FileOutputStream(new File(OUTPUT_FOLDER, getFileName(args, result)))
+					: new NullOutputStream();
+			EXPORTER.export(args, os, result);
+		} catch (EhldException | AnalysisException | DiagramJsonDeserializationException | DiagramJsonNotFoundException | TranscoderException | IOException e) {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}
 	}
 
-	public static void renderGif(RasterArgs args, AnalysisStoredResult result) {
-		try {
-			final File file = new File(OUTPUT_FOLDER, getFileName(args, result));
-			final OutputStream os = new FileOutputStream(file);
-			if (result == null) EXPORTER.exportToGif(args, os);
-			else EXPORTER.exportToGif(args, os, result);
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail(e.getMessage());
-		}
-	}
-
-	public static void renderSvg(RasterArgs args, AnalysisStoredResult result) {
-		try {
-			final SVGDocument document = result == null
-					? EXPORTER.exportToSvg(args)
-					: EXPORTER.exportToSvg(args, result);
-			if (save) {
-				final File file = new File(OUTPUT_FOLDER, TestUtils.getFileName(args, result));
-				RasterOutput.save(document, file);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			Assert.fail(e.getMessage());
-		}
-
-	}
 }
