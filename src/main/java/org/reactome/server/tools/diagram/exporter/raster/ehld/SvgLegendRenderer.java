@@ -82,14 +82,14 @@ class SvgLegendRenderer {
 		topText.setAttribute(SVG_X_ATTRIBUTE, String.valueOf(centerX));
 		topText.setAttribute(SVG_Y_ATTRIBUTE, String.valueOf((height - LEGEND_HEIGHT) * 0.5 - TEXT_PADDING));
 		topText.setAttribute(SVG_TEXT_ANCHOR_ATTRIBUTE, SVG_MIDDLE_VALUE);
-		topText.setAttribute(SVG_STYLE_ATTRIBUTE, "font-size: " + FONT_SIZE);
+		topText.setAttribute(SVG_STYLE_ATTRIBUTE, String.format("font-size: %dpx;font-family: arial; font-weight:bold;", FONT_SIZE));
 		topText.setTextContent(formatter.format(top));
 
 		final Element bottomText = document.createElementNS(SVG_NAMESPACE_URI, SVG_TEXT_TAG);
 		bottomText.setAttribute(SVG_X_ATTRIBUTE, String.valueOf(centerX));
 		bottomText.setAttribute(SVG_Y_ATTRIBUTE, String.valueOf((height + LEGEND_HEIGHT) * 0.5 + TEXT_PADDING + FONT_SIZE));
 		bottomText.setAttribute(SVG_TEXT_ANCHOR_ATTRIBUTE, SVG_MIDDLE_VALUE);
-		bottomText.setAttribute(SVG_STYLE_ATTRIBUTE, "font-size: " + FONT_SIZE);
+		bottomText.setAttribute(SVG_STYLE_ATTRIBUTE, String.format("font-size: %dpx;font-family: arial; font-weight:bold;", FONT_SIZE));
 		bottomText.setTextContent(formatter.format(bottom));
 
 		legend.appendChild(background);
