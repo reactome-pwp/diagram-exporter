@@ -1,6 +1,8 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
+import org.apache.batik.transcoder.TranscoderException;
 import org.apache.commons.io.IOUtils;
+import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.analysis.core.result.exception.ResourceGoneException;
 import org.reactome.server.analysis.core.result.exception.ResourceNotFoundException;
@@ -61,8 +63,8 @@ public class RasterExporter {
 	 *
 	 * @param args image arguments
 	 */
-	public BufferedImage export(RasterArgs args) throws AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
-		return export(args, null);
+	public BufferedImage exportToImage(RasterArgs args) throws AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
+		return exportToImage(args, null);
 	}
 
 	/**
@@ -71,7 +73,7 @@ public class RasterExporter {
 	 *
 	 * @param args image arguments
 	 */
-	public BufferedImage export(RasterArgs args, AnalysisStoredResult result) throws AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
+	public BufferedImage exportToImage(RasterArgs args, AnalysisStoredResult result) throws AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
 		final RasterRenderer renderer = getRenderer(args, result);
 //		final Dimension dimension = renderer.getDimension();
 //		double size = dimension.getHeight() * dimension.getWidth();
@@ -114,6 +116,27 @@ public class RasterExporter {
 	public SVGDocument exportToSvg(RasterArgs args, AnalysisStoredResult result) throws AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
 		final RasterRenderer renderer = getRenderer(args, result);
 		return renderer.renderToSvg();
+	}
+
+	public void export(RasterArgs args, OutputStream os) throws EhldException, AnalysisException, DiagramJsonNotFoundException, DiagramJsonDeserializationException, IOException, TranscoderException {
+		export(args, os, null);
+	}
+
+	public void export(RasterArgs args, OutputStream os, AnalysisStoredResult result) throws EhldException, AnalysisException, DiagramJsonNotFoundException, DiagramJsonDeserializationException, IOException, TranscoderException {
+		result = getResult(args.getToken(), result);
+		final AnalysisType type = result == null
+				? null
+				: AnalysisType.valueOf(result.getSummary().getType());
+		final RasterRenderer renderer = ehld.contains(args.getStId())
+				? new EhldRenderer(args, ehldPath, result)
+				: new DiagramRenderer(args, diagramPath, result);
+		if (args.getFormat().equalsIgnoreCase("svg"))
+			RasterOutput.save(renderer.renderToSvg(), os);
+		else if (args.getFormat().equalsIgnoreCase("gif")
+				&& args.getColumn() == null
+				&& type == AnalysisType.EXPRESSION)
+			renderer.renderToAnimatedGif(os);
+		else RasterOutput.save(renderer.render(), args.getFormat(), os);
 	}
 
 	/**

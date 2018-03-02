@@ -66,7 +66,7 @@ public class EhldRendererTest {
 	public void testExpression() {
 		final RasterArgs args = new RasterArgs("R-HSA-6806667", "gif");
 		args.setToken(TestUtils.TOKEN_EXPRESSION_1);
-		TestUtils.renderGif(args, null);
+		TestUtils.render(args, null);
 	}
 
 	@Test
@@ -75,7 +75,7 @@ public class EhldRendererTest {
 		args.setToken(TestUtils.TOKEN_EXPRESSION_1);
 		args.setSelected(Arrays.asList("R-HSA-69242", "R-HSA-68886"));
 		args.setProfiles(new ColorProfiles("modern", "copper plus", "cyan"));
-		TestUtils.renderGif(args, null);
+		TestUtils.render(args, null);
 	}
 
 	@Test

@@ -158,7 +158,7 @@ public class DiagramRendererTest {
 		args.setSelected(Collections.singletonList("R-HSA-114255"));
 		args.setToken(TestUtils.TOKEN_EXPRESSION_2);
 		args.setProfiles(profiles);
-		TestUtils.renderGif(args, null);
+		TestUtils.render(args, null);
 	}
 
 	@Test
@@ -168,7 +168,7 @@ public class DiagramRendererTest {
 		args.setProfiles(profiles);
 		args.setSelected(Collections.singleton("R-ALL-879874"));
 		args.setToken(TestUtils.TOKEN_EXPRESSION_2);
-		TestUtils.renderGif(args, null);
+		TestUtils.render(args, null);
 	}
 
 	@Test
