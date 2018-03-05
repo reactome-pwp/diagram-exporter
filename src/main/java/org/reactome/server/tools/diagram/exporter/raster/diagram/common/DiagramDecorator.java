@@ -58,7 +58,8 @@ public class DiagramDecorator {
 		if (args.getSelected() == null)
 			return Collections.emptySet();
 		return args.getSelected().stream()
-				.map(this::getDiagramObjectId)
+				.map(this::getDiagramObjectIds)
+				.flatMap(Collection::stream)
 				.filter(Objects::nonNull)
 				.collect(Collectors.toSet());
 	}
@@ -67,7 +68,8 @@ public class DiagramDecorator {
 		if (args.getFlags() == null)
 			return Collections.emptySet();
 		return args.getFlags().stream()
-				.map(this::getDiagramObjectId)
+				.map(this::getDiagramObjectIds)
+				.flatMap(Collection::stream)
 				.filter(Objects::nonNull)
 				.map(this::getHitElements)
 				.flatMap(Collection::stream)
@@ -85,13 +87,14 @@ public class DiagramDecorator {
 		return ids;
 	}
 
-	private Long getDiagramObjectId(String string) {
+	private Set<Long> getDiagramObjectIds(String string) {
+		final Set<Long> ids = new TreeSet<>();
 		// dbId, this is faster because dbId is indexed
 		try {
 			final long dbId = Long.parseLong(string);
 			if (graphIndex.containsKey(dbId)
 					|| reactionIds.contains(dbId))
-				return dbId;
+				ids.add(dbId);
 		} catch (NumberFormatException ignored) {
 			// ignored, not a dbId
 		}
@@ -101,21 +104,18 @@ public class DiagramDecorator {
 		// Nodes
 		for (EntityNode node : graph.getNodes()) {
 			// stId
-			if (string.equalsIgnoreCase(node.getStId()))
-				return node.getDbId();
-			// identifier
-			if (string.equalsIgnoreCase(node.getIdentifier()))
-				return node.getDbId();
-			// geneNames
-			if (node.getGeneNames() != null && node.getGeneNames().contains(string))
-				return node.getDbId();
+			if (string.equalsIgnoreCase(node.getStId())
+					|| string.equalsIgnoreCase(node.getDisplayName())
+					|| string.equalsIgnoreCase(node.getIdentifier())
+					|| node.getGeneNames() != null && node.getGeneNames().contains(string))
+				ids.add(node.getDbId());
 		}
 		// Reactions
 		for (EventNode eventNode : graph.getEdges())
 			if (eventNode.getStId().equalsIgnoreCase(string))
-				return eventNode.getDbId();
+				ids.add(eventNode.getDbId());
 		// Bad luck, not found
-		return null;
+		return ids;
 	}
 
 	private void decorateNodes(Collection<Long> selected, Collection<Long> flags) {
