@@ -3,6 +3,7 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram.common;
 import org.reactome.server.tools.diagram.data.graph.EntityNode;
 import org.reactome.server.tools.diagram.data.graph.EventNode;
 import org.reactome.server.tools.diagram.data.graph.Graph;
+import org.reactome.server.tools.diagram.data.graph.SubpathwayNode;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.Edge;
@@ -27,6 +28,7 @@ public class DiagramDecorator {
 	private final Diagram diagram;
 	private Map<Long, EntityNode> graphIndex;
 	private Map<Long, DiagramObject> diagramIndex;
+	private Map<Long, SubpathwayNode> subPathwayIndex;
 	private Set<Long> reactionIds;
 	private Set<Long> selected = new TreeSet<>();
 
@@ -39,14 +41,24 @@ public class DiagramDecorator {
 	}
 
 	private void decorate() {
-		graphIndex = new HashMap<>();
-		graph.getNodes().forEach(item -> graphIndex.put(item.getDbId(), item));
-		diagramIndex = new HashMap<>();
-		Stream.of(diagram.getEdges(), diagram.getNodes())
+		diagramIndex = Stream.of(diagram.getEdges(), diagram.getNodes())
 				.flatMap(Collection::stream)
-				.forEach(item -> diagramIndex.put(item.getId(), item));
-		reactionIds = new HashSet<>();
-		graph.getEdges().forEach(event -> reactionIds.add(event.getDbId()));
+				.collect(Collectors.toMap(DiagramObject::getId, item -> item));
+
+		graphIndex = graph.getNodes() == null
+				? Collections.emptyMap()
+				: graph.getNodes().stream()
+				.collect(Collectors.toMap(EntityNode::getDbId, node -> node));
+
+		reactionIds = graph.getEdges() == null
+				? Collections.emptySet()
+				: graph.getEdges().stream().map(EventNode::getDbId)
+				.collect(Collectors.toSet());
+
+		subPathwayIndex = graph.getSubpathways() == null
+				? Collections.emptyMap()
+				: graph.getSubpathways().stream()
+				.collect(Collectors.toMap(SubpathwayNode::getDbId, o -> o));
 
 		final Set<Long> sel = getSelectedIds();
 		final Set<Long> flg = getFlagged();
@@ -58,9 +70,8 @@ public class DiagramDecorator {
 		if (args.getSelected() == null)
 			return Collections.emptySet();
 		return args.getSelected().stream()
-				.map(this::getDiagramObjectIds)
+				.map(this::getDiagramObjectId)
 				.flatMap(Collection::stream)
-				.filter(Objects::nonNull)
 				.collect(Collectors.toSet());
 	}
 
@@ -68,9 +79,8 @@ public class DiagramDecorator {
 		if (args.getFlags() == null)
 			return Collections.emptySet();
 		return args.getFlags().stream()
-				.map(this::getDiagramObjectIds)
+				.map(this::getDiagramObjectId)
 				.flatMap(Collection::stream)
-				.filter(Objects::nonNull)
 				.map(this::getHitElements)
 				.flatMap(Collection::stream)
 				.collect(Collectors.toSet());
@@ -87,14 +97,13 @@ public class DiagramDecorator {
 		return ids;
 	}
 
-	private Set<Long> getDiagramObjectIds(String string) {
-		final Set<Long> ids = new TreeSet<>();
+	private List<Long> getDiagramObjectId(String string) {
 		// dbId, this is faster because dbId is indexed
 		try {
 			final long dbId = Long.parseLong(string);
 			if (graphIndex.containsKey(dbId)
 					|| reactionIds.contains(dbId))
-				ids.add(dbId);
+				return Collections.singletonList(dbId);
 		} catch (NumberFormatException ignored) {
 			// ignored, not a dbId
 		}
@@ -105,17 +114,21 @@ public class DiagramDecorator {
 		for (EntityNode node : graph.getNodes()) {
 			// stId
 			if (string.equalsIgnoreCase(node.getStId())
-					|| string.equalsIgnoreCase(node.getDisplayName())
 					|| string.equalsIgnoreCase(node.getIdentifier())
-					|| node.getGeneNames() != null && node.getGeneNames().contains(string))
-				ids.add(node.getDbId());
+					|| (node.getGeneNames() != null && node.getGeneNames().contains(string)))
+				return Collections.singletonList(node.getDbId());
 		}
 		// Reactions
 		for (EventNode eventNode : graph.getEdges())
 			if (eventNode.getStId().equalsIgnoreCase(string))
-				ids.add(eventNode.getDbId());
+				return Collections.singletonList(eventNode.getDbId());
+		// Subpathways
+		for (SubpathwayNode subpathwayNode : subPathwayIndex.values()) {
+			if (subpathwayNode.getStId().equals(string))
+				return subpathwayNode.getEvents();
+		}
 		// Bad luck, not found
-		return ids;
+		return Collections.emptyList();
 	}
 
 	private void decorateNodes(Collection<Long> selected, Collection<Long> flags) {
