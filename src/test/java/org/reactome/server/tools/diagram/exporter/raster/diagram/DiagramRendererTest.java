@@ -220,16 +220,14 @@ public class DiagramRendererTest {
 	@Test
 	public void testChemicalDrug() {
 		final RasterArgs args = new RasterArgs("R-HSA-2894858", "png");
-//		args.setQuality(10);
 		args.setSelected(Collections.singleton("113582"));
 		TestUtils.render(args, null);
 	}
 
 	@Test
-	public void testMoreFlag() {
-		final RasterArgs args = new RasterArgs("1368108", "png");
-//		args.setQuality(10);
-		args.setFlags(Collections.singleton("KLF15"));
+	public void testEventSelection() {
+		final RasterArgs args = new RasterArgs("R-HSA-2682334", "png");
+		args.setSelected(Collections.singleton("R-HSA-3928663"));
 		TestUtils.render(args, null);
 	}
 }
