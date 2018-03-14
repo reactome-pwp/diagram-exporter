@@ -230,4 +230,14 @@ public class DiagramRendererTest {
 		args.setSelected(Collections.singleton("R-HSA-3928663"));
 		TestUtils.render(args, null);
 	}
+
+	@Test
+	public void testServerError() {
+		IntStream.range(0, 10)
+				.parallel()
+				.forEach(value -> {
+					final RasterArgs args = new RasterArgs("109581", "jpg");
+					TestUtils.render(args, null);
+				});
+	}
 }
