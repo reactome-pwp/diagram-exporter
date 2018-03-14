@@ -5,6 +5,7 @@ public class DiagramSheet extends ColorSheet {
 	private PropertiesColorSheet properties;
 	private NodeColorSheet attachment;
 	private NodeColorSheet chemical;
+	private NodeColorSheet chemicalDrug;
 	private NodeColorSheet compartment;
 	private NodeColorSheet complex;
 	private NodeColorSheet entity;
@@ -33,6 +34,10 @@ public class DiagramSheet extends ColorSheet {
 
 	public NodeColorSheet getChemical() {
 		return chemical;
+	}
+
+	public NodeColorSheet getChemicalDrug() {
+		return chemicalDrug;
 	}
 
 	public NodeColorSheet getCompartment() {

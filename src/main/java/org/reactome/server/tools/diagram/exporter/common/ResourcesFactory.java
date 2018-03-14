@@ -133,7 +133,7 @@ public class ResourcesFactory {
 		}
 	}
 
-	public static SVGDocument getEhld(String ehldPath, String stId) throws EhldException {
+	public synchronized static SVGDocument getEhld(String ehldPath, String stId) throws EhldException {
 		final File file = new File(ehldPath, stId + ".svg");
 		if (!file.exists())
 			throw new EhldNotFoundException("EHLD not found for " + stId);
