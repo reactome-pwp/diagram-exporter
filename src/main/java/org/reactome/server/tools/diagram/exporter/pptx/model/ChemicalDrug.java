@@ -46,12 +46,12 @@ public class ChemicalDrug extends PPTXNode {
                 (iAutoShape.getX()+iAutoShape.getWidth())-10,
                 (iAutoShape.getY()+iAutoShape.getHeight())-10,
                 14,
-                7
+                10
         );
         setShapeStyle(rx, stylesheet);
 
-        rx.setName("RX");
-        setTextFrame(rx, "RX", new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 8, true, false, reactomeId, adjustment);
+        rx.setName("Rx");
+        setTextFrame(rx, "Rx", new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 8, true, false, reactomeId, adjustment);
 
         if (selected) {
             setSelectedStyle(rx, stylesheet);
