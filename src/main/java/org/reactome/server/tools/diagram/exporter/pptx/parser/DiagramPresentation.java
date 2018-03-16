@@ -186,6 +186,9 @@ public class DiagramPresentation {
             case "SimpleEntity":
                 pptxNode = new Chemical(node, adjustment, flag, selected);
                 break;
+            case "ChemicalDrug":
+                pptxNode = new ChemicalDrug(node, adjustment, flag, selected);
+                break;
             case "Pathway":
                 if (Objects.equals(node.getRenderableClass(), "ProcessNode")) {
                     pptxNode = new EncapsulatedPathway(node, adjustment, flag, selected);
