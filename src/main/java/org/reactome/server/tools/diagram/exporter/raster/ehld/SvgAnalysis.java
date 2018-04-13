@@ -52,9 +52,11 @@ public class SvgAnalysis {
 	private static final DecimalFormat NUMBER_FORMAT = new DecimalFormat("#.##E0", DecimalFormatSymbols.getInstance(Locale.UK));
 	private static final Color DEFAULT_OVERLAY_COLOR = new Color(194, 194, 194);
 	private static final double OVERLAY_OPACITY = 0.9;
-	private final static GVTBuilder builder = new GVTBuilder();
-	private final static BridgeContext context = new BridgeContext(new UserAgentAdapter());
 	private static final String BOTTOM_TEXT = "bottom-text";
+	private final GVTBuilder builder = new GVTBuilder();
+	private final BridgeContext context = new BridgeContext(new UserAgentAdapter());
+	private final SVGDocument document;
+	private final RasterArgs args;
 	/*
 	 * If you are asking why there is a cloned Document here, the short answer
 	 * is: text centering. The long answer is that we are using a builder to
@@ -62,9 +64,7 @@ public class SvgAnalysis {
 	 * document. So we have created a copy of the document just to calculate the
 	 * centers of the ANALINFO boxes.
 	 */
-	private static Document cloned;
-	private final SVGDocument document;
-	private final RasterArgs args;
+	private Document cloned;
 	private AnalysisStoredResult result;
 	private Map<String, EntityStatistics> entityStats;
 	private AnalysisType analysisType;

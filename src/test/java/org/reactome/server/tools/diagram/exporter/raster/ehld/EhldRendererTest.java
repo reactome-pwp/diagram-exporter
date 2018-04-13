@@ -1,6 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.ehld;
 
 import org.junit.Test;
+import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
@@ -84,6 +85,18 @@ public class EhldRendererTest {
 		// FIXME: text in server not properly shown
 		// FIXME: masks!!
 		TestUtils.render(args, null);
+	}
+
+
+	@Test
+	public void testParallel() {
+		// Batik is not thread safe. In this case, we convert a SVG diagram
+		// with analysis to JPG, invoking batik for that.
+		final AnalysisStoredResult result = TestUtils.getResult(TestUtils.TOKEN_OVER_1);
+		final RasterArgs args = new RasterArgs("109581", "jpg");
+		IntStream.range(0, 10)
+				.parallel()
+				.forEach(value -> TestUtils.render(args, result));
 	}
 
 
