@@ -232,12 +232,13 @@ public class DiagramRendererTest {
 	}
 
 	@Test
-	public void testServerError() {
-		IntStream.range(0, 10)
-				.parallel()
-				.forEach(value -> {
-					final RasterArgs args = new RasterArgs("109581", "jpg");
-					TestUtils.render(args, null);
-				});
+	public void testParallelism() {
+		// Batik is not thread safe. In this case, we convert a regular diagram
+		// with analysis to SVG, invoking batik for that.
+		final AnalysisStoredResult result = TestUtils.getResult(TestUtils.TOKEN_OVER_1);
+		final RasterArgs args = new RasterArgs("R-HSA-376176", "svg");
+		IntStream.range(0, 20).parallel()
+				.forEach(value -> TestUtils.render(args, result));
 	}
+
 }
