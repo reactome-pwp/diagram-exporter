@@ -1,0 +1,15 @@
+{
+  "dbId": 1,
+  "stableId": "diagram",
+  "nodes" :[
+    {
+      "dbId" : 2,
+      "stId" : "chemical",
+      "displayName" : "I'm a chemical (graph)",
+      "schemaClass" : "SimpleEntity",
+      "speciesID" : 48887,
+      "diagramIds" : [ 1 ]
+    }
+  ]
+
+}

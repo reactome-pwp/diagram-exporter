@@ -1,0 +1,15 @@
+{
+  "dbId": 1,
+  "stableId": "diagram",
+  "nodes" :[
+    {
+      "dbId" : 2,
+      "stId" : "set",
+      "displayName" : "I'm a set (graph)",
+      "schemaClass" : "DefinedSet",
+      "speciesID" : 48887,
+      "diagramIds" : [ 1 ]
+    }
+  ]
+
+}

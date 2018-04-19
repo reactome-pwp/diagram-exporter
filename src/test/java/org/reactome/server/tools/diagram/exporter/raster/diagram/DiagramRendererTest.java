@@ -25,14 +25,18 @@ public class DiagramRendererTest {
 				TestUtils.render(new RasterArgs(stId, format), null);
 	}
 
-	@Test
-	public void testQuality() {
-		IntStream.range(1, 11)
-				.forEach(quality -> {
-					final RasterArgs args = new RasterArgs("R-HSA-376176", "jpg");
-					args.setQuality(quality);
-					TestUtils.render(args, null);
-				});
+	@Test(expected = IllegalArgumentException.class)
+	public void testTooLowQuality() {
+		final RasterArgs args = new RasterArgs("R-HSA-376176", "jpg");
+		args.setQuality(0);
+		TestUtils.render(args, null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testTooHighQuality() {
+		final RasterArgs args = new RasterArgs("R-HSA-376176", "jpg");
+		args.setQuality(11);
+		TestUtils.render(args, null);
 	}
 
 	@Test
@@ -202,12 +206,6 @@ public class DiagramRendererTest {
 		final AnalysisStoredResult result = TestUtils.getResult(TestUtils.TOKEN_OVER_1);
 		final RasterArgs args = new RasterArgs("R-HSA-1643713", "png");
 		TestUtils.render(args, result);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testScaleLimits() {
-		final RasterArgs args = new RasterArgs("stid", "png");
-		args.setQuality(0);
 	}
 
 	@Test

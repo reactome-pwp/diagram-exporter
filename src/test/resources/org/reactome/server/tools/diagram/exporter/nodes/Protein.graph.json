@@ -1,0 +1,15 @@
+{
+  "dbId": 1,
+  "stableId": "diagram",
+  "nodes" :[
+    {
+      "dbId" : 2,
+      "stId" : "protein",
+      "displayName" : "I'm a protein (graph)",
+      "schemaClass" : "EntityWithAccessionedSequence",
+      "speciesID" : 48887,
+      "diagramIds" : [ 2 ]
+    }
+  ]
+
+}
