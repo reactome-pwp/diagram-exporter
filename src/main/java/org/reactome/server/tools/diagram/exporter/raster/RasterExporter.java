@@ -118,6 +118,13 @@ public class RasterExporter {
 		return renderer.renderToSvg();
 	}
 
+	/**
+	 * Exports the diagram defined by args in the most appropriate way,
+	 * depending on the args, and using os to export the result. This is a shortcut for export(args
+	 *
+	 * @param args what you want
+	 * @param os   where you want it
+	 */
 	public void export(RasterArgs args, OutputStream os) throws EhldException, AnalysisException, DiagramJsonNotFoundException, DiagramJsonDeserializationException, IOException, TranscoderException {
 		export(args, os, null);
 	}

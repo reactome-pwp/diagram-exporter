@@ -1,5 +1,8 @@
 package org.reactome.server.tools.diagram.exporter.common.analysis;
 
+/**
+ * If analysis is not available.
+ */
 public class AnalysisException extends Exception {
 
 	public AnalysisException() {
