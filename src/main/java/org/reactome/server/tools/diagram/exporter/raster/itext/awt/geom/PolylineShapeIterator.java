@@ -43,7 +43,6 @@
  */
 package org.reactome.server.tools.diagram.exporter.raster.itext.awt.geom;
 
-import com.itextpdf.text.error_messages.MessageLocalization;
 
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
@@ -56,9 +55,9 @@ import java.util.NoSuchElementException;
  */
 public class PolylineShapeIterator implements PathIterator {
 	/** The polyline over which we are going to iterate. */
-	protected PolylineShape poly;
+	private PolylineShape poly;
 	/** an affine transformation to be performed on the polyline. */
-	protected AffineTransform affine;
+	private AffineTransform affine;
 	/** the index of the current segment in the iterator. */
 	protected int index;
 	
@@ -88,7 +87,8 @@ public class PolylineShapeIterator implements PathIterator {
 	 */
 	public int currentSegment(double[] coords) {
 		if (isDone()) {
-			throw new NoSuchElementException(MessageLocalization.getComposedMessage("line.iterator.out.of.bounds"));
+//			throw new NoSuchElementException(MessageLocalization.getComposedMessage("line.iterator.out.of.bounds"));
+			throw new NoSuchElementException("");
 		}
 		int type = (index==0)?SEG_MOVETO:SEG_LINETO;
 		coords[0] = poly.x[index];
@@ -119,7 +119,8 @@ public class PolylineShapeIterator implements PathIterator {
 	 */
 	public int currentSegment(float[] coords) {
 		if (isDone()) {
-			throw new NoSuchElementException(MessageLocalization.getComposedMessage("line.iterator.out.of.bounds"));
+//			throw new NoSuchElementException(MessageLocalization.getComposedMessage("line.iterator.out.of.bounds"));
+			throw new NoSuchElementException("");
 		}
 		int type = (index==0)?SEG_MOVETO:SEG_LINETO;
 		coords[0] = poly.x[index];

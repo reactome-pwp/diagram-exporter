@@ -1,5 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
+import com.itextpdf.layout.Document;
 import org.w3c.dom.svg.SVGDocument;
 
 import java.awt.*;
@@ -39,4 +40,11 @@ public interface RasterRenderer {
 	 * Renders the diagram into a SVGDocument.
 	 */
 	SVGDocument renderToSvg();
+
+	/**
+	 * Renders the diagram as a PDF document using iText7. Implementations of
+	 * this interface should ensure that the document is in reading mode.
+	 */
+	Document renderToPdf() throws IOException;
+
 }

@@ -2,10 +2,17 @@ package org.reactome.server.tools.diagram.exporter.raster.ehld;
 
 import org.junit.Test;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
+import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisException;
+import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
+import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
+import org.reactome.server.tools.diagram.exporter.raster.RasterOutput;
 import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldException;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.IntStream;
@@ -97,6 +104,17 @@ public class EhldRendererTest {
 		IntStream.range(0, 10)
 				.parallel()
 				.forEach(value -> TestUtils.render(args, result));
+	}
+
+	@Test
+	public void testPdf() throws AnalysisException {
+		try {
+			final AnalysisStoredResult result = TestUtils.getResult(TestUtils.TOKEN_OVER_1);
+			final RasterArgs args = new RasterArgs("R-HSA-74160", "pdf");
+			RasterOutput.save(TestUtils.getExporter().exportToPdf(args, result), new FileOutputStream("out.pdf"));
+		} catch (DiagramJsonNotFoundException | DiagramJsonDeserializationException | EhldException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 
