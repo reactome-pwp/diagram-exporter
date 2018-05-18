@@ -30,10 +30,9 @@ public class DiagramAnalysis {
 	private final RasterArgs args;
 	private final Graph graph;
 	private final Diagram diagram;
+	private final AnalysisType type;
 	private Map<Long, DiagramObject> diagramIndex;
 	private Map<Long, EntityNode> graphIndex;
-
-	private final AnalysisType type;
 	private AnalysisStoredResult result;
 	private String resource;
 	private AnalysisResult summary;
@@ -113,8 +112,8 @@ public class DiagramAnalysis {
 	private void subPathways() {
 		// 1 extract list of dbIds for ProcessNodes
 		final List<String> subPathways = diagram.getNodes().stream()
-				.filter(node -> node.getRenderableClass().equals("ProcessNode") || node
-				.getRenderableClass().equals("EncapsulatedNode"))
+				.filter(node -> node.getRenderableClass().equals("ProcessNode")
+						|| node.getRenderableClass().equals("EncapsulatedNode"))
 				.map(DiagramObject::getReactomeId)
 				.map(String::valueOf)
 				.collect(Collectors.toList());

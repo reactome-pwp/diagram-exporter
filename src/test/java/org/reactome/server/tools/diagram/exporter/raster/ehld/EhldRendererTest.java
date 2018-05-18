@@ -99,5 +99,12 @@ public class EhldRendererTest {
 				.forEach(value -> TestUtils.render(args, result));
 	}
 
+	@Test
+	public void testPdf() {
+		final AnalysisStoredResult result = TestUtils.getResult(TestUtils.TOKEN_OVER_1);
+		final RasterArgs args = new RasterArgs("R-HSA-74160", "pdf");
+		TestUtils.render(args, result);
+	}
+
 
 }

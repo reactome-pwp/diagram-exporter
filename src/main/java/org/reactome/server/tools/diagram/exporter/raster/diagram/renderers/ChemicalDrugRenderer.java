@@ -33,7 +33,6 @@ public class ChemicalDrugRenderer extends ChemicalRenderer {
 	private void chemicalBox(RenderableNode renderableNode, DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
 		final Color fill = getFillColor(renderableNode, colorProfiles, index, t);
 		final Color border = getAttachmentStrokeColor(renderableNode, colorProfiles, index);
-		final Color text = DRUG_COLOR;
 		final Stroke stroke = StrokeStyle.SEGMENT.get(renderableNode.isDashed());
 		final FillDrawLayer fillDrawLayer = renderableNode.isFadeOut()
 				? canvas.getFadeOutAttachments()
@@ -47,7 +46,7 @@ public class ChemicalDrugRenderer extends ChemicalRenderer {
 		final NodeProperties attachment = NodePropertiesFactory.get(x, y, 14, 7);
 		final Shape shape = ShapeFactory.rectangle(attachment);
 		fillDrawLayer.add(shape, fill, border, stroke);
-		textLayer.add("Rx", text, attachment, 1, 0, FontProperties.DEFAULT_FONT);
+		textLayer.add("Rx", DRUG_COLOR, attachment, 1, 0, FontProperties.DEFAULT_FONT);
 		if (renderableNode.isFlag())
 			canvas.getFlags().add(shape, colorProfiles.getDiagramSheet().getProperties().getFlag(), StrokeStyle.FLAG.get(renderableNode.isDashed()));
 		if (renderableNode.isHalo())

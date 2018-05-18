@@ -1,5 +1,13 @@
 package org.reactome.server.tools.diagram.exporter.raster.ehld;
 
+import com.itextpdf.io.image.ImageData;
+import com.itextpdf.io.image.ImageDataFactory;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfPage;
+import com.itextpdf.kernel.pdf.PdfReader;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
@@ -19,6 +27,8 @@ import org.w3c.dom.svg.SVGDocument;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
@@ -33,7 +43,7 @@ import static org.apache.batik.util.SVGConstants.*;
  */
 public class EhldRenderer implements RasterRenderer {
 
-	private static final Set<String> TRANSPARENT_FORMATS = new HashSet<>(Collections.singletonList("png"));
+	private static final Set<String> TRANSPARENT_FORMATS = new HashSet<>(Arrays.asList("png", "pdf"));
 	private static final Set<String> NO_TRANSPARENT_FORMATS = new HashSet<>(Arrays.asList("jpg", "jpeg", "gif"));
 
 	private static final float MARGIN = 15;
@@ -164,10 +174,10 @@ public class EhldRenderer implements RasterRenderer {
 	 * Generates a raster from document.
 	 */
 	private BufferedImage rasterize() {
+		// TODO: 18/05/18 replace with the svg-renderer project when mature
 		try {
 			final TranscoderInput input = new TranscoderInput(document);
 			final BufferedImageTranscoder transcoder = new BufferedImageTranscoder(args);
-
 			transcoder.transcode(input, null);
 			return transcoder.getImage();
 		} catch (TranscoderException e) {
@@ -176,7 +186,7 @@ public class EhldRenderer implements RasterRenderer {
 	}
 
 	@Override
-	public void renderToAnimatedGif(OutputStream os) throws IOException {
+	public void renderToAnimatedGif(OutputStream os) {
 		if (svgAnalysis.getAnalysisType() != AnalysisType.EXPRESSION)
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
 
@@ -198,10 +208,46 @@ public class EhldRenderer implements RasterRenderer {
 		return document;
 	}
 
+
+	@Override
+	public Document renderToPdf() throws IOException {
+		final ByteArrayOutputStream os = new ByteArrayOutputStream();
+		// TODO: 18/05/18 don't use a raster image, but a PDF vector image
+		// Things already tried (and why not used):
+		// 1) http://itextsupport.com/apidocs/itext5/latest/com/itextpdf/awt/PdfGraphics2D.html
+		//    - transparency in gradients
+		//    - masks
+		// 2) https://github.com/blackears/svgSalamander
+		//    - masks
+		//    - css
+		//    - gradients
+		//    - transparency
+		// 3) https://github.com/freehep/freehep-vectorgraphics/tree/master/freehep-graphicsio-pdf
+		//    - gradients
+		// 4) https://github.com/ebourg/flamingo-svg-transcoder
+		//    - ... more of the same
+		// 5) cheating batik, giving it a BufferedImage, but with a PDFGraphics in image.createGraphics()
+		//    - well, not my best idea, batik does not use the graphics to paint, but the raster itself.
+		// 6) space for new attempts
+		// 7) space for new attempts
+		// 8) space for new attempts
+		// 9) space for new attempts
+		disableMasks();
+		final BufferedImage rasterize = rasterize();
+		final ImageData imageData = ImageDataFactory.create(rasterize, Color.WHITE);
+		final Document document = new Document(new PdfDocument(new PdfWriter(os)));
+		final PdfPage page = document.getPdfDocument().addNewPage(new PageSize(imageData.getWidth() + 6, imageData.getHeight() + 6));
+		document.setMargins(0, 0, 0, 0);
+		document.add(new com.itextpdf.layout.element.Image(imageData));
+		document.close();
+		// Create a new Document in read mode
+		return new Document(new PdfDocument(new PdfReader(new ByteArrayInputStream(os.toByteArray()))));
+	}
+
 	/**
 	 * There is no a standard BufferedImageTranscoder, although all Transcorders
 	 * use BufferedImages as the raster. This class exposes that BufferedImage,
-	 * so ther is no need to store them in a File.
+	 * so there is no need to store them in a File.
 	 */
 	private static class BufferedImageTranscoder extends ImageTranscoder {
 
@@ -231,7 +277,7 @@ public class EhldRenderer implements RasterRenderer {
 		}
 
 		@Override
-		public void writeImage(BufferedImage image, TranscoderOutput output) throws TranscoderException {
+		public void writeImage(BufferedImage image, TranscoderOutput output) {
 			this.image = image;
 		}
 

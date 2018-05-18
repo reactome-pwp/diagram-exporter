@@ -25,14 +25,18 @@ public class DiagramRendererTest {
 				TestUtils.render(new RasterArgs(stId, format), null);
 	}
 
-	@Test
-	public void testQuality() {
-		IntStream.range(1, 11)
-				.forEach(quality -> {
-					final RasterArgs args = new RasterArgs("R-HSA-376176", "jpg");
-					args.setQuality(quality);
-					TestUtils.render(args, null);
-				});
+	@Test(expected = IllegalArgumentException.class)
+	public void testTooLowQuality() {
+		final RasterArgs args = new RasterArgs("R-HSA-376176", "jpg");
+		args.setQuality(0);
+		TestUtils.render(args, null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testTooHighQuality() {
+		final RasterArgs args = new RasterArgs("R-HSA-376176", "jpg");
+		args.setQuality(11);
+		TestUtils.render(args, null);
 	}
 
 	@Test
@@ -204,12 +208,6 @@ public class DiagramRendererTest {
 		TestUtils.render(args, result);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testScaleLimits() {
-		final RasterArgs args = new RasterArgs("stid", "png");
-		args.setQuality(0);
-	}
-
 	@Test
 	public void testEncapsulatedPathways() {
 		final RasterArgs args = new RasterArgs("R-HSA-168164", "png");
@@ -220,7 +218,8 @@ public class DiagramRendererTest {
 	@Test
 	public void testChemicalDrug() {
 		final RasterArgs args = new RasterArgs("R-HSA-2894858", "png");
-		args.setSelected(Collections.singleton("113582"));
+		args.setQuality(10);
+//		args.setSelected(Collections.singleton("113582"));
 		TestUtils.render(args, null);
 	}
 
@@ -239,6 +238,18 @@ public class DiagramRendererTest {
 		final RasterArgs args = new RasterArgs("R-HSA-376176", "svg");
 		IntStream.range(0, 20).parallel()
 				.forEach(value -> TestUtils.render(args, result));
+	}
+
+	@Test
+	public void testDuplicatedSubPathway() {
+		final RasterArgs args = new RasterArgs("R-GGA-437987", "png");
+		TestUtils.render(args, null);
+	}
+
+	@Test
+	public void testPdf() {
+		final RasterArgs args = new RasterArgs("R-HSA-376176", "pdf");
+		TestUtils.render(args, null);
 	}
 
 }

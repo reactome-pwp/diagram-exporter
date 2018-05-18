@@ -113,4 +113,7 @@ public class TestUtils {
 		}
 	}
 
+	public static RasterExporter getExporter() {
+		return EXPORTER;
+	}
 }

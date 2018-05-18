@@ -1,5 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
+import com.itextpdf.layout.Document;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.commons.io.IOUtils;
 import org.reactome.server.analysis.core.model.AnalysisType;
@@ -28,6 +29,8 @@ import java.util.TreeSet;
 /**
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
+// This is the entry point. Methods are intended to be called.
+@SuppressWarnings({"unused", "WeakerAccess"})
 @Component
 public class RasterExporter {
 
@@ -118,10 +121,36 @@ public class RasterExporter {
 		return renderer.renderToSvg();
 	}
 
+	/**
+	 * Creates an iText7 PDF document
+	 */
+	public Document exportToPdf(RasterArgs args) throws EhldException, IOException, AnalysisException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
+		return exportToPdf(args, null);
+	}
+
+	/**
+	 * Creates an iText7 PDF document in reading mode.
+	 */
+	public Document exportToPdf(RasterArgs args, AnalysisStoredResult result) throws EhldException, AnalysisException, DiagramJsonNotFoundException, DiagramJsonDeserializationException, IOException {
+		final RasterRenderer renderer = getRenderer(args, result);
+		return renderer.renderToPdf();
+	}
+
+	/**
+	 * Exports the diagram defined by args in the most appropriate way,
+	 * depending on the args, and using os to export the result. This is a
+	 * shortcut for export(args
+	 *
+	 * @param args what you want
+	 * @param os   where you want it
+	 */
 	public void export(RasterArgs args, OutputStream os) throws EhldException, AnalysisException, DiagramJsonNotFoundException, DiagramJsonDeserializationException, IOException, TranscoderException {
 		export(args, os, null);
 	}
 
+	/**
+	 * Export the diagram defined by args in the most appropriate format.
+	 */
 	public void export(RasterArgs args, OutputStream os, AnalysisStoredResult result) throws EhldException, AnalysisException, DiagramJsonNotFoundException, DiagramJsonDeserializationException, IOException, TranscoderException {
 		result = getResult(args.getToken(), result);
 		final AnalysisType type = result == null
@@ -130,12 +159,14 @@ public class RasterExporter {
 		final RasterRenderer renderer = ehld.contains(args.getStId())
 				? new EhldRenderer(args, ehldPath, result)
 				: new DiagramRenderer(args, diagramPath, result);
-		if (args.getFormat().equalsIgnoreCase("svg"))
-			RasterOutput.save(renderer.renderToSvg(), os);
-		else if (args.getFormat().equalsIgnoreCase("gif")
+		if (args.getFormat().equalsIgnoreCase("gif")
 				&& args.getColumn() == null
 				&& type == AnalysisType.EXPRESSION)
 			renderer.renderToAnimatedGif(os);
+		else if (args.getFormat().equalsIgnoreCase("svg"))
+			RasterOutput.save(renderer.renderToSvg(), os);
+		else if (args.getFormat().equalsIgnoreCase("pdf"))
+			RasterOutput.save(renderer.renderToPdf(), os);
 		else RasterOutput.save(renderer.render(), args.getFormat(), os);
 	}
 

@@ -1,5 +1,8 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
@@ -97,8 +100,7 @@ public class RasterOutput {
 	/**
 	 * Shortcut for <code>save(image, ext, connection, true)</code>
 	 *
-	 * @see RasterOutput#save(BufferedImage, String, HttpURLConnection,
-	 * boolean)
+	 * @see RasterOutput#save(BufferedImage, String, HttpURLConnection, boolean)
 	 */
 	public static void save(BufferedImage image, String ext, HttpURLConnection connection) throws IOException {
 		save(image, ext, connection, true);
@@ -113,4 +115,18 @@ public class RasterOutput {
 		save(image, ext, connection.getOutputStream(), close);
 	}
 
+	/**
+	 * Stores this document into the output stream using a new Document in
+	 * writing mode. document must be in read mode.
+	 *
+	 * @param document a Document in read mode.
+	 * @param os
+	 */
+	public static void save(Document document, OutputStream os) {
+		if (document.getPdfDocument().getWriter() != null)
+			throw new IllegalArgumentException("document must be in reading mode");
+		final Document output = new Document(new PdfDocument(new PdfWriter(os)));
+		document.getPdfDocument().copyPagesTo(1, document.getPdfDocument().getNumberOfPages(), output.getPdfDocument());
+		output.close();
+	}
 }

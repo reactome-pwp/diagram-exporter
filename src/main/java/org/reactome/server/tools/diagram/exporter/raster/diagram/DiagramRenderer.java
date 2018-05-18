@@ -1,5 +1,12 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram;
 
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfPage;
+import com.itextpdf.kernel.pdf.PdfReader;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
+import com.itextpdf.layout.Document;
 import org.apache.batik.anim.dom.SVG12DOMImplementation;
 import org.apache.batik.svggen.SVGGeneratorContext;
 import org.apache.batik.svggen.SVGGraphics2D;
@@ -20,6 +27,7 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.Compa
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.LegendRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.NoteRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.gif.AnimatedGifEncoder;
+import org.reactome.server.tools.diagram.exporter.raster.itext.awt.PdfGraphics2D;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.svg.SVGDocument;
@@ -27,6 +35,9 @@ import org.w3c.dom.svg.SVGDocument;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.Collections;
@@ -236,6 +247,27 @@ public class DiagramRenderer implements RasterRenderer {
 				RenderingHints.KEY_TEXT_ANTIALIASING,
 				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 		return graphics;
+	}
+
+	@Override
+	public Document renderToPdf() throws IOException {
+		final Rectangle2D bounds = canvas.getBounds();
+		final ByteArrayOutputStream os = new ByteArrayOutputStream();
+		final Document document = new Document(new PdfDocument(new PdfWriter(os)));
+		document.setMargins(0, 0, 0, 0);
+		final PdfPage page = document.getPdfDocument().addNewPage(new PageSize((float) bounds.getWidth() + 6, (float) bounds.getHeight() + 6));
+		final PdfCanvas pdfCanvas = new PdfCanvas(page);
+		final PdfGraphics2D graphics = new PdfGraphics2D(pdfCanvas, 0, 0, (float) bounds.getWidth() + 6, (float) bounds.getHeight() + 6);
+		graphics.translate(3 - bounds.getX(), 3 - bounds.getY());
+		graphics.setFont(FontProperties.DEFAULT_FONT);
+		graphics.setRenderingHint(
+				RenderingHints.KEY_TEXT_ANTIALIASING,
+				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+		this.canvas.render(graphics);
+		pdfCanvas.release();
+		document.close();
+		// Create the reading mode document
+		return new Document(new PdfDocument(new PdfReader(new ByteArrayInputStream(os.toByteArray()))));
 	}
 
 	private void layout() {
