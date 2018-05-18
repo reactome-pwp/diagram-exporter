@@ -1,9 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.common;
 
-import org.reactome.server.tools.diagram.data.graph.EntityNode;
-import org.reactome.server.tools.diagram.data.graph.EventNode;
-import org.reactome.server.tools.diagram.data.graph.Graph;
-import org.reactome.server.tools.diagram.data.graph.SubpathwayNode;
+import org.reactome.server.tools.diagram.data.graph.*;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.Edge;
@@ -13,6 +10,7 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.Ren
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -48,7 +46,7 @@ public class DiagramDecorator {
 		graphIndex = graph.getNodes() == null
 				? Collections.emptyMap()
 				: graph.getNodes().stream()
-				.collect(Collectors.toMap(EntityNode::getDbId, node -> node));
+				.collect(Collectors.toMap(GraphNode::getDbId, Function.identity(), (a, b) -> a));
 
 		reactionIds = graph.getEdges() == null
 				? Collections.emptySet()
@@ -58,7 +56,7 @@ public class DiagramDecorator {
 		subPathwayIndex = graph.getSubpathways() == null
 				? Collections.emptyMap()
 				: graph.getSubpathways().stream()
-				.collect(Collectors.toMap(SubpathwayNode::getDbId, o -> o));
+				.collect(Collectors.toMap(SubpathwayNode::getDbId, Function.identity(), (a, b) -> a));
 
 		final Set<Long> sel = getSelectedIds();
 		final Set<Long> flg = getFlagged();
@@ -190,4 +188,5 @@ public class DiagramDecorator {
 	public Set<Long> getSelected() {
 		return selected;
 	}
+
 }
