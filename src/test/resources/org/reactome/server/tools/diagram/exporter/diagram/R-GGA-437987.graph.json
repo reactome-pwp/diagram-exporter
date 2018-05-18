@@ -1,0 +1,3473 @@
+{
+  "dbId" : 437987,
+  "stId" : "R-GGA-437987",
+  "nodes" : [ {
+    "dbId" : 442886,
+    "stId" : "R-GGA-442886",
+    "displayName" : "MAPK phosphatases [nucleoplasm]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 49591,
+    "diagramIds" : [ 954 ],
+    "children" : [ 442888, 442877, 442850, 442887, 442874, 442941, 442882, 442917, 442935 ]
+  }, {
+    "dbId" : 571401,
+    "stId" : "R-GGA-571401",
+    "displayName" : "phosphorylated MAPK11 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZIK8",
+    "geneNames" : [ "RCJMB04_25f21" ],
+    "parents" : [ 442851 ]
+  }, {
+    "dbId" : 442887,
+    "stId" : "R-GGA-442887",
+    "displayName" : "MKP3 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q7T2L9",
+    "geneNames" : [ "MKP3" ],
+    "parents" : [ 442886 ]
+  }, {
+    "dbId" : 1183249,
+    "stId" : "R-ALL-1183249",
+    "displayName" : "Unmethylated CpG DNA [endosome]",
+    "schemaClass" : "OtherEntity",
+    "diagramIds" : [ 1027 ]
+  }, {
+    "dbId" : 571403,
+    "stId" : "R-GGA-571403",
+    "displayName" : "phosphorylated MKK3 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZL06",
+    "geneNames" : [ "RCJMB04_8f10" ],
+    "parents" : [ 442940 ]
+  }, {
+    "dbId" : 571404,
+    "stId" : "R-GGA-571404",
+    "displayName" : "phosphorylated MAPK14 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000001201",
+    "geneNames" : [ "MAPK14" ],
+    "parents" : [ 442851 ]
+  }, {
+    "dbId" : 442882,
+    "stId" : "R-GGA-442882",
+    "displayName" : "DUSP3 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000016127",
+    "geneNames" : [ "DUSP3" ],
+    "parents" : [ 442886 ]
+  }, {
+    "dbId" : 571405,
+    "stId" : "R-GGA-571405",
+    "displayName" : "phosphorylated MKK6 [nucleoplasm]",
+    "schemaClass" : "GenomeEncodedEntity",
+    "speciesId" : 49591,
+    "parents" : [ 442940 ]
+  }, {
+    "dbId" : 571406,
+    "stId" : "R-GGA-571406",
+    "displayName" : "phosphorylated MAPK13 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000001204",
+    "geneNames" : [ "MAPK13" ],
+    "parents" : [ 442851 ]
+  }, {
+    "dbId" : 571407,
+    "stId" : "R-GGA-571407",
+    "displayName" : "phosphorylated MAPK12 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000014011",
+    "geneNames" : [ "MAPK12" ],
+    "parents" : [ 442851 ]
+  }, {
+    "dbId" : 442894,
+    "stId" : "R-GGA-442894",
+    "displayName" : "phosphorylated MAPKAPK2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000001295",
+    "geneNames" : [ "MAPKAPK2" ],
+    "parents" : [ 442855 ]
+  }, {
+    "dbId" : 442888,
+    "stId" : "R-GGA-442888",
+    "displayName" : "MKP1 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "O42253",
+    "geneNames" : [ "MKP1" ],
+    "parents" : [ 442886 ]
+  }, {
+    "dbId" : 571399,
+    "stId" : "R-GGA-571399",
+    "displayName" : "TBK1 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000015982",
+    "geneNames" : [ "TBK1" ],
+    "parents" : [ 433843 ]
+  }, {
+    "dbId" : 442903,
+    "stId" : "R-GGA-442903",
+    "displayName" : "MAPK11 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZIK8",
+    "geneNames" : [ "RCJMB04_25f21" ],
+    "parents" : [ 442963 ]
+  }, {
+    "dbId" : 167963,
+    "stId" : "R-ALL-167963",
+    "displayName" : "ssRNA [endosome membrane]",
+    "schemaClass" : "OtherEntity",
+    "parents" : [ 188130 ]
+  }, {
+    "dbId" : 442908,
+    "stId" : "R-GGA-442908",
+    "displayName" : "MAPK14 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000001201",
+    "geneNames" : [ "MAPK14" ],
+    "parents" : [ 442963 ]
+  }, {
+    "dbId" : 442906,
+    "stId" : "R-GGA-442906",
+    "displayName" : "phosphorylated MAPKAPK3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000003578",
+    "geneNames" : [ "MAPKAPK3" ],
+    "parents" : [ 442855 ]
+  }, {
+    "dbId" : 442905,
+    "stId" : "R-GGA-442905",
+    "displayName" : "phospho -p38 MAPK : MAPKAPK 2 or MAPKAPK3  [nucleoplasm]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 974 ],
+    "children" : [ 442936, 442851 ]
+  }, {
+    "dbId" : 442917,
+    "stId" : "R-GGA-442917",
+    "displayName" : "DUSP8 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000010737",
+    "geneNames" : [ "DUSP8" ],
+    "parents" : [ 442886 ]
+  }, {
+    "dbId" : 442914,
+    "stId" : "R-GGA-442914",
+    "displayName" : "MAPKAPK2 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000001295",
+    "geneNames" : [ "MAPKAPK2" ],
+    "parents" : [ 442936 ]
+  }, {
+    "dbId" : 442915,
+    "stId" : "R-GGA-442915",
+    "displayName" : "phospho -p38 MAPK : phospho- MAPKAPK 2 or phospho MAPKAPK3  [nucleoplasm]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 977 ],
+    "children" : [ 442851, 442949 ]
+  }, {
+    "dbId" : 442924,
+    "stId" : "R-GGA-442924",
+    "displayName" : "phosphorylated MAPKAPK3 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000003578",
+    "geneNames" : [ "MAPKAPK3" ],
+    "parents" : [ 442949 ]
+  }, {
+    "dbId" : 442925,
+    "stId" : "R-GGA-442925",
+    "displayName" : "phospho -p38 MAPK : phospho- MAPKAPK 2 or phospho-MAPKAPK3  [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 986 ],
+    "children" : [ 437968, 442855 ]
+  }, {
+    "dbId" : 442935,
+    "stId" : "R-GGA-442935",
+    "displayName" : "DUSP16 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000001453",
+    "geneNames" : [ "DUSP16" ],
+    "parents" : [ 442886 ]
+  }, {
+    "dbId" : 442932,
+    "stId" : "R-GGA-442932",
+    "displayName" : "phosphorylated MAPKAPK2 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000001295",
+    "geneNames" : [ "MAPKAPK2" ],
+    "parents" : [ 442949 ]
+  }, {
+    "dbId" : 921146,
+    "stId" : "R-GGA-921146",
+    "displayName" : "pUB-TRAF6:TAB2:TAB3:TAB1:free K63-pUb chain:phospho TAK1 [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 166 ],
+    "parents" : [ 975491 ],
+    "children" : [ 433882, 434061, 451455, 451473, 434032, 442867 ]
+  }, {
+    "dbId" : 442931,
+    "stId" : "R-GGA-442931",
+    "displayName" : "MAPKAPK3 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000003578",
+    "geneNames" : [ "MAPKAPK3" ],
+    "parents" : [ 442936 ]
+  }, {
+    "dbId" : 442940,
+    "stId" : "R-GGA-442940",
+    "displayName" : "phospho MKK3/ phospho MKK6 [nucleoplasm]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 49591,
+    "diagramIds" : [ 965 ],
+    "children" : [ 571403, 571405 ]
+  }, {
+    "dbId" : 442941,
+    "stId" : "R-GGA-442941",
+    "displayName" : "DUSP5 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000013956",
+    "geneNames" : [ "DUSP5" ],
+    "parents" : [ 442886 ]
+  }, {
+    "dbId" : 442936,
+    "stId" : "R-GGA-442936",
+    "displayName" : "MAPKAPK2 and/or MAPKAPK3 [nucleoplasm]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "parents" : [ 442905, 442951 ],
+    "children" : [ 442931, 442914 ]
+  }, {
+    "dbId" : 442937,
+    "stId" : "R-GGA-442937",
+    "displayName" : "MAPK12 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000014011",
+    "geneNames" : [ "MAPK12" ],
+    "parents" : [ 442963 ]
+  }, {
+    "dbId" : 442951,
+    "stId" : "R-GGA-442951",
+    "displayName" : "p38 MAPK : MAPKAPK 2 or MAPKAPK3  [nucleoplasm]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 972 ],
+    "children" : [ 442936, 442963 ]
+  }, {
+    "dbId" : 442949,
+    "stId" : "R-GGA-442949",
+    "displayName" : "phospho MAPKAPK2 and/or phospho MAPKAPK3 [nucleoplasm]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "parents" : [ 442915 ],
+    "children" : [ 442924, 442932 ]
+  }, {
+    "dbId" : 180811,
+    "stId" : "R-ALL-180811",
+    "displayName" : "Triacyl lipopeptide [extracellular region]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 183 ],
+    "identifier" : "60192",
+    "parents" : [ 517843, 168944 ]
+  }, {
+    "dbId" : 442963,
+    "stId" : "R-GGA-442963",
+    "displayName" : "p38 MAP kinase [nucleoplasm]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "parents" : [ 442951 ],
+    "children" : [ 442937, 442908, 442960, 442903 ]
+  }, {
+    "dbId" : 442960,
+    "stId" : "R-GGA-442960",
+    "displayName" : "MAPK13 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000001204",
+    "geneNames" : [ "MAPK13" ],
+    "parents" : [ 442963 ]
+  }, {
+    "dbId" : 442961,
+    "stId" : "R-GGA-442961",
+    "displayName" : "phospho-ERK2 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q8UWG6",
+    "geneNames" : [ "MAPK1" ],
+    "parents" : [ 451513 ]
+  }, {
+    "dbId" : 442975,
+    "stId" : "R-GGA-442975",
+    "displayName" : "TAB3 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000026205",
+    "geneNames" : [ "MAP3K7IP3" ],
+    "parents" : [ 434152, 993984 ]
+  }, {
+    "dbId" : 166005,
+    "stId" : "R-ALL-166005",
+    "displayName" : "LPS [extracellular region]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 365 ],
+    "identifier" : "16412",
+    "parents" : [ 2203469, 2173773, 9489595, 9332165, 9410584, 9257656, 9183934, 2173758, 2187238, 2187242, 2173766, 9411713, 9333363, 9185168, 9851196, 9679274, 9258756, 9490871, 9115934, 2173760, 8878606, 9410240, 9559100, 9489197, 9257329, 9331803, 9767441, 9677907, 2197637, 9183511, 9769386, 9490911, 9258790, 9333399, 9411753, 9560356, 9850290, 9615782, 9185213, 9679299, 2512795, 433795, 9509164, 9274644, 9055901, 9351706, 9575392, 9127354, 9045573, 9629660, 9696095, 9429860, 9792818, 9204331, 9069996, 9087438, 6801229, 9870736, 166850, 9143499, 9591699, 9528664, 9224178, 9372737, 166034, 9451264, 9591682, 9143482, 9528648, 9646639, 9224161, 9372720, 166026, 9372734, 9591696, 9143496, 9224175, 9528661, 9647428, 9452062, 9143472, 166013, 9528640, 9943780, 9294633, 9451254, 9646628, 9591674, 9372710, 9224151, 9890456 ]
+  }, {
+    "dbId" : 433788,
+    "stId" : "R-GGA-433788",
+    "displayName" : "phosphorylated IRAK2 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5F382",
+    "geneNames" : [ "RCJMB04_29d24" ],
+    "parents" : [ 977233, 433907, 977243, 977235, 433829, 451453 ]
+  }, {
+    "dbId" : 433789,
+    "stId" : "R-GGA-433789",
+    "displayName" : "TLR4:LY96:LPS [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 378 ],
+    "parents" : [ 451517 ],
+    "children" : [ 433850, 434119 ]
+  }, {
+    "dbId" : 433795,
+    "stId" : "R-GGA-433795",
+    "displayName" : "LBP : LPS complex [extracellular region]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 366 ],
+    "children" : [ 166005, 433876 ]
+  }, {
+    "dbId" : 433792,
+    "stId" : "R-GGA-433792",
+    "displayName" : "TRAF6 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 774 ],
+    "identifier" : "E1C626",
+    "geneNames" : [ "TRAF6" ],
+    "parents" : [ 994001, 993986, 532635, 433968, 434011 ]
+  }, {
+    "dbId" : 433807,
+    "stId" : "R-GGA-433807",
+    "displayName" : "TIRAP [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 196 ],
+    "identifier" : "Q4U127",
+    "geneNames" : [ "TIRAP" ],
+    "parents" : [ 9560484 ]
+  }, {
+    "dbId" : 975491,
+    "stId" : "R-GGA-975491",
+    "displayName" : "Activated chicken TAK1 complexes [cytosol, plasma membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "diagramIds" : [ 138 ],
+    "children" : [ 451458, 921146 ]
+  }, {
+    "dbId" : 532635,
+    "stId" : "R-GGA-532635",
+    "displayName" : "TRAF6 bound to activated TLR7 or 21 [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 730 ],
+    "children" : [ 994003, 433792 ]
+  }, {
+    "dbId" : 433810,
+    "stId" : "R-GGA-433810",
+    "displayName" : "MAPK8 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000009848",
+    "geneNames" : [ "MAPK8" ],
+    "parents" : [ 433872 ]
+  }, {
+    "dbId" : 433811,
+    "stId" : "R-GGA-433811",
+    "displayName" : "IkB_alpha [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q91974",
+    "geneNames" : [ "NFKBIA", "IKBA" ],
+    "parents" : [ 434019 ]
+  }, {
+    "dbId" : 181403,
+    "stId" : "R-ALL-181403",
+    "displayName" : "Diacyl lipopeptide [extracellular region]",
+    "schemaClass" : "SimpleEntity",
+    "identifier" : "46896",
+    "parents" : [ 517843, 181407 ]
+  }, {
+    "dbId" : 433821,
+    "stId" : "R-GGA-433821",
+    "displayName" : "activated TLR hetero- or homodimer : TIRAP : MyD88 complex [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 199 ],
+    "parents" : [ 433831, 434022 ],
+    "children" : [ 451517, 433900, 433857 ]
+  }, {
+    "dbId" : 433831,
+    "stId" : "R-GGA-433831",
+    "displayName" : "activated TLR homo- or heterodimer : TIRAP :MyD88 :IRAK4 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 204 ],
+    "children" : [ 433821, 434129 ]
+  }, {
+    "dbId" : 433829,
+    "stId" : "R-GGA-433829",
+    "displayName" : "TRAF6:p-IRAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 295 ],
+    "parents" : [ 451475 ],
+    "children" : [ 433788, 975708 ]
+  }, {
+    "dbId" : 433824,
+    "stId" : "R-GGA-433824",
+    "displayName" : "REL_A [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P98152",
+    "geneNames" : [ "RELA" ],
+    "parents" : [ 433908 ]
+  }, {
+    "dbId" : 433825,
+    "stId" : "R-GGA-433825",
+    "displayName" : "TAK1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000025101",
+    "geneNames" : [ "MAP3K7" ],
+    "parents" : [ 433839 ]
+  }, {
+    "dbId" : 433838,
+    "stId" : "R-GGA-433838",
+    "displayName" : "IRAK4 : MyD88 : activated TLR5 or TLR15 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 435 ],
+    "children" : [ 977241, 434129 ]
+  }, {
+    "dbId" : 433839,
+    "stId" : "R-GGA-433839",
+    "displayName" : "TAK1 : TAB1 : TAB2/TAB3 complex [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 807, 153 ],
+    "children" : [ 433882, 433825, 975711 ]
+  }, {
+    "dbId" : 29358,
+    "stId" : "R-ALL-29358",
+    "displayName" : "ATP [nucleoplasm]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 950, 971 ],
+    "identifier" : "15422",
+    "parents" : [ 30595, 9859339, 9498794, 9912335, 9265594, 9341432, 9566531, 9981015, 9054215, 9779582, 9083936, 9686102, 9419754, 9193551, 9622003, 5618103, 6792604, 9777082, 9417833, 9496788, 9191407, 9684321, 9119641, 9857431, 9066043, 5252069, 5252107, 9496797, 9417842, 9857434, 9119649, 9684330, 9191418, 9066044, 9777095, 5252071, 9119652, 9684333, 9417845, 9777101, 9857441, 9066047, 9191423, 9496800, 5251939, 9119663, 9066058, 5252098, 9496798, 9857435, 9777096, 9417843, 9119650, 9684331, 9191419, 9066045, 5252066, 9191427, 9119654, 9066049, 9777103, 9417847, 9496802, 9857447, 5251935, 9496794, 9191413, 9684327, 9777092, 9417839, 9119643, 5251999, 9191430, 9857454, 9119661, 9496805, 9417850, 9066056, 9777108, 5251965, 9066055, 9857453, 9119660, 9777107, 9684337, 5251995, 9191409, 9496790, 9777088, 9417835, 9684323, 5251962, 9191411, 9496792, 9777090, 9684325, 9417837, 5251991, 9857449, 9684335, 9191429, 9066051, 9417849, 9777105, 9496804, 9119658, 5252117, 9857433, 9417841, 9496796, 9119648, 9684329, 9191417, 9777094, 5251956, 5358517, 9911916, 9041491, 9191956, 9565254, 9120030, 9083774, 9684835, 9620770, 9066181, 9777787, 9980403, 9858143, 9339976, 9054121, 9497330, 9418317, 9264397, 5358531, 9093205, 9810414, 9288021, 9365467, 9523077, 9586557, 9444090, 9136003, 9937555, 9709845, 9218253, 9885782, 9640467, 8849161 ]
+  }, {
+    "dbId" : 993983,
+    "stId" : "R-GGA-993983",
+    "displayName" : "p-IRAK2: pUb_oligo TRAF6 : phospho TAK1 :TAB1 : TAB2/TAB3 : K63linked free pUb chain [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 814 ],
+    "children" : [ 993984, 451962, 434141, 433952, 993982 ]
+  }, {
+    "dbId" : 993982,
+    "stId" : "R-GGA-993982",
+    "displayName" : "oligo pUb-TRAF6 : p-IRAK2 [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 781 ],
+    "parents" : [ 993989, 1094885, 993983 ],
+    "children" : [ 434011, 994003 ]
+  }, {
+    "dbId" : 993981,
+    "stId" : "R-GGA-993981",
+    "displayName" : "IRAK4 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZJM6",
+    "geneNames" : [ "RCJMB04_17b10" ],
+    "parents" : [ 451434 ]
+  }, {
+    "dbId" : 993980,
+    "stId" : "R-GGA-993980",
+    "displayName" : "activated IRAK4 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZJM6",
+    "geneNames" : [ "RCJMB04_17b10" ],
+    "parents" : [ 571317 ]
+  }, {
+    "dbId" : 433842,
+    "stId" : "R-GGA-433842",
+    "displayName" : "phosphorylated IkB_alpha [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 150 ],
+    "identifier" : "Q91974",
+    "geneNames" : [ "NFKBIA", "IKBA" ]
+  }, {
+    "dbId" : 433843,
+    "stId" : "R-GGA-433843",
+    "displayName" : "ds viral RNA : TLR3 : TICAM1 : TBK1  complex  [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 131 ],
+    "children" : [ 571399, 433947 ]
+  }, {
+    "dbId" : 29370,
+    "stId" : "R-ALL-29370",
+    "displayName" : "ADP [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 960, 163, 451, 132, 836, 710, 137, 169, 841, 1001, 815, 209, 337, 146, 723, 344, 220, 158, 479 ],
+    "identifier" : "16761",
+    "parents" : [ 6788782, 170037, 500087, 9697693, 9511149, 9432021, 9206358, 9353591, 9795136, 9630850, 9576626, 6814647, 9276454, 9308768, 9600654, 9658148, 9160110, 9466548, 9388155, 9539602, 9736133, 9237677, 390582, 9741227, 9240850, 9831931, 9542652, 9470172, 9661300, 9312377, 9603268, 9391818, 445800, 9163954, 391405, 6790050, 9736232, 9160241, 9056082, 9952449, 9658213, 9895747, 9103166, 9827450, 9078597, 9388323, 9466651, 9035776, 9539705, 9600757, 9308939, 9070319, 390455, 9237786, 445015, 445018, 9977479, 9562443, 9414582, 9117822, 9082713, 9681762, 9772765, 9909744, 9188009, 9493620, 9065454, 9853847, 9040520, 3371441, 9053615, 9681804, 9772846, 9977954, 9910080, 9040575, 9414618, 9117855, 9053626, 9265602, 9341440, 9493660, 9065507, 9853904, 9188045, 9082763, 5618090, 6792616, 9684367, 9041363, 9417878, 9911631, 9496840, 9083614, 9054014, 9857497, 9777150, 9066083, 9979792, 9191465, 9119694, 5252087, 9041366, 9857498, 9496844, 9119696, 9083616, 9777154, 9417882, 9191469, 9684371, 5252111, 9496843, 9417881, 9083615, 9777153, 9119695, 9684370, 9191468, 5252110, 9191474, 9119701, 9777159, 9041371, 9417887, 9083621, 9979797, 9857503, 9054019, 9684375, 9911636, 9066088, 9496849, 5252012, 9496846, 9119698, 9417884, 9777156, 9041368, 9066085, 9979794, 9857500, 9054016, 9083618, 9911633, 9684373, 9191471, 5251980, 9496847, 9191472, 9119699, 9417885, 9777157, 9041369, 9066086, 9979795, 9857501, 9054017, 9083619, 9911634, 9684374, 5252038, 9054022, 9041374, 9119704, 9083624, 9066091, 9979800, 9911639, 5252097, 5252129, 9119700, 9083620, 9191473, 9066087, 9979796, 9857502, 9054018, 9911635, 9777158, 9041370, 9417886, 9496848, 5252096, 9041367, 9496845, 9119697, 9777155, 9054015, 9417883, 9066084, 9857499, 9083617, 9979793, 9911632, 9684372, 9191470, 5255423, 9041364, 9777151, 9496841, 9417879, 9191466, 9684368, 5251966, 9562478, 9191475, 9777161, 9119703, 9857505, 9041373, 9979799, 9417888, 9054021, 9083623, 9496850, 9911638, 9066090, 5251932, 9041365, 9496842, 9417880, 9191467, 9777152, 9684369, 5252090, 9979798, 9054020, 9777160, 9119702, 9083622, 9684376, 9857504, 9041372, 9066089, 9911637, 5251953, 9831368, 9660936, 9391412, 9036464, 9312027, 9105375, 9240526, 9740533, 9469808, 1063687, 9163554, 9764250, 9614553, 9676171, 9408585, 9487301, 9181673, 9255598, 2029139, 9181649, 9081751, 9907168, 9764195, 9974123, 9614529, 9408572, 9847332, 9329756, 9255581, 9676153, 9064771, 9557586, 9114122, 9487280, 202994, 9039435, 9325521, 9554399, 9757673, 9843562, 9081664, 9252484, 9039312, 9672820, 9177035, 9483654, 9612368, 9405341, 1861625 ]
+  }, {
+    "dbId" : 433850,
+    "stId" : "R-ALL-433850",
+    "displayName" : "LPS [plasma membrane]",
+    "schemaClass" : "SimpleEntity",
+    "identifier" : "16412",
+    "parents" : [ 434025, 433789 ]
+  }, {
+    "dbId" : 433862,
+    "stId" : "R-GGA-433862",
+    "displayName" : "IRAK2 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5F382",
+    "geneNames" : [ "RCJMB04_29d24" ],
+    "parents" : [ 434002, 977244 ]
+  }, {
+    "dbId" : 437957,
+    "stId" : "R-GGA-437957",
+    "displayName" : "phosphorylated JNK homologs [cytosol]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 49591,
+    "diagramIds" : [ 840 ],
+    "children" : [ 438015, 437976, 437973 ]
+  }, {
+    "dbId" : 433856,
+    "stId" : "R-GGA-433856",
+    "displayName" : "K63 linked pUb TRAF6 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "parents" : [ 451453 ],
+    "children" : [ 975686, 975690 ]
+  }, {
+    "dbId" : 993993,
+    "stId" : "R-GGA-993993",
+    "displayName" : "IRAK2 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5F382",
+    "geneNames" : [ "RCJMB04_29d24" ],
+    "parents" : [ 571321 ]
+  }, {
+    "dbId" : 433857,
+    "stId" : "R-GGA-433857",
+    "displayName" : "TIRAP [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q4U127",
+    "geneNames" : [ "TIRAP" ],
+    "parents" : [ 433821 ]
+  }, {
+    "dbId" : 517839,
+    "stId" : "R-ALL-517839",
+    "displayName" : "peptidoglycan [extracellular region]",
+    "schemaClass" : "SimpleEntity",
+    "identifier" : "8005",
+    "parents" : [ 517843, 8878606 ]
+  }, {
+    "dbId" : 517838,
+    "stId" : "R-ALL-517838",
+    "displayName" : "peptidoglycan [plasma membrane]",
+    "schemaClass" : "SimpleEntity",
+    "identifier" : "8005",
+    "parents" : [ 517854 ]
+  }, {
+    "dbId" : 993989,
+    "stId" : "R-GGA-993989",
+    "displayName" : "p-IRAK2:oligo pUb TRAF6 : TAK1 :TAB1 : TAB2/TAB3 : free K63 pUb chains [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 803 ],
+    "children" : [ 433931, 451962, 993982 ]
+  }, {
+    "dbId" : 437965,
+    "stId" : "R-GGA-437965",
+    "displayName" : "phosphorylated MKK6 [cytosol]",
+    "schemaClass" : "GenomeEncodedEntity",
+    "speciesId" : 49591,
+    "parents" : [ 437977 ]
+  }, {
+    "dbId" : 433866,
+    "stId" : "R-GGA-433866",
+    "displayName" : "TICAM1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 160 ],
+    "identifier" : "A0FKC7",
+    "geneNames" : [ "TLR adaptor molecule 1(TRIF)" ]
+  }, {
+    "dbId" : 437962,
+    "stId" : "R-GGA-437962",
+    "displayName" : "phosphorylated MAPK11 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZIK8",
+    "geneNames" : [ "RCJMB04_25f21" ],
+    "parents" : [ 437968 ]
+  }, {
+    "dbId" : 437963,
+    "stId" : "R-GGA-437963",
+    "displayName" : "phosphorylated MAPK14 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000001201",
+    "geneNames" : [ "MAPK14" ],
+    "parents" : [ 437968 ]
+  }, {
+    "dbId" : 993986,
+    "stId" : "R-GGA-993986",
+    "displayName" : "TRAF6:p-IRAK2 [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 736 ],
+    "children" : [ 994002, 433792 ]
+  }, {
+    "dbId" : 437960,
+    "stId" : "R-GGA-437960",
+    "displayName" : "phosphorylated MAPK10 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000018075",
+    "geneNames" : [ "MAPK10" ],
+    "parents" : [ 438012 ]
+  }, {
+    "dbId" : 433865,
+    "stId" : "R-GGA-433865",
+    "displayName" : "IKBKB(IKK_beta) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZI83",
+    "geneNames" : [ "RCJMB04_29g15" ],
+    "parents" : [ 434005 ]
+  }, {
+    "dbId" : 993984,
+    "stId" : "R-GGA-993984",
+    "displayName" : "chicken TAB2/TAB3 [endosome membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "parents" : [ 993983, 433931 ],
+    "children" : [ 442975, 433923 ]
+  }, {
+    "dbId" : 517847,
+    "stId" : "R-GGA-517847",
+    "displayName" : "TLR2-1 : TLR1-1 heterodimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 182 ],
+    "parents" : [ 517853 ],
+    "children" : [ 517848, 517857 ]
+  }, {
+    "dbId" : 437975,
+    "stId" : "R-GGA-437975",
+    "displayName" : "phosphorylated MKK4 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 835 ],
+    "identifier" : "ENSGALP00000001475",
+    "geneNames" : [ "MAP2K4" ]
+  }, {
+    "dbId" : 433876,
+    "stId" : "R-GGA-433876",
+    "displayName" : "Lipopolysaccharide binding protein [extracellular region]",
+    "schemaClass" : "GenomeEncodedEntity",
+    "speciesId" : 49591,
+    "diagramIds" : [ 364 ],
+    "parents" : [ 433795 ]
+  }, {
+    "dbId" : 517845,
+    "stId" : "R-GGA-517845",
+    "displayName" : "TLR2-1 : TLR1-2 heteroodimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 187 ],
+    "parents" : [ 517842 ],
+    "children" : [ 517840, 517857 ]
+  }, {
+    "dbId" : 437973,
+    "stId" : "R-GGA-437973",
+    "displayName" : "phosphorylated MAPK10 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000018075",
+    "geneNames" : [ "MAPK10" ],
+    "parents" : [ 437957 ]
+  }, {
+    "dbId" : 517843,
+    "stId" : "R-ALL-517843",
+    "displayName" : "Ligand recognized by chicken TLR2-1 : TLR1-2 heterodimer [extracellular region]",
+    "schemaClass" : "DefinedSet",
+    "diagramIds" : [ 186 ],
+    "children" : [ 180811, 181403, 517839 ]
+  }, {
+    "dbId" : 517842,
+    "stId" : "R-GGA-517842",
+    "displayName" : "chicken TLR2-1 :TLR1-2 bound to its ligand [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 188 ],
+    "parents" : [ 451517 ],
+    "children" : [ 517854, 517845 ]
+  }, {
+    "dbId" : 437968,
+    "stId" : "R-GGA-437968",
+    "displayName" : "phospho_p38 MAP kinase [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "parents" : [ 442925 ],
+    "children" : [ 438008, 437963, 438027, 437962 ]
+  }, {
+    "dbId" : 433872,
+    "stId" : "R-GGA-433872",
+    "displayName" : "JNK homologs [cytosol]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 49591,
+    "diagramIds" : [ 839 ],
+    "children" : [ 434057, 433946, 433810 ]
+  }, {
+    "dbId" : 517840,
+    "stId" : "R-GGA-517840",
+    "displayName" : "TLR1-2 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "A5H0S2",
+    "geneNames" : [ "TLR1Lb" ],
+    "parents" : [ 517845 ]
+  }, {
+    "dbId" : 433873,
+    "stId" : "R-GGA-433873",
+    "displayName" : "IRAK4 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 437, 203, 700 ],
+    "identifier" : "Q5ZJM6",
+    "geneNames" : [ "RCJMB04_17b10" ]
+  }, {
+    "dbId" : 433886,
+    "stId" : "R-GGA-433886",
+    "displayName" : "TRAF6 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 119, 732, 509 ],
+    "identifier" : "E1C626",
+    "geneNames" : [ "TRAF6" ],
+    "parents" : [ 1227894, 1227790, 451455 ]
+  }, {
+    "dbId" : 437983,
+    "stId" : "R-GGA-437983",
+    "displayName" : "phosphorylated MAPK8 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000009848",
+    "geneNames" : [ "MAPK8" ],
+    "parents" : [ 438012 ]
+  }, {
+    "dbId" : 517854,
+    "stId" : "R-ALL-517854",
+    "displayName" : "Ligand recognized by chicken TLR2-1 : TLR1-2 heterodimer [plasma membrane]",
+    "schemaClass" : "DefinedSet",
+    "parents" : [ 517842 ],
+    "children" : [ 571253, 571346, 517838 ]
+  }, {
+    "dbId" : 517853,
+    "stId" : "R-GGA-517853",
+    "displayName" : "chicken TLR2-1 : TLR1-1 bound to its ligand [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 184 ],
+    "parents" : [ 451517 ],
+    "children" : [ 571346, 517847 ]
+  }, {
+    "dbId" : 433882,
+    "stId" : "R-GGA-433882",
+    "displayName" : "TAB1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZJW3",
+    "geneNames" : [ "RCJMB04_15c17" ],
+    "parents" : [ 1094885, 433839, 921146 ]
+  }, {
+    "dbId" : 188126,
+    "stId" : "R-ALL-188126",
+    "displayName" : "R-848 [endosome membrane]",
+    "schemaClass" : "SimpleEntity",
+    "identifier" : "36706",
+    "parents" : [ 188128 ]
+  }, {
+    "dbId" : 994003,
+    "stId" : "R-GGA-994003",
+    "displayName" : " p-IRAK2 : p-IRAK4 : MyD88: activated TLR7 or 21  [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 724 ],
+    "parents" : [ 993982, 532635 ],
+    "children" : [ 994002, 571317 ]
+  }, {
+    "dbId" : 188127,
+    "stId" : "R-ALL-188127",
+    "displayName" : "IMIQ [endosome membrane]",
+    "schemaClass" : "SimpleEntity",
+    "identifier" : "36704",
+    "parents" : [ 188128 ]
+  }, {
+    "dbId" : 994002,
+    "stId" : "R-GGA-994002",
+    "displayName" : "phosphorylated IRAK2 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5F382",
+    "geneNames" : [ "RCJMB04_29d24" ],
+    "parents" : [ 994001, 993986, 994003 ]
+  }, {
+    "dbId" : 433883,
+    "stId" : "R-GGA-433883",
+    "displayName" : "viral dsRNA:TLR3 [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 127 ],
+    "parents" : [ 433947 ],
+    "children" : [ 9014378, 433892 ]
+  }, {
+    "dbId" : 437976,
+    "stId" : "R-GGA-437976",
+    "displayName" : "phosphorylated MAPK8 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000009848",
+    "geneNames" : [ "MAPK8" ],
+    "parents" : [ 437957 ]
+  }, {
+    "dbId" : 994001,
+    "stId" : "R-GGA-994001",
+    "displayName" : "oligo TRAF6 : p-IRAK2 [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 775 ],
+    "children" : [ 994002, 433792 ]
+  }, {
+    "dbId" : 517848,
+    "stId" : "R-GGA-517848",
+    "displayName" : "TLR1-1 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5WA51",
+    "geneNames" : [ "TLR1" ],
+    "parents" : [ 517847 ]
+  }, {
+    "dbId" : 437977,
+    "stId" : "R-GGA-437977",
+    "displayName" : "phospho MKK3/ phospho MKK6 [cytosol]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 49591,
+    "diagramIds" : [ 961 ],
+    "children" : [ 437990, 437965 ]
+  }, {
+    "dbId" : 437990,
+    "stId" : "R-GGA-437990",
+    "displayName" : "phosphorylated MKK3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZL06",
+    "geneNames" : [ "RCJMB04_8f10" ],
+    "parents" : [ 437977 ]
+  }, {
+    "dbId" : 188130,
+    "stId" : "R-ALL-188130",
+    "displayName" : "Ligands recognized by TLR7 and TLR8 [endosome membrane]",
+    "schemaClass" : "DefinedSet",
+    "parents" : [ 451537, 9647133, 9591852, 9451726, 9719005, 9816995, 9295003, 9144030, 9373323, 9528992, 188132, 9224560 ],
+    "children" : [ 167963, 188128 ]
+  }, {
+    "dbId" : 437991,
+    "stId" : "R-GGA-437991",
+    "displayName" : "activated c-JUN dimer [nucleoplasm]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 952 ],
+    "children" : [ 438013 ]
+  }, {
+    "dbId" : 433892,
+    "stId" : "R-GGA-433892",
+    "displayName" : "TLR3 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 125 ],
+    "identifier" : "Q0PQ88",
+    "geneNames" : [ "TLR3" ],
+    "parents" : [ 433883 ]
+  }, {
+    "dbId" : 188128,
+    "stId" : "R-ALL-188128",
+    "displayName" : "Imidazoquinoline compounds [endosome membrane]",
+    "schemaClass" : "DefinedSet",
+    "parents" : [ 188130 ],
+    "children" : [ 188127, 188126 ]
+  }, {
+    "dbId" : 9014378,
+    "stId" : "R-IBR-9014378",
+    "displayName" : "IBV dsRNA intermediate form [endosome lumen]",
+    "schemaClass" : "GenomeEncodedEntity",
+    "speciesId" : 9014381,
+    "diagramIds" : [ 1041 ],
+    "parents" : [ 433883 ]
+  }, {
+    "dbId" : 433891,
+    "stId" : "R-GGA-433891",
+    "displayName" : "LY96 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "R4GJR4",
+    "geneNames" : [ "LY96" ],
+    "parents" : [ 434119 ]
+  }, {
+    "dbId" : 517857,
+    "stId" : "R-GGA-517857",
+    "displayName" : "TLR2 type 1 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q9DD78",
+    "geneNames" : [ "TLR2-1" ],
+    "parents" : [ 517847, 517845 ]
+  }, {
+    "dbId" : 433903,
+    "stId" : "R-GGA-433903",
+    "displayName" : "Phosphorylated IRF3 : IRF3 dimer [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 107 ],
+    "children" : [ 434100 ]
+  }, {
+    "dbId" : 433900,
+    "stId" : "R-GGA-433900",
+    "displayName" : "MyD88 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "A5HNF6",
+    "geneNames" : [ "MYD88", "RCJMB04_14h3" ],
+    "parents" : [ 433821, 977241 ]
+  }, {
+    "dbId" : 437993,
+    "stId" : "R-GGA-437993",
+    "displayName" : "phosphorylated MAPK9_(JNK2) [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P79996",
+    "geneNames" : [ "MAPK9", "JNK2" ],
+    "parents" : [ 438012 ]
+  }, {
+    "dbId" : 433908,
+    "stId" : "R-GGA-433908",
+    "displayName" : "NFkB complex(p50/p65) [nucleoplasm]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 116 ],
+    "children" : [ 434062, 433824 ]
+  }, {
+    "dbId" : 433907,
+    "stId" : "R-GGA-433907",
+    "displayName" : " p-IRAK2 : p-IRAK4 : activated TLR : TIRAP : MyD88  [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 221 ],
+    "children" : [ 433788, 434022 ]
+  }, {
+    "dbId" : 1094885,
+    "stId" : "R-GGA-1094885",
+    "displayName" : "p-IRAK2: pUb_oligo TRAF6 : phospho TAK1 :TAB1 : TAB2/TAB3 : K63linked free pUb chain [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 1025 ],
+    "children" : [ 433882, 451962, 433952, 975711, 993982 ]
+  }, {
+    "dbId" : 438015,
+    "stId" : "R-GGA-438015",
+    "displayName" : "phosphorylated MAPK9_(JNK2) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P79996",
+    "geneNames" : [ "MAPK9", "JNK2" ],
+    "parents" : [ 437957 ]
+  }, {
+    "dbId" : 438012,
+    "stId" : "R-GGA-438012",
+    "displayName" : "phosphorylated JNK homologs [nucleoplasm]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 49591,
+    "diagramIds" : [ 944 ],
+    "children" : [ 437993, 437960, 437983 ]
+  }, {
+    "dbId" : 438013,
+    "stId" : "R-GGA-438013",
+    "displayName" : "phosphorylated c-JUN [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P18870",
+    "geneNames" : [ "JUN" ],
+    "parents" : [ 437991 ]
+  }, {
+    "dbId" : 433915,
+    "stId" : "R-GGA-433915",
+    "displayName" : "Inhibitor of NF kappa B kinase(IKKA)_subunit alpha [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZJB4",
+    "geneNames" : [ "CHUK", "IKKA", "RCJMB04_19h23" ],
+    "parents" : [ 434005 ]
+  }, {
+    "dbId" : 438008,
+    "stId" : "R-GGA-438008",
+    "displayName" : "phosphorylated MAPK13 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000001204",
+    "geneNames" : [ "MAPK13" ],
+    "parents" : [ 437968 ]
+  }, {
+    "dbId" : 433923,
+    "stId" : "R-GGA-433923",
+    "displayName" : "TAB2 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000020155 ",
+    "geneNames" : [ "MAP3K7IP2 (TAB2)" ],
+    "parents" : [ 434152, 993984 ]
+  }, {
+    "dbId" : 1063701,
+    "stId" : "R-STY-1063701",
+    "displayName" : "Flagellin -phase1 and/or 2 [plasma membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 451465,
+    "parents" : [ 451462 ],
+    "children" : [ 1063704, 1063703 ]
+  }, {
+    "dbId" : 1063702,
+    "stId" : "R-ALL-1063702",
+    "displayName" : "Ligand recognized by chicken TLR15 [plasma membrane]",
+    "schemaClass" : "OtherEntity",
+    "parents" : [ 451519 ]
+  }, {
+    "dbId" : 438016,
+    "stId" : "R-GGA-438016",
+    "displayName" : "c-JUN [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 951 ],
+    "identifier" : "P18870",
+    "geneNames" : [ "JUN" ]
+  }, {
+    "dbId" : 1063703,
+    "stId" : "R-STY-1063703",
+    "displayName" : "Flagellin (phase1- flagellin) [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 451465,
+    "identifier" : "P06179",
+    "geneNames" : [ "fliC", "flaF", "hag", "STM1959" ],
+    "parents" : [ 1063701 ]
+  }, {
+    "dbId" : 1063704,
+    "stId" : "R-STY-1063704",
+    "displayName" : "Flagellin (phase 2 - flagellin) [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 451465,
+    "identifier" : "P52616",
+    "geneNames" : [ "fljB", "H2", "STM2771" ],
+    "parents" : [ 1063701 ]
+  }, {
+    "dbId" : 433933,
+    "stId" : "R-GGA-433933",
+    "displayName" : "Ubiquitin carier protein (UBC13 homolog) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5F405",
+    "geneNames" : [ "RCJMB04_3o20" ],
+    "parents" : [ 446245, 433960 ]
+  }, {
+    "dbId" : 433931,
+    "stId" : "R-GGA-433931",
+    "displayName" : "TAK1 : TAB1 : TAB2/TAB3 complex [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "parents" : [ 993989, 434146 ],
+    "children" : [ 993984, 434141, 433956 ]
+  }, {
+    "dbId" : 438027,
+    "stId" : "R-GGA-438027",
+    "displayName" : "phosphorylated MAPK12 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000014011",
+    "geneNames" : [ "MAPK12" ],
+    "parents" : [ 437968 ]
+  }, {
+    "dbId" : 433942,
+    "stId" : "R-GGA-433942",
+    "displayName" : "ERK2(MAPK1) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 990 ],
+    "identifier" : "Q8UWG6",
+    "geneNames" : [ "MAPK1" ],
+    "parents" : [ 451495 ]
+  }, {
+    "dbId" : 433938,
+    "stId" : "R-GGA-433938",
+    "displayName" : "activated IKKs complex [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 136 ],
+    "children" : [ 433953, 434000 ]
+  }, {
+    "dbId" : 433946,
+    "stId" : "R-GGA-433946",
+    "displayName" : "MAPK10 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000018075",
+    "geneNames" : [ "MAPK10" ],
+    "parents" : [ 433872 ]
+  }, {
+    "dbId" : 433947,
+    "stId" : "R-GGA-433947",
+    "displayName" : "viral dsRNA : TLR3 : TICAM1 [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 118, 551 ],
+    "parents" : [ 433843, 434043, 434042, 433968, 434102 ],
+    "children" : [ 433979, 433883 ]
+  }, {
+    "dbId" : 433956,
+    "stId" : "R-GGA-433956",
+    "displayName" : "TAK1 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000025101",
+    "geneNames" : [ "MAP3K7" ],
+    "parents" : [ 433931 ]
+  }, {
+    "dbId" : 446245,
+    "stId" : "R-GGA-446245",
+    "displayName" : "Ubiquitin:UBE2N : UBE2V complex [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 140 ],
+    "children" : [ 434105, 433933, 434147 ]
+  }, {
+    "dbId" : 433952,
+    "stId" : "R-GGA-433952",
+    "displayName" : "phosphorylated TAK1 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000025101",
+    "geneNames" : [ "MAP3K7" ],
+    "parents" : [ 1094885, 993983, 434152 ]
+  }, {
+    "dbId" : 433953,
+    "stId" : "R-GGA-433953",
+    "displayName" : "phospho_IKBKB(IKK_beta)_CHICK [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZI83",
+    "geneNames" : [ "RCJMB04_29g15" ],
+    "parents" : [ 433938 ]
+  }, {
+    "dbId" : 433962,
+    "stId" : "R-GGA-433962",
+    "displayName" : "NFkB1_p50 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q04861",
+    "geneNames" : [ "NFKB1" ],
+    "parents" : [ 434125, 434019 ]
+  }, {
+    "dbId" : 433960,
+    "stId" : "R-GGA-433960",
+    "displayName" : "UBE2N : UBE2V complex [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 141 ],
+    "children" : [ 434105, 433933 ]
+  }, {
+    "dbId" : 433970,
+    "stId" : "R-GGA-433970",
+    "displayName" : "TLR4 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q7ZTG5",
+    "geneNames" : [ "TLR4" ],
+    "parents" : [ 434119 ]
+  }, {
+    "dbId" : 433971,
+    "stId" : "R-GGA-433971",
+    "displayName" : "phosphorylated IRF3 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q90643",
+    "geneNames" : [ "IRF3" ],
+    "parents" : [ 434029 ]
+  }, {
+    "dbId" : 433968,
+    "stId" : "R-GGA-433968",
+    "displayName" : "viral ds RNA : TLR3 : TICAM1 : TRAF6 [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 120 ],
+    "children" : [ 433947, 433792 ]
+  }, {
+    "dbId" : 170292,
+    "stId" : "R-ALL-170292",
+    "displayName" : "ssRNA [cytosol]",
+    "schemaClass" : "OtherEntity",
+    "parents" : [ 1216505 ]
+  }, {
+    "dbId" : 433980,
+    "stId" : "R-GGA-433980",
+    "displayName" : "REL_A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P98152",
+    "geneNames" : [ "RELA" ],
+    "parents" : [ 434125, 434019 ]
+  }, {
+    "dbId" : 433979,
+    "stId" : "R-GGA-433979",
+    "displayName" : "TICAM1 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "A0FKC7",
+    "geneNames" : [ "TLR adaptor molecule 1(TRIF)" ],
+    "parents" : [ 433947 ]
+  }, {
+    "dbId" : 433976,
+    "stId" : "R-GGA-433976",
+    "displayName" : "CD14 co-receptor [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 372 ],
+    "identifier" : "B0BL87",
+    "geneNames" : [ "Cd14", "Cd14", "Cd14" ],
+    "parents" : [ 434025 ]
+  }, {
+    "dbId" : 975695,
+    "stId" : "R-GGA-975695",
+    "displayName" : "K63-ubiquitin (UBB 3) [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P0CG62",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 975692 ]
+  }, {
+    "dbId" : 975692,
+    "stId" : "R-GGA-975692",
+    "displayName" : "K63_Ubiquitin [plasma membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "parents" : [ 975690 ],
+    "children" : [ 975697, 975696, 975699, 975689, 975693, 975695 ]
+  }, {
+    "dbId" : 573258,
+    "stId" : "R-GGA-573258",
+    "displayName" : "MyD88 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "A5HNF6",
+    "geneNames" : [ "MYD88", "RCJMB04_14h3" ],
+    "parents" : [ 451459 ]
+  }, {
+    "dbId" : 975693,
+    "stId" : "R-GGA-975693",
+    "displayName" : "K63-ubiquitin (UBB 2) [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P0CG62",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 975692 ]
+  }, {
+    "dbId" : 433989,
+    "stId" : "R-GGA-433989",
+    "displayName" : "K63_polyubiquitin chain [endosome membrane]",
+    "schemaClass" : "Polymer",
+    "speciesId" : 49591,
+    "parents" : [ 434011 ],
+    "children" : [ 451958 ]
+  }, {
+    "dbId" : 975690,
+    "stId" : "R-GGA-975690",
+    "displayName" : "K63 polyubiquitin chain [plasma membrane]",
+    "schemaClass" : "Polymer",
+    "speciesId" : 49591,
+    "parents" : [ 433856 ],
+    "children" : [ 975692 ]
+  }, {
+    "dbId" : 433987,
+    "stId" : "R-GGA-433987",
+    "displayName" : "MyD88 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 198, 694, 429 ],
+    "identifier" : "A5HNF6",
+    "geneNames" : [ "MYD88", "RCJMB04_14h3" ]
+  }, {
+    "dbId" : 975689,
+    "stId" : "R-GGA-975689",
+    "displayName" : "K63-ubiquitin (UBB 4) [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P0CG62",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 975692 ]
+  }, {
+    "dbId" : 975686,
+    "stId" : "R-GGA-975686",
+    "displayName" : "K63-linked Ub TRAF6 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "E1C626",
+    "geneNames" : [ "TRAF6" ],
+    "parents" : [ 433856 ]
+  }, {
+    "dbId" : 433993,
+    "stId" : "R-GGA-433993",
+    "displayName" : "IRF3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 157 ],
+    "identifier" : "Q90643",
+    "geneNames" : [ "IRF3" ]
+  }, {
+    "dbId" : 977246,
+    "stId" : "R-GGA-977246",
+    "displayName" : "activated TLR5 or 15 bound to ligand [plasma membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "diagramIds" : [ 426 ],
+    "parents" : [ 977241 ],
+    "children" : [ 451519, 451462 ]
+  }, {
+    "dbId" : 975710,
+    "stId" : "R-GGA-975710",
+    "displayName" : "TAK1 : TAB1 : TAB2/TAB3  [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "parents" : [ 434148 ],
+    "children" : [ 975703, 975702, 975709 ]
+  }, {
+    "dbId" : 975711,
+    "stId" : "R-GGA-975711",
+    "displayName" : "chicken TAB2/TAB3 [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "parents" : [ 1094885, 433839 ],
+    "children" : [ 434032, 442867 ]
+  }, {
+    "dbId" : 977244,
+    "stId" : "R-GGA-977244",
+    "displayName" : "IRAK2 : p-IRAK4 :MyD88 : activated TLR [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 469 ],
+    "children" : [ 977234, 433862 ]
+  }, {
+    "dbId" : 975708,
+    "stId" : "R-GGA-975708",
+    "displayName" : "TRAF6 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "E1C626",
+    "geneNames" : [ "TRAF6" ],
+    "parents" : [ 977235, 433829, 451475 ]
+  }, {
+    "dbId" : 434005,
+    "stId" : "R-GGA-434005",
+    "displayName" : " IKKs_complex (Inhibitor of kappa B kinases) [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 134 ],
+    "children" : [ 433865, 433915 ]
+  }, {
+    "dbId" : 975709,
+    "stId" : "R-GGA-975709",
+    "displayName" : "TAB1 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZJW3",
+    "geneNames" : [ "RCJMB04_15c17" ],
+    "parents" : [ 975710, 451458 ]
+  }, {
+    "dbId" : 434002,
+    "stId" : "R-GGA-434002",
+    "displayName" : "IRAK2 : p-IRAK4 :MyD88 : TIRAP : activated TLR [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 215 ],
+    "children" : [ 434022, 433862 ]
+  }, {
+    "dbId" : 975706,
+    "stId" : "R-GGA-975706",
+    "displayName" : "activated IRAK4 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZJM6",
+    "geneNames" : [ "RCJMB04_17b10" ],
+    "parents" : [ 434022, 977234 ]
+  }, {
+    "dbId" : 975707,
+    "stId" : "R-GGA-975707",
+    "displayName" : "TAB3 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000026205",
+    "geneNames" : [ "MAP3K7IP3" ],
+    "parents" : [ 975702 ]
+  }, {
+    "dbId" : 977243,
+    "stId" : "R-GGA-977243",
+    "displayName" : "p-IRAK2 bound to the activated chicken TLR complex [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 225 ],
+    "children" : [ 977236, 433788 ]
+  }, {
+    "dbId" : 434000,
+    "stId" : "R-GGA-434000",
+    "displayName" : "phospho IKBKA (IKK alpha)_CHICK [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZJB4",
+    "geneNames" : [ "CHUK", "IKKA", "RCJMB04_19h23" ],
+    "parents" : [ 433938 ]
+  }, {
+    "dbId" : 573279,
+    "stId" : "R-GGA-573279",
+    "displayName" : "activated TLR7 or 21 bound to ligand [endosome membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "diagramIds" : [ 691 ],
+    "parents" : [ 451459 ],
+    "children" : [ 451483, 451537 ]
+  }, {
+    "dbId" : 975705,
+    "stId" : "R-GGA-975705",
+    "displayName" : "TAB2 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000020155 ",
+    "geneNames" : [ "MAP3K7IP2 (TAB2)" ],
+    "parents" : [ 975702 ]
+  }, {
+    "dbId" : 977241,
+    "stId" : "R-GGA-977241",
+    "displayName" : "activated TLR homodimer : MyD88 complex [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 427 ],
+    "parents" : [ 433838, 977234 ],
+    "children" : [ 433900, 977246 ]
+  }, {
+    "dbId" : 975702,
+    "stId" : "R-GGA-975702",
+    "displayName" : "chicken TAB2/TAB3 [plasma membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "parents" : [ 975710, 451458 ],
+    "children" : [ 975705, 975707 ]
+  }, {
+    "dbId" : 975703,
+    "stId" : "R-GGA-975703",
+    "displayName" : "TAK1 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000025101",
+    "geneNames" : [ "MAP3K7" ],
+    "parents" : [ 975710 ]
+  }, {
+    "dbId" : 975700,
+    "stId" : "R-GGA-975700",
+    "displayName" : "phosphorylated TAK1 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000025101",
+    "geneNames" : [ "MAP3K7" ],
+    "parents" : [ 1169550, 451458 ]
+  }, {
+    "dbId" : 977236,
+    "stId" : "R-GGA-977236",
+    "displayName" : "ch p-IRAK4 bound to the activated TLR complex [plasma membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "diagramIds" : [ 296 ],
+    "parents" : [ 977243, 977235 ],
+    "children" : [ 977234, 434022 ]
+  }, {
+    "dbId" : 977234,
+    "stId" : "R-GGA-977234",
+    "displayName" : "activated TLR : MyD88 : p-IRAK4 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 450 ],
+    "parents" : [ 977233, 977236, 977244 ],
+    "children" : [ 977241, 975706 ]
+  }, {
+    "dbId" : 975699,
+    "stId" : "R-GGA-975699",
+    "displayName" : "K63-ubiquitin (RPS27A) [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P79781",
+    "geneNames" : [ "RPS27A", "UBA80" ],
+    "parents" : [ 975692 ]
+  }, {
+    "dbId" : 434011,
+    "stId" : "R-GGA-434011",
+    "displayName" : "pUb_TRAF6 [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "parents" : [ 993982, 434102 ],
+    "children" : [ 433792, 433989 ]
+  }, {
+    "dbId" : 977235,
+    "stId" : "R-GGA-977235",
+    "displayName" : "chTRAF6 bound to the activated chicken TLR complex [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 226 ],
+    "children" : [ 977236, 433788, 975708 ]
+  }, {
+    "dbId" : 975696,
+    "stId" : "R-GGA-975696",
+    "displayName" : "K63-ubiquitin (UBA52) [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P62985",
+    "geneNames" : [ "UBA52", "UBCEP2" ],
+    "parents" : [ 975692 ]
+  }, {
+    "dbId" : 977233,
+    "stId" : "R-GGA-977233",
+    "displayName" : " p-IRAK2 : p-IRAK4 : activated TLR : MyD88  [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 478 ],
+    "children" : [ 977234, 433788 ]
+  }, {
+    "dbId" : 975697,
+    "stId" : "R-GGA-975697",
+    "displayName" : "K63-ubiquitin (UBB 1) [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P0CG62",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 975692 ]
+  }, {
+    "dbId" : 434022,
+    "stId" : "R-GGA-434022",
+    "displayName" : "activated TLR : TIRAP : MyD88 ; p-IRAK4 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 210 ],
+    "parents" : [ 433907, 977236, 434002 ],
+    "children" : [ 433821, 975706 ]
+  }, {
+    "dbId" : 939887,
+    "stId" : "R-GGA-939887",
+    "displayName" : "K63-ubiquitin (UBB 1) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P0CG62",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 451961 ]
+  }, {
+    "dbId" : 939885,
+    "stId" : "R-GGA-939885",
+    "displayName" : "K63-ubiquitin (RPS27A) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P79781",
+    "geneNames" : [ "RPS27A", "UBA80" ],
+    "parents" : [ 451961 ]
+  }, {
+    "dbId" : 434019,
+    "stId" : "R-GGA-434019",
+    "displayName" : "IkB alpha : NFkB complex [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 149 ],
+    "children" : [ 433962, 433980, 433811 ]
+  }, {
+    "dbId" : 939883,
+    "stId" : "R-GGA-939883",
+    "displayName" : "K63-ubiquitin (UBB 4) [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P0CG62",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 451958 ]
+  }, {
+    "dbId" : 939880,
+    "stId" : "R-GGA-939880",
+    "displayName" : "K63-ubiquitin (UBB 2) [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P0CG62",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 451958 ]
+  }, {
+    "dbId" : 434016,
+    "stId" : "R-GGA-434016",
+    "displayName" : "TBK1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 130 ],
+    "identifier" : "ENSGALP00000015982",
+    "geneNames" : [ "TBK1" ],
+    "parents" : [ 1227879 ]
+  }, {
+    "dbId" : 939881,
+    "stId" : "R-GGA-939881",
+    "displayName" : "K63-ubiquitin (UBB 4) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P0CG62",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 451961 ]
+  }, {
+    "dbId" : 939878,
+    "stId" : "R-GGA-939878",
+    "displayName" : "ubiquitin (UBB 2) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P0CG62",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 434147 ]
+  }, {
+    "dbId" : 939879,
+    "stId" : "R-GGA-939879",
+    "displayName" : "ubiquitin (RPS27A) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P79781",
+    "geneNames" : [ "RPS27A", "UBA80" ],
+    "parents" : [ 434147 ]
+  }, {
+    "dbId" : 939876,
+    "stId" : "R-GGA-939876",
+    "displayName" : "K63-ubiquitin (UBA52) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P62985",
+    "geneNames" : [ "UBA52", "UBCEP2" ],
+    "parents" : [ 451961 ]
+  }, {
+    "dbId" : 434029,
+    "stId" : "R-GGA-434029",
+    "displayName" : "Phosphorylated IRF3 : IRF3 [nucleoplasm]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 113 ],
+    "children" : [ 433971 ]
+  }, {
+    "dbId" : 939877,
+    "stId" : "R-GGA-939877",
+    "displayName" : "ubiquitin (UBB 3) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P0CG62",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 434147 ]
+  }, {
+    "dbId" : 451434,
+    "stId" : "R-GGA-451434",
+    "displayName" : "activated TLR7/or TLR21 : MyD88 : IRAK4 complex [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 698 ],
+    "parents" : [ 571321 ],
+    "children" : [ 451459, 993981 ]
+  }, {
+    "dbId" : 939875,
+    "stId" : "R-GGA-939875",
+    "displayName" : "K63-ubiquitin (RPS27A) [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P79781",
+    "geneNames" : [ "RPS27A", "UBA80" ],
+    "parents" : [ 451958 ]
+  }, {
+    "dbId" : 434025,
+    "stId" : "R-GGA-434025",
+    "displayName" : "CD14 :LPS complex [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 373 ],
+    "children" : [ 433976, 433850 ]
+  }, {
+    "dbId" : 451958,
+    "stId" : "R-GGA-451958",
+    "displayName" : "K63_Ubiquitin [endosome membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "parents" : [ 433989 ],
+    "children" : [ 939904, 939875, 939897, 939880, 939883, 939900 ]
+  }, {
+    "dbId" : 939900,
+    "stId" : "R-GGA-939900",
+    "displayName" : "K63-ubiquitin (UBB 3) [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P0CG62",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 451958 ]
+  }, {
+    "dbId" : 939901,
+    "stId" : "R-GGA-939901",
+    "displayName" : "K63-ubiquitin (UBB 2) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P0CG62",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 451961 ]
+  }, {
+    "dbId" : 451445,
+    "stId" : "R-STY-451445",
+    "displayName" : "Flagellin (phase 2 - flagellin) [extracellular region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 451465,
+    "identifier" : "P52616",
+    "geneNames" : [ "fljB", "H2", "STM2771" ],
+    "parents" : [ 451464 ]
+  }, {
+    "dbId" : 939898,
+    "stId" : "R-GGA-939898",
+    "displayName" : "ubiquitin (UBB 4) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P0CG62",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 434147 ]
+  }, {
+    "dbId" : 434032,
+    "stId" : "R-GGA-434032",
+    "displayName" : "TAB2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000020155 ",
+    "geneNames" : [ "MAP3K7IP2 (TAB2)" ],
+    "parents" : [ 975711, 921146 ]
+  }, {
+    "dbId" : 939897,
+    "stId" : "R-GGA-939897",
+    "displayName" : "K63-ubiquitin (UBB 1) [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P0CG62",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 451958 ]
+  }, {
+    "dbId" : 434046,
+    "stId" : "R-GGA-434046",
+    "displayName" : "RIP1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 122 ],
+    "identifier" : "Q7ZZX8",
+    "geneNames" : [ "RIP-1" ]
+  }, {
+    "dbId" : 451455,
+    "stId" : "R-GGA-451455",
+    "displayName" : "pUb_TRAF6 [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "parents" : [ 921146 ],
+    "children" : [ 434061, 433886 ]
+  }, {
+    "dbId" : 939892,
+    "stId" : "R-GGA-939892",
+    "displayName" : "ubiquitin (UBB 1) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P0CG62",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 434147 ]
+  }, {
+    "dbId" : 451453,
+    "stId" : "R-GGA-451453",
+    "displayName" : "pUb oligo TRAF6 : p-IRAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 306 ],
+    "parents" : [ 434148, 451458 ],
+    "children" : [ 433788, 433856 ]
+  }, {
+    "dbId" : 451962,
+    "stId" : "R-GGA-451962",
+    "displayName" : "free K63_polyubiquitin chain [cytosol]",
+    "schemaClass" : "Polymer",
+    "speciesId" : 49591,
+    "diagramIds" : [ 797, 110 ],
+    "parents" : [ 993989, 1094885, 993983, 434152, 434146, 434148, 451458 ],
+    "children" : [ 451961 ]
+  }, {
+    "dbId" : 939890,
+    "stId" : "R-GGA-939890",
+    "displayName" : "K63-ubiquitin (UBB 3) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P0CG62",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 451961 ]
+  }, {
+    "dbId" : 434042,
+    "stId" : "R-GGA-434042",
+    "displayName" : "viral dsRNA : TLR3 : TICAM1 : RIP1 [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 123 ],
+    "children" : [ 433947, 434093 ]
+  }, {
+    "dbId" : 434043,
+    "stId" : "R-GGA-434043",
+    "displayName" : "ds viral RNA : TLR3 : TICAM1 : IKK epsilon complex  [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 145 ],
+    "children" : [ 433947, 434070 ]
+  }, {
+    "dbId" : 571253,
+    "stId" : "R-ALL-571253",
+    "displayName" : "Diacyl lipopeptide [plasma membrane]",
+    "schemaClass" : "SimpleEntity",
+    "identifier" : "46896",
+    "parents" : [ 517854 ]
+  }, {
+    "dbId" : 939891,
+    "stId" : "R-GGA-939891",
+    "displayName" : "ubiquitin (UBA52) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P62985",
+    "geneNames" : [ "UBA52", "UBCEP2" ],
+    "parents" : [ 1227840, 434147 ]
+  }, {
+    "dbId" : 451961,
+    "stId" : "R-GGA-451961",
+    "displayName" : "K63-Ubiquitin [cytosol]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 49591,
+    "parents" : [ 451962, 434061 ],
+    "children" : [ 939890, 939881, 939901, 939885, 939887, 939876 ]
+  }, {
+    "dbId" : 451449,
+    "stId" : "R-GGA-451449",
+    "displayName" : "TLR5 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5GR02",
+    "geneNames" : [ "TLR5" ],
+    "parents" : [ 451471 ]
+  }, {
+    "dbId" : 451462,
+    "stId" : "R-GGA-451462",
+    "displayName" : "bacterial flagellin bound to chicken TLR5 homodimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 416 ],
+    "parents" : [ 977246 ],
+    "children" : [ 451471, 1063701 ]
+  }, {
+    "dbId" : 437639,
+    "stId" : "R-GGA-437639",
+    "displayName" : "MKK3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZL06",
+    "geneNames" : [ "RCJMB04_8f10" ],
+    "parents" : [ 437632 ]
+  }, {
+    "dbId" : 437637,
+    "stId" : "R-GGA-437637",
+    "displayName" : "MKK6 [cytosol]",
+    "schemaClass" : "GenomeEncodedEntity",
+    "speciesId" : 49591,
+    "parents" : [ 437632 ]
+  }, {
+    "dbId" : 451458,
+    "stId" : "R-GGA-451458",
+    "displayName" : "p-IRAK2: pUb_oligo TRAF6 : phospho TAK1 :TAB1 : TAB2/TAB3 : K63linked free pUb chain [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 336 ],
+    "parents" : [ 975491 ],
+    "children" : [ 451962, 451453, 975700, 975702, 975709 ]
+  }, {
+    "dbId" : 451459,
+    "stId" : "R-GGA-451459",
+    "displayName" : "activated TLR7/ or TLR21 : MyD88 complex [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 692 ],
+    "parents" : [ 451434, 571317 ],
+    "children" : [ 573279, 573258 ]
+  }, {
+    "dbId" : 437632,
+    "stId" : "R-GGA-437632",
+    "displayName" : "MKK3/MKK6 [cytosol]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 49591,
+    "diagramIds" : [ 959 ],
+    "children" : [ 437639, 437637 ]
+  }, {
+    "dbId" : 434062,
+    "stId" : "R-GGA-434062",
+    "displayName" : "NFkB1_p50 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q04861",
+    "geneNames" : [ "NFKB1" ],
+    "parents" : [ 433908 ]
+  }, {
+    "dbId" : 451471,
+    "stId" : "R-GGA-451471",
+    "displayName" : "TLR5:TLR5 homodimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 415 ],
+    "parents" : [ 451462 ],
+    "children" : [ 451449 ]
+  }, {
+    "dbId" : 451469,
+    "stId" : "R-STY-451469",
+    "displayName" : "Flagellin (phase1- flagellin) [extracellular region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 451465,
+    "identifier" : "P06179",
+    "geneNames" : [ "fliC", "flaF", "hag", "STM1959" ],
+    "parents" : [ 451464 ]
+  }, {
+    "dbId" : 434061,
+    "stId" : "R-GGA-434061",
+    "displayName" : "K63_polyubiquitin chain [cytosol]",
+    "schemaClass" : "Polymer",
+    "speciesId" : 49591,
+    "parents" : [ 921146, 451455 ],
+    "children" : [ 451961 ]
+  }, {
+    "dbId" : 437642,
+    "stId" : "R-GGA-437642",
+    "displayName" : "MKK4 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 834 ],
+    "identifier" : "ENSGALP00000001475",
+    "geneNames" : [ "MAP2K4" ]
+  }, {
+    "dbId" : 939904,
+    "stId" : "R-GGA-939904",
+    "displayName" : "K63-ubiquitin (UBA52) [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P62985",
+    "geneNames" : [ "UBA52", "UBCEP2" ],
+    "parents" : [ 451958 ]
+  }, {
+    "dbId" : 451464,
+    "stId" : "R-STY-451464",
+    "displayName" : "Flagellin -phase1 and/or 2 [extracellular region]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 451465,
+    "diagramIds" : [ 414 ],
+    "children" : [ 451469, 451445 ]
+  }, {
+    "dbId" : 434057,
+    "stId" : "R-GGA-434057",
+    "displayName" : "MAPK9_(JNK2) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "P79996",
+    "geneNames" : [ "MAPK9", "JNK2" ],
+    "parents" : [ 433872 ]
+  }, {
+    "dbId" : 434070,
+    "stId" : "R-GGA-434070",
+    "displayName" : "IKK epsilon [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 143 ],
+    "identifier" : "ENSGALP00000021757 ",
+    "geneNames" : [ "IKBKE", "IKK epsilon", "IKK-i" ],
+    "parents" : [ 1227879, 434043 ]
+  }, {
+    "dbId" : 451479,
+    "stId" : "R-ALL-451479",
+    "displayName" : "Ligand recognized by chicken TLR15 [extracellular region]",
+    "schemaClass" : "OtherEntity",
+    "diagramIds" : [ 421 ]
+  }, {
+    "dbId" : 434068,
+    "stId" : "R-GGA-434068",
+    "displayName" : "IRAK2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 214, 473, 716 ],
+    "identifier" : "Q5F382",
+    "geneNames" : [ "RCJMB04_29d24" ]
+  }, {
+    "dbId" : 451475,
+    "stId" : "R-GGA-451475",
+    "displayName" : "oligo TRAF6 : p-IRAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 300 ],
+    "children" : [ 433829, 975708 ]
+  }, {
+    "dbId" : 451473,
+    "stId" : "R-GGA-451473",
+    "displayName" : "phosphorylated TAK1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000025101",
+    "geneNames" : [ "MAP3K7" ],
+    "parents" : [ 921146 ]
+  }, {
+    "dbId" : 451487,
+    "stId" : "R-GGA-451487",
+    "displayName" : "phospho MEK2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 991 ],
+    "identifier" : "Q90891",
+    "geneNames" : [ "MAP2K2", "MEK2", "MKK2", "PRKMK2" ],
+    "parents" : [ 451480, 451495, 451526 ]
+  }, {
+    "dbId" : 451483,
+    "stId" : "R-GGA-451483",
+    "displayName" : "TLR21 bound to unmethylated CpG DNA [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 577 ],
+    "parents" : [ 573279 ],
+    "children" : [ 167913, 451503 ]
+  }, {
+    "dbId" : 451480,
+    "stId" : "R-GGA-451480",
+    "displayName" : "phospho ERK2 : phospho MEK2 [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 1002 ],
+    "children" : [ 451487, 451523 ]
+  }, {
+    "dbId" : 451495,
+    "stId" : "R-GGA-451495",
+    "displayName" : "phospho MEK2 : ERK2 [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 992 ],
+    "children" : [ 451487, 433942 ]
+  }, {
+    "dbId" : 451488,
+    "stId" : "R-GGA-451488",
+    "displayName" : "TLR15 homodimer [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "parents" : [ 451519 ],
+    "children" : [ 451532 ]
+  }, {
+    "dbId" : 451503,
+    "stId" : "R-GGA-451503",
+    "displayName" : "TLR21 homodimer [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "parents" : [ 451483 ],
+    "children" : [ 451525 ]
+  }, {
+    "dbId" : 434093,
+    "stId" : "R-GGA-434093",
+    "displayName" : "RIP1 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q7ZZX8",
+    "geneNames" : [ "RIP-1" ],
+    "parents" : [ 434042 ]
+  }, {
+    "dbId" : 451496,
+    "stId" : "R-GGA-451496",
+    "displayName" : "chicken TLR7 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 570 ],
+    "identifier" : "Q5ZJD0",
+    "geneNames" : [ "RCJMB04_19d10" ],
+    "parents" : [ 451536 ]
+  }, {
+    "dbId" : 113582,
+    "stId" : "R-ALL-113582",
+    "displayName" : "ADP [nucleoplasm]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 978, 953, 973 ],
+    "identifier" : "16761",
+    "parents" : [ 6788807, 6792600, 9777112, 9119671, 9496809, 9684341, 9857458, 9066062, 9417854, 9191436, 5252025, 5251983, 9496815, 9191442, 9777118, 9417860, 9066064, 9684347, 9857461, 9119675, 5252074, 9857464, 9684349, 9191445, 9066067, 9417863, 9119678, 9777121, 9496818, 5252008, 9066069, 9857466, 9119680, 9191446, 9417864, 9777123, 9496819, 5252006, 9777114, 9417856, 9496811, 9684343, 9191438, 5252102, 9496813, 9417858, 9191440, 9684345, 9777116, 9857459, 9119673, 5252004, 9684348, 9191443, 9066065, 9777119, 9417861, 9119676, 9857462, 9496816, 5252003, 9496814, 9191441, 9417859, 9684346, 9777117, 9066063, 9857460, 9119674, 5251936, 9857465, 9066068, 9684350, 9777122, 9119679, 5252092, 9066070, 9119681, 5251963, 9777113, 9496810, 9684342, 9191437, 9417855, 5252089, 9417862, 9191444, 9066066, 9119677, 9777120, 9857463, 9496817, 5252024, 9777115, 9417857, 9496812, 9684344, 9191439, 9119672, 5251957, 9565261, 9684842, 9264404, 9191963, 9041499, 9777797, 9418339, 9083782, 9497337, 9066189, 9911924, 9620784, 9339983, 5357508, 9777803, 9339989, 9054128, 9066195, 9264410, 9858150, 9497343, 9911930, 9191969, 9120035, 9041505, 9418345, 9083788, 9620790, 9684848, 9980410, 9565267, 5357523, 9450367, 9371824, 9223282, 9645774, 9096198, 9142371, 9816019, 9717237, 8849115 ]
+  }, {
+    "dbId" : 434102,
+    "stId" : "R-GGA-434102",
+    "displayName" : "viral ds RNA : TLR3 : TICAM1 : pUb-TRAF6 [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 111 ],
+    "parents" : [ 434152, 434146 ],
+    "children" : [ 433947, 434011 ]
+  }, {
+    "dbId" : 571321,
+    "stId" : "R-GGA-571321",
+    "displayName" : "IRAK2:p-IRAK4:MyD88:activated TLR7 /or 21 complex [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 714 ],
+    "children" : [ 451434, 993993 ]
+  }, {
+    "dbId" : 434100,
+    "stId" : "R-GGA-434100",
+    "displayName" : "phosphorylated IRF3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 106 ],
+    "identifier" : "Q90643",
+    "geneNames" : [ "IRF3" ],
+    "parents" : [ 433903 ]
+  }, {
+    "dbId" : 451504,
+    "stId" : "R-GGA-451504",
+    "displayName" : "phospho ERK2 dimer [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 1009 ],
+    "children" : [ 451523 ]
+  }, {
+    "dbId" : 451519,
+    "stId" : "R-GGA-451519",
+    "displayName" : "TLR15 bound to recognized ligand [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 422 ],
+    "parents" : [ 977246 ],
+    "children" : [ 1063702, 451488 ]
+  }, {
+    "dbId" : 113592,
+    "stId" : "R-ALL-113592",
+    "displayName" : "ATP [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 449, 833, 162, 708, 838, 135, 168, 1000, 813, 335, 208, 722, 343, 219, 156, 477, 958 ],
+    "identifier" : "15422",
+    "parents" : [ 170037, 2263468, 9206355, 9630847, 9576623, 9432018, 9511146, 9353588, 9697690, 9795133, 6814649, 9276451, 9600652, 9736131, 9237675, 9388153, 9466546, 9658146, 9539600, 9308766, 390580, 9160108, 9542621, 9391763, 9163921, 9831775, 9603243, 9741155, 9312345, 9240824, 9661271, 9470131, 445789, 390446, 391390, 994134, 9794890, 9510958, 9046292, 9128311, 9431829, 9056083, 9997775, 9070329, 9353374, 9697532, 9206146, 9576446, 9871996, 9630682, 9276265, 9926229, 390474, 9087795, 443623, 9779593, 9419766, 9193599, 9686115, 9859450, 9265606, 9341444, 9981023, 9622036, 9498806, 9083944, 9912343, 9566577, 8948980, 9054223, 9859337, 9621997, 9341426, 9912333, 9265588, 9498788, 9083934, 9054206, 9981013, 9779576, 9566525, 9419748, 9193545, 9686096, 8948970, 9978087, 9065526, 9681832, 9188087, 9910208, 9493702, 9082788, 9414658, 9772921, 9853938, 9117897, 9040616, 5618079, 9053631, 9977478, 9562442, 9414581, 9909743, 9117821, 9681761, 9082712, 9772764, 9065453, 9188008, 9053614, 9493619, 9853846, 3371563, 9040519, 9566510, 9041623, 9083927, 9054199, 9859330, 9779553, 9193528, 9912326, 9120378, 9981000, 9066266, 9341411, 9621982, 9686105, 9265573, 9419721, 9498773, 5618088, 5251947, 9777034, 9119601, 9083581, 9684291, 9053991, 9979698, 9911581, 9191365, 9066018, 9417800, 9041326, 9857395, 9496755, 6792614, 9417808, 9777049, 9041333, 9496763, 9684299, 9191373, 5252045, 5252011, 9684317, 9083606, 9054006, 9066033, 9911618, 9857426, 9119631, 9041355, 9979768, 9777077, 5252104, 9496767, 9191377, 9119606, 9083591, 9684303, 9417812, 9777053, 5252040, 9119637, 9066039, 9911629, 9041361, 9979790, 9083612, 9054012, 5251940, 9083600, 9496777, 9911599, 9777069, 9979727, 9417822, 9857414, 9191393, 9119623, 9684313, 9041345, 9053998, 9066025, 5252036, 9777059, 9191386, 9496773, 9417818, 9041340, 9066020, 9979700, 9857402, 9119618, 9911583, 9684309, 9053993, 9083595, 5252100, 9041331, 9496759, 9191369, 9684295, 9417804, 9777045, 5251938, 9083607, 9054007, 9562506, 9119632, 9356215, 9066034, 9700130, 9632615, 9911619, 9417829, 9191403, 9857427, 9041356, 9279049, 9777078, 9979769, 9496784, 5251937, 9857400, 9119616, 9417816, 9777057, 9191384, 9496771, 9083593, 9041338, 9684307, 5251968, 9496783, 9083604, 9979747, 9857422, 9054002, 9911610, 9041349, 9417828, 9684315, 9066029, 9777075, 9191402, 9119629, 5252063, 9777058, 9417817, 9191385, 9496772, 9041339, 9857401, 9979699, 9119617, 9911582, 9066019, 9684308, 9053992, 9083594, 5252093, 9496781, 9417826, 9857420, 9054000, 9041347, 9083602, 9979740, 9777073, 9191400, 9911605, 9119625, 9066027, 5252028, 9394048, 9663305, 9605109, 9544724, 9166591, 9314781, 9243007, 9472545, 879207, 168906, 918190, 9370000, 9291920, 9644136, 9815167, 9140562, 9526393, 9715010, 9589796, 9448549, 114255, 9221701, 9973634, 9081650, 9064690, 9612356, 9177018, 9252472, 9672800, 9843545, 9757658, 9325507, 9039298, 9907039, 9483640, 9554385, 9405327, 9112971, 201854, 9081655, 9064695, 9973636, 9405331, 9112976, 9612360, 9672804, 9907044, 9177022, 9252476, 9039303, 9483644, 9325511, 9843550, 9757660, 9554389, 201855, 433729, 9948680, 9596076, 9727337, 9230161, 9061970, 9034769, 9150780, 9051869, 9379707, 9077784, 9893446, 9534367, 9458077, 9112940, 9652725, 9301198, 9843510, 201857 ]
+  }, {
+    "dbId" : 451517,
+    "stId" : "R-GGA-451517",
+    "displayName" : "activated TLR2 or 4 bound to ligand [plasma membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "diagramIds" : [ 197 ],
+    "parents" : [ 433821 ],
+    "children" : [ 433789, 517853, 517842 ]
+  }, {
+    "dbId" : 571317,
+    "stId" : "R-GGA-571317",
+    "displayName" : "activated TLR7/or TLR21: MyD88 : p-IRAK4 complex  [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 709 ],
+    "parents" : [ 994003 ],
+    "children" : [ 451459, 993980 ]
+  }, {
+    "dbId" : 434105,
+    "stId" : "R-GGA-434105",
+    "displayName" : "UBE2V1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q90879",
+    "geneNames" : [ "UBE2V1" ],
+    "parents" : [ 446245, 433960 ]
+  }, {
+    "dbId" : 451513,
+    "stId" : "R-GGA-451513",
+    "displayName" : "phospho ERK2 dimer [nucleoplasm]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 1011 ],
+    "children" : [ 442961 ]
+  }, {
+    "dbId" : 451526,
+    "stId" : "R-GGA-451526",
+    "displayName" : "phospho ERK2 : phospho MEK2 [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 1004 ],
+    "children" : [ 451487, 451523 ]
+  }, {
+    "dbId" : 434119,
+    "stId" : "R-GGA-434119",
+    "displayName" : "TLR4:LY96 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 377 ],
+    "parents" : [ 433789 ],
+    "children" : [ 433891, 433970 ]
+  }, {
+    "dbId" : 451525,
+    "stId" : "R-GGA-451525",
+    "displayName" : "TLR21 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 575 ],
+    "identifier" : "Q5ZJ34",
+    "geneNames" : [ "RCJMB04_21a21" ],
+    "parents" : [ 451503 ]
+  }, {
+    "dbId" : 451523,
+    "stId" : "R-GGA-451523",
+    "displayName" : "phospho-ERK2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 1005 ],
+    "identifier" : "Q8UWG6",
+    "geneNames" : [ "MAPK1" ],
+    "parents" : [ 451480, 451526, 451504 ]
+  }, {
+    "dbId" : 451532,
+    "stId" : "R-GGA-451532",
+    "displayName" : "TLR15 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "diagramIds" : [ 420 ],
+    "identifier" : "Q2XQ10",
+    "geneNames" : [ "TLR15" ],
+    "parents" : [ 451488 ]
+  }, {
+    "dbId" : 434125,
+    "stId" : "R-GGA-434125",
+    "displayName" : "NFkB complex(p50/p65) [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 115 ],
+    "children" : [ 433962, 433980 ]
+  }, {
+    "dbId" : 451536,
+    "stId" : "R-GGA-451536",
+    "displayName" : "TLR7 homodimer [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "parents" : [ 451537 ],
+    "children" : [ 451496 ]
+  }, {
+    "dbId" : 434129,
+    "stId" : "R-GGA-434129",
+    "displayName" : "IRAK4 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZJM6",
+    "geneNames" : [ "RCJMB04_17b10" ],
+    "parents" : [ 433831, 433838 ]
+  }, {
+    "dbId" : 451537,
+    "stId" : "R-GGA-451537",
+    "displayName" : "chicken TLR7  homodimer bound to recognized ligands [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 571 ],
+    "parents" : [ 573279 ],
+    "children" : [ 451536, 188130 ]
+  }, {
+    "dbId" : 571346,
+    "stId" : "R-ALL-571346",
+    "displayName" : "Triacyl lipopeptide [plasma membrane]",
+    "schemaClass" : "SimpleEntity",
+    "identifier" : "60192",
+    "parents" : [ 517853, 517854 ]
+  }, {
+    "dbId" : 434141,
+    "stId" : "R-GGA-434141",
+    "displayName" : "TAB1 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZJW3",
+    "geneNames" : [ "RCJMB04_15c17" ],
+    "parents" : [ 993983, 434152, 433931 ]
+  }, {
+    "dbId" : 442855,
+    "stId" : "R-GGA-442855",
+    "displayName" : "phospho MAPKAPK2 and/or phospho MAPKAPK3 [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "parents" : [ 442925 ],
+    "children" : [ 442906, 442894 ]
+  }, {
+    "dbId" : 434148,
+    "stId" : "R-GGA-434148",
+    "displayName" : "p-IRAK2:pUb oligo TRAF6 : TAK1 :TAB1 : TAB2/TAB3 : free K63 pUb chains [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 329 ],
+    "children" : [ 451962, 451453, 975710 ]
+  }, {
+    "dbId" : 434146,
+    "stId" : "R-GGA-434146",
+    "displayName" : "viral dsRNA : TLR3 : TICAM1 : pUb_TRAF6 :TAB2 :TAB3: TAK1 : TAB1: free_pUb_chain [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 154 ],
+    "children" : [ 433931, 451962, 434102 ]
+  }, {
+    "dbId" : 1216502,
+    "stId" : "R-ALL-1216502",
+    "displayName" : "R-848 [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "identifier" : "36706",
+    "parents" : [ 1216503 ]
+  }, {
+    "dbId" : 442850,
+    "stId" : "R-GGA-442850",
+    "displayName" : "MKP2 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q9PW71",
+    "geneNames" : [ "DUSP4", "MKP2" ],
+    "parents" : [ 442886 ]
+  }, {
+    "dbId" : 1216503,
+    "stId" : "R-ALL-1216503",
+    "displayName" : "Imidazoquinoline compounds [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "parents" : [ 1216505 ],
+    "children" : [ 1216504, 1216502 ]
+  }, {
+    "dbId" : 434147,
+    "stId" : "R-GGA-434147",
+    "displayName" : "Ubiquitin [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "diagramIds" : [ 109, 783 ],
+    "parents" : [ 446245 ],
+    "children" : [ 939891, 939877, 939892, 939879, 939878, 939898 ]
+  }, {
+    "dbId" : 442851,
+    "stId" : "R-GGA-442851",
+    "displayName" : "phospho_p38 MAP kinase [nucleoplasm]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 49591,
+    "parents" : [ 442915, 442905 ],
+    "children" : [ 571407, 571406, 571404, 571401 ]
+  }, {
+    "dbId" : 1216504,
+    "stId" : "R-ALL-1216504",
+    "displayName" : "IMIQ [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "identifier" : "36704",
+    "parents" : [ 1216503 ]
+  }, {
+    "dbId" : 1216505,
+    "stId" : "R-ALL-1216505",
+    "displayName" : "Ligands recognized by TLR7 and TLR8 [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "diagramIds" : [ 1026 ],
+    "children" : [ 170292, 1216503 ]
+  }, {
+    "dbId" : 167913,
+    "stId" : "R-ALL-167913",
+    "displayName" : "Unmethylated CpG DNA [endosome membrane]",
+    "schemaClass" : "OtherEntity",
+    "parents" : [ 451483, 9226509, 1679087, 9818885, 9722053, 9375483, 9649319, 9297163, 9146275, 9453787, 9139041, 187884, 9643025, 9290596, 9447177, 9814142, 9220577, 9713241, 9368193, 1679094, 9252092, 9176552, 9672426, 9325092, 9843146, 9757113, 9404913, 9483215 ]
+  }, {
+    "dbId" : 434152,
+    "stId" : "R-GGA-434152",
+    "displayName" : "viral dsRNA : TLR3 : TICAM1 : pUb_TRAF6 :TAB2:TAB3 :phospho TAK1 : TAB1 : free pUb chain [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 49591,
+    "diagramIds" : [ 165 ],
+    "children" : [ 451962, 434141, 442975, 433952, 433923, 434102 ]
+  }, {
+    "dbId" : 442867,
+    "stId" : "R-GGA-442867",
+    "displayName" : "TAB3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000026205",
+    "geneNames" : [ "MAP3K7IP3" ],
+    "parents" : [ 975711, 921146 ]
+  }, {
+    "dbId" : 442877,
+    "stId" : "R-GGA-442877",
+    "displayName" : "MKP5 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "Q5ZJF8",
+    "geneNames" : [ "RCJMB04_18i8" ],
+    "parents" : [ 442886 ]
+  }, {
+    "dbId" : 442874,
+    "stId" : "R-GGA-442874",
+    "displayName" : "MKP6 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 49591,
+    "identifier" : "ENSGALP00000008741",
+    "geneNames" : [ "DUSP14" ],
+    "parents" : [ 442886 ]
+  } ],
+  "edges" : [ {
+    "dbId" : 451463,
+    "stId" : "R-GGA-451463",
+    "displayName" : "pUb_TRAF6 pIRAK2 recruits TAK1 kinase complex ",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 451450, 451470 ],
+    "following" : [ 451447 ],
+    "inputs" : [ 451962, 451453, 433839 ],
+    "outputs" : [ 434148 ],
+    "efs" : [ ],
+    "diagramIds" : [ 328 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 1008270,
+    "stId" : "R-GGA-1008270",
+    "displayName" : "Activated TAK1 leaves endosome membrane",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 994000 ],
+    "inputs" : [ 993983 ],
+    "outputs" : [ 1094885 ],
+    "efs" : [ ],
+    "diagramIds" : [ 1024 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 451461,
+    "stId" : "R-GGA-451461",
+    "displayName" : "IRAK4 binds to the activated TLR7 or 21",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 451439 ],
+    "following" : [ 571316 ],
+    "inputs" : [ 433873, 451459 ],
+    "outputs" : [ 451434 ],
+    "efs" : [ ],
+    "diagramIds" : [ 697 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 434053,
+    "stId" : "R-GGA-434053",
+    "displayName" : "TRAF6 binds to p-IRAK2 complexed with activated TLR",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 434130 ],
+    "following" : [ 434084 ],
+    "inputs" : [ 433886, 977243 ],
+    "outputs" : [ 977235 ],
+    "efs" : [ ],
+    "diagramIds" : [ 224 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 438019,
+    "stId" : "R-GGA-438019",
+    "displayName" : "activated chicken MKK3/MKK6 phosphorylates p38 MAPK complexed with MAPKAPK2 or MAPKAPK3",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 442938 ],
+    "following" : [ 442913 ],
+    "inputs" : [ 29358, 442951 ],
+    "outputs" : [ 442905, 113582 ],
+    "catalysts" : [ 442940 ],
+    "efs" : [ ],
+    "diagramIds" : [ 970 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 451470,
+    "stId" : "R-GGA-451470",
+    "displayName" : "Activated chicken TRAF6 synthesizes free K63bound poly_Ub chains within the complex p-IRAK2:pUb_oligo TRAF6",
+    "schemaClass" : "BlackBoxEvent",
+    "preceding" : [ 451450 ],
+    "following" : [ 451463 ],
+    "inputs" : [ 434147 ],
+    "outputs" : [ 451962 ],
+    "catalysts" : [ 451475 ],
+    "efs" : [ ],
+    "diagramIds" : [ 327 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433804,
+    "stId" : "R-GGA-433804",
+    "displayName" : "IKK epsilon is recruited to the Viral dsRNA:TLR3:TICAM1 complex ",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433815 ],
+    "following" : [ 433786, 433826 ],
+    "inputs" : [ 433947, 113592, 434070 ],
+    "outputs" : [ 434043, 29370 ],
+    "efs" : [ ],
+    "diagramIds" : [ 142 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 438026,
+    "stId" : "R-GGA-438026",
+    "displayName" : "Activation and dimerization of c-JUN in the nucleus",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 437995 ],
+    "inputs" : [ 29358, 438016 ],
+    "outputs" : [ 113582, 437991 ],
+    "catalysts" : [ 438012 ],
+    "efs" : [ ],
+    "inhibitors" : [ 442886 ],
+    "diagramIds" : [ 949 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 434058,
+    "stId" : "R-GGA-434058",
+    "displayName" : "LPS binding to Toll like receptor 4 results in dimerization of the TLR4 associated with LY96",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 434003 ],
+    "following" : [ 433961 ],
+    "inputs" : [ 434025, 434119 ],
+    "outputs" : [ 433976, 433789 ],
+    "efs" : [ ],
+    "diagramIds" : [ 376 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 451466,
+    "stId" : "R-GGA-451466",
+    "displayName" : "TRAF6 binding to activated IRAK2 stimulates its oligomerization",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 434084 ],
+    "following" : [ 451450 ],
+    "inputs" : [ 433886, 433829 ],
+    "outputs" : [ 451475 ],
+    "efs" : [ ],
+    "diagramIds" : [ 299 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 532632,
+    "stId" : "R-GGA-532632",
+    "displayName" : "TRAF6 binds to p-IRAK2 complexed with activated TLR7 or TLR21",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433815 ],
+    "following" : [ 532630 ],
+    "inputs" : [ 994003, 433886 ],
+    "outputs" : [ 532635 ],
+    "efs" : [ ],
+    "diagramIds" : [ 729 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433815,
+    "stId" : "R-GGA-433815",
+    "displayName" : "viral dsRNA : TRL3 recruits TICAM1",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 434004 ],
+    "following" : [ 433804, 434030, 532632, 434097, 433808 ],
+    "inputs" : [ 433883, 433866 ],
+    "outputs" : [ 433947 ],
+    "efs" : [ ],
+    "diagramIds" : [ 159 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433940,
+    "stId" : "R-GGA-433940",
+    "displayName" : "Association of LBP with bacterial LPS",
+    "schemaClass" : "Reaction",
+    "following" : [ 434003 ],
+    "inputs" : [ 166005, 433876 ],
+    "outputs" : [ 433795 ],
+    "efs" : [ ],
+    "diagramIds" : [ 363 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 451474,
+    "stId" : "R-GGA-451474",
+    "displayName" : "Bacterial Flagellin binds TLR5 homodimer",
+    "schemaClass" : "Reaction",
+    "following" : [ 433961, 977238 ],
+    "inputs" : [ 451464, 451471 ],
+    "outputs" : [ 451462 ],
+    "efs" : [ ],
+    "diagramIds" : [ 413 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433808,
+    "stId" : "R-GGA-433808",
+    "displayName" : "viral dsRNA: TLR3: TICAM1 recruits TRAF6",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433815 ],
+    "following" : [ 433981 ],
+    "inputs" : [ 433947, 433886 ],
+    "outputs" : [ 433968 ],
+    "efs" : [ ],
+    "diagramIds" : [ 117 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433936,
+    "stId" : "R-GGA-433936",
+    "displayName" : "Activated chicken TRAF6 synthesizes free K63bound poly_Ub chains within the complex dsRNA :TLR3 :TICAM1",
+    "schemaClass" : "BlackBoxEvent",
+    "preceding" : [ 433981 ],
+    "following" : [ 433950 ],
+    "inputs" : [ 434147 ],
+    "outputs" : [ 451962 ],
+    "catalysts" : [ 434102 ],
+    "efs" : [ ],
+    "diagramIds" : [ 108 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433950,
+    "stId" : "R-GGA-433950",
+    "displayName" : "TRAF6 recruits TAK1 kinase complex ",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433936 ],
+    "following" : [ 433957 ],
+    "inputs" : [ 451962, 433839, 434102 ],
+    "outputs" : [ 434146 ],
+    "efs" : [ ],
+    "diagramIds" : [ 152 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433823,
+    "stId" : "R-GGA-433823",
+    "displayName" : "Released NFkB complex migrates to the nucleus and turns on transcription",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433986 ],
+    "inputs" : [ 434125 ],
+    "outputs" : [ 433908 ],
+    "efs" : [ ],
+    "diagramIds" : [ 114 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 451482,
+    "stId" : "R-GGA-451482",
+    "displayName" : "activated MEK2 binds ERK2",
+    "schemaClass" : "Reaction",
+    "following" : [ 451516 ],
+    "inputs" : [ 451487, 433942 ],
+    "outputs" : [ 451495 ],
+    "efs" : [ ],
+    "diagramIds" : [ 989 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 532630,
+    "stId" : "R-GGA-532630",
+    "displayName" : "p-IRAK2- TRAF6 dissociates from the activated TRL7 or 21",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 532632 ],
+    "following" : [ 573297, 433986 ],
+    "inputs" : [ 532635 ],
+    "outputs" : [ 571317, 993986 ],
+    "efs" : [ ],
+    "diagramIds" : [ 735 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 451481,
+    "stId" : "R-GGA-451481",
+    "displayName" : "TLR7 binds to recognized ligands",
+    "schemaClass" : "Reaction",
+    "following" : [ 451439, 433961 ],
+    "inputs" : [ 451496, 1216505 ],
+    "outputs" : [ 451537 ],
+    "efs" : [ ],
+    "diagramIds" : [ 568 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 434073,
+    "stId" : "R-GGA-434073",
+    "displayName" : "IRAK4 recruitment to the activated TLR complexed with ligand, TIRAP and MyD88 ",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433961 ],
+    "following" : [ 434018 ],
+    "inputs" : [ 433821, 433873 ],
+    "outputs" : [ 433831 ],
+    "efs" : [ ],
+    "diagramIds" : [ 202 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 434084,
+    "stId" : "R-GGA-434084",
+    "displayName" : "p-IRAK2- TRAF6 dissociates from the activated chTLR complex ",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 434053 ],
+    "following" : [ 451466 ],
+    "inputs" : [ 977235 ],
+    "outputs" : [ 977236, 433829 ],
+    "efs" : [ ],
+    "diagramIds" : [ 294 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433957,
+    "stId" : "R-GGA-433957",
+    "displayName" : "Activation of recruited TAK1",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433950 ],
+    "following" : [ 921145, 437984, 437999, 433955 ],
+    "inputs" : [ 113592, 434146 ],
+    "outputs" : [ 434152, 29370 ],
+    "catalysts" : [ 434146 ],
+    "efs" : [ ],
+    "diagramIds" : [ 167 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433826,
+    "stId" : "R-GGA-433826",
+    "displayName" : "Phosphorylation of IRF3 by IKK epsilon(IKBKE) complexed with activated TLR3.",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433804, 434030 ],
+    "following" : [ 434027 ],
+    "inputs" : [ 433993, 113592 ],
+    "outputs" : [ 29370, 434100 ],
+    "catalysts" : [ 434043 ],
+    "efs" : [ ],
+    "diagramIds" : [ 155 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433955,
+    "stId" : "R-GGA-433955",
+    "displayName" : "Phosphorylation of IKKs complex by activated TAK1",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433957, 451447 ],
+    "following" : [ 433986 ],
+    "inputs" : [ 113592, 434005 ],
+    "outputs" : [ 29370, 433938 ],
+    "catalysts" : [ 975491 ],
+    "efs" : [ ],
+    "diagramIds" : [ 342 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 442913,
+    "stId" : "R-GGA-442913",
+    "displayName" : "Active p38 MAPK phosphorylates MAPKAPK2 or 3 ",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 438019 ],
+    "following" : [ 442862 ],
+    "inputs" : [ 442905, 29358 ],
+    "outputs" : [ 113582, 442915 ],
+    "catalysts" : [ 442905 ],
+    "efs" : [ ],
+    "inhibitors" : [ 442886 ],
+    "diagramIds" : [ 975 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433967,
+    "stId" : "R-GGA-433967",
+    "displayName" : "Dimerized Phospho-IRF3 is Transported To The Nucleus",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 434027 ],
+    "inputs" : [ 433903 ],
+    "outputs" : [ 434029 ],
+    "efs" : [ ],
+    "diagramIds" : [ 112 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433961,
+    "stId" : "R-GGA-433961",
+    "displayName" : "Activated TLR homo- or heterodimer recruits adaptors TIRAP(or MAL) and MyD88",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 451481, 517850, 434058, 451474, 517846 ],
+    "following" : [ 434073 ],
+    "inputs" : [ 451517, 433807, 433987 ],
+    "outputs" : [ 433821 ],
+    "efs" : [ ],
+    "diagramIds" : [ 195 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 451511,
+    "stId" : "R-GGA-451511",
+    "displayName" : "TLR15 binds to recognized ligand",
+    "schemaClass" : "Reaction",
+    "following" : [ 977238 ],
+    "inputs" : [ 451532, 451479 ],
+    "outputs" : [ 451519 ],
+    "efs" : [ ],
+    "diagramIds" : [ 419 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 451508,
+    "stId" : "R-GGA-451508",
+    "displayName" : "Nuclear translocation of phospho ERK2 dimer",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 451535 ],
+    "inputs" : [ 451504 ],
+    "outputs" : [ 451513 ],
+    "efs" : [ ],
+    "diagramIds" : [ 1010 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433845,
+    "stId" : "R-GGA-433845",
+    "displayName" : "chicken RIP1 facilitates IKKs complex activation",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 434097 ],
+    "following" : [ 433986 ],
+    "inputs" : [ 113592, 434005 ],
+    "outputs" : [ 29370, 433938 ],
+    "catalysts" : [ 975491 ],
+    "efs" : [ ],
+    "activators" : [ 434042 ],
+    "diagramIds" : [ 133 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 451506,
+    "stId" : "R-GGA-451506",
+    "displayName" : "TLR21homodimer binds to DNA",
+    "schemaClass" : "Reaction",
+    "following" : [ 451439 ],
+    "inputs" : [ 1183249, 451525 ],
+    "outputs" : [ 451483 ],
+    "efs" : [ ],
+    "diagramIds" : [ 574 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 571324,
+    "stId" : "R-GGA-571324",
+    "displayName" : "IRAK2 binds to p-IRAK4:MyD88:activated TLR7 or 21 complex",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 571316 ],
+    "following" : [ 571327 ],
+    "inputs" : [ 571317, 434068 ],
+    "outputs" : [ 571321 ],
+    "efs" : [ ],
+    "diagramIds" : [ 713 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 434097,
+    "stId" : "R-GGA-434097",
+    "displayName" : "viral dsRNA:TRL3:TICAM1 activates RIP1",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433815 ],
+    "following" : [ 433845 ],
+    "inputs" : [ 433947, 434046 ],
+    "outputs" : [ 434042 ],
+    "efs" : [ ],
+    "diagramIds" : [ 121 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 571327,
+    "stId" : "R-GGA-571327",
+    "displayName" : "IRAK2 phosphorylation bound to the activated TLR7 (or TLR21) complex",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 571324 ],
+    "inputs" : [ 113592, 571321 ],
+    "outputs" : [ 994003, 29370 ],
+    "catalysts" : [ 571321 ],
+    "efs" : [ ],
+    "diagramIds" : [ 721 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 921145,
+    "stId" : "R-GGA-921145",
+    "displayName" : "Activated chicken TAK1 dissociates from the activated TLR3 complex",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433957 ],
+    "inputs" : [ 434152 ],
+    "outputs" : [ 433947, 921146 ],
+    "efs" : [ ],
+    "diagramIds" : [ 164 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 451505,
+    "stId" : "R-GGA-451505",
+    "displayName" : "Dissociation of phospho ERK2 :phospho MEK2 complex",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 451516 ],
+    "following" : [ 451535 ],
+    "inputs" : [ 451526 ],
+    "outputs" : [ 451487, 451523 ],
+    "efs" : [ ],
+    "diagramIds" : [ 1003 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 451516,
+    "stId" : "R-GGA-451516",
+    "displayName" : "activated MEK2 phosphorylates ERK2",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 451482 ],
+    "following" : [ 451505 ],
+    "inputs" : [ 113592, 451495 ],
+    "outputs" : [ 451480, 29370 ],
+    "catalysts" : [ 451495 ],
+    "efs" : [ ],
+    "diagramIds" : [ 999 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433981,
+    "stId" : "R-GGA-433981",
+    "displayName" : "Auto ubiquitination of the TRAF6 within the complex viral dsRNA:TLR3:TICAM1:TRAF6",
+    "schemaClass" : "BlackBoxEvent",
+    "preceding" : [ 433808 ],
+    "following" : [ 433936 ],
+    "inputs" : [ 433968, 446245 ],
+    "outputs" : [ 433960, 434102 ],
+    "catalysts" : [ 433968 ],
+    "efs" : [ ],
+    "diagramIds" : [ 139 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 442938,
+    "stId" : "R-GGA-442938",
+    "displayName" : "activated MAPK3/MAPK6 migrates to nucleus",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 437984 ],
+    "following" : [ 438019 ],
+    "inputs" : [ 437977 ],
+    "outputs" : [ 442940 ],
+    "efs" : [ ],
+    "diagramIds" : [ 964 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 571316,
+    "stId" : "R-GGA-571316",
+    "displayName" : "Autophosphorylation of IRAK4 bound to the activated TLR7 or 21complex. ",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 451461 ],
+    "following" : [ 571324 ],
+    "inputs" : [ 451434, 113592 ],
+    "outputs" : [ 571317, 29370 ],
+    "catalysts" : [ 451434 ],
+    "efs" : [ ],
+    "diagramIds" : [ 707 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 571318,
+    "stId" : "R-GGA-571318",
+    "displayName" : "Autoubiquitination of oligoTRAF6 bound to p-IRAK2 ",
+    "schemaClass" : "BlackBoxEvent",
+    "preceding" : [ 573297 ],
+    "following" : [ 573296, 573294 ],
+    "inputs" : [ 994001, 434147 ],
+    "outputs" : [ 993982 ],
+    "catalysts" : [ 994001 ],
+    "efs" : [ ],
+    "diagramIds" : [ 780 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433986,
+    "stId" : "R-GGA-433986",
+    "displayName" : "activated IKKs phosphorylates IkB alpha causing the NFkB complex to dissociate from the  phospho-IkB",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 532630, 1227783, 433955, 433845 ],
+    "following" : [ 433823 ],
+    "inputs" : [ 113592, 434019 ],
+    "outputs" : [ 434125, 29370, 433842 ],
+    "catalysts" : [ 433938 ],
+    "efs" : [ ],
+    "diagramIds" : [ 147 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 451535,
+    "stId" : "R-GGA-451535",
+    "displayName" : "Dimerization of activated ERK2",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 451505 ],
+    "following" : [ 451508 ],
+    "inputs" : [ 451523 ],
+    "outputs" : [ 451504 ],
+    "efs" : [ ],
+    "diagramIds" : [ 1008 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433864,
+    "stId" : "R-GGA-433864",
+    "displayName" : "IRAK2 binds to the IRAK4 accociated  with the complex of the activated TLR : TIRAP : MyD88",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 434018 ],
+    "following" : [ 434047 ],
+    "inputs" : [ 434068, 434022 ],
+    "outputs" : [ 434002 ],
+    "efs" : [ ],
+    "diagramIds" : [ 213 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 517846,
+    "stId" : "R-GGA-517846",
+    "displayName" : "TLR2-1 :TLR1-1 binds to triacyl lipopeptide",
+    "schemaClass" : "Reaction",
+    "following" : [ 433961 ],
+    "inputs" : [ 180811, 517847 ],
+    "outputs" : [ 517853 ],
+    "efs" : [ ],
+    "diagramIds" : [ 181 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 434004,
+    "stId" : "R-GGA-434004",
+    "displayName" : "viral dsRNA binds the toll-like receptor 3 (TLR3)",
+    "schemaClass" : "Reaction",
+    "following" : [ 433815 ],
+    "inputs" : [ 9014378, 433892 ],
+    "outputs" : [ 433883 ],
+    "efs" : [ ],
+    "diagramIds" : [ 124 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 434130,
+    "stId" : "R-GGA-434130",
+    "displayName" : "IRAK4 binds to activated TLR5 or 15.",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 977238 ],
+    "following" : [ 977250, 434053 ],
+    "inputs" : [ 977241, 433873 ],
+    "outputs" : [ 433838 ],
+    "catalysts" : [ 433838 ],
+    "efs" : [ ],
+    "diagramIds" : [ 434 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 434003,
+    "stId" : "R-GGA-434003",
+    "displayName" : "LPS binding to CD14 co-receptor",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433940 ],
+    "following" : [ 434058 ],
+    "inputs" : [ 433976, 433795 ],
+    "outputs" : [ 434025, 433876 ],
+    "efs" : [ ],
+    "diagramIds" : [ 371 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 977238,
+    "stId" : "R-GGA-977238",
+    "displayName" : "Activated TLR5/TLR15 homodimer recruits MyD88 adaptor",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 451474, 451511 ],
+    "following" : [ 434130 ],
+    "inputs" : [ 433987, 977246 ],
+    "outputs" : [ 977241 ],
+    "efs" : [ ],
+    "diagramIds" : [ 425 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 977239,
+    "stId" : "R-GGA-977239",
+    "displayName" : "Activated IRAK4 bound to activated TLR : MyD88 complex phosphorylates IRAK2   ",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 977237 ],
+    "inputs" : [ 113592, 977244 ],
+    "outputs" : [ 977233, 29370 ],
+    "catalysts" : [ 977244 ],
+    "efs" : [ ],
+    "diagramIds" : [ 476 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 977237,
+    "stId" : "R-GGA-977237",
+    "displayName" : "IRAK2 binds to IRAK4 associated with activated TLR : MyD88 complex",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 977250 ],
+    "following" : [ 977239 ],
+    "inputs" : [ 977234, 434068 ],
+    "outputs" : [ 977244 ],
+    "efs" : [ ],
+    "diagramIds" : [ 468 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 517850,
+    "stId" : "R-GGA-517850",
+    "displayName" : "TLR2-1 : TLR1-2 heterodimer binds to its ligand",
+    "schemaClass" : "Reaction",
+    "following" : [ 433961 ],
+    "inputs" : [ 517843, 517845 ],
+    "outputs" : [ 517842 ],
+    "efs" : [ ],
+    "diagramIds" : [ 185 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 994000,
+    "stId" : "R-GGA-994000",
+    "displayName" : "Activation of recruited TAK1 within the complex p-IRAK2: pUb-TRAF6:TAB2/TAB3:TAB1:TAK1 upon TLR7 or 21 stimulation",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 573296 ],
+    "following" : [ 1008270 ],
+    "inputs" : [ 993989, 113592 ],
+    "outputs" : [ 29370, 993983 ],
+    "catalysts" : [ 993989 ],
+    "efs" : [ ],
+    "diagramIds" : [ 812 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 434018,
+    "stId" : "R-GGA-434018",
+    "displayName" : "Autophosphorylation of chicken IRAK4",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 434073 ],
+    "following" : [ 433864 ],
+    "inputs" : [ 113592, 433831 ],
+    "outputs" : [ 29370, 434022 ],
+    "catalysts" : [ 433831 ],
+    "efs" : [ ],
+    "diagramIds" : [ 207 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 437984,
+    "stId" : "R-GGA-437984",
+    "displayName" : "Phosphorylation of MKK3/MKK6 by activated TAK1",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433957, 451447 ],
+    "following" : [ 442938 ],
+    "inputs" : [ 113592, 437632 ],
+    "outputs" : [ 437977, 29370 ],
+    "catalysts" : [ 975491 ],
+    "efs" : [ ],
+    "diagramIds" : [ 957 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 573294,
+    "stId" : "R-GGA-573294",
+    "displayName" : "Activated TRAF6 synthesizes free K63 linked pUb chains.",
+    "schemaClass" : "BlackBoxEvent",
+    "preceding" : [ 571318 ],
+    "following" : [ 573296 ],
+    "inputs" : [ 434147 ],
+    "outputs" : [ 451962 ],
+    "catalysts" : [ 993982 ],
+    "efs" : [ ],
+    "diagramIds" : [ 793 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 442862,
+    "stId" : "R-GGA-442862",
+    "displayName" : "Nuclear export of  p38 MAPK mediated by its substrate MAPKAPK2 or 3",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 442913 ],
+    "inputs" : [ 442915 ],
+    "outputs" : [ 442925 ],
+    "efs" : [ ],
+    "diagramIds" : [ 985 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 434030,
+    "stId" : "R-GGA-434030",
+    "displayName" : "TBK1 is recruited to the Viral dsRNA:TLR3:TICAM1 complex",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433815 ],
+    "following" : [ 433786, 433826 ],
+    "inputs" : [ 433947, 113592, 434016 ],
+    "outputs" : [ 29370, 433843 ],
+    "efs" : [ ],
+    "diagramIds" : [ 128 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 437999,
+    "stId" : "R-GGA-437999",
+    "displayName" : "Phosphorylation of MKK4 by activated TAK1",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433957, 451447 ],
+    "following" : [ 438005 ],
+    "inputs" : [ 437642, 113592 ],
+    "outputs" : [ 29370, 437975 ],
+    "catalysts" : [ 975491 ],
+    "efs" : [ ],
+    "diagramIds" : [ 832 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 451439,
+    "stId" : "R-GGA-451439",
+    "displayName" : "Activated TLR7 or 21 recruits MyD88",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 451481, 451506 ],
+    "following" : [ 451461 ],
+    "inputs" : [ 573279, 433987 ],
+    "outputs" : [ 451459 ],
+    "efs" : [ ],
+    "diagramIds" : [ 690 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 977250,
+    "stId" : "R-GGA-977250",
+    "displayName" : "Autophosphorylation of IRAK4 bound to activated TLR5 or 15",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 434130 ],
+    "following" : [ 977237 ],
+    "inputs" : [ 113592, 433838 ],
+    "outputs" : [ 977234, 29370 ],
+    "efs" : [ ],
+    "diagramIds" : [ 448 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 437995,
+    "stId" : "R-GGA-437995",
+    "displayName" : "Activated JNK migrates to the nucleoplasm",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 438005 ],
+    "following" : [ 438026 ],
+    "inputs" : [ 437957 ],
+    "outputs" : [ 438012 ],
+    "efs" : [ ],
+    "diagramIds" : [ 943 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 434027,
+    "stId" : "R-GGA-434027",
+    "displayName" : "Dimerization of Phospho-IRF3",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433786, 1227881, 433826 ],
+    "following" : [ 433967 ],
+    "inputs" : [ 434100 ],
+    "outputs" : [ 433903 ],
+    "efs" : [ ],
+    "diagramIds" : [ 105 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 451447,
+    "stId" : "R-GGA-451447",
+    "displayName" : "Activation of recruited TAK1 within the complex p-IRAK2: pUb-TRAF6:TAB2/TAB3:TAB1:TAK1",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 451463 ],
+    "following" : [ 437984, 437999, 433955 ],
+    "inputs" : [ 113592, 434148 ],
+    "outputs" : [ 29370, 451458 ],
+    "catalysts" : [ 434148 ],
+    "efs" : [ ],
+    "diagramIds" : [ 334 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 438005,
+    "stId" : "R-GGA-438005",
+    "displayName" : "MKK4 phosphorylates JNK",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 437999 ],
+    "following" : [ 437995 ],
+    "inputs" : [ 113592, 433872 ],
+    "outputs" : [ 29370, 437957 ],
+    "catalysts" : [ 437975 ],
+    "efs" : [ ],
+    "diagramIds" : [ 837 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 573296,
+    "stId" : "R-GGA-573296",
+    "displayName" : "Activated TRAF6 recruits TAK1 kinase complex upon TLR7 or TLR21 stimulation",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 571318, 573294 ],
+    "following" : [ 994000 ],
+    "inputs" : [ 451962, 433839, 993982 ],
+    "outputs" : [ 993989 ],
+    "efs" : [ ],
+    "diagramIds" : [ 802 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 434047,
+    "stId" : "R-GGA-434047",
+    "displayName" : "phosphorylation of IRAK2 by activated IRAK4 ",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433864 ],
+    "inputs" : [ 113592, 434002 ],
+    "outputs" : [ 29370, 433907 ],
+    "catalysts" : [ 434002 ],
+    "efs" : [ ],
+    "diagramIds" : [ 218 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 573297,
+    "stId" : "R-GGA-573297",
+    "displayName" : "TRAF6 binding to IRAK2 stimulates its oligomerizartion upon TLR7 or TLR21 stimulation",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 532630 ],
+    "following" : [ 571318 ],
+    "inputs" : [ 993986, 433792 ],
+    "outputs" : [ 994001 ],
+    "efs" : [ ],
+    "diagramIds" : [ 773 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 433786,
+    "stId" : "R-GGA-433786",
+    "displayName" : "Phosphorylation of IRF3 by TBK1 complexed with activated TLR3",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 433804, 434030 ],
+    "following" : [ 434027 ],
+    "inputs" : [ 433993, 113592 ],
+    "outputs" : [ 29370, 434100 ],
+    "catalysts" : [ 433843 ],
+    "efs" : [ ],
+    "diagramIds" : [ 161 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 451450,
+    "stId" : "R-GGA-451450",
+    "displayName" : "Auto ubiquitination of oligo TRAF6 bound to p-IRAK2",
+    "schemaClass" : "BlackBoxEvent",
+    "preceding" : [ 451466 ],
+    "following" : [ 451463, 451470 ],
+    "inputs" : [ 451475, 434147 ],
+    "outputs" : [ 451453 ],
+    "catalysts" : [ 451475 ],
+    "efs" : [ ],
+    "diagramIds" : [ 305 ],
+    "entityFunctionalStatus" : [ ]
+  } ],
+  "subpathways" : [ {
+    "dbId" : 451514,
+    "stId" : "R-GGA-451514",
+    "displayName" : "MyD88:TIRAP-dependent cascade initiated on plasma membrane",
+    "events" : [ 434018, 451463, 451447, 434084, 451508, 451505, 451535, 451516, 451482, 438005, 437999, 438026, 437995, 438019, 437984, 442913, 442862, 442938, 434053, 433986, 433955, 433823, 451470, 451466, 451450, 434047, 433864, 433961, 434073 ]
+  }, {
+    "dbId" : 434136,
+    "stId" : "R-GGA-434136",
+    "displayName" : "Viral dsRNA:TLR3:TICAM1 Complex Activates TBK1",
+    "events" : [ 434030, 433967, 433786, 434027 ]
+  }, {
+    "dbId" : 451534,
+    "stId" : "R-GGA-451534",
+    "displayName" : "TLR5 cascade",
+    "events" : [ 451474, 434130, 977238, 451463, 451447, 434084, 451508, 451505, 451535, 451516, 451482, 438005, 437999, 438026, 437995, 438019, 437984, 442913, 442862, 442938, 434053, 433986, 433955, 433823, 451470, 451466, 451450, 977239, 977237, 977250 ]
+  }, {
+    "dbId" : 451533,
+    "stId" : "R-GGA-451533",
+    "displayName" : "ERK2 activation",
+    "events" : [ 451508, 451505, 451535, 451516, 451482 ]
+  }, {
+    "dbId" : 434001,
+    "stId" : "R-GGA-434001",
+    "displayName" : "TAK1 activates NFkB by phosphorylation and activation of IKKs complex",
+    "events" : [ 433986, 433955, 433823 ]
+  }, {
+    "dbId" : 437986,
+    "stId" : "R-GGA-437986",
+    "displayName" : "Activated TAK1 mediates Jun kinases (JNK) phosphorylation and  activation",
+    "events" : [ 438005, 437999, 438026, 437995 ]
+  }, {
+    "dbId" : 451533,
+    "stId" : "R-GGA-451533",
+    "displayName" : "ERK2 activation",
+    "events" : [ 451508, 451505, 451535, 451516, 451482 ]
+  }, {
+    "dbId" : 437980,
+    "stId" : "R-GGA-437980",
+    "displayName" : "Activated TAK1 mediates p38 MAP kinase phosphorylation",
+    "events" : [ 438019, 437984, 442913, 442862, 442938 ]
+  }, {
+    "dbId" : 451524,
+    "stId" : "R-GGA-451524",
+    "displayName" : "MAPK activation in TLR cascade",
+    "events" : [ 451508, 451505, 451535, 451516, 451482, 438005, 437999, 438026, 437995, 438019, 437984, 442913, 442862, 442938 ]
+  }, {
+    "dbId" : 451531,
+    "stId" : "R-GGA-451531",
+    "displayName" : "TLR21 cascade",
+    "events" : [ 451461, 571324, 571327, 451439, 532632, 1008270, 451508, 451505, 451535, 451516, 451482, 438005, 437999, 438026, 437995, 438019, 437984, 442913, 442862, 442938, 573294, 433986, 433955, 433823, 573296, 573297, 532630, 571318, 994000, 571316, 451506 ]
+  }, {
+    "dbId" : 517856,
+    "stId" : "R-GGA-517856",
+    "displayName" : "TLR2 subfamily cascade",
+    "events" : [ 517846, 434018, 451463, 451447, 434084, 451508, 451505, 451535, 451516, 451482, 438005, 437999, 438026, 437995, 438019, 437984, 442913, 442862, 442938, 434053, 433986, 433955, 433823, 451470, 451466, 451450, 434047, 433864, 433961, 434073, 517850 ]
+  }, {
+    "dbId" : 433822,
+    "stId" : "R-GGA-433822",
+    "displayName" : "NFkB  and MAPK activation mediated by TRAF6",
+    "events" : [ 451463, 451447, 434084, 451508, 451505, 451535, 451516, 451482, 438005, 437999, 438026, 437995, 438019, 437984, 442913, 442862, 442938, 434053, 433986, 433955, 433823, 451470, 451466, 451450 ]
+  }, {
+    "dbId" : 433819,
+    "stId" : "R-GGA-433819",
+    "displayName" : "Viral dsRNA:TLR3:TICAM1 Complex Activates IKBKE_CHICK",
+    "events" : [ 433826, 433967, 433804, 434027 ]
+  }, {
+    "dbId" : 451529,
+    "stId" : "R-GGA-451529",
+    "displayName" : "TLR15 cascade",
+    "events" : [ 451511, 434130, 977238, 451463, 451447, 434084, 451508, 451505, 451535, 451516, 451482, 438005, 437999, 438026, 437995, 438019, 437984, 442913, 442862, 442938, 434053, 433986, 433955, 433823, 451470, 451466, 451450, 977239, 977237, 977250 ]
+  }, {
+    "dbId" : 434048,
+    "stId" : "R-GGA-434048",
+    "displayName" : "TLR3 cascade",
+    "events" : [ 433815, 434004, 433845, 433986, 434097, 433823, 451508, 451505, 451535, 451516, 451482, 438005, 437999, 438026, 437995, 438019, 437984, 442913, 442862, 442938, 433957, 433808, 433936, 921145, 433986, 433955, 433823, 433950, 433981, 433826, 433967, 433804, 434027, 434030, 433967, 433786, 434027 ]
+  }, {
+    "dbId" : 451524,
+    "stId" : "R-GGA-451524",
+    "displayName" : "MAPK activation in TLR cascade",
+    "events" : [ 451508, 451505, 451535, 451516, 451482, 438005, 437999, 438026, 437995, 438019, 437984, 442913, 442862, 442938 ]
+  }, {
+    "dbId" : 451478,
+    "stId" : "R-GGA-451478",
+    "displayName" : "ERK activation",
+    "events" : [ 451508, 451505, 451535, 451516, 451482 ]
+  }, {
+    "dbId" : 434001,
+    "stId" : "R-GGA-434001",
+    "displayName" : "TAK1 activates NFkB by phosphorylation and activation of IKKs complex",
+    "events" : [ 433986, 433955, 433823 ]
+  }, {
+    "dbId" : 434131,
+    "stId" : "R-GGA-434131",
+    "displayName" : "NFkB activation mediated by RIP1 complexed with activated TLR3",
+    "events" : [ 433845, 433986, 434097, 433823 ]
+  }, {
+    "dbId" : 433871,
+    "stId" : "R-GGA-433871",
+    "displayName" : "TRAF6 mediated induction of proinflammatory cytokines",
+    "events" : [ 451508, 451505, 451535, 451516, 451482, 438005, 437999, 438026, 437995, 438019, 437984, 442913, 442862, 442938, 433957, 433808, 433936, 921145, 433986, 433955, 433823, 433950, 433981 ]
+  }, {
+    "dbId" : 451478,
+    "stId" : "R-GGA-451478",
+    "displayName" : "ERK activation",
+    "events" : [ 451508, 451505, 451535, 451516, 451482 ]
+  }, {
+    "dbId" : 437980,
+    "stId" : "R-GGA-437980",
+    "displayName" : "Activated TAK1 mediates p38 MAP kinase phosphorylation",
+    "events" : [ 438019, 437984, 442913, 442862, 442938 ]
+  }, {
+    "dbId" : 977240,
+    "stId" : "R-GGA-977240",
+    "displayName" : "MyD88 cascade initiated on plasma membrane",
+    "events" : [ 434130, 977238, 451463, 451447, 434084, 451508, 451505, 451535, 451516, 451482, 438005, 437999, 438026, 437995, 438019, 437984, 442913, 442862, 442938, 434053, 433986, 433955, 433823, 451470, 451466, 451450, 977239, 977237, 977250 ]
+  }, {
+    "dbId" : 433794,
+    "stId" : "R-GGA-433794",
+    "displayName" : "TLR4 cascade",
+    "events" : [ 433940, 434003, 434058, 434018, 451463, 451447, 434084, 451508, 451505, 451535, 451516, 451482, 438005, 437999, 438026, 437995, 438019, 437984, 442913, 442862, 442938, 434053, 433986, 433955, 433823, 451470, 451466, 451450, 434047, 433864, 433961, 434073 ]
+  }, {
+    "dbId" : 437986,
+    "stId" : "R-GGA-437986",
+    "displayName" : "Activated TAK1 mediates Jun kinases (JNK) phosphorylation and  activation",
+    "events" : [ 438005, 437999, 438026, 437995 ]
+  }, {
+    "dbId" : 451498,
+    "stId" : "R-GGA-451498",
+    "displayName" : "TLR7 cascade",
+    "events" : [ 451461, 571324, 571327, 451439, 532632, 1008270, 451508, 451505, 451535, 451516, 451482, 438005, 437999, 438026, 437995, 438019, 437984, 442913, 442862, 442938, 573294, 433986, 433955, 433823, 573296, 573297, 532630, 571318, 994000, 571316, 451481 ]
+  }, {
+    "dbId" : 451477,
+    "stId" : "R-GGA-451477",
+    "displayName" : "MyD88-dependent cascade initiated on endosome membrane",
+    "events" : [ 451461, 571324, 571327, 451439, 532632, 1008270, 451508, 451505, 451535, 451516, 451482, 438005, 437999, 438026, 437995, 438019, 437984, 442913, 442862, 442938, 573294, 433986, 433955, 433823, 573296, 573297, 532630, 571318, 994000, 571316 ]
+  }, {
+    "dbId" : 433835,
+    "stId" : "R-GGA-433835",
+    "displayName" : "IKK related kinases bound to dsRNA:TLR3:TICAM1  activate IRF3",
+    "events" : [ 433826, 433967, 433804, 434027, 434030, 433967, 433786, 434027 ]
+  }, {
+    "dbId" : 573298,
+    "stId" : "R-GGA-573298",
+    "displayName" : "NFkB and MAPK activation mediated by TRAF6 upon TLR7 or TLR21 stimulation",
+    "events" : [ 532632, 1008270, 451508, 451505, 451535, 451516, 451482, 438005, 437999, 438026, 437995, 438019, 437984, 442913, 442862, 442938, 573294, 433986, 433955, 433823, 573296, 573297, 532630, 571318, 994000 ]
+  } ]
+}
