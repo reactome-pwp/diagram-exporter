@@ -131,7 +131,7 @@ public class DiagramAnalysis {
 			double percentage = (double) found / total;
 			if (percentage < MIN_VISIBLE_ENRICHMENT && percentage > 0)
 				percentage = MIN_VISIBLE_ENRICHMENT;
-			final RenderableNode node = index.getNode(diagramNode.getId());
+			final RenderableNode node = (RenderableNode) index.getDiagramObjectsById().get(diagramNode.getId());
 			node.setEnrichment(percentage);
 			node.setExpressionValue(getMedian(entities.getExp()));
 		}
@@ -170,7 +170,7 @@ public class DiagramAnalysis {
 			final List<FoundEntity> leaves = getLeaves(graphNode).stream()
 					.map(leafId -> analysisIndex.get(graphIndex.get(leafId).getIdentifier()))
 					.collect(Collectors.toList());
-			final RenderableNode renderableNode = index.getNode(diagramNode.getId());
+			final RenderableNode renderableNode = (RenderableNode) index.getDiagramObjectsById().get(diagramNode.getId());
 			renderableNode.setHitExpressions(leaves);
 		});
 	}
@@ -198,7 +198,8 @@ public class DiagramAnalysis {
 					final EntityNode graphNode = graphIndex.get(diagramNode.getReactomeId());
 					if (graphNode != null) {
 						double percentage = getPercentage(graphNodeHit, graphNode);
-						index.getNode(diagramNode.getId()).setEnrichment(percentage);
+						final RenderableNode renderableNode = (RenderableNode) index.getDiagramObjectsById().get(diagramNode.getId());
+						renderableNode.setEnrichment(percentage);
 					}
 				});
 	}

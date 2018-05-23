@@ -2,15 +2,12 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram.common;
 
 import org.reactome.server.tools.diagram.data.graph.*;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
-import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.data.layout.Edge;
-import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableEdge;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,10 +21,10 @@ public class DiagramDecorator {
 	private final RasterArgs args;
 	private final Graph graph;
 	private final Diagram diagram;
-	private Map<Long, EntityNode> graphIndex;
-	private Map<Long, DiagramObject> diagramIndex;
-	private Map<Long, SubpathwayNode> subPathwayIndex;
-	private Set<Long> reactionIds;
+	//	private Map<Long, EntityNode> graphIndex;
+//	private Map<Long, DiagramObject> diagramIndex;
+//	private Map<Long, SubpathwayNode> subPathwayIndex;
+//	private Set<Long> reactionIds;
 	private Set<Long> selected = new TreeSet<>();
 
 	DiagramDecorator(DiagramIndex index, RasterArgs args, Graph graph, Diagram diagram) {
@@ -39,25 +36,6 @@ public class DiagramDecorator {
 	}
 
 	private void decorate() {
-		diagramIndex = Stream.of(diagram.getEdges(), diagram.getNodes())
-				.flatMap(Collection::stream)
-				.collect(Collectors.toMap(DiagramObject::getId, item -> item));
-
-		graphIndex = graph.getNodes() == null
-				? Collections.emptyMap()
-				: graph.getNodes().stream()
-				.collect(Collectors.toMap(GraphNode::getDbId, Function.identity(), (a, b) -> a));
-
-		reactionIds = graph.getEdges() == null
-				? Collections.emptySet()
-				: graph.getEdges().stream().map(EventNode::getDbId)
-				.collect(Collectors.toSet());
-
-		subPathwayIndex = graph.getSubpathways() == null
-				? Collections.emptyMap()
-				: graph.getSubpathways().stream()
-				.collect(Collectors.toMap(SubpathwayNode::getDbId, Function.identity(), (a, b) -> a));
-
 		final Set<Long> sel = getSelectedIds();
 		final Set<Long> flg = getFlagged();
 		decorateNodes(sel, flg);
@@ -87,7 +65,8 @@ public class DiagramDecorator {
 	private Collection<Long> getHitElements(Long id) {
 		final Set<Long> ids = new HashSet<>();
 		ids.add(id);
-		final EntityNode node = graphIndex.get(id);
+		final GraphNode graphNode = index.getGraphIndex().get(id);
+		final EntityNode node = (EntityNode) graphNode;
 		if (node == null)
 			return ids;
 		if (node.getParents() != null)
@@ -99,8 +78,8 @@ public class DiagramDecorator {
 		// dbId, this is faster because dbId is indexed
 		try {
 			final long dbId = Long.parseLong(string);
-			if (graphIndex.containsKey(dbId)
-					|| reactionIds.contains(dbId))
+			if (index.getGraphIndex().containsKey(dbId)
+					|| index.getSubPathwaysById().containsKey(dbId))
 				return Collections.singletonList(dbId);
 		} catch (NumberFormatException ignored) {
 			// ignored, not a dbId
@@ -121,7 +100,7 @@ public class DiagramDecorator {
 			if (eventNode.getStId().equalsIgnoreCase(string))
 				return Collections.singletonList(eventNode.getDbId());
 		// Subpathways
-		for (SubpathwayNode subpathwayNode : subPathwayIndex.values()) {
+		for (SubpathwayNode subpathwayNode : index.getSubPathwaysById().values()) {
 			if (subpathwayNode.getStId().equals(string))
 				return subpathwayNode.getEvents();
 		}
@@ -135,21 +114,22 @@ public class DiagramDecorator {
 		diagram.getNodes().forEach(node -> {
 			if (node.getIsFadeOut() != null && node.getIsFadeOut())
 				return;
+			final RenderableNode renderableNode = (RenderableNode) index.getDiagramObjectsById().get(node.getId());
 			if (selected.contains(node.getReactomeId())) {
-				final RenderableNode renderableNode = index.getNode(node.getId());
 				renderableNode.setSelected(true);
 				renderableNode.setHalo(true);
 				this.selected.add(node.getId());
 				node.getConnectors().forEach(connector -> {
-					final Edge reaction = (Edge) diagramIndex.get(connector.getEdgeId());
+					final RenderableEdge renderableEdge = (RenderableEdge) index.getDiagramObjectsById().get(connector.getEdgeId());
+					final Edge reaction = renderableEdge.getEdge();
 					// When a node is selected, the nodes in the same reaction
 					// are haloed
-					index.getEdge(reaction.getId()).setHalo(true);
+					renderableEdge.setHalo(true);
 					haloEdgeParticipants(reaction);
 				});
 			}
 			if (flags.contains(node.getReactomeId()))
-				index.getNode(node.getId()).setFlag(true);
+				renderableNode.setFlag(true);
 		});
 	}
 
@@ -157,14 +137,14 @@ public class DiagramDecorator {
 		diagram.getEdges().forEach(reaction -> {
 			if (reaction.getIsFadeOut() != null && reaction.getIsFadeOut())
 				return;
+			final RenderableEdge renderableEdge = (RenderableEdge) index.getDiagramObjectsById().get(reaction.getId());
 			if (selected.contains(reaction.getReactomeId())) {
-				final RenderableEdge renderableEdge = index.getEdge(reaction.getId());
 				renderableEdge.setSelected(true);
 				renderableEdge.setHalo(true);
 				haloEdgeParticipants(reaction);
 			}
 			if (flags.contains(reaction.getReactomeId()))
-				index.getEdge(reaction.getId()).setFlag(true);
+				renderableEdge.setFlag(true);
 		});
 	}
 
@@ -179,10 +159,10 @@ public class DiagramDecorator {
 				reaction.getInhibitors(), reaction.getInputs(), reaction.getOutputs())
 				.filter(Objects::nonNull)
 				.flatMap(Collection::stream)
-				.map(part -> diagramIndex.get(part.getId()))
-				.map(Node.class::cast)
-				.filter(node -> node.getIsFadeOut() == null || !node.getIsFadeOut())
-				.forEach(node -> index.getNode(node.getId()).setHalo(true));
+				.map(part -> index.getDiagramObjectsById().get(part.getId()))
+				.map(RenderableNode.class::cast)
+				.filter(node -> !node.isFadeOut())
+				.forEach(node -> node.setHalo(true));
 	}
 
 	public Set<Long> getSelected() {
