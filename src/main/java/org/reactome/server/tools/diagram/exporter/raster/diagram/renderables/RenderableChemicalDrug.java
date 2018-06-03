@@ -36,7 +36,6 @@ public class RenderableChemicalDrug extends RenderableChemical {
 		chemicalBox(canvas, colorProfiles, index, t);
 	}
 
-
 	private void chemicalBox(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
 		final Color fill = getFillColor(colorProfiles, index, t);
 		final Color border = getAttachmentStrokeColor(colorProfiles, index.getAnalysis().getType());

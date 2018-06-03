@@ -14,11 +14,6 @@ public class RenderableNote extends RenderableNodeCommon<Note> {
 	RenderableNote(Note object) {super(object);}
 
 	@Override
-	Shape backgroundShape() {
-		return null;
-	}
-
-	@Override
 	public NodeColorSheet getColorProfile(ColorProfiles colorProfiles) {
 		return colorProfiles.getDiagramSheet().getNote();
 	}

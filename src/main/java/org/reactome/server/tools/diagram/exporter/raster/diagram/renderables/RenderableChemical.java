@@ -15,7 +15,7 @@ public class RenderableChemical extends RenderableNode {
 	}
 
 	@Override
-	Shape backgroundShape() {
+	protected Shape backgroundShape() {
 		final NodeProperties properties = getDiagramObject().getProp();
 		return new Ellipse2D.Double(properties.getX(), properties.getY(),
 				properties.getWidth(), properties.getHeight());

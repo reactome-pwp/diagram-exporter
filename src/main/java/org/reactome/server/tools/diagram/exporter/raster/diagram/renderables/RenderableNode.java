@@ -39,7 +39,7 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 		this.backgroundArea = new Area(backgroundShape());
 	}
 
-	protected abstract Shape backgroundShape();
+	abstract Shape backgroundShape();
 
 	public Double getEnrichment() {
 		return enrichment;
@@ -87,15 +87,12 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 
 	@Override
 	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
-		if (isFlag())
-			flag(canvas, colorProfiles);
-		if (isHalo())
-			halo(canvas, colorProfiles);
+		if (isFlag()) flag(canvas, colorProfiles);
+		if (isHalo()) halo(canvas, colorProfiles);
 		background(canvas, index, colorProfiles);
 		double textSplit = analysis(canvas, colorProfiles, index, t);
 		text(canvas, colorProfiles, index, textSplit);
-		if (isCrossed())
-			cross(canvas, colorProfiles);
+		if (isCrossed()) cross(canvas, colorProfiles);
 	}
 
 	void flag(DiagramCanvas canvas, ColorProfiles colorProfiles) {
@@ -163,7 +160,7 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 	 * this node. If 0, text will not be modified. If 1, all the text will be
 	 * white.
 	 */
-	private double expression(DiagramCanvas canvas, DiagramIndex index, ColorProfiles colorProfiles, int t) {
+	double expression(DiagramCanvas canvas, DiagramIndex index, ColorProfiles colorProfiles, int t) {
 		final java.util.List<FoundEntity> expressions = getHitExpressions();
 		double textSplit = 0.0;
 		if (expressions != null) {

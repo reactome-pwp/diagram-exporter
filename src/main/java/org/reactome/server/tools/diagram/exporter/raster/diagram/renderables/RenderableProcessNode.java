@@ -22,7 +22,7 @@ public class RenderableProcessNode extends RenderableNode {
 	// When it comes to analysis, alpha must be 0.75
 	private static final Color ANALYSIS_INNER_COLOR = new Color(254, 253, 255, 191);
 	private static final Color INNER_COLOR = new Color(254, 253, 255);
-	private static final double PROCESS_NODE_PADDING = 10;
+	static final double PROCESS_NODE_PADDING = 10;
 
 	RenderableProcessNode(Node node) {
 		super(node);
@@ -38,10 +38,14 @@ public class RenderableProcessNode extends RenderableNode {
 		return colorProfiles.getDiagramSheet().getProcessNode();
 	}
 
+	Shape innerShape() {
+		return ShapeFactory.rectangle(getNode().getProp(), PROCESS_NODE_PADDING);
+	}
+
 	@Override
 	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
 		super.draw(canvas, colorProfiles, index, t);
-		final Shape rectangle = ShapeFactory.rectangle(getNode().getProp(), PROCESS_NODE_PADDING);
+		final Shape rectangle = innerShape();
 		final Color fill = index.getAnalysis().getType() == null
 				? INNER_COLOR
 				: ANALYSIS_INNER_COLOR;
@@ -68,19 +72,19 @@ public class RenderableProcessNode extends RenderableNode {
 	}
 
 	@Override
-	public double expression(RenderableNode node, DiagramCanvas canvas, DiagramIndex index, ColorProfiles colorProfiles, int t) {
-		final Double percentage = node.getEnrichment();
+	public double expression(DiagramCanvas canvas, DiagramIndex index, ColorProfiles colorProfiles, int t) {
+		final Double percentage = getEnrichment();
 		if (percentage != null && percentage > 0) {
-			final NodeProperties prop = node.getNode().getProp();
+			final NodeProperties prop = getNode().getProp();
 			final Color color = colorProfiles.getDiagramSheet().getProcessNode().getFill();
-			final Area enrichment = new Area(node.backgroundShape());
+			final Area enrichment = new Area(backgroundShape());
 			final Rectangle2D rectangle = new Rectangle2D.Double(
 					prop.getX() + prop.getWidth() * percentage,
 					prop.getY(),
 					prop.getWidth(),
 					prop.getHeight());
 			enrichment.intersect(new Area(rectangle));
-			node.getBackgroundArea().subtract(enrichment);
+			getBackgroundArea().subtract(enrichment);
 			canvas.getNodeAnalysis().add(enrichment, color);
 		}
 		// process node text is not split

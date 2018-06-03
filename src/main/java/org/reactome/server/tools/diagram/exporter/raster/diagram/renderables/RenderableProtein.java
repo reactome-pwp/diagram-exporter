@@ -33,7 +33,6 @@ public class RenderableProtein extends RenderableNode {
 		return colorProfiles.getDiagramSheet().getProtein();
 	}
 
-
 	@Override
 	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
 		super.draw(canvas, colorProfiles, index, t);

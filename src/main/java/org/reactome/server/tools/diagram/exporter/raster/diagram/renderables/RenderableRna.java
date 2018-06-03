@@ -13,7 +13,7 @@ public class RenderableRna extends RenderableNode {
 	}
 
 	@Override
-	Shape backgroundShape() {
+	protected Shape backgroundShape() {
 		return ShapeFactory.getRnaShape(getNode().getProp());
 	}
 

@@ -6,11 +6,9 @@ import org.reactome.server.tools.diagram.exporter.raster.profiles.NodeColorSheet
 
 public class RenderableReaction extends RenderableEdge {
 
-
 	RenderableReaction(Edge edge) {
 		super(edge);
 	}
-
 
 	@Override
 	public NodeColorSheet getColorProfile(ColorProfiles colorProfiles) {
