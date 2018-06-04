@@ -32,10 +32,6 @@ public class RasterArgs {
 		return stId;
 	}
 
-	public void setStId(String stId) {
-		this.stId = stId;
-	}
-
 	/**
 	 * Only for internal purpose. The quality is interpreted as a factor to
 	 * scale the image. The scale goes from 0.1 to 3.
@@ -61,7 +57,7 @@ public class RasterArgs {
 		return format;
 	}
 
-	public void setFormat(String format) {
+	private void setFormat(String format) {
 		this.format = format == null ? "png" : format.trim().toLowerCase();
 	}
 
@@ -72,8 +68,9 @@ public class RasterArgs {
 		return profiles;
 	}
 
-	public void setProfiles(ColorProfiles profiles) {
+	public RasterArgs setProfiles(ColorProfiles profiles) {
 		this.profiles = profiles;
+		return this;
 	}
 
 	public String getToken() {
@@ -81,8 +78,9 @@ public class RasterArgs {
 	}
 
 	/** Analysis token */
-	public void setToken(String token) {
+	public RasterArgs setToken(String token) {
 		this.token = token;
+		return this;
 	}
 
 	/** Background color when no transparency is available */
@@ -90,8 +88,9 @@ public class RasterArgs {
 		return background;
 	}
 
-	public void setBackground(Color color) {
+	public RasterArgs setBackground(Color color) {
 		this.background = color;
+		return this;
 	}
 
 	/**
@@ -102,52 +101,58 @@ public class RasterArgs {
 		return column;
 	}
 
-	public void setColumn(Integer column) {
+	public RasterArgs setColumn(Integer column) {
 		this.column = column;
+		return this;
 	}
 
 	public String getResource() {
 		return resource;
 	}
 
-	public void setResource(String resource) {
+	public RasterArgs setResource(String resource) {
 		this.resource = resource;
+		return this;
 	}
 
 	public Boolean getWriteTitle() {
 		return writeTitle;
 	}
 
-	public void setWriteTitle(Boolean writeTitle) {
+	public RasterArgs setWriteTitle(Boolean writeTitle) {
 		this.writeTitle = writeTitle;
+		return this;
 	}
 
 	public Set<String> getFlags() {
 		return flags;
 	}
 
-	public void setFlags(Collection<String> flags) {
+	public RasterArgs setFlags(Collection<String> flags) {
 		if (flags != null)
 			this.flags = new HashSet<>(flags);
+		return this;
 	}
 
 	public Set<String> getSelected() {
 		return selected;
 	}
 
-	public void setSelected(Collection<String> selected) {
+	public RasterArgs setSelected(Collection<String> selected) {
 		if (selected != null)
 			this.selected = new HashSet<>(selected);
+		return this;
 	}
 
 	public Integer getQuality() {
 		return quality;
 	}
 
-	public void setQuality(Integer quality) {
+	public RasterArgs setQuality(Integer quality) {
 		if (quality != null) {
 			this.quality = quality;
 			this.factor = scale(quality);
 		}
+		return this;
 	}
 }
