@@ -74,12 +74,12 @@ public class DiagramRenderer implements RasterRenderer {
 	private static final Set<String> NO_TRANSPARENT_FORMATS = new HashSet<>(Arrays.asList("jpg", "jpeg", "gif"));
 	private static final int T = 0;
 	private static final DOMImplementation SVG_IMPL = SVG12DOMImplementation.getDOMImplementation();
-	private final Diagram diagram;
 	private final DiagramIndex index;
 	private final ColorProfiles colorProfiles;
 	private final RasterArgs args;
 	private final double factor;
 	private final String title;
+	private final Diagram diagram;
 	private DiagramCanvas canvas;
 	private LegendRenderer legendRenderer;
 
@@ -98,6 +98,30 @@ public class DiagramRenderer implements RasterRenderer {
 	public DiagramRenderer(RasterArgs args, String diagramPath, AnalysisStoredResult result) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException {
 		final Graph graph = ResourcesFactory.getGraph(diagramPath, args.getStId());
 		diagram = ResourcesFactory.getDiagram(diagramPath, args.getStId());
+		this.title = args.getWriteTitle() != null && args.getWriteTitle()
+				? diagram.getDisplayName()
+				: null;
+		this.args = args;
+		this.colorProfiles = args.getProfiles();
+		this.index = new DiagramIndex(diagram, graph, args, result);
+		canvas = new DiagramCanvas();
+		layout();
+		final Rectangle2D bounds = canvas.getBounds();
+		factor = limitFactor(bounds, MAX_IMAGE_SIZE);
+	}
+
+	/**
+	 * Creates a DiagramRenderer that holds an indexed representation of the
+	 * diagram and graph. It also layouts elements into a DiagramCanvas, ready
+	 * to be exporter to any of the formats: SVG, PDF, raster or GIF.
+	 *
+	 * @param args    arguments
+	 * @param diagram an already in-memory diagram
+	 * @param graph   an already loaded graph
+	 * @param result  a valid analysis result or null if no analysis overlay
+	 */
+	public DiagramRenderer(RasterArgs args, Diagram diagram, Graph graph, AnalysisStoredResult result) {
+		this.diagram = diagram;
 		this.title = args.getWriteTitle() != null && args.getWriteTitle()
 				? diagram.getDisplayName()
 				: null;
@@ -211,7 +235,7 @@ public class DiagramRenderer implements RasterRenderer {
 			final double newFactor = Math.sqrt(maxSize / ((MARGIN + bounds.getWidth()) * (MARGIN + bounds.getHeight())));
 			log.warning(String.format(
 					"Diagram %s is too large. Quality reduced from %.2f to %.2f -> (%d x %d)",
-					diagram.getStableId(), args.getFactor(), newFactor, (int) (bounds.getWidth() * newFactor), (int) (bounds.getHeight() * newFactor)));
+					args.getStId(), args.getFactor(), newFactor, (int) (bounds.getWidth() * newFactor), (int) (bounds.getHeight() * newFactor)));
 			return newFactor;
 		}
 		return args.getFactor();
