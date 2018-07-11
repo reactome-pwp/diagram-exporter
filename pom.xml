@@ -45,7 +45,7 @@
         <commons.io.version>2.5</commons.io.version>
         <jasp.version>2.1</jasp.version>
         <junit.version>4.12</junit.version>
-        <analysis.core.version>3.1.0</analysis.core.version>
+        <analysis.core.version>3.1.2-SNAPSHOT</analysis.core.version>
 
         <!--build-->
         <jdk.version>1.8</jdk.version>
@@ -104,6 +104,12 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
+        </dependency>
+        <!-- Necessary to load org.apache.log4j.Category in Base64 -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
         </dependency>
 
         <dependency>
