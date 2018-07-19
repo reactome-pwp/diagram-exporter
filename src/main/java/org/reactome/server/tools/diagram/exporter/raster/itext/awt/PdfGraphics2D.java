@@ -49,11 +49,14 @@ import com.itextpdf.kernel.colors.DeviceCmyk;
 import com.itextpdf.kernel.colors.DeviceGray;
 import com.itextpdf.kernel.colors.DeviceRgb;
 import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.pdf.*;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvas;
 import com.itextpdf.kernel.pdf.canvas.PdfCanvasConstants;
+import com.itextpdf.kernel.pdf.colorspace.PdfColorSpace;
 import com.itextpdf.kernel.pdf.colorspace.PdfPattern;
 import com.itextpdf.kernel.pdf.colorspace.PdfShading;
 import com.itextpdf.kernel.pdf.extgstate.PdfExtGState;
+import com.itextpdf.kernel.pdf.function.PdfFunction;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.itext.awt.geom.PolylineShape;
 
@@ -67,10 +70,8 @@ import java.awt.geom.*;
 import java.awt.image.*;
 import java.awt.image.renderable.RenderableImage;
 import java.text.AttributedCharacterIterator;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.*;
+import java.util.List;
 
 public class PdfGraphics2D extends Graphics2D {
 
@@ -858,9 +859,9 @@ public class PdfGraphics2D extends Graphics2D {
 			transform.transform(p1, p1);
 			final Point2D p2 = gp.getEndPoint();
 			transform.transform(p2, p2);
-			final Color c1 = gp.getColors()[0];
-			final Color c2 = gp.getColors()[gp.getColors().length - 1];
-			final PdfShading.Axial shading = new PdfShading.Axial(DeviceRgb.RED.getColorSpace(), (float) p1.getX(), normalizeY((float) p1.getY()), c1.getRGBComponents(null), (float) p2.getX(), normalizeY((float) p2.getY()), c2.getRGBComponents(null));
+			final float[][] colors = Arrays.stream(gp.getColors()).map(color -> color.getColorComponents(null)).toArray(float[][]::new);
+			final AxialShading shading = new AxialShading(DeviceRgb.RED.getColorSpace(), (float) p1.getX(), normalizeY((float) p1.getY()), (float) p2.getX(), normalizeY((float) p2.getY()), colors);
+//			final PdfShading.Axial shading = new PdfShading.Axial(DeviceRgb.RED.getColorSpace(), (float) p1.getX(), normalizeY((float) p1.getY()), c1.getRGBComponents(null), (float) p2.getX(), normalizeY((float) p2.getY()), c2.getRGBComponents(null));
 			final PdfPattern.Shading pattern = new PdfPattern.Shading(shading);
 			if (fill) canvas.setFillColorShading(pattern);
 			else canvas.setStrokeColorShading(pattern);
@@ -1587,6 +1588,37 @@ public class PdfGraphics2D extends Graphics2D {
 	static private class FakeComponent extends Component {
 
 		private static final long serialVersionUID = 6450197945596086638L;
+	}
+
+	class AxialShading extends PdfShading {
+
+		AxialShading(PdfColorSpace cs, float x0, float y0, float x1, float y1, float[][] colors) {
+			super(new PdfDictionary(), 2, cs);
+			getPdfObject().put(PdfName.Coords, new PdfArray(new float[]{x0, y0, x1, y1}));
+			final List<PdfObject> functions = new ArrayList<>(colors.length - 1);
+			final PdfNumber n = new PdfNumber(2);
+			final float[] encode = new float[2 * (colors.length - 1)];
+			for (int i = 0; i < colors.length - 1; i++) {
+				final PdfArray domain = new PdfArray(new float[]{0, 1});
+				final PdfArray c0 = new PdfArray(colors[i]);
+				final PdfArray c1 = new PdfArray(colors[i + 1]);
+				functions.add(new PdfFunction.Type2(domain, null, c0, c1, n).getPdfObject());
+				encode[2 * i] = 0;
+				encode[2 * i + 1] = 1;
+			}
+
+			final float[] bounds = new float[colors.length - 2];
+			for (int i = 0; i < colors.length - 2; i++)
+				bounds[i] = (float) (i + 1) / (colors.length - 1);
+			final PdfDictionary function = new PdfDictionary();
+			function.put(PdfName.Functions, new PdfArray(functions));
+			function.put(PdfName.FunctionType, new PdfNumber(3));
+			function.put(PdfName.Domain, new PdfArray(new float[]{0, 1}));
+			function.put(PdfName.Bounds, new PdfArray(bounds));
+			function.put(PdfName.Encode, new PdfArray(encode));
+			getPdfObject().put(PdfName.Function, function);
+			setModified();
+		}
 	}
 
 }
