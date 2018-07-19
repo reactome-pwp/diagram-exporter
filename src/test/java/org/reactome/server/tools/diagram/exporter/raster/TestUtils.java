@@ -41,7 +41,7 @@ public class TestUtils {
 
 	// Set to true for visual inspection of tests
 	// todo: don't forget to set to false before pushing
-	private static final boolean save = true;
+	private static final boolean save = false;
 	private static final RasterExporter EXPORTER;
 
 	static {

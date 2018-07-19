@@ -125,9 +125,10 @@ public class DiagramAnalysis {
 			if (percentage < MIN_VISIBLE_ENRICHMENT && percentage > 0) {
 				percentage = MIN_VISIBLE_ENRICHMENT;
 			}
+			final Double median = getMedian(entities.getExp());
 			for (RenderableProcessNode node : subPathways.get(summary.getDbId())) {
 				node.setEnrichment(percentage);
-				node.setExpressionValue(getMedian(entities.getExp()));
+				node.setExpressionValue(median);  // TODO: 19/07/18 how subpathways behave in expression
 			}
 		}
 	}
@@ -158,9 +159,6 @@ public class DiagramAnalysis {
 						.map(IdentifierMap::getIds)
 						.flatMap(Collection::stream)
 						.forEach(id -> analysisIndex.put(id, analysisNode)));
-		for (RenderableNode node : index.getNodes()) {
-
-		}
 		diagram.getNodes().forEach(diagramNode -> {
 			final EntityNode graphNode = graphIndex.get(diagramNode.getReactomeId());
 			if (graphNode == null) return;
