@@ -1,7 +1,7 @@
 {
   "dbId" : 5683371,
   "stableId" : "R-HSA-5683371",
-  "displayName" : "Diagram of ABC-family proteins mediated transport, Defective ABCB4 causes progressive familial intrahepatic cholestasis 3, intrahepatic cholestasis of pregnancy 3 and gallbladder disease 1, Defective CFTR causes cystic fibrosis, Defective ABCC2 causes Dubin-Johnson syndrome, Defective ABCG5 causes sitosterolemia, Defective ABCG8 causes gallbladder disease 4 and sitosterolemia, Defective ABCA12 causes autosomal recessive congenital ichthyosis type 4B, Variant ABCB1 increases susceptibility to inflammatory bowel disease 13, Defective ABCB6 causes isolated colobomatous microphthalmia 7 (MCOPCB7), Defective ABCA3 causes pulmonary surfactant metabolism dysfunction type 3 (SMDP3), Defective ABCD1 causes adrenoleukodystrophy (ALD), Defective ABCC9 causes dilated cardiomyopathy 10, familial atrial fibrillation 12 and hypertrichotic osteochondrodysplasia,  and Defective ABCC6 causes pseudoxanthoma elasticum (PXE)",
+  "displayName" : "Defective ABCB6 causes isolated colobomatous microphthalmia 7 (MCOPCB7)",
   "forNormalDraw" : false,
   "nodes" : [ {
     "id" : 7,
@@ -1406,6 +1406,64 @@
       }
     } ],
     "trivial" : true
+  }, {
+    "id" : 175400,
+    "reactomeId" : 5683361,
+    "displayName" : "ABCB6 mutants",
+    "schemaClass" : "DefinedSet",
+    "renderableClass" : "EntitySet",
+    "position" : {
+      "x" : 1081,
+      "y" : 675
+    },
+    "isDisease" : true,
+    "minX" : 1037,
+    "maxX" : 1114,
+    "minY" : 625,
+    "maxY" : 692,
+    "prop" : {
+      "x" : 1049,
+      "y" : 659,
+      "width" : 65,
+      "height" : 33
+    },
+    "textPosition" : {
+      "x" : 1054,
+      "y" : 658
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "needDashedBorder" : true,
+    "connectors" : [ {
+      "edgeId" : 175399,
+      "type" : "CATALYST",
+      "segments" : [ {
+        "from" : {
+          "x" : 1066,
+          "y" : 656
+        },
+        "to" : {
+          "x" : 1044,
+          "y" : 632
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "c" : {
+          "x" : 1041,
+          "y" : 629
+        },
+        "r" : 4,
+        "type" : "CIRCLE",
+        "empty" : true
+      },
+      "isDisease" : true
+    } ]
   }, {
     "id" : 811,
     "reactomeId" : 113592,
@@ -3465,7 +3523,7 @@
       }
     },
     "connectors" : [ {
-      "edgeId" : 1566137,
+      "edgeId" : 175399,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -3536,7 +3594,7 @@
       }
     },
     "connectors" : [ {
-      "edgeId" : 1566137,
+      "edgeId" : 175399,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -3608,7 +3666,7 @@
       }
     },
     "connectors" : [ {
-      "edgeId" : 1566137,
+      "edgeId" : 175399,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -3670,7 +3728,7 @@
     },
     "isCrossed" : true,
     "connectors" : [ {
-      "edgeId" : 1566137,
+      "edgeId" : 175399,
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
@@ -3877,7 +3935,7 @@
     },
     "isCrossed" : true,
     "connectors" : [ {
-      "edgeId" : 1566137,
+      "edgeId" : 175399,
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
@@ -4171,7 +4229,7 @@
     },
     "isCrossed" : true,
     "connectors" : [ {
-      "edgeId" : 1566137,
+      "edgeId" : 175399,
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
@@ -6515,64 +6573,6 @@
       "stoichiometry" : {
         "value" : 1
       }
-    } ]
-  }, {
-    "id" : 1566138,
-    "reactomeId" : 5683361,
-    "displayName" : "ABCB6 mutants",
-    "schemaClass" : "DefinedSet",
-    "renderableClass" : "EntitySet",
-    "position" : {
-      "x" : 1081,
-      "y" : 675
-    },
-    "isDisease" : true,
-    "minX" : 1037,
-    "maxX" : 1114,
-    "minY" : 625,
-    "maxY" : 692,
-    "prop" : {
-      "x" : 1049,
-      "y" : 659,
-      "width" : 65,
-      "height" : 33
-    },
-    "textPosition" : {
-      "x" : 1054,
-      "y" : 657
-    },
-    "bgColor" : {
-      "r" : 204,
-      "g" : 255,
-      "b" : 255
-    },
-    "needDashedBorder" : true,
-    "connectors" : [ {
-      "edgeId" : 1566137,
-      "type" : "CATALYST",
-      "segments" : [ {
-        "from" : {
-          "x" : 1066,
-          "y" : 656
-        },
-        "to" : {
-          "x" : 1044,
-          "y" : 632
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "endShape" : {
-        "c" : {
-          "x" : 1041,
-          "y" : 629
-        },
-        "r" : 4,
-        "type" : "CIRCLE",
-        "empty" : true
-      },
-      "isDisease" : true
     } ]
   }, {
     "id" : 687,
@@ -9782,6 +9782,88 @@
       "stoichiometry" : 6
     } ]
   }, {
+    "id" : 175399,
+    "reactomeId" : 5683355,
+    "displayName" : "Defective ABCB6 does not transport porphyrin from cytosol into mitochondria matrix",
+    "schemaClass" : "FailedReaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 1033,
+      "y" : 620
+    },
+    "isDisease" : true,
+    "minX" : 1027,
+    "maxX" : 1105,
+    "minY" : 614,
+    "maxY" : 626,
+    "segments" : [ {
+      "from" : {
+        "x" : 1105,
+        "y" : 620
+      },
+      "to" : {
+        "x" : 1033,
+        "y" : 620
+      }
+    } ],
+    "reactionShape" : {
+      "a" : {
+        "x" : 1027,
+        "y" : 614
+      },
+      "b" : {
+        "x" : 1039,
+        "y" : 626
+      },
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 375,
+      "points" : [ {
+        "x" : 1120,
+        "y" : 620
+      } ]
+    }, {
+      "id" : 376,
+      "points" : [ {
+        "x" : 1121,
+        "y" : 596
+      } ]
+    }, {
+      "id" : 377,
+      "points" : [ {
+        "x" : 1131,
+        "y" : 646
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 378,
+      "points" : [ {
+        "x" : 986,
+        "y" : 705
+      } ]
+    }, {
+      "id" : 379,
+      "points" : [ {
+        "x" : 902,
+        "y" : 620
+      } ]
+    }, {
+      "id" : 382,
+      "points" : [ {
+        "x" : 1030,
+        "y" : 696
+      } ]
+    } ],
+    "catalysts" : [ {
+      "id" : 175400,
+      "points" : [ {
+        "x" : 1066,
+        "y" : 656
+      } ]
+    } ]
+  }, {
     "id" : 809,
     "reactomeId" : 5679041,
     "displayName" : "ABCC2 transports BMG,BDG from cytosol to extracellular region",
@@ -10101,88 +10183,6 @@
       } ]
     } ]
   }, {
-    "id" : 1566137,
-    "reactomeId" : 5683355,
-    "displayName" : "Defective ABCB6 does not transport porphyrin from cytosol into mitochondria matrix",
-    "schemaClass" : "FailedReaction",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 1033,
-      "y" : 620
-    },
-    "isDisease" : true,
-    "minX" : 1027,
-    "maxX" : 1105,
-    "minY" : 614,
-    "maxY" : 626,
-    "segments" : [ {
-      "from" : {
-        "x" : 1105,
-        "y" : 620
-      },
-      "to" : {
-        "x" : 1033,
-        "y" : 620
-      }
-    } ],
-    "reactionShape" : {
-      "a" : {
-        "x" : 1027,
-        "y" : 614
-      },
-      "b" : {
-        "x" : 1039,
-        "y" : 626
-      },
-      "type" : "BOX",
-      "empty" : true
-    },
-    "inputs" : [ {
-      "id" : 375,
-      "points" : [ {
-        "x" : 1120,
-        "y" : 620
-      } ]
-    }, {
-      "id" : 376,
-      "points" : [ {
-        "x" : 1121,
-        "y" : 596
-      } ]
-    }, {
-      "id" : 377,
-      "points" : [ {
-        "x" : 1131,
-        "y" : 646
-      } ]
-    } ],
-    "outputs" : [ {
-      "id" : 378,
-      "points" : [ {
-        "x" : 986,
-        "y" : 705
-      } ]
-    }, {
-      "id" : 379,
-      "points" : [ {
-        "x" : 902,
-        "y" : 620
-      } ]
-    }, {
-      "id" : 382,
-      "points" : [ {
-        "x" : 1030,
-        "y" : 696
-      } ]
-    } ],
-    "catalysts" : [ {
-      "id" : 1566138,
-      "points" : [ {
-        "x" : 1066,
-        "y" : 656
-      } ]
-    } ]
-  }, {
     "id" : 48,
     "reactomeId" : 383190,
     "displayName" : "HCO3- transport through ion channel",
@@ -10461,7 +10461,7 @@
   }, {
     "id" : 374,
     "reactomeId" : 1369065,
-    "displayName" : "Defective ABCB6 does not transport porphyrin from cytosol into mitochondria matrix",
+    "displayName" : "ABCB6 transports porphyrin from cytosol to mitchondrial matrix",
     "schemaClass" : "Reaction",
     "renderableClass" : "Reaction",
     "position" : {
@@ -10796,7 +10796,7 @@
     "id" : 864,
     "reactomeId" : 17957,
     "displayName" : "endoplasmic reticulum lumen",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 1224,
@@ -10832,7 +10832,7 @@
     "id" : 1,
     "reactomeId" : 5460,
     "displayName" : "mitochondrial matrix",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 832,
@@ -10868,7 +10868,7 @@
     "id" : 2,
     "reactomeId" : 17951,
     "displayName" : "peroxisomal matrix",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 1453,
@@ -10904,7 +10904,7 @@
     "id" : 3,
     "reactomeId" : 70101,
     "displayName" : "cytosol",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 1053,
@@ -10940,7 +10940,7 @@
     "id" : 600,
     "reactomeId" : 161320,
     "displayName" : "lysosomal lumen",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 546,
@@ -10976,7 +10976,7 @@
     "id" : 509,
     "reactomeId" : 432051,
     "displayName" : "transport vesicle",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 1620,
@@ -11012,7 +11012,7 @@
     "id" : 846,
     "reactomeId" : 80738,
     "displayName" : "lamellar body",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 848,

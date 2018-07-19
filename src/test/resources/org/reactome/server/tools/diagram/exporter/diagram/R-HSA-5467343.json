@@ -1,7 +1,7 @@
 {
   "dbId" : 5467343,
   "stableId" : "R-HSA-5467343",
-  "displayName" : "Diagram of Degradation of beta-catenin by the destruction complex, TCF7L2 mutants don't bind CTBP, Misspliced GSK3beta mutants stabilize beta-catenin, S45 mutants of beta-catenin aren't phosphorylated, T41 mutants of beta-catenin aren't phosphorylated, S37 mutants of beta-catenin aren't phosphorylated, S33 mutants of beta-catenin aren't phosphorylated, APC truncation mutants are not K63 polyubiquitinated, APC truncation mutants have impaired AXIN binding, Deletions in the AXIN genes in hepatocellular carcinoma result in elevated WNT signaling, AXIN missense mutants destabilize the destruction complex, Deletions in the AMER1 gene destabilize the destruction complex,  and Truncations of AMER1 destabilize the destruction complex",
+  "displayName" : "Deletions in the AMER1 gene destabilize the destruction complex",
   "forNormalDraw" : false,
   "nodes" : [ {
     "id" : 256,
@@ -182,7 +182,7 @@
         "value" : 1
       }
     }, {
-      "edgeId" : 1583054,
+      "edgeId" : 127363,
       "type" : "OUTPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -298,6 +298,56 @@
         "value" : 1
       }
     } ]
+  }, {
+    "id" : 127364,
+    "reactomeId" : 5251547,
+    "displayName" : "defective AMER1 gene",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Gene",
+    "position" : {
+      "x" : 889,
+      "y" : 377
+    },
+    "isDisease" : true,
+    "minX" : 848,
+    "maxX" : 937,
+    "minY" : 350,
+    "maxY" : 403,
+    "prop" : {
+      "x" : 848,
+      "y" : 352,
+      "width" : 82,
+      "height" : 51
+    },
+    "textPosition" : {
+      "x" : 848,
+      "y" : 379
+    },
+    "needDashedBorder" : true,
+    "connectors" : [ {
+      "edgeId" : 127363,
+      "type" : "INPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 937,
+        "y" : 350
+      },
+      "b" : {
+        "x" : 930,
+        "y" : 354
+      },
+      "c" : {
+        "x" : 937,
+        "y" : 358
+      },
+      "type" : "ARROW"
+    }
   }, {
     "id" : 5,
     "reactomeId" : 195297,
@@ -2477,56 +2527,6 @@
       }
     } ]
   }, {
-    "id" : 1583055,
-    "reactomeId" : 5251547,
-    "displayName" : "defective AMER1 gene",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "renderableClass" : "Gene",
-    "position" : {
-      "x" : 889,
-      "y" : 377
-    },
-    "isDisease" : true,
-    "minX" : 848,
-    "maxX" : 937,
-    "minY" : 350,
-    "maxY" : 403,
-    "prop" : {
-      "x" : 848,
-      "y" : 352,
-      "width" : 82,
-      "height" : 51
-    },
-    "textPosition" : {
-      "x" : 848,
-      "y" : 379
-    },
-    "needDashedBorder" : true,
-    "connectors" : [ {
-      "edgeId" : 1583054,
-      "type" : "INPUT",
-      "segments" : [ ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
-    } ],
-    "endShape" : {
-      "a" : {
-        "x" : 937,
-        "y" : 350
-      },
-      "b" : {
-        "x" : 930,
-        "y" : 354
-      },
-      "c" : {
-        "x" : 937,
-        "y" : 358
-      },
-      "type" : "ARROW"
-    }
-  }, {
     "id" : 1751,
     "reactomeId" : 4411390,
     "displayName" : "'canonical' WNT target genes",
@@ -3559,7 +3559,7 @@
   }, {
     "id" : 2720,
     "reactomeId" : 5251557,
-    "displayName" : "Deletions of the AMER1 gene prevent expression of AMER1 protein",
+    "displayName" : "Expression of AMER1 gene",
     "schemaClass" : "BlackBoxEvent",
     "renderableClass" : "Reaction",
     "position" : {
@@ -3722,6 +3722,84 @@
         "x" : 580,
         "y" : 990
       } ]
+    } ]
+  }, {
+    "id" : 127363,
+    "reactomeId" : 5251559,
+    "displayName" : "Deletions of the AMER1 gene prevent expression of AMER1 protein",
+    "schemaClass" : "FailedReaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 748,
+      "y" : 226
+    },
+    "isDisease" : true,
+    "minX" : 475,
+    "maxX" : 981,
+    "minY" : 173,
+    "maxY" : 354,
+    "reactionType" : "Omitted Process",
+    "segments" : [ {
+      "from" : {
+        "x" : 939,
+        "y" : 354
+      },
+      "to" : {
+        "x" : 981,
+        "y" : 287
+      }
+    }, {
+      "from" : {
+        "x" : 981,
+        "y" : 287
+      },
+      "to" : {
+        "x" : 748,
+        "y" : 226
+      }
+    }, {
+      "from" : {
+        "x" : 748,
+        "y" : 226
+      },
+      "to" : {
+        "x" : 475,
+        "y" : 173
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 483,
+        "y" : 170
+      },
+      "b" : {
+        "x" : 475,
+        "y" : 173
+      },
+      "c" : {
+        "x" : 481,
+        "y" : 178
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 742,
+        "y" : 220
+      },
+      "b" : {
+        "x" : 754,
+        "y" : 232
+      },
+      "s" : "\\\\",
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 127364
+    } ],
+    "outputs" : [ {
+      "id" : 260
     } ]
   }, {
     "id" : 457,
@@ -4461,84 +4539,6 @@
       "id" : 2955
     } ]
   }, {
-    "id" : 1583054,
-    "reactomeId" : 5251559,
-    "displayName" : "Deletions of the AMER1 gene prevent expression of AMER1 protein",
-    "schemaClass" : "FailedReaction",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 748,
-      "y" : 226
-    },
-    "isDisease" : true,
-    "minX" : 475,
-    "maxX" : 981,
-    "minY" : 173,
-    "maxY" : 354,
-    "reactionType" : "Omitted Process",
-    "segments" : [ {
-      "from" : {
-        "x" : 939,
-        "y" : 354
-      },
-      "to" : {
-        "x" : 981,
-        "y" : 287
-      }
-    }, {
-      "from" : {
-        "x" : 981,
-        "y" : 287
-      },
-      "to" : {
-        "x" : 748,
-        "y" : 226
-      }
-    }, {
-      "from" : {
-        "x" : 748,
-        "y" : 226
-      },
-      "to" : {
-        "x" : 475,
-        "y" : 173
-      }
-    } ],
-    "endShape" : {
-      "a" : {
-        "x" : 483,
-        "y" : 170
-      },
-      "b" : {
-        "x" : 475,
-        "y" : 173
-      },
-      "c" : {
-        "x" : 481,
-        "y" : 178
-      },
-      "type" : "ARROW"
-    },
-    "reactionShape" : {
-      "a" : {
-        "x" : 742,
-        "y" : 220
-      },
-      "b" : {
-        "x" : 754,
-        "y" : 232
-      },
-      "s" : "\\\\",
-      "type" : "BOX",
-      "empty" : true
-    },
-    "inputs" : [ {
-      "id" : 1583055
-    } ],
-    "outputs" : [ {
-      "id" : 260
-    } ]
-  }, {
     "id" : 23,
     "reactomeId" : 195251,
     "displayName" : "Assembly of the destruction complex",
@@ -5213,7 +5213,7 @@
     "id" : 73,
     "reactomeId" : 70101,
     "displayName" : "cytosol",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 767,
@@ -5249,7 +5249,7 @@
     "id" : 315,
     "reactomeId" : 7660,
     "displayName" : "nucleoplasm",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 991,

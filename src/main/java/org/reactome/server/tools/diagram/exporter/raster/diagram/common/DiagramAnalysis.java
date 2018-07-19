@@ -158,7 +158,9 @@ public class DiagramAnalysis {
 						.map(IdentifierMap::getIds)
 						.flatMap(Collection::stream)
 						.forEach(id -> analysisIndex.put(id, analysisNode)));
+		for (RenderableNode node : index.getNodes()) {
 
+		}
 		diagram.getNodes().forEach(diagramNode -> {
 			final EntityNode graphNode = graphIndex.get(diagramNode.getReactomeId());
 			if (graphNode == null) return;

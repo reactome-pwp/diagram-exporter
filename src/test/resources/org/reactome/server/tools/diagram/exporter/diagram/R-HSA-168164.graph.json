@@ -1,6 +1,7 @@
 {
   "dbId" : 168164,
   "stId" : "R-HSA-168164",
+  "speciesName" : "Homo sapiens",
   "nodes" : [ {
     "dbId" : 450309,
     "stId" : "R-HSA-450309",
@@ -16,7 +17,7 @@
     "displayName" : "2xp-S477,S479-IRF7 [nucleoplasm]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "parents" : [ 933471, 450349 ],
+    "parents" : [ 450349 ],
     "children" : [ 450270 ]
   }, {
     "dbId" : 450318,
@@ -26,23 +27,15 @@
     "speciesId" : 48887,
     "identifier" : "Q92985",
     "geneNames" : [ "IRF7" ],
-    "parents" : [ 1027367, 450240, 450344 ]
+    "parents" : [ 450344, 450240 ]
   }, {
     "dbId" : 177675,
     "stId" : "R-HSA-177675",
     "displayName" : "p-T,4S-IRF3:p-T,4S-IRF3 [nucleoplasm]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "parents" : [ 1027364, 3134898, 450349 ],
+    "parents" : [ 450349 ],
     "children" : [ 177654 ]
-  }, {
-    "dbId" : 9013891,
-    "stId" : "R-HSA-9013891",
-    "displayName" : "activated TLR3:TRIF:RIP1:FADD:pro-caspase-8 [endosome membrane]",
-    "schemaClass" : "Complex",
-    "speciesId" : 48887,
-    "diagramIds" : [ 4143 ],
-    "children" : [ 54639, 168907, 168651, 57031 ]
   }, {
     "dbId" : 450316,
     "stId" : "R-HSA-450316",
@@ -53,12 +46,20 @@
     "geneNames" : [ "TICAM1", "PRVTIRB", "TRIF" ],
     "parents" : [ 168907 ]
   }, {
+    "dbId" : 9013891,
+    "stId" : "R-HSA-9013891",
+    "displayName" : "activated TLR3:TRIF:RIP1:FADD:pro-caspase-8 [endosome membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 4143 ],
+    "children" : [ 54639, 168907, 168651, 57031 ]
+  }, {
     "dbId" : 936965,
     "stId" : "R-HSA-936965",
     "displayName" : "K63-pUb-TRAF6:TICAM1:TRAM:TLR4:LY96:LPS:CD14 [endosome membrane]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "parents" : [ 975153, 936946, 936954 ],
+    "parents" : [ 975153 ],
     "children" : [ 166172, 2685681 ]
   }, {
     "dbId" : 450317,
@@ -67,7 +68,7 @@
     "schemaClass" : "DefinedSet",
     "speciesId" : 48887,
     "diagramIds" : [ 4104 ],
-    "parents" : [ 9013981, 918199, 937070 ],
+    "parents" : [ 9013981 ],
     "children" : [ 450281, 166251 ]
   }, {
     "dbId" : 109581,
@@ -92,7 +93,7 @@
     "speciesId" : 48887,
     "identifier" : "O43318",
     "geneNames" : [ "MAP3K7", "TAK1" ],
-    "parents" : [ 975128, 177689 ]
+    "parents" : [ 177689 ]
   }, {
     "dbId" : 450326,
     "stId" : "R-HSA-450326",
@@ -119,7 +120,7 @@
     "diagramIds" : [ 4078 ],
     "identifier" : "Q92844",
     "geneNames" : [ "TANK", "ITRAF", "TRAF2" ],
-    "parents" : [ 9013980, 933472, 5362479 ]
+    "parents" : [ 9013980 ]
   }, {
     "dbId" : 166170,
     "stId" : "R-HSA-166170",
@@ -146,7 +147,7 @@
     "speciesId" : 48887,
     "identifier" : "O43318",
     "geneNames" : [ "MAP3K7", "TAK1" ],
-    "parents" : [ 975171, 177691 ]
+    "parents" : [ 177691 ]
   }, {
     "dbId" : 177689,
     "stId" : "R-HSA-177689",
@@ -163,7 +164,7 @@
     "speciesId" : 48887,
     "identifier" : "O43318",
     "geneNames" : [ "MAP3K7", "TAK1" ],
-    "parents" : [ 202516, 936946, 937008, 847073, 937060 ]
+    "parents" : [ 847073 ]
   }, {
     "dbId" : 450328,
     "stId" : "R-HSA-450328",
@@ -173,15 +174,23 @@
     "diagramIds" : [ 4156 ],
     "identifier" : "Q9Y572",
     "geneNames" : [ "RIPK3", "RIP3" ],
-    "parents" : [ 9013960, 9013961, 5218868, 5218862, 2569054, 2569053, 1810470 ]
+    "parents" : [ 9013960, 9013961 ]
   }, {
     "dbId" : 166172,
     "stId" : "R-HSA-166172",
     "displayName" : "TICAM1:TRAM:TLR4:LY96:LPS:CD14 [endosome membrane]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "parents" : [ 2201339, 2213008, 2569054, 2569052, 937016, 168912, 2562577, 2562542, 2559578, 936976, 936965 ],
+    "parents" : [ 936965 ],
     "children" : [ 166170, 166163 ]
+  }, {
+    "dbId" : 450329,
+    "stId" : "R-HSA-450329",
+    "displayName" : "IKK related kinases TBK1/IKK epsilon [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "diagramIds" : [ 4100 ],
+    "children" : [ 166267, 450225 ]
   }, {
     "dbId" : 177693,
     "stId" : "R-HSA-177693",
@@ -191,21 +200,12 @@
     "diagramIds" : [ 4170 ],
     "children" : [ 168907, 450272 ]
   }, {
-    "dbId" : 450329,
-    "stId" : "R-HSA-450329",
-    "displayName" : "IKK related kinases TBK1/IKK epsilon [cytosol]",
-    "schemaClass" : "DefinedSet",
-    "speciesId" : 48887,
-    "diagramIds" : [ 4100 ],
-    "parents" : [ 937333, 933479, 918197, 918196 ],
-    "children" : [ 166267, 450225 ]
-  }, {
     "dbId" : 8982440,
     "stId" : "R-ROT-8982440",
     "displayName" : "Rotavirus dsRNA [endosome lumen]",
     "schemaClass" : "GenomeEncodedEntity",
     "speciesId" : 5617433,
-    "parents" : [ 8982478 ]
+    "parents" : [ 9038432 ]
   }, {
     "dbId" : 445989,
     "stId" : "R-HSA-445989",
@@ -235,7 +235,7 @@
     "displayName" : "p-IRAK2:K63-linked pUb oligo-TRAF6 [endosome membrane]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "parents" : [ 975171, 975099, 975153 ],
+    "parents" : [ 975153 ],
     "children" : [ 975187, 450227 ]
   }, {
     "dbId" : 167985,
@@ -245,7 +245,7 @@
     "speciesId" : 48887,
     "diagramIds" : [ 4004 ],
     "parents" : [ 168907 ],
-    "children" : [ 2000341, 8982478 ]
+    "children" : [ 2000341, 9038432 ]
   }, {
     "dbId" : 937021,
     "stId" : "R-HSA-937021",
@@ -254,21 +254,21 @@
     "speciesId" : 48887,
     "identifier" : "Q13546",
     "geneNames" : [ "RIPK1", "RIP", "RIP1" ],
-    "parents" : [ 6783247, 6782771, 9014344, 937016 ]
+    "parents" : [ 9014344 ]
   }, {
     "dbId" : 8982462,
     "stId" : "R-HCV-8982462",
     "displayName" : "HCV dsRNA intermediate form [endosome lumen]",
     "schemaClass" : "GenomeEncodedEntity",
     "speciesId" : 5621375,
-    "parents" : [ 8982478 ]
+    "parents" : [ 9038432 ]
   }, {
     "dbId" : 6791257,
     "stId" : "R-HER-6791257",
     "displayName" : "HSV1 dsRNA intermediate form [endosome lumen]",
     "schemaClass" : "GenomeEncodedEntity",
     "speciesId" : 5689680,
-    "parents" : [ 8982478 ]
+    "parents" : [ 9038432 ]
   }, {
     "dbId" : 975153,
     "stId" : "R-HSA-975153",
@@ -302,15 +302,6 @@
     "diagramIds" : [ 4157 ],
     "children" : [ 168907, 177649 ]
   }, {
-    "dbId" : 8982478,
-    "stId" : "R-HSA-8982478",
-    "displayName" : "TLR3 ligand [endosome lumen]",
-    "schemaClass" : "DefinedSet",
-    "speciesId" : 48887,
-    "diagramIds" : [ 4014 ],
-    "parents" : [ 167985 ],
-    "children" : [ 6791257, 8982481, 8982462, 9028895, 8982440 ]
-  }, {
     "dbId" : 914241,
     "stId" : "R-HSA-914241",
     "displayName" : "TRAF3 [cytosol]",
@@ -319,7 +310,7 @@
     "diagramIds" : [ 4046 ],
     "identifier" : "Q13114",
     "geneNames" : [ "TRAF3", "CAP1", "CRAF1" ],
-    "parents" : [ 5690846, 9013984, 5668511, 2201339, 936558 ]
+    "parents" : [ 9013984 ]
   }, {
     "dbId" : 9013956,
     "stId" : "R-HSA-9013956",
@@ -368,14 +359,14 @@
     "displayName" : "HBV dsRNA intermediate form [endosome lumen]",
     "schemaClass" : "GenomeEncodedEntity",
     "speciesId" : 5229092,
-    "parents" : [ 8982478 ]
+    "parents" : [ 9038432 ]
   }, {
     "dbId" : 450143,
     "stId" : "R-HSA-450143",
     "displayName" : "K63-Ub [cytosol]",
     "schemaClass" : "DefinedSet",
     "speciesId" : 48887,
-    "parents" : [ 6783297, 450152 ],
+    "parents" : [ 450152 ],
     "children" : [ 939248, 939186, 939254, 939224, 939198, 939169, 939168, 939235, 939173, 939206, 939241, 939176, 939212, 939182 ]
   }, {
     "dbId" : 975187,
@@ -385,7 +376,7 @@
     "speciesId" : 48887,
     "identifier" : "O43187",
     "geneNames" : [ "IRAK2" ],
-    "parents" : [ 975133, 1014260, 975108, 975164 ]
+    "parents" : [ 975164 ]
   }, {
     "dbId" : 5362480,
     "stId" : "R-HSA-5362480",
@@ -394,7 +385,7 @@
     "speciesId" : 48887,
     "identifier" : "Q92844",
     "geneNames" : [ "TANK", "ITRAF", "TRAF2" ],
-    "parents" : [ 9013976, 5362507 ]
+    "parents" : [ 9013976 ]
   }, {
     "dbId" : 5218859,
     "stId" : "R-HSA-5218859",
@@ -410,7 +401,7 @@
     "speciesId" : 48887,
     "identifier" : "Q14653",
     "geneNames" : [ "IRF3" ],
-    "parents" : [ 1015695, 1169389, 1606328, 1834956, 3465596, 2396004, 450317 ]
+    "parents" : [ 450317 ]
   }, {
     "dbId" : 9013984,
     "stId" : "R-HSA-9013984",
@@ -435,7 +426,7 @@
     "schemaClass" : "Polymer",
     "speciesId" : 48887,
     "diagramIds" : [ 4192, 4315 ],
-    "parents" : [ 5689096, 975171, 975099, 741418, 8948017, 936946, 936954, 706480, 937060, 847073, 936953, 937008 ],
+    "parents" : [ 847073 ],
     "children" : [ 450143 ]
   }, {
     "dbId" : 54639,
@@ -446,7 +437,7 @@
     "diagramIds" : [ 4142 ],
     "identifier" : "Q13158",
     "geneNames" : [ "FADD", "MORT1", "GIG3" ],
-    "parents" : [ 9013893, 9013891, 933480, 918291, 5357793, 140977, 43124, 5637464, 2562577, 2562542 ]
+    "parents" : [ 9013893, 9013891 ]
   }, {
     "dbId" : 166258,
     "stId" : "R-HSA-166258",
@@ -455,7 +446,7 @@
     "speciesId" : 48887,
     "identifier" : "Q14653",
     "geneNames" : [ "IRF3" ],
-    "parents" : [ 1027367, 450240, 166272 ]
+    "parents" : [ 166272, 450240 ]
   }, {
     "dbId" : 2559572,
     "stId" : "R-HSA-2559572",
@@ -465,7 +456,7 @@
     "diagramIds" : [ 4035 ],
     "identifier" : "Q6SZW1-1",
     "geneNames" : [ "SARM1", "KIAA0524", "SAMD2", "SARM" ],
-    "parents" : [ 9014322, 2559578 ]
+    "parents" : [ 9014322 ]
   }, {
     "dbId" : 166267,
     "stId" : "R-HSA-166267",
@@ -474,7 +465,7 @@
     "speciesId" : 48887,
     "identifier" : "Q9UHD2",
     "geneNames" : [ "TBK1", "NAK" ],
-    "parents" : [ 1834956, 3249399, 450329 ]
+    "parents" : [ 450329 ]
   }, {
     "dbId" : 2569051,
     "stId" : "R-HSA-2569051",
@@ -522,7 +513,7 @@
     "displayName" : "TRAF6 E3/E2 ubiquitin ligase complex [cytosol]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "parents" : [ 2569050, 1248659 ],
+    "parents" : [ 2569050 ],
     "children" : [ 202463, 166366 ]
   }, {
     "dbId" : 939167,
@@ -541,7 +532,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 939165,
     "stId" : "R-HSA-939165",
@@ -550,7 +541,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 939162,
     "stId" : "R-HSA-939162",
@@ -565,15 +556,15 @@
     "stId" : "R-FLU-9028895",
     "displayName" : "Influenza A dsRNA intermediate form [endosome lumen]",
     "schemaClass" : "GenomeEncodedEntity",
-    "speciesId" : 168245,
-    "parents" : [ 8982478 ]
+    "speciesId" : 9031716,
+    "parents" : [ 9038432 ]
   }, {
     "dbId" : 446874,
     "stId" : "R-HSA-446874",
     "displayName" : "TAB2,TAB3 [cytosol]",
     "schemaClass" : "DefinedSet",
     "speciesId" : 48887,
-    "parents" : [ 5607691, 5607683, 936946, 450277, 937008, 847073, 446878 ],
+    "parents" : [ 450277, 847073 ],
     "children" : [ 450264, 168117 ]
   }, {
     "dbId" : 50845,
@@ -583,7 +574,7 @@
     "speciesId" : 48887,
     "identifier" : "Q13489",
     "geneNames" : [ "BIRC3", "API2", "MIHC", "RNF49" ],
-    "parents" : [ 6781798, 5668465, 5357900, 2569049, 1248659 ]
+    "parents" : [ 2569049 ]
   }, {
     "dbId" : 174236,
     "stId" : "R-HSA-174236",
@@ -592,7 +583,7 @@
     "speciesId" : 48887,
     "identifier" : "P51668",
     "geneNames" : [ "UBE2D1", "SFT", "UBC5A", "UBCH5", "UBCH5A" ],
-    "parents" : [ 8852061, 8852103, 8942553, 3134944, 1234120, 5607669, 174191, 936441, 947628 ]
+    "parents" : [ 1234120 ]
   }, {
     "dbId" : 50847,
     "stId" : "R-HSA-50847",
@@ -601,7 +592,7 @@
     "speciesId" : 48887,
     "identifier" : "Q13490",
     "geneNames" : [ "BIRC2", "API1", "MIHB", "RNF48" ],
-    "parents" : [ 6781798, 5668465, 5357900, 2569051, 1248659 ]
+    "parents" : [ 2569051 ]
   }, {
     "dbId" : 939182,
     "stId" : "R-HSA-939182",
@@ -655,7 +646,7 @@
     "speciesId" : 48887,
     "identifier" : "O15111",
     "geneNames" : [ "CHUK", "IKKA", "TCF16" ],
-    "parents" : [ 5262981, 5607705, 727820, 202513, 202562, 168113 ]
+    "parents" : [ 168113 ]
   }, {
     "dbId" : 939173,
     "stId" : "R-HSA-939173",
@@ -671,7 +662,7 @@
     "displayName" : "Caspase-8 dimer [cytosol]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "parents" : [ 5660651, 2562550 ],
+    "parents" : [ 2562550 ],
     "children" : [ 76158, 75975 ]
   }, {
     "dbId" : 939168,
@@ -690,7 +681,7 @@
     "speciesId" : 48887,
     "identifier" : "Q9Y6K9",
     "geneNames" : [ "IKBKG", "FIP3", "NEMO" ],
-    "parents" : [ 6782832, 727820, 202513, 688994, 168113, 706480, 177663 ]
+    "parents" : [ 168113 ]
   }, {
     "dbId" : 939169,
     "stId" : "R-HSA-939169",
@@ -708,7 +699,7 @@
     "speciesId" : 48887,
     "identifier" : "O14920",
     "geneNames" : [ "IKBKB", "IKKB" ],
-    "parents" : [ 5262981, 193897, 168113 ]
+    "parents" : [ 168113 ]
   }, {
     "dbId" : 939198,
     "stId" : "R-HSA-939198",
@@ -725,7 +716,7 @@
     "schemaClass" : "Complex",
     "speciesId" : 48887,
     "diagramIds" : [ 4317 ],
-    "parents" : [ 9014341, 5357936, 5626968, 975121, 451560, 937030, 933478, 937038 ],
+    "parents" : [ 9014341 ],
     "children" : [ 168108, 168104, 168114 ]
   }, {
     "dbId" : 450227,
@@ -744,16 +735,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
-  }, {
-    "dbId" : 939193,
-    "stId" : "R-HSA-939193",
-    "displayName" : "Ub-215-UBB(153-228) [endosome membrane]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesId" : 48887,
-    "identifier" : "P0CG47",
-    "geneNames" : [ "UBB" ],
-    "parents" : [ 450248 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 450225,
     "stId" : "R-HSA-450225",
@@ -763,6 +745,15 @@
     "identifier" : "Q14164",
     "geneNames" : [ "IKBKE", "IKKE", "IKKI", "KIAA0151" ],
     "parents" : [ 450329 ]
+  }, {
+    "dbId" : 939193,
+    "stId" : "R-HSA-939193",
+    "displayName" : "Ub-215-UBB(153-228) [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG47",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 450248 ]
   }, {
     "dbId" : 168117,
     "stId" : "R-HSA-168117",
@@ -780,7 +771,14 @@
     "speciesId" : 48887,
     "identifier" : "Q15750",
     "geneNames" : [ "TAB1", "MAP3K7IP1" ],
-    "parents" : [ 975171, 975128, 177689, 177691 ]
+    "parents" : [ 177689, 177691 ]
+  }, {
+    "dbId" : 113592,
+    "stId" : "R-ALL-113592",
+    "displayName" : "ATP [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 4099, 4199, 4107 ],
+    "identifier" : "15422"
   }, {
     "dbId" : 939191,
     "stId" : "R-HSA-939191",
@@ -789,23 +787,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
-  }, {
-    "dbId" : 113592,
-    "stId" : "R-ALL-113592",
-    "displayName" : "ATP [cytosol]",
-    "schemaClass" : "SimpleEntity",
-    "diagramIds" : [ 4099, 4199, 4107 ],
-    "identifier" : "15422",
-    "parents" : [ 170037, 2263468, 9206355, 9630847, 9576623, 9432018, 9511146, 9353588, 9697690, 9795133, 6814649, 9276451, 9600652, 9736131, 9237675, 9388153, 9466546, 9658146, 9539600, 9308766, 390580, 9160108, 9542621, 9391763, 9163921, 9831775, 9603243, 9741155, 9312345, 9240824, 9661271, 9470131, 445789, 390446, 391390, 994134, 9794890, 9510958, 9046292, 9128311, 9431829, 9056083, 9997775, 9070329, 9353374, 9697532, 9206146, 9576446, 9871996, 9630682, 9276265, 9926229, 390474, 9087795, 443623, 9779593, 9419766, 9193599, 9686115, 9859450, 9265606, 9341444, 9981023, 9622036, 9498806, 9083944, 9912343, 9566577, 8948980, 9054223, 9859337, 9621997, 9341426, 9912333, 9265588, 9498788, 9083934, 9054206, 9981013, 9779576, 9566525, 9419748, 9193545, 9686096, 8948970, 9978087, 9065526, 9681832, 9188087, 9910208, 9493702, 9082788, 9414658, 9772921, 9853938, 9117897, 9040616, 5618079, 9053631, 9977478, 9562442, 9414581, 9909743, 9117821, 9681761, 9082712, 9772764, 9065453, 9188008, 9053614, 9493619, 9853846, 3371563, 9040519, 9566510, 9041623, 9083927, 9054199, 9859330, 9779553, 9193528, 9912326, 9120378, 9981000, 9066266, 9341411, 9621982, 9686105, 9265573, 9419721, 9498773, 5618088, 5251947, 9777034, 9119601, 9083581, 9684291, 9053991, 9979698, 9911581, 9191365, 9066018, 9417800, 9041326, 9857395, 9496755, 6792614, 9417808, 9777049, 9041333, 9496763, 9684299, 9191373, 5252045, 5252011, 9684317, 9083606, 9054006, 9066033, 9911618, 9857426, 9119631, 9041355, 9979768, 9777077, 5252104, 9496767, 9191377, 9119606, 9083591, 9684303, 9417812, 9777053, 5252040, 9119637, 9066039, 9911629, 9041361, 9979790, 9083612, 9054012, 5251940, 9083600, 9496777, 9911599, 9777069, 9979727, 9417822, 9857414, 9191393, 9119623, 9684313, 9041345, 9053998, 9066025, 5252036, 9777059, 9191386, 9496773, 9417818, 9041340, 9066020, 9979700, 9857402, 9119618, 9911583, 9684309, 9053993, 9083595, 5252100, 9041331, 9496759, 9191369, 9684295, 9417804, 9777045, 5251938, 9083607, 9054007, 9562506, 9119632, 9356215, 9066034, 9700130, 9632615, 9911619, 9417829, 9191403, 9857427, 9041356, 9279049, 9777078, 9979769, 9496784, 5251937, 9857400, 9119616, 9417816, 9777057, 9191384, 9496771, 9083593, 9041338, 9684307, 5251968, 9496783, 9083604, 9979747, 9857422, 9054002, 9911610, 9041349, 9417828, 9684315, 9066029, 9777075, 9191402, 9119629, 5252063, 9777058, 9417817, 9191385, 9496772, 9041339, 9857401, 9979699, 9119617, 9911582, 9066019, 9684308, 9053992, 9083594, 5252093, 9496781, 9417826, 9857420, 9054000, 9041347, 9083602, 9979740, 9777073, 9191400, 9911605, 9119625, 9066027, 5252028, 9394048, 9663305, 9605109, 9544724, 9166591, 9314781, 9243007, 9472545, 879207, 168906, 918190, 9370000, 9291920, 9644136, 9815167, 9140562, 9526393, 9715010, 9589796, 9448549, 114255, 9221701, 9973634, 9081650, 9064690, 9612356, 9177018, 9252472, 9672800, 9843545, 9757658, 9325507, 9039298, 9907039, 9483640, 9554385, 9405327, 9112971, 201854, 9081655, 9064695, 9973636, 9405331, 9112976, 9612360, 9672804, 9907044, 9177022, 9252476, 9039303, 9483644, 9325511, 9843550, 9757660, 9554389, 201855, 433729, 9948680, 9596076, 9727337, 9230161, 9061970, 9034769, 9150780, 9051869, 9379707, 9077784, 9893446, 9534367, 9458077, 9112940, 9652725, 9301198, 9843510, 201857 ]
-  }, {
-    "dbId" : 29370,
-    "stId" : "R-ALL-29370",
-    "displayName" : "ADP [cytosol]",
-    "schemaClass" : "SimpleEntity",
-    "diagramIds" : [ 4102, 4201, 4108 ],
-    "identifier" : "16761",
-    "parents" : [ 6788782, 170037, 500087, 9697693, 9511149, 9432021, 9206358, 9353591, 9795136, 9630850, 9576626, 6814647, 9276454, 9308768, 9600654, 9658148, 9160110, 9466548, 9388155, 9539602, 9736133, 9237677, 390582, 9741227, 9240850, 9831931, 9542652, 9470172, 9661300, 9312377, 9603268, 9391818, 445800, 9163954, 391405, 6790050, 9736232, 9160241, 9056082, 9952449, 9658213, 9895747, 9103166, 9827450, 9078597, 9388323, 9466651, 9035776, 9539705, 9600757, 9308939, 9070319, 390455, 9237786, 445015, 445018, 9977479, 9562443, 9414582, 9117822, 9082713, 9681762, 9772765, 9909744, 9188009, 9493620, 9065454, 9853847, 9040520, 3371441, 9053615, 9681804, 9772846, 9977954, 9910080, 9040575, 9414618, 9117855, 9053626, 9265602, 9341440, 9493660, 9065507, 9853904, 9188045, 9082763, 5618090, 6792616, 9684367, 9041363, 9417878, 9911631, 9496840, 9083614, 9054014, 9857497, 9777150, 9066083, 9979792, 9191465, 9119694, 5252087, 9041366, 9857498, 9496844, 9119696, 9083616, 9777154, 9417882, 9191469, 9684371, 5252111, 9496843, 9417881, 9083615, 9777153, 9119695, 9684370, 9191468, 5252110, 9191474, 9119701, 9777159, 9041371, 9417887, 9083621, 9979797, 9857503, 9054019, 9684375, 9911636, 9066088, 9496849, 5252012, 9496846, 9119698, 9417884, 9777156, 9041368, 9066085, 9979794, 9857500, 9054016, 9083618, 9911633, 9684373, 9191471, 5251980, 9496847, 9191472, 9119699, 9417885, 9777157, 9041369, 9066086, 9979795, 9857501, 9054017, 9083619, 9911634, 9684374, 5252038, 9054022, 9041374, 9119704, 9083624, 9066091, 9979800, 9911639, 5252097, 5252129, 9119700, 9083620, 9191473, 9066087, 9979796, 9857502, 9054018, 9911635, 9777158, 9041370, 9417886, 9496848, 5252096, 9041367, 9496845, 9119697, 9777155, 9054015, 9417883, 9066084, 9857499, 9083617, 9979793, 9911632, 9684372, 9191470, 5255423, 9041364, 9777151, 9496841, 9417879, 9191466, 9684368, 5251966, 9562478, 9191475, 9777161, 9119703, 9857505, 9041373, 9979799, 9417888, 9054021, 9083623, 9496850, 9911638, 9066090, 5251932, 9041365, 9496842, 9417880, 9191467, 9777152, 9684369, 5252090, 9979798, 9054020, 9777160, 9119702, 9083622, 9684376, 9857504, 9041372, 9066089, 9911637, 5251953, 9831368, 9660936, 9391412, 9036464, 9312027, 9105375, 9240526, 9740533, 9469808, 1063687, 9163554, 9764250, 9614553, 9676171, 9408585, 9487301, 9181673, 9255598, 2029139, 9181649, 9081751, 9907168, 9764195, 9974123, 9614529, 9408572, 9847332, 9329756, 9255581, 9676153, 9064771, 9557586, 9114122, 9487280, 202994, 9039435, 9325521, 9554399, 9757673, 9843562, 9081664, 9252484, 9039312, 9672820, 9177035, 9483654, 9612368, 9405341, 1861625 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 205753,
     "stId" : "R-HSA-205753",
@@ -814,7 +796,14 @@
     "speciesId" : 48887,
     "identifier" : "Q13404",
     "geneNames" : [ "UBE2V1", "CROC1", "UBE2V", "UEV1", "P/OKcl.19" ],
-    "parents" : [ 947628, 8948017, 202463 ]
+    "parents" : [ 202463 ]
+  }, {
+    "dbId" : 29370,
+    "stId" : "R-ALL-29370",
+    "displayName" : "ADP [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 4102, 4201, 4108 ],
+    "identifier" : "16761"
   }, {
     "dbId" : 939188,
     "stId" : "R-HSA-939188",
@@ -823,7 +812,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 113595,
     "stId" : "R-HSA-113595",
@@ -831,7 +820,7 @@
     "schemaClass" : "DefinedSet",
     "speciesId" : 48887,
     "diagramIds" : [ 4057, 4174 ],
-    "parents" : [ 8869163, 5660766, 6782795, 6782592, 8864229, 8852066, 8852251, 8852063, 8938763, 8953945, 8953915, 8942547, 8942552, 976164, 976165, 983130, 184273, 2902223, 2737729, 2900763, 2902216, 2769006, 180577, 180530, 184369, 157630, 2172171, 1911534, 1911536, 2071859, 1911542, 179414, 188192, 174061, 174131, 174248, 5654357, 5654360, 5654362, 5654363, 1370875, 934572, 2160934, 2179330, 2179328, 2176425, 2176395, 2169047, 2176443, 2187371, 870482, 870520, 1234113, 8867287, 8866894, 68570, 182945, 182930, 182915, 182967, 209535, 204940, 174222, 68586, 177997, 1253293, 1977297, 68585, 69589, 206722, 206604, 1911537, 1911540, 349433, 1234116, 3134943, 206877, 3000337, 2130284, 1358729, 1918083, 1918081, 1358737, 1358735, 211771 ],
+    "parents" : [ 1234116 ],
     "children" : [ 939214, 939213, 939239, 939205, 939203, 939232, 939230, 939164, 939165, 939258, 939192, 939191, 939188, 939184 ]
   }, {
     "dbId" : 9014322,
@@ -858,7 +847,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 939185,
     "stId" : "R-HSA-939185",
@@ -876,16 +865,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG47",
     "geneNames" : [ "UBB" ],
-    "parents" : [ 113595, 6793517 ]
-  }, {
-    "dbId" : 450247,
-    "stId" : "R-HSA-450247",
-    "displayName" : "TAB3 [endosome membrane]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesId" : 48887,
-    "identifier" : "Q8N5C8",
-    "geneNames" : [ "TAB3", "MAP3K7IP3" ],
-    "parents" : [ 975101 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 9014344,
     "stId" : "R-HSA-9014344",
@@ -895,6 +875,15 @@
     "diagramIds" : [ 4257 ],
     "parents" : [ 9014341 ],
     "children" : [ 168907, 937021 ]
+  }, {
+    "dbId" : 450247,
+    "stId" : "R-HSA-450247",
+    "displayName" : "TAB3 [endosome membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8N5C8",
+    "geneNames" : [ "TAB3", "MAP3K7IP3" ],
+    "parents" : [ 975101 ]
   }, {
     "dbId" : 939212,
     "stId" : "R-HSA-939212",
@@ -912,15 +901,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG47",
     "geneNames" : [ "UBB" ],
-    "parents" : [ 113595, 6793517 ]
-  }, {
-    "dbId" : 450240,
-    "stId" : "R-HSA-450240",
-    "displayName" : "p-4S,T404-IRF3,p-S477,S479-IRF7 [cytosol]",
-    "schemaClass" : "DefinedSet",
-    "speciesId" : 48887,
-    "diagramIds" : [ 4109 ],
-    "children" : [ 450318, 166258 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 75975,
     "stId" : "R-HSA-75975",
@@ -931,6 +912,14 @@
     "geneNames" : [ "CASP8", "MCH5" ],
     "parents" : [ 139950 ]
   }, {
+    "dbId" : 450240,
+    "stId" : "R-HSA-450240",
+    "displayName" : "p-4S,T404-IRF3,p-S477,S479-IRF7 [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "diagramIds" : [ 4109 ],
+    "children" : [ 450318, 166258 ]
+  }, {
     "dbId" : 57031,
     "stId" : "R-HSA-57031",
     "displayName" : "CASP8(1-479) [cytosol]",
@@ -939,7 +928,7 @@
     "diagramIds" : [ 4140 ],
     "identifier" : "Q14790",
     "geneNames" : [ "CASP8", "MCH5" ],
-    "parents" : [ 9013891, 622416, 933463, 3465443, 3371390, 3465499, 3465532, 75114, 5637468, 5692539, 140976, 2671817, 2562542 ]
+    "parents" : [ 9013891 ]
   }, {
     "dbId" : 939206,
     "stId" : "R-HSA-939206",
@@ -958,7 +947,7 @@
     "diagramIds" : [ 4213 ],
     "identifier" : "Q13546",
     "geneNames" : [ "RIPK1", "RIP", "RIP1" ],
-    "parents" : [ 5690188, 6782832, 6783294, 9013893, 9013891, 5634184, 5218862, 933466, 918291, 140946, 140935, 168912, 2562577, 2562542, 1810470 ]
+    "parents" : [ 9013893, 9013891 ]
   }, {
     "dbId" : 168907,
     "stId" : "R-HSA-168907",
@@ -966,7 +955,7 @@
     "schemaClass" : "Complex",
     "speciesId" : 48887,
     "diagramIds" : [ 4033 ],
-    "parents" : [ 9014344, 9013893, 9013891, 9013960, 9013962, 9013989, 9013984, 9014322, 177693, 450309, 177649 ],
+    "parents" : [ 9014344, 9013893, 9013891, 9013960, 9013962, 9014322, 9013989, 9013984, 177693, 177649, 450309 ],
     "children" : [ 450316, 167985 ]
   }, {
     "dbId" : 939204,
@@ -978,6 +967,15 @@
     "geneNames" : [ "UBC" ],
     "parents" : [ 450248 ]
   }, {
+    "dbId" : 939205,
+    "stId" : "R-HSA-939205",
+    "displayName" : "RPS27A(1-76) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P62979",
+    "geneNames" : [ "RPS27A", "UBA80", "UBCEP1" ],
+    "parents" : [ 113595 ]
+  }, {
     "dbId" : 2000341,
     "stId" : "R-HSA-2000341",
     "displayName" : "TLR3 [endosome membrane]",
@@ -987,15 +985,6 @@
     "identifier" : "O15455",
     "geneNames" : [ "TLR3" ],
     "parents" : [ 167985 ]
-  }, {
-    "dbId" : 939205,
-    "stId" : "R-HSA-939205",
-    "displayName" : "RPS27A(1-76) [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesId" : 48887,
-    "identifier" : "P62979",
-    "geneNames" : [ "RPS27A", "UBA80", "UBCEP1" ],
-    "parents" : [ 113595, 6793517 ]
   }, {
     "dbId" : 9014341,
     "stId" : "R-HSA-9014341",
@@ -1012,14 +1001,14 @@
     "speciesId" : 48887,
     "identifier" : "P62987",
     "geneNames" : [ "UBA52", "UBCEP2" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 450251,
     "stId" : "R-HSA-450251",
     "displayName" : "activated TBK1/IKK epsilon [endosome membrane]",
     "schemaClass" : "DefinedSet",
     "speciesId" : 48887,
-    "parents" : [ 9013982, 936970 ],
+    "parents" : [ 9013982 ],
     "children" : [ 450290, 450278 ]
   }, {
     "dbId" : 450248,
@@ -1037,7 +1026,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG47",
     "geneNames" : [ "UBB" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 2562550,
     "stId" : "R-HSA-2562550",
@@ -1045,7 +1034,6 @@
     "schemaClass" : "Complex",
     "speciesId" : 48887,
     "diagramIds" : [ 4146 ],
-    "parents" : [ 2672221 ],
     "children" : [ 139950 ]
   }, {
     "dbId" : 939226,
@@ -1066,13 +1054,13 @@
     "geneNames" : [ "UBC" ],
     "parents" : [ 450248 ]
   }, {
-    "dbId" : 450256,
-    "stId" : "R-HSA-450256",
-    "displayName" : "phosphorylated IRF3 and/or IRF7 dimer [cytosol]",
-    "schemaClass" : "DefinedSet",
+    "dbId" : 1234116,
+    "stId" : "R-HSA-1234116",
+    "displayName" : "UBE2D1,2,3:Ubiquitin [cytosol]",
+    "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "diagramIds" : [ 4127 ],
-    "children" : [ 450344, 166272 ]
+    "parents" : [ 2569049, 2569051 ],
+    "children" : [ 113595, 1234120 ]
   }, {
     "dbId" : 939224,
     "stId" : "R-HSA-939224",
@@ -1083,22 +1071,13 @@
     "geneNames" : [ "UBB" ],
     "parents" : [ 450143 ]
   }, {
-    "dbId" : 1234116,
-    "stId" : "R-HSA-1234116",
-    "displayName" : "UBE2D1,2,3:Ubiquitin [cytosol]",
-    "schemaClass" : "Complex",
+    "dbId" : 450256,
+    "stId" : "R-HSA-450256",
+    "displayName" : "phosphorylated IRF3 and/or IRF7 dimer [cytosol]",
+    "schemaClass" : "DefinedSet",
     "speciesId" : 48887,
-    "parents" : [ 2569049, 2569051 ],
-    "children" : [ 113595, 1234120 ]
-  }, {
-    "dbId" : 450270,
-    "stId" : "R-HSA-450270",
-    "displayName" : "p-S477,S479-IRF7 [nucleoplasm]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesId" : 48887,
-    "identifier" : "Q92985",
-    "geneNames" : [ "IRF7" ],
-    "parents" : [ 1027365, 450306 ]
+    "diagramIds" : [ 4127 ],
+    "children" : [ 450344, 166272 ]
   }, {
     "dbId" : 939222,
     "stId" : "R-HSA-939222",
@@ -1109,13 +1088,14 @@
     "geneNames" : [ "RPS27A", "UBA80", "UBCEP1" ],
     "parents" : [ 450248 ]
   }, {
-    "dbId" : 450271,
-    "stId" : "R-HSA-450271",
-    "displayName" : "K63polyUb [endosome membrane]",
-    "schemaClass" : "Polymer",
+    "dbId" : 450270,
+    "stId" : "R-HSA-450270",
+    "displayName" : "p-S477,S479-IRF7 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
     "speciesId" : 48887,
-    "parents" : [ 177691, 177689 ],
-    "children" : [ 450248 ]
+    "identifier" : "Q92985",
+    "geneNames" : [ "IRF7" ],
+    "parents" : [ 450306 ]
   }, {
     "dbId" : 2685681,
     "stId" : "R-HSA-2685681",
@@ -1124,7 +1104,15 @@
     "speciesId" : 48887,
     "identifier" : "Q9Y4K3",
     "geneNames" : [ "TRAF6", "RNF85" ],
-    "parents" : [ 8869500, 6782771, 209542, 2685678, 5607625, 202456, 8948065, 936965, 847073, 450144, 450147, 937064 ]
+    "parents" : [ 936965, 847073 ]
+  }, {
+    "dbId" : 450271,
+    "stId" : "R-HSA-450271",
+    "displayName" : "K63polyUb [endosome membrane]",
+    "schemaClass" : "Polymer",
+    "speciesId" : 48887,
+    "parents" : [ 177691, 177689 ],
+    "children" : [ 450248 ]
   }, {
     "dbId" : 2201336,
     "stId" : "R-HSA-2201336",
@@ -1151,7 +1139,7 @@
     "diagramIds" : [ 4169 ],
     "identifier" : "Q9Y4K3",
     "geneNames" : [ "TRAF6", "RNF85" ],
-    "parents" : [ 5690846, 6782832, 918188, 6783276, 166867, 197481, 209565, 209569, 209574, 421373, 202471, 8981951, 937043, 1248657, 936976, 507716, 446864, 450159, 450121, 5607701, 2685676, 2685708 ]
+    "parents" : [ 1248657 ]
   }, {
     "dbId" : 936402,
     "stId" : "R-HSA-936402",
@@ -1160,15 +1148,24 @@
     "speciesId" : 48887,
     "identifier" : "Q13114",
     "geneNames" : [ "TRAF3", "CAP1", "CRAF1" ],
-    "parents" : [ 9013989, 918200, 2213008 ]
+    "parents" : [ 9013989 ]
   }, {
     "dbId" : 202463,
     "stId" : "R-HSA-202463",
     "displayName" : "UBE2N:UBE2V1 [cytosol]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "parents" : [ 8948058, 1248657, 450144 ],
+    "parents" : [ 1248657 ],
     "children" : [ 206072, 205753 ]
+  }, {
+    "dbId" : 168156,
+    "stId" : "R-HSA-168156",
+    "displayName" : "MAP3K7 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O43318",
+    "geneNames" : [ "MAP3K7", "TAK1" ],
+    "parents" : [ 450277 ]
   }, {
     "dbId" : 450264,
     "stId" : "R-HSA-450264",
@@ -1178,15 +1175,6 @@
     "identifier" : "Q8N5C8",
     "geneNames" : [ "TAB3", "MAP3K7IP3" ],
     "parents" : [ 446874 ]
-  }, {
-    "dbId" : 168156,
-    "stId" : "R-HSA-168156",
-    "displayName" : "MAP3K7 [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesId" : 48887,
-    "identifier" : "O43318",
-    "geneNames" : [ "MAP3K7", "TAK1" ],
-    "parents" : [ 6782955, 4332361, 450277, 8947970, 446878 ]
   }, {
     "dbId" : 939217,
     "stId" : "R-HSA-939217",
@@ -1230,7 +1218,6 @@
     "schemaClass" : "Complex",
     "speciesId" : 48887,
     "diagramIds" : [ 4196 ],
-    "parents" : [ 5357837, 2685689, 2685709, 5607672, 936954 ],
     "children" : [ 168156, 446874, 167923 ]
   }, {
     "dbId" : 2201285,
@@ -1267,7 +1254,7 @@
     "speciesId" : 48887,
     "identifier" : "Q9Y4K3",
     "geneNames" : [ "TRAF6", "RNF85" ],
-    "parents" : [ 975172, 975150, 177693, 975148, 975126, 975182, 975108, 975137 ]
+    "parents" : [ 177693 ]
   }, {
     "dbId" : 939241,
     "stId" : "R-HSA-939241",
@@ -1285,7 +1272,16 @@
     "speciesId" : 48887,
     "identifier" : "P61077",
     "geneNames" : [ "UBE2D3", "UBC5C", "UBCH5C" ],
-    "parents" : [ 8942553, 1234120, 3134944, 936441, 947628 ]
+    "parents" : [ 1234120 ]
+  }, {
+    "dbId" : 9038432,
+    "stId" : "R-NUL-9038432",
+    "displayName" : "TLR3 ligand [endosome lumen]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 9031716,
+    "diagramIds" : [ 4494 ],
+    "parents" : [ 167985 ],
+    "children" : [ 6791257, 8982481, 8982462, 9028895, 8982440 ]
   }, {
     "dbId" : 939239,
     "stId" : "R-HSA-939239",
@@ -1294,7 +1290,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 2201291,
     "stId" : "R-HSA-2201291",
@@ -1311,7 +1307,7 @@
     "speciesId" : 48887,
     "identifier" : "P62837",
     "geneNames" : [ "UBE2D2", "PUBC1", "UBC4", "UBC5B", "UBCH4", "UBCH5B" ],
-    "parents" : [ 8852061, 3134944, 1234120, 5607669, 8942553, 8852103, 936441, 947628 ]
+    "parents" : [ 1234120 ]
   }, {
     "dbId" : 939235,
     "stId" : "R-HSA-939235",
@@ -1328,7 +1324,6 @@
     "schemaClass" : "Complex",
     "speciesId" : 48887,
     "diagramIds" : [ 4203 ],
-    "parents" : [ 772536 ],
     "children" : [ 450152, 446874, 202527, 2685681, 167923 ]
   }, {
     "dbId" : 939232,
@@ -1338,7 +1333,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 450281,
     "stId" : "R-HSA-450281",
@@ -1347,11 +1342,11 @@
     "speciesId" : 48887,
     "identifier" : "Q92985",
     "geneNames" : [ "IRF7" ],
-    "parents" : [ 1015695, 933470, 450317 ]
+    "parents" : [ 450317 ]
   }, {
     "dbId" : 450294,
     "stId" : "R-HSA-450294",
-    "displayName" : "MAP kinase activation in TLR cascade",
+    "displayName" : "MAP kinase activation",
     "schemaClass" : "Pathway",
     "speciesId" : 48887,
     "diagramIds" : [ 4344 ]
@@ -1363,7 +1358,7 @@
     "speciesId" : 48887,
     "identifier" : "Q15750",
     "geneNames" : [ "TAB1", "MAP3K7IP1" ],
-    "parents" : [ 6782955, 6782972, 5607691, 5607683, 936946, 450277, 8947970, 937008, 847073, 446878 ]
+    "parents" : [ 450277, 847073 ]
   }, {
     "dbId" : 2201299,
     "stId" : "R-HSA-2201299",
@@ -1387,7 +1382,7 @@
     "displayName" : "TAB2/3 [endosome membrane]",
     "schemaClass" : "DefinedSet",
     "speciesId" : 48887,
-    "parents" : [ 975171, 975128, 177689, 177691 ],
+    "parents" : [ 177689, 177691 ],
     "children" : [ 450247, 450279 ]
   }, {
     "dbId" : 177654,
@@ -1397,7 +1392,7 @@
     "speciesId" : 48887,
     "identifier" : "Q14653",
     "geneNames" : [ "IRF3" ],
-    "parents" : [ 1027365, 177675 ]
+    "parents" : [ 177675 ]
   }, {
     "dbId" : 450290,
     "stId" : "R-HSA-450290",
@@ -1415,7 +1410,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 939254,
     "stId" : "R-HSA-939254",
@@ -1442,7 +1437,14 @@
     "speciesId" : 48887,
     "identifier" : "P61088",
     "geneNames" : [ "UBE2N", "BLU" ],
-    "parents" : [ 8942553, 947628, 1169378, 8948017, 202463 ]
+    "parents" : [ 202463 ]
+  }, {
+    "dbId" : 2201311,
+    "stId" : "R-ALL-2201311",
+    "displayName" : "LPS [endosome lumen]",
+    "schemaClass" : "SimpleEntity",
+    "identifier" : "16412",
+    "parents" : [ 2201299 ]
   }, {
     "dbId" : 939248,
     "stId" : "R-HSA-939248",
@@ -1452,13 +1454,6 @@
     "identifier" : "P62979",
     "geneNames" : [ "RPS27A", "UBA80", "UBCEP1" ],
     "parents" : [ 450143 ]
-  }, {
-    "dbId" : 2201311,
-    "stId" : "R-ALL-2201311",
-    "displayName" : "LPS [endosome lumen]",
-    "schemaClass" : "SimpleEntity",
-    "identifier" : "16412",
-    "parents" : [ 9372768, 9528687, 9224213, 9451320, 9718530, 9143533, 9591714, 2201299, 9294667 ]
   } ],
   "edges" : [ {
     "dbId" : 168930,
@@ -1466,7 +1461,7 @@
     "displayName" : "Viral dsRNA:TLR3:TRIF complex recruits RIP1",
     "schemaClass" : "Reaction",
     "preceding" : [ 168929 ],
-    "following" : [ 9014342, 168910 ],
+    "following" : [ 9014342 ],
     "inputs" : [ 168907, 168651 ],
     "outputs" : [ 177649 ],
     "efs" : [ ],
@@ -1501,7 +1496,7 @@
     "displayName" : "Viral dsRNA:TLR3 recruits TRIF (TICAM1)",
     "schemaClass" : "Reaction",
     "preceding" : [ 168092 ],
-    "following" : [ 9013992, 9014320, 177694, 168930, 936985 ],
+    "following" : [ 9014320, 9013992, 177694, 168930 ],
     "inputs" : [ 166170, 167985 ],
     "outputs" : [ 168907 ],
     "efs" : [ ],
@@ -1522,7 +1517,6 @@
     "stId" : "R-HSA-168933",
     "displayName" : "Dimerization of phosphorylated IRF3/IRF7",
     "schemaClass" : "Reaction",
-    "preceding" : [ 918229, 166245 ],
     "inputs" : [ 450240 ],
     "outputs" : [ 450256 ],
     "efs" : [ ],
@@ -1545,7 +1539,6 @@
     "stId" : "R-HSA-9013889",
     "displayName" : "TLR3-induced ripoptosome assembly",
     "schemaClass" : "Reaction",
-    "preceding" : [ 168921 ],
     "following" : [ 9013895 ],
     "inputs" : [ 54639, 57031, 177649 ],
     "outputs" : [ 9013891 ],
@@ -1565,17 +1558,6 @@
     "diagramIds" : [ 4098 ],
     "entityFunctionalStatus" : [ ]
   }, {
-    "dbId" : 9014343,
-    "stId" : "R-HSA-9014343",
-    "displayName" : "IKBKG subunit of IKK complex binds K63pUb- RIP1 within the TLR3 complex",
-    "schemaClass" : "Reaction",
-    "preceding" : [ 168915 ],
-    "inputs" : [ 168113, 9014344 ],
-    "outputs" : [ 9014341 ],
-    "efs" : [ ],
-    "diagramIds" : [ 4316 ],
-    "entityFunctionalStatus" : [ ]
-  }, {
     "dbId" : 9013895,
     "stId" : "R-HSA-9013895",
     "displayName" : "Caspase-8 processing within TLR3 complex",
@@ -1588,16 +1570,14 @@
     "diagramIds" : [ 4144 ],
     "entityFunctionalStatus" : [ ]
   }, {
-    "dbId" : 9014342,
-    "stId" : "R-HSA-9014342",
-    "displayName" : "K63-linked ubiquitination of RIP1 bound to the activated TLR complex",
+    "dbId" : 9014343,
+    "stId" : "R-HSA-9014343",
+    "displayName" : "IKBKG subunit of IKK complex binds K63pUb- RIP1 within the TLR3 complex",
     "schemaClass" : "Reaction",
-    "preceding" : [ 168930 ],
-    "inputs" : [ 450152, 177649 ],
-    "outputs" : [ 9014344 ],
-    "catalysts" : [ 2569050 ],
+    "inputs" : [ 168113, 9014344 ],
+    "outputs" : [ 9014341 ],
     "efs" : [ ],
-    "diagramIds" : [ 4254 ],
+    "diagramIds" : [ 4316 ],
     "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 9013990,
@@ -1612,29 +1592,28 @@
     "diagramIds" : [ 4096 ],
     "entityFunctionalStatus" : [ ]
   }, {
+    "dbId" : 9014342,
+    "stId" : "R-HSA-9014342",
+    "displayName" : "K63-linked ubiquitination of RIP1 bound to the activated TLR complex",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 168930 ],
+    "inputs" : [ 450152, 177649 ],
+    "outputs" : [ 9014344 ],
+    "catalysts" : [ 2569050 ],
+    "efs" : [ ],
+    "diagramIds" : [ 4254 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
     "dbId" : 450358,
     "stId" : "R-HSA-450358",
     "displayName" : "Activated TRAF6 synthesizes unanchored polyubiquitin chains upon TLR stimulation ",
     "schemaClass" : "Polymerisation",
-    "preceding" : [ 936952, 975147 ],
-    "following" : [ 975097, 177690 ],
+    "following" : [ 177690 ],
     "inputs" : [ 113595 ],
     "outputs" : [ 450152 ],
     "catalysts" : [ 975153 ],
     "efs" : [ ],
     "diagramIds" : [ 4191 ],
-    "entityFunctionalStatus" : [ ]
-  }, {
-    "dbId" : 847070,
-    "stId" : "R-HSA-847070",
-    "displayName" : "Phosphorylated TAK1 dissociates from the TLR3 receptor complex",
-    "schemaClass" : "Reaction",
-    "preceding" : [ 177692 ],
-    "following" : [ 168184, 450346, 450337 ],
-    "inputs" : [ 177691 ],
-    "outputs" : [ 847073, 168907 ],
-    "efs" : [ ],
-    "diagramIds" : [ 4202 ],
     "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 9013979,
@@ -1647,6 +1626,17 @@
     "outputs" : [ 9013981 ],
     "efs" : [ ],
     "diagramIds" : [ 4103 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 847070,
+    "stId" : "R-HSA-847070",
+    "displayName" : "Phosphorylated TAK1 dissociates from the TLR3 receptor complex",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 177692 ],
+    "inputs" : [ 177691 ],
+    "outputs" : [ 847073, 168907 ],
+    "efs" : [ ],
+    "diagramIds" : [ 4202 ],
     "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 9013978,
@@ -1712,7 +1702,7 @@
     "displayName" : "Viral dsRNA binds the Toll-Like Receptor 3 (TLR3)",
     "schemaClass" : "Reaction",
     "following" : [ 168929 ],
-    "inputs" : [ 2000341, 8982478 ],
+    "inputs" : [ 2000341, 9038432 ],
     "outputs" : [ 167985 ],
     "efs" : [ ],
     "diagramIds" : [ 4008 ],
@@ -1745,16 +1735,6 @@
     "entityFunctionalStatus" : [ ]
   } ],
   "subpathways" : [ {
-    "dbId" : 9014325,
-    "stId" : "R-HSA-9014325",
-    "displayName" : "TICAM1,TRAF6-dependent induction of TAK1 complex",
-    "events" : [ 450358, 847070, 450259, 177690, 177694, 177692 ]
-  }, {
-    "dbId" : 9013973,
-    "stId" : "R-HSA-9013973",
-    "displayName" : "TICAM1-dependent activation of IRF3/IRF7",
-    "events" : [ 9013992, 9013979, 9013978, 177671, 168933, 9013985, 9013986, 9013974, 9013990 ]
-  }, {
     "dbId" : 168927,
     "stId" : "R-HSA-168927",
     "displayName" : "TICAM1, RIP1-mediated IKK complex recruitment ",
@@ -1764,5 +1744,15 @@
     "stId" : "R-HSA-9013957",
     "displayName" : "TLR3-mediated TICAM1-dependent programmed cell death",
     "events" : [ 9013963, 9013889, 9013895 ]
+  }, {
+    "dbId" : 9014325,
+    "stId" : "R-HSA-9014325",
+    "displayName" : "TICAM1,TRAF6-dependent induction of TAK1 complex",
+    "events" : [ 450358, 847070, 450259, 177690, 177694, 177692 ]
+  }, {
+    "dbId" : 9013973,
+    "stId" : "R-HSA-9013973",
+    "displayName" : "TICAM1-dependent activation of IRF3/IRF7",
+    "events" : [ 9013992, 9013979, 9013978, 177671, 168933, 9013985, 9013986, 9013974, 9013990 ]
   } ]
 }

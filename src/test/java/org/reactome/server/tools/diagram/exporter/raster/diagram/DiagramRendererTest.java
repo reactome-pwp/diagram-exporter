@@ -247,12 +247,6 @@ public class DiagramRendererTest {
 	}
 
 	@Test
-	public void testDuplicatedSubPathway() {
-		final RasterArgs args = new RasterArgs("R-GGA-437987", "png");
-		TestUtils.render(args, null);
-	}
-
-	@Test
 	public void testPdf() {
 		final RasterArgs args = new RasterArgs("R-HSA-376176", "pdf");
 		TestUtils.render(args, null);

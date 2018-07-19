@@ -1,12 +1,13 @@
 {
   "dbId" : 5687128,
   "stId" : "R-HSA-5687128",
+  "speciesName" : "Homo sapiens",
   "nodes" : [ {
     "dbId" : 3214897,
     "stId" : "R-HSA-3214897",
     "displayName" : "CDC14B [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "O60729",
     "geneNames" : [ "CDC14B" ],
     "parents" : [ 5692709 ]
@@ -15,7 +16,7 @@
     "stId" : "R-HSA-3006505",
     "displayName" : "KALRN [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 686 ],
     "identifier" : "O60229",
     "geneNames" : [ "KALRN", "DUET", "DUO", "HAPIP", "TRAD" ],
@@ -25,7 +26,7 @@
     "stId" : "R-HSA-450563",
     "displayName" : "HSPB1 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 871 ],
     "identifier" : "P04792",
     "geneNames" : [ "HSPB1", "HSP27", "HSP28" ]
@@ -34,7 +35,7 @@
     "stId" : "R-HSA-1606687",
     "displayName" : "miR-34C [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "MI0000743",
     "geneNames" : [ "MIR34C" ],
     "parents" : [ 5687048 ]
@@ -43,7 +44,7 @@
     "stId" : "R-HSA-449545",
     "displayName" : "CDC42 [plasma membrane]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P60953",
     "geneNames" : [ "CDC42" ],
     "parents" : [ 182921 ]
@@ -52,7 +53,7 @@
     "stId" : "R-HSA-1606694",
     "displayName" : "miR-34B [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "MI0000742",
     "geneNames" : [ "MIR34B" ],
     "parents" : [ 5687048 ]
@@ -61,7 +62,7 @@
     "stId" : "R-HSA-445002",
     "displayName" : "PAK1 dimer [cytosol]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 399856 ],
     "children" : [ 162629 ]
   }, {
@@ -69,7 +70,7 @@
     "stId" : "R-HSA-170066",
     "displayName" : "p-T161-CDK1 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 643 ],
     "identifier" : "P06493",
     "geneNames" : [ "CDK1", "CDC2", "CDC28A", "CDKN1", "P34CDC2" ]
@@ -78,7 +79,7 @@
     "stId" : "R-HSA-3239018",
     "displayName" : "p-T182-MAPKAPK5 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 661 ],
     "identifier" : "Q8IW41",
     "geneNames" : [ "MAPKAPK5", "PRAK" ],
@@ -88,16 +89,16 @@
     "stId" : "R-HSA-390765",
     "displayName" : "PAK1,2,3 [cytosol]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 3 ],
     "parents" : [ 389782 ],
-    "children" : [ 162629, 211604, 428457 ]
+    "children" : [ 428457, 211604, 162629 ]
   }, {
     "dbId" : 68722,
     "stId" : "R-HSA-68722",
     "displayName" : "PSMD14 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "O00487",
     "geneNames" : [ "PSMD14", "POH1" ],
     "parents" : [ 68819 ]
@@ -106,7 +107,7 @@
     "stId" : "R-HSA-68724",
     "displayName" : "PSMA1 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P25786",
     "geneNames" : [ "PSMA1", "HC2", "NU", "PROS30", "PSC2" ],
     "parents" : [ 68819 ]
@@ -115,7 +116,7 @@
     "stId" : "R-HSA-68726",
     "displayName" : "PSMA2 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P25787",
     "geneNames" : [ "PSMA2", "HC3", "PSC3" ],
     "parents" : [ 68819 ]
@@ -124,16 +125,24 @@
     "stId" : "R-HSA-68728",
     "displayName" : "PSMA3 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P25788",
     "geneNames" : [ "PSMA3", "HC8", "PSC8" ],
     "parents" : [ 68819 ]
+  }, {
+    "dbId" : 2029159,
+    "stId" : "R-HSA-2029159",
+    "displayName" : "RAC1:GTP,CDC42:GTP:PAK1 [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 8981940 ],
+    "children" : [ 162629, 389778 ]
   }, {
     "dbId" : 68730,
     "stId" : "R-HSA-68730",
     "displayName" : "PSMA4 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P25789",
     "geneNames" : [ "PSMA4", "HC9", "PSC9" ],
     "parents" : [ 68819 ]
@@ -142,7 +151,7 @@
     "stId" : "R-HSA-68732",
     "displayName" : "PSMA5 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P28066",
     "geneNames" : [ "PSMA5" ],
     "parents" : [ 68819 ]
@@ -151,7 +160,7 @@
     "stId" : "R-HSA-442488",
     "displayName" : "NCOA3 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 448 ],
     "identifier" : "Q9Y6Q9",
     "geneNames" : [ "NCOA3", "AIB1", "BHLHE42", "RAC3", "TRAM1" ]
@@ -160,7 +169,7 @@
     "stId" : "R-HSA-68734",
     "displayName" : "PSMA6 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P60900",
     "geneNames" : [ "PSMA6", "PROS27" ],
     "parents" : [ 68819 ]
@@ -169,7 +178,7 @@
     "stId" : "R-HSA-68736",
     "displayName" : "PSMA7 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "O14818",
     "geneNames" : [ "PSMA7", "HSPC" ],
     "parents" : [ 68819 ]
@@ -178,7 +187,7 @@
     "stId" : "R-HSA-68738",
     "displayName" : "PSMB1 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P20618",
     "geneNames" : [ "PSMB1", "PSC5" ],
     "parents" : [ 68819 ]
@@ -187,7 +196,7 @@
     "stId" : "R-HSA-68741",
     "displayName" : "PSMB10 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P40306",
     "geneNames" : [ "PSMB10", "LMP10", "MECL1" ],
     "parents" : [ 68819 ]
@@ -196,7 +205,7 @@
     "stId" : "R-HSA-199300",
     "displayName" : "FOXO1 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 657 ],
     "identifier" : "Q12778",
     "geneNames" : [ "FOXO1", "FKHR", "FOXO1A" ]
@@ -205,43 +214,43 @@
     "stId" : "R-HSA-68744",
     "displayName" : "PSMB2 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P49721",
     "geneNames" : [ "PSMB2" ],
-    "parents" : [ 68819 ]
-  }, {
-    "dbId" : 68747,
-    "stId" : "R-HSA-68747",
-    "displayName" : "PSMB3 [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "P49720",
-    "geneNames" : [ "PSMB3" ],
     "parents" : [ 68819 ]
   }, {
     "dbId" : 5687004,
     "stId" : "R-HSA-5687004",
     "displayName" : "p-T182 MAPKAPK5 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 180 ],
     "identifier" : "Q8IW41",
     "geneNames" : [ "MAPKAPK5", "PRAK" ],
-    "parents" : [ 5690246, 5692723, 5690243, 5692718, 5687055, 5692713 ]
+    "parents" : [ 5692713, 5692723, 5692718, 5690246, 5690243, 5687055 ]
+  }, {
+    "dbId" : 68747,
+    "stId" : "R-HSA-68747",
+    "displayName" : "PSMB3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P49720",
+    "geneNames" : [ "PSMB3" ],
+    "parents" : [ 68819 ]
   }, {
     "dbId" : 182921,
     "stId" : "R-HSA-182921",
     "displayName" : "CDC42:GTP [plasma membrane]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 389778 ],
-    "children" : [ 29438, 449545 ]
+    "children" : [ 449545, 29438 ]
   }, {
     "dbId" : 5687005,
     "stId" : "R-HSA-5687005",
     "displayName" : "p-S857 NCOA3 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 451 ],
     "identifier" : "Q9Y6Q9",
     "geneNames" : [ "NCOA3", "AIB1", "BHLHE42", "RAC3", "TRAM1" ],
@@ -251,7 +260,7 @@
     "stId" : "R-HSA-5687000",
     "displayName" : "ub-MAPK6 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 461 ],
     "identifier" : "Q16659",
     "geneNames" : [ "MAPK6", "ERK3", "PRKM6" ]
@@ -260,7 +269,7 @@
     "stId" : "R-HSA-68750",
     "displayName" : "PSMB4 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P28070",
     "geneNames" : [ "PSMB4", "PROS26" ],
     "parents" : [ 68819 ]
@@ -269,7 +278,7 @@
     "stId" : "R-HSA-68753",
     "displayName" : "PSMB5 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P28074",
     "geneNames" : [ "PSMB5", "LMPX", "MB1", "X" ],
     "parents" : [ 68819 ]
@@ -278,7 +287,7 @@
     "stId" : "R-HSA-5686983",
     "displayName" : "MMP10 gene [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "ENSG00000166670",
     "geneNames" : [ "MMP10", "STMY2" ],
     "parents" : [ 5687042 ]
@@ -287,7 +296,7 @@
     "stId" : "R-HSA-939164",
     "displayName" : "UBC(77-152) [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
     "parents" : [ 113595 ]
@@ -296,53 +305,53 @@
     "stId" : "R-HSA-389782",
     "displayName" : "PAK1,2,3:CDC42:GTP, RAC1:GTP [plasma membrane]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 7 ],
-    "children" : [ 389778, 390765 ]
-  }, {
-    "dbId" : 5686981,
-    "stId" : "R-HSA-5686981",
-    "displayName" : "MAPKAPK5 gene [nucleoplasm]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "diagramIds" : [ 325 ],
-    "identifier" : "ENSG00000089022",
-    "geneNames" : [ "MAPKAPK5", "PRAK" ],
-    "parents" : [ 5687065 ]
+    "children" : [ 390765, 389778 ]
   }, {
     "dbId" : 939165,
     "stId" : "R-HSA-939165",
     "displayName" : "UBC(609-684) [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
     "parents" : [ 113595 ]
   }, {
-    "dbId" : 5686979,
-    "stId" : "R-HSA-5686979",
-    "displayName" : "MAPK6 [cytosol]",
+    "dbId" : 5686981,
+    "stId" : "R-HSA-5686981",
+    "displayName" : "MAPKAPK5 gene [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "diagramIds" : [ 337 ],
-    "identifier" : "Q16659",
-    "geneNames" : [ "MAPK6", "ERK3", "PRKM6" ],
-    "parents" : [ 5687037 ]
+    "speciesId" : 48887,
+    "diagramIds" : [ 325 ],
+    "identifier" : "ENSG00000089022",
+    "geneNames" : [ "MAPKAPK5", "PRAK" ],
+    "parents" : [ 5687065 ]
   }, {
     "dbId" : 68756,
     "stId" : "R-HSA-68756",
     "displayName" : "PSMB6 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P28072",
     "geneNames" : [ "PSMB6", "LMPY", "Y" ],
     "parents" : [ 68819 ]
+  }, {
+    "dbId" : 5686979,
+    "stId" : "R-HSA-5686979",
+    "displayName" : "MAPK6 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 337 ],
+    "identifier" : "Q16659",
+    "geneNames" : [ "MAPK6", "ERK3", "PRKM6" ],
+    "parents" : [ 5687037 ]
   }, {
     "dbId" : 68759,
     "stId" : "R-HSA-68759",
     "displayName" : "PSMB7 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q99436",
     "geneNames" : [ "PSMB7", "Z" ],
     "parents" : [ 68819 ]
@@ -351,78 +360,78 @@
     "stId" : "R-HSA-5686976",
     "displayName" : "MAPK4 mRNA [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 362 ],
     "identifier" : "ENST00000400384",
     "geneNames" : [ "MAPK4" ],
     "parents" : [ 5687070 ]
   }, {
+    "dbId" : 1257604,
+    "stId" : "R-HSA-1257604",
+    "displayName" : "PIP3 activates AKT signaling",
+    "schemaClass" : "Pathway",
+    "speciesId" : 48887,
+    "diagramIds" : [ 732 ]
+  }, {
     "dbId" : 211604,
     "stId" : "R-HSA-211604",
     "displayName" : "PAK2 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q13177",
     "geneNames" : [ "PAK2" ],
-    "parents" : [ 2685645, 390765 ]
+    "parents" : [ 390765, 8981927, 2685645 ]
   }, {
     "dbId" : 389778,
     "stId" : "R-HSA-389778",
     "displayName" : "CDC42:GTP, RAC1:GTP [plasma membrane]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 8 ],
-    "parents" : [ 389782 ],
-    "children" : [ 442641, 182921 ]
-  }, {
-    "dbId" : 1257604,
-    "stId" : "R-HSA-1257604",
-    "displayName" : "PIP3 activates AKT signaling",
-    "schemaClass" : "Pathway",
-    "speciesID" : 48887,
-    "diagramIds" : [ 732 ]
-  }, {
-    "dbId" : 68762,
-    "stId" : "R-HSA-68762",
-    "displayName" : "PSMB8 [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "P28062",
-    "geneNames" : [ "PSMB8", "LMP7", "PSMB5i", "RING10", "Y2" ],
-    "parents" : [ 68819 ]
+    "parents" : [ 8981928, 2029159, 389782, 8981927 ],
+    "children" : [ 182921, 442641 ]
   }, {
     "dbId" : 165529,
     "stId" : "R-HSA-165529",
     "displayName" : "XPO1 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 150 ],
     "identifier" : "O14980",
     "geneNames" : [ "XPO1", "CRM1" ]
   }, {
-    "dbId" : 68765,
-    "stId" : "R-HSA-68765",
-    "displayName" : "PSMB9 [cytosol]",
+    "dbId" : 68762,
+    "stId" : "R-HSA-68762",
+    "displayName" : "PSMB8 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "P28065",
-    "geneNames" : [ "PSMB9", "LMP2", "PSMB6i", "RING12" ],
+    "speciesId" : 48887,
+    "identifier" : "P28062",
+    "geneNames" : [ "PSMB8", "LMP7", "PSMB5i", "RING10", "Y2" ],
     "parents" : [ 68819 ]
   }, {
     "dbId" : 5686986,
     "stId" : "R-HSA-5686986",
     "displayName" : "MMP2 gene [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "ENSG00000087245",
-    "geneNames" : [ "MMP2" ],
+    "geneNames" : [ "MMP2", "CLG4A" ],
     "parents" : [ 5687042 ]
+  }, {
+    "dbId" : 68765,
+    "stId" : "R-HSA-68765",
+    "displayName" : "PSMB9 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P28065",
+    "geneNames" : [ "PSMB9", "LMP2", "PSMB6i", "RING12" ],
+    "parents" : [ 68819 ]
   }, {
     "dbId" : 5692662,
     "stId" : "R-HSA-5692662",
     "displayName" : "p-CDC42EP2 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "O14613",
     "geneNames" : [ "CDC42EP2", "BORG1", "CEP2" ],
     "parents" : [ 5692695 ]
@@ -431,7 +440,7 @@
     "stId" : "R-HSA-5687030",
     "displayName" : "ETV4 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 455 ],
     "identifier" : "P43268",
     "geneNames" : [ "ETV4", "E1AF", "PEA3" ],
@@ -441,35 +450,35 @@
     "stId" : "R-HSA-68768",
     "displayName" : "PSMC1 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P62191",
     "geneNames" : [ "PSMC1" ],
-    "parents" : [ 68819 ]
-  }, {
-    "dbId" : 68771,
-    "stId" : "R-HSA-68771",
-    "displayName" : "PSMC2 [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "P35998",
-    "geneNames" : [ "PSMC2", "MSS1" ],
     "parents" : [ 68819 ]
   }, {
     "dbId" : 5687028,
     "stId" : "R-HSA-5687028",
     "displayName" : "p-S115 MAPKAPK5 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 431 ],
     "identifier" : "Q8IW41",
     "geneNames" : [ "MAPKAPK5", "PRAK" ],
     "parents" : [ 5687055 ]
   }, {
+    "dbId" : 68771,
+    "stId" : "R-HSA-68771",
+    "displayName" : "PSMC2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P35998",
+    "geneNames" : [ "PSMC2", "MSS1" ],
+    "parents" : [ 68819 ]
+  }, {
     "dbId" : 5687026,
     "stId" : "R-HSA-5687026",
     "displayName" : "p-S115 MAPKAPK5 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 427 ],
     "identifier" : "Q8IW41",
     "geneNames" : [ "MAPKAPK5", "PRAK" ]
@@ -478,7 +487,7 @@
     "stId" : "R-HSA-5692659",
     "displayName" : "p-CDC42EP3 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q9UKI2",
     "geneNames" : [ "CDC42EP3", "BORG2", "CEP3" ],
     "parents" : [ 5692695 ]
@@ -487,14 +496,14 @@
     "stId" : "R-HSA-5627123",
     "displayName" : "RHO GTPases activate PAKs",
     "schemaClass" : "Pathway",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 462 ]
   }, {
     "dbId" : 68774,
     "stId" : "R-HSA-68774",
     "displayName" : "PSMC3 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P17980",
     "geneNames" : [ "PSMC3", "TBP1" ],
     "parents" : [ 68819 ]
@@ -503,7 +512,7 @@
     "stId" : "R-HSA-68777",
     "displayName" : "PSMC4 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P43686",
     "geneNames" : [ "PSMC4", "MIP224", "TBP7" ],
     "parents" : [ 68819 ]
@@ -512,70 +521,70 @@
     "stId" : "R-HSA-5692671",
     "displayName" : "SEPT7 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 676 ],
     "identifier" : "Q16181",
     "geneNames" : [ "SEPT7", "CDC10" ],
     "parents" : [ 5692718 ]
   }, {
-    "dbId" : 5687036,
-    "stId" : "R-HSA-5687036",
-    "displayName" : "MYC mRNA [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "diagramIds" : [ 333 ],
-    "identifier" : "ENST00000377970",
-    "geneNames" : [ "MYC" ]
-  }, {
     "dbId" : 113835,
     "stId" : "R-HSA-113835",
     "displayName" : "CCND3 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 653 ],
     "identifier" : "P30281",
     "geneNames" : [ "CCND3" ],
     "parents" : [ 5692722 ]
   }, {
+    "dbId" : 5687036,
+    "stId" : "R-HSA-5687036",
+    "displayName" : "MYC mRNA [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 333 ],
+    "identifier" : "ENST00000377970",
+    "geneNames" : [ "MYC" ]
+  }, {
     "dbId" : 5687037,
     "stId" : "R-HSA-5687037",
     "displayName" : "MAPK6,4 [cytosol]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 20 ],
     "parents" : [ 5692706 ],
-    "children" : [ 5686979, 5686973 ]
+    "children" : [ 5686973, 5686979 ]
   }, {
     "dbId" : 68780,
     "stId" : "R-HSA-68780",
     "displayName" : "PSMC5 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P62195",
     "geneNames" : [ "PSMC5", "SUG1" ],
-    "parents" : [ 68819 ]
-  }, {
-    "dbId" : 68783,
-    "stId" : "R-HSA-68783",
-    "displayName" : "PSMC6 [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "P62333",
-    "geneNames" : [ "PSMC6", "SUG2" ],
     "parents" : [ 68819 ]
   }, {
     "dbId" : 29358,
     "stId" : "R-ALL-29358",
     "displayName" : "ATP [nucleoplasm]",
     "schemaClass" : "SimpleEntity",
-    "diagramIds" : [ 640, 658, 176, 449 ],
+    "diagramIds" : [ 176, 640, 449, 881, 658 ],
     "identifier" : "15422"
+  }, {
+    "dbId" : 68783,
+    "stId" : "R-HSA-68783",
+    "displayName" : "PSMC6 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P62333",
+    "geneNames" : [ "PSMC6", "SUG2" ],
+    "parents" : [ 68819 ]
   }, {
     "dbId" : 5687032,
     "stId" : "R-HSA-5687032",
     "displayName" : "FOXO3 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 188 ],
     "identifier" : "O43524",
     "geneNames" : [ "FOXO3", "FKHRL1", "FOXO3A" ]
@@ -584,7 +593,7 @@
     "stId" : "R-HSA-5692665",
     "displayName" : "p-3S,T MAPK6 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 641 ],
     "identifier" : "Q16659",
     "geneNames" : [ "MAPK6", "ERK3", "PRKM6" ],
@@ -594,7 +603,7 @@
     "stId" : "R-HSA-5687014",
     "displayName" : "p-S215 FOXO3 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 190 ],
     "identifier" : "O43524",
     "geneNames" : [ "FOXO3", "FKHRL1", "FOXO3A" ]
@@ -603,7 +612,7 @@
     "stId" : "R-HSA-5687015",
     "displayName" : "p-S189 MAPK6 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 609 ],
     "identifier" : "Q16659",
     "geneNames" : [ "MAPK6", "ERK3", "PRKM6" ],
@@ -613,35 +622,35 @@
     "stId" : "R-HSA-68786",
     "displayName" : "PSMD1 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q99460",
     "geneNames" : [ "PSMD1" ],
     "parents" : [ 68819 ]
-  }, {
-    "dbId" : 5687010,
-    "stId" : "R-HSA-5687010",
-    "displayName" : "p-S215 FOXO3 [nucleoplasm]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "diagramIds" : [ 196 ],
-    "identifier" : "O43524",
-    "geneNames" : [ "FOXO3", "FKHRL1", "FOXO3A" ],
-    "parents" : [ 5687059 ]
   }, {
     "dbId" : 210615,
     "stId" : "R-HSA-210615",
     "displayName" : "EIF2C3 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q9H9G7",
     "geneNames" : [ "AGO3", "EIF2C3" ],
     "parents" : [ 210613 ]
+  }, {
+    "dbId" : 5687010,
+    "stId" : "R-HSA-5687010",
+    "displayName" : "p-S215 FOXO3 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 196 ],
+    "identifier" : "O43524",
+    "geneNames" : [ "FOXO3", "FKHRL1", "FOXO3A" ],
+    "parents" : [ 5687059 ]
   }, {
     "dbId" : 68788,
     "stId" : "R-HSA-68788",
     "displayName" : "PSMD10 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "O75832",
     "geneNames" : [ "PSMD10" ],
     "parents" : [ 68819 ]
@@ -650,7 +659,7 @@
     "stId" : "R-HSA-939192",
     "displayName" : "UBC(229-304) [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
     "parents" : [ 113595 ]
@@ -659,42 +668,42 @@
     "stId" : "R-HSA-210613",
     "displayName" : "Nonendonucleolytic Argonaute [cytosol]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 5687044 ],
-    "children" : [ 210615, 210612, 210616 ]
-  }, {
-    "dbId" : 68790,
-    "stId" : "R-HSA-68790",
-    "displayName" : "PSMD11 [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "O00231",
-    "geneNames" : [ "PSMD11" ],
-    "parents" : [ 68819 ]
-  }, {
-    "dbId" : 5687009,
-    "stId" : "R-HSA-5687009",
-    "displayName" : "p-S78,S82 HSPB1 [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "diagramIds" : [ 354 ],
-    "identifier" : "P04792",
-    "geneNames" : [ "HSPB1", "HSP27", "HSP28" ]
+    "children" : [ 210616, 210612, 210615 ]
   }, {
     "dbId" : 210612,
     "stId" : "R-HSA-210612",
     "displayName" : "EIF2C4 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q9HCK5",
     "geneNames" : [ "AGO4", "EIF2C4", "KIAA1567" ],
     "parents" : [ 210613 ]
+  }, {
+    "dbId" : 5687009,
+    "stId" : "R-HSA-5687009",
+    "displayName" : "p-S78,S82 HSPB1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 354 ],
+    "identifier" : "P04792",
+    "geneNames" : [ "HSPB1", "HSP27", "HSP28" ]
+  }, {
+    "dbId" : 68790,
+    "stId" : "R-HSA-68790",
+    "displayName" : "PSMD11 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O00231",
+    "geneNames" : [ "PSMD11" ],
+    "parents" : [ 68819 ]
   }, {
     "dbId" : 5687022,
     "stId" : "R-HSA-5687022",
     "displayName" : "p-S186 MAPK4 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P31152",
     "geneNames" : [ "MAPK4", "ERK4", "PRKM4" ],
     "parents" : [ 5687052 ]
@@ -703,7 +712,7 @@
     "stId" : "R-HSA-5687023",
     "displayName" : "p-S186 MAPK4 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P31152",
     "geneNames" : [ "MAPK4", "ERK4", "PRKM4" ],
     "parents" : [ 5687051 ]
@@ -712,7 +721,7 @@
     "stId" : "R-HSA-939191",
     "displayName" : "UBC(381-456) [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
     "parents" : [ 113595 ]
@@ -721,7 +730,7 @@
     "stId" : "R-HSA-68792",
     "displayName" : "PSMD12 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "O00232",
     "geneNames" : [ "PSMD12" ],
     "parents" : [ 68819 ]
@@ -730,7 +739,7 @@
     "stId" : "R-HSA-5692655",
     "displayName" : "p-CDC42EP5 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q6NZY7",
     "geneNames" : [ "CDC42EP5", "BORG3", "CEP5" ],
     "parents" : [ 5692695 ]
@@ -739,41 +748,50 @@
     "stId" : "R-ALL-29370",
     "displayName" : "ADP [cytosol]",
     "schemaClass" : "SimpleEntity",
-    "diagramIds" : [ 4, 22, 875, 682, 691, 189, 485 ],
+    "diagramIds" : [ 691, 485, 22, 682, 875, 189, 878 ],
     "identifier" : "16761"
   }, {
     "dbId" : 939188,
     "stId" : "R-HSA-939188",
     "displayName" : "UBC(1-76) [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
     "parents" : [ 113595 ]
-  }, {
-    "dbId" : 5692652,
-    "stId" : "R-HSA-5692652",
-    "displayName" : "p-KALRN [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "O60229",
-    "geneNames" : [ "KALRN", "DUET", "DUO", "HAPIP", "TRAD" ],
-    "parents" : [ 5692713 ]
   }, {
     "dbId" : 1852582,
     "stId" : "R-HSA-1852582",
     "displayName" : "MIR34B gene [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "ENSG00000207811",
     "geneNames" : [ "MIR34B" ],
     "parents" : [ 5687040 ]
+  }, {
+    "dbId" : 5692652,
+    "stId" : "R-HSA-5692652",
+    "displayName" : "p-KALRN [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O60229",
+    "geneNames" : [ "KALRN", "DUET", "DUO", "HAPIP", "TRAD" ],
+    "parents" : [ 5692713 ]
+  }, {
+    "dbId" : 210616,
+    "stId" : "R-HSA-210616",
+    "displayName" : "EIF2C1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9UL18",
+    "geneNames" : [ "AGO1", "EIF2C1" ],
+    "parents" : [ 210613 ]
   }, {
     "dbId" : 68794,
     "stId" : "R-HSA-68794",
     "displayName" : "PSMD13 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q9UNM6",
     "geneNames" : [ "PSMD13" ],
     "parents" : [ 68819 ]
@@ -782,54 +800,45 @@
     "stId" : "R-HSA-1852583",
     "displayName" : "MIR34C gene [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "ENSG00000207562",
     "geneNames" : [ "MIR34C" ],
     "parents" : [ 5687040 ]
-  }, {
-    "dbId" : 210616,
-    "stId" : "R-HSA-210616",
-    "displayName" : "EIF2C1 [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "Q9UL18",
-    "geneNames" : [ "AGO1", "EIF2C1" ],
-    "parents" : [ 210613 ]
-  }, {
-    "dbId" : 5687019,
-    "stId" : "R-HSA-5687019",
-    "displayName" : "p-S189 MAPK6 [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "diagramIds" : [ 674 ],
-    "identifier" : "Q16659",
-    "geneNames" : [ "MAPK6", "ERK3", "PRKM6" ],
-    "parents" : [ 5692723, 5692718, 5687051, 5692713 ]
-  }, {
-    "dbId" : 68796,
-    "stId" : "R-HSA-68796",
-    "displayName" : "PSMD2 [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "Q13200",
-    "geneNames" : [ "PSMD2", "TRAP2" ],
-    "parents" : [ 68819 ]
   }, {
     "dbId" : 5692651,
     "stId" : "R-HSA-5692651",
     "displayName" : "p-S215 FOXO1 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 659 ],
     "identifier" : "Q12778",
     "geneNames" : [ "FOXO1", "FKHR", "FOXO1A" ],
     "parents" : [ 5692711 ]
   }, {
+    "dbId" : 68796,
+    "stId" : "R-HSA-68796",
+    "displayName" : "PSMD2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q13200",
+    "geneNames" : [ "PSMD2", "TRAP2" ],
+    "parents" : [ 68819 ]
+  }, {
+    "dbId" : 5687019,
+    "stId" : "R-HSA-5687019",
+    "displayName" : "p-S189 MAPK6 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 674 ],
+    "identifier" : "Q16659",
+    "geneNames" : [ "MAPK6", "ERK3", "PRKM6" ],
+    "parents" : [ 5687051, 5692713, 5692723, 5692718 ]
+  }, {
     "dbId" : 939184,
     "stId" : "R-HSA-939184",
     "displayName" : "UBC(457-532) [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
     "parents" : [ 113595 ]
@@ -838,7 +847,7 @@
     "stId" : "R-HSA-68798",
     "displayName" : "PSMD3 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "O43242",
     "geneNames" : [ "PSMD3" ],
     "parents" : [ 68819 ]
@@ -847,7 +856,7 @@
     "stId" : "R-HSA-939214",
     "displayName" : "UBB(1-76) [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P0CG47",
     "geneNames" : [ "UBB" ],
     "parents" : [ 113595 ]
@@ -856,7 +865,7 @@
     "stId" : "R-HSA-68800",
     "displayName" : "PSMD4 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P55036",
     "geneNames" : [ "PSMD4", "MCB1" ],
     "parents" : [ 68819 ]
@@ -865,7 +874,7 @@
     "stId" : "R-HSA-939213",
     "displayName" : "UBB(77-152) [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P0CG47",
     "geneNames" : [ "UBB" ],
     "parents" : [ 113595 ]
@@ -874,7 +883,7 @@
     "stId" : "R-HSA-68802",
     "displayName" : "PSMD5 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q16401",
     "geneNames" : [ "PSMD5", "KIAA0072" ],
     "parents" : [ 68819 ]
@@ -883,7 +892,7 @@
     "stId" : "R-HSA-68804",
     "displayName" : "PSMD6 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q15008",
     "geneNames" : [ "PSMD6", "KIAA0107", "PFAAP4" ],
     "parents" : [ 68819 ]
@@ -892,7 +901,7 @@
     "stId" : "R-HSA-68806",
     "displayName" : "PSMD7 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P51665",
     "geneNames" : [ "PSMD7", "MOV34L" ],
     "parents" : [ 68819 ]
@@ -901,7 +910,7 @@
     "stId" : "R-HSA-68808",
     "displayName" : "PSMD8 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P48556",
     "geneNames" : [ "PSMD8" ],
     "parents" : [ 68819 ]
@@ -910,7 +919,7 @@
     "stId" : "R-HSA-939205",
     "displayName" : "RPS27A(1-76) [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P62979",
     "geneNames" : [ "RPS27A", "UBA80", "UBCEP1" ],
     "parents" : [ 113595 ]
@@ -919,7 +928,7 @@
     "stId" : "R-HSA-68810",
     "displayName" : "PSMD9 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "O00233",
     "geneNames" : [ "PSMD9" ],
     "parents" : [ 68819 ]
@@ -928,35 +937,35 @@
     "stId" : "R-HSA-450250",
     "displayName" : "JUN [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 697 ],
     "identifier" : "P05412",
     "geneNames" : [ "JUN" ],
     "parents" : [ 5692725 ]
   }, {
-    "dbId" : 939203,
-    "stId" : "R-HSA-939203",
-    "displayName" : "UBA52(1-76) [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "P62987",
-    "geneNames" : [ "UBA52", "UBCEP2" ],
-    "parents" : [ 113595 ]
-  }, {
     "dbId" : 68812,
     "stId" : "R-HSA-68812",
     "displayName" : "PSME1 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q06323",
     "geneNames" : [ "PSME1", "IFI5111" ],
     "parents" : [ 68819 ]
+  }, {
+    "dbId" : 939203,
+    "stId" : "R-HSA-939203",
+    "displayName" : "UBA52(1-76) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P62987",
+    "geneNames" : [ "UBA52", "UBCEP2" ],
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 68814,
     "stId" : "R-HSA-68814",
     "displayName" : "PSME2 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q9UL46",
     "geneNames" : [ "PSME2" ],
     "parents" : [ 68819 ]
@@ -965,7 +974,7 @@
     "stId" : "R-HSA-939230",
     "displayName" : "UBB(153-228) [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P0CG47",
     "geneNames" : [ "UBB" ],
     "parents" : [ 113595 ]
@@ -974,7 +983,7 @@
     "stId" : "R-HSA-68816",
     "displayName" : "PSME3 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P61289",
     "geneNames" : [ "PSME3" ],
     "parents" : [ 68819 ]
@@ -983,15 +992,15 @@
     "stId" : "R-HSA-68819",
     "displayName" : "26S proteasome [cytosol]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 343 ],
-    "children" : [ 68800, 68736, 68802, 68738, 68741, 68804, 68806, 68808, 68744, 68747, 68810, 68812, 68814, 68750, 68753, 68816, 68818, 947610, 68756, 68759, 947606, 947607, 68762, 68765, 68768, 68771, 68774, 68777, 68780, 68783, 68722, 68786, 8866674, 68724, 68788, 68726, 68790, 68792, 68728, 68730, 68794, 68796, 68732, 68798, 68734 ]
+    "children" : [ 68736, 68800, 68738, 68802, 68741, 68804, 68806, 68744, 68808, 68747, 68810, 68812, 68750, 68814, 68753, 68816, 68818, 947610, 68756, 68759, 947606, 947607, 68762, 68765, 68768, 68771, 68774, 68777, 68780, 68783, 68722, 68786, 68724, 68788, 8866674, 68726, 68790, 68728, 68792, 68730, 68794, 68732, 68796, 68734, 68798 ]
   }, {
     "dbId" : 68818,
     "stId" : "R-HSA-68818",
     "displayName" : "PSMF1 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q92530",
     "geneNames" : [ "PSMF1" ],
     "parents" : [ 68819 ]
@@ -1000,33 +1009,33 @@
     "stId" : "R-HSA-2685645",
     "displayName" : "PAK2 dimer [cytosol]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 399856 ],
     "children" : [ 211604 ]
-  }, {
-    "dbId" : 939239,
-    "stId" : "R-HSA-939239",
-    "displayName" : "UBC(533-608) [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "P0CG48",
-    "geneNames" : [ "UBC" ],
-    "parents" : [ 113595 ]
   }, {
     "dbId" : 5686975,
     "stId" : "R-HSA-5686975",
     "displayName" : "MAPK4 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P31152",
     "geneNames" : [ "MAPK4", "ERK4", "PRKM4" ],
     "parents" : [ 5692701 ]
+  }, {
+    "dbId" : 939239,
+    "stId" : "R-HSA-939239",
+    "displayName" : "UBC(533-608) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG48",
+    "geneNames" : [ "UBC" ],
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 5686973,
     "stId" : "R-HSA-5686973",
     "displayName" : "MAPK4 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 145 ],
     "identifier" : "P31152",
     "geneNames" : [ "MAPK4", "ERK4", "PRKM4" ],
@@ -1036,7 +1045,7 @@
     "stId" : "R-HSA-939232",
     "displayName" : "UBC(305-380) [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
     "parents" : [ 113595 ]
@@ -1045,7 +1054,7 @@
     "stId" : "R-HSA-939258",
     "displayName" : "UBC(153-228) [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
     "parents" : [ 113595 ]
@@ -1054,31 +1063,31 @@
     "stId" : "R-HSA-427775",
     "displayName" : "TNRC6 (GW182) [cytosol]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
-    "parents" : [ 5687047, 5687049 ],
+    "speciesId" : 48887,
+    "parents" : [ 5687049, 5687047 ],
     "children" : [ 427776, 427777, 427769 ]
   }, {
     "dbId" : 427772,
     "stId" : "R-HSA-427772",
     "displayName" : "MOV10 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q9HCE1",
     "geneNames" : [ "MOV10", "KIAA1631" ],
-    "parents" : [ 5687047, 5687049 ]
+    "parents" : [ 5687049, 5687047 ]
   }, {
     "dbId" : 29438,
     "stId" : "R-ALL-29438",
     "displayName" : "GTP [cytosol]",
     "schemaClass" : "SimpleEntity",
     "identifier" : "15996",
-    "parents" : [ 442641, 182921 ]
+    "parents" : [ 182921, 442641 ]
   }, {
     "dbId" : 427769,
     "stId" : "R-HSA-427769",
     "displayName" : "TNRC6A [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q8NDV7",
     "geneNames" : [ "TNRC6A", "CAGH26", "KIAA1460", "TNRC6" ],
     "parents" : [ 427775 ]
@@ -1087,14 +1096,14 @@
     "stId" : "R-HSA-5250898",
     "displayName" : "unknown ubiquitin ligase [cytosol]",
     "schemaClass" : "GenomeEncodedEntity",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 341 ]
   }, {
     "dbId" : 427776,
     "stId" : "R-HSA-427776",
     "displayName" : "TNRC6C [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q9HCJ0",
     "geneNames" : [ "TNRC6C", "KIAA1582" ],
     "parents" : [ 427775 ]
@@ -1103,7 +1112,7 @@
     "stId" : "R-HSA-427777",
     "displayName" : "TNRC6B [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q9UPQ9",
     "geneNames" : [ "TNRC6B", "KIAA1093" ],
     "parents" : [ 427775 ]
@@ -1112,83 +1121,107 @@
     "stId" : "R-HSA-442641",
     "displayName" : "RAC1:GTP [plasma membrane]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 389778 ],
     "children" : [ 351141, 29438 ]
+  }, {
+    "dbId" : 8981928,
+    "stId" : "R-HSA-8981928",
+    "displayName" : "CDC42:GTP,RAC1:GTP:PAK3 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 8981940 ],
+    "children" : [ 428457, 389778 ]
   }, {
     "dbId" : 111917,
     "stId" : "R-HSA-111917",
     "displayName" : "Protein Kinase A, catalytic subunits [nucleoplasm]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 428 ],
-    "children" : [ 111937, 111936, 111938 ]
+    "children" : [ 111938, 111936, 111937 ]
+  }, {
+    "dbId" : 8981927,
+    "stId" : "R-HSA-8981927",
+    "displayName" : "CDC42:GTP,RAC1:GTP:PAK2 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 8981940 ],
+    "children" : [ 211604, 389778 ]
   }, {
     "dbId" : 209723,
     "stId" : "R-HSA-209723",
     "displayName" : "EIF2C2 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q9UKV8",
     "geneNames" : [ "AGO2", "EIF2C2" ],
     "parents" : [ 5687046 ]
   }, {
-    "dbId" : 5692694,
-    "stId" : "R-HSA-5692694",
-    "displayName" : "CDC14A [nucleoplasm]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "Q9UNH5",
-    "geneNames" : [ "CDC14A" ],
-    "parents" : [ 5692709 ]
-  }, {
-    "dbId" : 111937,
-    "stId" : "R-HSA-111937",
-    "displayName" : "PRKACB [nucleoplasm]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "P22694",
-    "geneNames" : [ "PRKACB" ],
-    "parents" : [ 111917 ]
+    "dbId" : 8981940,
+    "stId" : "R-HSA-8981940",
+    "displayName" : "CDC42:GTP,RAC1:GTP:PAK1,PAK2,PAK3 [plasma membrane]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "diagramIds" : [ 876 ],
+    "children" : [ 8981927, 2029159, 8981928 ]
   }, {
     "dbId" : 5687062,
     "stId" : "R-HSA-5687062",
     "displayName" : "p-S MAPK6,4:p-T182 MAKPAPK5 [nucleoplasm]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 178 ],
-    "children" : [ 5687052, 3239018 ]
+    "children" : [ 3239018, 5687052 ]
   }, {
-    "dbId" : 5692695,
-    "stId" : "R-HSA-5692695",
-    "displayName" : "p-CDC42EP2,3,5 [cytosol]",
-    "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
-    "diagramIds" : [ 681 ],
-    "children" : [ 5692662, 5692659, 5692655 ]
+    "dbId" : 111937,
+    "stId" : "R-HSA-111937",
+    "displayName" : "PRKACB [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P22694",
+    "geneNames" : [ "PRKACB" ],
+    "parents" : [ 111917 ]
   }, {
-    "dbId" : 5687063,
-    "stId" : "R-HSA-5687063",
-    "displayName" : "p-S MAPK6,4:MAKPAPK5 [nucleoplasm]",
-    "schemaClass" : "Complex",
-    "speciesID" : 48887,
-    "diagramIds" : [ 170 ],
-    "children" : [ 2562517, 5687052 ]
+    "dbId" : 5692694,
+    "stId" : "R-HSA-5692694",
+    "displayName" : "CDC14A [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9UNH5",
+    "geneNames" : [ "CDC14A" ],
+    "parents" : [ 5692709 ]
   }, {
     "dbId" : 111936,
     "stId" : "R-HSA-111936",
     "displayName" : "PRKACA [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P17612",
     "geneNames" : [ "PRKACA", "PKACA" ],
     "parents" : [ 111917 ]
+  }, {
+    "dbId" : 5687063,
+    "stId" : "R-HSA-5687063",
+    "displayName" : "p-S MAPK6,4:MAKPAPK5 [nucleoplasm]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 170 ],
+    "children" : [ 5687052, 2562517 ]
+  }, {
+    "dbId" : 5692695,
+    "stId" : "R-HSA-5692695",
+    "displayName" : "p-CDC42EP2,3,5 [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "diagramIds" : [ 681 ],
+    "children" : [ 5692655, 5692659, 5692662 ]
   }, {
     "dbId" : 5692692,
     "stId" : "R-HSA-5692692",
     "displayName" : "CDC42EP2 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "O14613",
     "geneNames" : [ "CDC42EP2", "BORG1", "CEP2" ],
     "parents" : [ 5692708 ]
@@ -1197,7 +1230,7 @@
     "stId" : "R-HSA-111938",
     "displayName" : "PRKACG [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P22612",
     "geneNames" : [ "PRKACG" ],
     "parents" : [ 111917 ]
@@ -1206,33 +1239,24 @@
     "stId" : "R-HSA-5687059",
     "displayName" : "p-S215 FOXO3:MIR34B,C genes [nucleoplasm]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 199 ],
-    "children" : [ 5687010, 5687040 ]
+    "children" : [ 5687040, 5687010 ]
   }, {
     "dbId" : 5687056,
     "stId" : "R-HSA-5687056",
     "displayName" : "p-S857 NCOA3:ETV4 [nucleoplasm]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 456 ],
     "parents" : [ 5687057 ],
-    "children" : [ 5687030, 5687005 ]
-  }, {
-    "dbId" : 162629,
-    "stId" : "R-HSA-162629",
-    "displayName" : "PAK1 [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "Q13153",
-    "geneNames" : [ "PAK1" ],
-    "parents" : [ 390765, 445002 ]
+    "children" : [ 5687005, 5687030 ]
   }, {
     "dbId" : 5692689,
     "stId" : "R-HSA-5692689",
     "displayName" : "CDC42EP3 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q9UKI2",
     "geneNames" : [ "CDC42EP3", "BORG2", "CEP3" ],
     "parents" : [ 5692708 ]
@@ -1241,15 +1265,24 @@
     "stId" : "R-HSA-5687057",
     "displayName" : "p-S857 NOCA3:ETV4:MMP2,10 genes [nucleoplasm]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 459 ],
-    "children" : [ 5687042, 5687056 ]
+    "children" : [ 5687056, 5687042 ]
+  }, {
+    "dbId" : 162629,
+    "stId" : "R-HSA-162629",
+    "displayName" : "PAK1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q13153",
+    "geneNames" : [ "PAK1" ],
+    "parents" : [ 2029159, 390765, 445002 ]
   }, {
     "dbId" : 428366,
     "stId" : "R-HSA-428366",
     "displayName" : "IGF2BP1 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 361 ],
     "identifier" : "Q9NZI8",
     "geneNames" : [ "IGF2BP1", "CRDBP", "VICKZ1", "ZBP1" ],
@@ -1259,72 +1292,72 @@
     "stId" : "R-HSA-5687070",
     "displayName" : "IGF2BP1:MAPK4 mRNA [cytosol]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 363 ],
-    "children" : [ 5686976, 428366 ]
+    "children" : [ 428366, 5686976 ]
   }, {
     "dbId" : 5692701,
     "stId" : "R-HSA-5692701",
     "displayName" : "MAPK6,4 [nucleoplasm]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 5692704 ],
-    "children" : [ 5692686, 5686975 ]
+    "children" : [ 5686975, 5692686 ]
   }, {
     "dbId" : 5692698,
     "stId" : "R-HSA-5692698",
     "displayName" : "RAG1,2 genes [nucleoplasm]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 663 ],
     "parents" : [ 5692711 ],
-    "children" : [ 5692677, 5692673 ]
+    "children" : [ 5692673, 5692677 ]
   }, {
     "dbId" : 5692699,
     "stId" : "R-HSA-5692699",
     "displayName" : "RAG1,2 [nucleoplasm]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 666 ],
-    "children" : [ 5692675, 5692681 ]
+    "children" : [ 5692681, 5692675 ]
   }, {
     "dbId" : 5687065,
     "stId" : "R-HSA-5687065",
     "displayName" : "MAPKAPK5 gene:MYC [nucleoplasm]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 326 ],
-    "children" : [ 5686981, 188379 ]
+    "children" : [ 188379, 5686981 ]
   }, {
     "dbId" : 5687046,
     "stId" : "R-HSA-5687046",
     "displayName" : "miR-34B,C Endonucleolytic Minimal RISC [cytosol]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 5687047 ],
-    "children" : [ 209723, 5687048 ]
+    "children" : [ 5687048, 209723 ]
   }, {
     "dbId" : 5687047,
     "stId" : "R-HSA-5687047",
     "displayName" : "miR-34B,C Endonucleolytic RISC [cytosol]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 5687043 ],
-    "children" : [ 5687046, 427775, 427772 ]
+    "children" : [ 427772, 427775, 5687046 ]
   }, {
     "dbId" : 5687044,
     "stId" : "R-HSA-5687044",
     "displayName" : "miR-34B,C Nonendonucleolytic Minimal RISC [cytosol]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 5687049 ],
-    "children" : [ 210613, 5687048 ]
+    "children" : [ 5687048, 210613 ]
   }, {
     "dbId" : 5692677,
     "stId" : "R-HSA-5692677",
     "displayName" : "RAG1 gene [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "ENSG00000166349",
     "geneNames" : [ "RAG1", "RNF74" ],
     "parents" : [ 5692698 ]
@@ -1333,16 +1366,16 @@
     "stId" : "R-HSA-5687042",
     "displayName" : "MMP2,10 genes [nucleoplasm]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 458 ],
     "parents" : [ 5687057 ],
-    "children" : [ 5686983, 5686986 ]
+    "children" : [ 5686986, 5686983 ]
   }, {
     "dbId" : 5692675,
     "stId" : "R-HSA-5692675",
     "displayName" : "RAG2 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P55895",
     "geneNames" : [ "RAG2" ],
     "parents" : [ 5692699 ]
@@ -1351,24 +1384,24 @@
     "stId" : "R-HSA-5687043",
     "displayName" : "miR-34B,C RISC [cytosol]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 205 ],
-    "children" : [ 5687047, 5687049 ]
+    "children" : [ 5687049, 5687047 ]
   }, {
     "dbId" : 5687040,
     "stId" : "R-HSA-5687040",
     "displayName" : "MIR34B,C genes [nucleoplasm]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 198 ],
     "parents" : [ 5687059 ],
-    "children" : [ 1852582, 1852583 ]
+    "children" : [ 1852583, 1852582 ]
   }, {
     "dbId" : 5692673,
     "stId" : "R-HSA-5692673",
     "displayName" : "RAG2 gene [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "ENSG00000175097",
     "geneNames" : [ "RAG2" ],
     "parents" : [ 5692698 ]
@@ -1377,17 +1410,17 @@
     "stId" : "R-HSA-5692686",
     "displayName" : "MAPK6 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 639 ],
     "identifier" : "Q16659",
     "geneNames" : [ "MAPK6", "ERK3", "PRKM6" ],
-    "parents" : [ 5692722, 5692719, 5692701 ]
+    "parents" : [ 5692701, 5692722, 5692719 ]
   }, {
     "dbId" : 5692687,
     "stId" : "R-HSA-5692687",
     "displayName" : "CDC42EP5 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q6NZY7",
     "geneNames" : [ "CDC42EP5", "BORG3", "CEP5" ],
     "parents" : [ 5692708 ]
@@ -1396,24 +1429,24 @@
     "stId" : "R-HSA-5687055",
     "displayName" : "p-S MAPKAPK5 [cytosol]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 432 ],
-    "children" : [ 5687028, 5687004 ]
+    "children" : [ 5687004, 5687028 ]
   }, {
     "dbId" : 5687052,
     "stId" : "R-HSA-5687052",
     "displayName" : "p-S MAPK6,4 [nucleoplasm]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 167 ],
-    "parents" : [ 5687062, 5687063, 5692704 ],
-    "children" : [ 5687015, 5687022 ]
+    "parents" : [ 5692704, 5687063, 5687062 ],
+    "children" : [ 5687022, 5687015 ]
   }, {
     "dbId" : 5692682,
     "stId" : "R-HSA-5692682",
     "displayName" : "MAPK6 gene [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 696 ],
     "identifier" : "ENSG00000069956",
     "geneNames" : [ "MAPK6 gene", "MAPK6", "ERK3", "PRKM6" ],
@@ -1423,41 +1456,41 @@
     "stId" : "R-HSA-5687051",
     "displayName" : "p-S MAPK6,4 [cytosol]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 23 ],
     "parents" : [ 5692706 ],
-    "children" : [ 5687023, 5687019 ]
+    "children" : [ 5687019, 5687023 ]
   }, {
     "dbId" : 5687048,
     "stId" : "R-HSA-5687048",
     "displayName" : "mir-34B,C [cytosol]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
-    "parents" : [ 5687046, 5687044 ],
-    "children" : [ 1606687, 1606694 ]
-  }, {
-    "dbId" : 5692681,
-    "stId" : "R-HSA-5692681",
-    "displayName" : "RAG1 [nucleoplasm]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "P15918",
-    "geneNames" : [ "RAG1", "RNF74" ],
-    "parents" : [ 5692699 ]
+    "speciesId" : 48887,
+    "parents" : [ 5687044, 5687046 ],
+    "children" : [ 1606694, 1606687 ]
   }, {
     "dbId" : 5687049,
     "stId" : "R-HSA-5687049",
     "displayName" : "miR-34B,C Nonendonucleolytic RISC [cytosol]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 5687043 ],
-    "children" : [ 5687044, 427775, 427772 ]
+    "children" : [ 427772, 427775, 5687044 ]
+  }, {
+    "dbId" : 5692681,
+    "stId" : "R-HSA-5692681",
+    "displayName" : "RAG1 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P15918",
+    "geneNames" : [ "RAG1", "RNF74" ],
+    "parents" : [ 5692699 ]
   }, {
     "dbId" : 3299666,
     "stId" : "R-HSA-3299666",
     "displayName" : "DNAJB1 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 481 ],
     "identifier" : "P25685",
     "geneNames" : [ "DNAJB1", "DNAJ1", "HDJ1", "HSPF1" ],
@@ -1467,25 +1500,25 @@
     "stId" : "R-HSA-5692725",
     "displayName" : "JUN:MAPK6 gene [nucleoplasm]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 698 ],
-    "children" : [ 450250, 5692682 ]
+    "children" : [ 5692682, 450250 ]
   }, {
     "dbId" : 5692722,
     "stId" : "R-HSA-5692722",
     "displayName" : "MAPK6:CCND3 [nucleoplasm]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 654 ],
-    "children" : [ 5692686, 113835 ]
+    "children" : [ 113835, 5692686 ]
   }, {
     "dbId" : 5692723,
     "stId" : "R-HSA-5692723",
     "displayName" : "KALRN:p-S189 MAPK6:p-T182 MAPKAPK5 [cytosol]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 687 ],
-    "children" : [ 3006505, 5687004, 5687019 ]
+    "children" : [ 5687019, 5687004, 3006505 ]
   }, {
     "dbId" : 113518,
     "stId" : "R-ALL-113518",
@@ -1498,23 +1531,23 @@
     "stId" : "R-HSA-5692711",
     "displayName" : "p-S215 FOXO1:RAG1,2 gene [nucleoplasm]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 664 ],
-    "children" : [ 5692698, 5692651 ]
+    "children" : [ 5692651, 5692698 ]
   }, {
     "dbId" : 5692708,
     "stId" : "R-HSA-5692708",
     "displayName" : "CDC42EP2,3,5 [cytosol]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 680 ],
-    "children" : [ 5692692, 5692689, 5692687 ]
+    "children" : [ 5692687, 5692689, 5692692 ]
   }, {
     "dbId" : 5692709,
     "stId" : "R-HSA-5692709",
     "displayName" : "CDC14A, B [nucleoplasm]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 646 ],
     "parents" : [ 5692719, 5692716 ],
     "children" : [ 3214897, 5692694 ]
@@ -1523,7 +1556,7 @@
     "stId" : "R-HSA-5669154",
     "displayName" : "PAK3 dimer [cytosol]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 399856 ],
     "children" : [ 428457 ]
   }, {
@@ -1531,49 +1564,49 @@
     "stId" : "R-HSA-5692706",
     "displayName" : "MAPK4,6 [cytosol]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 487 ],
-    "children" : [ 5687037, 5687051 ]
+    "children" : [ 5687051, 5687037 ]
   }, {
     "dbId" : 5692704,
     "stId" : "R-HSA-5692704",
     "displayName" : "MAPK4,6 [nucleoplasm]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 490 ],
-    "children" : [ 5687052, 5692701 ]
+    "children" : [ 5692701, 5687052 ]
   }, {
     "dbId" : 5692718,
     "stId" : "R-HSA-5692718",
     "displayName" : "SEPT7:p-S189 MAPK6:p-T182 MAPKAPK5 [cytosol]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 677 ],
-    "children" : [ 5692671, 5687004, 5687019 ]
+    "children" : [ 5687019, 5687004, 5692671 ]
   }, {
     "dbId" : 5692719,
     "stId" : "R-HSA-5692719",
     "displayName" : "MAPK6:CDC14A,B [nucleoplasm]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 650 ],
-    "children" : [ 5692709, 5692686 ]
+    "children" : [ 5692686, 5692709 ]
   }, {
     "dbId" : 5692716,
     "stId" : "R-HSA-5692716",
     "displayName" : "p-3S,T MAPK6:CDC14A,B [nucleoplasm]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 647 ],
-    "children" : [ 5692709, 5692665 ]
+    "children" : [ 5692665, 5692709 ]
   }, {
     "dbId" : 5692713,
     "stId" : "R-HSA-5692713",
     "displayName" : "p-KALRN:p-S189 MAPK6:p-T182 MAPKAPK5 [cytosol]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 690 ],
-    "children" : [ 5687004, 5692652, 5687019 ]
+    "children" : [ 5687019, 5692652, 5687004 ]
   }, {
     "dbId" : 113550,
     "stId" : "R-ALL-113550",
@@ -1586,7 +1619,7 @@
     "stId" : "R-HSA-947610",
     "displayName" : "PSMA8 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q8TAA3",
     "geneNames" : [ "PSMA8", "PSMA7L" ],
     "parents" : [ 68819 ]
@@ -1595,7 +1628,7 @@
     "stId" : "R-HSA-947606",
     "displayName" : "PSME4 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q14997",
     "geneNames" : [ "PSME4", "KIAA0077" ],
     "parents" : [ 68819 ]
@@ -1604,7 +1637,7 @@
     "stId" : "R-HSA-947607",
     "displayName" : "PSMB11 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "A5LHX3",
     "geneNames" : [ "PSMB11" ],
     "parents" : [ 68819 ]
@@ -1613,7 +1646,7 @@
     "stId" : "R-HSA-351141",
     "displayName" : "RAC1 [plasma membrane]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P63000",
     "geneNames" : [ "RAC1", "TC25", "MIG5" ],
     "parents" : [ 442641 ]
@@ -1622,30 +1655,30 @@
     "stId" : "R-HSA-428457",
     "displayName" : "PAK3 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "O75914",
     "geneNames" : [ "PAK3", "OPHN3" ],
-    "parents" : [ 5669154, 390765 ]
+    "parents" : [ 390765, 8981928, 5669154 ]
   }, {
     "dbId" : 113582,
     "stId" : "R-ALL-113582",
     "displayName" : "ADP [nucleoplasm]",
     "schemaClass" : "SimpleEntity",
-    "diagramIds" : [ 642, 660, 177, 450 ],
+    "diagramIds" : [ 177, 450, 642, 883, 660 ],
     "identifier" : "16761"
   }, {
     "dbId" : 113592,
     "stId" : "R-ALL-113592",
     "displayName" : "ATP [cytosol]",
     "schemaClass" : "SimpleEntity",
-    "diagramIds" : [ 6, 21, 874, 679, 689, 187, 484 ],
+    "diagramIds" : [ 689, 484, 21, 679, 874, 187, 877 ],
     "identifier" : "15422"
   }, {
     "dbId" : 113595,
     "stId" : "R-HSA-113595",
     "displayName" : "Ub [cytosol]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 339 ],
     "children" : [ 939214, 939213, 939239, 939205, 939203, 939232, 939230, 939164, 939165, 939258, 939192, 939191, 939188, 939184 ]
   }, {
@@ -1653,7 +1686,7 @@
     "stId" : "R-HSA-399819",
     "displayName" : "p-S144,T423-PAK1 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q13153",
     "geneNames" : [ "PAK1" ],
     "parents" : [ 399836 ]
@@ -1662,7 +1695,7 @@
     "stId" : "R-HSA-5357471",
     "displayName" : "p-S154,T436-PAK3 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "O75914",
     "geneNames" : [ "PAK3", "OPHN3" ],
     "parents" : [ 399836 ]
@@ -1671,23 +1704,23 @@
     "stId" : "R-HSA-5690246",
     "displayName" : "p-T182 MAPKAPK5:p-S149,S151, S171 DNAJB1  [cytosol]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 486 ],
-    "children" : [ 5690241, 5687004 ]
+    "children" : [ 5687004, 5690241 ]
   }, {
     "dbId" : 5690243,
     "stId" : "R-HSA-5690243",
     "displayName" : "p-T182 MAPKAPK5:DNAJB1 [cytosol]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 482 ],
-    "children" : [ 3299666, 5687004 ]
+    "children" : [ 5687004, 3299666 ]
   }, {
     "dbId" : 399824,
     "stId" : "R-HSA-399824",
     "displayName" : "p-S141,T402-PAK2 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q13177",
     "geneNames" : [ "PAK2" ],
     "parents" : [ 399836 ]
@@ -1696,7 +1729,7 @@
     "stId" : "R-HSA-5690241",
     "displayName" : "p-S149,S151,S171 DNAJB1 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P25685",
     "geneNames" : [ "DNAJB1", "DNAJ1", "HDJ1", "HSPF1" ],
     "parents" : [ 5690246 ]
@@ -1705,7 +1738,7 @@
     "stId" : "R-HSA-188379",
     "displayName" : "MYC [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 334 ],
     "identifier" : "P01106",
     "geneNames" : [ "MYC", "BHLHE39" ],
@@ -1715,15 +1748,15 @@
     "stId" : "R-HSA-399836",
     "displayName" : "p-S,T-PAK1,2,3 [cytosol]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 10 ],
-    "children" : [ 399824, 399819, 5357471 ]
+    "children" : [ 5357471, 399819, 399824 ]
   }, {
     "dbId" : 2562517,
     "stId" : "R-HSA-2562517",
     "displayName" : "MAPKAPK5 [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 169 ],
     "identifier" : "Q8IW41",
     "geneNames" : [ "MAPKAPK5", "PRAK" ],
@@ -1733,7 +1766,7 @@
     "stId" : "R-HSA-8866674",
     "displayName" : "SHFM1 [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P60896",
     "geneNames" : [ "SEM1", "DSS1", "SHFDG1", "SHFM1", "C7orf76" ],
     "parents" : [ 68819 ]
@@ -1742,84 +1775,112 @@
     "stId" : "R-HSA-399856",
     "displayName" : "PAK1,2,3 dimer [cytosol]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 9 ],
-    "children" : [ 5669154, 2685645, 445002 ]
+    "children" : [ 445002, 2685645, 5669154 ]
   } ],
   "edges" : [ {
     "dbId" : 5687126,
     "stId" : "R-HSA-5687126",
     "displayName" : "p-S215 FOXO3 translocates to the nucleus",
     "schemaClass" : "BlackBoxEvent",
-    "following" : [ 5687126 ],
+    "following" : [ 5687095 ],
     "inputs" : [ 5687014 ],
     "outputs" : [ 5687010 ],
-    "diagramIds" : [ 195 ]
+    "efs" : [ ],
+    "diagramIds" : [ 195 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5692754,
     "stId" : "R-HSA-5692754",
     "displayName" : "CDC14A,B dephosphorylate p-3S,T MAPK6",
     "schemaClass" : "Reaction",
-    "inputs" : [ 5692716, 113518 ],
-    "outputs" : [ 5692719, 113550 ],
+    "inputs" : [ 113518, 5692716 ],
+    "outputs" : [ 113550, 5692719 ],
     "catalysts" : [ 5692716 ],
-    "diagramIds" : [ 648 ]
+    "efs" : [ ],
+    "diagramIds" : [ 648 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687123,
     "stId" : "R-HSA-5687123",
     "displayName" : "p-S115 MAPKAPK5 translocates to the cytosol",
     "schemaClass" : "BlackBoxEvent",
     "preceding" : [ 5687088 ],
-    "following" : [ 5687123 ],
+    "following" : [ 5687121 ],
     "inputs" : [ 5687026 ],
     "outputs" : [ 5687028 ],
-    "diagramIds" : [ 430 ]
+    "efs" : [ ],
+    "diagramIds" : [ 430 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5692755,
     "stId" : "R-HSA-5692755",
     "displayName" : "CDK1 phosphorylates MAPK6",
     "schemaClass" : "Reaction",
-    "inputs" : [ 5692686, 29358 ],
-    "outputs" : [ 5692665, 113582 ],
+    "inputs" : [ 29358, 5692686 ],
+    "outputs" : [ 113582, 5692665 ],
     "catalysts" : [ 170066 ],
-    "diagramIds" : [ 638 ]
+    "efs" : [ ],
+    "diagramIds" : [ 638 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687120,
     "stId" : "R-HSA-5687120",
     "displayName" : "p-S MAPK6,4:p-T182 MAPKAPK5 translocate to the cytosol",
     "schemaClass" : "BlackBoxEvent",
     "preceding" : [ 5687094 ],
-    "following" : [ 5687120 ],
+    "following" : [ 5687101, 5690245, 5687121 ],
     "inputs" : [ 5687062 ],
-    "outputs" : [ 5687004, 5687051 ],
-    "diagramIds" : [ 179 ]
+    "outputs" : [ 5687051, 5687004 ],
+    "efs" : [ ],
+    "diagramIds" : [ 179 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687121,
     "stId" : "R-HSA-5687121",
     "displayName" : "p-S MAPKAPK5 phosphorylates HSPB1",
     "schemaClass" : "Reaction",
-    "preceding" : [ 5687123, 5687120 ],
-    "inputs" : [ 450563, 113592 ],
-    "outputs" : [ 5687009, 29370 ],
+    "preceding" : [ 5687120, 5687123 ],
+    "inputs" : [ 113592, 450563 ],
+    "outputs" : [ 29370, 5687009 ],
     "catalysts" : [ 5687055 ],
-    "diagramIds" : [ 348 ]
+    "efs" : [ ],
+    "diagramIds" : [ 348 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5692764,
     "stId" : "R-HSA-5692764",
     "displayName" : "MAPK6 binds CCND3",
     "schemaClass" : "Reaction",
-    "inputs" : [ 5692686, 113835 ],
+    "inputs" : [ 113835, 5692686 ],
     "outputs" : [ 5692722 ],
+    "efs" : [ ],
     "activators" : [ 5692709 ],
-    "diagramIds" : [ 652 ]
+    "diagramIds" : [ 652 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5692761,
     "stId" : "R-HSA-5692761",
     "displayName" : "JUN binds MAPK6 gene",
     "schemaClass" : "Reaction",
-    "inputs" : [ 450250, 5692682 ],
+    "inputs" : [ 5692682, 450250 ],
     "outputs" : [ 5692725 ],
-    "diagramIds" : [ 695 ]
+    "efs" : [ ],
+    "diagramIds" : [ 695 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 5690245,
+    "stId" : "R-HSA-5690245",
+    "displayName" : "p-T182 MAPKAPK5 binds DNAJB1",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 5687120 ],
+    "following" : [ 5690250 ],
+    "inputs" : [ 5687004, 3299666 ],
+    "outputs" : [ 5690243 ],
+    "efs" : [ ],
+    "diagramIds" : [ 480 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687109,
     "stId" : "R-HSA-5687109",
@@ -1827,27 +1888,21 @@
     "schemaClass" : "BlackBoxEvent",
     "inputs" : [ 5692704 ],
     "outputs" : [ 5692706 ],
+    "efs" : [ ],
     "requirements" : [ 165529 ],
-    "diagramIds" : [ 148 ]
-  }, {
-    "dbId" : 5690245,
-    "stId" : "R-HSA-5690245",
-    "displayName" : "p-T182 MAPKAPK5 binds DNAJB1",
-    "schemaClass" : "Reaction",
-    "preceding" : [ 5687120 ],
-    "following" : [ 5690245 ],
-    "inputs" : [ 3299666, 5687004 ],
-    "outputs" : [ 5690243 ],
-    "diagramIds" : [ 480 ]
+    "diagramIds" : [ 148 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687107,
     "stId" : "R-HSA-5687107",
     "displayName" : "MAPK4,6 translocate to nucleus",
     "schemaClass" : "BlackBoxEvent",
-    "following" : [ 5687107 ],
+    "following" : [ 5687090, 5687091 ],
     "inputs" : [ 5692706 ],
     "outputs" : [ 5692704 ],
-    "diagramIds" : [ 144 ]
+    "efs" : [ ],
+    "diagramIds" : [ 144 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687105,
     "stId" : "R-HSA-5687105",
@@ -1855,35 +1910,42 @@
     "schemaClass" : "BlackBoxEvent",
     "inputs" : [ 5686976 ],
     "outputs" : [ 5686973 ],
+    "efs" : [ ],
     "inhibitors" : [ 5687070 ],
-    "diagramIds" : [ 364 ]
+    "diagramIds" : [ 364 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 389788,
     "stId" : "R-HSA-389788",
     "displayName" : "Activation of PAKs by RAC1 and CDC42",
     "schemaClass" : "Reaction",
-    "preceding" : [ 389348, 389350, 418850, 8848618, 418856 ],
-    "inputs" : [ 399856, 389778 ],
-    "outputs" : [ 389782, 390765 ],
-    "diagramIds" : [ 5 ]
+    "inputs" : [ 389778, 399856 ],
+    "outputs" : [ 390765, 389782 ],
+    "efs" : [ ],
+    "diagramIds" : [ 5 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5692749,
     "stId" : "R-HSA-5692749",
     "displayName" : "CDC14A,B bind MAPK6",
     "schemaClass" : "Reaction",
-    "inputs" : [ 5692709, 5692665 ],
+    "inputs" : [ 5692665, 5692709 ],
     "outputs" : [ 5692716 ],
-    "diagramIds" : [ 645 ]
+    "efs" : [ ],
+    "diagramIds" : [ 645 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5690250,
     "stId" : "R-HSA-5690250",
     "displayName" : "p-T182-MAPKAPK5 phoshphorylates DNAJB1",
     "schemaClass" : "Reaction",
     "preceding" : [ 5690245 ],
-    "inputs" : [ 5690243, 113592 ],
-    "outputs" : [ 5690246, 29370 ],
+    "inputs" : [ 113592, 5690243 ],
+    "outputs" : [ 29370, 5690246 ],
     "catalysts" : [ 5690243 ],
-    "diagramIds" : [ 483 ]
+    "efs" : [ ],
+    "diagramIds" : [ 483 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687115,
     "stId" : "R-HSA-5687115",
@@ -1891,8 +1953,10 @@
     "schemaClass" : "BlackBoxEvent",
     "inputs" : [ 5686981 ],
     "outputs" : [ 2562517 ],
+    "efs" : [ ],
     "activators" : [ 5687065 ],
-    "diagramIds" : [ 328 ]
+    "diagramIds" : [ 328 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687112,
     "stId" : "R-HSA-5687112",
@@ -1902,7 +1966,9 @@
     "inputs" : [ 5687000 ],
     "outputs" : [ 113595 ],
     "catalysts" : [ 68819 ],
-    "diagramIds" : [ 342 ]
+    "efs" : [ ],
+    "diagramIds" : [ 342 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687113,
     "stId" : "R-HSA-5687113",
@@ -1910,28 +1976,34 @@
     "schemaClass" : "BlackBoxEvent",
     "inputs" : [ 5687036 ],
     "outputs" : [ 188379 ],
+    "efs" : [ ],
     "inhibitors" : [ 5687043 ],
-    "diagramIds" : [ 332 ]
+    "diagramIds" : [ 332 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687094,
     "stId" : "R-HSA-5687094",
     "displayName" : "p-S MAPK6,4 phosphorylate MAPKAPK5",
     "schemaClass" : "Reaction",
     "preceding" : [ 5687091 ],
-    "following" : [ 5687094 ],
-    "inputs" : [ 5687063, 29358 ],
-    "outputs" : [ 5687062, 113582 ],
+    "following" : [ 5687120 ],
+    "inputs" : [ 29358, 5687063 ],
+    "outputs" : [ 113582, 5687062 ],
     "catalysts" : [ 5687063 ],
-    "diagramIds" : [ 175 ]
+    "efs" : [ ],
+    "diagramIds" : [ 175 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687095,
     "stId" : "R-HSA-5687095",
     "displayName" : "p-S215 FOXO3 binds MIR34B and C gene",
     "schemaClass" : "Reaction",
     "preceding" : [ 5687126 ],
-    "inputs" : [ 5687010, 5687040 ],
+    "inputs" : [ 5687040, 5687010 ],
     "outputs" : [ 5687059 ],
-    "diagramIds" : [ 197 ]
+    "efs" : [ ],
+    "diagramIds" : [ 197 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5692788,
     "stId" : "R-HSA-5692788",
@@ -1939,47 +2011,57 @@
     "schemaClass" : "BlackBoxEvent",
     "inputs" : [ 5692682 ],
     "outputs" : [ 5692686 ],
+    "efs" : [ ],
     "activators" : [ 5692725 ],
-    "diagramIds" : [ 699 ]
+    "diagramIds" : [ 699 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687090,
     "stId" : "R-HSA-5687090",
     "displayName" : "p-S MAPK6 phosphorylates NCOA3",
     "schemaClass" : "Reaction",
     "preceding" : [ 5687107 ],
-    "following" : [ 5687090 ],
-    "inputs" : [ 442488, 29358 ],
-    "outputs" : [ 5687005, 113582 ],
+    "following" : [ 5687097 ],
+    "inputs" : [ 29358, 442488 ],
+    "outputs" : [ 113582, 5687005 ],
     "catalysts" : [ 5687015 ],
-    "diagramIds" : [ 447 ]
+    "efs" : [ ],
+    "diagramIds" : [ 447 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687091,
     "stId" : "R-HSA-5687091",
     "displayName" : "p-S MAPK6,4 binds MAPKAPK5",
     "schemaClass" : "Reaction",
     "preceding" : [ 5687107 ],
-    "following" : [ 5687091 ],
-    "inputs" : [ 2562517, 5687052 ],
+    "following" : [ 5687094 ],
+    "inputs" : [ 5687052, 2562517 ],
     "outputs" : [ 5687063 ],
-    "diagramIds" : [ 168 ]
+    "efs" : [ ],
+    "diagramIds" : [ 168 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687088,
     "stId" : "R-HSA-5687088",
     "displayName" : "PKA phosphorylates MAPKAPK5",
     "schemaClass" : "Reaction",
-    "following" : [ 5687088 ],
-    "inputs" : [ 2562517, 29358 ],
-    "outputs" : [ 5687026, 113582 ],
+    "following" : [ 5687123 ],
+    "inputs" : [ 29358, 2562517 ],
+    "outputs" : [ 113582, 5687026 ],
     "catalysts" : [ 111917 ],
-    "diagramIds" : [ 424 ]
+    "efs" : [ ],
+    "diagramIds" : [ 424 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5692785,
     "stId" : "R-HSA-5692785",
     "displayName" : "p-S215 FOXO1 binds RAG gene",
     "schemaClass" : "Reaction",
-    "inputs" : [ 5692698, 5692651 ],
+    "inputs" : [ 5692651, 5692698 ],
     "outputs" : [ 5692711 ],
-    "diagramIds" : [ 662 ]
+    "efs" : [ ],
+    "diagramIds" : [ 662 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687103,
     "stId" : "R-HSA-5687103",
@@ -1987,29 +2069,34 @@
     "schemaClass" : "BlackBoxEvent",
     "inputs" : [ 5687040 ],
     "outputs" : [ 5687043 ],
+    "efs" : [ ],
     "activators" : [ 5687059 ],
-    "diagramIds" : [ 204 ]
+    "diagramIds" : [ 204 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5627775,
     "stId" : "R-HSA-5627775",
     "displayName" : "Autophosphorylation of PAK1,2,3",
     "schemaClass" : "Reaction",
-    "preceding" : [ 8981931, 2029456, 8981926 ],
-    "following" : [ 5627775 ],
-    "inputs" : [ 113592, 8981940 ],
-    "outputs" : [ 389778, 399836, 29370 ],
+    "following" : [ 5687086 ],
+    "inputs" : [ 8981940, 113592 ],
+    "outputs" : [ 29370, 399836, 389778 ],
     "catalysts" : [ 8981940 ],
-    "diagramIds" : [ 11 ]
+    "efs" : [ ],
+    "diagramIds" : [ 11 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687101,
     "stId" : "R-HSA-5687101",
     "displayName" : "p-T182 MAPKAPK5 phosphorylates FOXO3",
     "schemaClass" : "Reaction",
     "preceding" : [ 5687120 ],
-    "inputs" : [ 113592, 5687032 ],
-    "outputs" : [ 5687014, 29370 ],
+    "inputs" : [ 5687032, 113592 ],
+    "outputs" : [ 29370, 5687014 ],
     "catalysts" : [ 5687004 ],
-    "diagramIds" : [ 186 ]
+    "efs" : [ ],
+    "diagramIds" : [ 186 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5692794,
     "stId" : "R-HSA-5692794",
@@ -2017,105 +2104,129 @@
     "schemaClass" : "BlackBoxEvent",
     "inputs" : [ 5692698 ],
     "outputs" : [ 5692699 ],
+    "efs" : [ ],
     "activators" : [ 5692711 ],
-    "diagramIds" : [ 665 ]
+    "diagramIds" : [ 665 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687099,
     "stId" : "R-HSA-5687099",
     "displayName" : "p-S857 NCOA3:ETV4 bind MMP2 and MMP10 promoter",
     "schemaClass" : "Reaction",
     "preceding" : [ 5687097 ],
-    "inputs" : [ 5687042, 5687056 ],
+    "inputs" : [ 5687056, 5687042 ],
     "outputs" : [ 5687057 ],
-    "diagramIds" : [ 457 ]
+    "efs" : [ ],
+    "diagramIds" : [ 457 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687097,
     "stId" : "R-HSA-5687097",
     "displayName" : "p-S857 NCOA3 binds ETV4",
     "schemaClass" : "Reaction",
     "preceding" : [ 5687090 ],
-    "following" : [ 5687097 ],
-    "inputs" : [ 5687030, 5687005 ],
+    "following" : [ 5687099 ],
+    "inputs" : [ 5687005, 5687030 ],
     "outputs" : [ 5687056 ],
-    "diagramIds" : [ 454 ]
-  }, {
-    "dbId" : 5692775,
-    "stId" : "R-HSA-5692775",
-    "displayName" : "SEPT7:p-S189 MAPK6:p-T182 MAPKAPK5 phosphorylates CDC42EPs",
-    "schemaClass" : "Reaction",
-    "inputs" : [ 5692708, 113592 ],
-    "outputs" : [ 5692695, 29370 ],
-    "catalysts" : [ 5692718 ],
-    "diagramIds" : [ 678 ]
+    "efs" : [ ],
+    "diagramIds" : [ 454 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687079,
     "stId" : "R-HSA-5687079",
     "displayName" : "IGF2BP1 binds MAPK4 mRNA",
     "schemaClass" : "Reaction",
-    "inputs" : [ 5686976, 428366 ],
+    "inputs" : [ 428366, 5686976 ],
     "outputs" : [ 5687070 ],
-    "diagramIds" : [ 360 ]
+    "efs" : [ ],
+    "diagramIds" : [ 360 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 5692775,
+    "stId" : "R-HSA-5692775",
+    "displayName" : "SEPT7:p-S189 MAPK6:p-T182 MAPKAPK5 phosphorylates CDC42EPs",
+    "schemaClass" : "Reaction",
+    "inputs" : [ 113592, 5692708 ],
+    "outputs" : [ 29370, 5692695 ],
+    "catalysts" : [ 5692718 ],
+    "efs" : [ ],
+    "diagramIds" : [ 678 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5692770,
     "stId" : "R-HSA-5692770",
     "displayName" : "SEPT7 binds p-S189 MAPK6 and p-T182 MAPKAPK5",
     "schemaClass" : "Reaction",
-    "inputs" : [ 5692671, 5687004, 5687019 ],
+    "inputs" : [ 5687019, 5687004, 5692671 ],
     "outputs" : [ 5692718 ],
-    "diagramIds" : [ 673 ]
+    "efs" : [ ],
+    "diagramIds" : [ 673 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5692768,
     "stId" : "R-HSA-5692768",
     "displayName" : "MAPKAPK5 phosphorylates KALRN",
     "schemaClass" : "Reaction",
-    "inputs" : [ 5692723, 113592 ],
-    "outputs" : [ 29370, 5692713 ],
+    "inputs" : [ 113592, 5692723 ],
+    "outputs" : [ 5692713, 29370 ],
     "catalysts" : [ 5692723 ],
-    "diagramIds" : [ 688 ]
+    "efs" : [ ],
+    "diagramIds" : [ 688 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687086,
     "stId" : "R-HSA-5687086",
     "displayName" : "PAK1,2,3 phosphorylates MAPK6,4",
     "schemaClass" : "Reaction",
     "preceding" : [ 5627775 ],
-    "inputs" : [ 113592, 5687037 ],
-    "outputs" : [ 29370, 5687051 ],
+    "inputs" : [ 5687037, 113592 ],
+    "outputs" : [ 5687051, 29370 ],
     "catalysts" : [ 399836 ],
-    "diagramIds" : [ 19 ]
+    "efs" : [ ],
+    "diagramIds" : [ 19 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5692781,
     "stId" : "R-HSA-5692781",
     "displayName" : "p-S189 MAPK6:p-T182 MAPKAPK5 bind KALRN",
     "schemaClass" : "Reaction",
-    "inputs" : [ 3006505, 5687004, 5687019 ],
+    "inputs" : [ 5687019, 5687004, 3006505 ],
     "outputs" : [ 5692723 ],
-    "diagramIds" : [ 685 ]
-  }, {
-    "dbId" : 5687083,
-    "stId" : "R-HSA-5687083",
-    "displayName" : "MYC binds MAPKAPK5 gene",
-    "schemaClass" : "Reaction",
-    "inputs" : [ 5686981, 188379 ],
-    "outputs" : [ 5687065 ],
-    "diagramIds" : [ 324 ]
+    "efs" : [ ],
+    "diagramIds" : [ 685 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5692779,
     "stId" : "R-HSA-5692779",
     "displayName" : "p-S182 MAPKAPK5 phosphorylates FOXO1",
     "schemaClass" : "Reaction",
-    "inputs" : [ 199300, 29358 ],
-    "outputs" : [ 5692651, 113582 ],
+    "inputs" : [ 29358, 199300 ],
+    "outputs" : [ 113582, 5692651 ],
     "catalysts" : [ 3239018 ],
-    "diagramIds" : [ 656 ]
+    "efs" : [ ],
+    "diagramIds" : [ 656 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 5687083,
+    "stId" : "R-HSA-5687083",
+    "displayName" : "MYC binds MAPKAPK5 gene",
+    "schemaClass" : "Reaction",
+    "inputs" : [ 188379, 5686981 ],
+    "outputs" : [ 5687065 ],
+    "efs" : [ ],
+    "diagramIds" : [ 324 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 5687081,
     "stId" : "R-HSA-5687081",
     "displayName" : "MAPK6 is ubiquitinated at the N-terminal",
     "schemaClass" : "Reaction",
-    "following" : [ 5687081 ],
-    "inputs" : [ 5686979, 113595 ],
+    "following" : [ 5687112 ],
+    "inputs" : [ 113595, 5686979 ],
     "outputs" : [ 5687000 ],
     "catalysts" : [ 5250898 ],
-    "diagramIds" : [ 336 ]
+    "efs" : [ ],
+    "diagramIds" : [ 336 ],
+    "entityFunctionalStatus" : [ ]
   } ]
 }

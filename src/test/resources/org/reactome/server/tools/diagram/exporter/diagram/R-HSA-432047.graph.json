@@ -1,16 +1,8 @@
 {
   "dbId" : 432047,
   "stId" : "R-HSA-432047",
+  "speciesName" : "Homo sapiens",
   "nodes" : [ {
-    "dbId" : 431756,
-    "stId" : "R-HSA-431756",
-    "displayName" : "AQP8 [plasma membrane]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "O94778",
-    "geneNames" : [ "AQP8" ],
-    "parents" : [ 432244 ]
-  }, {
     "dbId" : 29514,
     "stId" : "R-ALL-29514",
     "displayName" : "Urea [cytosol]",
@@ -18,18 +10,27 @@
     "diagramIds" : [ 31 ],
     "identifier" : "16199"
   }, {
+    "dbId" : 431756,
+    "stId" : "R-HSA-431756",
+    "displayName" : "AQP8 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O94778",
+    "geneNames" : [ "AQP8" ],
+    "parents" : [ 432244 ]
+  }, {
     "dbId" : 879874,
     "stId" : "R-ALL-879874",
     "displayName" : "Anions transported by Aquaporin-6 [transport vesicle]",
     "schemaClass" : "DefinedSet",
     "diagramIds" : [ 35 ],
-    "children" : [ 879871, 879867, 432045, 879856, 879859 ]
+    "children" : [ 879859, 879856, 432045, 879867, 879871 ]
   }, {
     "dbId" : 2754725,
     "stId" : "R-HSA-2754725",
     "displayName" : "AQP11 tetramer [plasma membrane]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 8862069 ],
     "children" : [ 431711 ]
   }, {
@@ -37,7 +38,7 @@
     "stId" : "R-HSA-431700",
     "displayName" : "AQP1 [plasma membrane]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P29972",
     "geneNames" : [ "AQP1", "CHIP28" ],
     "parents" : [ 432246 ]
@@ -53,7 +54,7 @@
     "stId" : "R-HSA-381264",
     "displayName" : "AQP7 [plasma membrane]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "O14520",
     "geneNames" : [ "AQP7", "AQP7L", "AQP9" ],
     "parents" : [ 432243 ]
@@ -76,32 +77,32 @@
     "stId" : "R-HSA-431761",
     "displayName" : "AQP9 [plasma membrane]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "O43315",
     "geneNames" : [ "AQP9", "SSC1" ],
     "parents" : [ 432249 ]
-  }, {
-    "dbId" : 432031,
-    "stId" : "R-ALL-432031",
-    "displayName" : "HNO3 [cytosol]",
-    "schemaClass" : "SimpleEntity",
-    "identifier" : "48107",
-    "parents" : [ 879865 ]
   }, {
     "dbId" : 431711,
     "stId" : "R-HSA-431711",
     "displayName" : "AQP11 [plasma membrane]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q8NBQ7",
     "geneNames" : [ "AQP11", "AQPX1", "PSEC0027" ],
     "parents" : [ 2754725 ]
+  }, {
+    "dbId" : 432031,
+    "stId" : "R-ALL-432031",
+    "displayName" : "NO3- [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "identifier" : "17632",
+    "parents" : [ 879865 ]
   }, {
     "dbId" : 431709,
     "stId" : "R-HSA-431709",
     "displayName" : "AQP10 [plasma membrane]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q96PS8",
     "geneNames" : [ "AQP10" ],
     "parents" : [ 432247 ]
@@ -110,7 +111,7 @@
     "stId" : "R-HSA-432026",
     "displayName" : "MIP [plasma membrane]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P30301",
     "geneNames" : [ "MIP", "AQP0" ],
     "parents" : [ 432251 ]
@@ -126,7 +127,7 @@
     "stId" : "R-HSA-432231",
     "displayName" : "p-S256-AQP2 [plasma membrane]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P41181",
     "geneNames" : [ "AQP2" ],
     "parents" : [ 432226 ]
@@ -142,7 +143,7 @@
     "stId" : "R-HSA-432226",
     "displayName" : "p-S256-AQP2 tetramer [plasma membrane]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 8862069 ],
     "children" : [ 432231 ]
   }, {
@@ -150,16 +151,16 @@
     "stId" : "R-HSA-431713",
     "displayName" : "AQP12A [plasma membrane]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q8IXF9",
     "geneNames" : [ "AQP12A", "AQP12", "AQPX2" ],
     "parents" : [ 8862058 ]
   }, {
     "dbId" : 432045,
     "stId" : "R-ALL-432045",
-    "displayName" : "HNO3 [transport vesicle]",
+    "displayName" : "NO3- [transport vesicle]",
     "schemaClass" : "SimpleEntity",
-    "identifier" : "48107",
+    "identifier" : "17632",
     "parents" : [ 879874 ]
   }, {
     "dbId" : 29356,
@@ -173,40 +174,40 @@
     "stId" : "R-HSA-8862058",
     "displayName" : "AQP12A tetramer [plasma membrane]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 8862069 ],
     "children" : [ 431713 ]
-  }, {
-    "dbId" : 431723,
-    "stId" : "R-HSA-431723",
-    "displayName" : "AQP3 [plasma membrane]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "identifier" : "Q92482",
-    "geneNames" : [ "AQP3" ],
-    "parents" : [ 432250 ]
   }, {
     "dbId" : 507882,
     "stId" : "R-HSA-507882",
     "displayName" : "AQP3,7,9,10 [plasma membrane]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 27 ],
-    "children" : [ 432247, 432243, 432250, 432249 ]
+    "children" : [ 432249, 432250, 432243, 432247 ]
+  }, {
+    "dbId" : 431723,
+    "stId" : "R-HSA-431723",
+    "displayName" : "AQP3 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q92482",
+    "geneNames" : [ "AQP3" ],
+    "parents" : [ 432250 ]
   }, {
     "dbId" : 507881,
     "stId" : "R-HSA-507881",
     "displayName" : "AQP9,10 [plasma membrane]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 32 ],
-    "children" : [ 432247, 432249 ]
+    "children" : [ 432249, 432247 ]
   }, {
     "dbId" : 432246,
     "stId" : "R-HSA-432246",
     "displayName" : "AQP1 tetramer [plasma membrane]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 8862069 ],
     "children" : [ 431700 ]
   }, {
@@ -214,7 +215,7 @@
     "stId" : "R-HSA-432247",
     "displayName" : "AQP10 tetramer [plasma membrane]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 8862069, 507882, 507881 ],
     "children" : [ 431709 ]
   }, {
@@ -225,27 +226,27 @@
     "identifier" : "16382",
     "parents" : [ 879874 ]
   }, {
-    "dbId" : 8862069,
-    "stId" : "R-HSA-8862069",
-    "displayName" : "AQP0,1,2,3,4,5,7,8,9,10,11,12A [plasma membrane]",
-    "schemaClass" : "CandidateSet",
-    "speciesID" : 48887,
-    "diagramIds" : [ 53 ],
-    "children" : [ 432246, 432247, 432244, 432245, 432226, 432243, 432252, 432250, 8862058, 432251, 2754725, 432249 ]
-  }, {
     "dbId" : 432244,
     "stId" : "R-HSA-432244",
     "displayName" : "AQP8 tetramer [plasma membrane]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 8862069 ],
     "children" : [ 431756 ]
+  }, {
+    "dbId" : 8862069,
+    "stId" : "R-HSA-8862069",
+    "displayName" : "AQP0,1,2,3,4,5,7,8,9,10,11,12A [plasma membrane]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 48887,
+    "diagramIds" : [ 53 ],
+    "children" : [ 432249, 432251, 432250, 432252, 432243, 432226, 432245, 432244, 432247, 432246, 2754725, 8862058 ]
   }, {
     "dbId" : 431733,
     "stId" : "R-HSA-431733",
     "displayName" : "AQP4 [plasma membrane]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P55087",
     "geneNames" : [ "AQP4" ],
     "parents" : [ 432252 ]
@@ -254,7 +255,7 @@
     "stId" : "R-HSA-432245",
     "displayName" : "AQP5 tetramer [plasma membrane]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 8862069 ],
     "children" : [ 431738 ]
   }, {
@@ -263,7 +264,7 @@
     "displayName" : "Anions transported by Aquaporin-6 [cytosol]",
     "schemaClass" : "DefinedSet",
     "diagramIds" : [ 34 ],
-    "children" : [ 352022, 879854, 879866, 432031, 209785 ]
+    "children" : [ 209785, 432031, 879866, 352022, 879854 ]
   }, {
     "dbId" : 192438,
     "stId" : "R-ALL-192438",
@@ -276,7 +277,7 @@
     "stId" : "R-HSA-432243",
     "displayName" : "AQP7 tetramer [plasma membrane]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 8862069, 507882 ],
     "children" : [ 381264 ]
   }, {
@@ -305,7 +306,7 @@
     "stId" : "R-HSA-432252",
     "displayName" : "AQP4 tetramer [plasma membrane]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 8862069 ],
     "children" : [ 431733 ]
   }, {
@@ -313,7 +314,7 @@
     "stId" : "R-HSA-432253",
     "displayName" : "AQP6 tetramer [transport vesicle membrane]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 20 ],
     "children" : [ 431741 ]
   }, {
@@ -321,7 +322,7 @@
     "stId" : "R-HSA-431741",
     "displayName" : "AQP6 [transport vesicle membrane]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "Q13520",
     "geneNames" : [ "AQP6", "AQP2L" ],
     "parents" : [ 432253 ]
@@ -330,7 +331,7 @@
     "stId" : "R-HSA-431738",
     "displayName" : "AQP5 [plasma membrane]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P55064",
     "geneNames" : [ "AQP5" ],
     "parents" : [ 432245 ]
@@ -339,7 +340,7 @@
     "stId" : "R-HSA-432250",
     "displayName" : "AQP3 tetramer [plasma membrane]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 8862069, 507882 ],
     "children" : [ 431723 ]
   }, {
@@ -354,7 +355,7 @@
     "stId" : "R-HSA-432251",
     "displayName" : "Lens fiber major intrinsic protein (AQP0) tetramer [plasma membrane]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 8862069 ],
     "children" : [ 432026 ]
   }, {
@@ -369,7 +370,7 @@
     "stId" : "R-HSA-432249",
     "displayName" : "AQP9 tetramer [plasma membrane]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 8862069, 507882, 507881 ],
     "children" : [ 431761 ]
   } ],
@@ -381,7 +382,9 @@
     "inputs" : [ 879874 ],
     "outputs" : [ 879865 ],
     "catalysts" : [ 432253 ],
-    "diagramIds" : [ 21 ]
+    "efs" : [ ],
+    "diagramIds" : [ 21 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 432034,
     "stId" : "R-HSA-432034",
@@ -390,7 +393,9 @@
     "inputs" : [ 879865 ],
     "outputs" : [ 879874 ],
     "catalysts" : [ 432253 ],
-    "diagramIds" : [ 17 ]
+    "efs" : [ ],
+    "diagramIds" : [ 17 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 507875,
     "stId" : "R-HSA-507875",
@@ -399,7 +404,9 @@
     "inputs" : [ 432019 ],
     "outputs" : [ 29514 ],
     "catalysts" : [ 507881 ],
-    "diagramIds" : [ 29 ]
+    "efs" : [ ],
+    "diagramIds" : [ 29 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 507873,
     "stId" : "R-HSA-507873",
@@ -408,7 +415,9 @@
     "inputs" : [ 29514 ],
     "outputs" : [ 432019 ],
     "catalysts" : [ 507881 ],
-    "diagramIds" : [ 33 ]
+    "efs" : [ ],
+    "diagramIds" : [ 33 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 507871,
     "stId" : "R-HSA-507871",
@@ -417,7 +426,9 @@
     "inputs" : [ 76116 ],
     "outputs" : [ 192438 ],
     "catalysts" : [ 507882 ],
-    "diagramIds" : [ 28 ]
+    "efs" : [ ],
+    "diagramIds" : [ 28 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 507870,
     "stId" : "R-HSA-507870",
@@ -426,7 +437,9 @@
     "inputs" : [ 29356 ],
     "outputs" : [ 109276 ],
     "catalysts" : [ 8862069 ],
-    "diagramIds" : [ 8 ]
+    "efs" : [ ],
+    "diagramIds" : [ 8 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 507869,
     "stId" : "R-HSA-507869",
@@ -435,7 +448,9 @@
     "inputs" : [ 192438 ],
     "outputs" : [ 76116 ],
     "catalysts" : [ 507882 ],
-    "diagramIds" : [ 24 ]
+    "efs" : [ ],
+    "diagramIds" : [ 24 ],
+    "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 507868,
     "stId" : "R-HSA-507868",
@@ -444,6 +459,8 @@
     "inputs" : [ 109276 ],
     "outputs" : [ 29356 ],
     "catalysts" : [ 8862069 ],
-    "diagramIds" : [ 4 ]
+    "efs" : [ ],
+    "diagramIds" : [ 4 ],
+    "entityFunctionalStatus" : [ ]
   } ]
 }
