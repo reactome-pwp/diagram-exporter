@@ -121,9 +121,7 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 	}
 
 	public double analysis(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
-		if (isFadeOut()) return 0.0;
-		if (index.getAnalysis().getType() == null)
-			return 0.0;
+		if (isFadeOut() || index.getAnalysis().getType() == null) return 0.0;
 		switch (index.getAnalysis().getType()) {
 			case SPECIES_COMPARISON:
 			case OVERREPRESENTATION:
@@ -161,10 +159,10 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 	 * white.
 	 */
 	double expression(DiagramCanvas canvas, DiagramIndex index, ColorProfiles colorProfiles, int t) {
-		final java.util.List<FoundEntity> expressions = getHitExpressions();
+		final List<FoundEntity> expressions = getHitExpressions();
 		double textSplit = 0.0;
 		if (expressions != null) {
-			final java.util.List<Double> values = expressions.stream()
+			final List<Double> values = expressions.stream()
 					.map(participant -> participant.getExp().get(t))
 					.collect(Collectors.toList());
 			final int size = getTotalExpressions();
@@ -181,9 +179,9 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 			final double delta = 1 / (max - min);  // only one division
 			for (int i = 0; i < values.size(); i++) {
 				final double val = values.get(i);
-				final double scale = 1 - (val - min) * delta;
+				final double value = 1 - (val - min) * delta;
 				final GradientSheet gradient = colorProfiles.getAnalysisSheet().getExpression().getGradient();
-				final Color color = ColorFactory.interpolate(gradient, scale);
+				final Color color = ColorFactory.interpolate(gradient, value);
 				final Rectangle2D rect = new Rectangle2D.Double(
 						x + i * partSize, y, partSize, height);
 				final Area expressionArea = new Area(rect);

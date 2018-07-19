@@ -10,11 +10,13 @@ import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableDiagramObject;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableEdge;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableFactory;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.*;
 
 /**
  * Creates a RenderableObject per Node in the diagram. Computes all the
@@ -65,9 +67,9 @@ public class DiagramIndex {
 		byId = Collections.unmodifiableMap(Stream.of(diagram.getEdges(), diagram.getNodes(), diagram.getLinks(), diagram.getCompartments())
 				.flatMap(Collection::stream)
 				.map(RenderableFactory::getRenderableObject)
-				.collect(Collectors.toMap(o -> o.getDiagramObject().getId(), Function.identity())));
+				.collect(toMap(o -> o.getDiagramObject().getId(), Function.identity())));
 		diagramByReactomeId = Collections.unmodifiableMap(byId.values().stream()
-				.collect(Collectors.groupingBy(o -> o.getDiagramObject().getId(), TreeMap::new, Collectors.toSet())));
+				.collect(groupingBy(o -> o.getDiagramObject().getId(), TreeMap::new, toSet())));
 		// Add connectors to reactions, so they can be rendered together
 		diagram.getNodes().stream()
 				.map(Node::getConnectors)
@@ -81,24 +83,24 @@ public class DiagramIndex {
 				Stream.of(graph.getEdges(), graph.getNodes())
 						.filter(Objects::nonNull)
 						.flatMap(Collection::stream)
-						.collect(Collectors.toMap(GraphNode::getDbId, Function.identity(), (a, b) -> a)));
+						.collect(toMap(GraphNode::getDbId, Function.identity(), (a, b) -> a)));
 
 		subPathwaysById = Collections.unmodifiableMap(
 				graph.getSubpathways() == null
 						? Collections.emptyMap()
 						: graph.getSubpathways().stream()
-						.collect(Collectors.toMap(SubpathwayNode::getDbId, Function.identity(), (a, b) -> a)));
+						.collect(toMap(SubpathwayNode::getDbId, Function.identity(), (a, b) -> a)));
 
 		graphByStId = Collections.unmodifiableMap(Stream.of(graph.getEdges(), graph.getNodes())
 				.filter(Objects::nonNull)
 				.flatMap(Collection::stream)
-				.collect(Collectors.toMap(GraphNode::getStId, Function.identity(), (a, b) -> a)));
+				.collect(toMap(GraphNode::getStId, Function.identity(), (a, b) -> a)));
 
 		subPathwaysByStId = Collections.unmodifiableMap(
 				graph.getSubpathways() == null
 						? Collections.emptyMap()
 						: graph.getSubpathways().stream()
-						.collect(Collectors.toMap(SubpathwayNode::getStId, Function.identity(), (a, b) -> a)));
+						.collect(toMap(SubpathwayNode::getStId, Function.identity(), (a, b) -> a)));
 	}
 
 	public Map<Long, GraphNode> getGraphIndex() {
@@ -133,4 +135,17 @@ public class DiagramIndex {
 		return decorator;
 	}
 
+	public Collection<RenderableNode> getNodes() {
+		return byId.values().stream()
+				.filter(RenderableNode.class::isInstance)
+				.map(RenderableNode.class::cast)
+				.collect(toList());
+	}
+
+	public Collection<RenderableEdge> getReactions() {
+		return byId.values().stream()
+				.filter(RenderableEdge.class::isInstance)
+				.map(RenderableEdge.class::cast)
+				.collect(toList());
+	}
 }

@@ -48,11 +48,6 @@ public abstract class RenderableEdgeCommon<T extends EdgeCommon> extends Rendera
 		return false;
 	}
 
-	public Collection<java.awt.Shape> getSegments() {
-		if (segments == null) createSegments();
-		return segments;
-	}
-
 	@Override
 	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
 		final Color linesColor = getStrokeColor(colorProfiles, index.getAnalysis().getType());
@@ -126,6 +121,11 @@ public abstract class RenderableEdgeCommon<T extends EdgeCommon> extends Rendera
 		canvas.getHalo().add(awtShape,
 				colorProfiles.getDiagramSheet().getProperties().getHalo(),
 				StrokeStyle.HALO.get(isDashed()));
+	}
+
+	public Collection<java.awt.Shape> getSegments() {
+		if (segments == null) createSegments();
+		return segments;
 	}
 
 	private void createSegments() {

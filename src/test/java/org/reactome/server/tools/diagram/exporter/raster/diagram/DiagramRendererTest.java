@@ -216,6 +216,12 @@ public class DiagramRendererTest {
 	}
 
 	@Test
+	public void testSubpathwaySeveralTimes() {
+		final RasterArgs args = new RasterArgs("R-HSA-373076", "png");
+		final AnalysisStoredResult result = TestUtils.getResult(TestUtils.TOKEN_OVER_1);
+		TestUtils.render(args, result);
+	}
+	@Test
 	public void testChemicalDrug() {
 		final RasterArgs args = new RasterArgs("R-HSA-2894858", "png");
 		args.setQuality(10);

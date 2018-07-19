@@ -63,24 +63,31 @@ public class ColorFactory {
 				Math.min(255, (int) (alpha * 255)));
 	}
 
-	public static Color interpolate(GradientSheet gradient, double scale) {
+	/**
+	 * Gets the corresponding color of value in gradient.
+	 *
+	 * @param gradient the gradient from an analysis color profile
+	 * @param value    a double in the range [0-1]
+	 *
+	 * @return the corresponding color of value in gradient
+	 */
+	public static Color interpolate(GradientSheet gradient, double value) {
 		if (gradient.getStop() == null)
-			return interpolate(gradient.getMin(), gradient.getMax(), scale);
-		else if (scale < 0.5)
-			return interpolate(gradient.getMin(), gradient.getStop(), scale * 2);
+			return interpolate(gradient.getMin(), gradient.getMax(), value);
+		else if (value < 0.5)
+			return interpolate(gradient.getMin(), gradient.getStop(), value * 2);
 		else
-			return interpolate(gradient.getStop(), gradient.getMax(), (scale - 0.5) * 2);
+			return interpolate(gradient.getStop(), gradient.getMax(), (value - 0.5) * 2);
 	}
 
-	private static Color interpolate(Color a, Color b, double t) {
-		if (t <= 0.0) return a;
-		if (t >= 1.0) return b;
-		float scale = (float) t;
+	private static Color interpolate(Color a, Color b, double value) {
+		if (value <= 0.0) return a;
+		if (value >= 1.0) return b;
 		return new Color(
-				(int) (a.getRed() + (b.getRed() - a.getRed()) * scale),
-				(int) (a.getGreen() + (b.getGreen() - a.getGreen()) * scale),
-				(int) (a.getBlue() + (b.getBlue() - a.getBlue()) * scale),
-				(int) (a.getAlpha() + (b.getAlpha() - a.getAlpha()) * scale));
+				(int) (a.getRed() + (b.getRed() - a.getRed()) * value),
+				(int) (a.getGreen() + (b.getGreen() - a.getGreen()) * value),
+				(int) (a.getBlue() + (b.getBlue() - a.getBlue()) * value),
+				(int) (a.getAlpha() + (b.getAlpha() - a.getAlpha()) * value));
 	}
 
 	public static String hex(Color color) {

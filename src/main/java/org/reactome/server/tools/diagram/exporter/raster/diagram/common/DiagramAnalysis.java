@@ -10,6 +10,7 @@ import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableProcessNode;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -110,30 +111,24 @@ public class DiagramAnalysis {
 	 * the fill area.
 	 */
 	private void subPathways() {
-		// 1 extract list of dbIds for ProcessNodes
-		final List<String> subPathways = diagram.getNodes().stream()
-				.filter(node -> node.getRenderableClass().equals("ProcessNode")
-						|| node.getRenderableClass().equals("EncapsulatedNode"))
-				.map(DiagramObject::getReactomeId)
-				.map(String::valueOf)
-				.collect(Collectors.toList());
-		if (subPathways.isEmpty()) return;
-		// 2 get subPathways summary
-		final List<PathwaySummary> pathwaysSummary = result.filterByPathways(subPathways, resource);
-		// extract %
-		for (PathwaySummary summary : pathwaysSummary) {
+		final Map<Long, List<RenderableProcessNode>> subPathways = index.getDiagramObjectsById().values().stream()
+				.filter(RenderableProcessNode.class::isInstance)
+				.map(RenderableProcessNode.class::cast)
+				.collect(Collectors.groupingBy(o -> o.getDiagramObject().getReactomeId()));
+		final List<PathwaySummary> summaries = result.filterByPathways(subPathways.keySet().stream().map(String::valueOf).collect(Collectors.toList()), resource);
+		for (PathwaySummary summary : summaries) {
 			final EntityStatistics entities = summary.getEntities();
 			if (entities == null) continue;
-			final DiagramObject diagramNode = diagramIndex.get(summary.getDbId());
-			if (diagramNode == null) continue;
 			int found = entities.getFound();
 			int total = entities.getTotal();
 			double percentage = (double) found / total;
-			if (percentage < MIN_VISIBLE_ENRICHMENT && percentage > 0)
+			if (percentage < MIN_VISIBLE_ENRICHMENT && percentage > 0) {
 				percentage = MIN_VISIBLE_ENRICHMENT;
-			final RenderableNode node = (RenderableNode) index.getDiagramObjectsById().get(diagramNode.getId());
-			node.setEnrichment(percentage);
-			node.setExpressionValue(getMedian(entities.getExp()));
+			}
+			for (RenderableProcessNode node : subPathways.get(summary.getDbId())) {
+				node.setEnrichment(percentage);
+				node.setExpressionValue(getMedian(entities.getExp()));
+			}
 		}
 	}
 
