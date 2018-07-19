@@ -1,87 +1,47 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.renderables;
 
 import org.reactome.server.tools.diagram.data.layout.Connector;
-import org.reactome.server.tools.diagram.data.layout.EdgeCommon;
-import org.reactome.server.tools.diagram.data.layout.Segment;
-import org.reactome.server.tools.diagram.data.layout.Shape;
+import org.reactome.server.tools.diagram.data.layout.Edge;
+import org.reactome.server.tools.diagram.data.layout.NodeProperties;
+import org.reactome.server.tools.diagram.data.layout.Stoichiometry;
+import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.EdgeRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.awt.*;
+import java.util.Objects;
 
-/**
- * Contains extra rendering information for an edge: decorators plus
- * connectors.
- */
-public abstract class RenderableEdge extends RenderableObject {
+public abstract class RenderableEdge extends RenderableEdgeCommon<Edge> {
 
-	private List<Shape> shapes;
-	private List<Connector> connectors = new LinkedList<>();
-	private EdgeCommon edge;
-	private Collection<java.awt.Shape> segments;
-
-	public RenderableEdge(EdgeCommon edge) {
+	RenderableEdge(Edge edge) {
 		super(edge);
-		this.edge = edge;
 	}
 
-	public List<Connector> getConnectors() {
-		return connectors;
+	@Override
+	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
+		super.draw(canvas, colorProfiles, index, t);
+		final Color linesColor = getStrokeColor(colorProfiles, index.getAnalysis().getType());
+		stoichiometryText(linesColor, canvas);
 	}
 
-	public EdgeCommon getEdge() {
-		return edge;
+	private void stoichiometryText(Color linesColor, DiagramCanvas canvas) {
+		getConnectors().stream()
+				.map(Connector::getStoichiometry)
+				.filter(Objects::nonNull)
+				.filter(stoichiometry -> stoichiometry.getShape() != null)
+				.forEach(stoichiometry -> stoichiometryText(stoichiometry, linesColor, canvas));
 	}
 
-	public void render(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index) {
-		getRenderer().draw(this, canvas, colorProfiles, index);
-	}
-
-	public abstract EdgeRenderer getRenderer();
-
-	public boolean isDashed() {
-		return false;
-	}
-
-	public Collection<java.awt.Shape> getSegments() {
-		if (segments == null) createSegments();
-		return segments;
-	}
-
-	private void createSegments() {
-		segments = new LinkedList<>();
-		for (Segment segment : edge.getSegments())
-			segments.add(ShapeFactory.line(segment.getFrom(), segment.getTo()));
-		for (Connector connector : connectors)
-			for (Segment segment : connector.getSegments())
-				segments.add(ShapeFactory.line(segment.getFrom(), segment.getTo()));
-	}
-
-	public List<Shape> getShapes() {
-		if (shapes == null)
-			createShapes();
-		return shapes;
-	}
-
-	private void createShapes() {
-		shapes = new LinkedList<>();
-		for (Shape shape : getRenderableShapes())
-			if (shape != null) shapes.add(shape);
-		for (Connector connector : connectors)
-			if (connector.getEndShape() != null)
-				shapes.add(connector.getEndShape());
-		for (Connector connector : connectors)
-			if (connector.getStoichiometry().getShape() != null)
-				shapes.add(connector.getStoichiometry().getShape());
-	}
-
-	protected List<Shape> getRenderableShapes() {
-		return Arrays.asList(edge.getReactionShape(), edge.getEndShape());
+	private void stoichiometryText(Stoichiometry stoichiometry, Color linesColor, DiagramCanvas canvas) {
+		final org.reactome.server.tools.diagram.data.layout.Shape stShape = stoichiometry.getShape();
+		final String text = stoichiometry.getValue().toString();
+		final NodeProperties limits =
+				NodePropertiesFactory.get(
+						stShape.getA().getX(), stShape.getA().getY(),
+						stShape.getB().getX() - stShape.getA().getX(),
+						stShape.getB().getY() - stShape.getA().getY());
+		canvas.getText().add(text, linesColor, limits, 1, 0, FontProperties.DEFAULT_FONT);
 	}
 }

@@ -1,7 +1,7 @@
 {
   "dbId" : 1643713,
   "stableId" : "R-HSA-1643713",
-  "displayName" : "Diagram of Signaling by EGFR in Cancer",
+  "displayName" : "Signaling by EGFR in Cancer",
   "nodes" : [ {
     "id" : 12,
     "reactomeId" : 5637815,

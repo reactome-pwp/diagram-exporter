@@ -120,7 +120,8 @@
           "empty" : true
         }
       }
-    } ]
+    } ],
+    "trivial" : true
   }, {
     "id" : 4100,
     "reactomeId" : 450329,
@@ -379,7 +380,8 @@
         },
         "type" : "ARROW"
       }
-    } ]
+    } ],
+    "trivial" : true
   }, {
     "id" : 4104,
     "reactomeId" : 450317,
@@ -584,7 +586,8 @@
           "empty" : true
         }
       }
-    } ]
+    } ],
+    "trivial" : true
   }, {
     "id" : 4108,
     "reactomeId" : 29370,
@@ -664,7 +667,8 @@
         },
         "type" : "ARROW"
       }
-    } ]
+    } ],
+    "trivial" : true
   }, {
     "id" : 4109,
     "reactomeId" : 450240,
@@ -750,6 +754,47 @@
           "type" : "BOX",
           "empty" : true
         }
+      }
+    } ]
+  }, {
+    "id" : 4494,
+    "reactomeId" : 9038432,
+    "displayName" : "TLR3 ligand",
+    "schemaClass" : "DefinedSet",
+    "renderableClass" : "EntitySet",
+    "position" : {
+      "x" : 262,
+      "y" : 234
+    },
+    "minX" : 223,
+    "maxX" : 301,
+    "minY" : 210,
+    "maxY" : 245,
+    "prop" : {
+      "x" : 223,
+      "y" : 223,
+      "width" : 78,
+      "height" : 22
+    },
+    "textPosition" : {
+      "x" : 223,
+      "y" : 223
+    },
+    "connectors" : [ {
+      "edgeId" : 4008,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 273,
+          "y" : 217
+        },
+        "to" : {
+          "x" : 287,
+          "y" : 210
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
       }
     } ]
   }, {
@@ -999,9 +1044,9 @@
       "y" : 176
     },
     "minX" : 169,
-    "maxX" : 277,
+    "maxX" : 287,
     "minY" : 159,
-    "maxY" : 199,
+    "maxY" : 210,
     "prop" : {
       "x" : 169,
       "y" : 165,
@@ -1030,23 +1075,23 @@
       "segments" : [ {
         "from" : {
           "x" : 210,
-          "y" : 180
+          "y" : 182
         },
         "to" : {
-          "x" : 277,
-          "y" : 199
+          "x" : 287,
+          "y" : 210
         }
       } ],
       "stoichiometry" : {
         "value" : 2,
         "shape" : {
           "a" : {
-            "x" : 237,
-            "y" : 183
+            "x" : 242,
+            "y" : 190
           },
           "b" : {
-            "x" : 249,
-            "y" : 195
+            "x" : 254,
+            "y" : 202
           },
           "type" : "BOX",
           "empty" : true
@@ -1181,47 +1226,6 @@
         "to" : {
           "x" : 509,
           "y" : 1077
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      }
-    } ]
-  }, {
-    "id" : 4014,
-    "reactomeId" : 8982478,
-    "displayName" : "TLR3 ligand",
-    "schemaClass" : "DefinedSet",
-    "renderableClass" : "EntitySet",
-    "position" : {
-      "x" : 267,
-      "y" : 237
-    },
-    "minX" : 227,
-    "maxX" : 307,
-    "minY" : 199,
-    "maxY" : 248,
-    "prop" : {
-      "x" : 227,
-      "y" : 226,
-      "width" : 80,
-      "height" : 22
-    },
-    "textPosition" : {
-      "x" : 228,
-      "y" : 226
-    },
-    "connectors" : [ {
-      "edgeId" : 4008,
-      "type" : "INPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 269,
-          "y" : 220
-        },
-        "to" : {
-          "x" : 277,
-          "y" : 199
         }
       } ],
       "stoichiometry" : {
@@ -2936,7 +2940,8 @@
           "empty" : true
         }
       }
-    } ]
+    } ],
+    "trivial" : true
   }, {
     "id" : 4200,
     "reactomeId" : 177691,
@@ -3084,7 +3089,8 @@
         },
         "type" : "ARROW"
       }
-    } ]
+    } ],
+    "trivial" : true
   }, {
     "id" : 4203,
     "reactomeId" : 847073,
@@ -3410,7 +3416,7 @@
   }, {
     "id" : 4344,
     "reactomeId" : 450294,
-    "displayName" : "MAP kinase activation in TLR cascade",
+    "displayName" : "MAP kinase activation",
     "schemaClass" : "Pathway",
     "renderableClass" : "ProcessNode",
     "position" : {
@@ -3428,8 +3434,8 @@
       "height" : 66
     },
     "textPosition" : {
-      "x" : 917,
-      "y" : 1221
+      "x" : 925,
+      "y" : 1228
     },
     "connectors" : [ ]
   } ],
@@ -4059,15 +4065,15 @@
       "x" : 305,
       "y" : 200
     },
-    "minX" : 277,
+    "minX" : 287,
     "maxX" : 344,
     "minY" : 193,
-    "maxY" : 205,
+    "maxY" : 210,
     "reactionType" : "Association",
     "segments" : [ {
       "from" : {
-        "x" : 277,
-        "y" : 199
+        "x" : 287,
+        "y" : 210
       },
       "to" : {
         "x" : 305,
@@ -4110,14 +4116,14 @@
       "id" : 4005,
       "points" : [ {
         "x" : 210,
-        "y" : 180
+        "y" : 182
       } ],
       "stoichiometry" : 2
     }, {
-      "id" : 4014,
+      "id" : 4494,
       "points" : [ {
-        "x" : 269,
-        "y" : 220
+        "x" : 273,
+        "y" : 217
       } ]
     } ],
     "outputs" : [ {
@@ -5289,7 +5295,7 @@
     "id" : 4128,
     "reactomeId" : 7660,
     "displayName" : "nucleoplasm",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 1617,
@@ -5325,7 +5331,7 @@
     "id" : 4009,
     "reactomeId" : 70101,
     "displayName" : "cytosol",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 903,
@@ -5361,7 +5367,7 @@
     "id" : 4010,
     "reactomeId" : 17940,
     "displayName" : "endosome",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 756,
@@ -5392,7 +5398,7 @@
       "g" : 240,
       "b" : 240
     },
-    "componentIds" : [ 4014, 4004, 4033, 4036, 4005, 4008, 4047, 4077, 4079, 4097, 4101, 4105, 4141, 4143, 4145, 4170, 4172, 4193, 4194, 4197, 4200, 4202, 4257, 4318, 4103, 4171, 4157, 4158, 4159, 4493 ]
+    "componentIds" : [ 4004, 4033, 4036, 4005, 4008, 4047, 4077, 4079, 4097, 4101, 4105, 4141, 4143, 4145, 4170, 4172, 4193, 4194, 4197, 4200, 4202, 4257, 4318, 4103, 4171, 4157, 4158, 4159, 4493, 4494 ]
   } ],
   "notes" : [ ],
   "links" : [ {
@@ -5885,6 +5891,40 @@
   } ],
   "shadows" : [ {
     "id" : 4496,
+    "reactomeId" : 9013957,
+    "displayName" : "TLR3-mediated TICAM1-dependent programmed cell death",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "Shadow",
+    "position" : {
+      "x" : 167,
+      "y" : 729
+    },
+    "minX" : 33,
+    "maxX" : 302,
+    "minY" : 466,
+    "maxY" : 992,
+    "prop" : {
+      "x" : 33,
+      "y" : 466,
+      "width" : 269,
+      "height" : 526
+    },
+    "points" : [ {
+      "x" : 33,
+      "y" : 466
+    }, {
+      "x" : 302,
+      "y" : 466
+    }, {
+      "x" : 302,
+      "y" : 992
+    }, {
+      "x" : 33,
+      "y" : 992
+    } ],
+    "colour" : "#dc3912"
+  }, {
+    "id" : 4497,
     "reactomeId" : 9013973,
     "displayName" : "TICAM1-dependent activation of IRF3/IRF7",
     "schemaClass" : "Pathway",
@@ -5918,7 +5958,7 @@
     } ],
     "colour" : "#008000"
   }, {
-    "id" : 4497,
+    "id" : 4498,
     "reactomeId" : 9014325,
     "displayName" : "TICAM1,TRAF6-dependent induction of TAK1 complex",
     "schemaClass" : "Pathway",
@@ -5952,7 +5992,7 @@
     } ],
     "colour" : "#666666"
   }, {
-    "id" : 4494,
+    "id" : 4495,
     "reactomeId" : 168927,
     "displayName" : "TICAM1, RIP1-mediated IKK complex recruitment ",
     "schemaClass" : "Pathway",
@@ -5985,40 +6025,6 @@
       "y" : 1164
     } ],
     "colour" : "#4684ee"
-  }, {
-    "id" : 4495,
-    "reactomeId" : 9013957,
-    "displayName" : "TLR3-mediated TICAM1-dependent programmed cell death",
-    "schemaClass" : "Pathway",
-    "renderableClass" : "Shadow",
-    "position" : {
-      "x" : 167,
-      "y" : 729
-    },
-    "minX" : 33,
-    "maxX" : 302,
-    "minY" : 466,
-    "maxY" : 992,
-    "prop" : {
-      "x" : 33,
-      "y" : 466,
-      "width" : 269,
-      "height" : 526
-    },
-    "points" : [ {
-      "x" : 33,
-      "y" : 466
-    }, {
-      "x" : 302,
-      "y" : 466
-    }, {
-      "x" : 302,
-      "y" : 992
-    }, {
-      "x" : 33,
-      "y" : 992
-    } ],
-    "colour" : "#dc3912"
   } ],
   "minX" : 4,
   "maxX" : 1802,

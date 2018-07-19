@@ -1,7 +1,7 @@
 {
   "dbId" : 877300,
   "stableId" : "R-HSA-877300",
-  "displayName" : "Diagram of Interferon gamma signaling",
+  "displayName" : "Interferon gamma signaling",
   "nodes" : [ {
     "id" : 256,
     "reactomeId" : 1031710,
@@ -9,22 +9,22 @@
     "schemaClass" : "Complex",
     "renderableClass" : "Complex",
     "position" : {
-      "x" : 296,
-      "y" : 428
+      "x" : 282,
+      "y" : 415
     },
-    "minX" : 216,
-    "maxX" : 350,
-    "minY" : 404,
-    "maxY" : 512,
+    "minX" : 229,
+    "maxX" : 336,
+    "minY" : 391,
+    "maxY" : 465,
     "prop" : {
-      "x" : 243,
-      "y" : 404,
+      "x" : 229,
+      "y" : 391,
       "width" : 107,
       "height" : 49
     },
     "textPosition" : {
-      "x" : 250,
-      "y" : 404
+      "x" : 236,
+      "y" : 391
     },
     "bgColor" : {
       "r" : 204,
@@ -36,30 +36,12 @@
       "type" : "ACTIVATOR",
       "segments" : [ {
         "from" : {
-          "x" : 240,
-          "y" : 425
+          "x" : 282,
+          "y" : 443
         },
         "to" : {
-          "x" : 216,
-          "y" : 425
-        }
-      }, {
-        "from" : {
-          "x" : 216,
-          "y" : 425
-        },
-        "to" : {
-          "x" : 216,
-          "y" : 507
-        }
-      }, {
-        "from" : {
-          "x" : 216,
-          "y" : 507
-        },
-        "to" : {
-          "x" : 274,
-          "y" : 508
+          "x" : 283,
+          "y" : 465
         }
       } ],
       "stoichiometry" : {
@@ -67,16 +49,16 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 267,
-          "y" : 512
+          "x" : 279,
+          "y" : 458
         },
         "b" : {
-          "x" : 274,
-          "y" : 508
+          "x" : 283,
+          "y" : 465
         },
         "c" : {
-          "x" : 267,
-          "y" : 504
+          "x" : 287,
+          "y" : 458
         },
         "type" : "ARROW",
         "empty" : true
@@ -202,7 +184,7 @@
       "y" : 541
     },
     "minX" : 152,
-    "maxX" : 522,
+    "maxX" : 260,
     "minY" : 522,
     "maxY" : 554,
     "prop" : {
@@ -495,30 +477,30 @@
     "schemaClass" : "DefinedSet",
     "renderableClass" : "EntitySet",
     "position" : {
-      "x" : 729,
-      "y" : 856
+      "x" : 704,
+      "y" : 858
     },
     "minX" : 260,
-    "maxX" : 780,
+    "maxX" : 766,
     "minY" : 533,
-    "maxY" : 881,
+    "maxY" : 874,
     "prop" : {
-      "x" : 678,
-      "y" : 832,
-      "width" : 102,
-      "height" : 49
+      "x" : 643,
+      "y" : 843,
+      "width" : 123,
+      "height" : 31
     },
     "textPosition" : {
-      "x" : 689,
-      "y" : 832
+      "x" : 646,
+      "y" : 841
     },
     "connectors" : [ {
       "edgeId" : 257,
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
-          "x" : 693,
-          "y" : 826
+          "x" : 682,
+          "y" : 837
         },
         "to" : {
           "x" : 260,
@@ -530,16 +512,16 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 685,
-          "y" : 825
+          "x" : 674,
+          "y" : 836
         },
         "b" : {
-          "x" : 693,
-          "y" : 826
+          "x" : 682,
+          "y" : 837
         },
         "c" : {
-          "x" : 690,
-          "y" : 819
+          "x" : 679,
+          "y" : 830
         },
         "type" : "ARROW"
       }
@@ -555,7 +537,7 @@
       "y" : 796
     },
     "minX" : 21,
-    "maxX" : 780,
+    "maxX" : 260,
     "minY" : 533,
     "maxY" : 807,
     "prop" : {
@@ -623,7 +605,7 @@
       "y" : 816
     },
     "minX" : 260,
-    "maxX" : 797,
+    "maxX" : 418,
     "minY" : 533,
     "maxY" : 830,
     "prop" : {
@@ -691,7 +673,7 @@
       "y" : 613
     },
     "minX" : 144,
-    "maxX" : 597,
+    "maxX" : 260,
     "minY" : 533,
     "maxY" : 624,
     "prop" : {
@@ -755,30 +737,30 @@
     "schemaClass" : "DefinedSet",
     "renderableClass" : "EntitySet",
     "position" : {
-      "x" : 523,
-      "y" : 867
+      "x" : 493,
+      "y" : 874
     },
     "minX" : 260,
-    "maxX" : 572,
+    "maxX" : 542,
     "minY" : 533,
-    "maxY" : 878,
+    "maxY" : 885,
     "prop" : {
-      "x" : 474,
-      "y" : 857,
+      "x" : 444,
+      "y" : 864,
       "width" : 98,
       "height" : 21
     },
     "textPosition" : {
-      "x" : 482,
-      "y" : 857
+      "x" : 452,
+      "y" : 864
     },
     "connectors" : [ {
       "edgeId" : 257,
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
-          "x" : 514,
-          "y" : 851
+          "x" : 485,
+          "y" : 858
         },
         "to" : {
           "x" : 260,
@@ -790,16 +772,16 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 507,
-          "y" : 848
+          "x" : 478,
+          "y" : 855
         },
         "b" : {
-          "x" : 514,
-          "y" : 851
+          "x" : 485,
+          "y" : 858
         },
         "c" : {
-          "x" : 513,
-          "y" : 843
+          "x" : 484,
+          "y" : 850
         },
         "type" : "ARROW"
       }
@@ -812,21 +794,21 @@
     "renderableClass" : "EntitySet",
     "position" : {
       "x" : 59,
-      "y" : 871
+      "y" : 870
     },
     "minX" : 10,
     "maxX" : 260,
     "minY" : 533,
-    "maxY" : 896,
+    "maxY" : 895,
     "prop" : {
       "x" : 10,
-      "y" : 847,
+      "y" : 846,
       "width" : 98,
       "height" : 49
     },
     "textPosition" : {
       "x" : 18,
-      "y" : 847
+      "y" : 846
     },
     "connectors" : [ {
       "edgeId" : 257,
@@ -834,7 +816,7 @@
       "segments" : [ {
         "from" : {
           "x" : 73,
-          "y" : 841
+          "y" : 840
         },
         "to" : {
           "x" : 260,
@@ -847,15 +829,15 @@
       "endShape" : {
         "a" : {
           "x" : 73,
-          "y" : 833
+          "y" : 832
         },
         "b" : {
           "x" : 73,
-          "y" : 841
+          "y" : 840
         },
         "c" : {
           "x" : 80,
-          "y" : 837
+          "y" : 836
         },
         "type" : "ARROW"
       }
@@ -867,29 +849,29 @@
     "schemaClass" : "EntityWithAccessionedSequence",
     "renderableClass" : "Protein",
     "position" : {
-      "x" : 721,
-      "y" : 788
+      "x" : 709,
+      "y" : 794
     },
     "minX" : 260,
-    "maxX" : 781,
+    "maxX" : 761,
     "minY" : 533,
     "maxY" : 806,
     "prop" : {
-      "x" : 668,
-      "y" : 771,
-      "width" : 107,
-      "height" : 35
+      "x" : 664,
+      "y" : 783,
+      "width" : 91,
+      "height" : 23
     },
     "textPosition" : {
-      "x" : 677,
-      "y" : 778
+      "x" : 665,
+      "y" : 784
     },
     "interactorsSummary" : {
       "type" : "TR",
       "shape" : {
         "c" : {
-          "x" : 775,
-          "y" : 771
+          "x" : 755,
+          "y" : 783
         },
         "r" : 6,
         "type" : "CIRCLE",
@@ -902,7 +884,7 @@
       "segments" : [ {
         "from" : {
           "x" : 689,
-          "y" : 768
+          "y" : 780
         },
         "to" : {
           "x" : 260,
@@ -915,15 +897,15 @@
       "endShape" : {
         "a" : {
           "x" : 681,
-          "y" : 768
+          "y" : 780
         },
         "b" : {
           "x" : 689,
-          "y" : 768
+          "y" : 780
         },
         "c" : {
           "x" : 685,
-          "y" : 761
+          "y" : 773
         },
         "type" : "ARROW"
       }
@@ -995,7 +977,7 @@
       "y" : 659
     },
     "minX" : 192,
-    "maxX" : 643,
+    "maxX" : 260,
     "minY" : 533,
     "maxY" : 670,
     "prop" : {
@@ -1059,29 +1041,29 @@
     "schemaClass" : "EntityWithAccessionedSequence",
     "renderableClass" : "Protein",
     "position" : {
-      "x" : 680,
-      "y" : 957
+      "x" : 660,
+      "y" : 967
     },
     "minX" : 260,
-    "maxX" : 913,
+    "maxX" : 694,
     "minY" : 533,
-    "maxY" : 996,
+    "maxY" : 984,
     "prop" : {
-      "x" : 618,
-      "y" : 919,
-      "width" : 125,
-      "height" : 77
+      "x" : 632,
+      "y" : 951,
+      "width" : 56,
+      "height" : 33
     },
     "textPosition" : {
-      "x" : 662,
-      "y" : 947
+      "x" : 642,
+      "y" : 957
     },
     "interactorsSummary" : {
       "type" : "TR",
       "shape" : {
         "c" : {
-          "x" : 743,
-          "y" : 919
+          "x" : 688,
+          "y" : 951
         },
         "r" : 6,
         "type" : "CIRCLE",
@@ -1093,8 +1075,8 @@
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
-          "x" : 641,
-          "y" : 916
+          "x" : 644,
+          "y" : 948
         },
         "to" : {
           "x" : 260,
@@ -1106,16 +1088,16 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 633,
-          "y" : 914
+          "x" : 636,
+          "y" : 946
         },
         "b" : {
-          "x" : 641,
-          "y" : 916
+          "x" : 644,
+          "y" : 948
         },
         "c" : {
-          "x" : 639,
-          "y" : 908
+          "x" : 642,
+          "y" : 940
         },
         "type" : "ARROW"
       }
@@ -1130,7 +1112,7 @@
       "x" : 434,
       "y" : 224
     },
-    "minX" : 209,
+    "minX" : 413,
     "maxX" : 463,
     "minY" : 174,
     "maxY" : 239,
@@ -1220,17 +1202,17 @@
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 609,
+          "x" : 613,
           "y" : 202
         },
         "to" : {
-          "x" : 547,
-          "y" : 285
+          "x" : 583,
+          "y" : 253
         }
       }, {
         "from" : {
-          "x" : 547,
-          "y" : 285
+          "x" : 583,
+          "y" : 253
         },
         "to" : {
           "x" : 234,
@@ -1341,7 +1323,7 @@
       "x" : 557,
       "y" : 227
     },
-    "minX" : 212,
+    "minX" : 529,
     "maxX" : 580,
     "minY" : 174,
     "maxY" : 242,
@@ -1422,7 +1404,7 @@
       "x" : 678,
       "y" : 228
     },
-    "minX" : 213,
+    "minX" : 657,
     "maxX" : 716,
     "minY" : 174,
     "maxY" : 243,
@@ -1719,7 +1701,7 @@
       "x" : 806,
       "y" : 229
     },
-    "minX" : 214,
+    "minX" : 777,
     "maxX" : 829,
     "minY" : 174,
     "maxY" : 244,
@@ -1800,7 +1782,7 @@
       "x" : 940,
       "y" : 238
     },
-    "minX" : 223,
+    "minX" : 919,
     "maxX" : 966,
     "minY" : 172,
     "maxY" : 253,
@@ -1866,7 +1848,7 @@
       "x" : 1053,
       "y" : 238
     },
-    "minX" : 223,
+    "minX" : 1032,
     "maxX" : 1076,
     "minY" : 172,
     "maxY" : 253,
@@ -2093,22 +2075,22 @@
     "schemaClass" : "Complex",
     "renderableClass" : "Complex",
     "position" : {
-      "x" : 59,
-      "y" : 441
+      "x" : 43,
+      "y" : 487
     },
     "minX" : 4,
     "maxX" : 260,
-    "minY" : 423,
+    "minY" : 463,
     "maxY" : 533,
     "prop" : {
       "x" : 4,
-      "y" : 423,
-      "width" : 111,
-      "height" : 36
+      "y" : 463,
+      "width" : 78,
+      "height" : 49
     },
     "textPosition" : {
-      "x" : 4,
-      "y" : 424
+      "x" : 3,
+      "y" : 463
     },
     "bgColor" : {
       "r" : 204,
@@ -2120,8 +2102,8 @@
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
-          "x" : 98,
-          "y" : 462
+          "x" : 85,
+          "y" : 495
         },
         "to" : {
           "x" : 260,
@@ -2133,16 +2115,16 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 106,
-          "y" : 461
+          "x" : 93,
+          "y" : 493
         },
         "b" : {
-          "x" : 98,
-          "y" : 462
+          "x" : 85,
+          "y" : 495
         },
         "c" : {
-          "x" : 103,
-          "y" : 468
+          "x" : 91,
+          "y" : 500
         },
         "type" : "ARROW"
       }
@@ -2150,7 +2132,7 @@
   }, {
     "id" : 293,
     "reactomeId" : 5624346,
-    "displayName" : "INFG induced TRIMs",
+    "displayName" : "IFNG induced TRIMs",
     "schemaClass" : "CandidateSet",
     "renderableClass" : "EntitySet",
     "position" : {
@@ -2176,8 +2158,17 @@
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
-          "x" : 146,
+          "x" : 139,
           "y" : 359
+        },
+        "to" : {
+          "x" : 136,
+          "y" : 459
+        }
+      }, {
+        "from" : {
+          "x" : 136,
+          "y" : 459
         },
         "to" : {
           "x" : 260,
@@ -2189,16 +2180,16 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 153,
-          "y" : 363
+          "x" : 143,
+          "y" : 366
         },
         "b" : {
-          "x" : 146,
+          "x" : 139,
           "y" : 359
         },
         "c" : {
-          "x" : 146,
-          "y" : 367
+          "x" : 135,
+          "y" : 366
         },
         "type" : "ARROW"
       }
@@ -2213,7 +2204,7 @@
       "x" : 745,
       "y" : 267
     },
-    "minX" : 251,
+    "minX" : 719,
     "maxX" : 777,
     "minY" : 183,
     "maxY" : 278,
@@ -2281,7 +2272,7 @@
       "x" : 1200,
       "y" : 234
     },
-    "minX" : 218,
+    "minX" : 1167,
     "maxX" : 1257,
     "minY" : 173,
     "maxY" : 245,
@@ -2334,6 +2325,54 @@
           "type" : "BOX",
           "empty" : true
         }
+      }
+    } ]
+  }, {
+    "id" : 295,
+    "reactomeId" : 9034199,
+    "displayName" : "IFNG-regulated genes with GAS promoter elements",
+    "schemaClass" : "DefinedSet",
+    "renderableClass" : "EntitySet",
+    "position" : {
+      "x" : 496,
+      "y" : 467
+    },
+    "minX" : 428,
+    "maxX" : 565,
+    "minY" : 427,
+    "maxY" : 491,
+    "prop" : {
+      "x" : 428,
+      "y" : 444,
+      "width" : 137,
+      "height" : 47
+    },
+    "textPosition" : {
+      "x" : 427,
+      "y" : 443
+    },
+    "connectors" : [ {
+      "edgeId" : 257,
+      "type" : "INPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 254,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 458,
+          "y" : 438
+        },
+        "to" : {
+          "x" : 433,
+          "y" : 427
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
       }
     } ]
   }, {
@@ -2442,7 +2481,7 @@
       "x" : 1195,
       "y" : 381
     },
-    "minX" : 366,
+    "minX" : 1174,
     "maxX" : 1258,
     "minY" : 366,
     "maxY" : 396,
@@ -2508,7 +2547,7 @@
       "x" : 1198,
       "y" : 479
     },
-    "minX" : 464,
+    "minX" : 1177,
     "maxX" : 1258,
     "minY" : 451,
     "maxY" : 494,
@@ -2734,10 +2773,10 @@
       "x" : 669,
       "y" : 428
     },
-    "minX" : 426,
+    "minX" : 433,
     "maxX" : 729,
     "minY" : 411,
-    "maxY" : 609,
+    "maxY" : 632,
     "prop" : {
       "x" : 609,
       "y" : 411,
@@ -2758,12 +2797,12 @@
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 643,
+          "x" : 654,
           "y" : 449
         },
         "to" : {
-          "x" : 542,
-          "y" : 514
+          "x" : 574,
+          "y" : 542
         }
       } ],
       "stoichiometry" : {
@@ -2778,8 +2817,8 @@
           "y" : 449
         },
         "to" : {
-          "x" : 669,
-          "y" : 609
+          "x" : 672,
+          "y" : 632
         }
       } ],
       "stoichiometry" : {
@@ -2797,29 +2836,11 @@
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 628,
-          "y" : 449
+          "x" : 606,
+          "y" : 427
         },
         "to" : {
-          "x" : 576,
-          "y" : 468
-        }
-      }, {
-        "from" : {
-          "x" : 576,
-          "y" : 468
-        },
-        "to" : {
-          "x" : 460,
-          "y" : 468
-        }
-      }, {
-        "from" : {
-          "x" : 460,
-          "y" : 468
-        },
-        "to" : {
-          "x" : 426,
+          "x" : 433,
           "y" : 427
         }
       } ],
@@ -2834,29 +2855,29 @@
     "schemaClass" : "EntityWithAccessionedSequence",
     "renderableClass" : "Protein",
     "position" : {
-      "x" : 708,
-      "y" : 636
+      "x" : 711,
+      "y" : 659
     },
-    "minX" : 620,
-    "maxX" : 738,
-    "minY" : 609,
-    "maxY" : 647,
+    "minX" : 672,
+    "maxX" : 741,
+    "minY" : 632,
+    "maxY" : 670,
     "prop" : {
-      "x" : 684,
-      "y" : 626,
+      "x" : 687,
+      "y" : 649,
       "width" : 48,
       "height" : 21
     },
     "textPosition" : {
-      "x" : 688,
-      "y" : 626
+      "x" : 691,
+      "y" : 649
     },
     "interactorsSummary" : {
       "type" : "TR",
       "shape" : {
         "c" : {
-          "x" : 732,
-          "y" : 626
+          "x" : 735,
+          "y" : 649
         },
         "r" : 6,
         "type" : "CIRCLE",
@@ -2868,12 +2889,12 @@
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 692,
-          "y" : 623
+          "x" : 695,
+          "y" : 646
         },
         "to" : {
-          "x" : 669,
-          "y" : 609
+          "x" : 672,
+          "y" : 632
         }
       } ],
       "stoichiometry" : {
@@ -2887,29 +2908,29 @@
     "schemaClass" : "EntityWithAccessionedSequence",
     "renderableClass" : "Protein",
     "position" : {
-      "x" : 706,
-      "y" : 582
+      "x" : 718,
+      "y" : 606
     },
-    "minX" : 566,
-    "maxX" : 741,
-    "minY" : 566,
-    "maxY" : 609,
+    "minX" : 672,
+    "maxX" : 753,
+    "minY" : 590,
+    "maxY" : 632,
     "prop" : {
-      "x" : 678,
-      "y" : 572,
+      "x" : 690,
+      "y" : 596,
       "width" : 57,
       "height" : 21
     },
     "textPosition" : {
-      "x" : 682,
-      "y" : 572
+      "x" : 694,
+      "y" : 596
     },
     "interactorsSummary" : {
       "type" : "TR",
       "shape" : {
         "c" : {
-          "x" : 735,
-          "y" : 572
+          "x" : 747,
+          "y" : 596
         },
         "r" : 6,
         "type" : "CIRCLE",
@@ -2921,12 +2942,12 @@
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 691,
-          "y" : 596
+          "x" : 699,
+          "y" : 620
         },
         "to" : {
-          "x" : 669,
-          "y" : 609
+          "x" : 672,
+          "y" : 632
         }
       } ],
       "stoichiometry" : {
@@ -2940,22 +2961,22 @@
     "schemaClass" : "Complex",
     "renderableClass" : "Complex",
     "position" : {
-      "x" : 555,
-      "y" : 610
+      "x" : 558,
+      "y" : 633
     },
-    "minX" : 495,
-    "maxX" : 615,
-    "minY" : 593,
-    "maxY" : 628,
+    "minX" : 498,
+    "maxX" : 618,
+    "minY" : 616,
+    "maxY" : 651,
     "prop" : {
-      "x" : 495,
-      "y" : 593,
+      "x" : 498,
+      "y" : 616,
       "width" : 120,
       "height" : 35
     },
     "textPosition" : {
-      "x" : 503,
-      "y" : 593
+      "x" : 506,
+      "y" : 616
     },
     "bgColor" : {
       "r" : 204,
@@ -2977,22 +2998,22 @@
     "schemaClass" : "Complex",
     "renderableClass" : "Complex",
     "position" : {
-      "x" : 970,
-      "y" : 626
+      "x" : 948,
+      "y" : 624
     },
-    "minX" : 910,
+    "minX" : 888,
     "maxX" : 1072,
-    "minY" : 602,
-    "maxY" : 651,
+    "minY" : 600,
+    "maxY" : 649,
     "prop" : {
-      "x" : 910,
-      "y" : 602,
+      "x" : 888,
+      "y" : 600,
       "width" : 120,
       "height" : 49
     },
     "textPosition" : {
-      "x" : 918,
-      "y" : 602
+      "x" : 896,
+      "y" : 600
     },
     "bgColor" : {
       "r" : 204,
@@ -3011,8 +3032,8 @@
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
-          "x" : 1033,
-          "y" : 626
+          "x" : 1011,
+          "y" : 624
         },
         "to" : {
           "x" : 1072,
@@ -3024,16 +3045,16 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 1040,
-          "y" : 622
+          "x" : 1018,
+          "y" : 620
         },
         "b" : {
-          "x" : 1033,
-          "y" : 626
+          "x" : 1011,
+          "y" : 624
         },
         "c" : {
-          "x" : 1040,
-          "y" : 630
+          "x" : 1018,
+          "y" : 628
         },
         "type" : "ARROW"
       }
@@ -3045,29 +3066,29 @@
     "schemaClass" : "SimpleEntity",
     "renderableClass" : "Chemical",
     "position" : {
-      "x" : 1189,
-      "y" : 554
+      "x" : 1206,
+      "y" : 710
     },
-    "minX" : 539,
-    "maxX" : 1212,
-    "minY" : 539,
-    "maxY" : 626,
+    "minX" : 1157,
+    "maxX" : 1229,
+    "minY" : 626,
+    "maxY" : 725,
     "prop" : {
-      "x" : 1168,
-      "y" : 540,
+      "x" : 1185,
+      "y" : 696,
       "width" : 43,
       "height" : 29
     },
     "textPosition" : {
-      "x" : 1174,
-      "y" : 544
+      "x" : 1191,
+      "y" : 700
     },
     "interactorsSummary" : {
       "type" : "TR",
       "shape" : {
         "c" : {
-          "x" : 1206,
-          "y" : 545
+          "x" : 1223,
+          "y" : 701
         },
         "r" : 6,
         "type" : "CIRCLE",
@@ -3079,8 +3100,8 @@
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 1182,
-          "y" : 572
+          "x" : 1197,
+          "y" : 693
         },
         "to" : {
           "x" : 1157,
@@ -3091,12 +3112,12 @@
         "value" : 2,
         "shape" : {
           "a" : {
-            "x" : 1163,
-            "y" : 593
+            "x" : 1171,
+            "y" : 653
           },
           "b" : {
-            "x" : 1175,
-            "y" : 605
+            "x" : 1183,
+            "y" : 665
           },
           "type" : "BOX",
           "empty" : true
@@ -3111,29 +3132,29 @@
     "schemaClass" : "SimpleEntity",
     "renderableClass" : "Chemical",
     "position" : {
-      "x" : 1041,
-      "y" : 556
+      "x" : 1016,
+      "y" : 694
     },
-    "minX" : 541,
+    "minX" : 995,
     "maxX" : 1072,
-    "minY" : 541,
-    "maxY" : 626,
+    "minY" : 626,
+    "maxY" : 709,
     "prop" : {
-      "x" : 1020,
-      "y" : 542,
+      "x" : 995,
+      "y" : 680,
       "width" : 43,
       "height" : 29
     },
     "textPosition" : {
-      "x" : 1025,
-      "y" : 546
+      "x" : 1000,
+      "y" : 684
     },
     "interactorsSummary" : {
       "type" : "TR",
       "shape" : {
         "c" : {
-          "x" : 1058,
-          "y" : 547
+          "x" : 1033,
+          "y" : 685
         },
         "r" : 6,
         "type" : "CIRCLE",
@@ -3145,8 +3166,8 @@
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
-          "x" : 1047,
-          "y" : 574
+          "x" : 1027,
+          "y" : 677
         },
         "to" : {
           "x" : 1072,
@@ -3157,12 +3178,12 @@
         "value" : 2,
         "shape" : {
           "a" : {
-            "x" : 1053,
-            "y" : 594
+            "x" : 1043,
+            "y" : 645
           },
           "b" : {
-            "x" : 1065,
-            "y" : 606
+            "x" : 1055,
+            "y" : 657
           },
           "type" : "BOX",
           "empty" : true
@@ -3170,16 +3191,16 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 1054,
-          "y" : 579
+          "x" : 1029,
+          "y" : 669
         },
         "b" : {
-          "x" : 1047,
-          "y" : 574
+          "x" : 1027,
+          "y" : 677
         },
         "c" : {
-          "x" : 1046,
-          "y" : 582
+          "x" : 1035,
+          "y" : 674
         },
         "type" : "ARROW"
       }
@@ -3192,33 +3213,33 @@
     "schemaClass" : "DefinedSet",
     "renderableClass" : "EntitySet",
     "position" : {
-      "x" : 1119,
-      "y" : 509
+      "x" : 1116,
+      "y" : 565
     },
-    "minX" : 1055,
-    "maxX" : 1184,
-    "minY" : 492,
+    "minX" : 1052,
+    "maxX" : 1181,
+    "minY" : 548,
     "maxY" : 618,
     "prop" : {
-      "x" : 1055,
-      "y" : 492,
+      "x" : 1052,
+      "y" : 548,
       "width" : 129,
       "height" : 35
     },
     "textPosition" : {
-      "x" : 1066,
-      "y" : 492
+      "x" : 1063,
+      "y" : 548
     },
     "connectors" : [ {
       "edgeId" : 213,
       "type" : "CATALYST",
       "segments" : [ {
         "from" : {
-          "x" : 1119,
-          "y" : 533
+          "x" : 1116,
+          "y" : 589
         },
         "to" : {
-          "x" : 1119,
+          "x" : 1118,
           "y" : 610
         }
       } ],
@@ -3227,7 +3248,7 @@
       },
       "endShape" : {
         "c" : {
-          "x" : 1119,
+          "x" : 1118,
           "y" : 614
         },
         "r" : 4,
@@ -3235,43 +3256,6 @@
         "empty" : true
       }
     } ]
-  }, {
-    "id" : 224,
-    "reactomeId" : 210625,
-    "displayName" : "PTPN1",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "renderableClass" : "Protein",
-    "position" : {
-      "x" : 504,
-      "y" : 255
-    },
-    "minX" : 239,
-    "maxX" : 537,
-    "minY" : 239,
-    "maxY" : 266,
-    "prop" : {
-      "x" : 478,
-      "y" : 245,
-      "width" : 53,
-      "height" : 21
-    },
-    "textPosition" : {
-      "x" : 481,
-      "y" : 245
-    },
-    "interactorsSummary" : {
-      "type" : "TR",
-      "shape" : {
-        "c" : {
-          "x" : 531,
-          "y" : 245
-        },
-        "r" : 6,
-        "type" : "CIRCLE",
-        "empty" : true
-      }
-    },
-    "connectors" : [ ]
   }, {
     "id" : 225,
     "reactomeId" : 29356,
@@ -3282,7 +3266,7 @@
       "x" : 715,
       "y" : 320
     },
-    "minX" : 305,
+    "minX" : 637,
     "maxX" : 738,
     "minY" : 289,
     "maxY" : 335,
@@ -3414,33 +3398,33 @@
     "schemaClass" : "DefinedSet",
     "renderableClass" : "EntitySet",
     "position" : {
-      "x" : 470,
-      "y" : 344
+      "x" : 469,
+      "y" : 340
     },
-    "minX" : 412,
-    "maxX" : 528,
+    "minX" : 403,
+    "maxX" : 536,
     "minY" : 297,
-    "maxY" : 362,
+    "maxY" : 352,
     "prop" : {
-      "x" : 412,
-      "y" : 327,
-      "width" : 116,
-      "height" : 35
+      "x" : 403,
+      "y" : 328,
+      "width" : 133,
+      "height" : 24
     },
     "textPosition" : {
-      "x" : 422,
-      "y" : 327
+      "x" : 404,
+      "y" : 329
     },
     "connectors" : [ {
       "edgeId" : 164,
       "type" : "CATALYST",
       "segments" : [ {
         "from" : {
-          "x" : 470,
-          "y" : 321
+          "x" : 467,
+          "y" : 322
         },
         "to" : {
-          "x" : 471,
+          "x" : 464,
           "y" : 305
         }
       } ],
@@ -3449,7 +3433,7 @@
       },
       "endShape" : {
         "c" : {
-          "x" : 471,
+          "x" : 463,
           "y" : 301
         },
         "r" : 4,
@@ -3464,29 +3448,29 @@
     "schemaClass" : "EntityWithAccessionedSequence",
     "renderableClass" : "Protein",
     "position" : {
-      "x" : 384,
-      "y" : 480
+      "x" : 365,
+      "y" : 504
     },
-    "minX" : 353,
-    "maxX" : 463,
-    "minY" : 463,
-    "maxY" : 514,
+    "minX" : 334,
+    "maxX" : 440,
+    "minY" : 487,
+    "maxY" : 545,
     "prop" : {
-      "x" : 353,
-      "y" : 469,
+      "x" : 334,
+      "y" : 493,
       "width" : 62,
       "height" : 23
     },
     "textPosition" : {
-      "x" : 353,
-      "y" : 470
+      "x" : 334,
+      "y" : 494
     },
     "interactorsSummary" : {
       "type" : "TR",
       "shape" : {
         "c" : {
-          "x" : 415,
-          "y" : 469
+          "x" : 396,
+          "y" : 493
         },
         "r" : 6,
         "type" : "CIRCLE",
@@ -3498,24 +3482,24 @@
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
-          "x" : 399,
-          "y" : 495
+          "x" : 386,
+          "y" : 519
         },
         "to" : {
-          "x" : 429,
-          "y" : 514
+          "x" : 440,
+          "y" : 545
         }
       } ],
       "stoichiometry" : {
         "value" : 2,
         "shape" : {
           "a" : {
-            "x" : 408,
-            "y" : 498
+            "x" : 407,
+            "y" : 526
           },
           "b" : {
-            "x" : 420,
-            "y" : 510
+            "x" : 419,
+            "y" : 538
           },
           "type" : "BOX",
           "empty" : true
@@ -3523,16 +3507,16 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 407,
-          "y" : 495
+          "x" : 394,
+          "y" : 518
         },
         "b" : {
-          "x" : 399,
-          "y" : 495
+          "x" : 386,
+          "y" : 519
         },
         "c" : {
-          "x" : 403,
-          "y" : 502
+          "x" : 391,
+          "y" : 526
         },
         "type" : "ARROW"
       }
@@ -3544,29 +3528,29 @@
     "schemaClass" : "EntityWithAccessionedSequence",
     "renderableClass" : "Protein",
     "position" : {
-      "x" : 489,
-      "y" : 563
+      "x" : 486,
+      "y" : 591
     },
-    "minX" : 454,
-    "maxX" : 547,
-    "minY" : 522,
-    "maxY" : 574,
+    "minX" : 451,
+    "maxX" : 528,
+    "minY" : 556,
+    "maxY" : 602,
     "prop" : {
-      "x" : 454,
-      "y" : 553,
+      "x" : 451,
+      "y" : 581,
       "width" : 71,
       "height" : 21
     },
     "textPosition" : {
-      "x" : 458,
-      "y" : 553
+      "x" : 455,
+      "y" : 581
     },
     "interactorsSummary" : {
       "type" : "TR",
       "shape" : {
         "c" : {
-          "x" : 525,
-          "y" : 553
+          "x" : 522,
+          "y" : 581
         },
         "r" : 6,
         "type" : "CIRCLE",
@@ -3578,12 +3562,12 @@
       "type" : "CATALYST",
       "segments" : [ {
         "from" : {
-          "x" : 489,
-          "y" : 550
+          "x" : 486,
+          "y" : 578
         },
         "to" : {
-          "x" : 489,
-          "y" : 530
+          "x" : 487,
+          "y" : 564
         }
       } ],
       "stoichiometry" : {
@@ -3591,8 +3575,8 @@
       },
       "endShape" : {
         "c" : {
-          "x" : 489,
-          "y" : 526
+          "x" : 488,
+          "y" : 560
         },
         "r" : 4,
         "type" : "CIRCLE",
@@ -3606,29 +3590,29 @@
     "schemaClass" : "SimpleEntity",
     "renderableClass" : "Chemical",
     "position" : {
-      "x" : 585,
-      "y" : 545
+      "x" : 596,
+      "y" : 580
     },
-    "minX" : 530,
-    "maxX" : 608,
-    "minY" : 514,
-    "maxY" : 560,
+    "minX" : 574,
+    "maxX" : 619,
+    "minY" : 542,
+    "maxY" : 595,
     "prop" : {
-      "x" : 564,
-      "y" : 531,
+      "x" : 575,
+      "y" : 566,
       "width" : 43,
       "height" : 29
     },
     "textPosition" : {
-      "x" : 568,
-      "y" : 535
+      "x" : 579,
+      "y" : 570
     },
     "interactorsSummary" : {
       "type" : "TR",
       "shape" : {
         "c" : {
-          "x" : 602,
-          "y" : 536
+          "x" : 613,
+          "y" : 571
         },
         "r" : 6,
         "type" : "CIRCLE",
@@ -3640,12 +3624,12 @@
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 564,
-          "y" : 528
+          "x" : 587,
+          "y" : 563
         },
         "to" : {
-          "x" : 542,
-          "y" : 514
+          "x" : 574,
+          "y" : 542
         }
       } ],
       "stoichiometry" : {
@@ -3660,29 +3644,29 @@
     "schemaClass" : "SimpleEntity",
     "renderableClass" : "Chemical",
     "position" : {
-      "x" : 396,
-      "y" : 557
+      "x" : 362,
+      "y" : 564
     },
-    "minX" : 375,
-    "maxX" : 545,
-    "minY" : 514,
-    "maxY" : 569,
+    "minX" : 348,
+    "maxX" : 440,
+    "minY" : 545,
+    "maxY" : 577,
     "prop" : {
-      "x" : 375,
-      "y" : 546,
-      "width" : 42,
-      "height" : 23
+      "x" : 348,
+      "y" : 552,
+      "width" : 28,
+      "height" : 25
     },
     "textPosition" : {
-      "x" : 387,
-      "y" : 547
+      "x" : 353,
+      "y" : 554
     },
     "interactorsSummary" : {
       "type" : "TR",
       "shape" : {
         "c" : {
-          "x" : 412,
-          "y" : 551
+          "x" : 371,
+          "y" : 557
         },
         "r" : 6,
         "type" : "CIRCLE",
@@ -3694,24 +3678,24 @@
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
-          "x" : 404,
-          "y" : 543
+          "x" : 379,
+          "y" : 560
         },
         "to" : {
-          "x" : 429,
-          "y" : 514
+          "x" : 440,
+          "y" : 545
         }
       } ],
       "stoichiometry" : {
         "value" : 4,
         "shape" : {
           "a" : {
-            "x" : 410,
-            "y" : 522
+            "x" : 403,
+            "y" : 546
           },
           "b" : {
-            "x" : 422,
-            "y" : 534
+            "x" : 415,
+            "y" : 558
           },
           "type" : "BOX",
           "empty" : true
@@ -3719,62 +3703,21 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 405,
-          "y" : 535
+          "x" : 385,
+          "y" : 554
         },
         "b" : {
-          "x" : 404,
-          "y" : 543
+          "x" : 379,
+          "y" : 560
         },
         "c" : {
-          "x" : 412,
-          "y" : 540
+          "x" : 387,
+          "y" : 562
         },
         "type" : "ARROW"
       }
     } ],
     "trivial" : true
-  }, {
-    "id" : 255,
-    "reactomeId" : 1031708,
-    "displayName" : "GAS promoter region in IFNG-regulated genes",
-    "schemaClass" : "OtherEntity",
-    "renderableClass" : "Entity",
-    "position" : {
-      "x" : 535,
-      "y" : 428
-    },
-    "minX" : 426,
-    "maxX" : 598,
-    "minY" : 404,
-    "maxY" : 453,
-    "prop" : {
-      "x" : 473,
-      "y" : 404,
-      "width" : 125,
-      "height" : 49
-    },
-    "textPosition" : {
-      "x" : 485,
-      "y" : 404
-    },
-    "connectors" : [ {
-      "edgeId" : 254,
-      "type" : "INPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 470,
-          "y" : 427
-        },
-        "to" : {
-          "x" : 426,
-          "y" : 427
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      }
-    } ]
   } ],
   "edges" : [ {
     "id" : 32,
@@ -3863,6 +3806,157 @@
       } ]
     } ]
   }, {
+    "id" : 257,
+    "reactomeId" : 1031716,
+    "displayName" : "Expression of IFNG-stimulated genes",
+    "schemaClass" : "BlackBoxEvent",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 283,
+      "y" : 474
+    },
+    "minX" : 260,
+    "maxX" : 422,
+    "minY" : 468,
+    "maxY" : 533,
+    "reactionType" : "Omitted Process",
+    "segments" : [ {
+      "from" : {
+        "x" : 422,
+        "y" : 469
+      },
+      "to" : {
+        "x" : 283,
+        "y" : 474
+      }
+    }, {
+      "from" : {
+        "x" : 283,
+        "y" : 474
+      },
+      "to" : {
+        "x" : 260,
+        "y" : 533
+      }
+    } ],
+    "reactionShape" : {
+      "a" : {
+        "x" : 277,
+        "y" : 468
+      },
+      "b" : {
+        "x" : 289,
+        "y" : 480
+      },
+      "s" : "\\\\",
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 295
+    } ],
+    "outputs" : [ {
+      "id" : 264,
+      "points" : [ {
+        "x" : 175,
+        "y" : 600
+      } ]
+    }, {
+      "id" : 262,
+      "points" : [ {
+        "x" : 60,
+        "y" : 783
+      } ]
+    }, {
+      "id" : 260,
+      "points" : [ {
+        "x" : 75,
+        "y" : 631
+      } ]
+    }, {
+      "id" : 268,
+      "points" : [ {
+        "x" : 253,
+        "y" : 823
+      } ]
+    }, {
+      "id" : 266,
+      "points" : [ {
+        "x" : 73,
+        "y" : 840
+      } ]
+    }, {
+      "id" : 265,
+      "points" : [ {
+        "x" : 485,
+        "y" : 858
+      } ]
+    }, {
+      "id" : 259,
+      "points" : [ {
+        "x" : 203,
+        "y" : 538
+      } ]
+    }, {
+      "id" : 270,
+      "points" : [ {
+        "x" : 644,
+        "y" : 948
+      } ]
+    }, {
+      "id" : 269,
+      "points" : [ {
+        "x" : 221,
+        "y" : 646
+      } ]
+    }, {
+      "id" : 258,
+      "points" : [ {
+        "x" : 323,
+        "y" : 863
+      } ]
+    }, {
+      "id" : 267,
+      "points" : [ {
+        "x" : 689,
+        "y" : 780
+      } ]
+    }, {
+      "id" : 261,
+      "points" : [ {
+        "x" : 682,
+        "y" : 837
+      } ]
+    }, {
+      "id" : 263,
+      "points" : [ {
+        "x" : 380,
+        "y" : 800
+      } ]
+    }, {
+      "id" : 293,
+      "points" : [ {
+        "x" : 139,
+        "y" : 359
+      }, {
+        "x" : 136,
+        "y" : 459
+      } ]
+    }, {
+      "id" : 292,
+      "points" : [ {
+        "x" : 85,
+        "y" : 495
+      } ]
+    } ],
+    "activators" : [ {
+      "id" : 256,
+      "points" : [ {
+        "x" : 282,
+        "y" : 443
+      } ]
+    } ]
+  }, {
     "id" : 1,
     "reactomeId" : 873926,
     "displayName" : "Interaction of IFNG with IFNGR",
@@ -3936,157 +4030,6 @@
       "id" : 4
     } ]
   }, {
-    "id" : 257,
-    "reactomeId" : 1031716,
-    "displayName" : "Expression of IFNG-stimulated genes",
-    "schemaClass" : "BlackBoxEvent",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 283,
-      "y" : 508
-    },
-    "minX" : 260,
-    "maxX" : 289,
-    "minY" : 471,
-    "maxY" : 533,
-    "reactionType" : "Omitted Process",
-    "segments" : [ {
-      "from" : {
-        "x" : 283,
-        "y" : 471
-      },
-      "to" : {
-        "x" : 283,
-        "y" : 508
-      }
-    }, {
-      "from" : {
-        "x" : 283,
-        "y" : 508
-      },
-      "to" : {
-        "x" : 260,
-        "y" : 533
-      }
-    } ],
-    "reactionShape" : {
-      "a" : {
-        "x" : 277,
-        "y" : 502
-      },
-      "b" : {
-        "x" : 289,
-        "y" : 514
-      },
-      "s" : "\\\\",
-      "type" : "BOX",
-      "empty" : true
-    },
-    "outputs" : [ {
-      "id" : 264,
-      "points" : [ {
-        "x" : 175,
-        "y" : 600
-      } ]
-    }, {
-      "id" : 262,
-      "points" : [ {
-        "x" : 60,
-        "y" : 783
-      } ]
-    }, {
-      "id" : 260,
-      "points" : [ {
-        "x" : 75,
-        "y" : 631
-      } ]
-    }, {
-      "id" : 268,
-      "points" : [ {
-        "x" : 253,
-        "y" : 823
-      } ]
-    }, {
-      "id" : 266,
-      "points" : [ {
-        "x" : 73,
-        "y" : 841
-      } ]
-    }, {
-      "id" : 265,
-      "points" : [ {
-        "x" : 514,
-        "y" : 851
-      } ]
-    }, {
-      "id" : 259,
-      "points" : [ {
-        "x" : 203,
-        "y" : 538
-      } ]
-    }, {
-      "id" : 270,
-      "points" : [ {
-        "x" : 641,
-        "y" : 916
-      } ]
-    }, {
-      "id" : 269,
-      "points" : [ {
-        "x" : 221,
-        "y" : 646
-      } ]
-    }, {
-      "id" : 258,
-      "points" : [ {
-        "x" : 323,
-        "y" : 863
-      } ]
-    }, {
-      "id" : 267,
-      "points" : [ {
-        "x" : 689,
-        "y" : 768
-      } ]
-    }, {
-      "id" : 261,
-      "points" : [ {
-        "x" : 693,
-        "y" : 826
-      } ]
-    }, {
-      "id" : 263,
-      "points" : [ {
-        "x" : 380,
-        "y" : 800
-      } ]
-    }, {
-      "id" : 293,
-      "points" : [ {
-        "x" : 146,
-        "y" : 359
-      } ]
-    }, {
-      "id" : 292,
-      "points" : [ {
-        "x" : 98,
-        "y" : 462
-      } ]
-    } ],
-    "activators" : [ {
-      "id" : 256,
-      "points" : [ {
-        "x" : 240,
-        "y" : 425
-      }, {
-        "x" : 216,
-        "y" : 425
-      }, {
-        "x" : 216,
-        "y" : 507
-      } ]
-    } ]
-  }, {
     "id" : 162,
     "reactomeId" : 877269,
     "displayName" : "SOCS-1 and SOCS-3 binds to p-JAK2",
@@ -4152,11 +4095,11 @@
     }, {
       "id" : 24,
       "points" : [ {
-        "x" : 609,
+        "x" : 613,
         "y" : 202
       }, {
-        "x" : 547,
-        "y" : 285
+        "x" : 583,
+        "y" : 253
       } ]
     } ],
     "outputs" : [ {
@@ -4170,39 +4113,39 @@
     "renderableClass" : "Reaction",
     "position" : {
       "x" : 489,
-      "y" : 514
+      "y" : 548
     },
-    "minX" : 429,
-    "maxX" : 542,
-    "minY" : 508,
-    "maxY" : 520,
+    "minX" : 440,
+    "maxX" : 574,
+    "minY" : 542,
+    "maxY" : 554,
     "segments" : [ {
       "from" : {
-        "x" : 542,
-        "y" : 514
+        "x" : 574,
+        "y" : 542
       },
       "to" : {
         "x" : 489,
-        "y" : 514
+        "y" : 548
       }
     }, {
       "from" : {
         "x" : 489,
-        "y" : 514
+        "y" : 548
       },
       "to" : {
-        "x" : 429,
-        "y" : 514
+        "x" : 440,
+        "y" : 545
       }
     } ],
     "reactionShape" : {
       "a" : {
         "x" : 483,
-        "y" : 508
+        "y" : 542
       },
       "b" : {
         "x" : 495,
-        "y" : 520
+        "y" : 554
       },
       "type" : "BOX",
       "empty" : true
@@ -4210,36 +4153,36 @@
     "inputs" : [ {
       "id" : 236,
       "points" : [ {
-        "x" : 564,
-        "y" : 528
+        "x" : 587,
+        "y" : 563
       } ]
     }, {
       "id" : 48,
       "points" : [ {
-        "x" : 643,
+        "x" : 654,
         "y" : 449
       } ]
     } ],
     "outputs" : [ {
       "id" : 230,
       "points" : [ {
-        "x" : 399,
-        "y" : 495
+        "x" : 386,
+        "y" : 519
       } ],
       "stoichiometry" : 2
     }, {
       "id" : 245,
       "points" : [ {
-        "x" : 404,
-        "y" : 543
+        "x" : 379,
+        "y" : 560
       } ],
       "stoichiometry" : 4
     } ],
     "catalysts" : [ {
       "id" : 232,
       "points" : [ {
-        "x" : 489,
-        "y" : 550
+        "x" : 486,
+        "y" : 578
       } ]
     } ]
   }, {
@@ -4249,7 +4192,7 @@
     "schemaClass" : "Reaction",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 471,
+      "x" : 461,
       "y" : 289
     },
     "minX" : 408,
@@ -4263,12 +4206,12 @@
         "y" : 289
       },
       "to" : {
-        "x" : 471,
+        "x" : 461,
         "y" : 289
       }
     }, {
       "from" : {
-        "x" : 471,
+        "x" : 461,
         "y" : 289
       },
       "to" : {
@@ -4278,11 +4221,11 @@
     } ],
     "reactionShape" : {
       "a" : {
-        "x" : 465,
+        "x" : 455,
         "y" : 283
       },
       "b" : {
-        "x" : 477,
+        "x" : 467,
         "y" : 295
       },
       "type" : "BOX",
@@ -4321,8 +4264,8 @@
     "catalysts" : [ {
       "id" : 227,
       "points" : [ {
-        "x" : 470,
-        "y" : 321
+        "x" : 467,
+        "y" : 322
       } ]
     } ]
   }, {
@@ -4406,52 +4349,52 @@
     "schemaClass" : "Reaction",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 642,
-      "y" : 609
+      "x" : 645,
+      "y" : 632
     },
-    "minX" : 618,
-    "maxX" : 669,
-    "minY" : 604,
-    "maxY" : 614,
+    "minX" : 621,
+    "maxX" : 672,
+    "minY" : 627,
+    "maxY" : 637,
     "reactionType" : "Association",
     "segments" : [ {
       "from" : {
-        "x" : 669,
-        "y" : 609
+        "x" : 672,
+        "y" : 632
       },
       "to" : {
-        "x" : 642,
-        "y" : 609
+        "x" : 645,
+        "y" : 632
       }
     }, {
       "from" : {
-        "x" : 642,
-        "y" : 609
+        "x" : 645,
+        "y" : 632
       },
       "to" : {
-        "x" : 618,
-        "y" : 609
+        "x" : 621,
+        "y" : 632
       }
     } ],
     "endShape" : {
       "a" : {
-        "x" : 625,
-        "y" : 605
+        "x" : 628,
+        "y" : 628
       },
       "b" : {
-        "x" : 618,
-        "y" : 609
+        "x" : 621,
+        "y" : 632
       },
       "c" : {
-        "x" : 625,
-        "y" : 613
+        "x" : 628,
+        "y" : 636
       },
       "type" : "ARROW"
     },
     "reactionShape" : {
       "c" : {
-        "x" : 642,
-        "y" : 609
+        "x" : 645,
+        "y" : 632
       },
       "r" : 5,
       "type" : "CIRCLE"
@@ -4459,8 +4402,8 @@
     "inputs" : [ {
       "id" : 199,
       "points" : [ {
-        "x" : 692,
-        "y" : 623
+        "x" : 695,
+        "y" : 646
       } ]
     }, {
       "id" : 48,
@@ -4471,8 +4414,8 @@
     }, {
       "id" : 200,
       "points" : [ {
-        "x" : 691,
-        "y" : 596
+        "x" : 699,
+        "y" : 620
       } ]
     } ],
     "outputs" : [ {
@@ -4571,26 +4514,26 @@
     "schemaClass" : "Reaction",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 956,
+      "x" : 947,
       "y" : 564
     },
-    "minX" : 946,
-    "maxX" : 964,
+    "minX" : 942,
+    "maxX" : 952,
     "minY" : 531,
-    "maxY" : 599,
+    "maxY" : 597,
     "reactionType" : "Dissociation",
     "segments" : [ {
       "from" : {
-        "x" : 964,
-        "y" : 599
+        "x" : 947,
+        "y" : 597
       },
       "to" : {
-        "x" : 956,
+        "x" : 947,
         "y" : 564
       }
     }, {
       "from" : {
-        "x" : 956,
+        "x" : 947,
         "y" : 564
       },
       "to" : {
@@ -4600,7 +4543,7 @@
     } ],
     "reactionShape" : {
       "c" : {
-        "x" : 956,
+        "x" : 947,
         "y" : 564
       },
       "r" : 5,
@@ -4739,8 +4682,8 @@
     "inputs" : [ {
       "id" : 214,
       "points" : [ {
-        "x" : 1182,
-        "y" : 572
+        "x" : 1197,
+        "y" : 693
       } ],
       "stoichiometry" : 2
     }, {
@@ -4753,22 +4696,22 @@
     "outputs" : [ {
       "id" : 212,
       "points" : [ {
-        "x" : 1033,
-        "y" : 626
+        "x" : 1011,
+        "y" : 624
       } ]
     }, {
       "id" : 215,
       "points" : [ {
-        "x" : 1047,
-        "y" : 574
+        "x" : 1027,
+        "y" : 677
       } ],
       "stoichiometry" : 2
     } ],
     "catalysts" : [ {
       "id" : 216,
       "points" : [ {
-        "x" : 1119,
-        "y" : 533
+        "x" : 1116,
+        "y" : 589
       } ]
     } ]
   }, {
@@ -4972,13 +4915,14 @@
       "x" : 396,
       "y" : 427
     },
-    "minX" : 353,
-    "maxX" : 426,
-    "minY" : 421,
-    "maxY" : 433,
+    "minX" : 339,
+    "maxX" : 433,
+    "minY" : 420,
+    "maxY" : 432,
+    "reactionType" : "Association",
     "segments" : [ {
       "from" : {
-        "x" : 426,
+        "x" : 433,
         "y" : 427
       },
       "to" : {
@@ -4991,53 +4935,43 @@
         "y" : 427
       },
       "to" : {
-        "x" : 353,
-        "y" : 427
+        "x" : 339,
+        "y" : 420
       }
     } ],
     "endShape" : {
       "a" : {
-        "x" : 360,
-        "y" : 423
+        "x" : 346,
+        "y" : 417
       },
       "b" : {
-        "x" : 353,
-        "y" : 427
+        "x" : 339,
+        "y" : 420
       },
       "c" : {
-        "x" : 360,
-        "y" : 431
+        "x" : 345,
+        "y" : 425
       },
       "type" : "ARROW"
     },
     "reactionShape" : {
-      "a" : {
-        "x" : 390,
-        "y" : 421
+      "c" : {
+        "x" : 396,
+        "y" : 427
       },
-      "b" : {
-        "x" : 402,
-        "y" : 433
-      },
-      "type" : "BOX",
-      "empty" : true
+      "r" : 5,
+      "type" : "CIRCLE"
     },
     "inputs" : [ {
-      "id" : 48,
+      "id" : 295,
       "points" : [ {
-        "x" : 628,
-        "y" : 449
-      }, {
-        "x" : 576,
-        "y" : 468
-      }, {
-        "x" : 460,
-        "y" : 468
+        "x" : 458,
+        "y" : 438
       } ]
     }, {
-      "id" : 255,
+      "id" : 48,
       "points" : [ {
-        "x" : 470,
+        "x" : 606,
         "y" : 427
       } ]
     } ],
@@ -5049,29 +4983,29 @@
     "id" : 288,
     "reactomeId" : 161320,
     "displayName" : "lysosomal lumen",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
-      "x" : 691,
-      "y" : 967
+      "x" : 698,
+      "y" : 986
     },
-    "minX" : 595,
-    "maxX" : 787,
-    "minY" : 904,
-    "maxY" : 1031,
+    "minX" : 602,
+    "maxX" : 794,
+    "minY" : 923,
+    "maxY" : 1050,
     "prop" : {
-      "x" : 595,
-      "y" : 904,
+      "x" : 602,
+      "y" : 923,
       "width" : 192,
       "height" : 127
     },
     "textPosition" : {
-      "x" : 636,
-      "y" : 992
+      "x" : 643,
+      "y" : 1011
     },
     "insets" : {
-      "x" : 605,
-      "y" : 914,
+      "x" : 612,
+      "y" : 933,
       "width" : 172,
       "height" : 107
     },
@@ -5085,7 +5019,7 @@
     "id" : 208,
     "reactomeId" : 7660,
     "displayName" : "nucleoplasm",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 441,
@@ -5102,8 +5036,8 @@
       "height" : 379
     },
     "textPosition" : {
-      "x" : 374,
-      "y" : 577
+      "x" : 150,
+      "y" : 701
     },
     "insets" : {
       "x" : 118,
@@ -5116,12 +5050,12 @@
       "g" : 240,
       "b" : 240
     },
-    "componentIds" : [ 48, 47, 255, 256, 254, 230, 232, 236, 245, 228, 199, 200, 201, 198, 264, 257, 259, 269, 292 ]
+    "componentIds" : [ 48, 47, 256, 254, 230, 232, 236, 245, 228, 199, 200, 201, 198, 264, 257, 259, 269, 295 ]
   }, {
     "id" : 211,
     "reactomeId" : 70101,
     "displayName" : "cytosol",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 656,
@@ -5138,8 +5072,8 @@
       "height" : 914
     },
     "textPosition" : {
-      "x" : 777,
-      "y" : 313
+      "x" : 122,
+      "y" : 992
     },
     "insets" : {
       "x" : 61,
@@ -5152,36 +5086,36 @@
       "g" : 240,
       "b" : 240
     },
-    "componentIds" : [ 3, 159, 163, 1, 162, 164, 4, 23, 24, 25, 29, 30, 31, 33, 34, 35, 38, 39, 41, 42, 43, 45, 165, 208, 22, 28, 32, 37, 44, 40, 213, 216, 212, 215, 214, 224, 225, 226, 227, 268, 258, 260, 262, 266, 279, 288, 265, 263, 293 ]
+    "componentIds" : [ 3, 159, 163, 1, 162, 164, 4, 23, 24, 25, 29, 30, 31, 33, 34, 35, 38, 39, 41, 42, 43, 45, 165, 208, 22, 28, 32, 37, 44, 40, 213, 216, 212, 215, 214, 225, 226, 227, 268, 258, 260, 262, 266, 279, 288, 265, 263, 293, 290, 292 ]
   }, {
     "id" : 279,
     "reactomeId" : 17957,
     "displayName" : "endoplasmic reticulum lumen",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
-      "x" : 755,
-      "y" : 826
+      "x" : 774,
+      "y" : 830
     },
-    "minX" : 637,
-    "maxX" : 873,
-    "minY" : 756,
-    "maxY" : 897,
+    "minX" : 616,
+    "maxX" : 933,
+    "minY" : 761,
+    "maxY" : 899,
     "prop" : {
-      "x" : 637,
-      "y" : 756,
-      "width" : 236,
-      "height" : 141
+      "x" : 616,
+      "y" : 761,
+      "width" : 317,
+      "height" : 138
     },
     "textPosition" : {
-      "x" : 673,
-      "y" : 801
+      "x" : 731,
+      "y" : 804
     },
     "insets" : {
-      "x" : 647,
-      "y" : 766,
-      "width" : 216,
-      "height" : 121
+      "x" : 626,
+      "y" : 771,
+      "width" : 300,
+      "height" : 119
     },
     "bgColor" : {
       "r" : 250,
@@ -5195,31 +5129,40 @@
     "id" : 290,
     "renderableClass" : "EntitySetAndMemberLink",
     "position" : {
-      "x" : 625,
-      "y" : 300
+      "x" : 748,
+      "y" : 354
     },
-    "minX" : 534,
-    "maxX" : 716,
-    "minY" : 274,
-    "maxY" : 327,
+    "minX" : 542,
+    "maxX" : 754,
+    "minY" : 281,
+    "maxY" : 360,
     "segments" : [ {
       "from" : {
-        "x" : 716,
-        "y" : 274
+        "x" : 745,
+        "y" : 281
       },
       "to" : {
-        "x" : 534,
-        "y" : 327
+        "x" : 748,
+        "y" : 354
+      }
+    }, {
+      "from" : {
+        "x" : 748,
+        "y" : 354
+      },
+      "to" : {
+        "x" : 542,
+        "y" : 343
       }
     } ],
     "reactionShape" : {
       "a" : {
-        "x" : 619,
-        "y" : 294
+        "x" : 742,
+        "y" : 348
       },
       "b" : {
-        "x" : 631,
-        "y" : 306
+        "x" : 754,
+        "y" : 360
       },
       "type" : "BOX",
       "empty" : true
@@ -5230,65 +5173,26 @@
     "outputs" : [ {
       "id" : 227
     } ]
-  }, {
-    "id" : 291,
-    "renderableClass" : "EntitySetAndMemberLink",
-    "position" : {
-      "x" : 487,
-      "y" : 295
-    },
-    "minX" : 476,
-    "maxX" : 499,
-    "minY" : 269,
-    "maxY" : 321,
-    "segments" : [ {
-      "from" : {
-        "x" : 499,
-        "y" : 269
-      },
-      "to" : {
-        "x" : 476,
-        "y" : 321
-      }
-    } ],
-    "reactionShape" : {
-      "a" : {
-        "x" : 481,
-        "y" : 289
-      },
-      "b" : {
-        "x" : 493,
-        "y" : 301
-      },
-      "type" : "BOX",
-      "empty" : true
-    },
-    "inputs" : [ {
-      "id" : 224
-    } ],
-    "outputs" : [ {
-      "id" : 227
-    } ]
   } ],
   "shadows" : [ {
-    "id" : 294,
+    "id" : 296,
     "reactomeId" : 877312,
     "displayName" : "Regulation of IFNG signaling",
     "schemaClass" : "Pathway",
     "renderableClass" : "Shadow",
     "position" : {
       "x" : 465,
-      "y" : 398
+      "y" : 410
     },
     "minX" : -9,
     "maxX" : 939,
     "minY" : 140,
-    "maxY" : 657,
+    "maxY" : 680,
     "prop" : {
       "x" : -9,
       "y" : 140,
       "width" : 948,
-      "height" : 517
+      "height" : 540
     },
     "points" : [ {
       "x" : -9,
@@ -5298,10 +5202,10 @@
       "y" : 140
     }, {
       "x" : 939,
-      "y" : 657
+      "y" : 680
     }, {
       "x" : -9,
-      "y" : 657
+      "y" : 680
     } ],
     "colour" : "#4684ee"
   } ],

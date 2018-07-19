@@ -1,7 +1,7 @@
 {
   "dbId" : 432047,
   "stableId" : "R-HSA-432047",
-  "displayName" : "Diagram of Passive transport by Aquaporins",
+  "displayName" : "Passive transport by Aquaporins",
   "nodes" : [ {
     "id" : 32,
     "reactomeId" : 507881,
@@ -245,7 +245,7 @@
       "x" : 367,
       "y" : 132
     },
-    "minX" : 116,
+    "minX" : 346,
     "maxX" : 390,
     "minY" : 116,
     "maxY" : 147,
@@ -372,7 +372,7 @@
       "y" : 136
     },
     "minX" : 18,
-    "maxX" : 120,
+    "maxX" : 62,
     "minY" : 120,
     "maxY" : 151,
     "prop" : {
@@ -423,7 +423,7 @@
       "y" : 333
     },
     "minX" : 49,
-    "maxX" : 317,
+    "maxX" : 114,
     "minY" : 317,
     "maxY" : 348,
     "prop" : {
@@ -473,7 +473,7 @@
       "x" : 345,
       "y" : 328
     },
-    "minX" : 312,
+    "minX" : 313,
     "maxX" : 379,
     "minY" : 312,
     "maxY" : 343,
@@ -600,7 +600,7 @@
       "y" : 476
     },
     "minX" : 87,
-    "maxX" : 460,
+    "maxX" : 132,
     "minY" : 460,
     "maxY" : 491,
     "prop" : {
@@ -651,7 +651,7 @@
       "y" : 471
     },
     "minX" : 284,
-    "maxX" : 455,
+    "maxX" : 329,
     "minY" : 455,
     "maxY" : 486,
     "prop" : {
@@ -1281,7 +1281,7 @@
     "id" : 2,
     "reactomeId" : 70101,
     "displayName" : "cytosol",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 413,
@@ -1317,7 +1317,7 @@
     "id" : 3,
     "reactomeId" : 432051,
     "displayName" : "transport vesicle",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 527,

@@ -216,10 +216,16 @@ public class DiagramRendererTest {
 	}
 
 	@Test
+	public void testSubpathwaySeveralTimes() {
+		final RasterArgs args = new RasterArgs("R-HSA-373076", "png");
+		final AnalysisStoredResult result = TestUtils.getResult(TestUtils.TOKEN_OVER_1);
+		TestUtils.render(args, result);
+	}
+	@Test
 	public void testChemicalDrug() {
 		final RasterArgs args = new RasterArgs("R-HSA-2894858", "png");
 		args.setQuality(10);
-//		args.setSelected(Collections.singleton("113582"));
+		args.setSelected(Collections.singleton("113582"));
 		TestUtils.render(args, null);
 	}
 
@@ -238,12 +244,6 @@ public class DiagramRendererTest {
 		final RasterArgs args = new RasterArgs("R-HSA-376176", "svg");
 		IntStream.range(0, 20).parallel()
 				.forEach(value -> TestUtils.render(args, result));
-	}
-
-	@Test
-	public void testDuplicatedSubPathway() {
-		final RasterArgs args = new RasterArgs("R-GGA-437987", "png");
-		TestUtils.render(args, null);
 	}
 
 	@Test

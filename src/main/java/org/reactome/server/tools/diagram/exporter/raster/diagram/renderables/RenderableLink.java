@@ -1,25 +1,17 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.renderables;
 
-import org.reactome.server.tools.diagram.data.layout.EdgeCommon;
+import org.reactome.server.tools.diagram.data.layout.Link;
 import org.reactome.server.tools.diagram.data.layout.Shape;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.EdgeRenderer;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.LinkRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.NodeColorSheet;
 
 import java.util.Collections;
 import java.util.List;
 
-public class RenderableLink extends RenderableEdge {
-	private static final LinkRenderer renderer = new LinkRenderer();
+public class RenderableLink extends RenderableEdgeCommon<Link> {
 
-	public RenderableLink(EdgeCommon edge) {
+	RenderableLink(Link edge) {
 		super(edge);
-	}
-
-	@Override
-	public EdgeRenderer getRenderer() {
-		return renderer;
 	}
 
 	@Override

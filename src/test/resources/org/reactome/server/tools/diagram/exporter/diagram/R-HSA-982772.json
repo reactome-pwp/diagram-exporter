@@ -1,7 +1,7 @@
 {
   "dbId" : 982772,
   "stableId" : "R-HSA-982772",
-  "displayName" : "Diagram of Growth hormone receptor signaling",
+  "displayName" : "Growth hormone receptor signaling",
   "nodes" : [ {
     "id" : 135,
     "reactomeId" : 507919,
@@ -93,7 +93,7 @@
       "x" : 708,
       "y" : 229
     },
-    "minX" : 205,
+    "minX" : 579,
     "maxX" : 771,
     "minY" : 192,
     "maxY" : 247,
@@ -176,7 +176,7 @@
       "x" : 613,
       "y" : 269
     },
-    "minX" : 252,
+    "minX" : 579,
     "maxX" : 637,
     "minY" : 229,
     "maxY" : 280,
@@ -509,7 +509,7 @@
       "y" : 641
     },
     "minX" : 458,
-    "maxX" : 625,
+    "maxX" : 548,
     "minY" : 593,
     "maxY" : 656,
     "prop" : {
@@ -883,7 +883,7 @@
       "y" : 974
     },
     "minX" : 331,
-    "maxX" : 958,
+    "maxX" : 443,
     "minY" : 958,
     "maxY" : 993,
     "prop" : {
@@ -949,7 +949,7 @@
       "y" : 1056
     },
     "minX" : 331,
-    "maxX" : 1040,
+    "maxX" : 449,
     "minY" : 1039,
     "maxY" : 1071,
     "prop" : {
@@ -1339,7 +1339,7 @@
       "y" : 1375
     },
     "minX" : 340,
-    "maxX" : 1359,
+    "maxX" : 469,
     "minY" : 1359,
     "maxY" : 1392,
     "prop" : {
@@ -1405,7 +1405,7 @@
       "y" : 1454
     },
     "minX" : 340,
-    "maxX" : 1438,
+    "maxX" : 470,
     "minY" : 1435,
     "maxY" : 1469,
     "prop" : {
@@ -1628,7 +1628,7 @@
       "x" : 761,
       "y" : 496
     },
-    "minX" : 479,
+    "minX" : 745,
     "maxX" : 821,
     "minY" : 435,
     "maxY" : 507,
@@ -1793,7 +1793,7 @@
       "x" : 927,
       "y" : 471
     },
-    "minX" : 455,
+    "minX" : 896,
     "maxX" : 948,
     "minY" : 455,
     "maxY" : 513,
@@ -1859,7 +1859,7 @@
       "x" : 940,
       "y" : 595
     },
-    "minX" : 579,
+    "minX" : 896,
     "maxX" : 962,
     "minY" : 559,
     "maxY" : 610,
@@ -2124,7 +2124,7 @@
       "x" : 883,
       "y" : 750
     },
-    "minX" : 734,
+    "minX" : 863,
     "maxX" : 938,
     "minY" : 734,
     "maxY" : 770,
@@ -2251,7 +2251,7 @@
       "x" : 883,
       "y" : 875
     },
-    "minX" : 859,
+    "minX" : 863,
     "maxX" : 938,
     "minY" : 854,
     "maxY" : 890,
@@ -2489,7 +2489,7 @@
       "y" : 1225
     },
     "minX" : 560,
-    "maxX" : 1208,
+    "maxX" : 667,
     "minY" : 1190,
     "maxY" : 1236,
     "prop" : {
@@ -2688,7 +2688,7 @@
       "y" : 1274
     },
     "minX" : 886,
-    "maxX" : 1258,
+    "maxX" : 986,
     "minY" : 1258,
     "maxY" : 1349,
     "prop" : {
@@ -2815,7 +2815,7 @@
       "y" : 1456
     },
     "minX" : 888,
-    "maxX" : 1440,
+    "maxX" : 986,
     "minY" : 1394,
     "maxY" : 1471,
     "prop" : {
@@ -2896,7 +2896,7 @@
       "y" : 1515
     },
     "minX" : 887,
-    "maxX" : 1499,
+    "maxX" : 993,
     "minY" : 1499,
     "maxY" : 1541,
     "prop" : {
@@ -3023,7 +3023,7 @@
       "y" : 1717
     },
     "minX" : 906,
-    "maxX" : 1701,
+    "maxX" : 991,
     "minY" : 1613,
     "maxY" : 1732,
     "prop" : {
@@ -3104,7 +3104,7 @@
       "y" : 1646
     },
     "minX" : 557,
-    "maxX" : 1630,
+    "maxX" : 647,
     "minY" : 1604,
     "maxY" : 1656,
     "prop" : {
@@ -3296,7 +3296,7 @@
       "y" : 1862
     },
     "minX" : 348,
-    "maxX" : 1846,
+    "maxX" : 501,
     "minY" : 1768,
     "maxY" : 1877,
     "prop" : {
@@ -3376,7 +3376,7 @@
       "x" : 946,
       "y" : 175
     },
-    "minX" : 151,
+    "minX" : 583,
     "maxX" : 1009,
     "minY" : 151,
     "maxY" : 319,
@@ -3476,7 +3476,7 @@
       "x" : 1006,
       "y" : 325
     },
-    "minX" : 287,
+    "minX" : 889,
     "maxX" : 1073,
     "minY" : 287,
     "maxY" : 357,
@@ -3544,7 +3544,7 @@
       "x" : 849,
       "y" : 236
     },
-    "minX" : 212,
+    "minX" : 797,
     "maxX" : 907,
     "minY" : 212,
     "maxY" : 286,
@@ -3606,7 +3606,7 @@
       "x" : 622,
       "y" : 347
     },
-    "minX" : 323,
+    "minX" : 565,
     "maxX" : 685,
     "minY" : 323,
     "maxY" : 365,
@@ -3957,7 +3957,7 @@
       "y" : 684
     },
     "minX" : 442,
-    "maxX" : 668,
+    "maxX" : 499,
     "minY" : 668,
     "maxY" : 699,
     "prop" : {
@@ -4023,7 +4023,7 @@
       "y" : 734
     },
     "minX" : 435,
-    "maxX" : 718,
+    "maxX" : 511,
     "minY" : 718,
     "maxY" : 749,
     "prop" : {
@@ -4253,7 +4253,7 @@
   }, {
     "id" : 134,
     "reactomeId" : 452102,
-    "displayName" : "Phosphorylated STAT5 dimerizes",
+    "displayName" : "p-STAT5 dimerizes",
     "schemaClass" : "Reaction",
     "renderableClass" : "Reaction",
     "position" : {
@@ -4317,7 +4317,7 @@
   }, {
     "id" : 136,
     "reactomeId" : 507937,
-    "displayName" : "STAT5 dimers translocate to the nucleus and bind to specific DNA sequences",
+    "displayName" : "STAT5 dimers translocate to the nucleus",
     "schemaClass" : "BlackBoxEvent",
     "renderableClass" : "Reaction",
     "position" : {
@@ -6179,7 +6179,7 @@
     "id" : 1,
     "reactomeId" : 70101,
     "displayName" : "cytosol",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 678,
@@ -6215,7 +6215,7 @@
     "id" : 104,
     "reactomeId" : 171907,
     "displayName" : "endosome lumen",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 621,
@@ -6251,7 +6251,7 @@
     "id" : 108,
     "reactomeId" : 7660,
     "displayName" : "nucleoplasm",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 681,
@@ -6404,8 +6404,8 @@
     } ]
   } ],
   "shadows" : [ ],
-  "minX" : 151,
-  "maxX" : 1846,
+  "minX" : 184,
+  "maxX" : 1193,
   "minY" : 87,
   "maxY" : 1911,
   "disease" : false
