@@ -75,7 +75,7 @@
       "y" : 267
     },
     "connectors" : [ {
-      "edgeId" : 98720,
+      "edgeId" : 98712,
       "type" : "OUTPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -175,7 +175,7 @@
       "y" : 610
     },
     "connectors" : [ {
-      "edgeId" : 98711,
+      "edgeId" : 98703,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -192,7 +192,7 @@
       },
       "isDisease" : true
     }, {
-      "edgeId" : 98717,
+      "edgeId" : 98709,
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
@@ -397,7 +397,7 @@
         "value" : 1
       }
     }, {
-      "edgeId" : 98714,
+      "edgeId" : 98706,
       "type" : "OUTPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -588,7 +588,7 @@
         "empty" : true
       }
     }, {
-      "edgeId" : 98724,
+      "edgeId" : 98716,
       "type" : "CATALYST",
       "segments" : [ {
         "from" : {
@@ -901,7 +901,7 @@
       }
     },
     "connectors" : [ {
-      "edgeId" : 98711,
+      "edgeId" : 98703,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -918,7 +918,7 @@
       },
       "isDisease" : true
     }, {
-      "edgeId" : 98717,
+      "edgeId" : 98709,
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
@@ -1099,7 +1099,7 @@
     "reactomeId" : 113582,
     "displayName" : "ADP",
     "schemaClass" : "SimpleEntity",
-    "renderableClass" : "ChemicalDrug",
+    "renderableClass" : "Chemical",
     "position" : {
       "x" : 1570,
       "y" : 447
@@ -1131,7 +1131,7 @@
       }
     },
     "connectors" : [ {
-      "edgeId" : 98717,
+      "edgeId" : 98709,
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
@@ -1194,7 +1194,8 @@
         },
         "type" : "ARROW"
       }
-    } ]
+    } ],
+    "trivial" : true
   }, {
     "id" : 30,
     "reactomeId" : 68524,
@@ -1348,7 +1349,7 @@
         "value" : 1
       }
     }, {
-      "edgeId" : 98714,
+      "edgeId" : 98706,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -1429,7 +1430,7 @@
     },
     "isCrossed" : true,
     "connectors" : [ {
-      "edgeId" : 98723,
+      "edgeId" : 98715,
       "type" : "ACTIVATOR",
       "segments" : [ {
         "from" : {
@@ -1533,7 +1534,7 @@
       "b" : 255
     },
     "connectors" : [ {
-      "edgeId" : 98721,
+      "edgeId" : 98713,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -1597,7 +1598,7 @@
       "b" : 255
     },
     "connectors" : [ {
-      "edgeId" : 98721,
+      "edgeId" : 98713,
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
@@ -1771,7 +1772,7 @@
       "y" : 566
     },
     "connectors" : [ {
-      "edgeId" : 98711,
+      "edgeId" : 98703,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -1788,7 +1789,7 @@
       },
       "isDisease" : true
     }, {
-      "edgeId" : 98717,
+      "edgeId" : 98709,
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
@@ -2066,7 +2067,7 @@
       }
     },
     "connectors" : [ {
-      "edgeId" : 98726,
+      "edgeId" : 98718,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -2171,7 +2172,7 @@
     },
     "isCrossed" : true,
     "connectors" : [ {
-      "edgeId" : 98716,
+      "edgeId" : 98708,
       "type" : "ACTIVATOR",
       "segments" : [ {
         "from" : {
@@ -2472,7 +2473,7 @@
       }
     },
     "connectors" : [ {
-      "edgeId" : 98743,
+      "edgeId" : 98735,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -2700,7 +2701,7 @@
       "b" : 255
     },
     "connectors" : [ {
-      "edgeId" : 98717,
+      "edgeId" : 98709,
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
@@ -2741,7 +2742,7 @@
       },
       "isDisease" : true
     }, {
-      "edgeId" : 98746,
+      "edgeId" : 98738,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -2848,7 +2849,7 @@
     },
     "isCrossed" : true,
     "connectors" : [ {
-      "edgeId" : 98720,
+      "edgeId" : 98712,
       "type" : "ACTIVATOR",
       "segments" : [ {
         "from" : {
@@ -3481,7 +3482,7 @@
       }
     },
     "connectors" : [ {
-      "edgeId" : 98729,
+      "edgeId" : 98721,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -3591,7 +3592,7 @@
       }
     },
     "connectors" : [ {
-      "edgeId" : 98717,
+      "edgeId" : 98709,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -3624,7 +3625,8 @@
       "stoichiometry" : {
         "value" : 1
       }
-    } ]
+    } ],
+    "trivial" : true
   }, {
     "id" : 130,
     "reactomeId" : 1604444,
@@ -3752,7 +3754,7 @@
       "b" : 255
     },
     "connectors" : [ {
-      "edgeId" : 98717,
+      "edgeId" : 98709,
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
@@ -4176,22 +4178,22 @@
     "renderableClass" : "EntitySet",
     "position" : {
       "x" : 461,
-      "y" : 843
+      "y" : 842
     },
     "isDisease" : true,
     "minX" : 378,
     "maxX" : 524,
     "minY" : 750,
-    "maxY" : 859,
+    "maxY" : 858,
     "prop" : {
       "x" : 399,
-      "y" : 828,
+      "y" : 827,
       "width" : 125,
       "height" : 31
     },
     "textPosition" : {
       "x" : 411,
-      "y" : 826
+      "y" : 825
     },
     "bgColor" : {
       "r" : 204,
@@ -4209,7 +4211,7 @@
       "segments" : [ {
         "from" : {
           "x" : 447,
-          "y" : 822
+          "y" : 821
         },
         "to" : {
           "x" : 378,
@@ -4222,21 +4224,21 @@
       "endShape" : {
         "a" : {
           "x" : 439,
-          "y" : 820
+          "y" : 819
         },
         "b" : {
           "x" : 447,
-          "y" : 822
+          "y" : 821
         },
         "c" : {
           "x" : 445,
-          "y" : 814
+          "y" : 813
         },
         "type" : "ARROW"
       },
       "isDisease" : true
     }, {
-      "edgeId" : 98724,
+      "edgeId" : 98716,
       "type" : "INPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -4313,6 +4315,148 @@
       "isDisease" : true
     } ]
   }, {
+    "id" : 98705,
+    "reactomeId" : 2220989,
+    "displayName" : "NOTCH1 PEST Domain Mutants Coactivator Complex",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 1099,
+      "y" : 485
+    },
+    "isDisease" : true,
+    "minX" : 1008,
+    "maxX" : 1537,
+    "minY" : 326,
+    "maxY" : 510,
+    "prop" : {
+      "x" : 1035,
+      "y" : 460,
+      "width" : 128,
+      "height" : 50
+    },
+    "textPosition" : {
+      "x" : 1035,
+      "y" : 461
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 98703,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    }, {
+      "edgeId" : 98724,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1138,
+          "y" : 457
+        },
+        "to" : {
+          "x" : 1291,
+          "y" : 364
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    }, {
+      "edgeId" : 98729,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1058,
+          "y" : 457
+        },
+        "to" : {
+          "x" : 1008,
+          "y" : 429
+        }
+      }, {
+        "from" : {
+          "x" : 1008,
+          "y" : 429
+        },
+        "to" : {
+          "x" : 1011,
+          "y" : 326
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    }, {
+      "edgeId" : 98731,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1144,
+          "y" : 471
+        },
+        "to" : {
+          "x" : 1339,
+          "y" : 406
+        }
+      }, {
+        "from" : {
+          "x" : 1339,
+          "y" : 406
+        },
+        "to" : {
+          "x" : 1537,
+          "y" : 364
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    }, {
+      "edgeId" : 98733,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1107,
+          "y" : 457
+        },
+        "to" : {
+          "x" : 1130,
+          "y" : 395
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    }, {
+      "edgeId" : 98738,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1144,
+          "y" : 484
+        },
+        "to" : {
+          "x" : 1187,
+          "y" : 484
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    } ]
+  }, {
     "id" : 912,
     "reactomeId" : 157098,
     "displayName" : "JAG1",
@@ -4366,7 +4510,7 @@
         "value" : 1
       }
     }, {
-      "edgeId" : 98736,
+      "edgeId" : 98726,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -4425,6 +4569,91 @@
       "stoichiometry" : {
         "value" : 1
       }
+    } ]
+  }, {
+    "id" : 98704,
+    "reactomeId" : 2220969,
+    "displayName" : "NICD1 PEST domain mutants:RBPJ:SNW1",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 937,
+      "y" : 448
+    },
+    "isDisease" : true,
+    "minX" : 861,
+    "maxX" : 1002,
+    "minY" : 430,
+    "maxY" : 485,
+    "prop" : {
+      "x" : 873,
+      "y" : 430,
+      "width" : 129,
+      "height" : 36
+    },
+    "textPosition" : {
+      "x" : 873,
+      "y" : 431
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "fgColor" : {
+      "r" : 0,
+      "g" : 0,
+      "b" : 0
+    },
+    "connectors" : [ {
+      "edgeId" : 98703,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 957,
+          "y" : 467
+        },
+        "to" : {
+          "x" : 986,
+          "y" : 485
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    }, {
+      "edgeId" : 98713,
+      "type" : "OUTPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 895,
+          "y" : 450
+        },
+        "to" : {
+          "x" : 861,
+          "y" : 452
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 888,
+          "y" : 454
+        },
+        "b" : {
+          "x" : 895,
+          "y" : 450
+        },
+        "c" : {
+          "x" : 888,
+          "y" : 446
+        },
+        "type" : "ARROW"
+      },
+      "isDisease" : true
     } ]
   }, {
     "id" : 1169,
@@ -4515,6 +4744,82 @@
       "stoichiometry" : {
         "value" : 1
       }
+    } ]
+  }, {
+    "id" : 98707,
+    "reactomeId" : 2220958,
+    "displayName" : "p-NICD1 PEST domain mutants",
+    "schemaClass" : "DefinedSet",
+    "renderableClass" : "EntitySet",
+    "position" : {
+      "x" : 1586,
+      "y" : 545
+    },
+    "isDisease" : true,
+    "minX" : 1510,
+    "maxX" : 1637,
+    "minY" : 485,
+    "maxY" : 572,
+    "prop" : {
+      "x" : 1535,
+      "y" : 527,
+      "width" : 102,
+      "height" : 36
+    },
+    "textPosition" : {
+      "x" : 1535,
+      "y" : 527
+    },
+    "needDashedBorder" : true,
+    "connectors" : [ {
+      "edgeId" : 98706,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1603,
+          "y" : 562
+        },
+        "to" : {
+          "x" : 1620,
+          "y" : 572
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    }, {
+      "edgeId" : 98709,
+      "type" : "OUTPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1568,
+          "y" : 529
+        },
+        "to" : {
+          "x" : 1510,
+          "y" : 485
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 1560,
+          "y" : 528
+        },
+        "b" : {
+          "x" : 1568,
+          "y" : 529
+        },
+        "c" : {
+          "x" : 1565,
+          "y" : 522
+        },
+        "type" : "ARROW"
+      },
+      "isDisease" : true
     } ]
   }, {
     "id" : 1171,
@@ -4651,310 +4956,7 @@
       }
     } ]
   }, {
-    "id" : 98713,
-    "reactomeId" : 2220989,
-    "displayName" : "NOTCH1 PEST Domain Mutants Coactivator Complex",
-    "schemaClass" : "Complex",
-    "renderableClass" : "Complex",
-    "position" : {
-      "x" : 1099,
-      "y" : 485
-    },
-    "isDisease" : true,
-    "minX" : 1008,
-    "maxX" : 1537,
-    "minY" : 326,
-    "maxY" : 510,
-    "prop" : {
-      "x" : 1035,
-      "y" : 460,
-      "width" : 128,
-      "height" : 50
-    },
-    "textPosition" : {
-      "x" : 1035,
-      "y" : 461
-    },
-    "bgColor" : {
-      "r" : 204,
-      "g" : 255,
-      "b" : 255
-    },
-    "connectors" : [ {
-      "edgeId" : 98711,
-      "type" : "OUTPUT",
-      "segments" : [ ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
-    }, {
-      "edgeId" : 98732,
-      "type" : "INPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 1138,
-          "y" : 457
-        },
-        "to" : {
-          "x" : 1291,
-          "y" : 364
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
-    }, {
-      "edgeId" : 98734,
-      "type" : "INPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 1058,
-          "y" : 457
-        },
-        "to" : {
-          "x" : 1008,
-          "y" : 429
-        }
-      }, {
-        "from" : {
-          "x" : 1008,
-          "y" : 429
-        },
-        "to" : {
-          "x" : 1011,
-          "y" : 326
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
-    }, {
-      "edgeId" : 98739,
-      "type" : "INPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 1144,
-          "y" : 471
-        },
-        "to" : {
-          "x" : 1339,
-          "y" : 406
-        }
-      }, {
-        "from" : {
-          "x" : 1339,
-          "y" : 406
-        },
-        "to" : {
-          "x" : 1537,
-          "y" : 364
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
-    }, {
-      "edgeId" : 98741,
-      "type" : "INPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 1107,
-          "y" : 457
-        },
-        "to" : {
-          "x" : 1130,
-          "y" : 395
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
-    }, {
-      "edgeId" : 98746,
-      "type" : "INPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 1144,
-          "y" : 484
-        },
-        "to" : {
-          "x" : 1187,
-          "y" : 484
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
-    } ]
-  }, {
-    "id" : 98712,
-    "reactomeId" : 2220969,
-    "displayName" : "NICD1 PEST domain mutants:RBPJ:SNW1",
-    "schemaClass" : "Complex",
-    "renderableClass" : "Complex",
-    "position" : {
-      "x" : 937,
-      "y" : 448
-    },
-    "isDisease" : true,
-    "minX" : 861,
-    "maxX" : 1002,
-    "minY" : 430,
-    "maxY" : 485,
-    "prop" : {
-      "x" : 873,
-      "y" : 430,
-      "width" : 129,
-      "height" : 36
-    },
-    "textPosition" : {
-      "x" : 873,
-      "y" : 431
-    },
-    "bgColor" : {
-      "r" : 204,
-      "g" : 255,
-      "b" : 255
-    },
-    "fgColor" : {
-      "r" : 0,
-      "g" : 0,
-      "b" : 0
-    },
-    "connectors" : [ {
-      "edgeId" : 98711,
-      "type" : "INPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 957,
-          "y" : 467
-        },
-        "to" : {
-          "x" : 986,
-          "y" : 485
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
-    }, {
-      "edgeId" : 98721,
-      "type" : "OUTPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 895,
-          "y" : 450
-        },
-        "to" : {
-          "x" : 861,
-          "y" : 452
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "endShape" : {
-        "a" : {
-          "x" : 888,
-          "y" : 454
-        },
-        "b" : {
-          "x" : 895,
-          "y" : 450
-        },
-        "c" : {
-          "x" : 888,
-          "y" : 446
-        },
-        "type" : "ARROW"
-      },
-      "isDisease" : true
-    } ]
-  }, {
-    "id" : 98715,
-    "reactomeId" : 2220958,
-    "displayName" : "p-NICD1 PEST domain mutants",
-    "schemaClass" : "DefinedSet",
-    "renderableClass" : "EntitySet",
-    "position" : {
-      "x" : 1586,
-      "y" : 545
-    },
-    "isDisease" : true,
-    "minX" : 1510,
-    "maxX" : 1637,
-    "minY" : 485,
-    "maxY" : 572,
-    "prop" : {
-      "x" : 1535,
-      "y" : 527,
-      "width" : 102,
-      "height" : 36
-    },
-    "textPosition" : {
-      "x" : 1535,
-      "y" : 527
-    },
-    "needDashedBorder" : true,
-    "connectors" : [ {
-      "edgeId" : 98714,
-      "type" : "INPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 1603,
-          "y" : 562
-        },
-        "to" : {
-          "x" : 1620,
-          "y" : 572
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
-    }, {
-      "edgeId" : 98717,
-      "type" : "OUTPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 1568,
-          "y" : 529
-        },
-        "to" : {
-          "x" : 1510,
-          "y" : 485
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "endShape" : {
-        "a" : {
-          "x" : 1560,
-          "y" : 528
-        },
-        "b" : {
-          "x" : 1568,
-          "y" : 529
-        },
-        "c" : {
-          "x" : 1565,
-          "y" : 522
-        },
-        "type" : "ARROW"
-      },
-      "isDisease" : true
-    } ]
-  }, {
-    "id" : 98718,
+    "id" : 98710,
     "reactomeId" : 2220980,
     "displayName" : "NOTCH1 PEST Domain Mutants Coactivator Complex:CDK8:CCNC",
     "schemaClass" : "Complex",
@@ -4984,7 +4986,7 @@
       "b" : 255
     },
     "connectors" : [ {
-      "edgeId" : 98717,
+      "edgeId" : 98709,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -5001,7 +5003,7 @@
       },
       "isDisease" : true
     }, {
-      "edgeId" : 98717,
+      "edgeId" : 98709,
       "type" : "CATALYST",
       "segments" : [ {
         "from" : {
@@ -5036,7 +5038,7 @@
       },
       "isDisease" : true
     }, {
-      "edgeId" : 98746,
+      "edgeId" : 98738,
       "type" : "OUTPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -5045,7 +5047,7 @@
       "isDisease" : true
     } ]
   }, {
-    "id" : 98722,
+    "id" : 98714,
     "reactomeId" : 2769016,
     "displayName" : "NICD1 PEST Domain Mutants",
     "schemaClass" : "DefinedSet",
@@ -5070,7 +5072,7 @@
       "y" : 517
     },
     "connectors" : [ {
-      "edgeId" : 98721,
+      "edgeId" : 98713,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -5087,7 +5089,7 @@
       },
       "isDisease" : true
     }, {
-      "edgeId" : 98747,
+      "edgeId" : 98739,
       "type" : "OUTPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -5096,7 +5098,7 @@
       "isDisease" : true
     } ]
   }, {
-    "id" : 98725,
+    "id" : 98717,
     "reactomeId" : 2220987,
     "displayName" : "NICD1 PEST Domain Mutants",
     "schemaClass" : "DefinedSet",
@@ -5121,7 +5123,7 @@
       "y" : 660
     },
     "connectors" : [ {
-      "edgeId" : 98724,
+      "edgeId" : 98716,
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
@@ -5153,7 +5155,7 @@
       },
       "isDisease" : true
     }, {
-      "edgeId" : 98747,
+      "edgeId" : 98739,
       "type" : "INPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -5162,7 +5164,7 @@
       "isDisease" : true
     } ]
   }, {
-    "id" : 98727,
+    "id" : 98719,
     "reactomeId" : 2894870,
     "displayName" : "NOTCH1 HD+PEST Domain Mutants",
     "schemaClass" : "CandidateSet",
@@ -5192,7 +5194,7 @@
       "b" : 255
     },
     "connectors" : [ {
-      "edgeId" : 98726,
+      "edgeId" : 98718,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -5202,6 +5204,219 @@
         "to" : {
           "x" : 357,
           "y" : 113
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    } ]
+  }, {
+    "id" : 98720,
+    "reactomeId" : 2900746,
+    "displayName" : "DLL1:NOTCH1 HD+PEST Domain Mutants",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 371,
+      "y" : 165
+    },
+    "isDisease" : true,
+    "minX" : 293,
+    "maxX" : 450,
+    "minY" : 147,
+    "maxY" : 183,
+    "prop" : {
+      "x" : 293,
+      "y" : 147,
+      "width" : 157,
+      "height" : 36
+    },
+    "textPosition" : {
+      "x" : 293,
+      "y" : 148
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 98718,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    } ]
+  }, {
+    "id" : 98723,
+    "reactomeId" : 2900745,
+    "displayName" : "DLL4:NOTCH1 HD+PEST Domain Mutants",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 372,
+      "y" : 265
+    },
+    "isDisease" : true,
+    "minX" : 282,
+    "maxX" : 463,
+    "minY" : 252,
+    "maxY" : 279,
+    "prop" : {
+      "x" : 282,
+      "y" : 252,
+      "width" : 181,
+      "height" : 27
+    },
+    "textPosition" : {
+      "x" : 294,
+      "y" : 244
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 98721,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    } ]
+  }, {
+    "id" : 98722,
+    "reactomeId" : 2894870,
+    "displayName" : "NOTCH1 HD+PEST Domain Mutants",
+    "schemaClass" : "CandidateSet",
+    "renderableClass" : "EntitySet",
+    "position" : {
+      "x" : 510,
+      "y" : 210
+    },
+    "isDisease" : true,
+    "minX" : 366,
+    "maxX" : 618,
+    "minY" : 198,
+    "maxY" : 222,
+    "prop" : {
+      "x" : 402,
+      "y" : 198,
+      "width" : 216,
+      "height" : 24
+    },
+    "textPosition" : {
+      "x" : 402,
+      "y" : 199
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 98721,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 396,
+          "y" : 203
+        },
+        "to" : {
+          "x" : 366,
+          "y" : 201
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    } ]
+  }, {
+    "id" : 98725,
+    "reactomeId" : 4396404,
+    "displayName" : "NOTCH1 PEST Domain Mutants Coactivator Complex:MYC Gene",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 1365,
+      "y" : 267
+    },
+    "isDisease" : true,
+    "minX" : 1304,
+    "maxX" : 1427,
+    "minY" : 235,
+    "maxY" : 299,
+    "prop" : {
+      "x" : 1304,
+      "y" : 235,
+      "width" : 123,
+      "height" : 64
+    },
+    "textPosition" : {
+      "x" : 1304,
+      "y" : 236
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 98724,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    } ]
+  }, {
+    "id" : 98727,
+    "reactomeId" : 2894870,
+    "displayName" : "NOTCH1 HD+PEST Domain Mutants",
+    "schemaClass" : "CandidateSet",
+    "renderableClass" : "EntitySet",
+    "position" : {
+      "x" : 444,
+      "y" : 365
+    },
+    "isDisease" : true,
+    "minX" : 368,
+    "maxX" : 506,
+    "minY" : 347,
+    "maxY" : 383,
+    "prop" : {
+      "x" : 382,
+      "y" : 347,
+      "width" : 124,
+      "height" : 36
+    },
+    "textPosition" : {
+      "x" : 382,
+      "y" : 347
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 98726,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 410,
+          "y" : 365
+        },
+        "to" : {
+          "x" : 368,
+          "y" : 365
         }
       } ],
       "stoichiometry" : {
@@ -5328,7 +5543,7 @@
       }
     },
     "connectors" : [ {
-      "edgeId" : 98719,
+      "edgeId" : 98711,
       "type" : "OUTPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -5363,28 +5578,28 @@
     } ]
   }, {
     "id" : 98728,
-    "reactomeId" : 2900746,
-    "displayName" : "DLL1:NOTCH1 HD+PEST Domain Mutants",
+    "reactomeId" : 2900751,
+    "displayName" : "JAG1:NOTCH1 HD+PEST Domain Mutants",
     "schemaClass" : "Complex",
     "renderableClass" : "Complex",
     "position" : {
-      "x" : 371,
-      "y" : 165
+      "x" : 366,
+      "y" : 304
     },
     "isDisease" : true,
-    "minX" : 293,
-    "maxX" : 450,
-    "minY" : 147,
-    "maxY" : 183,
+    "minX" : 273,
+    "maxX" : 460,
+    "minY" : 286,
+    "maxY" : 322,
     "prop" : {
-      "x" : 293,
-      "y" : 147,
-      "width" : 157,
+      "x" : 273,
+      "y" : 286,
+      "width" : 187,
       "height" : 36
     },
     "textPosition" : {
-      "x" : 293,
-      "y" : 148
+      "x" : 288,
+      "y" : 287
     },
     "bgColor" : {
       "r" : 204,
@@ -5393,45 +5608,6 @@
     },
     "connectors" : [ {
       "edgeId" : 98726,
-      "type" : "OUTPUT",
-      "segments" : [ ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
-    } ]
-  }, {
-    "id" : 98731,
-    "reactomeId" : 2900745,
-    "displayName" : "DLL4:NOTCH1 HD+PEST Domain Mutants",
-    "schemaClass" : "Complex",
-    "renderableClass" : "Complex",
-    "position" : {
-      "x" : 372,
-      "y" : 265
-    },
-    "isDisease" : true,
-    "minX" : 282,
-    "maxX" : 463,
-    "minY" : 252,
-    "maxY" : 279,
-    "prop" : {
-      "x" : 282,
-      "y" : 252,
-      "width" : 181,
-      "height" : 27
-    },
-    "textPosition" : {
-      "x" : 294,
-      "y" : 244
-    },
-    "bgColor" : {
-      "r" : 204,
-      "g" : 255,
-      "b" : 255
-    },
-    "connectors" : [ {
-      "edgeId" : 98729,
       "type" : "OUTPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -5489,93 +5665,6 @@
     } ]
   }, {
     "id" : 98730,
-    "reactomeId" : 2894870,
-    "displayName" : "NOTCH1 HD+PEST Domain Mutants",
-    "schemaClass" : "CandidateSet",
-    "renderableClass" : "EntitySet",
-    "position" : {
-      "x" : 510,
-      "y" : 210
-    },
-    "isDisease" : true,
-    "minX" : 366,
-    "maxX" : 618,
-    "minY" : 198,
-    "maxY" : 222,
-    "prop" : {
-      "x" : 402,
-      "y" : 198,
-      "width" : 216,
-      "height" : 24
-    },
-    "textPosition" : {
-      "x" : 402,
-      "y" : 199
-    },
-    "bgColor" : {
-      "r" : 204,
-      "g" : 255,
-      "b" : 255
-    },
-    "connectors" : [ {
-      "edgeId" : 98729,
-      "type" : "INPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 396,
-          "y" : 203
-        },
-        "to" : {
-          "x" : 366,
-          "y" : 201
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
-    } ]
-  }, {
-    "id" : 98733,
-    "reactomeId" : 4396404,
-    "displayName" : "NOTCH1 PEST Domain Mutants Coactivator Complex:MYC Gene",
-    "schemaClass" : "Complex",
-    "renderableClass" : "Complex",
-    "position" : {
-      "x" : 1365,
-      "y" : 267
-    },
-    "isDisease" : true,
-    "minX" : 1304,
-    "maxX" : 1427,
-    "minY" : 235,
-    "maxY" : 299,
-    "prop" : {
-      "x" : 1304,
-      "y" : 235,
-      "width" : 123,
-      "height" : 64
-    },
-    "textPosition" : {
-      "x" : 1304,
-      "y" : 236
-    },
-    "bgColor" : {
-      "r" : 204,
-      "g" : 255,
-      "b" : 255
-    },
-    "connectors" : [ {
-      "edgeId" : 98732,
-      "type" : "OUTPUT",
-      "segments" : [ ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
-    } ]
-  }, {
-    "id" : 98735,
     "reactomeId" : 4396396,
     "displayName" : "NOTCH1 PEST Domain Mutants Coactivator Complex:HES1 Gene",
     "schemaClass" : "Complex",
@@ -5605,7 +5694,85 @@
       "b" : 255
     },
     "connectors" : [ {
-      "edgeId" : 98734,
+      "edgeId" : 98729,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    } ]
+  }, {
+    "id" : 98732,
+    "reactomeId" : 4396391,
+    "displayName" : "NOTCH1 PEST Domain Mutants Coactivator Complex:HEY Genes",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 1620,
+      "y" : 374
+    },
+    "isDisease" : true,
+    "minX" : 1557,
+    "maxX" : 1684,
+    "minY" : 342,
+    "maxY" : 406,
+    "prop" : {
+      "x" : 1557,
+      "y" : 342,
+      "width" : 127,
+      "height" : 64
+    },
+    "textPosition" : {
+      "x" : 1557,
+      "y" : 343
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 98731,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    } ]
+  }, {
+    "id" : 98734,
+    "reactomeId" : 4396397,
+    "displayName" : "NOTCH1 PEST Domain Mutants Coactivator Complex:HES5 Gene",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 1198,
+      "y" : 293
+    },
+    "isDisease" : true,
+    "minX" : 1134,
+    "maxX" : 1262,
+    "minY" : 261,
+    "maxY" : 325,
+    "prop" : {
+      "x" : 1134,
+      "y" : 261,
+      "width" : 128,
+      "height" : 64
+    },
+    "textPosition" : {
+      "x" : 1134,
+      "y" : 262
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 98733,
       "type" : "OUTPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -5615,28 +5782,28 @@
     } ]
   }, {
     "id" : 98737,
-    "reactomeId" : 2894870,
-    "displayName" : "NOTCH1 HD+PEST Domain Mutants",
-    "schemaClass" : "CandidateSet",
-    "renderableClass" : "EntitySet",
+    "reactomeId" : 2900758,
+    "displayName" : "JAG2:NOTCH1 HD+PEST Domain Mutants",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
     "position" : {
-      "x" : 444,
-      "y" : 365
+      "x" : 374,
+      "y" : 405
     },
     "isDisease" : true,
-    "minX" : 368,
-    "maxX" : 506,
-    "minY" : 347,
-    "maxY" : 383,
+    "minX" : 287,
+    "maxX" : 462,
+    "minY" : 387,
+    "maxY" : 423,
     "prop" : {
-      "x" : 382,
-      "y" : 347,
-      "width" : 124,
+      "x" : 287,
+      "y" : 387,
+      "width" : 175,
       "height" : 36
     },
     "textPosition" : {
-      "x" : 382,
-      "y" : 347
+      "x" : 296,
+      "y" : 388
     },
     "bgColor" : {
       "r" : 204,
@@ -5644,16 +5811,55 @@
       "b" : 255
     },
     "connectors" : [ {
-      "edgeId" : 98736,
+      "edgeId" : 98735,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    } ]
+  }, {
+    "id" : 98736,
+    "reactomeId" : 2894870,
+    "displayName" : "NOTCH1 HD+PEST Domain Mutants",
+    "schemaClass" : "CandidateSet",
+    "renderableClass" : "EntitySet",
+    "position" : {
+      "x" : 448,
+      "y" : 472
+    },
+    "isDisease" : true,
+    "minX" : 375,
+    "maxX" : 510,
+    "minY" : 454,
+    "maxY" : 490,
+    "prop" : {
+      "x" : 386,
+      "y" : 454,
+      "width" : 124,
+      "height" : 36
+    },
+    "textPosition" : {
+      "x" : 386,
+      "y" : 454
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 98735,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 410,
-          "y" : 365
+          "x" : 414,
+          "y" : 467
         },
         "to" : {
-          "x" : 368,
-          "y" : 365
+          "x" : 375,
+          "y" : 462
         }
       } ],
       "stoichiometry" : {
@@ -5698,7 +5904,7 @@
       }
     },
     "connectors" : [ {
-      "edgeId" : 98716,
+      "edgeId" : 98708,
       "type" : "OUTPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -5713,45 +5919,6 @@
       "stoichiometry" : {
         "value" : 1
       }
-    } ]
-  }, {
-    "id" : 98738,
-    "reactomeId" : 2900751,
-    "displayName" : "JAG1:NOTCH1 HD+PEST Domain Mutants",
-    "schemaClass" : "Complex",
-    "renderableClass" : "Complex",
-    "position" : {
-      "x" : 366,
-      "y" : 304
-    },
-    "isDisease" : true,
-    "minX" : 273,
-    "maxX" : 460,
-    "minY" : 286,
-    "maxY" : 322,
-    "prop" : {
-      "x" : 273,
-      "y" : 286,
-      "width" : 187,
-      "height" : 36
-    },
-    "textPosition" : {
-      "x" : 288,
-      "y" : 287
-    },
-    "bgColor" : {
-      "r" : 204,
-      "g" : 255,
-      "b" : 255
-    },
-    "connectors" : [ {
-      "edgeId" : 98736,
-      "type" : "OUTPUT",
-      "segments" : [ ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
     } ]
   }, {
     "id" : 2739,
@@ -5778,123 +5945,6 @@
       "y" : 194
     },
     "connectors" : [ ]
-  }, {
-    "id" : 98740,
-    "reactomeId" : 4396391,
-    "displayName" : "NOTCH1 PEST Domain Mutants Coactivator Complex:HEY Genes",
-    "schemaClass" : "Complex",
-    "renderableClass" : "Complex",
-    "position" : {
-      "x" : 1620,
-      "y" : 374
-    },
-    "isDisease" : true,
-    "minX" : 1557,
-    "maxX" : 1684,
-    "minY" : 342,
-    "maxY" : 406,
-    "prop" : {
-      "x" : 1557,
-      "y" : 342,
-      "width" : 127,
-      "height" : 64
-    },
-    "textPosition" : {
-      "x" : 1557,
-      "y" : 343
-    },
-    "bgColor" : {
-      "r" : 204,
-      "g" : 255,
-      "b" : 255
-    },
-    "connectors" : [ {
-      "edgeId" : 98739,
-      "type" : "OUTPUT",
-      "segments" : [ ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
-    } ]
-  }, {
-    "id" : 98742,
-    "reactomeId" : 4396397,
-    "displayName" : "NOTCH1 PEST Domain Mutants Coactivator Complex:HES5 Gene",
-    "schemaClass" : "Complex",
-    "renderableClass" : "Complex",
-    "position" : {
-      "x" : 1198,
-      "y" : 293
-    },
-    "isDisease" : true,
-    "minX" : 1134,
-    "maxX" : 1262,
-    "minY" : 261,
-    "maxY" : 325,
-    "prop" : {
-      "x" : 1134,
-      "y" : 261,
-      "width" : 128,
-      "height" : 64
-    },
-    "textPosition" : {
-      "x" : 1134,
-      "y" : 262
-    },
-    "bgColor" : {
-      "r" : 204,
-      "g" : 255,
-      "b" : 255
-    },
-    "connectors" : [ {
-      "edgeId" : 98741,
-      "type" : "OUTPUT",
-      "segments" : [ ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
-    } ]
-  }, {
-    "id" : 98745,
-    "reactomeId" : 2900758,
-    "displayName" : "JAG2:NOTCH1 HD+PEST Domain Mutants",
-    "schemaClass" : "Complex",
-    "renderableClass" : "Complex",
-    "position" : {
-      "x" : 374,
-      "y" : 405
-    },
-    "isDisease" : true,
-    "minX" : 287,
-    "maxX" : 462,
-    "minY" : 387,
-    "maxY" : 423,
-    "prop" : {
-      "x" : 287,
-      "y" : 387,
-      "width" : 175,
-      "height" : 36
-    },
-    "textPosition" : {
-      "x" : 296,
-      "y" : 388
-    },
-    "bgColor" : {
-      "r" : 204,
-      "g" : 255,
-      "b" : 255
-    },
-    "connectors" : [ {
-      "edgeId" : 98743,
-      "type" : "OUTPUT",
-      "segments" : [ ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
-    } ]
   }, {
     "id" : 1976,
     "reactomeId" : 381325,
@@ -5932,7 +5982,7 @@
       }
     },
     "connectors" : [ {
-      "edgeId" : 98711,
+      "edgeId" : 98703,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -5949,7 +5999,7 @@
       },
       "isDisease" : true
     }, {
-      "edgeId" : 98717,
+      "edgeId" : 98709,
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
@@ -6049,54 +6099,6 @@
       }
     } ]
   }, {
-    "id" : 98744,
-    "reactomeId" : 2894870,
-    "displayName" : "NOTCH1 HD+PEST Domain Mutants",
-    "schemaClass" : "CandidateSet",
-    "renderableClass" : "EntitySet",
-    "position" : {
-      "x" : 448,
-      "y" : 472
-    },
-    "isDisease" : true,
-    "minX" : 375,
-    "maxX" : 510,
-    "minY" : 454,
-    "maxY" : 490,
-    "prop" : {
-      "x" : 386,
-      "y" : 454,
-      "width" : 124,
-      "height" : 36
-    },
-    "textPosition" : {
-      "x" : 386,
-      "y" : 454
-    },
-    "bgColor" : {
-      "r" : 204,
-      "g" : 255,
-      "b" : 255
-    },
-    "connectors" : [ {
-      "edgeId" : 98743,
-      "type" : "INPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 414,
-          "y" : 467
-        },
-        "to" : {
-          "x" : 375,
-          "y" : 462
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
-    } ]
-  }, {
     "id" : 2748,
     "reactomeId" : 2127254,
     "displayName" : "MYC gene",
@@ -6121,7 +6123,7 @@
       "y" : 220
     },
     "connectors" : [ {
-      "edgeId" : 98723,
+      "edgeId" : 98715,
       "type" : "INPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -6146,7 +6148,7 @@
         "value" : 1
       }
     }, {
-      "edgeId" : 98732,
+      "edgeId" : 98724,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -6228,7 +6230,7 @@
         "value" : 1
       }
     }, {
-      "edgeId" : 98719,
+      "edgeId" : 98711,
       "type" : "INPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -6244,7 +6246,7 @@
         "value" : 1
       }
     }, {
-      "edgeId" : 98734,
+      "edgeId" : 98729,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -6279,7 +6281,7 @@
   }, {
     "id" : 2752,
     "reactomeId" : 2197557,
-    "displayName" : "HES5 Gene",
+    "displayName" : "HES5 gene",
     "schemaClass" : "EntityWithAccessionedSequence",
     "renderableClass" : "Gene",
     "position" : {
@@ -6297,11 +6299,11 @@
       "height" : 51
     },
     "textPosition" : {
-      "x" : 1062,
+      "x" : 1048,
       "y" : 354
     },
     "connectors" : [ {
-      "edgeId" : 98716,
+      "edgeId" : 98708,
       "type" : "INPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -6309,15 +6311,7 @@
       },
       "isDisease" : true
     }, {
-      "edgeId" : 1456,
-      "type" : "INPUT",
-      "isFadeOut" : true,
-      "segments" : [ ],
-      "stoichiometry" : {
-        "value" : 1
-      }
-    }, {
-      "edgeId" : 98741,
+      "edgeId" : 98733,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -6333,6 +6327,14 @@
         "value" : 1
       },
       "isDisease" : true
+    }, {
+      "edgeId" : 1456,
+      "type" : "INPUT",
+      "isFadeOut" : true,
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
     }, {
       "edgeId" : 2875,
       "type" : "INPUT",
@@ -6403,7 +6405,7 @@
       }
     },
     "connectors" : [ {
-      "edgeId" : 98723,
+      "edgeId" : 98715,
       "type" : "OUTPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -6582,7 +6584,7 @@
       "y" : 286
     },
     "connectors" : [ {
-      "edgeId" : 98720,
+      "edgeId" : 98712,
       "type" : "INPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -6590,7 +6592,7 @@
       },
       "isDisease" : true
     }, {
-      "edgeId" : 98739,
+      "edgeId" : 98731,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
@@ -6881,7 +6883,7 @@
         "value" : 1
       }
     }, {
-      "edgeId" : 98719,
+      "edgeId" : 98711,
       "type" : "ACTIVATOR",
       "segments" : [ {
         "from" : {
@@ -7276,7 +7278,7 @@
         "type" : "ARROW"
       }
     }, {
-      "edgeId" : 98724,
+      "edgeId" : 98716,
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
@@ -7664,7 +7666,7 @@
       "id" : 2957,
       "points" : [ {
         "x" : 447,
-        "y" : 822
+        "y" : 821
       } ]
     }, {
       "id" : 2958,
@@ -7835,6 +7837,98 @@
         "x" : 414,
         "y" : 722
       } ]
+    } ]
+  }, {
+    "id" : 98703,
+    "reactomeId" : 2220964,
+    "displayName" : "NICD1 PEST domain mutants in complex with RBPJ (CSL) bind MAML",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 985,
+      "y" : 484
+    },
+    "isDisease" : true,
+    "minX" : 980,
+    "maxX" : 1054,
+    "minY" : 479,
+    "maxY" : 489,
+    "reactionType" : "Association",
+    "segments" : [ {
+      "from" : {
+        "x" : 986,
+        "y" : 485
+      },
+      "to" : {
+        "x" : 985,
+        "y" : 484
+      }
+    }, {
+      "from" : {
+        "x" : 985,
+        "y" : 484
+      },
+      "to" : {
+        "x" : 1054,
+        "y" : 484
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 1047,
+        "y" : 488
+      },
+      "b" : {
+        "x" : 1054,
+        "y" : 484
+      },
+      "c" : {
+        "x" : 1047,
+        "y" : 480
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "c" : {
+        "x" : 985,
+        "y" : 484
+      },
+      "r" : 5,
+      "type" : "CIRCLE"
+    },
+    "inputs" : [ {
+      "id" : 2587,
+      "points" : [ {
+        "x" : 1034,
+        "y" : 575
+      } ]
+    }, {
+      "id" : 98704,
+      "points" : [ {
+        "x" : 957,
+        "y" : 467
+      } ]
+    }, {
+      "id" : 1804,
+      "points" : [ {
+        "x" : 1008,
+        "y" : 604
+      } ]
+    }, {
+      "id" : 38,
+      "points" : [ {
+        "x" : 914,
+        "y" : 557
+      } ]
+    }, {
+      "id" : 1976,
+      "points" : [ {
+        "x" : 966,
+        "y" : 588
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 98705
     } ]
   }, {
     "id" : 911,
@@ -8224,6 +8318,213 @@
       } ]
     } ]
   }, {
+    "id" : 98706,
+    "reactomeId" : 2220967,
+    "displayName" : "p-NICD1 PEST domain mutants do not bind FBXW7",
+    "schemaClass" : "FailedReaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 1621,
+      "y" : 573
+    },
+    "isDisease" : true,
+    "minX" : 1616,
+    "maxX" : 1656,
+    "minY" : 568,
+    "maxY" : 578,
+    "reactionType" : "Association",
+    "segments" : [ {
+      "from" : {
+        "x" : 1620,
+        "y" : 572
+      },
+      "to" : {
+        "x" : 1621,
+        "y" : 573
+      }
+    }, {
+      "from" : {
+        "x" : 1621,
+        "y" : 573
+      },
+      "to" : {
+        "x" : 1656,
+        "y" : 572
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 1649,
+        "y" : 576
+      },
+      "b" : {
+        "x" : 1656,
+        "y" : 572
+      },
+      "c" : {
+        "x" : 1649,
+        "y" : 568
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "c" : {
+        "x" : 1621,
+        "y" : 573
+      },
+      "r" : 5,
+      "type" : "CIRCLE"
+    },
+    "inputs" : [ {
+      "id" : 98707,
+      "points" : [ {
+        "x" : 1603,
+        "y" : 562
+      } ]
+    }, {
+      "id" : 32,
+      "points" : [ {
+        "x" : 1599,
+        "y" : 654
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 529
+    } ]
+  }, {
+    "id" : 98709,
+    "reactomeId" : 2220971,
+    "displayName" : "CDK8 phosphorylates NICD1 PEST domain mutants",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 1429,
+      "y" : 486
+    },
+    "isDisease" : true,
+    "minX" : 1389,
+    "maxX" : 1510,
+    "minY" : 480,
+    "maxY" : 492,
+    "segments" : [ {
+      "from" : {
+        "x" : 1389,
+        "y" : 484
+      },
+      "to" : {
+        "x" : 1429,
+        "y" : 486
+      }
+    }, {
+      "from" : {
+        "x" : 1429,
+        "y" : 486
+      },
+      "to" : {
+        "x" : 1510,
+        "y" : 485
+      }
+    } ],
+    "reactionShape" : {
+      "a" : {
+        "x" : 1423,
+        "y" : 480
+      },
+      "b" : {
+        "x" : 1435,
+        "y" : 492
+      },
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 128,
+      "points" : [ {
+        "x" : 1383,
+        "y" : 463
+      } ]
+    }, {
+      "id" : 98710,
+      "points" : [ {
+        "x" : 1333,
+        "y" : 482
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 2587,
+      "points" : [ {
+        "x" : 1040,
+        "y" : 603
+      }, {
+        "x" : 1043,
+        "y" : 633
+      } ]
+    }, {
+      "id" : 131,
+      "points" : [ {
+        "x" : 1591,
+        "y" : 482
+      } ]
+    }, {
+      "id" : 98707,
+      "points" : [ {
+        "x" : 1568,
+        "y" : 529
+      } ]
+    }, {
+      "id" : 2588,
+      "points" : [ {
+        "x" : 1548,
+        "y" : 459
+      } ]
+    }, {
+      "id" : 77,
+      "points" : [ {
+        "x" : 1194,
+        "y" : 544
+      }, {
+        "x" : 1199,
+        "y" : 565
+      } ]
+    }, {
+      "id" : 1804,
+      "points" : [ {
+        "x" : 1014,
+        "y" : 638
+      }, {
+        "x" : 1024,
+        "y" : 656
+      } ]
+    }, {
+      "id" : 38,
+      "points" : [ {
+        "x" : 916,
+        "y" : 597
+      }, {
+        "x" : 1018,
+        "y" : 688
+      } ]
+    }, {
+      "id" : 1976,
+      "points" : [ {
+        "x" : 972,
+        "y" : 616
+      }, {
+        "x" : 1017,
+        "y" : 672
+      } ]
+    } ],
+    "catalysts" : [ {
+      "id" : 98710,
+      "points" : [ {
+        "x" : 1333,
+        "y" : 490
+      }, {
+        "x" : 1389,
+        "y" : 502
+      } ]
+    } ]
+  }, {
     "id" : 20,
     "reactomeId" : 157926,
     "displayName" : "NICD1 traffics to nucleus",
@@ -8291,306 +8592,7 @@
       "id" : 21
     } ]
   }, {
-    "id" : 98711,
-    "reactomeId" : 2220964,
-    "displayName" : "NICD1 PEST domain mutants in complex with RBPJ (CSL) bind MAML",
-    "schemaClass" : "Reaction",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 985,
-      "y" : 484
-    },
-    "isDisease" : true,
-    "minX" : 980,
-    "maxX" : 1054,
-    "minY" : 479,
-    "maxY" : 489,
-    "reactionType" : "Association",
-    "segments" : [ {
-      "from" : {
-        "x" : 986,
-        "y" : 485
-      },
-      "to" : {
-        "x" : 985,
-        "y" : 484
-      }
-    }, {
-      "from" : {
-        "x" : 985,
-        "y" : 484
-      },
-      "to" : {
-        "x" : 1054,
-        "y" : 484
-      }
-    } ],
-    "endShape" : {
-      "a" : {
-        "x" : 1047,
-        "y" : 488
-      },
-      "b" : {
-        "x" : 1054,
-        "y" : 484
-      },
-      "c" : {
-        "x" : 1047,
-        "y" : 480
-      },
-      "type" : "ARROW"
-    },
-    "reactionShape" : {
-      "c" : {
-        "x" : 985,
-        "y" : 484
-      },
-      "r" : 5,
-      "type" : "CIRCLE"
-    },
-    "inputs" : [ {
-      "id" : 2587,
-      "points" : [ {
-        "x" : 1034,
-        "y" : 575
-      } ]
-    }, {
-      "id" : 98712,
-      "points" : [ {
-        "x" : 957,
-        "y" : 467
-      } ]
-    }, {
-      "id" : 1804,
-      "points" : [ {
-        "x" : 1008,
-        "y" : 604
-      } ]
-    }, {
-      "id" : 38,
-      "points" : [ {
-        "x" : 914,
-        "y" : 557
-      } ]
-    }, {
-      "id" : 1976,
-      "points" : [ {
-        "x" : 966,
-        "y" : 588
-      } ]
-    } ],
-    "outputs" : [ {
-      "id" : 98713
-    } ]
-  }, {
-    "id" : 98714,
-    "reactomeId" : 2220967,
-    "displayName" : "p-NICD1 PEST domain mutants do not bind FBXW7",
-    "schemaClass" : "BlackBoxEvent",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 1621,
-      "y" : 573
-    },
-    "isDisease" : true,
-    "minX" : 1616,
-    "maxX" : 1656,
-    "minY" : 568,
-    "maxY" : 578,
-    "reactionType" : "Association",
-    "segments" : [ {
-      "from" : {
-        "x" : 1620,
-        "y" : 572
-      },
-      "to" : {
-        "x" : 1621,
-        "y" : 573
-      }
-    }, {
-      "from" : {
-        "x" : 1621,
-        "y" : 573
-      },
-      "to" : {
-        "x" : 1656,
-        "y" : 572
-      }
-    } ],
-    "endShape" : {
-      "a" : {
-        "x" : 1649,
-        "y" : 576
-      },
-      "b" : {
-        "x" : 1656,
-        "y" : 572
-      },
-      "c" : {
-        "x" : 1649,
-        "y" : 568
-      },
-      "type" : "ARROW"
-    },
-    "reactionShape" : {
-      "c" : {
-        "x" : 1621,
-        "y" : 573
-      },
-      "r" : 5,
-      "type" : "CIRCLE"
-    },
-    "inputs" : [ {
-      "id" : 98715,
-      "points" : [ {
-        "x" : 1603,
-        "y" : 562
-      } ]
-    }, {
-      "id" : 32,
-      "points" : [ {
-        "x" : 1599,
-        "y" : 654
-      } ]
-    } ],
-    "outputs" : [ {
-      "id" : 529
-    } ]
-  }, {
-    "id" : 98717,
-    "reactomeId" : 2220971,
-    "displayName" : "CDK8 phosphorylates NICD1 PEST domain mutants",
-    "schemaClass" : "Reaction",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 1429,
-      "y" : 486
-    },
-    "isDisease" : true,
-    "minX" : 1389,
-    "maxX" : 1510,
-    "minY" : 480,
-    "maxY" : 492,
-    "segments" : [ {
-      "from" : {
-        "x" : 1389,
-        "y" : 484
-      },
-      "to" : {
-        "x" : 1429,
-        "y" : 486
-      }
-    }, {
-      "from" : {
-        "x" : 1429,
-        "y" : 486
-      },
-      "to" : {
-        "x" : 1510,
-        "y" : 485
-      }
-    } ],
-    "reactionShape" : {
-      "a" : {
-        "x" : 1423,
-        "y" : 480
-      },
-      "b" : {
-        "x" : 1435,
-        "y" : 492
-      },
-      "type" : "BOX",
-      "empty" : true
-    },
-    "inputs" : [ {
-      "id" : 128,
-      "points" : [ {
-        "x" : 1383,
-        "y" : 463
-      } ]
-    }, {
-      "id" : 98718,
-      "points" : [ {
-        "x" : 1333,
-        "y" : 482
-      } ]
-    } ],
-    "outputs" : [ {
-      "id" : 2587,
-      "points" : [ {
-        "x" : 1040,
-        "y" : 603
-      }, {
-        "x" : 1043,
-        "y" : 633
-      } ]
-    }, {
-      "id" : 131,
-      "points" : [ {
-        "x" : 1591,
-        "y" : 482
-      } ]
-    }, {
-      "id" : 98715,
-      "points" : [ {
-        "x" : 1568,
-        "y" : 529
-      } ]
-    }, {
-      "id" : 2588,
-      "points" : [ {
-        "x" : 1548,
-        "y" : 459
-      } ]
-    }, {
-      "id" : 77,
-      "points" : [ {
-        "x" : 1194,
-        "y" : 544
-      }, {
-        "x" : 1199,
-        "y" : 565
-      } ]
-    }, {
-      "id" : 1804,
-      "points" : [ {
-        "x" : 1014,
-        "y" : 638
-      }, {
-        "x" : 1024,
-        "y" : 656
-      } ]
-    }, {
-      "id" : 38,
-      "points" : [ {
-        "x" : 916,
-        "y" : 597
-      }, {
-        "x" : 1018,
-        "y" : 688
-      } ]
-    }, {
-      "id" : 1976,
-      "points" : [ {
-        "x" : 972,
-        "y" : 616
-      }, {
-        "x" : 1017,
-        "y" : 672
-      } ]
-    } ],
-    "catalysts" : [ {
-      "id" : 98718,
-      "points" : [ {
-        "x" : 1333,
-        "y" : 490
-      }, {
-        "x" : 1389,
-        "y" : 502
-      } ]
-    } ]
-  }, {
-    "id" : 98716,
+    "id" : 98708,
     "reactomeId" : 2220966,
     "displayName" : "NOTCH1 PEST domain mutants stimulate HES5 transcription",
     "schemaClass" : "BlackBoxEvent",
@@ -8663,6 +8665,381 @@
       "points" : [ {
         "x" : 1144,
         "y" : 294
+      } ]
+    } ]
+  }, {
+    "id" : 98711,
+    "reactomeId" : 2220979,
+    "displayName" : "NOTCH1 PEST domain mutants stimulate HES1 transcription",
+    "schemaClass" : "BlackBoxEvent",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 937,
+      "y" : 311
+    },
+    "isDisease" : true,
+    "minX" : 893,
+    "maxX" : 995,
+    "minY" : 294,
+    "maxY" : 360,
+    "reactionType" : "Omitted Process",
+    "segments" : [ {
+      "from" : {
+        "x" : 995,
+        "y" : 360
+      },
+      "to" : {
+        "x" : 937,
+        "y" : 311
+      }
+    }, {
+      "from" : {
+        "x" : 937,
+        "y" : 311
+      },
+      "to" : {
+        "x" : 893,
+        "y" : 294
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 901,
+        "y" : 293
+      },
+      "b" : {
+        "x" : 893,
+        "y" : 294
+      },
+      "c" : {
+        "x" : 898,
+        "y" : 300
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 931,
+        "y" : 305
+      },
+      "b" : {
+        "x" : 943,
+        "y" : 317
+      },
+      "s" : "\\\\",
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 2751
+    } ],
+    "outputs" : [ {
+      "id" : 168
+    } ],
+    "activators" : [ {
+      "id" : 2794,
+      "points" : [ {
+        "x" : 985,
+        "y" : 249
+      } ]
+    } ]
+  }, {
+    "id" : 98713,
+    "reactomeId" : 2220982,
+    "displayName" : "NICD1 PEST domain mutants displace co-repressor complex from RBPJ (CSL)",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 844,
+      "y" : 453
+    },
+    "isDisease" : true,
+    "minX" : 820,
+    "maxX" : 861,
+    "minY" : 447,
+    "maxY" : 459,
+    "segments" : [ {
+      "from" : {
+        "x" : 820,
+        "y" : 453
+      },
+      "to" : {
+        "x" : 844,
+        "y" : 453
+      }
+    }, {
+      "from" : {
+        "x" : 844,
+        "y" : 453
+      },
+      "to" : {
+        "x" : 861,
+        "y" : 452
+      }
+    } ],
+    "reactionShape" : {
+      "a" : {
+        "x" : 838,
+        "y" : 447
+      },
+      "b" : {
+        "x" : 850,
+        "y" : 459
+      },
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 98714,
+      "points" : [ {
+        "x" : 835,
+        "y" : 517
+      } ]
+    }, {
+      "id" : 34,
+      "points" : [ {
+        "x" : 814,
+        "y" : 428
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 35,
+      "points" : [ {
+        "x" : 875,
+        "y" : 408
+      } ]
+    }, {
+      "id" : 98704,
+      "points" : [ {
+        "x" : 895,
+        "y" : 450
+      } ]
+    } ]
+  }, {
+    "id" : 98712,
+    "reactomeId" : 2220981,
+    "displayName" : "NOTCH1 PEST domain mutants stimulate HEY transcription",
+    "schemaClass" : "BlackBoxEvent",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 1616,
+      "y" : 277
+    },
+    "isDisease" : true,
+    "minX" : 1534,
+    "maxX" : 1646,
+    "minY" : 271,
+    "maxY" : 290,
+    "reactionType" : "Omitted Process",
+    "segments" : [ {
+      "from" : {
+        "x" : 1534,
+        "y" : 290
+      },
+      "to" : {
+        "x" : 1616,
+        "y" : 277
+      }
+    }, {
+      "from" : {
+        "x" : 1616,
+        "y" : 277
+      },
+      "to" : {
+        "x" : 1646,
+        "y" : 277
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 1639,
+        "y" : 281
+      },
+      "b" : {
+        "x" : 1646,
+        "y" : 277
+      },
+      "c" : {
+        "x" : 1639,
+        "y" : 273
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 1610,
+        "y" : 271
+      },
+      "b" : {
+        "x" : 1622,
+        "y" : 283
+      },
+      "s" : "\\\\",
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 2767
+    } ],
+    "outputs" : [ {
+      "id" : 2570
+    } ],
+    "activators" : [ {
+      "id" : 2894,
+      "points" : [ {
+        "x" : 1618,
+        "y" : 339
+      } ]
+    } ]
+  }, {
+    "id" : 98715,
+    "reactomeId" : 2220985,
+    "displayName" : "NOTCH1 PEST domain mutants stimulate MYC transcription",
+    "schemaClass" : "BlackBoxEvent",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 1363,
+      "y" : 200
+    },
+    "isDisease" : true,
+    "minX" : 1287,
+    "maxX" : 1496,
+    "minY" : 194,
+    "maxY" : 206,
+    "reactionType" : "Omitted Process",
+    "segments" : [ {
+      "from" : {
+        "x" : 1287,
+        "y" : 195
+      },
+      "to" : {
+        "x" : 1363,
+        "y" : 200
+      }
+    }, {
+      "from" : {
+        "x" : 1363,
+        "y" : 200
+      },
+      "to" : {
+        "x" : 1496,
+        "y" : 205
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 1489,
+        "y" : 209
+      },
+      "b" : {
+        "x" : 1496,
+        "y" : 205
+      },
+      "c" : {
+        "x" : 1489,
+        "y" : 201
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 1357,
+        "y" : 194
+      },
+      "b" : {
+        "x" : 1369,
+        "y" : 206
+      },
+      "s" : "\\\\",
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 2748
+    } ],
+    "outputs" : [ {
+      "id" : 194
+    } ],
+    "activators" : [ {
+      "id" : 2850,
+      "points" : [ {
+        "x" : 1364,
+        "y" : 235
+      } ]
+    } ]
+  }, {
+    "id" : 98716,
+    "reactomeId" : 2220988,
+    "displayName" : "NEXT1 PEST domain mutants are cleaved to produce NICD1 PEST domain mutants",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 542,
+      "y" : 834
+    },
+    "isDisease" : true,
+    "minX" : 505,
+    "maxX" : 589,
+    "minY" : 828,
+    "maxY" : 840,
+    "segments" : [ {
+      "from" : {
+        "x" : 505,
+        "y" : 836
+      },
+      "to" : {
+        "x" : 542,
+        "y" : 834
+      }
+    }, {
+      "from" : {
+        "x" : 542,
+        "y" : 834
+      },
+      "to" : {
+        "x" : 589,
+        "y" : 833
+      }
+    } ],
+    "reactionShape" : {
+      "a" : {
+        "x" : 536,
+        "y" : 828
+      },
+      "b" : {
+        "x" : 548,
+        "y" : 840
+      },
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 2957
+    } ],
+    "outputs" : [ {
+      "id" : 98717,
+      "points" : [ {
+        "x" : 638,
+        "y" : 695
+      } ]
+    }, {
+      "id" : 1786,
+      "points" : [ {
+        "x" : 538,
+        "y" : 770
+      }, {
+        "x" : 588,
+        "y" : 785
+      } ]
+    } ],
+    "catalysts" : [ {
+      "id" : 19,
+      "points" : [ {
+        "x" : 478,
+        "y" : 885
+      }, {
+        "x" : 541,
+        "y" : 873
       } ]
     } ]
   }, {
@@ -8748,228 +9125,152 @@
       } ]
     } ]
   }, {
-    "id" : 98719,
-    "reactomeId" : 2220979,
-    "displayName" : "NOTCH1 PEST domain mutants stimulate HES1 transcription",
-    "schemaClass" : "BlackBoxEvent",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 937,
-      "y" : 311
-    },
-    "isDisease" : true,
-    "minX" : 893,
-    "maxX" : 995,
-    "minY" : 294,
-    "maxY" : 360,
-    "reactionType" : "Omitted Process",
-    "segments" : [ {
-      "from" : {
-        "x" : 995,
-        "y" : 360
-      },
-      "to" : {
-        "x" : 937,
-        "y" : 311
-      }
-    }, {
-      "from" : {
-        "x" : 937,
-        "y" : 311
-      },
-      "to" : {
-        "x" : 893,
-        "y" : 294
-      }
-    } ],
-    "endShape" : {
-      "a" : {
-        "x" : 901,
-        "y" : 293
-      },
-      "b" : {
-        "x" : 893,
-        "y" : 294
-      },
-      "c" : {
-        "x" : 898,
-        "y" : 300
-      },
-      "type" : "ARROW"
-    },
-    "reactionShape" : {
-      "a" : {
-        "x" : 931,
-        "y" : 305
-      },
-      "b" : {
-        "x" : 943,
-        "y" : 317
-      },
-      "s" : "\\\\",
-      "type" : "BOX",
-      "empty" : true
-    },
-    "inputs" : [ {
-      "id" : 2751
-    } ],
-    "outputs" : [ {
-      "id" : 168
-    } ],
-    "activators" : [ {
-      "id" : 2794,
-      "points" : [ {
-        "x" : 985,
-        "y" : 249
-      } ]
-    } ]
-  }, {
-    "id" : 98721,
-    "reactomeId" : 2220982,
-    "displayName" : "NICD1 PEST domain mutants displace co-repressor complex from RBPJ (CSL)",
+    "id" : 98718,
+    "reactomeId" : 2900748,
+    "displayName" : "NOTCH1 HD+PEST domain mutants bind DLL1",
     "schemaClass" : "Reaction",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 844,
-      "y" : 453
+      "x" : 358,
+      "y" : 129
     },
     "isDisease" : true,
-    "minX" : 820,
-    "maxX" : 861,
-    "minY" : 447,
-    "maxY" : 459,
+    "minX" : 353,
+    "maxX" : 367,
+    "minY" : 113,
+    "maxY" : 152,
+    "reactionType" : "Association",
     "segments" : [ {
       "from" : {
-        "x" : 820,
-        "y" : 453
+        "x" : 357,
+        "y" : 113
       },
       "to" : {
-        "x" : 844,
-        "y" : 453
+        "x" : 358,
+        "y" : 129
       }
     }, {
       "from" : {
-        "x" : 844,
-        "y" : 453
+        "x" : 358,
+        "y" : 129
       },
       "to" : {
-        "x" : 861,
-        "y" : 452
-      }
-    } ],
-    "reactionShape" : {
-      "a" : {
-        "x" : 838,
-        "y" : 447
-      },
-      "b" : {
-        "x" : 850,
-        "y" : 459
-      },
-      "type" : "BOX",
-      "empty" : true
-    },
-    "inputs" : [ {
-      "id" : 98722,
-      "points" : [ {
-        "x" : 835,
-        "y" : 517
-      } ]
-    }, {
-      "id" : 34,
-      "points" : [ {
-        "x" : 814,
-        "y" : 428
-      } ]
-    } ],
-    "outputs" : [ {
-      "id" : 35,
-      "points" : [ {
-        "x" : 875,
-        "y" : 408
-      } ]
-    }, {
-      "id" : 98712,
-      "points" : [ {
-        "x" : 895,
-        "y" : 450
-      } ]
-    } ]
-  }, {
-    "id" : 98720,
-    "reactomeId" : 2220981,
-    "displayName" : "NOTCH1 PEST domain mutants stimulate HEY transcription",
-    "schemaClass" : "BlackBoxEvent",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 1616,
-      "y" : 277
-    },
-    "isDisease" : true,
-    "minX" : 1534,
-    "maxX" : 1646,
-    "minY" : 271,
-    "maxY" : 290,
-    "reactionType" : "Omitted Process",
-    "segments" : [ {
-      "from" : {
-        "x" : 1534,
-        "y" : 290
-      },
-      "to" : {
-        "x" : 1616,
-        "y" : 277
-      }
-    }, {
-      "from" : {
-        "x" : 1616,
-        "y" : 277
-      },
-      "to" : {
-        "x" : 1646,
-        "y" : 277
+        "x" : 367,
+        "y" : 152
       }
     } ],
     "endShape" : {
       "a" : {
-        "x" : 1639,
-        "y" : 281
+        "x" : 361,
+        "y" : 147
       },
       "b" : {
-        "x" : 1646,
-        "y" : 277
+        "x" : 367,
+        "y" : 152
       },
       "c" : {
-        "x" : 1639,
-        "y" : 273
+        "x" : 368,
+        "y" : 144
       },
       "type" : "ARROW"
     },
     "reactionShape" : {
-      "a" : {
-        "x" : 1610,
-        "y" : 271
+      "c" : {
+        "x" : 358,
+        "y" : 129
       },
-      "b" : {
-        "x" : 1622,
-        "y" : 283
-      },
-      "s" : "\\\\",
-      "type" : "BOX",
-      "empty" : true
+      "r" : 5,
+      "type" : "CIRCLE"
     },
     "inputs" : [ {
-      "id" : 2767
+      "id" : 1073,
+      "points" : [ {
+        "x" : 333,
+        "y" : 104
+      } ]
+    }, {
+      "id" : 98719,
+      "points" : [ {
+        "x" : 375,
+        "y" : 111
+      } ]
     } ],
     "outputs" : [ {
-      "id" : 2570
+      "id" : 98720
+    } ]
+  }, {
+    "id" : 98721,
+    "reactomeId" : 2900747,
+    "displayName" : "NOTCH1 HD+PEST domain mutants bind DLL4",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 370,
+      "y" : 218
+    },
+    "isDisease" : true,
+    "minX" : 365,
+    "maxX" : 375,
+    "minY" : 201,
+    "maxY" : 249,
+    "reactionType" : "Association",
+    "segments" : [ {
+      "from" : {
+        "x" : 366,
+        "y" : 201
+      },
+      "to" : {
+        "x" : 370,
+        "y" : 218
+      }
+    }, {
+      "from" : {
+        "x" : 370,
+        "y" : 218
+      },
+      "to" : {
+        "x" : 371,
+        "y" : 249
+      }
     } ],
-    "activators" : [ {
-      "id" : 2894,
+    "endShape" : {
+      "a" : {
+        "x" : 367,
+        "y" : 242
+      },
+      "b" : {
+        "x" : 371,
+        "y" : 249
+      },
+      "c" : {
+        "x" : 375,
+        "y" : 242
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "c" : {
+        "x" : 370,
+        "y" : 218
+      },
+      "r" : 5,
+      "type" : "CIRCLE"
+    },
+    "inputs" : [ {
+      "id" : 895,
       "points" : [ {
-        "x" : 1618,
-        "y" : 339
+        "x" : 328,
+        "y" : 207
       } ]
+    }, {
+      "id" : 98722,
+      "points" : [ {
+        "x" : 396,
+        "y" : 203
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 98723
     } ]
   }, {
     "id" : 33,
@@ -9041,82 +9342,6 @@
       "points" : [ {
         "x" : 895,
         "y" : 450
-      } ]
-    } ]
-  }, {
-    "id" : 98723,
-    "reactomeId" : 2220985,
-    "displayName" : "NOTCH1 PEST domain mutants stimulate MYC transcription",
-    "schemaClass" : "BlackBoxEvent",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 1363,
-      "y" : 200
-    },
-    "isDisease" : true,
-    "minX" : 1287,
-    "maxX" : 1496,
-    "minY" : 194,
-    "maxY" : 206,
-    "reactionType" : "Omitted Process",
-    "segments" : [ {
-      "from" : {
-        "x" : 1287,
-        "y" : 195
-      },
-      "to" : {
-        "x" : 1363,
-        "y" : 200
-      }
-    }, {
-      "from" : {
-        "x" : 1363,
-        "y" : 200
-      },
-      "to" : {
-        "x" : 1496,
-        "y" : 205
-      }
-    } ],
-    "endShape" : {
-      "a" : {
-        "x" : 1489,
-        "y" : 209
-      },
-      "b" : {
-        "x" : 1496,
-        "y" : 205
-      },
-      "c" : {
-        "x" : 1489,
-        "y" : 201
-      },
-      "type" : "ARROW"
-    },
-    "reactionShape" : {
-      "a" : {
-        "x" : 1357,
-        "y" : 194
-      },
-      "b" : {
-        "x" : 1369,
-        "y" : 206
-      },
-      "s" : "\\\\",
-      "type" : "BOX",
-      "empty" : true
-    },
-    "inputs" : [ {
-      "id" : 2748
-    } ],
-    "outputs" : [ {
-      "id" : 194
-    } ],
-    "activators" : [ {
-      "id" : 2850,
-      "points" : [ {
-        "x" : 1364,
-        "y" : 235
       } ]
     } ]
   }, {
@@ -9204,78 +9429,86 @@
     } ]
   }, {
     "id" : 98724,
-    "reactomeId" : 2220988,
-    "displayName" : "NEXT1 PEST domain mutants are cleaved to produce NICD1 PEST domain mutants",
+    "reactomeId" : 4396393,
+    "displayName" : "NOTCH1 PEST domain mutants bind MYC promoter",
     "schemaClass" : "Reaction",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 542,
-      "y" : 834
+      "x" : 1291,
+      "y" : 365
     },
     "isDisease" : true,
-    "minX" : 505,
-    "maxX" : 589,
-    "minY" : 828,
-    "maxY" : 840,
+    "minX" : 1286,
+    "maxX" : 1361,
+    "minY" : 300,
+    "maxY" : 370,
+    "reactionType" : "Association",
     "segments" : [ {
       "from" : {
-        "x" : 505,
-        "y" : 836
+        "x" : 1291,
+        "y" : 364
       },
       "to" : {
-        "x" : 542,
-        "y" : 834
+        "x" : 1291,
+        "y" : 365
       }
     }, {
       "from" : {
-        "x" : 542,
-        "y" : 834
+        "x" : 1291,
+        "y" : 365
       },
       "to" : {
-        "x" : 589,
-        "y" : 833
+        "x" : 1357,
+        "y" : 343
+      }
+    }, {
+      "from" : {
+        "x" : 1357,
+        "y" : 343
+      },
+      "to" : {
+        "x" : 1361,
+        "y" : 300
       }
     } ],
-    "reactionShape" : {
+    "endShape" : {
       "a" : {
-        "x" : 536,
-        "y" : 828
+        "x" : 1364,
+        "y" : 307
       },
       "b" : {
-        "x" : 548,
-        "y" : 840
+        "x" : 1361,
+        "y" : 300
       },
-      "type" : "BOX",
-      "empty" : true
+      "c" : {
+        "x" : 1356,
+        "y" : 307
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "c" : {
+        "x" : 1291,
+        "y" : 365
+      },
+      "r" : 5,
+      "type" : "CIRCLE"
     },
     "inputs" : [ {
-      "id" : 2957
-    } ],
-    "outputs" : [ {
-      "id" : 98725,
+      "id" : 98705,
       "points" : [ {
-        "x" : 638,
-        "y" : 695
+        "x" : 1138,
+        "y" : 457
       } ]
     }, {
-      "id" : 1786,
+      "id" : 2748,
       "points" : [ {
-        "x" : 538,
-        "y" : 770
-      }, {
-        "x" : 588,
-        "y" : 785
+        "x" : 1287,
+        "y" : 195
       } ]
     } ],
-    "catalysts" : [ {
-      "id" : 19,
-      "points" : [ {
-        "x" : 478,
-        "y" : 885
-      }, {
-        "x" : 541,
-        "y" : 873
-      } ]
+    "outputs" : [ {
+      "id" : 98725
     } ]
   }, {
     "id" : 37,
@@ -9600,73 +9833,73 @@
     } ]
   }, {
     "id" : 98726,
-    "reactomeId" : 2900748,
-    "displayName" : "NOTCH1 HD+PEST domain mutants bind DLL1",
+    "reactomeId" : 2900743,
+    "displayName" : "NOTCH1 HD+PEST domain mutants bind JAG1",
     "schemaClass" : "Reaction",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 358,
-      "y" : 129
+      "x" : 366,
+      "y" : 342
     },
     "isDisease" : true,
-    "minX" : 353,
-    "maxX" : 367,
-    "minY" : 113,
-    "maxY" : 152,
+    "minX" : 361,
+    "maxX" : 371,
+    "minY" : 319,
+    "maxY" : 365,
     "reactionType" : "Association",
     "segments" : [ {
       "from" : {
-        "x" : 357,
-        "y" : 113
+        "x" : 368,
+        "y" : 365
       },
       "to" : {
-        "x" : 358,
-        "y" : 129
+        "x" : 366,
+        "y" : 342
       }
     }, {
       "from" : {
-        "x" : 358,
-        "y" : 129
+        "x" : 366,
+        "y" : 342
       },
       "to" : {
-        "x" : 367,
-        "y" : 152
+        "x" : 366,
+        "y" : 319
       }
     } ],
     "endShape" : {
       "a" : {
-        "x" : 361,
-        "y" : 147
+        "x" : 370,
+        "y" : 326
       },
       "b" : {
-        "x" : 367,
-        "y" : 152
+        "x" : 366,
+        "y" : 319
       },
       "c" : {
-        "x" : 368,
-        "y" : 144
+        "x" : 362,
+        "y" : 326
       },
       "type" : "ARROW"
     },
     "reactionShape" : {
       "c" : {
-        "x" : 358,
-        "y" : 129
+        "x" : 366,
+        "y" : 342
       },
       "r" : 5,
       "type" : "CIRCLE"
     },
     "inputs" : [ {
-      "id" : 1073,
+      "id" : 912,
       "points" : [ {
-        "x" : 333,
-        "y" : 104
+        "x" : 336,
+        "y" : 362
       } ]
     }, {
       "id" : 98727,
       "points" : [ {
-        "x" : 375,
-        "y" : 111
+        "x" : 410,
+        "y" : 365
       } ]
     } ],
     "outputs" : [ {
@@ -9674,163 +9907,6 @@
     } ]
   }, {
     "id" : 98729,
-    "reactomeId" : 2900747,
-    "displayName" : "NOTCH1 HD+PEST domain mutants bind DLL4",
-    "schemaClass" : "Reaction",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 370,
-      "y" : 218
-    },
-    "isDisease" : true,
-    "minX" : 365,
-    "maxX" : 375,
-    "minY" : 201,
-    "maxY" : 249,
-    "reactionType" : "Association",
-    "segments" : [ {
-      "from" : {
-        "x" : 366,
-        "y" : 201
-      },
-      "to" : {
-        "x" : 370,
-        "y" : 218
-      }
-    }, {
-      "from" : {
-        "x" : 370,
-        "y" : 218
-      },
-      "to" : {
-        "x" : 371,
-        "y" : 249
-      }
-    } ],
-    "endShape" : {
-      "a" : {
-        "x" : 367,
-        "y" : 242
-      },
-      "b" : {
-        "x" : 371,
-        "y" : 249
-      },
-      "c" : {
-        "x" : 375,
-        "y" : 242
-      },
-      "type" : "ARROW"
-    },
-    "reactionShape" : {
-      "c" : {
-        "x" : 370,
-        "y" : 218
-      },
-      "r" : 5,
-      "type" : "CIRCLE"
-    },
-    "inputs" : [ {
-      "id" : 895,
-      "points" : [ {
-        "x" : 328,
-        "y" : 207
-      } ]
-    }, {
-      "id" : 98730,
-      "points" : [ {
-        "x" : 396,
-        "y" : 203
-      } ]
-    } ],
-    "outputs" : [ {
-      "id" : 98731
-    } ]
-  }, {
-    "id" : 98732,
-    "reactomeId" : 4396393,
-    "displayName" : "NOTCH1 PEST domain mutants bind MYC promoter",
-    "schemaClass" : "Reaction",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 1291,
-      "y" : 365
-    },
-    "isDisease" : true,
-    "minX" : 1286,
-    "maxX" : 1361,
-    "minY" : 300,
-    "maxY" : 370,
-    "reactionType" : "Association",
-    "segments" : [ {
-      "from" : {
-        "x" : 1291,
-        "y" : 364
-      },
-      "to" : {
-        "x" : 1291,
-        "y" : 365
-      }
-    }, {
-      "from" : {
-        "x" : 1291,
-        "y" : 365
-      },
-      "to" : {
-        "x" : 1357,
-        "y" : 343
-      }
-    }, {
-      "from" : {
-        "x" : 1357,
-        "y" : 343
-      },
-      "to" : {
-        "x" : 1361,
-        "y" : 300
-      }
-    } ],
-    "endShape" : {
-      "a" : {
-        "x" : 1364,
-        "y" : 307
-      },
-      "b" : {
-        "x" : 1361,
-        "y" : 300
-      },
-      "c" : {
-        "x" : 1356,
-        "y" : 307
-      },
-      "type" : "ARROW"
-    },
-    "reactionShape" : {
-      "c" : {
-        "x" : 1291,
-        "y" : 365
-      },
-      "r" : 5,
-      "type" : "CIRCLE"
-    },
-    "inputs" : [ {
-      "id" : 98713,
-      "points" : [ {
-        "x" : 1138,
-        "y" : 457
-      } ]
-    }, {
-      "id" : 2748,
-      "points" : [ {
-        "x" : 1287,
-        "y" : 195
-      } ]
-    } ],
-    "outputs" : [ {
-      "id" : 98733
-    } ]
-  }, {
-    "id" : 98734,
     "reactomeId" : 4396392,
     "displayName" : "NOTCH1 PEST domain mutants bind HES1 promoter",
     "schemaClass" : "Reaction",
@@ -9888,7 +9964,7 @@
       "type" : "CIRCLE"
     },
     "inputs" : [ {
-      "id" : 98713,
+      "id" : 98705,
       "points" : [ {
         "x" : 1058,
         "y" : 457
@@ -9904,7 +9980,223 @@
       } ]
     } ],
     "outputs" : [ {
-      "id" : 98735
+      "id" : 98730
+    } ]
+  }, {
+    "id" : 98731,
+    "reactomeId" : 4396402,
+    "displayName" : "NOTCH1 PEST domain mutants bind promoters of HEY genes",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 1536,
+      "y" : 367
+    },
+    "isDisease" : true,
+    "minX" : 1531,
+    "maxX" : 1570,
+    "minY" : 362,
+    "maxY" : 372,
+    "reactionType" : "Association",
+    "segments" : [ {
+      "from" : {
+        "x" : 1537,
+        "y" : 364
+      },
+      "to" : {
+        "x" : 1536,
+        "y" : 367
+      }
+    }, {
+      "from" : {
+        "x" : 1536,
+        "y" : 367
+      },
+      "to" : {
+        "x" : 1570,
+        "y" : 370
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 1563,
+        "y" : 373
+      },
+      "b" : {
+        "x" : 1570,
+        "y" : 370
+      },
+      "c" : {
+        "x" : 1563,
+        "y" : 365
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "c" : {
+        "x" : 1536,
+        "y" : 367
+      },
+      "r" : 5,
+      "type" : "CIRCLE"
+    },
+    "inputs" : [ {
+      "id" : 2767,
+      "points" : [ {
+        "x" : 1508,
+        "y" : 328
+      } ]
+    }, {
+      "id" : 98705,
+      "points" : [ {
+        "x" : 1144,
+        "y" : 471
+      }, {
+        "x" : 1339,
+        "y" : 406
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 98732
+    } ]
+  }, {
+    "id" : 98733,
+    "reactomeId" : 4396401,
+    "displayName" : "NOTCH1 PEST domain mutants bind HES5 promoter",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 1130,
+      "y" : 393
+    },
+    "isDisease" : true,
+    "minX" : 1125,
+    "maxX" : 1176,
+    "minY" : 328,
+    "maxY" : 398,
+    "reactionType" : "Association",
+    "segments" : [ {
+      "from" : {
+        "x" : 1130,
+        "y" : 395
+      },
+      "to" : {
+        "x" : 1130,
+        "y" : 393
+      }
+    }, {
+      "from" : {
+        "x" : 1130,
+        "y" : 393
+      },
+      "to" : {
+        "x" : 1176,
+        "y" : 328
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 1175,
+        "y" : 336
+      },
+      "b" : {
+        "x" : 1176,
+        "y" : 328
+      },
+      "c" : {
+        "x" : 1169,
+        "y" : 331
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "c" : {
+        "x" : 1130,
+        "y" : 393
+      },
+      "r" : 5,
+      "type" : "CIRCLE"
+    },
+    "inputs" : [ {
+      "id" : 2752,
+      "points" : [ {
+        "x" : 1128,
+        "y" : 329
+      } ]
+    }, {
+      "id" : 98705,
+      "points" : [ {
+        "x" : 1107,
+        "y" : 457
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 98734
+    } ]
+  }, {
+    "id" : 98735,
+    "reactomeId" : 2900756,
+    "displayName" : "NOTCH1 HD+PEST domain mutants bind JAG2",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 374,
+      "y" : 419
+    },
+    "isDisease" : true,
+    "minX" : 369,
+    "maxX" : 379,
+    "minY" : 414,
+    "maxY" : 462,
+    "reactionType" : "Association",
+    "segments" : [ {
+      "from" : {
+        "x" : 375,
+        "y" : 462
+      },
+      "to" : {
+        "x" : 374,
+        "y" : 419
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 378,
+        "y" : 426
+      },
+      "b" : {
+        "x" : 374,
+        "y" : 419
+      },
+      "c" : {
+        "x" : 370,
+        "y" : 426
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "c" : {
+        "x" : 374,
+        "y" : 419
+      },
+      "r" : 5,
+      "type" : "CIRCLE"
+    },
+    "inputs" : [ {
+      "id" : 1083,
+      "points" : [ {
+        "x" : 334,
+        "y" : 465
+      } ]
+    }, {
+      "id" : 98736,
+      "points" : [ {
+        "x" : 414,
+        "y" : 467
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 98737
     } ]
   }, {
     "id" : 1072,
@@ -10057,157 +10349,6 @@
       } ]
     } ]
   }, {
-    "id" : 98736,
-    "reactomeId" : 2900743,
-    "displayName" : "NOTCH1 HD+PEST domain mutants bind JAG1",
-    "schemaClass" : "Reaction",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 366,
-      "y" : 342
-    },
-    "isDisease" : true,
-    "minX" : 361,
-    "maxX" : 371,
-    "minY" : 319,
-    "maxY" : 365,
-    "reactionType" : "Association",
-    "segments" : [ {
-      "from" : {
-        "x" : 368,
-        "y" : 365
-      },
-      "to" : {
-        "x" : 366,
-        "y" : 342
-      }
-    }, {
-      "from" : {
-        "x" : 366,
-        "y" : 342
-      },
-      "to" : {
-        "x" : 366,
-        "y" : 319
-      }
-    } ],
-    "endShape" : {
-      "a" : {
-        "x" : 370,
-        "y" : 326
-      },
-      "b" : {
-        "x" : 366,
-        "y" : 319
-      },
-      "c" : {
-        "x" : 362,
-        "y" : 326
-      },
-      "type" : "ARROW"
-    },
-    "reactionShape" : {
-      "c" : {
-        "x" : 366,
-        "y" : 342
-      },
-      "r" : 5,
-      "type" : "CIRCLE"
-    },
-    "inputs" : [ {
-      "id" : 912,
-      "points" : [ {
-        "x" : 336,
-        "y" : 362
-      } ]
-    }, {
-      "id" : 98737,
-      "points" : [ {
-        "x" : 410,
-        "y" : 365
-      } ]
-    } ],
-    "outputs" : [ {
-      "id" : 98738
-    } ]
-  }, {
-    "id" : 98739,
-    "reactomeId" : 4396402,
-    "displayName" : "NOTCH1 PEST domain mutants bind promoters of HEY genes",
-    "schemaClass" : "Reaction",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 1536,
-      "y" : 367
-    },
-    "isDisease" : true,
-    "minX" : 1531,
-    "maxX" : 1570,
-    "minY" : 362,
-    "maxY" : 372,
-    "reactionType" : "Association",
-    "segments" : [ {
-      "from" : {
-        "x" : 1537,
-        "y" : 364
-      },
-      "to" : {
-        "x" : 1536,
-        "y" : 367
-      }
-    }, {
-      "from" : {
-        "x" : 1536,
-        "y" : 367
-      },
-      "to" : {
-        "x" : 1570,
-        "y" : 370
-      }
-    } ],
-    "endShape" : {
-      "a" : {
-        "x" : 1563,
-        "y" : 373
-      },
-      "b" : {
-        "x" : 1570,
-        "y" : 370
-      },
-      "c" : {
-        "x" : 1563,
-        "y" : 365
-      },
-      "type" : "ARROW"
-    },
-    "reactionShape" : {
-      "c" : {
-        "x" : 1536,
-        "y" : 367
-      },
-      "r" : 5,
-      "type" : "CIRCLE"
-    },
-    "inputs" : [ {
-      "id" : 2767,
-      "points" : [ {
-        "x" : 1508,
-        "y" : 328
-      } ]
-    }, {
-      "id" : 98713,
-      "points" : [ {
-        "x" : 1144,
-        "y" : 471
-      }, {
-        "x" : 1339,
-        "y" : 406
-      } ]
-    } ],
-    "outputs" : [ {
-      "id" : 98740
-    } ]
-  }, {
     "id" : 1458,
     "reactomeId" : 1980065,
     "displayName" : "NOTCH1 stimulates HEY transcription",
@@ -10284,143 +10425,136 @@
       } ]
     } ]
   }, {
-    "id" : 98741,
-    "reactomeId" : 4396401,
-    "displayName" : "NOTCH1 PEST domain mutants bind HES5 promoter",
+    "id" : 98739,
+    "reactomeId" : 2769015,
+    "displayName" : "NICD1 PEST domain mutants translocate from cytosol to nucleus",
     "schemaClass" : "Reaction",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 1130,
-      "y" : 393
+      "x" : 747,
+      "y" : 546
     },
     "isDisease" : true,
-    "minX" : 1125,
-    "maxX" : 1176,
-    "minY" : 328,
-    "maxY" : 398,
-    "reactionType" : "Association",
+    "minX" : 653,
+    "maxX" : 774,
+    "minY" : 540,
+    "maxY" : 662,
     "segments" : [ {
       "from" : {
-        "x" : 1130,
-        "y" : 395
+        "x" : 653,
+        "y" : 662
       },
       "to" : {
-        "x" : 1130,
-        "y" : 393
+        "x" : 747,
+        "y" : 546
       }
     }, {
       "from" : {
-        "x" : 1130,
-        "y" : 393
+        "x" : 747,
+        "y" : 546
       },
       "to" : {
-        "x" : 1176,
-        "y" : 328
+        "x" : 774,
+        "y" : 542
       }
     } ],
     "endShape" : {
       "a" : {
-        "x" : 1175,
-        "y" : 336
+        "x" : 768,
+        "y" : 547
       },
       "b" : {
-        "x" : 1176,
-        "y" : 328
+        "x" : 774,
+        "y" : 542
       },
       "c" : {
-        "x" : 1169,
-        "y" : 331
+        "x" : 767,
+        "y" : 539
       },
       "type" : "ARROW"
     },
     "reactionShape" : {
-      "c" : {
-        "x" : 1130,
-        "y" : 393
+      "a" : {
+        "x" : 741,
+        "y" : 540
       },
-      "r" : 5,
-      "type" : "CIRCLE"
+      "b" : {
+        "x" : 753,
+        "y" : 552
+      },
+      "type" : "BOX",
+      "empty" : true
     },
     "inputs" : [ {
-      "id" : 2752,
-      "points" : [ {
-        "x" : 1128,
-        "y" : 329
-      } ]
-    }, {
-      "id" : 98713,
-      "points" : [ {
-        "x" : 1107,
-        "y" : 457
-      } ]
+      "id" : 98717
     } ],
     "outputs" : [ {
-      "id" : 98742
+      "id" : 98714
     } ]
   }, {
-    "id" : 98743,
-    "reactomeId" : 2900756,
-    "displayName" : "NOTCH1 HD+PEST domain mutants bind JAG2",
+    "id" : 98738,
+    "reactomeId" : 2220957,
+    "displayName" : "NOTCH1 PEST domain mutants coactivator complex binds CDK8:CCNC",
     "schemaClass" : "Reaction",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 374,
-      "y" : 419
+      "x" : 1187,
+      "y" : 484
     },
     "isDisease" : true,
-    "minX" : 369,
-    "maxX" : 379,
-    "minY" : 414,
-    "maxY" : 462,
+    "minX" : 1182,
+    "maxX" : 1237,
+    "minY" : 479,
+    "maxY" : 489,
     "reactionType" : "Association",
     "segments" : [ {
       "from" : {
-        "x" : 375,
-        "y" : 462
+        "x" : 1187,
+        "y" : 484
       },
       "to" : {
-        "x" : 374,
-        "y" : 419
+        "x" : 1237,
+        "y" : 482
       }
     } ],
     "endShape" : {
       "a" : {
-        "x" : 378,
-        "y" : 426
+        "x" : 1230,
+        "y" : 486
       },
       "b" : {
-        "x" : 374,
-        "y" : 419
+        "x" : 1237,
+        "y" : 482
       },
       "c" : {
-        "x" : 370,
-        "y" : 426
+        "x" : 1230,
+        "y" : 478
       },
       "type" : "ARROW"
     },
     "reactionShape" : {
       "c" : {
-        "x" : 374,
-        "y" : 419
+        "x" : 1187,
+        "y" : 484
       },
       "r" : 5,
       "type" : "CIRCLE"
     },
     "inputs" : [ {
-      "id" : 1083,
+      "id" : 77,
       "points" : [ {
-        "x" : 334,
-        "y" : 465
+        "x" : 1189,
+        "y" : 503
       } ]
     }, {
-      "id" : 98744,
+      "id" : 98705,
       "points" : [ {
-        "x" : 414,
-        "y" : 467
+        "x" : 1144,
+        "y" : 484
       } ]
     } ],
     "outputs" : [ {
-      "id" : 98745
+      "id" : 98710
     } ]
   }, {
     "id" : 311,
@@ -10562,73 +10696,6 @@
       "id" : 1783
     } ]
   }, {
-    "id" : 98747,
-    "reactomeId" : 2769015,
-    "displayName" : "NICD1 PEST domain mutants translocate from cytosol to nucleus",
-    "schemaClass" : "Reaction",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 747,
-      "y" : 546
-    },
-    "isDisease" : true,
-    "minX" : 653,
-    "maxX" : 774,
-    "minY" : 540,
-    "maxY" : 662,
-    "segments" : [ {
-      "from" : {
-        "x" : 653,
-        "y" : 662
-      },
-      "to" : {
-        "x" : 747,
-        "y" : 546
-      }
-    }, {
-      "from" : {
-        "x" : 747,
-        "y" : 546
-      },
-      "to" : {
-        "x" : 774,
-        "y" : 542
-      }
-    } ],
-    "endShape" : {
-      "a" : {
-        "x" : 768,
-        "y" : 547
-      },
-      "b" : {
-        "x" : 774,
-        "y" : 542
-      },
-      "c" : {
-        "x" : 767,
-        "y" : 539
-      },
-      "type" : "ARROW"
-    },
-    "reactionShape" : {
-      "a" : {
-        "x" : 741,
-        "y" : 540
-      },
-      "b" : {
-        "x" : 753,
-        "y" : 552
-      },
-      "type" : "BOX",
-      "empty" : true
-    },
-    "inputs" : [ {
-      "id" : 98725
-    } ],
-    "outputs" : [ {
-      "id" : 98722
-    } ]
-  }, {
     "id" : 2875,
     "reactomeId" : 4396379,
     "displayName" : "NOTCH1 Coactivator Complex binds HES5 promoter",
@@ -10701,71 +10768,6 @@
     } ],
     "outputs" : [ {
       "id" : 2870
-    } ]
-  }, {
-    "id" : 98746,
-    "reactomeId" : 2220957,
-    "displayName" : "NOTCH1 PEST domain mutants coactivator complex binds CDK8:CCNC",
-    "schemaClass" : "Reaction",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 1187,
-      "y" : 484
-    },
-    "isDisease" : true,
-    "minX" : 1182,
-    "maxX" : 1237,
-    "minY" : 479,
-    "maxY" : 489,
-    "reactionType" : "Association",
-    "segments" : [ {
-      "from" : {
-        "x" : 1187,
-        "y" : 484
-      },
-      "to" : {
-        "x" : 1237,
-        "y" : 482
-      }
-    } ],
-    "endShape" : {
-      "a" : {
-        "x" : 1230,
-        "y" : 486
-      },
-      "b" : {
-        "x" : 1237,
-        "y" : 482
-      },
-      "c" : {
-        "x" : 1230,
-        "y" : 478
-      },
-      "type" : "ARROW"
-    },
-    "reactionShape" : {
-      "c" : {
-        "x" : 1187,
-        "y" : 484
-      },
-      "r" : 5,
-      "type" : "CIRCLE"
-    },
-    "inputs" : [ {
-      "id" : 77,
-      "points" : [ {
-        "x" : 1189,
-        "y" : 503
-      } ]
-    }, {
-      "id" : 98713,
-      "points" : [ {
-        "x" : 1144,
-        "y" : 484
-      } ]
-    } ],
-    "outputs" : [ {
-      "id" : 98718
     } ]
   }, {
     "id" : 1727,
@@ -11886,7 +11888,7 @@
     "id" : 6,
     "reactomeId" : 70101,
     "displayName" : "cytosol",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 1128,
@@ -11922,7 +11924,7 @@
     "id" : 22,
     "reactomeId" : 7660,
     "displayName" : "nucleoplasm",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 1255,
@@ -11958,7 +11960,7 @@
     "id" : 7,
     "reactomeId" : 70101,
     "displayName" : "cytosol",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 190,
@@ -11989,7 +11991,7 @@
       "g" : 240,
       "b" : 240
     },
-    "componentIds" : [ 263, 266, 279, 461, 459, 895, 912, 896, 1073, 1074, 1083, 1168, 1169, 146, 239, 240, 248, 715, 145, 247, 1173, 1189, 1307, 1783, 1782, 1788, 2928, 2929, 2937, 2939, 2950, 2949, 2955, 2958 ]
+    "componentIds" : [ 263, 266, 279, 461, 459, 895, 912, 896, 1073, 1074, 1083, 1168, 1169, 146, 239, 240, 248, 715, 145, 247, 1173, 1189, 1307, 1783, 1782, 1788, 2928, 2929, 2937, 2939, 2950, 2949, 2955, 2958, 2975, 2976 ]
   } ],
   "notes" : [ {
     "id" : 1188,
@@ -12479,7 +12481,7 @@
     } ]
   } ],
   "shadows" : [ {
-    "id" : 98748,
+    "id" : 98740,
     "reactomeId" : 2894862,
     "displayName" : "Constitutive Signaling by NOTCH1 HD+PEST Domain Mutants",
     "schemaClass" : "Pathway",

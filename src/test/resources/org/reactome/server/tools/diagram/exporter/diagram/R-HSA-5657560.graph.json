@@ -1,14 +1,15 @@
 {
   "dbId" : 5657560,
   "stId" : "R-HSA-5657560",
+  "speciesName" : "Homo sapiens",
   "nodes" : [ {
     "dbId" : 5656450,
     "stId" : "R-HSA-5656450",
     "displayName" : "ALDOB mutant proteins [cytosol]",
     "schemaClass" : "DefinedSet",
-    "speciesID" : 48887,
-    "diagramIds" : [ 1261754 ],
-    "children" : [ 5656445, 5656440 ]
+    "speciesId" : 48887,
+    "diagramIds" : [ 167763 ],
+    "children" : [ 5656440, 5656445 ]
   }, {
     "dbId" : 31221,
     "stId" : "R-ALL-31221",
@@ -21,7 +22,7 @@
     "stId" : "R-HSA-5656445",
     "displayName" : "ALDOB A149P dimer [cytosol]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 5656450 ],
     "children" : [ 5656457 ]
   }, {
@@ -29,7 +30,7 @@
     "stId" : "R-HSA-5656440",
     "displayName" : "ALDOB A174D tetramer [cytosol]",
     "schemaClass" : "Complex",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "parents" : [ 5656450 ],
     "children" : [ 5656456 ]
   }, {
@@ -37,7 +38,7 @@
     "stId" : "R-HSA-5656456",
     "displayName" : "ALDOB A174D [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P05062",
     "geneNames" : [ "ALDOB", "ALDB" ],
     "parents" : [ 5656440 ]
@@ -46,7 +47,7 @@
     "stId" : "R-HSA-5656457",
     "displayName" : "ALDOB A149P [cytosol]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "identifier" : "P05062",
     "geneNames" : [ "ALDOB", "ALDB" ],
     "parents" : [ 5656445 ]
@@ -57,7 +58,8 @@
     "displayName" : "Defective ALDOB does not cleave Fru 1-P to GA and DHAP",
     "schemaClass" : "FailedReaction",
     "inputs" : [ 31221 ],
-    "catalysts" : [ 5656450 ],
-    "diagramIds" : [ 1261753 ]
+    "efs" : [ 5656450 ],
+    "diagramIds" : [ 167762 ],
+    "entityFunctionalStatus" : [ 5656450 ]
   } ]
 }

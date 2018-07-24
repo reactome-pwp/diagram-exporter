@@ -23,9 +23,8 @@ import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.CompartmentRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.LegendRenderer;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.NoteRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.gif.AnimatedGifEncoder;
 import org.reactome.server.tools.diagram.exporter.raster.itext.awt.PdfGraphics2D;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
@@ -217,8 +216,9 @@ public class DiagramRenderer implements RasterRenderer {
 
 	private BufferedImage frame(double factor, int width, int height, int offsetX, int offsetY, int t) {
 		canvas.getNodeAnalysis().clear();
-		index.getNodes().forEach(renderableNode ->
-				renderableNode.renderAnalysis(canvas, colorProfiles, index, t));
+		index.getDiagramObjectsById().values().stream()
+				.filter(RenderableNode.class::isInstance)
+				.forEach(renderableNode -> renderableNode.draw(canvas, colorProfiles, index, t));
 		// Update legend
 		legendRenderer.setCol(t, title);
 		final BufferedImage image = createImage(width, height, "gif");
@@ -295,29 +295,9 @@ public class DiagramRenderer implements RasterRenderer {
 	}
 
 	private void layout() {
-		compartments();
-		nodes();
-		notes();
-		edges();
+		index.getDiagramObjectsById().values().forEach(renderable ->
+				renderable.draw(canvas, colorProfiles, index, T));
 		legend();
-	}
-
-	private void compartments() {
-		final CompartmentRenderer renderer = new CompartmentRenderer();
-		renderer.draw(canvas, diagram.getCompartments(), colorProfiles, index);
-	}
-
-	private void nodes() {
-		index.getNodes().forEach(node -> node.render(canvas, colorProfiles, index, T));
-	}
-
-	private void edges() {
-		index.getEdges().forEach(edge -> edge.render(canvas, colorProfiles, index));
-	}
-
-	private void notes() {
-		final NoteRenderer renderer = new NoteRenderer();
-		diagram.getNotes().forEach(note -> renderer.draw(canvas, note, colorProfiles));
 	}
 
 	private void legend() {

@@ -1,7 +1,7 @@
 {
   "dbId" : 109606,
   "stableId" : "R-HSA-109606",
-  "displayName" : "Diagram of Intrinsic Pathway for Apoptosis",
+  "displayName" : "Intrinsic Pathway for Apoptosis",
   "nodes" : [ {
     "id" : 128,
     "reactomeId" : 140202,
@@ -67,7 +67,7 @@
       "x" : 906,
       "y" : 715
     },
-    "minX" : 696,
+    "minX" : 877,
     "maxX" : 941,
     "minY" : 696,
     "maxY" : 728,
@@ -133,7 +133,7 @@
       "x" : 1898,
       "y" : 490
     },
-    "minX" : 473,
+    "minX" : 1873,
     "maxX" : 1930,
     "minY" : 473,
     "maxY" : 501,
@@ -177,7 +177,7 @@
       "x" : 2266,
       "y" : 491
     },
-    "minX" : 474,
+    "minX" : 2178,
     "maxX" : 2384,
     "minY" : 419,
     "maxY" : 502,
@@ -270,7 +270,7 @@
       "y" : 1497
     },
     "minX" : 868,
-    "maxX" : 1480,
+    "maxX" : 930,
     "minY" : 1451,
     "maxY" : 1508,
     "prop" : {
@@ -329,7 +329,7 @@
       "x" : 2160,
       "y" : 681
     },
-    "minX" : 664,
+    "minX" : 2136,
     "maxX" : 2190,
     "minY" : 664,
     "maxY" : 726,
@@ -383,7 +383,7 @@
       "y" : 939
     },
     "minX" : 487,
-    "maxX" : 922,
+    "maxX" : 573,
     "minY" : 922,
     "maxY" : 950,
     "prop" : {
@@ -646,7 +646,7 @@
       "x" : 2275,
       "y" : 662
     },
-    "minX" : 646,
+    "minX" : 2255,
     "maxX" : 2318,
     "minY" : 646,
     "maxY" : 677,
@@ -747,7 +747,7 @@
       "y" : 1251
     },
     "minX" : 869,
-    "maxX" : 1234,
+    "maxX" : 1025,
     "minY" : 1192,
     "maxY" : 1262,
     "prop" : {
@@ -833,7 +833,7 @@
       "x" : 759,
       "y" : 516
     },
-    "minX" : 499,
+    "minX" : 732,
     "maxX" : 792,
     "minY" : 499,
     "maxY" : 527,
@@ -891,7 +891,7 @@
       "x" : 2285,
       "y" : 614
     },
-    "minX" : 597,
+    "minX" : 2238,
     "maxX" : 2339,
     "minY" : 597,
     "maxY" : 662,
@@ -1063,21 +1063,21 @@
     "schemaClass" : "Complex",
     "renderableClass" : "Complex",
     "position" : {
-      "x" : 331,
+      "x" : 332,
       "y" : 421
     },
-    "minX" : 285,
-    "maxX" : 411,
+    "minX" : 286,
+    "maxX" : 412,
     "minY" : 398,
     "maxY" : 455,
     "prop" : {
-      "x" : 285,
+      "x" : 286,
       "y" : 404,
       "width" : 92,
       "height" : 34
     },
     "textPosition" : {
-      "x" : 289,
+      "x" : 290,
       "y" : 403
     },
     "bgColor" : {
@@ -1090,11 +1090,11 @@
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 371,
+          "x" : 372,
           "y" : 441
         },
         "to" : {
-          "x" : 411,
+          "x" : 412,
           "y" : 455
         }
       } ],
@@ -1106,11 +1106,11 @@
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 380,
+          "x" : 381,
           "y" : 407
         },
         "to" : {
-          "x" : 409,
+          "x" : 410,
           "y" : 398
         }
       } ],
@@ -1174,7 +1174,7 @@
       "x" : 2501,
       "y" : 761
     },
-    "minX" : 745,
+    "minX" : 2481,
     "maxX" : 2557,
     "minY" : 731,
     "maxY" : 776,
@@ -1287,7 +1287,7 @@
       "x" : 911,
       "y" : 587
     },
-    "minX" : 570,
+    "minX" : 884,
     "maxX" : 944,
     "minY" : 570,
     "maxY" : 598,
@@ -1497,7 +1497,7 @@
       "x" : 754,
       "y" : 322
     },
-    "minX" : 305,
+    "minX" : 734,
     "maxX" : 781,
     "minY" : 305,
     "maxY" : 333,
@@ -1599,7 +1599,7 @@
       "x" : 906,
       "y" : 429
     },
-    "minX" : 412,
+    "minX" : 886,
     "maxX" : 933,
     "minY" : 412,
     "maxY" : 440,
@@ -1640,21 +1640,21 @@
     "schemaClass" : "EntityWithAccessionedSequence",
     "renderableClass" : "Gene",
     "position" : {
-      "x" : 347,
+      "x" : 348,
       "y" : 345
     },
-    "minX" : 318,
-    "maxX" : 433,
+    "minX" : 319,
+    "maxX" : 434,
     "minY" : 283,
     "maxY" : 398,
     "prop" : {
-      "x" : 318,
+      "x" : 319,
       "y" : 320,
       "width" : 58,
       "height" : 51
     },
     "textPosition" : {
-      "x" : 326,
+      "x" : 327,
       "y" : 347
     },
     "connectors" : [ {
@@ -1676,11 +1676,11 @@
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 385,
+          "x" : 386,
           "y" : 322
         },
         "to" : {
-          "x" : 433,
+          "x" : 434,
           "y" : 283
         }
       } ],
@@ -1692,11 +1692,11 @@
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 385,
+          "x" : 386,
           "y" : 322
         },
         "to" : {
-          "x" : 409,
+          "x" : 410,
           "y" : 398
         }
       } ],
@@ -1706,15 +1706,15 @@
     } ],
     "endShape" : {
       "a" : {
-        "x" : 383,
+        "x" : 384,
         "y" : 318
       },
       "b" : {
-        "x" : 376,
+        "x" : 377,
         "y" : 322
       },
       "c" : {
-        "x" : 383,
+        "x" : 384,
         "y" : 326
       },
       "type" : "ARROW"
@@ -1726,21 +1726,21 @@
     "schemaClass" : "Complex",
     "renderableClass" : "Complex",
     "position" : {
-      "x" : 563,
+      "x" : 564,
       "y" : 241
     },
-    "minX" : 484,
-    "maxX" : 643,
+    "minX" : 485,
+    "maxX" : 644,
     "minY" : 212,
     "maxY" : 295,
     "prop" : {
-      "x" : 484,
+      "x" : 485,
       "y" : 212,
       "width" : 159,
       "height" : 58
     },
     "textPosition" : {
-      "x" : 487,
+      "x" : 488,
       "y" : 221
     },
     "bgColor" : {
@@ -1753,11 +1753,11 @@
       "type" : "ACTIVATOR",
       "segments" : [ {
         "from" : {
-          "x" : 556,
+          "x" : 557,
           "y" : 273
         },
         "to" : {
-          "x" : 550,
+          "x" : 551,
           "y" : 295
         }
       } ],
@@ -1766,15 +1766,15 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 548,
+          "x" : 549,
           "y" : 287
         },
         "b" : {
-          "x" : 550,
+          "x" : 551,
           "y" : 295
         },
         "c" : {
-          "x" : 556,
+          "x" : 557,
           "y" : 289
         },
         "type" : "ARROW",
@@ -1839,7 +1839,7 @@
       "x" : 1164,
       "y" : 399
     },
-    "minX" : 382,
+    "minX" : 1035,
     "maxX" : 1237,
     "minY" : 382,
     "maxY" : 1337,
@@ -2029,21 +2029,21 @@
     "schemaClass" : "EntityWithAccessionedSequence",
     "renderableClass" : "Gene",
     "position" : {
-      "x" : 382,
+      "x" : 383,
       "y" : 521
     },
-    "minX" : 353,
-    "maxX" : 448,
+    "minX" : 354,
+    "maxX" : 449,
     "minY" : 455,
     "maxY" : 562,
     "prop" : {
-      "x" : 353,
+      "x" : 354,
       "y" : 496,
       "width" : 58,
       "height" : 51
     },
     "textPosition" : {
-      "x" : 354,
+      "x" : 355,
       "y" : 523
     },
     "connectors" : [ {
@@ -2065,11 +2065,11 @@
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 420,
+          "x" : 421,
           "y" : 498
         },
         "to" : {
-          "x" : 411,
+          "x" : 412,
           "y" : 455
         }
       } ],
@@ -2081,11 +2081,11 @@
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 420,
+          "x" : 421,
           "y" : 498
         },
         "to" : {
-          "x" : 448,
+          "x" : 449,
           "y" : 562
         }
       } ],
@@ -2095,15 +2095,15 @@
     } ],
     "endShape" : {
       "a" : {
-        "x" : 418,
+        "x" : 419,
         "y" : 494
       },
       "b" : {
-        "x" : 411,
+        "x" : 412,
         "y" : 498
       },
       "c" : {
-        "x" : 418,
+        "x" : 419,
         "y" : 502
       },
       "type" : "ARROW"
@@ -2152,21 +2152,21 @@
     "schemaClass" : "Complex",
     "renderableClass" : "Complex",
     "position" : {
-      "x" : 568,
+      "x" : 569,
       "y" : 601
     },
-    "minX" : 509,
-    "maxX" : 628,
+    "minX" : 510,
+    "maxX" : 629,
     "minY" : 543,
     "maxY" : 625,
     "prop" : {
-      "x" : 509,
+      "x" : 510,
       "y" : 578,
       "width" : 119,
       "height" : 47
     },
     "textPosition" : {
-      "x" : 512,
+      "x" : 513,
       "y" : 576
     },
     "bgColor" : {
@@ -2179,11 +2179,11 @@
       "type" : "ACTIVATOR",
       "segments" : [ {
         "from" : {
-          "x" : 565,
+          "x" : 566,
           "y" : 575
         },
         "to" : {
-          "x" : 562,
+          "x" : 564,
           "y" : 543
         }
       } ],
@@ -2192,15 +2192,15 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 567,
+          "x" : 568,
           "y" : 550
         },
         "b" : {
-          "x" : 562,
+          "x" : 564,
           "y" : 543
         },
         "c" : {
-          "x" : 559,
+          "x" : 560,
           "y" : 550
         },
         "type" : "ARROW",
@@ -2408,7 +2408,7 @@
       "x" : 1678,
       "y" : 402
     },
-    "minX" : 385,
+    "minX" : 1578,
     "maxX" : 1710,
     "minY" : 385,
     "maxY" : 413,
@@ -2458,21 +2458,21 @@
     "schemaClass" : "Complex",
     "renderableClass" : "Complex",
     "position" : {
-      "x" : 551,
+      "x" : 552,
       "y" : 399
     },
-    "minX" : 492,
-    "maxX" : 610,
+    "minX" : 493,
+    "maxX" : 611,
     "minY" : 350,
     "maxY" : 417,
     "prop" : {
-      "x" : 492,
+      "x" : 493,
       "y" : 381,
       "width" : 118,
       "height" : 36
     },
     "textPosition" : {
-      "x" : 492,
+      "x" : 493,
       "y" : 382
     },
     "bgColor" : {
@@ -2485,11 +2485,11 @@
       "type" : "ACTIVATOR",
       "segments" : [ {
         "from" : {
-          "x" : 550,
+          "x" : 551,
           "y" : 378
         },
         "to" : {
-          "x" : 550,
+          "x" : 551,
           "y" : 350
         }
       } ],
@@ -2498,15 +2498,15 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 554,
+          "x" : 555,
           "y" : 357
         },
         "b" : {
-          "x" : 550,
+          "x" : 551,
           "y" : 350
         },
         "c" : {
-          "x" : 546,
+          "x" : 547,
           "y" : 357
         },
         "type" : "ARROW",
@@ -2527,21 +2527,21 @@
     "schemaClass" : "Complex",
     "renderableClass" : "Complex",
     "position" : {
-      "x" : 559,
+      "x" : 560,
       "y" : 455
     },
-    "minX" : 494,
-    "maxX" : 625,
+    "minX" : 495,
+    "maxX" : 626,
     "minY" : 437,
     "maxY" : 492,
     "prop" : {
-      "x" : 494,
+      "x" : 495,
       "y" : 437,
       "width" : 131,
       "height" : 36
     },
     "textPosition" : {
-      "x" : 494,
+      "x" : 495,
       "y" : 438
     },
     "bgColor" : {
@@ -2554,11 +2554,11 @@
       "type" : "ACTIVATOR",
       "segments" : [ {
         "from" : {
-          "x" : 558,
+          "x" : 559,
           "y" : 476
         },
         "to" : {
-          "x" : 558,
+          "x" : 559,
           "y" : 492
         }
       } ],
@@ -2567,15 +2567,15 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 554,
+          "x" : 555,
           "y" : 485
         },
         "b" : {
-          "x" : 558,
+          "x" : 559,
           "y" : 492
         },
         "c" : {
-          "x" : 562,
+          "x" : 563,
           "y" : 485
         },
         "type" : "ARROW",
@@ -2700,7 +2700,7 @@
       "x" : 2607,
       "y" : 612
     },
-    "minX" : 596,
+    "minX" : 2587,
     "maxX" : 2628,
     "minY" : 581,
     "maxY" : 627,
@@ -2754,7 +2754,7 @@
       "x" : 2706,
       "y" : 623
     },
-    "minX" : 607,
+    "minX" : 2678,
     "maxX" : 2728,
     "minY" : 581,
     "maxY" : 638,
@@ -2824,7 +2824,7 @@
       "y" : 832
     },
     "minX" : 186,
-    "maxX" : 815,
+    "maxX" : 328,
     "minY" : 727,
     "maxY" : 949,
     "prop" : {
@@ -2958,7 +2958,7 @@
   }, {
     "id" : 2499,
     "reactomeId" : 350870,
-    "displayName" : "2x(CASP3(29-175),CASP3(176-277))",
+    "displayName" : "Caspase-3",
     "schemaClass" : "Complex",
     "renderableClass" : "Complex",
     "position" : {
@@ -2966,18 +2966,18 @@
       "y" : 582
     },
     "minX" : 2678,
-    "maxX" : 2827,
+    "maxX" : 2823,
     "minY" : 491,
     "maxY" : 600,
     "prop" : {
-      "x" : 2703,
+      "x" : 2708,
       "y" : 564,
-      "width" : 124,
+      "width" : 115,
       "height" : 36
     },
     "textPosition" : {
-      "x" : 2703,
-      "y" : 565
+      "x" : 2729,
+      "y" : 579
     },
     "bgColor" : {
       "r" : 204,
@@ -2989,7 +2989,7 @@
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
-          "x" : 2700,
+          "x" : 2705,
           "y" : 581
         },
         "to" : {
@@ -3002,15 +3002,15 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 2693,
+          "x" : 2698,
           "y" : 585
         },
         "b" : {
-          "x" : 2700,
+          "x" : 2705,
           "y" : 581
         },
         "c" : {
-          "x" : 2693,
+          "x" : 2698,
           "y" : 577
         },
         "type" : "ARROW"
@@ -3104,7 +3104,7 @@
       "y" : 1566
     },
     "minX" : 466,
-    "maxX" : 1549,
+    "maxX" : 557,
     "minY" : 1524,
     "maxY" : 1618,
     "prop" : {
@@ -3272,7 +3272,7 @@
       "x" : 2735,
       "y" : 724
     },
-    "minX" : 708,
+    "minX" : 2715,
     "maxX" : 2766,
     "minY" : 708,
     "maxY" : 739,
@@ -3323,21 +3323,21 @@
     "schemaClass" : "Complex",
     "renderableClass" : "Complex",
     "position" : {
-      "x" : 338,
+      "x" : 339,
       "y" : 258
     },
-    "minX" : 279,
-    "maxX" : 433,
+    "minX" : 280,
+    "maxX" : 434,
     "minY" : 226,
     "maxY" : 290,
     "prop" : {
-      "x" : 279,
+      "x" : 280,
       "y" : 226,
       "width" : 118,
       "height" : 64
     },
     "textPosition" : {
-      "x" : 279,
+      "x" : 280,
       "y" : 227
     },
     "bgColor" : {
@@ -3350,11 +3350,11 @@
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 400,
+          "x" : 401,
           "y" : 273
         },
         "to" : {
-          "x" : 433,
+          "x" : 434,
           "y" : 283
         }
       } ],
@@ -3369,21 +3369,21 @@
     "schemaClass" : "Complex",
     "renderableClass" : "Complex",
     "position" : {
-      "x" : 406,
+      "x" : 407,
       "y" : 605
     },
-    "minX" : 349,
-    "maxX" : 463,
+    "minX" : 350,
+    "maxX" : 464,
     "minY" : 562,
     "maxY" : 623,
     "prop" : {
-      "x" : 349,
+      "x" : 350,
       "y" : 587,
       "width" : 114,
       "height" : 36
     },
     "textPosition" : {
-      "x" : 349,
+      "x" : 350,
       "y" : 588
     },
     "bgColor" : {
@@ -3396,11 +3396,11 @@
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 423,
+          "x" : 424,
           "y" : 584
         },
         "to" : {
-          "x" : 448,
+          "x" : 449,
           "y" : 562
         }
       } ],
@@ -3419,7 +3419,7 @@
       "y" : 1473
     },
     "minX" : 560,
-    "maxX" : 1457,
+    "maxX" : 606,
     "minY" : 1457,
     "maxY" : 1501,
     "prop" : {
@@ -3510,7 +3510,7 @@
       "y" : 1526
     },
     "minX" : 425,
-    "maxX" : 1510,
+    "maxX" : 504,
     "minY" : 1510,
     "maxY" : 1541,
     "prop" : {
@@ -3578,7 +3578,7 @@
       "x" : 2727,
       "y" : 817
     },
-    "minX" : 801,
+    "minX" : 2707,
     "maxX" : 2766,
     "minY" : 793,
     "maxY" : 832,
@@ -3640,25 +3640,25 @@
   }, {
     "id" : 2380,
     "reactomeId" : 202074,
-    "displayName" : "Active AKT",
+    "displayName" : "p-T,p-S-AKT",
     "schemaClass" : "CandidateSet",
     "renderableClass" : "EntitySet",
     "position" : {
       "x" : 506,
       "y" : 1428
     },
-    "minX" : 471,
-    "maxX" : 542,
+    "minX" : 462,
+    "maxX" : 550,
     "minY" : 1417,
     "maxY" : 1494,
     "prop" : {
-      "x" : 471,
+      "x" : 462,
       "y" : 1417,
-      "width" : 71,
+      "width" : 88,
       "height" : 22
     },
     "textPosition" : {
-      "x" : 471,
+      "x" : 462,
       "y" : 1417
     },
     "connectors" : [ {
@@ -3753,7 +3753,7 @@
     "reactomeId" : 1257604,
     "displayName" : "PIP3 activates AKT signaling",
     "schemaClass" : "Pathway",
-    "renderableClass" : "ProcessNode",
+    "renderableClass" : "EncapsulatedNode",
     "position" : {
       "x" : 324,
       "y" : 1426
@@ -3776,7 +3776,7 @@
   }, {
     "id" : 2253,
     "reactomeId" : 141643,
-    "displayName" : "2x(CASP7(24-198):CASP7(207-303))",
+    "displayName" : "Caspase-7",
     "schemaClass" : "Complex",
     "renderableClass" : "Complex",
     "position" : {
@@ -3784,18 +3784,18 @@
       "y" : 846
     },
     "minX" : 2766,
-    "maxX" : 2920,
+    "maxX" : 2916,
     "minY" : 372,
-    "maxY" : 864,
+    "maxY" : 857,
     "prop" : {
-      "x" : 2796,
-      "y" : 828,
-      "width" : 124,
-      "height" : 36
+      "x" : 2801,
+      "y" : 835,
+      "width" : 115,
+      "height" : 22
     },
     "textPosition" : {
-      "x" : 2796,
-      "y" : 829
+      "x" : 2822,
+      "y" : 836
     },
     "bgColor" : {
       "r" : 204,
@@ -3807,8 +3807,8 @@
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
-          "x" : 2826,
-          "y" : 825
+          "x" : 2838,
+          "y" : 832
         },
         "to" : {
           "x" : 2766,
@@ -3820,16 +3820,16 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 2818,
-          "y" : 825
+          "x" : 2830,
+          "y" : 832
         },
         "b" : {
-          "x" : 2826,
-          "y" : 825
+          "x" : 2838,
+          "y" : 832
         },
         "c" : {
-          "x" : 2822,
-          "y" : 818
+          "x" : 2834,
+          "y" : 825
         },
         "type" : "ARROW"
       }
@@ -3839,7 +3839,7 @@
       "segments" : [ {
         "from" : {
           "x" : 2857,
-          "y" : 825
+          "y" : 832
         },
         "to" : {
           "x" : 2857,
@@ -3852,15 +3852,15 @@
       "endShape" : {
         "a" : {
           "x" : 2853,
-          "y" : 818
+          "y" : 825
         },
         "b" : {
           "x" : 2857,
-          "y" : 825
+          "y" : 832
         },
         "c" : {
           "x" : 2861,
-          "y" : 818
+          "y" : 825
         },
         "type" : "ARROW"
       }
@@ -3876,7 +3876,7 @@
       "y" : 1044
     },
     "minX" : 515,
-    "maxX" : 1027,
+    "maxX" : 596,
     "minY" : 1027,
     "maxY" : 1055,
     "prop" : {
@@ -3927,7 +3927,7 @@
       "y" : 1003
     },
     "minX" : 573,
-    "maxX" : 986,
+    "maxX" : 678,
     "minY" : 870,
     "maxY" : 1014,
     "prop" : {
@@ -4032,7 +4032,7 @@
       "y" : 1004
     },
     "minX" : 385,
-    "maxX" : 987,
+    "maxX" : 492,
     "minY" : 987,
     "maxY" : 1015,
     "prop" : {
@@ -4094,7 +4094,7 @@
       "y" : 1319
     },
     "minX" : 640,
-    "maxX" : 1302,
+    "maxX" : 759,
     "minY" : 1302,
     "maxY" : 1330,
     "prop" : {
@@ -4169,7 +4169,7 @@
       "y" : 960
     },
     "minX" : 706,
-    "maxX" : 943,
+    "maxX" : 782,
     "minY" : 943,
     "maxY" : 1000,
     "prop" : {
@@ -4231,7 +4231,7 @@
       "y" : 1315
     },
     "minX" : 736,
-    "maxX" : 1298,
+    "maxX" : 1036,
     "minY" : 1044,
     "maxY" : 1353,
     "prop" : {
@@ -4477,7 +4477,7 @@
       "y" : 977
     },
     "minX" : 736,
-    "maxX" : 960,
+    "maxX" : 928,
     "minY" : 960,
     "maxY" : 1044,
     "prop" : {
@@ -4573,7 +4573,7 @@
       "x" : 1894,
       "y" : 725
     },
-    "minX" : 708,
+    "minX" : 1874,
     "maxX" : 1920,
     "minY" : 708,
     "maxY" : 736,
@@ -4618,7 +4618,7 @@
       "y" : 871
     },
     "minX" : 636,
-    "maxX" : 854,
+    "maxX" : 785,
     "minY" : 854,
     "maxY" : 882,
     "prop" : {
@@ -4692,7 +4692,7 @@
       "x" : 2083,
       "y" : 725
     },
-    "minX" : 708,
+    "minX" : 2063,
     "maxX" : 2159,
     "minY" : 708,
     "maxY" : 736,
@@ -4743,6 +4743,127 @@
       }
     } ]
   }, {
+    "id" : 2531,
+    "reactomeId" : 9029242,
+    "displayName" : "Activated BAX,BAK oligomers",
+    "schemaClass" : "DefinedSet",
+    "renderableClass" : "EntitySet",
+    "position" : {
+      "x" : 1917,
+      "y" : 576
+    },
+    "minX" : 1857,
+    "maxX" : 1995,
+    "minY" : 496,
+    "maxY" : 717,
+    "prop" : {
+      "x" : 1857,
+      "y" : 558,
+      "width" : 120,
+      "height" : 36
+    },
+    "textPosition" : {
+      "x" : 1857,
+      "y" : 558
+    },
+    "connectors" : [ {
+      "edgeId" : 2144,
+      "type" : "ACTIVATOR",
+      "segments" : [ {
+        "from" : {
+          "x" : 1926,
+          "y" : 600
+        },
+        "to" : {
+          "x" : 1992,
+          "y" : 717
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 1985,
+          "y" : 713
+        },
+        "b" : {
+          "x" : 1992,
+          "y" : 717
+        },
+        "c" : {
+          "x" : 1992,
+          "y" : 709
+        },
+        "type" : "ARROW",
+        "empty" : true
+      }
+    }, {
+      "edgeId" : 2175,
+      "type" : "ACTIVATOR",
+      "segments" : [ {
+        "from" : {
+          "x" : 1934,
+          "y" : 552
+        },
+        "to" : {
+          "x" : 1995,
+          "y" : 496
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 1993,
+          "y" : 504
+        },
+        "b" : {
+          "x" : 1995,
+          "y" : 496
+        },
+        "c" : {
+          "x" : 1987,
+          "y" : 498
+        },
+        "type" : "ARROW",
+        "empty" : true
+      }
+    } ]
+  }, {
+    "id" : 2787,
+    "reactomeId" : 6790035,
+    "displayName" : "BCL2 gene, BCL2L1 gene",
+    "schemaClass" : "DefinedSet",
+    "renderableClass" : "EntitySet",
+    "position" : {
+      "x" : 383,
+      "y" : 163
+    },
+    "minX" : 333,
+    "maxX" : 434,
+    "minY" : 144,
+    "maxY" : 182,
+    "prop" : {
+      "x" : 333,
+      "y" : 144,
+      "width" : 101,
+      "height" : 38
+    },
+    "textPosition" : {
+      "x" : 342,
+      "y" : 145
+    },
+    "connectors" : [ {
+      "edgeId" : 2786,
+      "type" : "INPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
     "id" : 2020,
     "reactomeId" : 139949,
     "displayName" : "BAX",
@@ -4752,7 +4873,7 @@
       "x" : 914,
       "y" : 874
     },
-    "minX" : 857,
+    "minX" : 898,
     "maxX" : 936,
     "minY" : 823,
     "maxY" : 885,
@@ -4806,6 +4927,38 @@
       }
     } ]
   }, {
+    "id" : 2788,
+    "reactomeId" : 879209,
+    "displayName" : "Bcl-2/Bcl-X(L)",
+    "schemaClass" : "DefinedSet",
+    "renderableClass" : "EntitySet",
+    "position" : {
+      "x" : 997,
+      "y" : 398
+    },
+    "minX" : 947,
+    "maxX" : 1048,
+    "minY" : 386,
+    "maxY" : 411,
+    "prop" : {
+      "x" : 947,
+      "y" : 386,
+      "width" : 101,
+      "height" : 25
+    },
+    "textPosition" : {
+      "x" : 952,
+      "y" : 388
+    },
+    "connectors" : [ {
+      "edgeId" : 2786,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
     "id" : 2022,
     "reactomeId" : 114269,
     "displayName" : "Activated BAX",
@@ -4853,7 +5006,7 @@
       "y" : 1579
     },
     "minX" : 725,
-    "maxX" : 1563,
+    "maxX" : 769,
     "minY" : 1563,
     "maxY" : 1617,
     "prop" : {
@@ -4897,6 +5050,68 @@
     } ],
     "trivial" : true
   }, {
+    "id" : 2791,
+    "reactomeId" : 1112525,
+    "displayName" : "p-Y705-STAT3 dimer",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 590,
+      "y" : 111
+    },
+    "minX" : 521,
+    "maxX" : 660,
+    "minY" : 100,
+    "maxY" : 178,
+    "prop" : {
+      "x" : 521,
+      "y" : 100,
+      "width" : 139,
+      "height" : 23
+    },
+    "textPosition" : {
+      "x" : 522,
+      "y" : 102
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 2786,
+      "type" : "ACTIVATOR",
+      "segments" : [ {
+        "from" : {
+          "x" : 589,
+          "y" : 126
+        },
+        "to" : {
+          "x" : 589,
+          "y" : 178
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 585,
+          "y" : 171
+        },
+        "b" : {
+          "x" : 589,
+          "y" : 178
+        },
+        "c" : {
+          "x" : 593,
+          "y" : 171
+        },
+        "type" : "ARROW",
+        "empty" : true
+      }
+    } ]
+  }, {
     "id" : 2408,
     "reactomeId" : 29372,
     "displayName" : "Pi",
@@ -4907,7 +5122,7 @@
       "y" : 1554
     },
     "minX" : 777,
-    "maxX" : 1538,
+    "maxX" : 840,
     "minY" : 1538,
     "maxY" : 1569,
     "prop" : {
@@ -4976,7 +5191,7 @@
       "y" : 1499
     },
     "minX" : 560,
-    "maxX" : 1482,
+    "maxX" : 801,
     "minY" : 1482,
     "maxY" : 1557,
     "prop" : {
@@ -5067,7 +5282,7 @@
       "y" : 978
     },
     "minX" : 180,
-    "maxX" : 961,
+    "maxX" : 312,
     "minY" : 961,
     "maxY" : 989,
     "prop" : {
@@ -5164,7 +5379,7 @@
       "y" : 686
     },
     "minX" : 177,
-    "maxX" : 669,
+    "maxX" : 286,
     "minY" : 669,
     "maxY" : 697,
     "prop" : {
@@ -5313,7 +5528,7 @@
       "x" : 914,
       "y" : 679
     },
-    "minX" : 660,
+    "minX" : 876,
     "maxX" : 958,
     "minY" : 660,
     "maxY" : 692,
@@ -5791,7 +6006,7 @@
     }, {
       "id" : 2499,
       "points" : [ {
-        "x" : 2700,
+        "x" : 2705,
         "y" : 581
       } ]
     } ],
@@ -6025,26 +6240,26 @@
     "schemaClass" : "BlackBoxEvent",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 561,
+      "x" : 563,
       "y" : 534
     },
-    "minX" : 420,
+    "minX" : 421,
     "maxX" : 729,
     "minY" : 498,
     "maxY" : 540,
     "reactionType" : "Omitted Process",
     "segments" : [ {
       "from" : {
-        "x" : 420,
+        "x" : 421,
         "y" : 498
       },
       "to" : {
-        "x" : 561,
+        "x" : 563,
         "y" : 534
       }
     }, {
       "from" : {
-        "x" : 561,
+        "x" : 563,
         "y" : 534
       },
       "to" : {
@@ -6069,11 +6284,11 @@
     },
     "reactionShape" : {
       "a" : {
-        "x" : 555,
+        "x" : 557,
         "y" : 528
       },
       "b" : {
-        "x" : 567,
+        "x" : 569,
         "y" : 540
       },
       "s" : "\\\\",
@@ -6089,7 +6304,7 @@
     "activators" : [ {
       "id" : 2475,
       "points" : [ {
-        "x" : 565,
+        "x" : 566,
         "y" : 575
       } ]
     } ]
@@ -6100,26 +6315,26 @@
     "schemaClass" : "BlackBoxEvent",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 558,
+      "x" : 559,
       "y" : 501
     },
-    "minX" : 420,
+    "minX" : 421,
     "maxX" : 729,
     "minY" : 495,
     "maxY" : 513,
     "reactionType" : "Omitted Process",
     "segments" : [ {
       "from" : {
-        "x" : 420,
+        "x" : 421,
         "y" : 498
       },
       "to" : {
-        "x" : 558,
+        "x" : 559,
         "y" : 501
       }
     }, {
       "from" : {
-        "x" : 558,
+        "x" : 559,
         "y" : 501
       },
       "to" : {
@@ -6144,11 +6359,11 @@
     },
     "reactionShape" : {
       "a" : {
-        "x" : 552,
+        "x" : 553,
         "y" : 495
       },
       "b" : {
-        "x" : 564,
+        "x" : 565,
         "y" : 507
       },
       "s" : "\\\\",
@@ -6164,7 +6379,7 @@
     "activators" : [ {
       "id" : 2487,
       "points" : [ {
-        "x" : 558,
+        "x" : 559,
         "y" : 476
       } ]
     } ]
@@ -6455,8 +6670,8 @@
     }, {
       "id" : 2253,
       "points" : [ {
-        "x" : 2826,
-        "y" : 825
+        "x" : 2838,
+        "y" : 832
       } ]
     } ],
     "catalysts" : [ {
@@ -6612,26 +6827,26 @@
     "schemaClass" : "BlackBoxEvent",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 548,
+      "x" : 549,
       "y" : 304
     },
-    "minX" : 385,
+    "minX" : 386,
     "maxX" : 731,
     "minY" : 298,
     "maxY" : 322,
     "reactionType" : "Omitted Process",
     "segments" : [ {
       "from" : {
-        "x" : 385,
+        "x" : 386,
         "y" : 322
       },
       "to" : {
-        "x" : 548,
+        "x" : 549,
         "y" : 304
       }
     }, {
       "from" : {
-        "x" : 548,
+        "x" : 549,
         "y" : 304
       },
       "to" : {
@@ -6656,11 +6871,11 @@
     },
     "reactionShape" : {
       "a" : {
-        "x" : 542,
+        "x" : 543,
         "y" : 298
       },
       "b" : {
-        "x" : 554,
+        "x" : 555,
         "y" : 310
       },
       "s" : "\\\\",
@@ -6676,7 +6891,7 @@
     "activators" : [ {
       "id" : 2465,
       "points" : [ {
-        "x" : 556,
+        "x" : 557,
         "y" : 273
       } ]
     } ]
@@ -6760,26 +6975,26 @@
     "schemaClass" : "BlackBoxEvent",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 550,
+      "x" : 551,
       "y" : 341
     },
-    "minX" : 385,
+    "minX" : 386,
     "maxX" : 731,
     "minY" : 322,
     "maxY" : 347,
     "reactionType" : "Omitted Process",
     "segments" : [ {
       "from" : {
-        "x" : 385,
+        "x" : 386,
         "y" : 322
       },
       "to" : {
-        "x" : 550,
+        "x" : 551,
         "y" : 341
       }
     }, {
       "from" : {
-        "x" : 550,
+        "x" : 551,
         "y" : 341
       },
       "to" : {
@@ -6804,11 +7019,11 @@
     },
     "reactionShape" : {
       "a" : {
-        "x" : 544,
+        "x" : 545,
         "y" : 335
       },
       "b" : {
-        "x" : 556,
+        "x" : 557,
         "y" : 347
       },
       "s" : "\\\\",
@@ -6824,7 +7039,7 @@
     "activators" : [ {
       "id" : 2483,
       "points" : [ {
-        "x" : 550,
+        "x" : 551,
         "y" : 378
       } ]
     } ]
@@ -7454,6 +7669,97 @@
     } ],
     "outputs" : [ {
       "id" : 2146
+    } ],
+    "activators" : [ {
+      "id" : 2531,
+      "points" : [ {
+        "x" : 1926,
+        "y" : 600
+      } ]
+    } ]
+  }, {
+    "id" : 2786,
+    "reactomeId" : 6790025,
+    "displayName" : "Expression of BCL2, BCL2L1",
+    "schemaClass" : "BlackBoxEvent",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 589,
+      "y" : 187
+    },
+    "minX" : 440,
+    "maxX" : 996,
+    "minY" : 168,
+    "maxY" : 380,
+    "reactionType" : "Omitted Process",
+    "segments" : [ {
+      "from" : {
+        "x" : 440,
+        "y" : 168
+      },
+      "to" : {
+        "x" : 589,
+        "y" : 187
+      }
+    }, {
+      "from" : {
+        "x" : 589,
+        "y" : 187
+      },
+      "to" : {
+        "x" : 988,
+        "y" : 251
+      }
+    }, {
+      "from" : {
+        "x" : 988,
+        "y" : 251
+      },
+      "to" : {
+        "x" : 996,
+        "y" : 380
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 992,
+        "y" : 373
+      },
+      "b" : {
+        "x" : 996,
+        "y" : 380
+      },
+      "c" : {
+        "x" : 1000,
+        "y" : 373
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 583,
+        "y" : 181
+      },
+      "b" : {
+        "x" : 595,
+        "y" : 193
+      },
+      "s" : "\\\\",
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 2787
+    } ],
+    "outputs" : [ {
+      "id" : 2788
+    } ],
+    "activators" : [ {
+      "id" : 2791,
+      "points" : [ {
+        "x" : 589,
+        "y" : 126
+      } ]
     } ]
   }, {
     "id" : 291,
@@ -7908,7 +8214,7 @@
       "id" : 2253,
       "points" : [ {
         "x" : 2857,
-        "y" : 825
+        "y" : 832
       } ]
     }, {
       "id" : 2348,
@@ -8060,51 +8366,51 @@
     "schemaClass" : "Reaction",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 445,
+      "x" : 446,
       "y" : 455
     },
-    "minX" : 411,
-    "maxX" : 491,
+    "minX" : 412,
+    "maxX" : 492,
     "minY" : 450,
     "maxY" : 460,
     "reactionType" : "Association",
     "segments" : [ {
       "from" : {
-        "x" : 411,
+        "x" : 412,
         "y" : 455
       },
       "to" : {
-        "x" : 445,
+        "x" : 446,
         "y" : 455
       }
     }, {
       "from" : {
-        "x" : 445,
+        "x" : 446,
         "y" : 455
       },
       "to" : {
-        "x" : 491,
+        "x" : 492,
         "y" : 455
       }
     } ],
     "endShape" : {
       "a" : {
-        "x" : 484,
+        "x" : 485,
         "y" : 459
       },
       "b" : {
-        "x" : 491,
+        "x" : 492,
         "y" : 455
       },
       "c" : {
-        "x" : 484,
+        "x" : 485,
         "y" : 451
       },
       "type" : "ARROW"
     },
     "reactionShape" : {
       "c" : {
-        "x" : 445,
+        "x" : 446,
         "y" : 455
       },
       "r" : 5,
@@ -8113,13 +8419,13 @@
     "inputs" : [ {
       "id" : 137,
       "points" : [ {
-        "x" : 371,
+        "x" : 372,
         "y" : 441
       } ]
     }, {
       "id" : 2470,
       "points" : [ {
-        "x" : 420,
+        "x" : 421,
         "y" : 498
       } ]
     } ],
@@ -8133,60 +8439,60 @@
     "schemaClass" : "Reaction",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 459,
+      "x" : 460,
       "y" : 237
     },
-    "minX" : 433,
-    "maxX" : 481,
+    "minX" : 434,
+    "maxX" : 482,
     "minY" : 232,
     "maxY" : 283,
     "reactionType" : "Association",
     "segments" : [ {
       "from" : {
-        "x" : 433,
+        "x" : 434,
         "y" : 283
       },
       "to" : {
-        "x" : 434,
+        "x" : 435,
         "y" : 243
       }
     }, {
       "from" : {
-        "x" : 434,
+        "x" : 435,
         "y" : 243
       },
       "to" : {
-        "x" : 459,
+        "x" : 460,
         "y" : 237
       }
     }, {
       "from" : {
-        "x" : 459,
+        "x" : 460,
         "y" : 237
       },
       "to" : {
-        "x" : 481,
+        "x" : 482,
         "y" : 237
       }
     } ],
     "endShape" : {
       "a" : {
-        "x" : 474,
+        "x" : 475,
         "y" : 241
       },
       "b" : {
-        "x" : 481,
+        "x" : 482,
         "y" : 237
       },
       "c" : {
-        "x" : 474,
+        "x" : 475,
         "y" : 233
       },
       "type" : "ARROW"
     },
     "reactionShape" : {
       "c" : {
-        "x" : 459,
+        "x" : 460,
         "y" : 237
       },
       "r" : 5,
@@ -8195,13 +8501,13 @@
     "inputs" : [ {
       "id" : 2505,
       "points" : [ {
-        "x" : 400,
+        "x" : 401,
         "y" : 273
       } ]
     }, {
       "id" : 2461,
       "points" : [ {
-        "x" : 385,
+        "x" : 386,
         "y" : 322
       } ]
     } ],
@@ -8363,51 +8669,51 @@
     "schemaClass" : "Reaction",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 444,
+      "x" : 445,
       "y" : 398
     },
-    "minX" : 409,
-    "maxX" : 489,
+    "minX" : 410,
+    "maxX" : 490,
     "minY" : 393,
     "maxY" : 403,
     "reactionType" : "Association",
     "segments" : [ {
       "from" : {
-        "x" : 409,
+        "x" : 410,
         "y" : 398
       },
       "to" : {
-        "x" : 444,
+        "x" : 445,
         "y" : 398
       }
     }, {
       "from" : {
-        "x" : 444,
+        "x" : 445,
         "y" : 398
       },
       "to" : {
-        "x" : 489,
+        "x" : 490,
         "y" : 398
       }
     } ],
     "endShape" : {
       "a" : {
-        "x" : 482,
+        "x" : 483,
         "y" : 402
       },
       "b" : {
-        "x" : 489,
+        "x" : 490,
         "y" : 398
       },
       "c" : {
-        "x" : 482,
+        "x" : 483,
         "y" : 394
       },
       "type" : "ARROW"
     },
     "reactionShape" : {
       "c" : {
-        "x" : 444,
+        "x" : 445,
         "y" : 398
       },
       "r" : 5,
@@ -8416,13 +8722,13 @@
     "inputs" : [ {
       "id" : 137,
       "points" : [ {
-        "x" : 380,
+        "x" : 381,
         "y" : 407
       } ]
     }, {
       "id" : 2461,
       "points" : [ {
-        "x" : 385,
+        "x" : 386,
         "y" : 322
       } ]
     } ],
@@ -8436,51 +8742,51 @@
     "schemaClass" : "Reaction",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 477,
+      "x" : 478,
       "y" : 600
     },
-    "minX" : 448,
-    "maxX" : 506,
+    "minX" : 449,
+    "maxX" : 507,
     "minY" : 562,
     "maxY" : 605,
     "reactionType" : "Association",
     "segments" : [ {
       "from" : {
-        "x" : 448,
+        "x" : 449,
         "y" : 562
       },
       "to" : {
-        "x" : 477,
+        "x" : 478,
         "y" : 600
       }
     }, {
       "from" : {
-        "x" : 477,
+        "x" : 478,
         "y" : 600
       },
       "to" : {
-        "x" : 506,
+        "x" : 507,
         "y" : 600
       }
     } ],
     "endShape" : {
       "a" : {
-        "x" : 499,
+        "x" : 500,
         "y" : 604
       },
       "b" : {
-        "x" : 506,
+        "x" : 507,
         "y" : 600
       },
       "c" : {
-        "x" : 499,
+        "x" : 500,
         "y" : 596
       },
       "type" : "ARROW"
     },
     "reactionShape" : {
       "c" : {
-        "x" : 477,
+        "x" : 478,
         "y" : 600
       },
       "r" : 5,
@@ -8489,13 +8795,13 @@
     "inputs" : [ {
       "id" : 2470,
       "points" : [ {
-        "x" : 420,
+        "x" : 421,
         "y" : 498
       } ]
     }, {
       "id" : 2506,
       "points" : [ {
-        "x" : 423,
+        "x" : 424,
         "y" : 584
       } ]
     } ],
@@ -8651,27 +8957,34 @@
     } ],
     "outputs" : [ {
       "id" : 2177
+    } ],
+    "activators" : [ {
+      "id" : 2531,
+      "points" : [ {
+        "x" : 1934,
+        "y" : 552
+      } ]
     } ]
   } ],
   "compartments" : [ {
     "id" : 262,
     "reactomeId" : 70101,
     "displayName" : "cytosol",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
-      "x" : 1636,
-      "y" : 914
+      "x" : 1635,
+      "y" : 874
     },
-    "minX" : 173,
+    "minX" : 171,
     "maxX" : 3099,
-    "minY" : 118,
+    "minY" : 38,
     "maxY" : 1710,
     "prop" : {
-      "x" : 173,
-      "y" : 118,
-      "width" : 2926,
-      "height" : 1592
+      "x" : 171,
+      "y" : 38,
+      "width" : 2928,
+      "height" : 1672
     },
     "textPosition" : {
       "x" : 301,
@@ -8679,57 +8992,57 @@
     },
     "insets" : {
       "x" : 183,
-      "y" : 128,
+      "y" : 49,
       "width" : 2906,
-      "height" : 1572
+      "height" : 1651
     },
     "bgColor" : {
       "r" : 250,
       "g" : 240,
       "b" : 240
     },
-    "componentIds" : [ 80, 81, 79, 83, 84, 85, 86, 87, 88, 121, 124, 126, 127, 128, 129, 138, 143, 291, 381, 2016, 2017, 2018, 2019, 2051, 2052, 2177, 2180, 2179, 2178, 2181, 2182, 2183, 2184, 2186, 2187, 2185, 2244, 2252, 2253, 2249, 2311, 2312, 2310, 2314, 2315, 2317, 2318, 2347, 2348, 2349, 2351, 2313, 324, 204, 322, 90, 2175, 2316, 2350, 2146, 2084, 2366, 2370, 2372, 2377, 2378, 2379, 2380, 2381, 2382, 2394, 2407, 2408, 201, 202, 321, 2021, 2142, 2053, 131, 2427, 2428, 2451, 2456, 135, 141, 2499, 2500, 2496, 2498, 2497, 2501 ]
+    "componentIds" : [ 80, 81, 79, 83, 84, 85, 86, 87, 88, 121, 124, 126, 127, 128, 129, 138, 143, 291, 381, 2016, 2017, 2018, 2019, 2051, 2052, 2177, 2180, 2179, 2178, 2181, 2182, 2183, 2184, 2186, 2187, 2185, 2244, 2252, 2253, 2249, 2311, 2312, 2310, 2314, 2315, 2317, 2318, 2347, 2348, 2349, 2351, 2313, 324, 204, 322, 90, 2175, 2316, 2350, 2146, 2084, 2366, 2370, 2372, 2377, 2378, 2379, 2380, 2381, 2382, 2394, 2407, 2408, 201, 202, 321, 2021, 2142, 2053, 131, 2427, 2428, 2451, 2456, 135, 141, 2499, 2500, 2496, 2498, 2497, 2501, 2789, 2790 ]
   }, {
     "id" : 2456,
     "reactomeId" : 7660,
     "displayName" : "nucleoplasm",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 464,
-      "y" : 409
+      "y" : 357
     },
-    "minX" : 250,
-    "maxX" : 679,
-    "minY" : 172,
+    "minX" : 249,
+    "maxX" : 680,
+    "minY" : 68,
     "maxY" : 646,
     "prop" : {
-      "x" : 250,
-      "y" : 172,
-      "width" : 429,
-      "height" : 474
+      "x" : 249,
+      "y" : 68,
+      "width" : 431,
+      "height" : 578
     },
     "textPosition" : {
-      "x" : 398,
-      "y" : 185
+      "x" : 268,
+      "y" : 554
     },
     "insets" : {
-      "x" : 262,
-      "y" : 181,
-      "width" : 407,
-      "height" : 455
+      "x" : 260,
+      "y" : 79,
+      "width" : 410,
+      "height" : 557
     },
     "bgColor" : {
       "r" : 250,
       "g" : 240,
       "b" : 240
     },
-    "componentIds" : [ 136, 137, 2470, 2475, 2461, 2483, 2487, 2490, 2491, 2493, 2494, 2465, 134, 142, 140, 2506, 2505 ]
+    "componentIds" : [ 136, 137, 2470, 2475, 2461, 2483, 2487, 2490, 2491, 2493, 2494, 2465, 134, 142, 140, 2506, 2505, 2787, 2786, 2791 ]
   }, {
     "id" : 90,
     "reactomeId" : 17906,
     "displayName" : "mitochondrial outer membrane",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 1457,
@@ -8754,12 +9067,12 @@
       "g" : 240,
       "b" : 240
     },
-    "componentIds" : [ 91, 89, 130, 133, 132, 139, 144, 1954, 1955, 1959, 1952, 2020, 2022, 2055, 2054, 2085, 2143, 2145, 2144, 2176, 2352, 2353, 2431, 2432, 2439, 1953, 2436, 2438, 1958, 2452, 1956, 2455 ]
+    "componentIds" : [ 91, 89, 130, 133, 132, 139, 144, 1954, 1955, 1959, 1952, 2020, 2022, 2055, 2054, 2085, 2143, 2145, 2144, 2176, 2352, 2353, 2431, 2432, 2439, 1953, 2436, 2438, 1958, 2452, 1956, 2455, 2531, 2788 ]
   }, {
     "id" : 91,
     "reactomeId" : 70616,
     "displayName" : "mitochondrial inner membrane",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 1442,
@@ -8784,7 +9097,7 @@
       "g" : 240,
       "b" : 240
     },
-    "componentIds" : [ 2437, 2441, 2440, 2450, 2453, 2454 ]
+    "componentIds" : [ 2437, 2440, 2450, 2453, 2454, 2532, 2533 ]
   } ],
   "notes" : [ ],
   "links" : [ {
@@ -8834,6 +9147,45 @@
     } ],
     "outputs" : [ {
       "id" : 1953
+    } ]
+  }, {
+    "id" : 2532,
+    "renderableClass" : "EntitySetAndMemberLink",
+    "position" : {
+      "x" : 1409,
+      "y" : 664
+    },
+    "minX" : 967,
+    "maxX" : 1851,
+    "minY" : 586,
+    "maxY" : 742,
+    "segments" : [ {
+      "from" : {
+        "x" : 967,
+        "y" : 742
+      },
+      "to" : {
+        "x" : 1851,
+        "y" : 586
+      }
+    } ],
+    "reactionShape" : {
+      "a" : {
+        "x" : 1403,
+        "y" : 658
+      },
+      "b" : {
+        "x" : 1415,
+        "y" : 670
+      },
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 2022
+    } ],
+    "outputs" : [ {
+      "id" : 2531
     } ]
   }, {
     "id" : 2437,
@@ -8893,6 +9245,93 @@
       "id" : 1953
     } ]
   }, {
+    "id" : 2533,
+    "renderableClass" : "EntitySetAndMemberLink",
+    "position" : {
+      "x" : 1397,
+      "y" : 824
+    },
+    "minX" : 916,
+    "maxX" : 1878,
+    "minY" : 600,
+    "maxY" : 1049,
+    "segments" : [ {
+      "from" : {
+        "x" : 916,
+        "y" : 1049
+      },
+      "to" : {
+        "x" : 1878,
+        "y" : 600
+      }
+    } ],
+    "reactionShape" : {
+      "a" : {
+        "x" : 1391,
+        "y" : 818
+      },
+      "b" : {
+        "x" : 1403,
+        "y" : 830
+      },
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 2085
+    } ],
+    "outputs" : [ {
+      "id" : 2531
+    } ]
+  }, {
+    "id" : 2789,
+    "renderableClass" : "EntitySetAndMemberLink",
+    "position" : {
+      "x" : 1485,
+      "y" : 323
+    },
+    "minX" : 1054,
+    "maxX" : 1649,
+    "minY" : 317,
+    "maxY" : 391,
+    "segments" : [ {
+      "from" : {
+        "x" : 1649,
+        "y" : 391
+      },
+      "to" : {
+        "x" : 1485,
+        "y" : 323
+      }
+    }, {
+      "from" : {
+        "x" : 1485,
+        "y" : 323
+      },
+      "to" : {
+        "x" : 1054,
+        "y" : 390
+      }
+    } ],
+    "reactionShape" : {
+      "a" : {
+        "x" : 1479,
+        "y" : 317
+      },
+      "b" : {
+        "x" : 1491,
+        "y" : 329
+      },
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 2352
+    } ],
+    "outputs" : [ {
+      "id" : 2788
+    } ]
+  }, {
     "id" : 2438,
     "renderableClass" : "EntitySetAndMemberLink",
     "position" : {
@@ -8930,6 +9369,54 @@
     } ],
     "outputs" : [ {
       "id" : 1953
+    } ]
+  }, {
+    "id" : 2790,
+    "renderableClass" : "EntitySetAndMemberLink",
+    "position" : {
+      "x" : 1132,
+      "y" : 343
+    },
+    "minX" : 1027,
+    "maxX" : 1157,
+    "minY" : 337,
+    "maxY" : 385,
+    "segments" : [ {
+      "from" : {
+        "x" : 1157,
+        "y" : 385
+      },
+      "to" : {
+        "x" : 1132,
+        "y" : 343
+      }
+    }, {
+      "from" : {
+        "x" : 1132,
+        "y" : 343
+      },
+      "to" : {
+        "x" : 1027,
+        "y" : 380
+      }
+    } ],
+    "reactionShape" : {
+      "a" : {
+        "x" : 1126,
+        "y" : 337
+      },
+      "b" : {
+        "x" : 1138,
+        "y" : 349
+      },
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 1954
+    } ],
+    "outputs" : [ {
+      "id" : 2788
     } ]
   }, {
     "id" : 2439,
@@ -9046,71 +9533,14 @@
       "id" : 1953
     } ]
   }, {
-    "id" : 2441,
-    "renderableClass" : "EntitySetAndMemberLink",
-    "position" : {
-      "x" : 1079,
-      "y" : 875
-    },
-    "minX" : 953,
-    "maxX" : 1170,
-    "minY" : 469,
-    "maxY" : 1301,
-    "segments" : [ {
-      "from" : {
-        "x" : 953,
-        "y" : 1301
-      },
-      "to" : {
-        "x" : 1045,
-        "y" : 1266
-      }
-    }, {
-      "from" : {
-        "x" : 1045,
-        "y" : 1266
-      },
-      "to" : {
-        "x" : 1114,
-        "y" : 484
-      }
-    }, {
-      "from" : {
-        "x" : 1114,
-        "y" : 484
-      },
-      "to" : {
-        "x" : 1170,
-        "y" : 469
-      }
-    } ],
-    "reactionShape" : {
-      "a" : {
-        "x" : 1073,
-        "y" : 869
-      },
-      "b" : {
-        "x" : 1085,
-        "y" : 881
-      },
-      "type" : "BOX",
-      "empty" : true
-    },
-    "inputs" : [ {
-      "id" : 89
-    } ],
-    "outputs" : [ {
-      "id" : 1953
-    } ]
-  }, {
     "id" : 2382,
     "renderableClass" : "Interaction",
     "position" : {
-      "x" : 436,
+      "x" : 432,
       "y" : 1426
     },
     "minX" : 408,
-    "maxX" : 465,
+    "maxX" : 456,
     "minY" : 1420,
     "maxY" : 1432,
     "interactionType" : "Activate",
@@ -9120,21 +9550,21 @@
         "y" : 1426
       },
       "to" : {
-        "x" : 465,
+        "x" : 456,
         "y" : 1427
       }
     } ],
     "endShape" : {
       "a" : {
-        "x" : 458,
+        "x" : 449,
         "y" : 1431
       },
       "b" : {
-        "x" : 465,
+        "x" : 456,
         "y" : 1427
       },
       "c" : {
-        "x" : 458,
+        "x" : 449,
         "y" : 1423
       },
       "type" : "ARROW",
@@ -9142,11 +9572,11 @@
     },
     "reactionShape" : {
       "a" : {
-        "x" : 430,
+        "x" : 426,
         "y" : 1420
       },
       "b" : {
-        "x" : 442,
+        "x" : 438,
         "y" : 1432
       },
       "type" : "BOX",
@@ -9448,75 +9878,7 @@
     } ]
   } ],
   "shadows" : [ {
-    "id" : 2512,
-    "reactomeId" : 114294,
-    "displayName" : "Activation, translocation and oligomerization of BAX",
-    "schemaClass" : "Pathway",
-    "renderableClass" : "Shadow",
-    "position" : {
-      "x" : 696,
-      "y" : 877
-    },
-    "minX" : 418,
-    "maxX" : 974,
-    "minY" : 730,
-    "maxY" : 1024,
-    "prop" : {
-      "x" : 418,
-      "y" : 730,
-      "width" : 443,
-      "height" : 209
-    },
-    "points" : [ {
-      "x" : 418,
-      "y" : 730
-    }, {
-      "x" : 974,
-      "y" : 730
-    }, {
-      "x" : 974,
-      "y" : 1024
-    }, {
-      "x" : 418,
-      "y" : 1024
-    } ],
-    "colour" : "#cb4ac5"
-  }, {
-    "id" : 2513,
-    "reactomeId" : 114452,
-    "displayName" : "Activation of BH3-only proteins",
-    "schemaClass" : "Pathway",
-    "renderableClass" : "Shadow",
-    "position" : {
-      "x" : 550,
-      "y" : 958
-    },
-    "minX" : 106,
-    "maxX" : 994,
-    "minY" : 202,
-    "maxY" : 1714,
-    "prop" : {
-      "x" : 106,
-      "y" : 375,
-      "width" : 755,
-      "height" : 355
-    },
-    "points" : [ {
-      "x" : 106,
-      "y" : 202
-    }, {
-      "x" : 994,
-      "y" : 202
-    }, {
-      "x" : 994,
-      "y" : 1714
-    }, {
-      "x" : 106,
-      "y" : 1714
-    } ],
-    "colour" : "#d6ae00"
-  }, {
-    "id" : 2507,
+    "id" : 2792,
     "reactomeId" : 75108,
     "displayName" : "Activation, myristolyation of BID and translocation to mitochondria",
     "schemaClass" : "Pathway",
@@ -9550,7 +9912,7 @@
     } ],
     "colour" : "#4684ee"
   }, {
-    "id" : 2508,
+    "id" : 2793,
     "reactomeId" : 111452,
     "displayName" : "Activation and oligomerization of BAK protein",
     "schemaClass" : "Pathway",
@@ -9584,61 +9946,61 @@
     } ],
     "colour" : "#dc3912"
   }, {
-    "id" : 2509,
+    "id" : 2794,
     "reactomeId" : 111453,
     "displayName" : "BH3-only proteins associate with and inactivate anti-apoptotic BCL-2 members",
     "schemaClass" : "Pathway",
     "renderableClass" : "Shadow",
     "position" : {
-      "x" : 1287,
-      "y" : 919
+      "x" : 1018,
+      "y" : 777
     },
-    "minX" : 861,
+    "minX" : 323,
     "maxX" : 1714,
-    "minY" : 375,
+    "minY" : 90,
     "maxY" : 1464,
     "prop" : {
       "x" : 994,
-      "y" : 375,
+      "y" : 202,
       "width" : 720,
-      "height" : 581
+      "height" : 754
     },
     "points" : [ {
-      "x" : 861,
-      "y" : 375
+      "x" : 323,
+      "y" : 90
     }, {
       "x" : 1714,
-      "y" : 375
+      "y" : 90
     }, {
       "x" : 1714,
       "y" : 1464
     }, {
-      "x" : 861,
+      "x" : 323,
       "y" : 1464
     } ],
     "colour" : "#008000"
   }, {
-    "id" : 2510,
+    "id" : 2795,
     "reactomeId" : 111457,
     "displayName" : "Release of apoptotic factors from the mitochondria",
     "schemaClass" : "Pathway",
     "renderableClass" : "Shadow",
     "position" : {
-      "x" : 2082,
+      "x" : 2074,
       "y" : 607
     },
-    "minX" : 1863,
+    "minX" : 1847,
     "maxX" : 2302,
     "minY" : 469,
     "maxY" : 746,
     "prop" : {
-      "x" : 1863,
+      "x" : 1847,
       "y" : 469,
-      "width" : 439,
+      "width" : 455,
       "height" : 277
     },
     "points" : [ {
-      "x" : 1863,
+      "x" : 1847,
       "y" : 469
     }, {
       "x" : 2302,
@@ -9647,48 +10009,116 @@
       "x" : 2302,
       "y" : 746
     }, {
-      "x" : 1863,
+      "x" : 1847,
       "y" : 746
     } ],
     "colour" : "#666666"
   }, {
-    "id" : 2511,
+    "id" : 2796,
     "reactomeId" : 111471,
     "displayName" : "Apoptotic factor-mediated response",
     "schemaClass" : "Pathway",
     "renderableClass" : "Shadow",
     "position" : {
-      "x" : 2445,
-      "y" : 544
+      "x" : 2443,
+      "y" : 541
     },
     "minX" : 1960,
-    "maxX" : 2930,
+    "maxX" : 2926,
     "minY" : 215,
-    "maxY" : 874,
+    "maxY" : 867,
     "prop" : {
       "x" : 1960,
       "y" : 215,
-      "width" : 970,
+      "width" : 966,
       "height" : 254
     },
     "points" : [ {
       "x" : 1960,
       "y" : 215
     }, {
-      "x" : 2930,
+      "x" : 2926,
       "y" : 215
     }, {
-      "x" : 2930,
-      "y" : 874
+      "x" : 2926,
+      "y" : 867
     }, {
       "x" : 1960,
-      "y" : 874
+      "y" : 867
     } ],
     "colour" : "#4942cc"
+  }, {
+    "id" : 2797,
+    "reactomeId" : 114294,
+    "displayName" : "Activation, translocation and oligomerization of BAX",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "Shadow",
+    "position" : {
+      "x" : 696,
+      "y" : 877
+    },
+    "minX" : 418,
+    "maxX" : 974,
+    "minY" : 730,
+    "maxY" : 1024,
+    "prop" : {
+      "x" : 418,
+      "y" : 730,
+      "width" : 556,
+      "height" : 209
+    },
+    "points" : [ {
+      "x" : 418,
+      "y" : 730
+    }, {
+      "x" : 974,
+      "y" : 730
+    }, {
+      "x" : 974,
+      "y" : 1024
+    }, {
+      "x" : 418,
+      "y" : 1024
+    } ],
+    "colour" : "#cb4ac5"
+  }, {
+    "id" : 2798,
+    "reactomeId" : 114452,
+    "displayName" : "Activation of BH3-only proteins",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "Shadow",
+    "position" : {
+      "x" : 550,
+      "y" : 958
+    },
+    "minX" : 106,
+    "maxX" : 994,
+    "minY" : 202,
+    "maxY" : 1714,
+    "prop" : {
+      "x" : 106,
+      "y" : 1464,
+      "width" : 888,
+      "height" : 250
+    },
+    "points" : [ {
+      "x" : 106,
+      "y" : 202
+    }, {
+      "x" : 994,
+      "y" : 202
+    }, {
+      "x" : 994,
+      "y" : 1714
+    }, {
+      "x" : 106,
+      "y" : 1714
+    } ],
+    "colour" : "#d6ae00"
   } ],
   "minX" : 116,
   "maxX" : 3099,
-  "minY" : 118,
+  "minY" : 38,
   "maxY" : 1710,
   "disease" : false
 }

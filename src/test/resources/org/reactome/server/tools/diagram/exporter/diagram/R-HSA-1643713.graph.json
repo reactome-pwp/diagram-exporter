@@ -1,26 +1,27 @@
 {
   "dbId" : 1643713,
   "stId" : "R-HSA-1643713",
+  "speciesName" : "Homo sapiens",
   "nodes" : [ {
     "dbId" : 5637815,
     "stId" : "R-HSA-5637815",
     "displayName" : "Signaling by Ligand-Responsive EGFR Variants in Cancer",
     "schemaClass" : "Pathway",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 12 ]
   }, {
     "dbId" : 5637812,
     "stId" : "R-HSA-5637812",
     "displayName" : "Signaling by EGFRvIII in Cancer",
     "schemaClass" : "Pathway",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 14 ]
   }, {
     "dbId" : 5638302,
     "stId" : "R-HSA-5638302",
     "displayName" : "Signaling by Overexpressed Wild-Type EGFR in Cancer",
     "schemaClass" : "Pathway",
-    "speciesID" : 48887,
+    "speciesId" : 48887,
     "diagramIds" : [ 13 ]
   } ],
   "edges" : [ ]

@@ -1,22 +1,13 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.renderables;
 
-import org.reactome.server.tools.diagram.data.layout.EdgeCommon;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.EdgeRenderer;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.InteractionRenderer;
+import org.reactome.server.tools.diagram.data.layout.Link;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.NodeColorSheet;
 
 public class RenderableInteraction extends RenderableLink {
 
-	private static final InteractionRenderer renderer = new InteractionRenderer();
-
-	public RenderableInteraction(EdgeCommon edge) {
+	RenderableInteraction(Link edge) {
 		super(edge);
-	}
-
-	@Override
-	public EdgeRenderer getRenderer() {
-		return renderer;
 	}
 
 	@Override

@@ -1,9 +1,126 @@
 {
   "dbId" : 5657560,
   "stableId" : "R-HSA-5657560",
-  "displayName" : "Diagram of Fructose metabolism, Essential fructosuria,  and Hereditary fructose intolerance",
+  "displayName" : "Hereditary fructose intolerance",
   "forNormalDraw" : false,
   "nodes" : [ {
+    "id" : 2112,
+    "reactomeId" : 29804,
+    "displayName" : "K+",
+    "schemaClass" : "SimpleEntity",
+    "renderableClass" : "Chemical",
+    "position" : {
+      "x" : 766,
+      "y" : 200
+    },
+    "isFadeOut" : true,
+    "minX" : 749,
+    "maxX" : 836,
+    "minY" : 171,
+    "maxY" : 215,
+    "prop" : {
+      "x" : 749,
+      "y" : 185,
+      "width" : 35,
+      "height" : 30
+    },
+    "textPosition" : {
+      "x" : 753,
+      "y" : 189
+    },
+    "connectors" : [ {
+      "edgeId" : 422,
+      "type" : "ACTIVATOR",
+      "isFadeOut" : true,
+      "segments" : [ {
+        "from" : {
+          "x" : 787,
+          "y" : 193
+        },
+        "to" : {
+          "x" : 836,
+          "y" : 172
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 831,
+          "y" : 178
+        },
+        "b" : {
+          "x" : 836,
+          "y" : 172
+        },
+        "c" : {
+          "x" : 828,
+          "y" : 171
+        },
+        "type" : "ARROW",
+        "empty" : true
+      }
+    } ]
+  }, {
+    "id" : 167763,
+    "reactomeId" : 5656450,
+    "displayName" : "ALDOB mutant proteins",
+    "schemaClass" : "DefinedSet",
+    "renderableClass" : "EntitySet",
+    "position" : {
+      "x" : 781,
+      "y" : 350
+    },
+    "isDisease" : true,
+    "minX" : 733,
+    "maxX" : 840,
+    "minY" : 332,
+    "maxY" : 368,
+    "prop" : {
+      "x" : 733,
+      "y" : 332,
+      "width" : 96,
+      "height" : 36
+    },
+    "textPosition" : {
+      "x" : 733,
+      "y" : 332
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "needDashedBorder" : true,
+    "connectors" : [ {
+      "edgeId" : 167762,
+      "type" : "CATALYST",
+      "segments" : [ {
+        "from" : {
+          "x" : 816,
+          "y" : 350
+        },
+        "to" : {
+          "x" : 832,
+          "y" : 350
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "c" : {
+          "x" : 836,
+          "y" : 350
+        },
+        "r" : 4,
+        "type" : "CIRCLE",
+        "empty" : true
+      },
+      "isDisease" : true
+    } ]
+  }, {
     "id" : 1111,
     "reactomeId" : 5652070,
     "displayName" : "DAK dimer",
@@ -194,23 +311,23 @@
     "schemaClass" : "SimpleEntity",
     "renderableClass" : "Chemical",
     "position" : {
-      "x" : 762,
-      "y" : 170
+      "x" : 766,
+      "y" : 138
     },
     "isFadeOut" : true,
-    "minX" : 742,
-    "maxX" : 835,
-    "minY" : 155,
-    "maxY" : 185,
+    "minX" : 746,
+    "maxX" : 838,
+    "minY" : 123,
+    "maxY" : 169,
     "prop" : {
-      "x" : 742,
-      "y" : 155,
+      "x" : 746,
+      "y" : 123,
       "width" : 41,
       "height" : 30
     },
     "textPosition" : {
-      "x" : 746,
-      "y" : 159
+      "x" : 750,
+      "y" : 127
     },
     "connectors" : [ {
       "edgeId" : 422,
@@ -218,12 +335,12 @@
       "isFadeOut" : true,
       "segments" : [ {
         "from" : {
-          "x" : 786,
-          "y" : 169
+          "x" : 790,
+          "y" : 146
         },
         "to" : {
-          "x" : 835,
-          "y" : 169
+          "x" : 836,
+          "y" : 165
         }
       } ],
       "stoichiometry" : {
@@ -231,16 +348,16 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 835,
-          "y" : 173
+          "x" : 834,
+          "y" : 169
         },
         "b" : {
-          "x" : 835,
-          "y" : 165
+          "x" : 838,
+          "y" : 161
         },
         "c" : {
-          "x" : 835,
-          "y" : 169
+          "x" : 836,
+          "y" : 165
         },
         "type" : "STOP"
       }
@@ -626,23 +743,23 @@
     "schemaClass" : "SimpleEntity",
     "renderableClass" : "Chemical",
     "position" : {
-      "x" : 783,
-      "y" : 117
+      "x" : 904,
+      "y" : 102
     },
     "isFadeOut" : true,
-    "minX" : 763,
-    "maxX" : 843,
-    "minY" : 102,
+    "minX" : 843,
+    "maxX" : 925,
+    "minY" : 87,
     "maxY" : 139,
     "prop" : {
-      "x" : 763,
-      "y" : 102,
+      "x" : 884,
+      "y" : 87,
       "width" : 41,
       "height" : 30
     },
     "textPosition" : {
-      "x" : 768,
-      "y" : 106
+      "x" : 889,
+      "y" : 91
     },
     "connectors" : [ {
       "edgeId" : 422,
@@ -650,8 +767,8 @@
       "isFadeOut" : true,
       "segments" : [ {
         "from" : {
-          "x" : 807,
-          "y" : 124
+          "x" : 881,
+          "y" : 114
         },
         "to" : {
           "x" : 843,
@@ -749,64 +866,6 @@
       }
     } ]
   }, {
-    "id" : 1261754,
-    "reactomeId" : 5656450,
-    "displayName" : "ALDOB mutant proteins",
-    "schemaClass" : "DefinedSet",
-    "renderableClass" : "EntitySet",
-    "position" : {
-      "x" : 781,
-      "y" : 350
-    },
-    "isDisease" : true,
-    "minX" : 733,
-    "maxX" : 840,
-    "minY" : 332,
-    "maxY" : 368,
-    "prop" : {
-      "x" : 733,
-      "y" : 332,
-      "width" : 96,
-      "height" : 36
-    },
-    "textPosition" : {
-      "x" : 733,
-      "y" : 333
-    },
-    "bgColor" : {
-      "r" : 204,
-      "g" : 255,
-      "b" : 255
-    },
-    "needDashedBorder" : true,
-    "connectors" : [ {
-      "edgeId" : 1261753,
-      "type" : "CATALYST",
-      "segments" : [ {
-        "from" : {
-          "x" : 816,
-          "y" : 350
-        },
-        "to" : {
-          "x" : 832,
-          "y" : 350
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "endShape" : {
-        "c" : {
-          "x" : 836,
-          "y" : 350
-        },
-        "r" : 4,
-        "type" : "CIRCLE",
-        "empty" : true
-      },
-      "isDisease" : true
-    } ]
-  }, {
     "id" : 425,
     "reactomeId" : 31221,
     "displayName" : "Fru 1-P",
@@ -816,7 +875,7 @@
       "x" : 847,
       "y" : 286
     },
-    "minX" : 270,
+    "minX" : 814,
     "maxX" : 881,
     "minY" : 197,
     "maxY" : 301,
@@ -843,6 +902,14 @@
       }
     },
     "connectors" : [ {
+      "edgeId" : 167762,
+      "type" : "INPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "isDisease" : true
+    }, {
       "edgeId" : 422,
       "type" : "OUTPUT",
       "isFadeOut" : true,
@@ -874,14 +941,6 @@
         },
         "type" : "ARROW"
       }
-    }, {
-      "edgeId" : 1261753,
-      "type" : "INPUT",
-      "segments" : [ ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "isDisease" : true
     }, {
       "edgeId" : 431,
       "type" : "INPUT",
@@ -956,23 +1015,23 @@
     "schemaClass" : "SimpleEntity",
     "renderableClass" : "Chemical",
     "position" : {
-      "x" : 793,
-      "y" : 225
+      "x" : 904,
+      "y" : 231
     },
     "isFadeOut" : true,
-    "minX" : 773,
-    "maxX" : 845,
+    "minX" : 845,
+    "maxX" : 925,
     "minY" : 197,
-    "maxY" : 240,
+    "maxY" : 246,
     "prop" : {
-      "x" : 773,
-      "y" : 210,
+      "x" : 884,
+      "y" : 216,
       "width" : 41,
       "height" : 30
     },
     "textPosition" : {
-      "x" : 777,
-      "y" : 214
+      "x" : 888,
+      "y" : 220
     },
     "connectors" : [ {
       "edgeId" : 422,
@@ -980,8 +1039,8 @@
       "isFadeOut" : true,
       "segments" : [ {
         "from" : {
-          "x" : 817,
-          "y" : 213
+          "x" : 881,
+          "y" : 219
         },
         "to" : {
           "x" : 845,
@@ -993,16 +1052,16 @@
       },
       "endShape" : {
         "a" : {
-          "x" : 821,
-          "y" : 206
+          "x" : 873,
+          "y" : 219
         },
         "b" : {
-          "x" : 817,
-          "y" : 213
+          "x" : 881,
+          "y" : 219
         },
         "c" : {
-          "x" : 825,
-          "y" : 213
+          "x" : 877,
+          "y" : 212
         },
         "type" : "ARROW"
       }
@@ -1034,7 +1093,7 @@
     },
     "isCrossed" : true,
     "connectors" : [ {
-      "edgeId" : 1261753,
+      "edgeId" : 167762,
       "type" : "OUTPUT",
       "segments" : [ {
         "from" : {
@@ -1283,6 +1342,38 @@
     },
     "isCrossed" : true,
     "connectors" : [ {
+      "edgeId" : 167762,
+      "type" : "OUTPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 881,
+          "y" : 415
+        },
+        "to" : {
+          "x" : 849,
+          "y" : 375
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 874,
+          "y" : 412
+        },
+        "b" : {
+          "x" : 881,
+          "y" : 415
+        },
+        "c" : {
+          "x" : 880,
+          "y" : 407
+        },
+        "type" : "ARROW"
+      },
+      "isDisease" : true
+    }, {
       "edgeId" : 433,
       "type" : "INPUT",
       "isFadeOut" : true,
@@ -1316,38 +1407,6 @@
       "stoichiometry" : {
         "value" : 1
       }
-    }, {
-      "edgeId" : 1261753,
-      "type" : "OUTPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 881,
-          "y" : 415
-        },
-        "to" : {
-          "x" : 849,
-          "y" : 375
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      },
-      "endShape" : {
-        "a" : {
-          "x" : 874,
-          "y" : 412
-        },
-        "b" : {
-          "x" : 881,
-          "y" : 415
-        },
-        "c" : {
-          "x" : 880,
-          "y" : 407
-        },
-        "type" : "ARROW"
-      },
-      "isDisease" : true
     }, {
       "edgeId" : 431,
       "type" : "OUTPUT",
@@ -2099,6 +2158,75 @@
     } ]
   } ],
   "edges" : [ {
+    "id" : 167762,
+    "reactomeId" : 5656438,
+    "displayName" : "Defective ALDOB does not cleave Fru 1-P to GA and DHAP",
+    "schemaClass" : "FailedReaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 848,
+      "y" : 350
+    },
+    "isDisease" : true,
+    "minX" : 842,
+    "maxX" : 854,
+    "minY" : 304,
+    "maxY" : 375,
+    "segments" : [ {
+      "from" : {
+        "x" : 847,
+        "y" : 304
+      },
+      "to" : {
+        "x" : 848,
+        "y" : 350
+      }
+    }, {
+      "from" : {
+        "x" : 848,
+        "y" : 350
+      },
+      "to" : {
+        "x" : 849,
+        "y" : 375
+      }
+    } ],
+    "reactionShape" : {
+      "a" : {
+        "x" : 842,
+        "y" : 344
+      },
+      "b" : {
+        "x" : 854,
+        "y" : 356
+      },
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 425
+    } ],
+    "outputs" : [ {
+      "id" : 108,
+      "points" : [ {
+        "x" : 807,
+        "y" : 411
+      } ]
+    }, {
+      "id" : 432,
+      "points" : [ {
+        "x" : 881,
+        "y" : 415
+      } ]
+    } ],
+    "catalysts" : [ {
+      "id" : 167763,
+      "points" : [ {
+        "x" : 816,
+        "y" : 350
+      } ]
+    } ]
+  }, {
     "id" : 1121,
     "reactomeId" : 5652195,
     "displayName" : "SORD oxidizes D-sorbitol to Fru",
@@ -2402,8 +2530,8 @@
     "inputs" : [ {
       "id" : 423,
       "points" : [ {
-        "x" : 807,
-        "y" : 124
+        "x" : 881,
+        "y" : 114
       } ]
     }, {
       "id" : 424,
@@ -2421,8 +2549,8 @@
     }, {
       "id" : 426,
       "points" : [ {
-        "x" : 817,
-        "y" : 213
+        "x" : 881,
+        "y" : 219
       } ]
     } ],
     "catalysts" : [ {
@@ -2435,8 +2563,15 @@
     "inhibitors" : [ {
       "id" : 90,
       "points" : [ {
-        "x" : 786,
-        "y" : 169
+        "x" : 790,
+        "y" : 146
+      } ]
+    } ],
+    "activators" : [ {
+      "id" : 2112,
+      "points" : [ {
+        "x" : 787,
+        "y" : 193
       } ]
     } ]
   }, {
@@ -2611,78 +2746,9 @@
       } ]
     } ]
   }, {
-    "id" : 1261753,
-    "reactomeId" : 5656438,
-    "displayName" : "Defective ALDOB does not cleave Fru 1-P to GA and DHAP",
-    "schemaClass" : "FailedReaction",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 848,
-      "y" : 350
-    },
-    "isDisease" : true,
-    "minX" : 842,
-    "maxX" : 854,
-    "minY" : 304,
-    "maxY" : 375,
-    "segments" : [ {
-      "from" : {
-        "x" : 847,
-        "y" : 304
-      },
-      "to" : {
-        "x" : 848,
-        "y" : 350
-      }
-    }, {
-      "from" : {
-        "x" : 848,
-        "y" : 350
-      },
-      "to" : {
-        "x" : 849,
-        "y" : 375
-      }
-    } ],
-    "reactionShape" : {
-      "a" : {
-        "x" : 842,
-        "y" : 344
-      },
-      "b" : {
-        "x" : 854,
-        "y" : 356
-      },
-      "type" : "BOX",
-      "empty" : true
-    },
-    "inputs" : [ {
-      "id" : 425
-    } ],
-    "outputs" : [ {
-      "id" : 108,
-      "points" : [ {
-        "x" : 807,
-        "y" : 411
-      } ]
-    }, {
-      "id" : 432,
-      "points" : [ {
-        "x" : 881,
-        "y" : 415
-      } ]
-    } ],
-    "catalysts" : [ {
-      "id" : 1261754,
-      "points" : [ {
-        "x" : 816,
-        "y" : 350
-      } ]
-    } ]
-  }, {
     "id" : 431,
     "reactomeId" : 70342,
-    "displayName" : "Defective ALDOB does not cleave Fru 1-P to GA and DHAP",
+    "displayName" : "ALDOB tetramer cleaves Fru-1-P to GA and DHAP",
     "schemaClass" : "Reaction",
     "renderableClass" : "Reaction",
     "position" : {
@@ -2753,7 +2819,7 @@
     "id" : 7,
     "reactomeId" : 70101,
     "displayName" : "cytosol",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 751,
@@ -2784,7 +2850,7 @@
       "g" : 240,
       "b" : 240
     },
-    "componentIds" : [ 90, 108, 109, 365, 422, 423, 424, 425, 426, 431, 432, 433, 434, 435, 560, 925, 1111, 1113, 1114, 1112, 1116, 1118, 1120, 1121, 1124, 1126, 1128, 1130, 1122, 2035, 2036, 2037, 2038, 2040, 2042, 2044, 2105, 2106, 2107, 2108, 2109, 2111 ]
+    "componentIds" : [ 90, 108, 109, 365, 422, 423, 424, 425, 426, 431, 432, 433, 434, 435, 560, 925, 1111, 1113, 1114, 1112, 1116, 1118, 1120, 1121, 1124, 1126, 1128, 1130, 1122, 2035, 2036, 2037, 2038, 2040, 2042, 2044, 2105, 2106, 2107, 2108, 2109, 2111, 2112 ]
   } ],
   "notes" : [ ],
   "links" : [ ],

@@ -1,13 +1,14 @@
 {
   "dbId" : 5467343,
   "stId" : "R-HSA-5467343",
+  "speciesName" : "Homo sapiens",
   "nodes" : [ {
     "dbId" : 5251547,
     "stId" : "R-HSA-5251547",
     "displayName" : "defective AMER1 gene [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesID" : 48887,
-    "diagramIds" : [ 1583055 ],
+    "speciesId" : 48887,
+    "diagramIds" : [ 127364 ],
     "identifier" : "ENSG00000184675",
     "geneNames" : [ "AMER1", "FAM123B", "WTX" ]
   } ],
@@ -17,7 +18,8 @@
     "displayName" : "Deletions of the AMER1 gene prevent expression of AMER1 protein",
     "schemaClass" : "FailedReaction",
     "inputs" : [ 5251547 ],
-    "catalysts" : [ 5251547 ],
-    "diagramIds" : [ 1583054 ]
+    "efs" : [ 5251547 ],
+    "diagramIds" : [ 127363 ],
+    "entityFunctionalStatus" : [ 5251547 ]
   } ]
 }

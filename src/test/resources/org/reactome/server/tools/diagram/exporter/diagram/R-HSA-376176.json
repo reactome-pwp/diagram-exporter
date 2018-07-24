@@ -1,7 +1,7 @@
 {
   "dbId" : 376176,
   "stableId" : "R-HSA-376176",
-  "displayName" : "Diagram of Signaling by ROBO receptors",
+  "displayName" : "Signaling by ROBO receptors",
   "nodes" : [ {
     "id" : 2,
     "reactomeId" : 375997,
@@ -12,7 +12,7 @@
       "x" : 1289,
       "y" : 371
     },
-    "minX" : 353,
+    "minX" : 1193,
     "maxX" : 1546,
     "minY" : 224,
     "maxY" : 559,
@@ -183,7 +183,7 @@
       "x" : 1486,
       "y" : 374
     },
-    "minX" : 357,
+    "minX" : 1406,
     "maxX" : 1544,
     "minY" : 357,
     "maxY" : 385,
@@ -292,7 +292,7 @@
       "x" : 1402,
       "y" : 451
     },
-    "minX" : 434,
+    "minX" : 1343,
     "maxX" : 1468,
     "minY" : 375,
     "maxY" : 462,
@@ -511,9 +511,9 @@
       "x" : 742,
       "y" : 741
     },
-    "minX" : 710,
+    "minX" : 707,
     "maxX" : 770,
-    "minY" : 562,
+    "minY" : 591,
     "maxY" : 751,
     "prop" : {
       "x" : 720,
@@ -538,55 +538,18 @@
       }
     },
     "connectors" : [ {
-      "edgeId" : 262,
+      "edgeId" : 1162,
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 740,
+          "x" : 739,
           "y" : 728
         },
         "to" : {
-          "x" : 710,
-          "y" : 562
+          "x" : 707,
+          "y" : 591
         }
       } ],
-      "stoichiometry" : {
-        "value" : 1
-      }
-    } ]
-  }, {
-    "id" : 265,
-    "reactomeId" : 8985808,
-    "displayName" : "SLIT1:ROBO1,ROBO2:NCK2",
-    "schemaClass" : "Complex",
-    "renderableClass" : "Complex",
-    "position" : {
-      "x" : 616,
-      "y" : 559
-    },
-    "minX" : 567,
-    "maxX" : 665,
-    "minY" : 541,
-    "maxY" : 577,
-    "prop" : {
-      "x" : 567,
-      "y" : 541,
-      "width" : 98,
-      "height" : 36
-    },
-    "textPosition" : {
-      "x" : 572,
-      "y" : 542
-    },
-    "bgColor" : {
-      "r" : 204,
-      "g" : 255,
-      "b" : 255
-    },
-    "connectors" : [ {
-      "edgeId" : 262,
-      "type" : "OUTPUT",
-      "segments" : [ ],
       "stoichiometry" : {
         "value" : 1
       }
@@ -749,7 +712,7 @@
     "reactomeId" : 5627123,
     "displayName" : "RHO GTPases activate PAKs",
     "schemaClass" : "Pathway",
-    "renderableClass" : "ProcessNode",
+    "renderableClass" : "EncapsulatedNode",
     "position" : {
       "x" : 383,
       "y" : 824
@@ -774,7 +737,7 @@
     "reactomeId" : 927802,
     "displayName" : "Nonsense-Mediated Decay (NMD)",
     "schemaClass" : "Pathway",
-    "renderableClass" : "ProcessNode",
+    "renderableClass" : "EncapsulatedNode",
     "position" : {
       "x" : 239,
       "y" : 1387
@@ -1077,7 +1040,7 @@
       "y" : 1012
     },
     "minX" : 23,
-    "maxX" : 995,
+    "maxX" : 155,
     "minY" : 995,
     "maxY" : 1038,
     "prop" : {
@@ -1299,7 +1262,7 @@
       "x" : 1211,
       "y" : 598
     },
-    "minX" : 581,
+    "minX" : 971,
     "maxX" : 2988,
     "minY" : 482,
     "maxY" : 746,
@@ -1700,7 +1663,7 @@
       "x" : 2939,
       "y" : 1092
     },
-    "minX" : 1075,
+    "minX" : 2880,
     "maxX" : 2968,
     "minY" : 1075,
     "maxY" : 1104,
@@ -2387,7 +2350,7 @@
       "x" : 2072,
       "y" : 705
     },
-    "minX" : 691,
+    "minX" : 2054,
     "maxX" : 2091,
     "minY" : 657,
     "maxY" : 718,
@@ -2441,7 +2404,7 @@
       "x" : 2896,
       "y" : 1340
     },
-    "minX" : 1326,
+    "minX" : 2879,
     "maxX" : 2947,
     "minY" : 1326,
     "maxY" : 1353,
@@ -2495,7 +2458,7 @@
       "x" : 2895,
       "y" : 1404
     },
-    "minX" : 1391,
+    "minX" : 2876,
     "maxX" : 2945,
     "minY" : 1391,
     "maxY" : 1416,
@@ -2579,6 +2542,22 @@
       "y" : 555
     },
     "connectors" : [ {
+      "edgeId" : 1158,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 899,
+          "y" : 551
+        },
+        "to" : {
+          "x" : 849,
+          "y" : 541
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
       "edgeId" : 1080,
       "type" : "INPUT",
       "segments" : [ {
@@ -2623,22 +2602,6 @@
         "to" : {
           "x" : 579,
           "y" : 464
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      }
-    }, {
-      "edgeId" : 253,
-      "type" : "INPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 872,
-          "y" : 565
-        },
-        "to" : {
-          "x" : 845,
-          "y" : 565
         }
       } ],
       "stoichiometry" : {
@@ -2716,7 +2679,7 @@
       "x" : 2759,
       "y" : 1475
     },
-    "minX" : 1455,
+    "minX" : 2689,
     "maxX" : 2940,
     "minY" : 1364,
     "maxY" : 1489,
@@ -2826,7 +2789,7 @@
       "x" : 849,
       "y" : 744
     },
-    "minX" : 731,
+    "minX" : 827,
     "maxX" : 910,
     "minY" : 716,
     "maxY" : 756,
@@ -2880,7 +2843,7 @@
       "x" : 1502,
       "y" : 785
     },
-    "minX" : 768,
+    "minX" : 1465,
     "maxX" : 1545,
     "minY" : 644,
     "maxY" : 796,
@@ -2933,7 +2896,7 @@
       "x" : 850,
       "y" : 683
     },
-    "minX" : 664,
+    "minX" : 797,
     "maxX" : 910,
     "minY" : 664,
     "maxY" : 716,
@@ -3194,7 +3157,7 @@
       "y" : 1098
     },
     "minX" : 171,
-    "maxX" : 1070,
+    "maxX" : 351,
     "minY" : 948,
     "maxY" : 1126,
     "prop" : {
@@ -3320,7 +3283,7 @@
       "x" : 942,
       "y" : 798
     },
-    "minX" : 781,
+    "minX" : 917,
     "maxX" : 974,
     "minY" : 722,
     "maxY" : 809,
@@ -3403,64 +3366,6 @@
     },
     "connectors" : [ {
       "edgeId" : 574,
-      "type" : "OUTPUT",
-      "segments" : [ ],
-      "stoichiometry" : {
-        "value" : 1
-      }
-    } ]
-  }, {
-    "id" : 1101,
-    "reactomeId" : 8985807,
-    "displayName" : "SLIT1:ROBO1,ROBO2",
-    "schemaClass" : "DefinedSet",
-    "renderableClass" : "EntitySet",
-    "position" : {
-      "x" : 756,
-      "y" : 558
-    },
-    "minX" : 710,
-    "maxX" : 786,
-    "minY" : 533,
-    "maxY" : 583,
-    "prop" : {
-      "x" : 726,
-      "y" : 533,
-      "width" : 60,
-      "height" : 50
-    },
-    "textPosition" : {
-      "x" : 729,
-      "y" : 533
-    },
-    "bgColor" : {
-      "r" : 204,
-      "g" : 255,
-      "b" : 255
-    },
-    "fgColor" : {
-      "r" : 0,
-      "g" : 0,
-      "b" : 0
-    },
-    "connectors" : [ {
-      "edgeId" : 262,
-      "type" : "INPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 720,
-          "y" : 560
-        },
-        "to" : {
-          "x" : 710,
-          "y" : 562
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 1
-      }
-    }, {
-      "edgeId" : 253,
       "type" : "OUTPUT",
       "segments" : [ ],
       "stoichiometry" : {
@@ -3621,7 +3526,7 @@
       "x" : 2137,
       "y" : 703
     },
-    "minX" : 690,
+    "minX" : 2124,
     "maxX" : 2152,
     "minY" : 655,
     "maxY" : 715,
@@ -4056,7 +3961,7 @@
       "y" : 1019
     },
     "minX" : 422,
-    "maxX" : 1002,
+    "maxX" : 530,
     "minY" : 1002,
     "maxY" : 1030,
     "prop" : {
@@ -4109,7 +4014,7 @@
       "y" : 756
     },
     "minX" : 88,
-    "maxX" : 745,
+    "maxX" : 135,
     "minY" : 731,
     "maxY" : 766,
     "prop" : {
@@ -4214,7 +4119,7 @@
       "x" : 658,
       "y" : 375
     },
-    "minX" : 358,
+    "minX" : 579,
     "maxX" : 684,
     "minY" : 358,
     "maxY" : 464,
@@ -4737,7 +4642,7 @@
       "x" : 1023,
       "y" : 477
     },
-    "minX" : 460,
+    "minX" : 1001,
     "maxX" : 1052,
     "minY" : 460,
     "maxY" : 524,
@@ -4791,7 +4696,7 @@
       "y" : 888
     },
     "minX" : 87,
-    "maxX" : 875,
+    "maxX" : 163,
     "minY" : 875,
     "maxY" : 900,
     "prop" : {
@@ -4845,7 +4750,7 @@
       "y" : 851
     },
     "minX" : 86,
-    "maxX" : 837,
+    "maxX" : 182,
     "minY" : 837,
     "maxY" : 865,
     "prop" : {
@@ -5076,7 +4981,7 @@
       "y" : 708
     },
     "minX" : 143,
-    "maxX" : 694,
+    "maxX" : 184,
     "minY" : 674,
     "maxY" : 721,
     "prop" : {
@@ -5129,7 +5034,7 @@
       "x" : 770,
       "y" : 659
     },
-    "minX" : 642,
+    "minX" : 748,
     "maxX" : 809,
     "minY" : 637,
     "maxY" : 670,
@@ -5183,7 +5088,7 @@
       "y" : 719
     },
     "minX" : 200,
-    "maxX" : 704,
+    "maxX" : 242,
     "minY" : 671,
     "maxY" : 733,
     "prop" : {
@@ -5481,6 +5386,64 @@
       }
     } ]
   }, {
+    "id" : 1159,
+    "reactomeId" : 8985807,
+    "displayName" : "SLIT1:ROBO1,ROBO2",
+    "schemaClass" : "DefinedSet",
+    "renderableClass" : "EntitySet",
+    "position" : {
+      "x" : 741,
+      "y" : 551
+    },
+    "minX" : 707,
+    "maxX" : 770,
+    "minY" : 529,
+    "maxY" : 591,
+    "prop" : {
+      "x" : 713,
+      "y" : 529,
+      "width" : 57,
+      "height" : 44
+    },
+    "textPosition" : {
+      "x" : 715,
+      "y" : 527
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "fgColor" : {
+      "r" : 0,
+      "g" : 0,
+      "b" : 0
+    },
+    "connectors" : [ {
+      "edgeId" : 1158,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 1162,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 722,
+          "y" : 579
+        },
+        "to" : {
+          "x" : 707,
+          "y" : 591
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
     "id" : 906,
     "reactomeId" : 9011403,
     "displayName" : "MSI1",
@@ -5491,7 +5454,7 @@
       "y" : 968
     },
     "minX" : 884,
-    "maxX" : 951,
+    "maxX" : 926,
     "minY" : 951,
     "maxY" : 991,
     "prop" : {
@@ -5600,6 +5563,43 @@
         },
         "type" : "ARROW",
         "empty" : true
+      }
+    } ]
+  }, {
+    "id" : 1163,
+    "reactomeId" : 8985808,
+    "displayName" : "SLIT1:ROBO1,ROBO2:NCK2",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 598,
+      "y" : 558
+    },
+    "minX" : 553,
+    "maxX" : 644,
+    "minY" : 541,
+    "maxY" : 576,
+    "prop" : {
+      "x" : 553,
+      "y" : 541,
+      "width" : 91,
+      "height" : 35
+    },
+    "textPosition" : {
+      "x" : 554,
+      "y" : 541
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 1162,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
       }
     } ]
   }, {
@@ -5905,7 +5905,7 @@
       "x" : 2417,
       "y" : 642
     },
-    "minX" : 626,
+    "minX" : 2397,
     "maxX" : 2449,
     "minY" : 582,
     "maxY" : 657,
@@ -6057,7 +6057,7 @@
       "x" : 2535,
       "y" : 642
     },
-    "minX" : 626,
+    "minX" : 2494,
     "maxX" : 2557,
     "minY" : 582,
     "maxY" : 657,
@@ -6250,7 +6250,7 @@
     "reactomeId" : 5627117,
     "displayName" : "RHO GTPases Activate ROCKs",
     "schemaClass" : "Pathway",
-    "renderableClass" : "ProcessNode",
+    "renderableClass" : "EncapsulatedNode",
     "position" : {
       "x" : 1667,
       "y" : 912
@@ -6484,7 +6484,7 @@
       "y" : 1177
     },
     "minX" : 871,
-    "maxX" : 1159,
+    "maxX" : 956,
     "minY" : 1138,
     "maxY" : 1189,
     "prop" : {
@@ -6605,7 +6605,7 @@
       "x" : 2938,
       "y" : 706
     },
-    "minX" : 688,
+    "minX" : 2918,
     "maxX" : 2965,
     "minY" : 688,
     "maxY" : 746,
@@ -6695,7 +6695,7 @@
       "x" : 1597,
       "y" : 793
     },
-    "minX" : 776,
+    "minX" : 1572,
     "maxX" : 1699,
     "minY" : 625,
     "maxY" : 804,
@@ -7097,7 +7097,7 @@
       "x" : 1738,
       "y" : 751
     },
-    "minX" : 738,
+    "minX" : 1721,
     "maxX" : 1753,
     "minY" : 703,
     "maxY" : 763,
@@ -7235,7 +7235,7 @@
       "x" : 1652,
       "y" : 737
     },
-    "minX" : 723,
+    "minX" : 1633,
     "maxX" : 1672,
     "minY" : 706,
     "maxY" : 750,
@@ -7575,7 +7575,7 @@
       "y" : 770
     },
     "minX" : 261,
-    "maxX" : 758,
+    "maxX" : 298,
     "minY" : 742,
     "maxY" : 782,
     "prop" : {
@@ -7629,7 +7629,7 @@
       "y" : 1380
     },
     "minX" : 408,
-    "maxX" : 1362,
+    "maxX" : 595,
     "minY" : 1221,
     "maxY" : 1392,
     "prop" : {
@@ -7728,7 +7728,7 @@
       "y" : 1391
     },
     "minX" : 522,
-    "maxX" : 1373,
+    "maxX" : 595,
     "minY" : 1221,
     "maxY" : 1403,
     "prop" : {
@@ -7868,7 +7868,7 @@
       "y" : 1361
     },
     "minX" : 566,
-    "maxX" : 1345,
+    "maxX" : 623,
     "minY" : 1221,
     "maxY" : 1372,
     "prop" : {
@@ -7917,22 +7917,22 @@
     "schemaClass" : "Complex",
     "renderableClass" : "Complex",
     "position" : {
-      "x" : 734,
-      "y" : 1436
+      "x" : 735,
+      "y" : 1435
     },
     "minX" : 595,
-    "maxX" : 765,
+    "maxX" : 766,
     "minY" : 1221,
-    "maxY" : 1455,
+    "maxY" : 1454,
     "prop" : {
-      "x" : 703,
-      "y" : 1418,
+      "x" : 704,
+      "y" : 1417,
       "width" : 62,
       "height" : 37
     },
     "textPosition" : {
-      "x" : 703,
-      "y" : 1420
+      "x" : 704,
+      "y" : 1419
     },
     "bgColor" : {
       "r" : 204,
@@ -7945,7 +7945,7 @@
       "segments" : [ {
         "from" : {
           "x" : 722,
-          "y" : 1415
+          "y" : 1414
         },
         "to" : {
           "x" : 595,
@@ -7963,21 +7963,21 @@
     "schemaClass" : "Complex",
     "renderableClass" : "Complex",
     "position" : {
-      "x" : 648,
+      "x" : 649,
       "y" : 1414
     },
     "minX" : 595,
-    "maxX" : 671,
+    "maxX" : 672,
     "minY" : 1221,
     "maxY" : 1433,
     "prop" : {
-      "x" : 626,
+      "x" : 627,
       "y" : 1395,
       "width" : 45,
       "height" : 38
     },
     "textPosition" : {
-      "x" : 628,
+      "x" : 629,
       "y" : 1398
     },
     "bgColor" : {
@@ -7990,7 +7990,7 @@
       "type" : "INPUT",
       "segments" : [ {
         "from" : {
-          "x" : 642,
+          "x" : 643,
           "y" : 1392
         },
         "to" : {
@@ -8080,10 +8080,10 @@
       "x" : 905,
       "y" : 378
     },
-    "minX" : 361,
+    "minX" : 848,
     "maxX" : 931,
     "minY" : 361,
-    "maxY" : 565,
+    "maxY" : 541,
     "prop" : {
       "x" : 886,
       "y" : 367,
@@ -8107,6 +8107,34 @@
       }
     },
     "connectors" : [ {
+      "edgeId" : 1158,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 901,
+          "y" : 392
+        },
+        "to" : {
+          "x" : 849,
+          "y" : 541
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 2,
+        "shape" : {
+          "a" : {
+            "x" : 869,
+            "y" : 460
+          },
+          "b" : {
+            "x" : 881,
+            "y" : 472
+          },
+          "type" : "BOX",
+          "empty" : true
+        }
+      }
+    }, {
       "edgeId" : 420,
       "type" : "INPUT",
       "segments" : [ {
@@ -8121,34 +8149,6 @@
       } ],
       "stoichiometry" : {
         "value" : 1
-      }
-    }, {
-      "edgeId" : 253,
-      "type" : "INPUT",
-      "segments" : [ {
-        "from" : {
-          "x" : 901,
-          "y" : 392
-        },
-        "to" : {
-          "x" : 845,
-          "y" : 565
-        }
-      } ],
-      "stoichiometry" : {
-        "value" : 2,
-        "shape" : {
-          "a" : {
-            "x" : 867,
-            "y" : 472
-          },
-          "b" : {
-            "x" : 879,
-            "y" : 484
-          },
-          "type" : "BOX",
-          "empty" : true
-        }
       }
     } ]
   } ],
@@ -8379,77 +8379,78 @@
       } ]
     } ]
   }, {
-    "id" : 262,
-    "reactomeId" : 8985812,
-    "displayName" : "NCK2 binds to ROBO1,(ROBO2)",
+    "id" : 1158,
+    "reactomeId" : 8985799,
+    "displayName" : "SLIT1 binds ROBO1,(ROBO2)",
     "schemaClass" : "Reaction",
     "renderableClass" : "Reaction",
     "position" : {
-      "x" : 695,
-      "y" : 560
+      "x" : 822,
+      "y" : 544
     },
-    "minX" : 668,
-    "maxX" : 710,
-    "minY" : 555,
-    "maxY" : 565,
+    "minX" : 776,
+    "maxX" : 849,
+    "minY" : 539,
+    "maxY" : 549,
     "reactionType" : "Association",
     "segments" : [ {
       "from" : {
-        "x" : 710,
-        "y" : 562
+        "x" : 849,
+        "y" : 541
       },
       "to" : {
-        "x" : 695,
-        "y" : 560
+        "x" : 822,
+        "y" : 544
       }
     }, {
       "from" : {
-        "x" : 695,
-        "y" : 560
+        "x" : 822,
+        "y" : 544
       },
       "to" : {
-        "x" : 668,
-        "y" : 559
+        "x" : 776,
+        "y" : 548
       }
     } ],
     "endShape" : {
       "a" : {
-        "x" : 675,
-        "y" : 555
+        "x" : 783,
+        "y" : 543
       },
       "b" : {
-        "x" : 668,
-        "y" : 559
+        "x" : 776,
+        "y" : 548
       },
       "c" : {
-        "x" : 675,
-        "y" : 563
+        "x" : 783,
+        "y" : 551
       },
       "type" : "ARROW"
     },
     "reactionShape" : {
       "c" : {
-        "x" : 695,
-        "y" : 560
+        "x" : 822,
+        "y" : 544
       },
       "r" : 5,
       "type" : "CIRCLE"
     },
     "inputs" : [ {
-      "id" : 263,
+      "id" : 254,
       "points" : [ {
-        "x" : 740,
-        "y" : 728
-      } ]
+        "x" : 901,
+        "y" : 392
+      } ],
+      "stoichiometry" : 2
     }, {
-      "id" : 1101,
+      "id" : 1081,
       "points" : [ {
-        "x" : 720,
-        "y" : 560
+        "x" : 899,
+        "y" : 551
       } ]
     } ],
     "outputs" : [ {
-      "id" : 265
+      "id" : 1159
     } ]
   }, {
     "id" : 519,
@@ -8676,6 +8677,79 @@
     } ],
     "outputs" : [ {
       "id" : 907
+    } ]
+  }, {
+    "id" : 1162,
+    "reactomeId" : 8985812,
+    "displayName" : "NCK2 binds to ROBO1,(ROBO2)",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 676,
+      "y" : 578
+    },
+    "minX" : 647,
+    "maxX" : 707,
+    "minY" : 569,
+    "maxY" : 591,
+    "reactionType" : "Association",
+    "segments" : [ {
+      "from" : {
+        "x" : 707,
+        "y" : 591
+      },
+      "to" : {
+        "x" : 676,
+        "y" : 578
+      }
+    }, {
+      "from" : {
+        "x" : 676,
+        "y" : 578
+      },
+      "to" : {
+        "x" : 647,
+        "y" : 569
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 655,
+        "y" : 567
+      },
+      "b" : {
+        "x" : 647,
+        "y" : 569
+      },
+      "c" : {
+        "x" : 652,
+        "y" : 575
+      },
+      "type" : "ARROW"
+    },
+    "reactionShape" : {
+      "c" : {
+        "x" : 676,
+        "y" : 578
+      },
+      "r" : 5,
+      "type" : "CIRCLE"
+    },
+    "inputs" : [ {
+      "id" : 263,
+      "points" : [ {
+        "x" : 739,
+        "y" : 728
+      } ]
+    }, {
+      "id" : 1159,
+      "points" : [ {
+        "x" : 722,
+        "y" : 579
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 1163
     } ]
   }, {
     "id" : 781,
@@ -11929,12 +12003,12 @@
       "id" : 1009,
       "points" : [ {
         "x" : 722,
-        "y" : 1415
+        "y" : 1414
       } ]
     }, {
       "id" : 1010,
       "points" : [ {
-        "x" : 642,
+        "x" : 643,
         "y" : 1392
       } ]
     } ],
@@ -12555,80 +12629,6 @@
       "id" : 384
     } ]
   }, {
-    "id" : 253,
-    "reactomeId" : 8985799,
-    "displayName" : "SLIT1 binds ROBO1,(ROBO2)",
-    "schemaClass" : "Reaction",
-    "renderableClass" : "Reaction",
-    "position" : {
-      "x" : 827,
-      "y" : 568
-    },
-    "minX" : 792,
-    "maxX" : 845,
-    "minY" : 562,
-    "maxY" : 573,
-    "reactionType" : "Association",
-    "segments" : [ {
-      "from" : {
-        "x" : 845,
-        "y" : 565
-      },
-      "to" : {
-        "x" : 827,
-        "y" : 568
-      }
-    }, {
-      "from" : {
-        "x" : 827,
-        "y" : 568
-      },
-      "to" : {
-        "x" : 792,
-        "y" : 562
-      }
-    } ],
-    "endShape" : {
-      "a" : {
-        "x" : 800,
-        "y" : 559
-      },
-      "b" : {
-        "x" : 792,
-        "y" : 562
-      },
-      "c" : {
-        "x" : 798,
-        "y" : 567
-      },
-      "type" : "ARROW"
-    },
-    "reactionShape" : {
-      "c" : {
-        "x" : 827,
-        "y" : 568
-      },
-      "r" : 5,
-      "type" : "CIRCLE"
-    },
-    "inputs" : [ {
-      "id" : 1081,
-      "points" : [ {
-        "x" : 872,
-        "y" : 565
-      } ]
-    }, {
-      "id" : 254,
-      "points" : [ {
-        "x" : 901,
-        "y" : 392
-      } ],
-      "stoichiometry" : 2
-    } ],
-    "outputs" : [ {
-      "id" : 1101
-    } ]
-  }, {
     "id" : 893,
     "reactomeId" : 9011313,
     "displayName" : "Proteasome degrades ubiquitinated ROBO3.1",
@@ -12776,7 +12776,7 @@
     "id" : 195,
     "reactomeId" : 70101,
     "displayName" : "cytosol",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 1058,
@@ -12812,7 +12812,7 @@
     "id" : 435,
     "reactomeId" : 7660,
     "displayName" : "nucleoplasm",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 1402,
@@ -12848,7 +12848,7 @@
     "id" : 198,
     "reactomeId" : 70101,
     "displayName" : "cytosol",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 1487,
@@ -12879,12 +12879,12 @@
       "g" : 240,
       "b" : 240
     },
-    "componentIds" : [ 9, 11, 22, 23, 31, 32, 40, 41, 46, 48, 60, 61, 87, 88, 8, 30, 39, 44, 47, 59, 100, 101, 107, 108, 109, 112, 113, 114, 115, 116, 117, 124, 126, 127, 153, 154, 155, 164, 165, 166, 167, 170, 171, 172, 187, 188, 206, 207, 208, 212, 213, 214, 216, 217, 230, 233, 234, 264, 265, 263, 262, 266, 270, 310, 315, 316, 317, 318, 319, 335, 336, 337, 353, 383, 384, 381, 382, 430, 431, 435, 467, 527, 528, 529, 537, 538, 555, 556, 557, 574, 575, 576, 599, 600, 612, 613, 614, 632, 633, 634, 635, 681, 696, 697, 715, 714, 716, 791, 792, 793, 794, 799, 800, 801, 823, 824, 825, 826, 827, 866, 867, 868, 885, 887, 884, 894, 893, 897, 906, 905, 907, 916, 981, 984, 1007, 1008, 1009, 1010, 1002, 1006, 1003, 1004, 1005, 1011, 1028, 1029, 1035, 1036, 1037, 1054, 1052, 1083, 1086, 1081, 1084, 1102, 1101, 253, 1142 ]
+    "componentIds" : [ 9, 11, 22, 23, 31, 32, 40, 41, 46, 48, 60, 61, 87, 88, 8, 30, 39, 44, 47, 59, 100, 101, 107, 108, 109, 112, 113, 114, 115, 116, 117, 124, 126, 127, 153, 154, 155, 164, 165, 166, 167, 170, 171, 172, 187, 188, 206, 207, 208, 212, 213, 214, 216, 217, 230, 233, 234, 264, 263, 266, 270, 310, 315, 316, 317, 318, 319, 335, 336, 337, 353, 383, 384, 381, 382, 430, 431, 435, 467, 527, 528, 529, 537, 538, 555, 556, 557, 574, 575, 576, 599, 600, 612, 613, 614, 632, 633, 634, 635, 681, 696, 697, 715, 714, 716, 791, 792, 793, 794, 799, 800, 801, 823, 824, 825, 826, 827, 866, 867, 868, 885, 887, 884, 894, 893, 897, 906, 905, 907, 916, 981, 984, 1007, 1008, 1009, 1010, 1002, 1006, 1003, 1004, 1005, 1011, 1028, 1029, 1035, 1036, 1037, 1054, 1052, 1083, 1086, 1081, 1084, 1142, 1160, 1159, 1163, 1162 ]
   }, {
     "id" : 478,
     "reactomeId" : 7660,
     "displayName" : "nucleoplasm",
-    "schemaClass" : "EntityCompartment",
+    "schemaClass" : "Compartment",
     "renderableClass" : "Compartment",
     "position" : {
       "x" : 812,
@@ -13207,6 +13207,45 @@
       "id" : 108
     } ]
   }, {
+    "id" : 1160,
+    "renderableClass" : "EntitySetAndMemberLink",
+    "position" : {
+      "x" : 760,
+      "y" : 591
+    },
+    "minX" : 752,
+    "maxX" : 769,
+    "minY" : 579,
+    "maxY" : 603,
+    "segments" : [ {
+      "from" : {
+        "x" : 769,
+        "y" : 603
+      },
+      "to" : {
+        "x" : 752,
+        "y" : 579
+      }
+    } ],
+    "reactionShape" : {
+      "a" : {
+        "x" : 754,
+        "y" : 585
+      },
+      "b" : {
+        "x" : 766,
+        "y" : 597
+      },
+      "type" : "BOX",
+      "empty" : true
+    },
+    "inputs" : [ {
+      "id" : 382
+    } ],
+    "outputs" : [ {
+      "id" : 1159
+    } ]
+  }, {
     "id" : 1036,
     "renderableClass" : "Interaction",
     "position" : {
@@ -13395,45 +13434,6 @@
     } ],
     "outputs" : [ {
       "id" : 1037
-    } ]
-  }, {
-    "id" : 1102,
-    "renderableClass" : "EntitySetAndMemberLink",
-    "position" : {
-      "x" : 767,
-      "y" : 596
-    },
-    "minX" : 761,
-    "maxX" : 773,
-    "minY" : 589,
-    "maxY" : 603,
-    "segments" : [ {
-      "from" : {
-        "x" : 771,
-        "y" : 603
-      },
-      "to" : {
-        "x" : 764,
-        "y" : 589
-      }
-    } ],
-    "reactionShape" : {
-      "a" : {
-        "x" : 761,
-        "y" : 590
-      },
-      "b" : {
-        "x" : 773,
-        "y" : 602
-      },
-      "type" : "BOX",
-      "empty" : true
-    },
-    "inputs" : [ {
-      "id" : 382
-    } ],
-    "outputs" : [ {
-      "id" : 1101
     } ]
   }, {
     "id" : 431,
@@ -13755,25 +13755,25 @@
     "id" : 1053,
     "renderableClass" : "EntitySetAndMemberLink",
     "position" : {
-      "x" : 735,
+      "x" : 726,
       "y" : 508
     },
-    "minX" : 545,
+    "minX" : 528,
     "maxX" : 1033,
     "minY" : 483,
     "maxY" : 662,
     "segments" : [ {
       "from" : {
-        "x" : 580,
+        "x" : 579,
         "y" : 662
       },
       "to" : {
-        "x" : 545,
+        "x" : 528,
         "y" : 534
       }
     }, {
       "from" : {
-        "x" : 545,
+        "x" : 528,
         "y" : 534
       },
       "to" : {
@@ -13792,11 +13792,11 @@
     } ],
     "reactionShape" : {
       "a" : {
-        "x" : 729,
+        "x" : 720,
         "y" : 502
       },
       "b" : {
-        "x" : 741,
+        "x" : 732,
         "y" : 514
       },
       "type" : "BOX",
@@ -13849,177 +13849,7 @@
     } ]
   } ],
   "shadows" : [ {
-    "id" : 1152,
-    "reactomeId" : 9010642,
-    "displayName" : "ROBO receptors bind AKAP5",
-    "schemaClass" : "Pathway",
-    "renderableClass" : "Shadow",
-    "position" : {
-      "x" : 594,
-      "y" : 979
-    },
-    "minX" : -6,
-    "maxX" : 1195,
-    "minY" : 618,
-    "maxY" : 1340,
-    "prop" : {
-      "x" : -6,
-      "y" : 865,
-      "width" : 390,
-      "height" : 475
-    },
-    "points" : [ {
-      "x" : -6,
-      "y" : 618
-    }, {
-      "x" : 1195,
-      "y" : 618
-    }, {
-      "x" : 1195,
-      "y" : 1340
-    }, {
-      "x" : -6,
-      "y" : 1340
-    } ],
-    "colour" : "#336699"
-  }, {
-    "id" : 1145,
-    "reactomeId" : 428540,
-    "displayName" : "Activation of RAC1",
-    "schemaClass" : "Pathway",
-    "renderableClass" : "Shadow",
-    "position" : {
-      "x" : 772,
-      "y" : 717
-    },
-    "minX" : 60,
-    "maxX" : 1485,
-    "minY" : 569,
-    "maxY" : 865,
-    "prop" : {
-      "x" : 60,
-      "y" : 569,
-      "width" : 1425,
-      "height" : 296
-    },
-    "points" : [ {
-      "x" : 60,
-      "y" : 569
-    }, {
-      "x" : 1485,
-      "y" : 569
-    }, {
-      "x" : 1485,
-      "y" : 865
-    }, {
-      "x" : 60,
-      "y" : 865
-    } ],
-    "colour" : "#4684ee"
-  }, {
-    "id" : 1146,
-    "reactomeId" : 428542,
-    "displayName" : "Regulation of commissural axon pathfinding by SLIT and ROBO",
-    "schemaClass" : "Pathway",
-    "renderableClass" : "Shadow",
-    "position" : {
-      "x" : 1921,
-      "y" : 977
-    },
-    "minX" : 833,
-    "maxX" : 3009,
-    "minY" : 456,
-    "maxY" : 1499,
-    "prop" : {
-      "x" : 2477,
-      "y" : 766,
-      "width" : 532,
-      "height" : 733
-    },
-    "points" : [ {
-      "x" : 833,
-      "y" : 456
-    }, {
-      "x" : 3009,
-      "y" : 456
-    }, {
-      "x" : 3009,
-      "y" : 1499
-    }, {
-      "x" : 833,
-      "y" : 1499
-    } ],
-    "colour" : "#dc3912"
-  }, {
-    "id" : 1147,
-    "reactomeId" : 428543,
-    "displayName" : "Inactivation of CDC42 and RAC1",
-    "schemaClass" : "Pathway",
-    "renderableClass" : "Shadow",
-    "position" : {
-      "x" : 1143,
-      "y" : 685
-    },
-    "minX" : 60,
-    "maxX" : 2227,
-    "minY" : 565,
-    "maxY" : 806,
-    "prop" : {
-      "x" : 60,
-      "y" : 565,
-      "width" : 2167,
-      "height" : 241
-    },
-    "points" : [ {
-      "x" : 60,
-      "y" : 565
-    }, {
-      "x" : 2227,
-      "y" : 565
-    }, {
-      "x" : 2227,
-      "y" : 806
-    }, {
-      "x" : 60,
-      "y" : 806
-    } ],
-    "colour" : "#008000"
-  }, {
-    "id" : 1148,
-    "reactomeId" : 428890,
-    "displayName" : "Role of ABL in ROBO-SLIT signaling",
-    "schemaClass" : "Pathway",
-    "renderableClass" : "Shadow",
-    "position" : {
-      "x" : 2131,
-      "y" : 629
-    },
-    "minX" : 1379,
-    "maxX" : 2883,
-    "minY" : 492,
-    "maxY" : 766,
-    "prop" : {
-      "x" : 2477,
-      "y" : 492,
-      "width" : 406,
-      "height" : 274
-    },
-    "points" : [ {
-      "x" : 1379,
-      "y" : 492
-    }, {
-      "x" : 2883,
-      "y" : 492
-    }, {
-      "x" : 2883,
-      "y" : 766
-    }, {
-      "x" : 1379,
-      "y" : 766
-    } ],
-    "colour" : "#666666"
-  }, {
-    "id" : 1149,
+    "id" : 1168,
     "reactomeId" : 8985586,
     "displayName" : "SLIT2:ROBO1 increases RHOA activity",
     "schemaClass" : "Pathway",
@@ -14053,27 +13883,27 @@
     } ],
     "colour" : "#4942cc"
   }, {
-    "id" : 1150,
+    "id" : 1169,
     "reactomeId" : 8985801,
     "displayName" : "Regulation of cortical dendrite branching",
     "schemaClass" : "Pathway",
     "renderableClass" : "Shadow",
     "position" : {
-      "x" : 769,
+      "x" : 762,
       "y" : 559
     },
-    "minX" : 557,
+    "minX" : 543,
     "maxX" : 982,
     "minY" : 357,
     "maxY" : 761,
     "prop" : {
-      "x" : 557,
+      "x" : 543,
       "y" : 357,
-      "width" : 425,
+      "width" : 439,
       "height" : 99
     },
     "points" : [ {
-      "x" : 557,
+      "x" : 543,
       "y" : 357
     }, {
       "x" : 982,
@@ -14082,12 +13912,12 @@
       "x" : 982,
       "y" : 761
     }, {
-      "x" : 557,
+      "x" : 543,
       "y" : 761
     } ],
     "colour" : "#cb4ac5"
   }, {
-    "id" : 1151,
+    "id" : 1170,
     "reactomeId" : 9010553,
     "displayName" : "Regulation of expression of SLITs and ROBOs",
     "schemaClass" : "Pathway",
@@ -14120,6 +13950,176 @@
       "y" : 1508
     } ],
     "colour" : "#d6ae00"
+  }, {
+    "id" : 1171,
+    "reactomeId" : 9010642,
+    "displayName" : "ROBO receptors bind AKAP5",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "Shadow",
+    "position" : {
+      "x" : 594,
+      "y" : 979
+    },
+    "minX" : -6,
+    "maxX" : 1195,
+    "minY" : 618,
+    "maxY" : 1340,
+    "prop" : {
+      "x" : -6,
+      "y" : 865,
+      "width" : 390,
+      "height" : 475
+    },
+    "points" : [ {
+      "x" : -6,
+      "y" : 618
+    }, {
+      "x" : 1195,
+      "y" : 618
+    }, {
+      "x" : 1195,
+      "y" : 1340
+    }, {
+      "x" : -6,
+      "y" : 1340
+    } ],
+    "colour" : "#336699"
+  }, {
+    "id" : 1164,
+    "reactomeId" : 428540,
+    "displayName" : "Activation of RAC1",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "Shadow",
+    "position" : {
+      "x" : 772,
+      "y" : 717
+    },
+    "minX" : 60,
+    "maxX" : 1485,
+    "minY" : 569,
+    "maxY" : 865,
+    "prop" : {
+      "x" : 60,
+      "y" : 569,
+      "width" : 1425,
+      "height" : 296
+    },
+    "points" : [ {
+      "x" : 60,
+      "y" : 569
+    }, {
+      "x" : 1485,
+      "y" : 569
+    }, {
+      "x" : 1485,
+      "y" : 865
+    }, {
+      "x" : 60,
+      "y" : 865
+    } ],
+    "colour" : "#4684ee"
+  }, {
+    "id" : 1165,
+    "reactomeId" : 428542,
+    "displayName" : "Regulation of commissural axon pathfinding by SLIT and ROBO",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "Shadow",
+    "position" : {
+      "x" : 1921,
+      "y" : 977
+    },
+    "minX" : 833,
+    "maxX" : 3009,
+    "minY" : 456,
+    "maxY" : 1499,
+    "prop" : {
+      "x" : 2477,
+      "y" : 766,
+      "width" : 532,
+      "height" : 733
+    },
+    "points" : [ {
+      "x" : 833,
+      "y" : 456
+    }, {
+      "x" : 3009,
+      "y" : 456
+    }, {
+      "x" : 3009,
+      "y" : 1499
+    }, {
+      "x" : 833,
+      "y" : 1499
+    } ],
+    "colour" : "#dc3912"
+  }, {
+    "id" : 1166,
+    "reactomeId" : 428543,
+    "displayName" : "Inactivation of CDC42 and RAC1",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "Shadow",
+    "position" : {
+      "x" : 1143,
+      "y" : 685
+    },
+    "minX" : 60,
+    "maxX" : 2227,
+    "minY" : 565,
+    "maxY" : 806,
+    "prop" : {
+      "x" : 60,
+      "y" : 565,
+      "width" : 2167,
+      "height" : 241
+    },
+    "points" : [ {
+      "x" : 60,
+      "y" : 565
+    }, {
+      "x" : 2227,
+      "y" : 565
+    }, {
+      "x" : 2227,
+      "y" : 806
+    }, {
+      "x" : 60,
+      "y" : 806
+    } ],
+    "colour" : "#008000"
+  }, {
+    "id" : 1167,
+    "reactomeId" : 428890,
+    "displayName" : "Role of ABL in ROBO-SLIT signaling",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "Shadow",
+    "position" : {
+      "x" : 2131,
+      "y" : 629
+    },
+    "minX" : 1379,
+    "maxX" : 2883,
+    "minY" : 492,
+    "maxY" : 766,
+    "prop" : {
+      "x" : 2477,
+      "y" : 492,
+      "width" : 406,
+      "height" : 274
+    },
+    "points" : [ {
+      "x" : 1379,
+      "y" : 492
+    }, {
+      "x" : 2883,
+      "y" : 492
+    }, {
+      "x" : 2883,
+      "y" : 766
+    }, {
+      "x" : 1379,
+      "y" : 766
+    } ],
+    "colour" : "#666666"
   } ],
   "minX" : 4,
   "maxX" : 2999,

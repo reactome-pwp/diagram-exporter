@@ -1,10 +1,11 @@
 {
   "dbId" : 2894858,
   "stId" : "R-HSA-2894858",
+  "speciesName" : "Homo sapiens",
   "nodes" : [ {
     "dbId" : 4396355,
     "stId" : "R-HSA-4396355",
-    "displayName" : "HEY2 Gene [nucleoplasm]",
+    "displayName" : "HEY2 gene [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
     "speciesId" : 48887,
     "identifier" : "ENSG00000135547",
@@ -18,7 +19,7 @@
     "speciesId" : 48887,
     "identifier" : "ENSG00000164683",
     "geneNames" : [ "HEY1", "BHLHB31", "CHF2", "HERP2", "HESR1", "HRT1" ],
-    "parents" : [ 9021333, 4396360 ]
+    "parents" : [ 4396360 ]
   }, {
     "dbId" : 1485596,
     "stId" : "R-HSA-1485596",
@@ -27,16 +28,7 @@
     "speciesId" : 48887,
     "identifier" : "P46531",
     "geneNames" : [ "NOTCH1", "TAN1" ],
-    "parents" : [ 2894878, 2902190 ]
-  }, {
-    "dbId" : 4396360,
-    "stId" : "R-HSA-4396360",
-    "displayName" : "HEY Genes [nucleoplasm]",
-    "schemaClass" : "DefinedSet",
-    "speciesId" : 48887,
-    "diagramIds" : [ 2767 ],
-    "parents" : [ 4396391, 4396384 ],
-    "children" : [ 4396348, 4396358, 4396355 ]
+    "parents" : [ 2894878 ]
   }, {
     "dbId" : 193545,
     "stId" : "R-HSA-193545",
@@ -46,7 +38,16 @@
     "diagramIds" : [ 2587 ],
     "identifier" : "Q92793",
     "geneNames" : [ "CREBBP", "CBP" ],
-    "parents" : [ 400216, 1027362, 2220989, 8938230, 8864321, 212451, 5617861, 381367, 1234099, 2247939, 1604462, 6797994 ]
+    "parents" : [ 2220989 ]
+  }, {
+    "dbId" : 4396360,
+    "stId" : "R-HSA-4396360",
+    "displayName" : "HEY Genes [nucleoplasm]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "diagramIds" : [ 2767 ],
+    "parents" : [ 4396391 ],
+    "children" : [ 4396348, 4396358, 4396355 ]
   }, {
     "dbId" : 3211581,
     "stId" : "R-HSA-3211581",
@@ -65,25 +66,25 @@
     "diagramIds" : [ 2751 ],
     "identifier" : "ENSG00000114315",
     "geneNames" : [ "HES1", "BHLHB39", "HL", "HRY" ],
-    "parents" : [ 9013653, 9021313, 4396396, 8878239, 2976712, 4396364 ]
+    "parents" : [ 4396396 ]
   }, {
     "dbId" : 349716,
     "stId" : "R-HSA-349716",
     "displayName" : "NCOR1, NCOR2 [nucleoplasm]",
     "schemaClass" : "DefinedSet",
     "speciesId" : 48887,
-    "parents" : [ 4663830, 177110, 2064261, 2064263, 1911465, 350052 ],
+    "parents" : [ 1911465, 350052 ],
     "children" : [ 442469, 442501 ]
   }, {
     "dbId" : 2197557,
     "stId" : "R-HSA-2197557",
-    "displayName" : "HES5 Gene [nucleoplasm]",
+    "displayName" : "HES5 gene [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
     "speciesId" : 48887,
     "diagramIds" : [ 2752 ],
     "identifier" : "ENSG00000197921",
     "geneNames" : [ "HES5", "BHLHB38" ],
-    "parents" : [ 4396397, 2976724, 4396377 ]
+    "parents" : [ 4396397 ]
   }, {
     "dbId" : 1485582,
     "stId" : "R-HSA-1485582",
@@ -92,7 +93,7 @@
     "speciesId" : 48887,
     "identifier" : "P46531",
     "geneNames" : [ "NOTCH1", "TAN1" ],
-    "parents" : [ 2681760, 2894875, 2730751 ]
+    "parents" : [ 2894875, 2730751 ]
   }, {
     "dbId" : 3006516,
     "stId" : "R-HSA-3006516",
@@ -100,15 +101,15 @@
     "schemaClass" : "EntityWithAccessionedSequence",
     "speciesId" : 48887,
     "identifier" : "Q92830",
-    "geneNames" : [ "KAT2A", "GCN5", "GCN5L2", "HGCN5" ],
-    "parents" : [ 8869462, 5250942, 3322956, 3662319, 350078 ]
+    "geneNames" : [ "KAT2A", "GCN5", "GCN5L2" ],
+    "parents" : [ 350078 ]
   }, {
     "dbId" : 2900751,
     "stId" : "R-HSA-2900751",
     "displayName" : "JAG1:NOTCH1 HD+PEST Domain Mutants [plasma membrane]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "diagramIds" : [ 98738 ],
+    "diagramIds" : [ 98728 ],
     "parents" : [ 2900761 ],
     "children" : [ 2894870, 157098 ]
   }, {
@@ -117,7 +118,7 @@
     "displayName" : "NOTCH1 PEST Domain Mutants Coactivator Complex:HEY Genes [nucleoplasm]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "diagramIds" : [ 98740 ],
+    "diagramIds" : [ 98732 ],
     "children" : [ 2220989, 4396360 ]
   }, {
     "dbId" : 2900745,
@@ -125,7 +126,7 @@
     "displayName" : "DLL4:NOTCH1 HD+PEST Domain Mutants [plasma membrane]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "diagramIds" : [ 98731 ],
+    "diagramIds" : [ 98723 ],
     "parents" : [ 2900761 ],
     "children" : [ 2894870, 158437 ]
   }, {
@@ -134,7 +135,7 @@
     "displayName" : "DLL1:NOTCH1 HD+PEST Domain Mutants [plasma membrane]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "diagramIds" : [ 98728 ],
+    "diagramIds" : [ 98720 ],
     "parents" : [ 2900761 ],
     "children" : [ 2894870, 157089 ]
   }, {
@@ -143,7 +144,7 @@
     "displayName" : "NOTCH1 PEST Domain Mutants Coactivator Complex:HES5 Gene [nucleoplasm]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "diagramIds" : [ 98742 ],
+    "diagramIds" : [ 98734 ],
     "children" : [ 2220989, 2197557 ]
   }, {
     "dbId" : 4396396,
@@ -151,7 +152,7 @@
     "displayName" : "NOTCH1 PEST Domain Mutants Coactivator Complex:HES1 Gene [nucleoplasm]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "diagramIds" : [ 98735 ],
+    "diagramIds" : [ 98730 ],
     "children" : [ 2197548, 2220989 ]
   }, {
     "dbId" : 2894878,
@@ -177,7 +178,16 @@
     "speciesId" : 48887,
     "identifier" : "P46531",
     "geneNames" : [ "NOTCH1", "TAN1" ],
-    "parents" : [ 2894879, 2902189 ]
+    "parents" : [ 2894879 ]
+  }, {
+    "dbId" : 2894873,
+    "stId" : "R-HSA-2894873",
+    "displayName" : "NOTCH1 P2474Afs*4 Transmembrane Fragment [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P46531",
+    "geneNames" : [ "NOTCH1", "TAN1" ],
+    "parents" : [ 2894875 ]
   }, {
     "dbId" : 2900761,
     "stId" : "R-HSA-2900761",
@@ -188,31 +198,22 @@
     "parents" : [ 2900763 ],
     "children" : [ 2900758, 2900746, 2900745, 2900751 ]
   }, {
-    "dbId" : 2894873,
-    "stId" : "R-HSA-2894873",
-    "displayName" : "NOTCH1 P2474Afs*4 Transmembrane Fragment [plasma membrane]",
-    "schemaClass" : "EntityWithAccessionedSequence",
+    "dbId" : 2900763,
+    "stId" : "R-HSA-2900763",
+    "displayName" : "Ub-DLL/JAG:NOTCH1 HD+PEST Domain Mutants [plasma membrane]",
+    "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "identifier" : "P46531",
-    "geneNames" : [ "NOTCH1", "TAN1" ],
-    "parents" : [ 2894875, 2902198 ]
+    "diagramIds" : [ 2950 ],
+    "parents" : [ 2902212 ],
+    "children" : [ 113595, 2900761 ]
   }, {
     "dbId" : 4396404,
     "stId" : "R-HSA-4396404",
     "displayName" : "NOTCH1 PEST Domain Mutants Coactivator Complex:MYC Gene [nucleoplasm]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "diagramIds" : [ 98733 ],
+    "diagramIds" : [ 98725 ],
     "children" : [ 2220989, 2127254 ]
-  }, {
-    "dbId" : 157237,
-    "stId" : "R-HSA-157237",
-    "displayName" : "ADAM10 [plasma membrane]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesId" : 48887,
-    "identifier" : "O14672",
-    "geneNames" : [ "ADAM10", "KUZ", "MADM" ],
-    "parents" : [ 2473494, 4224013, 3928569, 6806323, 6806434, 157186, 1852617 ]
   }, {
     "dbId" : 2894875,
     "stId" : "R-HSA-2894875",
@@ -222,14 +223,14 @@
     "parents" : [ 2894870 ],
     "children" : [ 1485582, 2894873 ]
   }, {
-    "dbId" : 2900763,
-    "stId" : "R-HSA-2900763",
-    "displayName" : "Ub-DLL/JAG:NOTCH1 HD+PEST Domain Mutants [plasma membrane]",
-    "schemaClass" : "Complex",
+    "dbId" : 157237,
+    "stId" : "R-HSA-157237",
+    "displayName" : "ADAM10 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
     "speciesId" : 48887,
-    "diagramIds" : [ 2950 ],
-    "parents" : [ 2902212 ],
-    "children" : [ 113595, 2900761 ]
+    "identifier" : "O14672",
+    "geneNames" : [ "ADAM10", "KUZ", "MADM" ],
+    "parents" : [ 1852617 ]
   }, {
     "dbId" : 2894869,
     "stId" : "R-HSA-2894869",
@@ -244,7 +245,7 @@
     "displayName" : "NOTCH1 HD+PEST Domain Mutants [plasma membrane]",
     "schemaClass" : "CandidateSet",
     "speciesId" : 48887,
-    "diagramIds" : [ 98737, 98727, 98744, 98730 ],
+    "diagramIds" : [ 98736, 98722, 98727, 98719 ],
     "parents" : [ 2902212, 2900758, 2900746, 2900745, 2900751 ],
     "children" : [ 2894875, 2894869, 2894879, 2894878 ]
   }, {
@@ -253,7 +254,7 @@
     "displayName" : "JAG2:NOTCH1 HD+PEST Domain Mutants [plasma membrane]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "diagramIds" : [ 98745 ],
+    "diagramIds" : [ 98737 ],
     "parents" : [ 2900761 ],
     "children" : [ 2894870, 157120 ]
   }, {
@@ -264,7 +265,7 @@
     "speciesId" : 48887,
     "identifier" : "Q9Y5J3",
     "geneNames" : [ "HEY1", "BHLHB31", "CHF2", "HERP2", "HESR1", "HRT1" ],
-    "parents" : [ 9008192, 1911450 ]
+    "parents" : [ 1911450 ]
   }, {
     "dbId" : 1606745,
     "stId" : "R-HSA-1606745",
@@ -273,7 +274,7 @@
     "speciesId" : 48887,
     "identifier" : "Q9UBP5",
     "geneNames" : [ "HEY2", "BHLHB32", "CHF1", "GRL", "HERP", "HERP1", "HRT2" ],
-    "parents" : [ 9008192, 1911450 ]
+    "parents" : [ 1911450 ]
   }, {
     "dbId" : 2534245,
     "stId" : "R-HSA-2534245",
@@ -282,7 +283,7 @@
     "speciesId" : 48887,
     "identifier" : "P49768",
     "geneNames" : [ "PSEN1", "AD3", "PS1", "PSNL1" ],
-    "parents" : [ 6806267, 2534316 ]
+    "parents" : [ 2534316 ]
   }, {
     "dbId" : 1606748,
     "stId" : "R-HSA-1606748",
@@ -300,7 +301,7 @@
     "speciesId" : 48887,
     "identifier" : "Q92542",
     "geneNames" : [ "NCSTN", "KIAA0253", "UNQ1874/PRO4317" ],
-    "parents" : [ 2534270, 6806267, 157343 ]
+    "parents" : [ 157343 ]
   }, {
     "dbId" : 1606739,
     "stId" : "R-HSA-1606739",
@@ -318,7 +319,7 @@
     "speciesId" : 48887,
     "identifier" : "Q92769",
     "geneNames" : [ "HDAC2" ],
-    "parents" : [ 427410, 205005, 4657004, 350066 ]
+    "parents" : [ 350066 ]
   }, {
     "dbId" : 2768996,
     "stId" : "R-HSA-2768996",
@@ -341,18 +342,9 @@
     "displayName" : "NICD1 PEST Domain Mutants [nucleoplasm]",
     "schemaClass" : "DefinedSet",
     "speciesId" : 48887,
-    "diagramIds" : [ 98722 ],
+    "diagramIds" : [ 98714 ],
     "parents" : [ 2220969 ],
     "children" : [ 2769013, 2902208, 2902201, 2902200 ]
-  }, {
-    "dbId" : 3004533,
-    "stId" : "R-HSA-3004533",
-    "displayName" : "HDAC5 [nucleoplasm]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesId" : 48887,
-    "identifier" : "Q9UQL6",
-    "geneNames" : [ "HDAC5", "KIAA0600" ],
-    "parents" : [ 6808476, 350066 ]
   }, {
     "dbId" : 351581,
     "stId" : "R-HSA-351581",
@@ -361,7 +353,16 @@
     "speciesId" : 48887,
     "identifier" : "P56524",
     "geneNames" : [ "HDAC4", "KIAA0288" ],
-    "parents" : [ 8952072, 9008328, 8952063, 350066 ]
+    "parents" : [ 350066 ]
+  }, {
+    "dbId" : 3004533,
+    "stId" : "R-HSA-3004533",
+    "displayName" : "HDAC5 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9UQL6",
+    "geneNames" : [ "HDAC5", "KIAA0600" ],
+    "parents" : [ 350066 ]
   }, {
     "dbId" : 3004534,
     "stId" : "R-HSA-3004534",
@@ -370,7 +371,7 @@
     "speciesId" : 48887,
     "identifier" : "Q8WUI4",
     "geneNames" : [ "HDAC7", "HDAC7A" ],
-    "parents" : [ 3000385, 6808476, 350066 ]
+    "parents" : [ 350066 ]
   }, {
     "dbId" : 351579,
     "stId" : "R-HSA-351579",
@@ -397,7 +398,7 @@
     "speciesId" : 48887,
     "identifier" : "Q9UBN7",
     "geneNames" : [ "HDAC6", "KIAA0901", "JM21" ],
-    "parents" : [ 9008392, 350066 ]
+    "parents" : [ 350066 ]
   }, {
     "dbId" : 350052,
     "stId" : "R-HSA-350052",
@@ -414,7 +415,7 @@
     "speciesId" : 48887,
     "identifier" : "Q9Y618",
     "geneNames" : [ "NCOR2", "CTG26" ],
-    "parents" : [ 381226, 400207, 349716 ]
+    "parents" : [ 349716 ]
   }, {
     "dbId" : 351590,
     "stId" : "R-HSA-351590",
@@ -432,16 +433,7 @@
     "speciesId" : 48887,
     "identifier" : "O15379",
     "geneNames" : [ "HDAC3" ],
-    "parents" : [ 9008155, 5617465, 381226, 400207, 1368079, 4663830, 6808476, 205005, 350066 ]
-  }, {
-    "dbId" : 1604465,
-    "stId" : "R-HSA-1604465",
-    "displayName" : "CDK8:CCNC [nucleoplasm]",
-    "schemaClass" : "Complex",
-    "speciesId" : 48887,
-    "diagramIds" : [ 77 ],
-    "parents" : [ 2220980, 2064914, 1604463, 2176485 ],
-    "children" : [ 212440, 212418 ]
+    "parents" : [ 350066 ]
   }, {
     "dbId" : 1911412,
     "stId" : "R-HSA-1911412",
@@ -451,13 +443,21 @@
     "diagramIds" : [ 131 ],
     "children" : [ 351663, 3008668 ]
   }, {
+    "dbId" : 1604465,
+    "stId" : "R-HSA-1604465",
+    "displayName" : "CDK8:CCNC [nucleoplasm]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 77 ],
+    "parents" : [ 2220980 ],
+    "children" : [ 212440, 212418 ]
+  }, {
     "dbId" : 1604469,
     "stId" : "R-HSA-1604469",
     "displayName" : "FBXW7:SKP1:CUL1:RBX1 [nucleoplasm]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
     "diagramIds" : [ 32 ],
-    "parents" : [ 2064852, 1604468 ],
     "children" : [ 187551, 1234142, 1602299, 187538 ]
   }, {
     "dbId" : 350064,
@@ -492,7 +492,7 @@
     "speciesId" : 48887,
     "identifier" : "Q96AX9",
     "geneNames" : [ "MIB2", "SKD", "ZZANK1" ],
-    "parents" : [ 976075, 1911464 ]
+    "parents" : [ 1911464 ]
   }, {
     "dbId" : 1912422,
     "stId" : "R-HSA-1912422",
@@ -507,7 +507,7 @@
     "schemaClass" : "CandidateSet",
     "speciesId" : 48887,
     "diagramIds" : [ 1804 ],
-    "parents" : [ 2220989, 212451, 2064911, 2065276, 1604462 ],
+    "parents" : [ 2220989 ],
     "children" : [ 352430, 3006516 ]
   }, {
     "dbId" : 1472877,
@@ -535,7 +535,7 @@
     "speciesId" : 48887,
     "identifier" : "P46531",
     "geneNames" : [ "NOTCH1", "TAN1" ],
-    "parents" : [ 2894869, 2768978 ]
+    "parents" : [ 2894869 ]
   }, {
     "dbId" : 4396348,
     "stId" : "R-HSA-4396348",
@@ -544,7 +544,7 @@
     "speciesId" : 48887,
     "identifier" : "ENSG00000163909",
     "geneNames" : [ "HEYL", "BHLHB33", "HRT3" ],
-    "parents" : [ 9017405, 4396360 ]
+    "parents" : [ 4396360 ]
   }, {
     "dbId" : 212353,
     "stId" : "R-HSA-212353",
@@ -554,15 +554,6 @@
     "identifier" : "Q8IZL2",
     "geneNames" : [ "MAML2", "KIAA1819" ],
     "parents" : [ 212357 ]
-  }, {
-    "dbId" : 442501,
-    "stId" : "R-HSA-442501",
-    "displayName" : "NCOR1 [nucleoplasm]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesId" : 48887,
-    "identifier" : "O75376",
-    "geneNames" : [ "NCOR1", "KIAA1047" ],
-    "parents" : [ 349716, 400207, 5617880, 5617895, 5617474, 5617465, 5617876, 1253304, 1368079, 381226 ]
   }, {
     "dbId" : 2902191,
     "stId" : "R-HSA-2902191",
@@ -582,13 +573,22 @@
     "geneNames" : [ "NEURL1", "NEURL", "NEURL1A", "RNF67" ],
     "parents" : [ 1911464 ]
   }, {
+    "dbId" : 442501,
+    "stId" : "R-HSA-442501",
+    "displayName" : "NCOR1 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O75376",
+    "geneNames" : [ "NCOR1", "KIAA1047" ],
+    "parents" : [ 349716 ]
+  }, {
     "dbId" : 212357,
     "stId" : "R-HSA-212357",
     "displayName" : "MAML [nucleoplasm]",
     "schemaClass" : "CandidateSet",
     "speciesId" : 48887,
     "diagramIds" : [ 38 ],
-    "parents" : [ 2220989, 212451, 2127289, 2064911, 2065276, 9013643, 2248837, 1604462 ],
+    "parents" : [ 2220989 ],
     "children" : [ 349689, 212416, 212353, 349692 ]
   }, {
     "dbId" : 1911450,
@@ -599,6 +599,15 @@
     "diagramIds" : [ 2570 ],
     "children" : [ 1606748, 1606745, 1606744 ]
   }, {
+    "dbId" : 2220969,
+    "stId" : "R-HSA-2220969",
+    "displayName" : "NICD1 PEST domain mutants:RBPJ:SNW1 [nucleoplasm]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 98704 ],
+    "parents" : [ 2220989 ],
+    "children" : [ 351663, 2769016, 3008668 ]
+  }, {
     "dbId" : 381325,
     "stId" : "R-HSA-381325",
     "displayName" : "EP300 [nucleoplasm]",
@@ -607,24 +616,7 @@
     "diagramIds" : [ 1976 ],
     "identifier" : "Q09472",
     "geneNames" : [ "EP300", "P300" ],
-    "parents" : [ 1027362, 8869505, 5250942, 2220989, 8878064, 8936477, 8951952, 8951959, 8864321, 2976561, 2064911, 2065276, 5617888, 5617861, 5617470, 5617448, 5617873, 381367, 5663244, 5663295, 5663257, 1368124, 6804233, 1234099, 5628870, 3222096, 6811488, 3215194, 6782230, 6782220, 6782222, 6782219, 6782205, 6782063, 6782111, 6782066, 3215149, 1604462, 4088158 ]
-  }, {
-    "dbId" : 2220969,
-    "stId" : "R-HSA-2220969",
-    "displayName" : "NICD1 PEST domain mutants:RBPJ:SNW1 [nucleoplasm]",
-    "schemaClass" : "Complex",
-    "speciesId" : 48887,
-    "diagramIds" : [ 98712 ],
-    "parents" : [ 2220989 ],
-    "children" : [ 351663, 2769016, 3008668 ]
-  }, {
-    "dbId" : 2534316,
-    "stId" : "R-HSA-2534316",
-    "displayName" : "PSEN1 [plasma membrane]",
-    "schemaClass" : "Complex",
-    "speciesId" : 48887,
-    "parents" : [ 2534270, 9013333 ],
-    "children" : [ 2534298, 2534245 ]
+    "parents" : [ 2220989 ]
   }, {
     "dbId" : 210825,
     "stId" : "R-HSA-210825",
@@ -633,8 +625,15 @@
     "speciesId" : 48887,
     "diagramIds" : [ 168 ],
     "identifier" : "Q14469",
-    "geneNames" : [ "HES1", "BHLHB39", "HL", "HRY" ],
-    "parents" : [ 9008192, 1911448 ]
+    "geneNames" : [ "HES1", "BHLHB39", "HL", "HRY" ]
+  }, {
+    "dbId" : 2534316,
+    "stId" : "R-HSA-2534316",
+    "displayName" : "PSEN1 [plasma membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 9013333 ],
+    "children" : [ 2534298, 2534245 ]
   }, {
     "dbId" : 2681764,
     "stId" : "R-HSA-2681764",
@@ -643,7 +642,16 @@
     "speciesId" : 48887,
     "identifier" : "P46531",
     "geneNames" : [ "NOTCH1", "TAN1" ],
-    "parents" : [ 2681765, 2894869, 2730737, 2894878, 2894879 ]
+    "parents" : [ 2894869, 2730737, 2894878, 2894879 ]
+  }, {
+    "dbId" : 187538,
+    "stId" : "R-HSA-187538",
+    "displayName" : "SKP1 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P63208",
+    "geneNames" : [ "SKP1", "EMC19", "OCP2", "SKP1A", "TCEB1L" ],
+    "parents" : [ 1604469 ]
   }, {
     "dbId" : 2902204,
     "stId" : "R-HSA-2902204",
@@ -653,15 +661,6 @@
     "identifier" : "P46531",
     "geneNames" : [ "NOTCH1", "TAN1" ],
     "parents" : [ 2220958 ]
-  }, {
-    "dbId" : 187538,
-    "stId" : "R-HSA-187538",
-    "displayName" : "SKP1 [nucleoplasm]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesId" : 48887,
-    "identifier" : "P63208",
-    "geneNames" : [ "SKP1", "EMC19", "OCP2", "SKP1A", "TCEB1L" ],
-    "parents" : [ 2220975, 3215119, 8939693, 1604469, 187541 ]
   }, {
     "dbId" : 157331,
     "stId" : "R-HSA-157331",
@@ -688,7 +687,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 2902207,
     "stId" : "R-HSA-2902207",
@@ -706,20 +705,11 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 2902200,
     "stId" : "R-HSA-2902200",
     "displayName" : "NICD1 Q2440* [nucleoplasm]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesId" : 48887,
-    "identifier" : "P46531",
-    "geneNames" : [ "NOTCH1", "TAN1" ],
-    "parents" : [ 2769016 ]
-  }, {
-    "dbId" : 2902201,
-    "stId" : "R-HSA-2902201",
-    "displayName" : "NICD1 Q2395* [nucleoplasm]",
     "schemaClass" : "EntityWithAccessionedSequence",
     "speciesId" : 48887,
     "identifier" : "P46531",
@@ -731,8 +721,17 @@
     "displayName" : "NOTCH1 PEST Domain Mutants Coactivator Complex:CDK8:CCNC [nucleoplasm]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "diagramIds" : [ 98718 ],
+    "diagramIds" : [ 98710 ],
     "children" : [ 2220989, 1604465 ]
+  }, {
+    "dbId" : 2902201,
+    "stId" : "R-HSA-2902201",
+    "displayName" : "NICD1 Q2395* [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P46531",
+    "geneNames" : [ "NOTCH1", "TAN1" ],
+    "parents" : [ 2769016 ]
   }, {
     "dbId" : 2902196,
     "stId" : "R-HSA-2902196",
@@ -757,14 +756,14 @@
     "speciesId" : 48887,
     "identifier" : "O60907",
     "geneNames" : [ "TBL1X", "TBL1" ],
-    "parents" : [ 400196, 400154, 4663830, 350064 ]
+    "parents" : [ 350064 ]
   }, {
     "dbId" : 2220987,
     "stId" : "R-HSA-2220987",
     "displayName" : "NICD1 PEST Domain Mutants [cytosol]",
     "schemaClass" : "DefinedSet",
     "speciesId" : 48887,
-    "diagramIds" : [ 98725 ],
+    "diagramIds" : [ 98717 ],
     "children" : [ 2902195, 2768996, 2902193, 2902191 ]
   }, {
     "dbId" : 2220989,
@@ -772,7 +771,7 @@
     "displayName" : "NOTCH1 PEST Domain Mutants Coactivator Complex [nucleoplasm]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "diagramIds" : [ 98713 ],
+    "diagramIds" : [ 98705 ],
     "parents" : [ 4396391, 4396396, 4396404, 4396397, 2220980 ],
     "children" : [ 193545, 350078, 2220969, 381325, 212357 ]
   }, {
@@ -801,7 +800,7 @@
     "speciesId" : 48887,
     "identifier" : "Q13616",
     "geneNames" : [ "CUL1" ],
-    "parents" : [ 2220975, 3215119, 8939693, 1604469, 187541 ]
+    "parents" : [ 1604469 ]
   }, {
     "dbId" : 157343,
     "stId" : "R-HSA-157343",
@@ -820,6 +819,15 @@
     "geneNames" : [ "NOTCH1", "TAN1" ],
     "parents" : [ 2289143 ]
   }, {
+    "dbId" : 351643,
+    "stId" : "R-HSA-351643",
+    "displayName" : "TBL1XR1 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BZK7",
+    "geneNames" : [ "TBL1XR1", "IRA1", "TBLR1" ],
+    "parents" : [ 350064 ]
+  }, {
     "dbId" : 157340,
     "stId" : "R-HSA-157340",
     "displayName" : "APH1B [plasma membrane]",
@@ -829,14 +837,13 @@
     "geneNames" : [ "APH1B", "PSFL", "UNQ688/PRO1328" ],
     "parents" : [ 157341 ]
   }, {
-    "dbId" : 351643,
-    "stId" : "R-HSA-351643",
-    "displayName" : "TBL1XR1 [nucleoplasm]",
-    "schemaClass" : "EntityWithAccessionedSequence",
+    "dbId" : 157341,
+    "stId" : "R-HSA-157341",
+    "displayName" : "APH-1 [plasma membrane]",
+    "schemaClass" : "DefinedSet",
     "speciesId" : 48887,
-    "identifier" : "Q9BZK7",
-    "geneNames" : [ "TBL1XR1", "IRA1", "TBLR1" ],
-    "parents" : [ 400196, 400154, 4663830, 350064 ]
+    "parents" : [ 157343 ],
+    "children" : [ 157340, 3211581 ]
   }, {
     "dbId" : 2902195,
     "stId" : "R-HSA-2902195",
@@ -846,14 +853,6 @@
     "identifier" : "P46531",
     "geneNames" : [ "NOTCH1", "TAN1" ],
     "parents" : [ 2220987 ]
-  }, {
-    "dbId" : 157341,
-    "stId" : "R-HSA-157341",
-    "displayName" : "APH-1 [plasma membrane]",
-    "schemaClass" : "DefinedSet",
-    "speciesId" : 48887,
-    "parents" : [ 157343 ],
-    "children" : [ 157340, 3211581 ]
   }, {
     "dbId" : 3004556,
     "stId" : "R-HSA-3004556",
@@ -872,7 +871,7 @@
     "diagramIds" : [ 1073 ],
     "identifier" : "O00548",
     "geneNames" : [ "DLL1", "UNQ146/PRO172" ],
-    "parents" : [ 2731152, 2691216, 2900746, 2902215, 2768988, 1980050, 157136, 1911557, 157643 ]
+    "parents" : [ 2900746, 2902215 ]
   }, {
     "dbId" : 179878,
     "stId" : "R-HSA-179878",
@@ -881,7 +880,7 @@
     "speciesId" : 48887,
     "identifier" : "P78536",
     "geneNames" : [ "ADAM17", "CSVP", "TACE" ],
-    "parents" : [ 2473494, 194538, 1852617, 1251963, 179832 ]
+    "parents" : [ 1852617 ]
   }, {
     "dbId" : 3004554,
     "stId" : "R-HSA-3004554",
@@ -900,7 +899,16 @@
     "diagramIds" : [ 912 ],
     "identifier" : "P78504",
     "geneNames" : [ "JAG1", "JAGL1" ],
-    "parents" : [ 2731154, 2691215, 2900751, 2902218, 2769002, 1980058, 157132, 157008, 157643 ]
+    "parents" : [ 2900751, 2902218 ]
+  }, {
+    "dbId" : 351663,
+    "stId" : "R-HSA-351663",
+    "displayName" : "SNW1 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q13573",
+    "geneNames" : [ "SNW1", "SKIIP", "SKIP" ],
+    "parents" : [ 2220969, 1911412, 212438 ]
   }, {
     "dbId" : 157352,
     "stId" : "R-HSA-157352",
@@ -910,15 +918,6 @@
     "parents" : [ 9013333 ],
     "children" : [ 201599, 9013329 ]
   }, {
-    "dbId" : 351663,
-    "stId" : "R-HSA-351663",
-    "displayName" : "SNW1 [nucleoplasm]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesId" : 48887,
-    "identifier" : "Q13573",
-    "geneNames" : [ "SNW1", "SKIIP", "SKIP" ],
-    "parents" : [ 2220969, 2064909, 1911412, 2065276, 5252105, 72069, 72074, 72022, 77505, 72159, 156656, 212438, 1604460 ]
-  }, {
     "dbId" : 352430,
     "stId" : "R-HSA-352430",
     "displayName" : "KAT2B [nucleoplasm]",
@@ -926,23 +925,21 @@
     "speciesId" : 48887,
     "identifier" : "Q92831",
     "geneNames" : [ "KAT2B", "PCAF" ],
-    "parents" : [ 8869505, 5250942, 2032799, 8936477, 3662319, 350078 ]
+    "parents" : [ 350078 ]
   }, {
     "dbId" : 29358,
     "stId" : "R-ALL-29358",
     "displayName" : "ATP [nucleoplasm]",
     "schemaClass" : "SimpleEntity",
     "diagramIds" : [ 128 ],
-    "identifier" : "15422",
-    "parents" : [ 30595, 9859339, 9498794, 9912335, 9265594, 9341432, 9566531, 9981015, 9054215, 9779582, 9083936, 9686102, 9419754, 9193551, 9622003, 5618103, 6792604, 9777082, 9417833, 9496788, 9191407, 9684321, 9119641, 9857431, 9066043, 5252069, 5252107, 9496797, 9417842, 9857434, 9119649, 9684330, 9191418, 9066044, 9777095, 5252071, 9119652, 9684333, 9417845, 9777101, 9857441, 9066047, 9191423, 9496800, 5251939, 9119663, 9066058, 5252098, 9496798, 9857435, 9777096, 9417843, 9119650, 9684331, 9191419, 9066045, 5252066, 9191427, 9119654, 9066049, 9777103, 9417847, 9496802, 9857447, 5251935, 9496794, 9191413, 9684327, 9777092, 9417839, 9119643, 5251999, 9191430, 9857454, 9119661, 9496805, 9417850, 9066056, 9777108, 5251965, 9066055, 9857453, 9119660, 9777107, 9684337, 5251995, 9191409, 9496790, 9777088, 9417835, 9684323, 5251962, 9191411, 9496792, 9777090, 9684325, 9417837, 5251991, 9857449, 9684335, 9191429, 9066051, 9417849, 9777105, 9496804, 9119658, 5252117, 9857433, 9417841, 9496796, 9119648, 9684329, 9191417, 9777094, 5251956, 5358517, 9911916, 9041491, 9191956, 9565254, 9120030, 9083774, 9684835, 9620770, 9066181, 9777787, 9980403, 9858143, 9339976, 9054121, 9497330, 9418317, 9264397, 5358531, 9093205, 9810414, 9288021, 9365467, 9523077, 9586557, 9444090, 9136003, 9937555, 9709845, 9218253, 9885782, 9640467, 8849161 ]
+    "identifier" : "15422"
   }, {
     "dbId" : 113582,
     "stId" : "R-ALL-113582",
     "displayName" : "ADP [nucleoplasm]",
     "schemaClass" : "SimpleEntity",
     "diagramIds" : [ 2588 ],
-    "identifier" : "16761",
-    "parents" : [ 6788807, 6792600, 9777112, 9119671, 9496809, 9684341, 9857458, 9066062, 9417854, 9191436, 5252025, 5251983, 9496815, 9191442, 9777118, 9417860, 9066064, 9684347, 9857461, 9119675, 5252074, 9857464, 9684349, 9191445, 9066067, 9417863, 9119678, 9777121, 9496818, 5252008, 9066069, 9857466, 9119680, 9191446, 9417864, 9777123, 9496819, 5252006, 9777114, 9417856, 9496811, 9684343, 9191438, 5252102, 9496813, 9417858, 9191440, 9684345, 9777116, 9857459, 9119673, 5252004, 9684348, 9191443, 9066065, 9777119, 9417861, 9119676, 9857462, 9496816, 5252003, 9496814, 9191441, 9417859, 9684346, 9777117, 9066063, 9857460, 9119674, 5251936, 9857465, 9066068, 9684350, 9777122, 9119679, 5252092, 9066070, 9119681, 5251963, 9777113, 9496810, 9684342, 9191437, 9417855, 5252089, 9417862, 9191444, 9066066, 9119677, 9777120, 9857463, 9496817, 5252024, 9777115, 9417857, 9496812, 9684344, 9191439, 9119672, 5251957, 9565261, 9684842, 9264404, 9191963, 9041499, 9777797, 9418339, 9083782, 9497337, 9066189, 9911924, 9620784, 9339983, 5357508, 9777803, 9339989, 9054128, 9066195, 9264410, 9858150, 9497343, 9911930, 9191969, 9120035, 9041505, 9418345, 9083788, 9620790, 9684848, 9980410, 9565267, 5357523, 9450367, 9371824, 9223282, 9645774, 9096198, 9142371, 9816019, 9717237, 8849115 ]
+    "identifier" : "16761"
   }, {
     "dbId" : 3008668,
     "stId" : "R-HSA-3008668",
@@ -951,7 +948,7 @@
     "speciesId" : 48887,
     "identifier" : "Q06330",
     "geneNames" : [ "RBPJ", "IGKJRB", "IGKJRB1", "RBPJK", "RBPSUH" ],
-    "parents" : [ 2220969, 212451, 2127289, 2064909, 1911412, 2065276, 9013643, 2248837, 2064263, 350052, 1604460 ]
+    "parents" : [ 2220969, 1911412, 350052 ]
   }, {
     "dbId" : 1911465,
     "stId" : "R-HSA-1911465",
@@ -969,6 +966,15 @@
     "diagramIds" : [ 1307 ],
     "children" : [ 1472877, 1911456, 1472879, 1911454 ]
   }, {
+    "dbId" : 939192,
+    "stId" : "R-HSA-939192",
+    "displayName" : "UBC(229-304) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG48",
+    "geneNames" : [ "UBC" ],
+    "parents" : [ 113595 ]
+  }, {
     "dbId" : 2127254,
     "stId" : "R-HSA-2127254",
     "displayName" : "MYC gene [nucleoplasm]",
@@ -977,16 +983,7 @@
     "diagramIds" : [ 2748 ],
     "identifier" : "ENSG00000136997",
     "geneNames" : [ "MYC", "BHLHE39" ],
-    "parents" : [ 6790023, 4396404, 4396374, 3364034, 3364023, 4411387, 4411390 ]
-  }, {
-    "dbId" : 939192,
-    "stId" : "R-HSA-939192",
-    "displayName" : "UBC(229-304) [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesId" : 48887,
-    "identifier" : "P0CG48",
-    "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 4396404 ]
   }, {
     "dbId" : 939191,
     "stId" : "R-HSA-939191",
@@ -995,7 +992,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 939188,
     "stId" : "R-HSA-939188",
@@ -1004,7 +1001,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 113595,
     "stId" : "R-HSA-113595",
@@ -1012,7 +1009,7 @@
     "schemaClass" : "DefinedSet",
     "speciesId" : 48887,
     "diagramIds" : [ 146, 1636, 266, 397 ],
-    "parents" : [ 8869163, 5660766, 6782795, 6782592, 8864229, 8852066, 8852251, 8852063, 8938763, 8953945, 8953915, 8942547, 8942552, 976164, 976165, 983130, 184273, 2902223, 2737729, 2900763, 2902216, 2769006, 180577, 180530, 184369, 157630, 2172171, 1911534, 1911536, 2071859, 1911542, 179414, 188192, 174061, 174131, 174248, 5654357, 5654360, 5654362, 5654363, 1370875, 934572, 2160934, 2179330, 2179328, 2176425, 2176395, 2169047, 2176443, 2187371, 870482, 870520, 1234113, 8867287, 8866894, 68570, 182945, 182930, 182915, 182967, 209535, 204940, 174222, 68586, 177997, 1253293, 1977297, 68585, 69589, 206722, 206604, 1911537, 1911540, 349433, 1234116, 3134943, 206877, 3000337, 2130284, 1358729, 1918083, 1918081, 1358737, 1358735, 211771 ],
+    "parents" : [ 2900763, 2902216 ],
     "children" : [ 939214, 939213, 939239, 939205, 939203, 939232, 939230, 939164, 939165, 939258, 939192, 939191, 939188, 939184 ]
   }, {
     "dbId" : 2534298,
@@ -1022,7 +1019,7 @@
     "speciesId" : 48887,
     "identifier" : "P49768",
     "geneNames" : [ "PSEN1", "AD3", "PS1", "PSNL1" ],
-    "parents" : [ 6806267, 2534316 ]
+    "parents" : [ 2534316 ]
   }, {
     "dbId" : 1911456,
     "stId" : "R-HSA-1911456",
@@ -1040,14 +1037,14 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 2220958,
     "stId" : "R-HSA-2220958",
     "displayName" : "p-NICD1 PEST domain mutants [nucleoplasm]",
     "schemaClass" : "DefinedSet",
     "speciesId" : 48887,
-    "diagramIds" : [ 98715 ],
+    "diagramIds" : [ 98707 ],
     "children" : [ 2902207, 2902205, 2159809, 2902204 ]
   }, {
     "dbId" : 939214,
@@ -1057,7 +1054,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG47",
     "geneNames" : [ "UBB" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 212418,
     "stId" : "R-HSA-212418",
@@ -1066,7 +1063,7 @@
     "speciesId" : 48887,
     "identifier" : "P24863",
     "geneNames" : [ "CCNC" ],
-    "parents" : [ 212379, 212340, 212374, 556786, 1604465 ]
+    "parents" : [ 1604465 ]
   }, {
     "dbId" : 157120,
     "stId" : "R-HSA-157120",
@@ -1076,7 +1073,16 @@
     "diagramIds" : [ 1083 ],
     "identifier" : "Q9Y219",
     "geneNames" : [ "JAG2" ],
-    "parents" : [ 157643, 2731151, 2691218, 157140, 157066, 1980059, 2768998, 2902214, 2900758 ]
+    "parents" : [ 2902214, 2900758 ]
+  }, {
+    "dbId" : 939213,
+    "stId" : "R-HSA-939213",
+    "displayName" : "UBB(77-152) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG47",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 212416,
     "stId" : "R-HSA-212416",
@@ -1087,15 +1093,6 @@
     "geneNames" : [ "MAML1", "KIAA0200" ],
     "parents" : [ 212357 ]
   }, {
-    "dbId" : 939213,
-    "stId" : "R-HSA-939213",
-    "displayName" : "UBB(77-152) [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesId" : 48887,
-    "identifier" : "P0CG47",
-    "geneNames" : [ "UBB" ],
-    "parents" : [ 113595, 6793517 ]
-  }, {
     "dbId" : 939205,
     "stId" : "R-HSA-939205",
     "displayName" : "RPS27A(1-76) [cytosol]",
@@ -1103,7 +1100,7 @@
     "speciesId" : 48887,
     "identifier" : "P62979",
     "geneNames" : [ "RPS27A", "UBA80", "UBCEP1" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 1234142,
     "stId" : "R-HSA-1234142",
@@ -1112,7 +1109,7 @@
     "speciesId" : 48887,
     "identifier" : "P62877",
     "geneNames" : [ "RBX1", "RNF75", "ROC1" ],
-    "parents" : [ 976149, 8952584, 5655461, 2220975, 3215119, 5635071, 8939693, 1604469, 1234141, 5689119, 5696649, 6781841 ]
+    "parents" : [ 1604469 ]
   }, {
     "dbId" : 939203,
     "stId" : "R-HSA-939203",
@@ -1121,23 +1118,7 @@
     "speciesId" : 48887,
     "identifier" : "P62987",
     "geneNames" : [ "UBA52", "UBCEP2" ],
-    "parents" : [ 113595, 6793517 ]
-  }, {
-    "dbId" : 109265,
-    "stId" : "R-ALL-109265",
-    "displayName" : "Zn2+ [plasma membrane]",
-    "schemaClass" : "SimpleEntity",
-    "identifier" : "29105",
-    "parents" : [ 9480959, 9670254, 9322227, 9753487, 9402262, 9111148, 9249691, 9969772, 9174137, 9905239, 1237324, 9969814, 9111152, 9905249, 9174141, 9551957, 9322234, 9480963, 9753494, 9249695, 9670258, 9402271, 1237311, 9174133, 9402258, 9753480, 9480955, 9969730, 9905229, 9249687, 9322218, 9111144, 9610098, 9551953, 1237323, 9319744, 9904842, 9608703, 9750216, 9550203, 9400405, 9668458, 9172098, 9968976, 9248021, 9110317, 9478928, 1237308, 9625597, 9570844, 9503759, 9785582, 9270151, 9198922, 9346541, 9424670, 5694128, 190026, 190050, 179842, 179855, 1852620, 206843, 9142094, 157186, 9645635, 9804976, 9223018, 9371512, 9815874, 9293415, 9450095, 9290505, 109266, 9713109, 9220472, 9368088, 9447063, 9588693, 9642923, 9525240, 9813996, 9138933, 8878786, 9047882, 9089066, 9800148, 9876276, 9071183, 9633626, 9436290, 9701318, 9515490, 9580161, 9280280, 9357652, 9210615, 5211357, 190051, 190025, 5228367, 190035, 190030, 190052 ]
-  }, {
-    "dbId" : 939230,
-    "stId" : "R-HSA-939230",
-    "displayName" : "UBB(153-228) [cytosol]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesId" : 48887,
-    "identifier" : "P0CG47",
-    "geneNames" : [ "UBB" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 1852620,
     "stId" : "R-HSA-1852620",
@@ -1147,6 +1128,22 @@
     "diagramIds" : [ 132 ],
     "children" : [ 1852617, 109265 ]
   }, {
+    "dbId" : 109265,
+    "stId" : "R-ALL-109265",
+    "displayName" : "Zn2+ [plasma membrane]",
+    "schemaClass" : "SimpleEntity",
+    "identifier" : "29105",
+    "parents" : [ 1852620 ]
+  }, {
+    "dbId" : 939230,
+    "stId" : "R-HSA-939230",
+    "displayName" : "UBB(153-228) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG47",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 113595 ]
+  }, {
     "dbId" : 157654,
     "stId" : "R-HSA-157654",
     "displayName" : "NOTCH1(1665-1720) [extracellular region]",
@@ -1154,15 +1151,7 @@
     "speciesId" : 48887,
     "identifier" : "P46531",
     "geneNames" : [ "NOTCH1", "TAN1" ],
-    "parents" : [ 2730759, 2730756, 2730740, 2730738, 2730750, 2730748, 2730746, 2730743, 2730737, 2730751, 2672449, 2193050 ]
-  }, {
-    "dbId" : 1852617,
-    "stId" : "R-HSA-1852617",
-    "displayName" : "ADAM10/17 [plasma membrane]",
-    "schemaClass" : "CandidateSet",
-    "speciesId" : 48887,
-    "parents" : [ 1852620 ],
-    "children" : [ 157237, 179878 ]
+    "parents" : [ 2730737, 2730751 ]
   }, {
     "dbId" : 2289143,
     "stId" : "R-HSA-2289143",
@@ -1172,12 +1161,20 @@
     "diagramIds" : [ 2957 ],
     "children" : [ 2902194, 2902192, 2902196, 2768989 ]
   }, {
+    "dbId" : 1852617,
+    "stId" : "R-HSA-1852617",
+    "displayName" : "ADAM10/17 [plasma membrane]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 48887,
+    "parents" : [ 1852620 ],
+    "children" : [ 157237, 179878 ]
+  }, {
     "dbId" : 212438,
     "stId" : "R-HSA-212438",
     "displayName" : "SNW [nucleoplasm]",
     "schemaClass" : "DefinedSet",
     "speciesId" : 48887,
-    "parents" : [ 212451, 2064263, 350052 ],
+    "parents" : [ 350052 ],
     "children" : [ 351663 ]
   }, {
     "dbId" : 2730751,
@@ -1185,16 +1182,8 @@
     "displayName" : "NOTCH1 L1574P fragment [extracellular region]",
     "schemaClass" : "Complex",
     "speciesId" : 48887,
-    "parents" : [ 2730739, 2902219 ],
+    "parents" : [ 2902219 ],
     "children" : [ 1485582, 157654 ]
-  }, {
-    "dbId" : 2730737,
-    "stId" : "R-HSA-2730737",
-    "displayName" : "NOTCH1 L1600P fragment [extracellular region]",
-    "schemaClass" : "Complex",
-    "speciesId" : 48887,
-    "parents" : [ 2730739, 2902219 ],
-    "children" : [ 2681764, 157654 ]
   }, {
     "dbId" : 9013329,
     "stId" : "R-HSA-9013329",
@@ -1205,6 +1194,14 @@
     "geneNames" : [ "PSEN2", "AD4", "PS2", "PSNL2", "STM2" ],
     "parents" : [ 157352 ]
   }, {
+    "dbId" : 2730737,
+    "stId" : "R-HSA-2730737",
+    "displayName" : "NOTCH1 L1600P fragment [extracellular region]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 2902219 ],
+    "children" : [ 2681764, 157654 ]
+  }, {
     "dbId" : 188379,
     "stId" : "R-HSA-188379",
     "displayName" : "MYC [nucleoplasm]",
@@ -1212,8 +1209,7 @@
     "speciesId" : 48887,
     "diagramIds" : [ 194 ],
     "identifier" : "P01106",
-    "geneNames" : [ "MYC", "BHLHE39" ],
-    "parents" : [ 5687065, 5696899, 6790042, 8865263, 188378 ]
+    "geneNames" : [ "MYC", "BHLHE39" ]
   }, {
     "dbId" : 157656,
     "stId" : "R-HSA-157656",
@@ -1231,7 +1227,7 @@
     "speciesId" : 48887,
     "identifier" : "P49336",
     "geneNames" : [ "CDK8" ],
-    "parents" : [ 212379, 212340, 212374, 556786, 1604465 ]
+    "parents" : [ 1604465 ]
   }, {
     "dbId" : 9013333,
     "stId" : "R-HSA-9013333",
@@ -1248,7 +1244,7 @@
     "speciesId" : 48887,
     "identifier" : "Q13547",
     "geneNames" : [ "HDAC1", "RPD3L1" ],
-    "parents" : [ 205005, 350066, 427410, 8935726, 2186606, 4657004, 1227668, 1227666, 3299553, 3772506, 8944365, 3299562 ]
+    "parents" : [ 350066 ]
   }, {
     "dbId" : 1602296,
     "stId" : "R-HSA-1602296",
@@ -1256,15 +1252,6 @@
     "schemaClass" : "EntityWithAccessionedSequence",
     "speciesId" : 48887,
     "identifier" : "Q969H0-1",
-    "geneNames" : [ "FBXW7", "FBW7", "FBX30", "SEL10" ],
-    "parents" : [ 3215119, 1602299 ]
-  }, {
-    "dbId" : 1602297,
-    "stId" : "R-HSA-1602297",
-    "displayName" : "FBXW7gamma [nucleoplasm]",
-    "schemaClass" : "EntityWithAccessionedSequence",
-    "speciesId" : 48887,
-    "identifier" : "Q969H0-4",
     "geneNames" : [ "FBXW7", "FBW7", "FBX30", "SEL10" ],
     "parents" : [ 1602299 ]
   }, {
@@ -1276,6 +1263,15 @@
     "identifier" : "P46531",
     "geneNames" : [ "NOTCH1", "TAN1" ],
     "parents" : [ 2220958 ]
+  }, {
+    "dbId" : 1602297,
+    "stId" : "R-HSA-1602297",
+    "displayName" : "FBXW7gamma [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q969H0-4",
+    "geneNames" : [ "FBXW7", "FBW7", "FBX30", "SEL10" ],
+    "parents" : [ 1602299 ]
   }, {
     "dbId" : 2902222,
     "stId" : "R-HSA-2902222",
@@ -1325,7 +1321,7 @@
     "diagramIds" : [ 895 ],
     "identifier" : "Q9NR61",
     "geneNames" : [ "DLL4", "UNQ1895/PRO4341" ],
-    "parents" : [ 157643, 2731150, 1911559, 2168132, 1980053, 2768992, 2902217, 2900745, 2691221 ]
+    "parents" : [ 2900745, 2902217 ]
   }, {
     "dbId" : 2902219,
     "stId" : "R-HSA-2902219",
@@ -1350,7 +1346,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 2902214,
     "stId" : "R-HSA-2902214",
@@ -1384,7 +1380,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 2902211,
     "stId" : "R-HSA-2902211",
@@ -1401,7 +1397,7 @@
     "speciesId" : 48887,
     "identifier" : "P0CG48",
     "geneNames" : [ "UBC" ],
-    "parents" : [ 113595, 6793517 ]
+    "parents" : [ 113595 ]
   }, {
     "dbId" : 349692,
     "stId" : "R-HSA-349692",
@@ -1429,7 +1425,7 @@
     "inputs" : [ 2894870, 157089 ],
     "outputs" : [ 2900746 ],
     "efs" : [ 2894870 ],
-    "diagramIds" : [ 98726 ],
+    "diagramIds" : [ 98718 ],
     "entityFunctionalStatus" : [ 2894870 ]
   }, {
     "dbId" : 2220964,
@@ -1441,17 +1437,17 @@
     "inputs" : [ 193545, 350078, 2220969, 381325, 212357 ],
     "outputs" : [ 2220989 ],
     "efs" : [ 2220969 ],
-    "diagramIds" : [ 98711 ],
+    "diagramIds" : [ 98703 ],
     "entityFunctionalStatus" : [ 2220969 ]
   }, {
     "dbId" : 2220967,
     "stId" : "R-HSA-2220967",
     "displayName" : "p-NICD1 PEST domain mutants do not bind FBXW7",
-    "schemaClass" : "BlackBoxEvent",
+    "schemaClass" : "FailedReaction",
     "preceding" : [ 2220971 ],
     "inputs" : [ 2220958, 1604469 ],
     "efs" : [ 2220958 ],
-    "diagramIds" : [ 98714 ],
+    "diagramIds" : [ 98706 ],
     "entityFunctionalStatus" : [ 2220958 ]
   }, {
     "dbId" : 2900747,
@@ -1461,7 +1457,7 @@
     "inputs" : [ 2894870, 158437 ],
     "outputs" : [ 2900745 ],
     "efs" : [ ],
-    "diagramIds" : [ 98729 ],
+    "diagramIds" : [ 98721 ],
     "entityFunctionalStatus" : [ ]
   }, {
     "dbId" : 2220966,
@@ -1472,8 +1468,20 @@
     "outputs" : [ 1606739 ],
     "efs" : [ 4396397 ],
     "activators" : [ 4396397 ],
-    "diagramIds" : [ 98716 ],
+    "diagramIds" : [ 98708 ],
     "entityFunctionalStatus" : [ 4396397 ]
+  }, {
+    "dbId" : 4396393,
+    "stId" : "R-HSA-4396393",
+    "displayName" : "NOTCH1 PEST domain mutants bind MYC promoter",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 2220964 ],
+    "following" : [ 2220985 ],
+    "inputs" : [ 2220989, 2127254 ],
+    "outputs" : [ 4396404 ],
+    "efs" : [ 2220989 ],
+    "diagramIds" : [ 98724 ],
+    "entityFunctionalStatus" : [ 2220989 ]
   }, {
     "dbId" : 2220971,
     "stId" : "R-HSA-2220971",
@@ -1485,20 +1493,18 @@
     "outputs" : [ 2220958, 113582, 193545, 350078, 1604465, 1911412, 381325, 212357 ],
     "catalysts" : [ 2220980 ],
     "efs" : [ 2220980 ],
-    "diagramIds" : [ 98717 ],
+    "diagramIds" : [ 98709 ],
     "entityFunctionalStatus" : [ 2220980 ]
   }, {
-    "dbId" : 4396393,
-    "stId" : "R-HSA-4396393",
-    "displayName" : "NOTCH1 PEST domain mutants bind MYC promoter",
+    "dbId" : 2900743,
+    "stId" : "R-HSA-2900743",
+    "displayName" : "NOTCH1 HD+PEST domain mutants bind JAG1",
     "schemaClass" : "Reaction",
-    "preceding" : [ 2220964 ],
-    "following" : [ 2220985 ],
-    "inputs" : [ 2220989, 2127254 ],
-    "outputs" : [ 4396404 ],
-    "efs" : [ 2220989 ],
-    "diagramIds" : [ 98732 ],
-    "entityFunctionalStatus" : [ 2220989 ]
+    "inputs" : [ 2894870, 157098 ],
+    "outputs" : [ 2900751 ],
+    "efs" : [ 2894870 ],
+    "diagramIds" : [ 98726 ],
+    "entityFunctionalStatus" : [ 2894870 ]
   }, {
     "dbId" : 4396392,
     "stId" : "R-HSA-4396392",
@@ -1509,18 +1515,8 @@
     "inputs" : [ 2197548, 2220989 ],
     "outputs" : [ 4396396 ],
     "efs" : [ 2220989 ],
-    "diagramIds" : [ 98734 ],
+    "diagramIds" : [ 98729 ],
     "entityFunctionalStatus" : [ 2220989 ]
-  }, {
-    "dbId" : 2900743,
-    "stId" : "R-HSA-2900743",
-    "displayName" : "NOTCH1 HD+PEST domain mutants bind JAG1",
-    "schemaClass" : "Reaction",
-    "inputs" : [ 2894870, 157098 ],
-    "outputs" : [ 2900751 ],
-    "efs" : [ 2894870 ],
-    "diagramIds" : [ 98736 ],
-    "entityFunctionalStatus" : [ 2894870 ]
   }, {
     "dbId" : 4396402,
     "stId" : "R-HSA-4396402",
@@ -1531,7 +1527,7 @@
     "inputs" : [ 2220989, 4396360 ],
     "outputs" : [ 4396391 ],
     "efs" : [ 2220989 ],
-    "diagramIds" : [ 98739 ],
+    "diagramIds" : [ 98731 ],
     "entityFunctionalStatus" : [ 2220989 ]
   }, {
     "dbId" : 2900765,
@@ -1559,6 +1555,17 @@
     "diagramIds" : [ 2954 ],
     "entityFunctionalStatus" : [ ]
   }, {
+    "dbId" : 4396401,
+    "stId" : "R-HSA-4396401",
+    "displayName" : "NOTCH1 PEST domain mutants bind HES5 promoter",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 2220964 ],
+    "inputs" : [ 2220989, 2197557 ],
+    "outputs" : [ 4396397 ],
+    "efs" : [ 2220989 ],
+    "diagramIds" : [ 98733 ],
+    "entityFunctionalStatus" : [ 2220989 ]
+  }, {
     "dbId" : 2220979,
     "stId" : "R-HSA-2220979",
     "displayName" : "NOTCH1 PEST domain mutants stimulate HES1 transcription",
@@ -1568,19 +1575,8 @@
     "outputs" : [ 210825 ],
     "efs" : [ 4396396 ],
     "activators" : [ 4396396 ],
-    "diagramIds" : [ 98719 ],
+    "diagramIds" : [ 98711 ],
     "entityFunctionalStatus" : [ 4396396 ]
-  }, {
-    "dbId" : 4396401,
-    "stId" : "R-HSA-4396401",
-    "displayName" : "NOTCH1 PEST domain mutants bind HES5 promoter",
-    "schemaClass" : "Reaction",
-    "preceding" : [ 2220964 ],
-    "inputs" : [ 2220989, 2197557 ],
-    "outputs" : [ 4396397 ],
-    "efs" : [ 2220989 ],
-    "diagramIds" : [ 98741 ],
-    "entityFunctionalStatus" : [ 2220989 ]
   }, {
     "dbId" : 2220981,
     "stId" : "R-HSA-2220981",
@@ -1591,7 +1587,7 @@
     "outputs" : [ 1911450 ],
     "efs" : [ 4396391 ],
     "activators" : [ 4396391 ],
-    "diagramIds" : [ 98720 ],
+    "diagramIds" : [ 98712 ],
     "entityFunctionalStatus" : [ 4396391 ]
   }, {
     "dbId" : 2220982,
@@ -1603,7 +1599,7 @@
     "inputs" : [ 2769016, 350052 ],
     "outputs" : [ 2220969, 1911465 ],
     "efs" : [ 2769016 ],
-    "diagramIds" : [ 98721 ],
+    "diagramIds" : [ 98713 ],
     "entityFunctionalStatus" : [ 2769016 ]
   }, {
     "dbId" : 2220985,
@@ -1615,7 +1611,7 @@
     "outputs" : [ 188379 ],
     "efs" : [ 4396404 ],
     "activators" : [ 4396404 ],
-    "diagramIds" : [ 98723 ],
+    "diagramIds" : [ 98715 ],
     "entityFunctionalStatus" : [ 4396404 ]
   }, {
     "dbId" : 2900756,
@@ -1625,7 +1621,7 @@
     "inputs" : [ 2894870, 157120 ],
     "outputs" : [ 2900758 ],
     "efs" : [ 2894870 ],
-    "diagramIds" : [ 98743 ],
+    "diagramIds" : [ 98735 ],
     "entityFunctionalStatus" : [ 2894870 ]
   }, {
     "dbId" : 2220957,
@@ -1637,8 +1633,20 @@
     "inputs" : [ 2220989, 1604465 ],
     "outputs" : [ 2220980 ],
     "efs" : [ 2220989 ],
-    "diagramIds" : [ 98746 ],
+    "diagramIds" : [ 98738 ],
     "entityFunctionalStatus" : [ 2220989 ]
+  }, {
+    "dbId" : 2769015,
+    "stId" : "R-HSA-2769015",
+    "displayName" : "NICD1 PEST domain mutants translocate from cytosol to nucleus",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 2220988 ],
+    "following" : [ 2220982 ],
+    "inputs" : [ 2220987 ],
+    "outputs" : [ 2769016 ],
+    "efs" : [ 2220987 ],
+    "diagramIds" : [ 98739 ],
+    "entityFunctionalStatus" : [ 2220987 ]
   }, {
     "dbId" : 2220988,
     "stId" : "R-HSA-2220988",
@@ -1650,20 +1658,8 @@
     "outputs" : [ 157656, 2220987 ],
     "catalysts" : [ 157343 ],
     "efs" : [ 2289143 ],
-    "diagramIds" : [ 98724 ],
+    "diagramIds" : [ 98716 ],
     "entityFunctionalStatus" : [ 2289143 ]
-  }, {
-    "dbId" : 2769015,
-    "stId" : "R-HSA-2769015",
-    "displayName" : "NICD1 PEST domain mutants translocate from cytosol to nucleus",
-    "schemaClass" : "Reaction",
-    "preceding" : [ 2220988 ],
-    "following" : [ 2220982 ],
-    "inputs" : [ 2220987 ],
-    "outputs" : [ 2769016 ],
-    "efs" : [ 2220987 ],
-    "diagramIds" : [ 98747 ],
-    "entityFunctionalStatus" : [ 2220987 ]
   } ],
   "subpathways" : [ {
     "dbId" : 2894862,

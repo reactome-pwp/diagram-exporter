@@ -93,7 +93,7 @@ public class EhldRendererTest {
 		// Batik is not thread safe. In this case, we convert a SVG diagram
 		// with analysis to JPG, invoking batik for that.
 		final AnalysisStoredResult result = TestUtils.getResult(TestUtils.TOKEN_OVER_1);
-		final RasterArgs args = new RasterArgs("109581", "jpg");
+		final RasterArgs args = new RasterArgs("R-HSA-109581", "jpg");
 		IntStream.range(0, 10)
 				.parallel()
 				.forEach(value -> TestUtils.render(args, result));
