@@ -19,15 +19,8 @@ import java.awt.*;
 
 public class RenderableChemicalDrug extends RenderableChemical {
 
-	private static final Color DRUG_COLOR = new Color(160, 0, 0);
-
 	RenderableChemicalDrug(Node node) {
 		super(node);
-	}
-
-	@Override
-	public NodeColorSheet getColorProfile(ColorProfiles colorProfiles) {
-		return colorProfiles.getDiagramSheet().getChemicalDrug();
 	}
 
 	@Override
@@ -39,6 +32,7 @@ public class RenderableChemicalDrug extends RenderableChemical {
 	private void chemicalBox(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
 		final Color fill = getFillColor(colorProfiles, index, t);
 		final Color border = getAttachmentStrokeColor(colorProfiles, index.getAnalysis().getType());
+		final Color text = getTextColor(colorProfiles, index.getAnalysis().getType());
 		final Stroke stroke = StrokeStyle.SEGMENT.get(isDashed());
 		final FillDrawLayer fillDrawLayer = isFadeOut()
 				? canvas.getFadeOutAttachments()
@@ -52,7 +46,7 @@ public class RenderableChemicalDrug extends RenderableChemical {
 		final NodeProperties attachment = NodePropertiesFactory.get(x, y, 14, 7);
 		final Shape shape = ShapeFactory.rectangle(attachment);
 		fillDrawLayer.add(shape, fill, border, stroke);
-		textLayer.add("Rx", DRUG_COLOR, attachment, 1, 0, FontProperties.DEFAULT_FONT);
+		textLayer.add("Rx", text, attachment, 1, 0, FontProperties.DEFAULT_FONT);
 		if (isFlag())
 			canvas.getFlags().add(shape, colorProfiles.getDiagramSheet().getProperties().getFlag(), StrokeStyle.FLAG.get(isDashed()));
 		if (isHalo())
@@ -88,6 +82,11 @@ public class RenderableChemicalDrug extends RenderableChemical {
 			return ColorFactory.interpolate(colorProfiles.getAnalysisSheet().getExpression().getGradient(), value);
 		}
 
+	}
+
+	@Override
+	public NodeColorSheet getColorProfile(ColorProfiles colorProfiles) {
+		return colorProfiles.getDiagramSheet().getChemicalDrug();
 	}
 
 	private Color getAttachmentStrokeColor(ColorProfiles colorProfiles, AnalysisType type) {
