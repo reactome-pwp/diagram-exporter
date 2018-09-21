@@ -15,11 +15,11 @@ import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 public class EntitySet extends PPTXNode {
 
     private static final String PROFILE_TYPE = "entityset";
-    private final int shapeType = ShapeType.RoundCornerRectangle;
-    private byte shapeFillType = FillType.Solid;
-    private byte lineFillType = FillType.Solid;
-    private byte lineStyle = LineStyle.ThinThin;
-    private double lineWidth = 3;
+    protected final int shapeType = ShapeType.RoundCornerRectangle;
+    protected byte shapeFillType = FillType.Solid;
+    protected byte lineFillType = FillType.Solid;
+    protected byte lineStyle = LineStyle.ThinThin;
+    protected double lineWidth = 3;
 
     public EntitySet(Node node, Adjustment adjustment, boolean flag, boolean select) {
         super(node, adjustment, flag, select);

@@ -19,11 +19,11 @@ import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.*;
 public class Protein extends PPTXNode {
 
     private static final String PROFILE_TYPE = "protein";
-    private final int shapeType = ShapeType.RoundCornerRectangle;
+    protected final int shapeType = ShapeType.RoundCornerRectangle;
     protected List<NodeAttachment> nodeAttachments;
-    private byte shapeFillType = FillType.Solid;
-    private byte lineFillType = FillType.Solid;
-    private byte lineStyle = LineStyle.Single;
+    protected byte shapeFillType = FillType.Solid;
+    protected byte lineFillType = FillType.Solid;
+    protected byte lineStyle = LineStyle.Single;
 
     public Protein(Node node, Adjustment adjustment, boolean flag, boolean select) {
         super(node, adjustment, flag, select);

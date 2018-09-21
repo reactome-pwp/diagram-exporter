@@ -44,11 +44,14 @@ public class Stylesheet {
     private Color selectionColor;
     private double selectionLineWidth = 3;
 
+    // font
+    private int fontHeight;
+
     public Stylesheet() {
 
     }
 
-    public Stylesheet(DiagramProfile profile, String type, byte shapeFillType, byte lineFillType, byte lineStyle) {
+    public Stylesheet(DiagramProfile profile, String type, byte shapeFillType, byte lineFillType, byte lineStyle, int fontHeight) {
         DiagramProfileNode profileInfo = getProfileNode(profile, type);
         this.lineWidth = profileInfo.getLineWidth() != null ? Double.valueOf(profileInfo.getLineWidth()) * 2 : 1;
         this.lineColor = parseColor(profileInfo.getStroke());
@@ -66,6 +69,11 @@ public class Stylesheet {
         this.diseaseColor = parseColor(profile.getProperties().getDisease());
         this.flagColor = parseColor(profile.getProperties().getFlag());
         this.selectionColor = parseColor(profile.getProperties().getSelection());
+        this.fontHeight = fontHeight;
+    }
+
+    public Stylesheet(DiagramProfile profile, String type, byte shapeFillType, byte lineFillType, byte lineStyle) {
+        this(profile, type,shapeFillType,lineFillType,lineStyle,10);
     }
 
     public Stylesheet(DiagramProfile profile, String type) {
@@ -261,6 +269,14 @@ public class Stylesheet {
         return selectionLineWidth;
     }
 
+    public int getFontHeight() {
+        return fontHeight;
+    }
+
+    public void setFontHeight(int fontHeight) {
+        this.fontHeight = fontHeight;
+    }
+
     private DiagramProfileNode getProfileNode(DiagramProfile profile, String type){
         switch (type.toLowerCase()){
             case "attachment":
@@ -301,6 +317,14 @@ public class Stylesheet {
                 return profile.getEncapsulatednode();
             case "chemicaldrug":
                 return profile.getChemicaldrug();
+            case "proteindrug":
+                return profile.getProteindrug();
+            case "rnadrug":
+                return profile.getRnadrug();
+            case "entitysetdrug":
+                return profile.getEntitysetdrug();
+            case "complexdrug":
+                return profile.getComplexdrug();
             default:
                 throw new IllegalArgumentException("Type " + type + " is not found in the JSON Profile.");
         }

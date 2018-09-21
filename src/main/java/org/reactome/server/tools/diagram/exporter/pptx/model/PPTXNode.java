@@ -128,7 +128,7 @@ public abstract class PPTXNode {
         }
 
         setShapeStyle(iAutoShape, stylesheet);
-        setTextFrame(iAutoShape, displayName, new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), 10, true, true, reactomeId, adjustment);
+        setTextFrame(iAutoShape, displayName, new double[]{0, 0, 0, 0}, stylesheet.getTextColor(), stylesheet.getFontHeight(), true, true, reactomeId, adjustment);
     }
 
     @Override

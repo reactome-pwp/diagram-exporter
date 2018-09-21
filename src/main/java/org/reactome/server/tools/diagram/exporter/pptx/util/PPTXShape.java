@@ -158,6 +158,33 @@ public class PPTXShape {
     }
 
     /**
+     * Helper method to ease set the shape Style.
+     * Set includeBorder to true if you want the Rx with borders
+     *
+     * @param shape the given shape to apply the style
+     */
+    public static void setDrugShapeStyle(IShape shape, Stylesheet stylesheet, boolean includeBorders) {
+        // Fill properties
+        shape.getFillFormat().setFillType(stylesheet.getShapeFillType());
+        shape.getFillFormat().getSolidFillColor().setColor(stylesheet.getFillColor());
+
+        // Line properties
+        if(includeBorders) {
+            shape.getLineFormat().getFillFormat().setFillType(stylesheet.getLineFillType());
+            shape.getLineFormat().getFillFormat().getSolidFillColor().setColor(stylesheet.getLineColor());
+            shape.getLineFormat().setStyle(stylesheet.getLineStyle());
+            shape.getLineFormat().setWidth(stylesheet.getLineWidth());
+            shape.getLineFormat().setCapStyle(stylesheet.getLineCapStyle());
+        } else {
+            shape.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
+        }
+
+        if (stylesheet.getLineDashStyle() > 0) {
+            shape.getLineFormat().setDashStyle(stylesheet.getLineDashStyle());
+            shape.getLineFormat().setCapStyle(LineCapStyle.Square);
+        }
+    }
+    /**
      * Helper method to ease set the flagging style of a group shape
      */
     public static void setFlaggingStyle(IShape shape, Stylesheet stylesheet) {

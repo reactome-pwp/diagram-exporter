@@ -64,7 +64,7 @@ public class DiagramPresentation {
         compartments.clear();
 
         // Render Notes
-        if(diagram.getNotes() != null && !diagram.getNotes().isEmpty()) {
+        if (diagram.getNotes() != null && !diagram.getNotes().isEmpty()) {
             logger.debug("Exporting notes");
             for (Note note : diagram.getNotes()) {
                 CompartmentNote compartmentNote = new CompartmentNote(note, profile, adjustment);
@@ -107,7 +107,7 @@ public class DiagramPresentation {
         }
 
         // Render Links
-        if(diagram.getLinks() != null && !diagram.getLinks().isEmpty()) {
+        if (diagram.getLinks() != null && !diagram.getLinks().isEmpty()) {
             logger.debug("Rendering links");
             for (Link link : diagram.getLinks()) {
                 PPTXLink pptxLink = new PPTXLink(link, nodesMap, adjustment);
@@ -141,7 +141,7 @@ public class DiagramPresentation {
         // We must have an unique getName before saving.
         final String fileExtension = ".pptx";
         File file = new File(outputFolder, stId + fileExtension);
-        if(decorator.isDecorated()){
+        if (decorator.isDecorated()) {
             logger.info("Decoration is enabled, temporary file is being generated", file.getPath());
             String pptxDecor = stId + "-" + UUID.randomUUID().toString();
             file = new File(outputFolder, pptxDecor + fileExtension);
@@ -159,64 +159,65 @@ public class DiagramPresentation {
      * @return instance of PPTXNode
      */
     private PPTXNode getNode(Node node, Adjustment adjustment, boolean flag, boolean selected) {
-        PPTXNode pptxNode = null;
-        switch (node.getSchemaClass()) {
-            case "Complex":
+        PPTXNode pptxNode;
+        switch (node.getRenderableClass().toLowerCase()) {
+            case "complex":
                 pptxNode = new Complex(node, adjustment, flag, selected);
                 break;
-            case "DefinedSet":
-            case "CandidateSet":
-            case "OpenSet":
+            case "complexdrug":
+                pptxNode = new ComplexDrug(node, adjustment, flag, selected);
+                break;
+            case "entityset":
                 pptxNode = new EntitySet(node, adjustment, flag, selected);
                 break;
-            case "EntityWithAccessionedSequence":
-                pptxNode = new Protein(node, adjustment, flag, selected);
-                if (Objects.equals(node.getRenderableClass(), "Gene")) {
-                    pptxNode = new Gene(node, adjustment, flag, selected);
-                }
-                if (Objects.equals(node.getRenderableClass(), "RNA")) {
-                    pptxNode = new RNA(node, adjustment, flag, selected);
-                }
+            case "entitysetdrug":
+                pptxNode = new EntitySetDrug(node, adjustment, flag, selected);
                 break;
-            case "GenomeEncodedEntity":
-            case "OtherEntity":
-            case "Polymer":
+            case "protein":
+                pptxNode = new Protein(node, adjustment, flag, selected);
+                break;
+            case "proteindrug":
+                pptxNode = new ProteinDrug(node, adjustment, flag, selected);
+                break;
+            case "gene":
+                pptxNode = new Gene(node, adjustment, flag, selected);
+                break;
+            case "rna":
+                pptxNode = new RNA(node, adjustment, flag, selected);
+                break;
+            case "entity":
                 pptxNode = new OtherEntity(node, adjustment, flag, selected);
                 break;
-            case "SimpleEntity":
+            case "chemical":
                 pptxNode = new Chemical(node, adjustment, flag, selected);
                 break;
-            case "ChemicalDrug":
+            case "chemicaldrug":
                 pptxNode = new ChemicalDrug(node, adjustment, flag, selected);
                 break;
-            case "Pathway":
-                if (Objects.equals(node.getRenderableClass(), "ProcessNode")) {
-                    pptxNode = new EncapsulatedPathway(node, adjustment, flag, selected);
-                }
-                if (Objects.equals(node.getRenderableClass(), "EncapsulatedNode")) {
-                    pptxNode = new EncapsulatedNode(node, adjustment, flag, selected);
-                }
+            case "rnadrug":
+                pptxNode = new RNADrug(node, adjustment, flag, selected);
+                break;
+            case "processnode":
+                pptxNode = new EncapsulatedPathway(node, adjustment, flag, selected);
+                break;
+            case "encapsulatednode":
+                pptxNode = new EncapsulatedNode(node, adjustment, flag, selected);
                 break;
             default:
-                logger.error("Invalid schema class [{}]. Create the switch-case for the given class", node.getSchemaClass());
-                throw new IllegalArgumentException("Invalid schema class [" + node.getSchemaClass() + "]. Create the switch-case for the given class");
-        }
-
-        if (pptxNode == null) {
-            logger.error("Invalid renderable class [{}]. Create the switch-case for the given class", node.getRenderableClass());
-            throw new IllegalArgumentException("Invalid renderable class [" + node.getRenderableClass() + "]. Create the switch-case for the given class");
+                logger.error("Invalid renderable class [{}]. Create the switch-case for the given class", node.getRenderableClass());
+                throw new IllegalArgumentException("Invalid renderable class [" + node.getRenderableClass() + "]. Create the switch-case for the given class");
         }
 
         return pptxNode;
     }
 
+
     /**
      * Get Software License
-     *
      */
     private License getLicense(String licFilePath) {
         InputStream is = DiagramExporter.class.getResourceAsStream("/license/Aspose.Slides.lic");
-        if(licFilePath != null && !licFilePath.isEmpty()){
+        if (licFilePath != null && !licFilePath.isEmpty()) {
             try {
                 is = new FileInputStream(new File(licFilePath));
             } catch (FileNotFoundException e) {

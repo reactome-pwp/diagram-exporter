@@ -15,10 +15,10 @@ import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 public class RNA extends PPTXNode {
 
     private static final String PROFILE_TYPE = "rna";
-    private final int shapeType = ShapeType.Rectangle;
-    private byte shapeFillType = FillType.Solid;
-    private byte lineFillType = FillType.Solid;
-    private byte lineStyle = LineStyle.Single;
+    protected final int shapeType = ShapeType.Rectangle;
+    protected byte shapeFillType = FillType.Solid;
+    protected byte lineFillType = FillType.Solid;
+    protected byte lineStyle = LineStyle.Single;
 
     public RNA(Node node, Adjustment adjustment, boolean flag, boolean select) {
         super(node, adjustment, flag, select);
