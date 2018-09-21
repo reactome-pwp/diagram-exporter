@@ -89,39 +89,13 @@ public class DiagramRenderer implements RasterRenderer {
 	 * representation of the Diagram in a DiagramCanvas.
 	 *
 	 * @param args        arguments for rendering
-	 * @param diagramPath path where to find the json files for the layout and
-	 *                    the graph data
-	 *
+	 * @param diagramPath path where to find the json files for the layout and the graph data
 	 * @throws DiagramJsonNotFoundException        if diagram is not found
 	 * @throws DiagramJsonDeserializationException if diagram is malformed
 	 */
 	public DiagramRenderer(RasterArgs args, String diagramPath, AnalysisStoredResult result) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException {
 		final Graph graph = ResourcesFactory.getGraph(diagramPath, args.getStId());
 		diagram = ResourcesFactory.getDiagram(diagramPath, args.getStId());
-		this.title = args.getWriteTitle() != null && args.getWriteTitle()
-				? diagram.getDisplayName()
-				: null;
-		this.args = args;
-		this.colorProfiles = args.getProfiles();
-		this.index = new DiagramIndex(diagram, graph, args, result);
-		canvas = new DiagramCanvas();
-		layout();
-		final Rectangle2D bounds = canvas.getBounds();
-		factor = limitFactor(bounds, MAX_IMAGE_SIZE);
-	}
-
-	/**
-	 * Creates a DiagramRenderer that holds an indexed representation of the
-	 * diagram and graph. It also layouts elements into a DiagramCanvas, ready
-	 * to be exporter to any of the formats: SVG, PDF, raster or GIF.
-	 *
-	 * @param args    arguments
-	 * @param diagram an already in-memory diagram
-	 * @param graph   an already loaded graph
-	 * @param result  a valid analysis result or null if no analysis overlay
-	 */
-	public DiagramRenderer(RasterArgs args, Diagram diagram, Graph graph, AnalysisStoredResult result) {
-		this.diagram = diagram;
 		this.title = args.getWriteTitle() != null && args.getWriteTitle()
 				? diagram.getDisplayName()
 				: null;
@@ -150,16 +124,26 @@ public class DiagramRenderer implements RasterRenderer {
 	@Override
 	public BufferedImage render() {
 		final Rectangle2D bounds = canvas.getBounds();
-		int width = (int) ((2 * MARGIN + bounds.getWidth()) * factor + 0.5);
-		int height = (int) ((2 * MARGIN + bounds.getHeight()) * factor + 0.5);
-		int offsetX = (int) ((MARGIN - bounds.getMinX()) * factor + 0.5);
-		int offsetY = (int) ((MARGIN - bounds.getMinY()) * factor + 0.5);
-
 		final String ext = args.getFormat();
-		final BufferedImage image = createImage(width, height, ext);
-		final Graphics2D graphics = createGraphics(image, ext, factor, offsetX, offsetY);
-		canvas.render(graphics);
-		return image;
+		if (args.isAutomaticAdjust()) {
+			final int width = (int) ((2 * MARGIN + bounds.getWidth()) * factor + 0.5);
+			final int height = (int) ((2 * MARGIN + bounds.getHeight()) * factor + 0.5);
+			final int offsetX = (int) ((MARGIN - bounds.getMinX()) * factor + 0.5);
+			final int offsetY = (int) ((MARGIN - bounds.getMinY()) * factor + 0.5);
+
+			final BufferedImage image = createImage(width, height, ext);
+			final Graphics2D graphics = createGraphics(image, ext, factor, offsetX, offsetY);
+			canvas.render(graphics);
+			return image;
+		} else {
+			final int width = (int) Math.ceil(bounds.getMaxX() * factor);
+			final int height = (int) Math.ceil(bounds.getMaxY() * factor);
+
+			final BufferedImage image = createImage(width, height, ext);
+			final Graphics2D graphics = createGraphics(image, ext, factor, 0, 0);
+			canvas.render(graphics);
+			return image;
+		}
 	}
 
 	/**

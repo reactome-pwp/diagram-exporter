@@ -258,7 +258,13 @@ public class DiagramRendererTest {
 		final RasterArgs args = new RasterArgs("R-HSA-376176", "pdf")
 				.setToken(TestUtils.TOKEN_EXPRESSION_1)
 				.setProfiles(new ColorProfiles("modern", "copper plus", null));
-		TestUtils.render(args, null);
+		TestUtils.render(args);
 	}
 
+	@Test
+	public void testAutomaticAdjust() {
+		final RasterArgs args = new RasterArgs("R-HSA-982772", "png")
+				.setAutomaticAdjust(false);
+		TestUtils.render(args);
+	}
 }

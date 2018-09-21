@@ -101,6 +101,10 @@ public class TestUtils {
 			System.err.println("Couldn't delete " + dir);
 	}
 
+	public static void render(RasterArgs args) {
+		render(args, null);
+	}
+
 	public static void render(RasterArgs args, AnalysisStoredResult result) {
 		try {
 			final OutputStream os = SAVE
