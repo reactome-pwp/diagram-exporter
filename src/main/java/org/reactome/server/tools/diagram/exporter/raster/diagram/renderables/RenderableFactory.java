@@ -54,7 +54,15 @@ public class RenderableFactory {
 				return new RenderableNote((Note) object);
 			case "Shadow":
 				return new RenderableShadow((Shadow) object);
+			case "ProteinDrug":
+				return new RenderableProteinDrug((Node) object);
+			case "RNADrug":
+				return new RenderableRnaDrug((Node) object);
+			case "EntitySetDrug":
+				return new RenderableEntitySetDrug((Node) object);
+			case "ComplexDrug":
+				return new RenderableComplexDrug((Node) object);
 		}
-		throw new UnsupportedOperationException("There is no RenderableObject class for " + object.getClass().getSimpleName());
+		throw new UnsupportedOperationException("There is no RenderableObject class for " + object.getRenderableClass());
 	}
 }

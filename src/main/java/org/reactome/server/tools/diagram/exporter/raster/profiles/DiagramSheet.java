@@ -21,8 +21,12 @@ public class DiagramSheet extends ColorSheet {
 	private NodeColorSheet reaction;
 	private NodeColorSheet rna;
 	private NodeColorSheet stoichiometry;
-	private ThumbnailColorSheet thumbnail;
 	private NodeColorSheet encapsulatedNode;
+	private NodeColorSheet entitySetDrug;
+	private NodeColorSheet proteinDrug;
+	private NodeColorSheet rnaDrug;
+	private NodeColorSheet complexDrug;
+	private ThumbnailColorSheet thumbnail;
 
 	public PropertiesColorSheet getProperties() {
 		return properties;
@@ -104,9 +108,23 @@ public class DiagramSheet extends ColorSheet {
 		return encapsulatedNode;
 	}
 
+	public NodeColorSheet getEntitySetDrug() {
+		return entitySetDrug;
+	}
+
+	public NodeColorSheet getProteinDrug() {
+		return proteinDrug;
+	}
+
+	public NodeColorSheet getRnaDrug() {
+		return rnaDrug;
+	}
+
+	public NodeColorSheet getComplexDrug() {
+		return complexDrug;
+	}
+
 	public ThumbnailColorSheet getThumbnail() {
 		return thumbnail;
 	}
-
-
 }
