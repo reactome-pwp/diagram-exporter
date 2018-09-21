@@ -104,8 +104,7 @@ public class DiagramRenderer implements RasterRenderer {
 		this.index = new DiagramIndex(diagram, graph, args, result);
 		canvas = new DiagramCanvas();
 		layout();
-		final Rectangle2D bounds = canvas.getBounds();
-		factor = limitFactor(bounds, MAX_IMAGE_SIZE);
+		factor = limitFactor(MAX_IMAGE_SIZE);
 	}
 
 	@Override
@@ -123,27 +122,13 @@ public class DiagramRenderer implements RasterRenderer {
 	 */
 	@Override
 	public BufferedImage render() {
-		final Rectangle2D bounds = canvas.getBounds();
+		final Rectangle2D bounds = graphicsBounds(factor);
 		final String ext = args.getFormat();
-		if (args.isAutomaticAdjust()) {
-			final int width = (int) ((2 * MARGIN + bounds.getWidth()) * factor + 0.5);
-			final int height = (int) ((2 * MARGIN + bounds.getHeight()) * factor + 0.5);
-			final int offsetX = (int) ((MARGIN - bounds.getMinX()) * factor + 0.5);
-			final int offsetY = (int) ((MARGIN - bounds.getMinY()) * factor + 0.5);
+		final BufferedImage image = createImage((int) bounds.getWidth(), (int) bounds.getHeight(), ext);
+		final Graphics2D graphics = createGraphics(image, ext, factor, -bounds.getX(), -bounds.getY());
+		canvas.render(graphics);
+		return image;
 
-			final BufferedImage image = createImage(width, height, ext);
-			final Graphics2D graphics = createGraphics(image, ext, factor, offsetX, offsetY);
-			canvas.render(graphics);
-			return image;
-		} else {
-			final int width = (int) Math.ceil(bounds.getMaxX() * factor);
-			final int height = (int) Math.ceil(bounds.getMaxY() * factor);
-
-			final BufferedImage image = createImage(width, height, ext);
-			final Graphics2D graphics = createGraphics(image, ext, factor, 0, 0);
-			canvas.render(graphics);
-			return image;
-		}
 	}
 
 	/**
@@ -154,13 +139,7 @@ public class DiagramRenderer implements RasterRenderer {
 		if (index.getAnalysis().getType() != AnalysisType.EXPRESSION)
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
 
-		final Rectangle2D bounds = canvas.getBounds();
-		double factor = limitFactor(bounds, MAX_GIF_SIZE);
-//		double factor = args.getFactor();
-		int width = (int) ((2 * MARGIN + bounds.getWidth()) * factor + 0.5);
-		int height = (int) ((2 * MARGIN + bounds.getHeight()) * factor + 0.5);
-		int offsetX = (int) ((MARGIN - bounds.getMinX()) * factor + 0.5);
-		int offsetY = (int) ((MARGIN - bounds.getMinY()) * factor + 0.5);
+		final Rectangle2D bounds = graphicsBounds(factor);
 
 		final AnimatedGifEncoder encoder = new AnimatedGifEncoder();
 		encoder.setDelay(1000);
@@ -168,7 +147,7 @@ public class DiagramRenderer implements RasterRenderer {
 //		encoder.setQuality(1);
 		encoder.start(outputStream);
 		for (int t = 0; t < index.getAnalysis().getResult().getExpression().getColumnNames().size(); t++) {
-			final BufferedImage image = frame(factor, width, height, offsetX, offsetY, t);
+			final BufferedImage image = frame(factor, (int) bounds.getWidth(), (int) bounds.getHeight(), (int) -bounds.getX(), (int) -bounds.getY(), t);
 			encoder.addFrame(image);
 		}
 		encoder.finish();
@@ -182,18 +161,13 @@ public class DiagramRenderer implements RasterRenderer {
 		final SVGGraphics2D graphics2D = new SVGGraphics2D(ctx, true);
 		graphics2D.setFont(FontProperties.DEFAULT_FONT);
 		canvas.render(graphics2D);
-		// Do not know how to extract SVG doc from SVGGraphics2D, so I take the
-		// root and append to my document as root
+		// TODO: Do not know how to extract SVG doc from SVGGraphics2D, so I take the root and append to my document as root
 		document.removeChild(document.getRootElement());
 		document.appendChild(graphics2D.getRoot());
 
-		final Rectangle2D bounds = canvas.getBounds();
-		int width = (int) ((2 * MARGIN + bounds.getWidth()) + 0.5);
-		int height = (int) ((2 * MARGIN + bounds.getHeight()) + 0.5);
-		int minX = (int) ((MARGIN - bounds.getMinX()) + 0.5);
-		int minY = (int) ((MARGIN - bounds.getMinY()) + 0.5);
+		final Rectangle2D bounds = graphicsBounds(1);
 
-		final String viewBox = String.format("%d %d %d %d", -minX, -minY, width, height);
+		final String viewBox = String.format("%.0f %.0f %.0f %.0f", bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
 		document.getRootElement().setAttribute(SVGConstants.SVG_VIEW_BOX_ATTRIBUTE, viewBox);
 		return document;
 	}
@@ -211,7 +185,8 @@ public class DiagramRenderer implements RasterRenderer {
 		return image;
 	}
 
-	private double limitFactor(Rectangle2D bounds, double maxSize) {
+	private double limitFactor(double maxSize) {
+		final Rectangle2D bounds = canvas.getBounds();
 		final double width = args.getFactor() * (MARGIN + bounds.getWidth());
 		final double height = args.getFactor() * (MARGIN + bounds.getHeight());
 		double size = width * height;
@@ -234,8 +209,7 @@ public class DiagramRenderer implements RasterRenderer {
 			throw new IllegalArgumentException("Unsupported file extension " + ext);
 	}
 
-	private Graphics2D createGraphics(BufferedImage image, String ext,
-	                                  double factor, double offsetX, double offsetY) {
+	private Graphics2D createGraphics(BufferedImage image, String ext, double factor, double offsetX, double offsetY) {
 		final Graphics2D graphics = image.createGraphics();
 		if (NO_TRANSPARENT_FORMATS.contains(ext)) {
 			Color bgColor = args.getBackground() == null
@@ -259,14 +233,14 @@ public class DiagramRenderer implements RasterRenderer {
 
 	@Override
 	public Document renderToPdf() throws IOException {
-		final Rectangle2D bounds = canvas.getBounds();
 		final ByteArrayOutputStream os = new ByteArrayOutputStream();
 		final Document document = new Document(new PdfDocument(new PdfWriter(os)));
 		document.setMargins(0, 0, 0, 0);
-		final PdfPage page = document.getPdfDocument().addNewPage(new PageSize((float) bounds.getWidth() + 6, (float) bounds.getHeight() + 6));
+		final Rectangle2D bounds = graphicsBounds(1);
+		final PdfPage page = document.getPdfDocument().addNewPage(new PageSize((float) bounds.getWidth(), (float) bounds.getHeight()));
 		final PdfCanvas pdfCanvas = new PdfCanvas(page);
-		final PdfGraphics2D graphics = new PdfGraphics2D(pdfCanvas, 0, 0, (float) bounds.getWidth() + 6, (float) bounds.getHeight() + 6);
-		graphics.translate(3 - bounds.getX(), 3 - bounds.getY());
+		final PdfGraphics2D graphics = new PdfGraphics2D(pdfCanvas, 0, 0, (float) bounds.getWidth(), (float) bounds.getHeight());
+		graphics.translate(-bounds.getX(), -bounds.getY());
 		graphics.setFont(FontProperties.DEFAULT_FONT);
 		graphics.setRenderingHint(
 				RenderingHints.KEY_TEXT_ANTIALIASING,
@@ -297,6 +271,23 @@ public class DiagramRenderer implements RasterRenderer {
 		} else {
 			legendRenderer.addLogo();
 			legendRenderer.infoText(title);
+		}
+	}
+
+	private Rectangle2D graphicsBounds(double factor) {
+		final Rectangle2D bounds = canvas.getBounds();
+		if (args.isAutomaticAdjust()) {
+			return new Rectangle2D.Double(
+					Math.ceil((bounds.getX() - MARGIN) * factor),
+					Math.ceil((bounds.getY() - MARGIN) * factor),
+					Math.ceil((2 * MARGIN + bounds.getWidth()) * factor),
+					Math.ceil((2 * MARGIN + bounds.getHeight()) * factor)
+			);
+		} else {
+			return new Rectangle2D.Double(0, 0,
+					Math.ceil(bounds.getMaxX() * factor),
+					Math.ceil(bounds.getMaxY() * factor)
+			);
 		}
 	}
 
