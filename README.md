@@ -30,7 +30,7 @@ mvn clean package
 <dependency>
     <groupId>org.reactome.server.tools</groupId>
     <artifactId>diagram-exporter</artifactId>
-    <version>1.3.8</version>
+    <version>1.3.9</version>
 </dependency>
 ```
 
