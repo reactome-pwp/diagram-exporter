@@ -276,10 +276,10 @@ public class DiagramRenderer implements RasterRenderer {
 	private Rectangle2D graphicsBounds(double factor) {
 		final Rectangle2D bounds = canvas.getBounds();
 		return new Rectangle2D.Double(
-				Math.ceil((bounds.getX() - args.getMargin()) * factor),
-				Math.ceil((bounds.getY() - args.getMargin()) * factor),
-				Math.ceil((2 * args.getMargin() + bounds.getWidth()) * factor),
-				Math.ceil((2 * args.getMargin() + bounds.getHeight()) * factor)
+				Math.ceil((0 - args.getMargin()) * factor),
+				Math.ceil((0 - args.getMargin()) * factor),
+				Math.ceil((2 * args.getMargin() + bounds.getMaxX()) * factor),
+				Math.ceil((2 * args.getMargin() + bounds.getMaxY()) * factor)
 		);
 	}
 
