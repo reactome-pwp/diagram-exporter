@@ -221,6 +221,7 @@ public class DiagramRendererTest {
 		final AnalysisStoredResult result = TestUtils.getResult(TestUtils.TOKEN_OVER_1);
 		TestUtils.render(args, result);
 	}
+
 	@Test
 	public void testChemicalDrug() {
 		final RasterArgs args = new RasterArgs("R-HSA-2894858", "png");
@@ -258,7 +259,21 @@ public class DiagramRendererTest {
 		final RasterArgs args = new RasterArgs("R-HSA-376176", "pdf")
 				.setToken(TestUtils.TOKEN_EXPRESSION_1)
 				.setProfiles(new ColorProfiles("modern", "copper plus", null));
-		TestUtils.render(args, null);
+		TestUtils.render(args);
 	}
 
+	@Test
+	public void testAutomaticAdjust() {
+		// Negative minX and minY
+		RasterArgs args = new RasterArgs("R-HSA-112310", "png")
+				.setAutomaticAdjust(false)
+				.setQuality(8);
+		TestUtils.render(args);
+		// Positive
+		args = new RasterArgs("R-HSA-166058", "svg")
+				.setAutomaticAdjust(false)
+				.setQuality(6)
+				.setToken(TestUtils.TOKEN_EXPRESSION_1);
+		TestUtils.render(args);
+	}
 }

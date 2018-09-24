@@ -4,6 +4,7 @@ import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
 import java.awt.*;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,8 +13,8 @@ public class RasterArgs {
 	private String stId;
 	private String format;
 	private String token;
-	private Set<String> flags;
-	private Set<String> selected;
+	private Set<String> flags = Collections.emptySet();
+	private Set<String> selected = Collections.emptySet();
 	private ColorProfiles profiles;
 	private Color background;
 	private Integer column;
@@ -21,13 +22,16 @@ public class RasterArgs {
 	private Boolean writeTitle;
 	private Integer quality = 5;
 	private Double factor = scale(quality);
+	private boolean automaticAdjust = true;
 
 	public RasterArgs(String stId, String format) {
 		this.stId = stId;
 		setFormat(format);
 	}
 
-	/** diagram stable identifier */
+	/**
+	 * diagram stable identifier
+	 */
 	public String getStId() {
 		return stId;
 	}
@@ -52,7 +56,9 @@ public class RasterArgs {
 		return (x - min) / (max - min) * (dest_max - dest_min) + dest_min;
 	}
 
-	/** output image format (png, jpg, gif) */
+	/**
+	 * output image format (png, jpg, gif)
+	 */
 	public String getFormat() {
 		return format;
 	}
@@ -61,7 +67,9 @@ public class RasterArgs {
 		this.format = format == null ? "png" : format.trim().toLowerCase();
 	}
 
-	/** color profiles for diagram, analysis and interactors */
+	/**
+	 * color profiles for diagram, analysis and interactors
+	 */
 	public ColorProfiles getProfiles() {
 		if (profiles == null)
 			profiles = new ColorProfiles(null, null, null);
@@ -77,13 +85,17 @@ public class RasterArgs {
 		return token;
 	}
 
-	/** Analysis token */
+	/**
+	 * Analysis token
+	 */
 	public RasterArgs setToken(String token) {
 		this.token = token;
 		return this;
 	}
 
-	/** Background color when no transparency is available */
+	/**
+	 * Background color when no transparency is available
+	 */
 	public Color getBackground() {
 		return background;
 	}
@@ -154,5 +166,14 @@ public class RasterArgs {
 			this.factor = scale(quality);
 		}
 		return this;
+	}
+
+	public RasterArgs setAutomaticAdjust(boolean automaticAdjust) {
+		this.automaticAdjust = automaticAdjust;
+		return this;
+	}
+
+	public boolean isAutomaticAdjust() {
+		return automaticAdjust;
 	}
 }

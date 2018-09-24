@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
 
 /**
  * Supporting methods for testing diagram renderering. It is used both in {@link
@@ -31,7 +32,7 @@ public class TestUtils {
 	public static final String TOKEN_EXPRESSION_1 = "MjAxODAyMTIxMTMwNDhfMw==";
 	public static final String TOKEN_EXPRESSION_2 = "MjAxODAyMTIxMTMxMTZfNA==";
 	public static final String TOKEN_SPECIES = "MjAxODAyMTIxMTMyMzdfNQ==";
-	private static final File OUTPUT_FOLDER = new File("src/test/resources/org/reactome/server/tools/diagram/exporter/test-images");
+	private static final File OUTPUT_FOLDER = new File("test-images");
 	private static final String TODAYS_SERVER = "https://reactomedev.oicr.on.ca";
 	private static final String ANALYSIS_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/analysis";
 	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/diagram";
@@ -40,8 +41,7 @@ public class TestUtils {
 	private static final TokenUtils TOKEN_UTILS = new TokenUtils(ANALYSIS_PATH);
 
 	// Set to true for visual inspection of tests
-	// todo: don't forget to set to false before pushing
-	private static final boolean save = false;
+	private static final boolean SAVE = Arrays.asList("yes", "y", "true", "ok").contains(System.getProperty("test.save", "false").toLowerCase());
 	private static final RasterExporter EXPORTER;
 
 	static {
@@ -50,7 +50,7 @@ public class TestUtils {
 		ContentServiceClient.setService("/ContentService");
 		createDir(OUTPUT_FOLDER);
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-			if (!save) removeDir(OUTPUT_FOLDER);
+			if (!SAVE) removeDir(OUTPUT_FOLDER);
 		}));
 	}
 
@@ -101,9 +101,13 @@ public class TestUtils {
 			System.err.println("Couldn't delete " + dir);
 	}
 
+	public static void render(RasterArgs args) {
+		render(args, null);
+	}
+
 	public static void render(RasterArgs args, AnalysisStoredResult result) {
 		try {
-			final OutputStream os = save
+			final OutputStream os = SAVE
 					? new FileOutputStream(new File(OUTPUT_FOLDER, getFileName(args, result)))
 					: new NullOutputStream();
 			EXPORTER.export(args, os, result);
@@ -113,7 +117,4 @@ public class TestUtils {
 		}
 	}
 
-	public static RasterExporter getExporter() {
-		return EXPORTER;
-	}
 }
