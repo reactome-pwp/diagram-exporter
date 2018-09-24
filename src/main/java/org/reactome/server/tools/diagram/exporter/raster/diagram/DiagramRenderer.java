@@ -69,7 +69,6 @@ public class DiagramRenderer implements RasterRenderer {
 	 */
 	private static final double MAX_IMAGE_SIZE = 1e8; // 100Mpixels
 	private static final double MAX_GIF_SIZE = 1e7; // 10Mpixels
-	private static final int MARGIN = 15;
 	private static final Set<String> TRANSPARENT_FORMATS = new HashSet<>(Collections.singletonList("png"));
 	private static final Set<String> NO_TRANSPARENT_FORMATS = new HashSet<>(Arrays.asList("jpg", "jpeg", "gif"));
 	private static final int T = 0;
@@ -110,8 +109,8 @@ public class DiagramRenderer implements RasterRenderer {
 	@Override
 	public Dimension getDimension() {
 		final Rectangle2D bounds = canvas.getBounds();
-		int width = (int) ((2 * MARGIN + bounds.getWidth()) * factor + 0.5);
-		int height = (int) ((2 * MARGIN + bounds.getHeight()) * factor + 0.5);
+		int width = (int) ((2 * args.getMargin() + bounds.getWidth()) * factor + 0.5);
+		int height = (int) ((2 * args.getMargin() + bounds.getHeight()) * factor + 0.5);
 		return new Dimension(width, height);
 	}
 
@@ -187,11 +186,11 @@ public class DiagramRenderer implements RasterRenderer {
 
 	private double limitFactor(double maxSize) {
 		final Rectangle2D bounds = canvas.getBounds();
-		final double width = args.getFactor() * (MARGIN + bounds.getWidth());
-		final double height = args.getFactor() * (MARGIN + bounds.getHeight());
+		final double width = args.getFactor() * (args.getMargin() + bounds.getWidth());
+		final double height = args.getFactor() * (args.getMargin() + bounds.getHeight());
 		double size = width * height;
 		if (size > maxSize) {
-			final double newFactor = Math.sqrt(maxSize / ((MARGIN + bounds.getWidth()) * (MARGIN + bounds.getHeight())));
+			final double newFactor = Math.sqrt(maxSize / ((args.getMargin() + bounds.getWidth()) * (args.getMargin() + bounds.getHeight())));
 			log.warning(String.format(
 					"Diagram %s is too large. Quality reduced from %.2f to %.2f -> (%d x %d)",
 					args.getStId(), args.getFactor(), newFactor, (int) (bounds.getWidth() * newFactor), (int) (bounds.getHeight() * newFactor)));
@@ -276,19 +275,12 @@ public class DiagramRenderer implements RasterRenderer {
 
 	private Rectangle2D graphicsBounds(double factor) {
 		final Rectangle2D bounds = canvas.getBounds();
-		if (args.isAutomaticAdjust()) {
-			return new Rectangle2D.Double(
-					Math.ceil((bounds.getX() - MARGIN) * factor),
-					Math.ceil((bounds.getY() - MARGIN) * factor),
-					Math.ceil((2 * MARGIN + bounds.getWidth()) * factor),
-					Math.ceil((2 * MARGIN + bounds.getHeight()) * factor)
-			);
-		} else {
-			return new Rectangle2D.Double(0, 0,
-					Math.ceil(bounds.getMaxX() * factor),
-					Math.ceil(bounds.getMaxY() * factor)
-			);
-		}
+		return new Rectangle2D.Double(
+				Math.ceil((bounds.getX() - args.getMargin()) * factor),
+				Math.ceil((bounds.getY() - args.getMargin()) * factor),
+				Math.ceil((2 * args.getMargin() + bounds.getWidth()) * factor),
+				Math.ceil((2 * args.getMargin() + bounds.getHeight()) * factor)
+		);
 	}
 
 }

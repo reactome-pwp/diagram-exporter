@@ -263,15 +263,15 @@ public class DiagramRendererTest {
 	}
 
 	@Test
-	public void testAutomaticAdjust() {
+	public void testMargin() {
 		// Negative minX and minY
 		RasterArgs args = new RasterArgs("R-HSA-112310", "png")
-				.setAutomaticAdjust(false)
+				.setMargin(25)
 				.setQuality(8);
 		TestUtils.render(args);
 		// Positive
 		args = new RasterArgs("R-HSA-166058", "svg")
-				.setAutomaticAdjust(false)
+				.setMargin(-45)
 				.setQuality(6)
 				.setToken(TestUtils.TOKEN_EXPRESSION_1);
 		TestUtils.render(args);

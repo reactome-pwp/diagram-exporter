@@ -22,7 +22,7 @@ public class RasterArgs {
 	private Boolean writeTitle;
 	private Integer quality = 5;
 	private Double factor = scale(quality);
-	private boolean automaticAdjust = true;
+	private Integer margin = 15;
 
 	public RasterArgs(String stId, String format) {
 		this.stId = stId;
@@ -168,12 +168,13 @@ public class RasterArgs {
 		return this;
 	}
 
-	public RasterArgs setAutomaticAdjust(boolean automaticAdjust) {
-		this.automaticAdjust = automaticAdjust;
+	public RasterArgs setMargin(Integer margin) {
+		if (margin != null)
+			this.margin = Math.max(0, Math.min(20, margin));
 		return this;
 	}
 
-	public boolean isAutomaticAdjust() {
-		return automaticAdjust;
+	public Integer getMargin() {
+		return margin;
 	}
 }
