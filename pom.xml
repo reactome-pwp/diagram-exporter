@@ -40,7 +40,6 @@
     <properties>
         <diagram.reader.version>1.1.4</diagram.reader.version>
         <batik.version>1.10</batik.version>
-        <diagram.reader.version>1.1.4</diagram.reader.version>
         <aspose.version>17.7</aspose.version>
         <logback.version>1.1.10</logback.version>
         <commons.io.version>2.5</commons.io.version>
@@ -57,6 +56,9 @@
         <maven.compiler.version>3.5.1</maven.compiler.version>
         <maven.jar.version>3.0.2</maven.jar.version>
         <maven.source.version>2.4</maven.source.version>
+
+        <!-- true: saves all images in the project root folder for manually check -->
+        <test.save>false</test.save>
     </properties>
 
     <dependencies>
