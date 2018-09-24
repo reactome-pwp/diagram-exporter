@@ -1,5 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.layers;
 
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.DrugHelper;
+
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.util.Arrays;
@@ -90,6 +92,7 @@ public class DiagramCanvas {
 	 * for each. This should create an Image in graphics.
 	 */
 	public void render(Graphics2D graphics) {
+		DrugHelper.setGraphics2D(graphics);
 		layers.forEach(layer -> layer.render(graphics));
 	}
 
