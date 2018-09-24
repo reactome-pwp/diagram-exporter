@@ -15,7 +15,7 @@ public class RenderableComplexDrug extends RenderableComplex {
 	@Override
 	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
 		super.draw(canvas, colorProfiles, index, t);
-		DrugHelper.addDrugText(canvas, this, colorProfiles, index, 4, 4);
+		DrugHelper.addDrugText(canvas, this, colorProfiles, index, 4, 2);
 	}
 
 	@Override
