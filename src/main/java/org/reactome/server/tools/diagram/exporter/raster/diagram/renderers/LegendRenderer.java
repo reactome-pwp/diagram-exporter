@@ -14,6 +14,7 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.Ren
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
 import org.reactome.server.tools.diagram.exporter.raster.resources.Resources;
+import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -37,17 +38,25 @@ import java.util.stream.Collectors;
 public class LegendRenderer {
 
 	private static final double RELATIVE_LOGO_WIDTH = 0.1;
-	/** space from diagram to legend */
+	/**
+	 * space from diagram to legend
+	 */
 	private static final int LEGEND_TO_DIAGRAM_SPACE = 15;
 	private static final int LEGEND_WIDTH = 70;
 	private static final int LEGEND_HEIGHT = 350;
 	private static final DecimalFormat EXPRESSION_FORMAT = new DecimalFormat("#.##E0", DecimalFormatSymbols.getInstance(Locale.UK));
 	private static final DecimalFormat ENRICHMENT_FORMAT = new DecimalFormat("#.##", DecimalFormatSymbols.getInstance(Locale.UK));
-	/** value to create ticks arrows */
+	/**
+	 * value to create ticks arrows
+	 */
 	private static final int ARROW_SIZE = 5;
-	/** space between texts and color bar */
+	/**
+	 * space between texts and color bar
+	 */
 	private static final double TEXT_PADDING = 2;
-	/** space between background and color bar or text, what before */
+	/**
+	 * space between background and color bar or text, what before
+	 */
 	private static final double BACKGROUND_PADDING = 10;
 	private static final Color BACKGROUND_BORDER = new Color(175, 175, 175);
 	private static final Color BACKGROUND_FILL = new Color(220, 220, 220);
@@ -73,8 +82,6 @@ public class LegendRenderer {
 	private final DiagramIndex index;
 	private final ColorProfiles profiles;
 	private NodeProperties bottomTextBox;
-	private double logo_height;
-	private double logo_width;
 	private Rectangle2D.Double colorBar;
 
 	public LegendRenderer(DiagramCanvas canvas, DiagramIndex index, ColorProfiles profiles) {
@@ -308,38 +315,34 @@ public class LegendRenderer {
 	 * Adds a logo in the bottom right corner of the canvas.
 	 */
 	public void addLogo() {
-		try {
-			final Rectangle2D bounds = canvas.getBounds();
-			final BufferedImage logo = getLogo();
-			logo_width = bounds.getWidth() * RELATIVE_LOGO_WIDTH;
-			if (logo_width > logo.getWidth()) logo_width = logo.getWidth();
-			if (logo_width < MIN_LOGO_WIDTH) logo_width = MIN_LOGO_WIDTH;
-			logo_height = logo_width / logo.getWidth() * logo.getHeight();
-
-			final NodeProperties limits = NodePropertiesFactory.get(
-					bounds.getMaxX() - logo_width,
-					bounds.getMaxY() + LEGEND_TO_DIAGRAM_SPACE,
-					logo_width, logo_height);
-			this.canvas.getLogoLayer().add(logo, limits);
-			// Now we can reserve the rest of space for the text
-			createBottomTextBox();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		final Rectangle2D bounds = canvas.getBounds();
+		final BufferedImage logo = getLogo();
+		double logoWidth = bounds.getWidth() * RELATIVE_LOGO_WIDTH;
+		if (logoWidth > logo.getWidth()) logoWidth = logo.getWidth();
+		if (logoWidth < MIN_LOGO_WIDTH) logoWidth = MIN_LOGO_WIDTH;
+		final double logoHeight = logoWidth / logo.getWidth() * logo.getHeight();
+		final NodeProperties limits = NodePropertiesFactory.get(
+				bounds.getMaxX() - logoWidth,
+				bounds.getMaxY() + LEGEND_TO_DIAGRAM_SPACE,
+				logoWidth, logoHeight);
+		this.canvas.getLogoLayer().add(logo, limits);
+		// Now we can reserve the rest of space for the text
+		createBottomTextBox(logoWidth, logoHeight);
 	}
 
-	private BufferedImage getLogo() throws IOException {
+	private BufferedImage getLogo() {
 		final String filename = "images/reactome_logo_100pxW_50T.png";
 		final InputStream resource = Resources.class.getResourceAsStream(filename);
-		return ImageIO.read(resource);
+		try {
+			return ImageIO.read(resource);
+		} catch (IOException e) {
+			LoggerFactory.getLogger("diagram-exporter").error("Logo not found in resources");
+		}
+		return new BufferedImage(1,1, BufferedImage.TYPE_INT_ARGB);
 	}
 
-	private void createBottomTextBox() {
+	private void createBottomTextBox(double logoWidth, double logoHeight) {
 		final Rectangle2D bounds = canvas.getBounds();
-		final double x = bounds.getMinX();
-		final double y = bounds.getMaxY() - logo_height;
-		final double width = bounds.getWidth() - logo_width;
-		final double height = logo_height;
-		bottomTextBox = NodePropertiesFactory.get(x, y, width, height);
+		bottomTextBox = NodePropertiesFactory.get(bounds.getMinX(), bounds.getMaxY() - logoHeight, bounds.getWidth() - logoWidth, logoHeight);
 	}
 }

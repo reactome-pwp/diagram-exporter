@@ -45,7 +45,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Renders Reactome pathway diagrams into <code>BufferedImage</code>s.
+ * Renders low level Reactome pathway diagrams into different formats.
  *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
