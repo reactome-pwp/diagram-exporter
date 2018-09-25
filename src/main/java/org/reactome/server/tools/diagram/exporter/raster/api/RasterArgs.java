@@ -23,6 +23,7 @@ public class RasterArgs {
 	private Integer quality = 5;
 	private Double factor = scale(quality);
 	private Integer margin = 15;
+	private boolean ehld = true;
 
 	public RasterArgs(String stId, String format) {
 		this.stId = stId;
@@ -176,5 +177,14 @@ public class RasterArgs {
 
 	public Integer getMargin() {
 		return margin;
+	}
+
+	public boolean isEhld() {
+		return ehld;
+	}
+
+	public RasterArgs setEhld(boolean ehld) {
+		this.ehld = ehld;
+		return this;
 	}
 }

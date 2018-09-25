@@ -77,7 +77,8 @@ public class RasterExporter {
 	 * @param args image arguments
 	 */
 	public BufferedImage exportToImage(RasterArgs args, AnalysisStoredResult result) throws AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
-		final RasterRenderer renderer = getRenderer(args, result);
+		result = getResult(args.getToken(), result);
+		final RasterRenderer renderer = selectRenderer(args, result);
 //		final Dimension dimension = renderer.getDimension();
 //		double size = dimension.getHeight() * dimension.getWidth();
 		return renderer.render();
@@ -100,7 +101,8 @@ public class RasterExporter {
 	 * class that supports storing a GIF in memory.
 	 */
 	public void exportToGif(RasterArgs args, OutputStream os, AnalysisStoredResult result) throws AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException, IOException {
-		final RasterRenderer renderer = getRenderer(args, result);
+		result = getResult(args.getToken(), result);
+		final RasterRenderer renderer = selectRenderer(args, result);
 		renderer.renderToAnimatedGif(os);
 	}
 
@@ -117,7 +119,8 @@ public class RasterExporter {
 	 * flagging and analysis.See {@link RasterOutput} for saving options.
 	 */
 	public SVGDocument exportToSvg(RasterArgs args, AnalysisStoredResult result) throws AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
-		final RasterRenderer renderer = getRenderer(args, result);
+		result = getResult(args.getToken(), result);
+		final RasterRenderer renderer = selectRenderer(args, result);
 		return renderer.renderToSvg();
 	}
 
@@ -132,7 +135,8 @@ public class RasterExporter {
 	 * Creates an iText7 PDF document in reading mode.
 	 */
 	public Document exportToPdf(RasterArgs args, AnalysisStoredResult result) throws EhldException, AnalysisException, DiagramJsonNotFoundException, DiagramJsonDeserializationException, IOException {
-		final RasterRenderer renderer = getRenderer(args, result);
+		result = getResult(args.getToken(), result);
+		final RasterRenderer renderer = selectRenderer(args, result);
 		return renderer.renderToPdf();
 	}
 
@@ -153,12 +157,10 @@ public class RasterExporter {
 	 */
 	public void export(RasterArgs args, OutputStream os, AnalysisStoredResult result) throws EhldException, AnalysisException, DiagramJsonNotFoundException, DiagramJsonDeserializationException, IOException, TranscoderException {
 		result = getResult(args.getToken(), result);
+		final RasterRenderer renderer = selectRenderer(args, result);
 		final AnalysisType type = result == null
 				? null
 				: AnalysisType.valueOf(result.getSummary().getType());
-		final RasterRenderer renderer = ehld.contains(args.getStId())
-				? new EhldRenderer(args, ehldPath, result)
-				: new DiagramRenderer(args, diagramPath, result);
 		if (args.getFormat().equalsIgnoreCase("gif")
 				&& args.getColumn() == null
 				&& type == AnalysisType.EXPRESSION)
@@ -170,13 +172,8 @@ public class RasterExporter {
 		else RasterOutput.save(renderer.render(), args.getFormat(), os);
 	}
 
-	/**
-	 * Creates a proper RasterRenderer depending on the type of the source
-	 * diagram (standard or enhanced).
-	 */
-	private RasterRenderer getRenderer(RasterArgs args, AnalysisStoredResult result) throws AnalysisException, EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
-		result = getResult(args.getToken(), result);
-		return ehld.contains(args.getStId())
+	private RasterRenderer selectRenderer(RasterArgs args, AnalysisStoredResult result) throws EhldException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
+		return args.isEhld() && ehld.contains(args.getStId())
 				? new EhldRenderer(args, ehldPath, result)
 				: new DiagramRenderer(args, diagramPath, result);
 	}

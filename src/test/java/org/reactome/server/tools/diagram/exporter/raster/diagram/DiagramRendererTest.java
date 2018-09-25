@@ -276,4 +276,11 @@ public class DiagramRendererTest {
 				.setToken(TestUtils.TOKEN_EXPRESSION_1);
 		TestUtils.render(args);
 	}
+
+	@Test
+	public void testUseEhld() {
+		final RasterArgs args = new RasterArgs("R-HSA-1500931", "png")
+				.setEhld(false);
+		TestUtils.render(args);
+	}
 }

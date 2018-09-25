@@ -1,0 +1,28 @@
+{
+  "dbId" : 1500931,
+  "stId" : "R-HSA-1500931",
+  "speciesName" : "Homo sapiens",
+  "nodes" : [ {
+    "dbId" : 373753,
+    "stId" : "R-HSA-373753",
+    "displayName" : "Nephrin family interactions",
+    "schemaClass" : "Pathway",
+    "speciesId" : 48887,
+    "diagramIds" : [ 256 ]
+  }, {
+    "dbId" : 391160,
+    "stId" : "R-HSA-391160",
+    "displayName" : "Signal regulatory protein family interactions",
+    "schemaClass" : "Pathway",
+    "speciesId" : 48887,
+    "diagramIds" : [ 259 ]
+  }, {
+    "dbId" : 446728,
+    "stId" : "R-HSA-446728",
+    "displayName" : "Cell junction organization",
+    "schemaClass" : "Pathway",
+    "speciesId" : 48887,
+    "diagramIds" : [ 257 ]
+  } ],
+  "edges" : [ ]
+}

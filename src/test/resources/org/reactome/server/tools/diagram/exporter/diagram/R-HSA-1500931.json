@@ -1,0 +1,91 @@
+{
+  "dbId" : 1500931,
+  "stableId" : "R-HSA-1500931",
+  "displayName" : "Cell-Cell communication",
+  "nodes" : [ {
+    "id" : 256,
+    "reactomeId" : 373753,
+    "displayName" : "Nephrin family interactions",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "ProcessNode",
+    "position" : {
+      "x" : 403,
+      "y" : 47
+    },
+    "minX" : 318,
+    "maxX" : 489,
+    "minY" : 10,
+    "maxY" : 84,
+    "prop" : {
+      "x" : 318,
+      "y" : 10,
+      "width" : 171,
+      "height" : 74
+    },
+    "textPosition" : {
+      "x" : 318,
+      "y" : 32
+    },
+    "connectors" : [ ]
+  }, {
+    "id" : 257,
+    "reactomeId" : 446728,
+    "displayName" : "Cell junction organization",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "ProcessNode",
+    "position" : {
+      "x" : 78,
+      "y" : 51
+    },
+    "minX" : 11,
+    "maxX" : 146,
+    "minY" : 14,
+    "maxY" : 88,
+    "prop" : {
+      "x" : 11,
+      "y" : 14,
+      "width" : 135,
+      "height" : 74
+    },
+    "textPosition" : {
+      "x" : 33,
+      "y" : 29
+    },
+    "connectors" : [ ]
+  }, {
+    "id" : 259,
+    "reactomeId" : 391160,
+    "displayName" : "Signal regulatory protein family interactions",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "ProcessNode",
+    "position" : {
+      "x" : 235,
+      "y" : 52
+    },
+    "minX" : 159,
+    "maxX" : 312,
+    "minY" : 15,
+    "maxY" : 89,
+    "prop" : {
+      "x" : 159,
+      "y" : 15,
+      "width" : 153,
+      "height" : 74
+    },
+    "textPosition" : {
+      "x" : 178,
+      "y" : 23
+    },
+    "connectors" : [ ]
+  } ],
+  "edges" : [ ],
+  "compartments" : [ ],
+  "notes" : [ ],
+  "links" : [ ],
+  "shadows" : [ ],
+  "minX" : 11,
+  "maxX" : 489,
+  "minY" : 10,
+  "maxY" : 89,
+  "disease" : false
+}
