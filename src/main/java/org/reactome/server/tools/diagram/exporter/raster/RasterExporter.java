@@ -41,6 +41,10 @@ public class RasterExporter {
 	private final Set<String> ehld;
 	private final TokenUtils tokenUtils;
 
+	/**
+	 * Creates an empty RasterExporter. As no paths are configured, only
+	 * {@link RasterExporter#export(Diagram, Graph, RasterArgs, AnalysisStoredResult, OutputStream)} will be available.
+	 */
 	public RasterExporter() {
 		diagramPath = null;
 		ehldPath = null;
@@ -182,7 +186,7 @@ public class RasterExporter {
 	 * @param result  use a non null value to overlay analysis results
 	 * @param os      result will be written through the OutputStream
 	 * @throws IOException         for problems wit the outputStream
-	 * @throws TranscoderException for problems with the rendering to SVG
+	 * @throws TranscoderException for problems when rendering to SVG
 	 * @throws AnalysisException   for problems with the analysis
 	 */
 	public void export(Diagram diagram, Graph graph, RasterArgs args, AnalysisStoredResult result, OutputStream os) throws IOException, TranscoderException, AnalysisException {
