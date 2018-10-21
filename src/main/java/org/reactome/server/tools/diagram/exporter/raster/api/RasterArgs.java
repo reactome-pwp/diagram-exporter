@@ -25,8 +25,8 @@ public class RasterArgs {
 	private Integer margin = 15;
 	private boolean ehld = true;
 
-	public RasterArgs(String stId, String format) {
-		this.stId = stId;
+	public RasterArgs(String pwyStId, String format) {
+		this.stId = pwyStId;
 		setFormat(format);
 	}
 
