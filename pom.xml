@@ -38,14 +38,14 @@
     </developers>
 
     <properties>
-        <diagram.reader.version>1.1.4</diagram.reader.version>
+        <diagram.reader.version>1.1.5</diagram.reader.version>
         <batik.version>1.10</batik.version>
         <aspose.version>17.7</aspose.version>
         <logback.version>1.1.10</logback.version>
         <commons.io.version>2.5</commons.io.version>
         <jasp.version>2.1</jasp.version>
         <junit.version>4.12</junit.version>
-        <analysis.core.version>3.1.2</analysis.core.version>
+        <analysis.core.version>3.2.0-SNAPSHOT</analysis.core.version>
 
         <!--build-->
         <jdk.version>1.8</jdk.version>

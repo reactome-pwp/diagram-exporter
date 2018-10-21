@@ -96,7 +96,7 @@ public class DiagramAnalysis {
 	}
 
 	private void foundElements() {
-		final FoundElements foundElements = result.getFoundElmentsForPathway(args.getStId(), resource);
+		final FoundElements foundElements = result.getFoundElmentsForPathway(diagram.getStableId(), resource);
 		if (foundElements == null) return;
 		if (type == AnalysisType.EXPRESSION) expression(foundElements);
 		else if (type == AnalysisType.OVERREPRESENTATION ||
