@@ -78,7 +78,7 @@ public class DiagramRenderer implements RasterRenderer {
 	private final RasterArgs args;
 	private final double factor;
 	private final String title;
-	private final Diagram diagram;
+	private final String stId;
 	private DiagramCanvas canvas;
 	private LegendRenderer legendRenderer;
 
@@ -93,8 +93,11 @@ public class DiagramRenderer implements RasterRenderer {
 	 * @throws DiagramJsonDeserializationException if diagram is malformed
 	 */
 	public DiagramRenderer(RasterArgs args, String diagramPath, AnalysisStoredResult result) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException {
-		final Graph graph = ResourcesFactory.getGraph(diagramPath, args.getStId());
-		diagram = ResourcesFactory.getDiagram(diagramPath, args.getStId());
+		this(ResourcesFactory.getDiagram(diagramPath, args.getStId()), ResourcesFactory.getGraph(diagramPath, args.getStId()), args, result);
+	}
+
+	public DiagramRenderer(Diagram diagram, Graph graph, RasterArgs args, AnalysisStoredResult result) {
+		this.stId = diagram.getStableId();
 		this.title = args.getWriteTitle() != null && args.getWriteTitle()
 				? diagram.getDisplayName()
 				: null;
@@ -193,7 +196,7 @@ public class DiagramRenderer implements RasterRenderer {
 			final double newFactor = Math.sqrt(maxSize / ((args.getMargin() + bounds.getWidth()) * (args.getMargin() + bounds.getHeight())));
 			log.warning(String.format(
 					"Diagram %s is too large. Quality reduced from %.2f to %.2f -> (%d x %d)",
-					args.getStId(), args.getFactor(), newFactor, (int) (bounds.getWidth() * newFactor), (int) (bounds.getHeight() * newFactor)));
+					stId, args.getFactor(), newFactor, (int) (bounds.getWidth() * newFactor), (int) (bounds.getHeight() * newFactor)));
 			return newFactor;
 		}
 		return args.getFactor();

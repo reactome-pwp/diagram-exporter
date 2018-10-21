@@ -1,12 +1,22 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram;
 
 
+import org.apache.batik.transcoder.TranscoderException;
+import org.apache.commons.io.output.NullOutputStream;
 import org.junit.Test;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
+import org.reactome.server.tools.diagram.data.graph.Graph;
+import org.reactome.server.tools.diagram.data.layout.Diagram;
+import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
+import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisException;
+import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
+import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
+import org.reactome.server.tools.diagram.exporter.raster.RasterExporter;
 import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -282,5 +292,18 @@ public class DiagramRendererTest {
 		final RasterArgs args = new RasterArgs("R-HSA-1500931", "png")
 				.setEhld(false);
 		TestUtils.render(args);
+	}
+
+	@Test
+	public void fromDiagramObject() {
+		final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/diagram";
+		try {
+			final String stId = "R-HSA-432047";
+			final Diagram diagram = ResourcesFactory.getDiagram(DIAGRAM_PATH, stId);
+			final Graph graph = ResourcesFactory.getGraph(DIAGRAM_PATH, stId);
+			new RasterExporter().export(diagram, graph, new RasterArgs("png"), null, new NullOutputStream());
+		} catch (DiagramJsonDeserializationException | DiagramJsonNotFoundException | TranscoderException | AnalysisException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

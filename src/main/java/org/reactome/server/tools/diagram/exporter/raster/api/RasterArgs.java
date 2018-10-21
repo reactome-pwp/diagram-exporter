@@ -30,6 +30,10 @@ public class RasterArgs {
 		setFormat(format);
 	}
 
+	public RasterArgs(String format) {
+		setFormat(format);
+	}
+
 	/**
 	 * diagram stable identifier
 	 */
