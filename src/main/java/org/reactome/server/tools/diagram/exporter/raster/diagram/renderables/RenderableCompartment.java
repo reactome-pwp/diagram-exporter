@@ -18,7 +18,7 @@ import java.awt.geom.Area;
 
 public class RenderableCompartment extends RenderableNodeCommon<Compartment> {
 
-	private static final Coordinate GWU_CORRECTION = CoordinateFactory.get(14, 18);
+	public static final Coordinate GWU_CORRECTION = CoordinateFactory.get(14, 18);
 
 	RenderableCompartment(Compartment compartment) {super(compartment);}
 

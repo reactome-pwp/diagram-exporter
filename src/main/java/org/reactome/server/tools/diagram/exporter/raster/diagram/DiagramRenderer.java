@@ -78,7 +78,7 @@ public class DiagramRenderer implements RasterRenderer {
 	private final RasterArgs args;
 	private final double factor;
 	private final String title;
-	private final String stId;
+	private final Diagram diagram;
 	private DiagramCanvas canvas;
 	private LegendRenderer legendRenderer;
 
@@ -97,8 +97,8 @@ public class DiagramRenderer implements RasterRenderer {
 	}
 
 	public DiagramRenderer(Diagram diagram, Graph graph, RasterArgs args, AnalysisStoredResult result) {
-		this.stId = diagram.getStableId();
-		this.title = args.getWriteTitle() != null && args.getWriteTitle()
+		this.diagram = diagram;
+		this.title = args.getWriteTitle()
 				? diagram.getDisplayName()
 				: null;
 		this.args = args;
@@ -196,7 +196,7 @@ public class DiagramRenderer implements RasterRenderer {
 			final double newFactor = Math.sqrt(maxSize / ((args.getMargin() + bounds.getWidth()) * (args.getMargin() + bounds.getHeight())));
 			log.warning(String.format(
 					"Diagram %s is too large. Quality reduced from %.2f to %.2f -> (%d x %d)",
-					stId, args.getFactor(), newFactor, (int) (bounds.getWidth() * newFactor), (int) (bounds.getHeight() * newFactor)));
+					diagram.getStableId(), args.getFactor(), newFactor, (int) (bounds.getWidth() * newFactor), (int) (bounds.getHeight() * newFactor)));
 			return newFactor;
 		}
 		return args.getFactor();
@@ -265,13 +265,13 @@ public class DiagramRenderer implements RasterRenderer {
 		if (index.getAnalysis().getType() == AnalysisType.EXPRESSION) {
 			// We add the legend first, so the logo is aligned to the right margin
 			legendRenderer.addLegend();
-			legendRenderer.addLogo();
+			legendRenderer.addLogo(args, diagram);
 			if (args.getColumn() != null) {
 				legendRenderer.setCol(args.getColumn(), title);
 			} else if (!args.getFormat().equals("gif"))
 				legendRenderer.setCol(0, title);
 		} else {
-			legendRenderer.addLogo();
+			legendRenderer.addLogo(args, diagram);
 			legendRenderer.infoText(title);
 		}
 	}

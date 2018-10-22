@@ -19,7 +19,7 @@ public class RasterArgs {
 	private Color background;
 	private Integer column;
 	private String resource;
-	private Boolean writeTitle;
+	private Boolean writeTitle = false;
 	private Integer quality = 5;
 	private Double factor = scale(quality);
 	private Integer margin = 15;
@@ -137,7 +137,7 @@ public class RasterArgs {
 	}
 
 	public RasterArgs setWriteTitle(Boolean writeTitle) {
-		this.writeTitle = writeTitle;
+		this.writeTitle = writeTitle != null && writeTitle;
 		return this;
 	}
 
