@@ -68,7 +68,7 @@ public class LegendRenderer {
 	 * space between background and color bar or text, what before
 	 */
 	private static final double BACKGROUND_PADDING = 10;
-	private static final double LOGO_PADDING = 15;
+	private static final double LOGO_PADDING = 20;
 	private static final Color BACKGROUND_BORDER = new Color(175, 175, 175);
 	private static final Color BACKGROUND_FILL = new Color(220, 220, 220);
 	private static final double MIN_LOGO_WIDTH = 50;
@@ -358,9 +358,6 @@ public class LegendRenderer {
 		// |  8  9  7 |
 		// |  2  5  1 |
 		// +----------+
-		final int[] hits = new int[9];
-		Arrays.fill(hits, 0);
-		final double area = width * height;
 		final double hh = 0.5 * height;
 		final double hw = 0.5 * width;
 		final double x = bounds.getX() + LOGO_PADDING;
@@ -369,58 +366,64 @@ public class LegendRenderer {
 		final double my = bounds.getMaxY() - LOGO_PADDING - height;
 		final double cx = bounds.getCenterX() - hw;
 		final double cy = bounds.getCenterY() - hh;
-		final Rectangle2D[] positions = new Rectangle2D[9];
-		positions[0] = new Rectangle2D.Double(mx, my, width, height);
-		positions[1] = new Rectangle2D.Double(x, my, width, height);
-		positions[2] = new Rectangle2D.Double(mx, y, width, height);
-		positions[3] = new Rectangle2D.Double(x, y, width, height);
-		positions[4] = new Rectangle2D.Double(cx, my, width, height);
-		positions[5] = new Rectangle2D.Double(cx, y, width, height);
-		positions[6] = new Rectangle2D.Double(mx, cy, width, height);
-		positions[7] = new Rectangle2D.Double(x, cy, width, height);
-		positions[8] = new Rectangle2D.Double(mx, cy, width, height);
+		final List<Rectangle2D> positions = Arrays.asList(
+				new Rectangle2D.Double(mx, my, width, height),
+				new Rectangle2D.Double(x, my, width, height),
+				new Rectangle2D.Double(mx, y, width, height),
+				new Rectangle2D.Double(x, y, width, height),
+				new Rectangle2D.Double(cx, my, width, height),
+				new Rectangle2D.Double(cx, y, width, height),
+				new Rectangle2D.Double(mx, cy, width, height),
+				new Rectangle2D.Double(x, cy, width, height),
+				new Rectangle2D.Double(mx, cy, width, height));
+		for (Rectangle2D position : positions) {
+			if (!anyInside(diagram, position)) {
+				return NodePropertiesFactory.get(position.getX(), position.getY(), width, height);
+			}
+		}
+		// None of the positions is valid
+		return null;
+	}
+
+	private boolean anyInside(Diagram diagram, Rectangle2D position) {
+		// -2 for rounding issues
+		final double area = position.getHeight() * position.getWidth() - 2;
 		// Nodes
 		for (Node node : diagram.getNodes()) {
-			for (int i = 0; i < positions.length; i++) {
-				if (positions[i].intersects(toRectangle(node.getProp()))) hits[i]++;
-			}
+			if (position.intersects(toRectangle(node.getProp()))) return true;
 		}
 		// Edges
 		for (Edge edge : diagram.getEdges()) {
 			final double w = edge.getMaxX() - edge.getMinX();
 			final double h = edge.getMaxY() - edge.getMinY();
-			for (int i = 0; i < positions.length; i++) {
-				if (positions[i].intersects(edge.getMinX(), edge.getMinY(), w, h)) hits[i]++;
-			}
+			if (position.intersects(edge.getMinX(), edge.getMinY(), w, h)) return true;
 		}
 		// Compartments
 		for (Compartment compartment : diagram.getCompartments()) {
-			// If comp has inner, then logo can lay on membrane
+			final Rectangle2D.Double outer = toRectangle(compartment.getProp());
+			Rectangle2D intersection = position.createIntersection(outer);
+			double intersectionArea = intersection.getWidth() * intersection.getHeight();
+			if (!intersection.isEmpty() && intersectionArea > 0 && intersectionArea < area) return true;
 			if (compartment.getInsets() != null) {
 				final Rectangle2D.Double inner = toRectangle(compartment.getInsets());
-//				final Rectangle2D.Double outer = toRectangle(compartment.getProp());
-				for (int i = 0; i < positions.length; i++) {
-					final Rectangle2D intersection = positions[i].createIntersection(inner);
-
-					final double intersectionArea = intersection.getWidth() * intersection.getHeight();
-					if (intersectionArea < area && intersectionArea > 0) hits[i]++;
-//					if (positions[i].intersects(outer) && positions[i].intersects(inner)) hits[i]++;
-				}
+				intersection = position.createIntersection(inner);
+				intersectionArea = intersection.getWidth() * intersection.getHeight();
+				if (!intersection.isEmpty() && intersectionArea > 0 && intersectionArea < area) return true;
 			}
 			// And we also check for text
 			final double tw = FONT_METRICS.stringWidth(compartment.getDisplayName());
 			final double th = FONT_METRICS.getHeight();
 			final double tx = compartment.getTextPosition().getX() + RenderableCompartment.GWU_CORRECTION.getX();
 			final double ty = compartment.getTextPosition().getY() + RenderableCompartment.GWU_CORRECTION.getY();
-			for (int i = 0; i < positions.length; i++) {
-				if (positions[i].intersects(tx, ty, tw, th)) hits[i]++;
+			if (position.intersects(tx, ty, tw, th)) return true;
+		}
+		for (Link link : diagram.getLinks()) {
+			for (Segment segment : link.getSegments()) {
+				final Line2D.Double line = new Line2D.Double(segment.getFrom().getX(), segment.getFrom().getY(), segment.getTo().getX(), segment.getTo().getY());
+				if (position.intersectsLine(line)) return true;
 			}
 		}
-
-		for (int i = 0; i < positions.length; i++)
-			if (hits[i] == 0)
-				return NodePropertiesFactory.get(positions[i].getX(), positions[i].getY(), width, height);
-		return null;
+		return false;
 	}
 
 	private Rectangle2D.Double toRectangle(NodeProperties properties) {
