@@ -3,30 +3,23 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram.renderers;
 import org.apache.commons.io.IOUtils;
 import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.analysis.core.result.model.FoundEntity;
-import org.reactome.server.tools.diagram.data.layout.*;
+import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
-import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramAnalysis;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableCompartment;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
 import org.reactome.server.tools.diagram.exporter.raster.resources.Resources;
-import org.slf4j.LoggerFactory;
 
-import javax.imageio.ImageIO;
-import java.awt.Color;
 import java.awt.*;
-import java.awt.Shape;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -41,13 +34,6 @@ import java.util.stream.Collectors;
  */
 public class LegendRenderer {
 
-	/**
-	 * For measuring text width
-	 */
-	private static final FontMetrics FONT_METRICS = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB)
-			.createGraphics().getFontMetrics(FontProperties.DEFAULT_FONT);
-
-	private static final double RELATIVE_LOGO_WIDTH = 0.1;
 	/**
 	 * space from diagram to legend
 	 */
@@ -68,10 +54,8 @@ public class LegendRenderer {
 	 * space between background and color bar or text, what before
 	 */
 	private static final double BACKGROUND_PADDING = 10;
-	private static final double LOGO_PADDING = 20;
 	private static final Color BACKGROUND_BORDER = new Color(175, 175, 175);
 	private static final Color BACKGROUND_FILL = new Color(220, 220, 220);
-	private static final double MIN_LOGO_WIDTH = 50;
 	private static final Map<Long, String> SPECIES = new TreeMap<>();
 
 	// FIXME: hardcoded the species name because it is not reported in AnalysisResult
@@ -322,130 +306,7 @@ public class LegendRenderer {
 		canvas.getLegendText().add(bottomText, Color.BLACK, bottom, 0, 0, FontProperties.DEFAULT_FONT);
 	}
 
-	/**
-	 * Adds a logo in the bottom right corner of the canvas.
-	 *
-	 * @param args the exporter arguments
-	 */
-	public void addLogo(RasterArgs args, Diagram diagram) {
-		final Rectangle2D bounds = canvas.getBounds();
-		final BufferedImage logo = getLogo();
-		double logoWidth = bounds.getWidth() * RELATIVE_LOGO_WIDTH;
-		if (logoWidth > logo.getWidth()) logoWidth = logo.getWidth();
-		if (logoWidth < MIN_LOGO_WIDTH) logoWidth = MIN_LOGO_WIDTH;
-		final double logoHeight = logoWidth / logo.getWidth() * logo.getHeight();
-		if (!args.getWriteTitle()) {
-			final NodeProperties limits = findLogoPlace(bounds, diagram, logoWidth, logoHeight);
-			if (limits != null) {
-				canvas.getLogoLayer().add(logo, limits);
-				return;
-			}
-		}
-		// This point will be reached only if logo couldn't be written inside the diagram or if writeTitle is true
-		final NodeProperties limits = NodePropertiesFactory.get(
-				bounds.getMaxX() - logoWidth,
-				bounds.getMaxY() + LEGEND_TO_DIAGRAM_SPACE,
-				logoWidth, logoHeight);
-		this.canvas.getLogoLayer().add(logo, limits);
-		// Now we can reserve the rest of space for the text
-		createBottomTextBox(logoWidth, logoHeight);
-	}
-
-	private NodeProperties findLogoPlace(Rectangle2D bounds, Diagram diagram, double width, double height) {
-		// Let's find a nice place inside the diagram
-		// +----------+
-		// |  4  6  3 |
-		// |  8  9  7 |
-		// |  2  5  1 |
-		// +----------+
-		final double hh = 0.5 * height;
-		final double hw = 0.5 * width;
-		final double x = bounds.getX() + LOGO_PADDING;
-		final double y = bounds.getY() + LOGO_PADDING;
-		final double mx = bounds.getMaxX() - LOGO_PADDING - width;
-		final double my = bounds.getMaxY() - LOGO_PADDING - height;
-		final double cx = bounds.getCenterX() - hw;
-		final double cy = bounds.getCenterY() - hh;
-		final List<Rectangle2D> positions = Arrays.asList(
-				new Rectangle2D.Double(mx, my, width, height),
-				new Rectangle2D.Double(x, my, width, height),
-				new Rectangle2D.Double(mx, y, width, height),
-				new Rectangle2D.Double(x, y, width, height),
-				new Rectangle2D.Double(cx, my, width, height),
-				new Rectangle2D.Double(cx, y, width, height),
-				new Rectangle2D.Double(mx, cy, width, height),
-				new Rectangle2D.Double(x, cy, width, height),
-				new Rectangle2D.Double(mx, cy, width, height));
-		for (Rectangle2D position : positions) {
-			if (!anyInside(diagram, position)) {
-				return NodePropertiesFactory.get(position.getX(), position.getY(), width, height);
-			}
-		}
-		// None of the positions is valid
-		return null;
-	}
-
-	private boolean anyInside(Diagram diagram, Rectangle2D position) {
-		// -2 for rounding issues
-		final double area = position.getHeight() * position.getWidth() - 2;
-		// Nodes
-		for (Node node : diagram.getNodes()) {
-			if (position.intersects(toRectangle(node.getProp()))) return true;
-		}
-		// Edges
-		for (Edge edge : diagram.getEdges()) {
-			final double w = edge.getMaxX() - edge.getMinX();
-			final double h = edge.getMaxY() - edge.getMinY();
-			if (position.intersects(edge.getMinX(), edge.getMinY(), w, h)) return true;
-		}
-		// Compartments
-		for (Compartment compartment : diagram.getCompartments()) {
-			final Rectangle2D.Double outer = toRectangle(compartment.getProp());
-			Rectangle2D intersection = position.createIntersection(outer);
-			double intersectionArea = intersection.getWidth() * intersection.getHeight();
-			if (!intersection.isEmpty() && intersectionArea > 0 && intersectionArea < area) return true;
-			if (compartment.getInsets() != null) {
-				final Rectangle2D.Double inner = toRectangle(compartment.getInsets());
-				intersection = position.createIntersection(inner);
-				intersectionArea = intersection.getWidth() * intersection.getHeight();
-				if (!intersection.isEmpty() && intersectionArea > 0 && intersectionArea < area) return true;
-			}
-			// And we also check for text
-			final double tw = FONT_METRICS.stringWidth(compartment.getDisplayName());
-			final double th = FONT_METRICS.getHeight();
-			final double tx = compartment.getTextPosition().getX() + RenderableCompartment.GWU_CORRECTION.getX();
-			final double ty = compartment.getTextPosition().getY() + RenderableCompartment.GWU_CORRECTION.getY();
-			if (position.intersects(tx, ty, tw, th)) return true;
-		}
-		for (Link link : diagram.getLinks()) {
-			for (Segment segment : link.getSegments()) {
-				final Line2D.Double line = new Line2D.Double(segment.getFrom().getX(), segment.getFrom().getY(), segment.getTo().getX(), segment.getTo().getY());
-				if (position.intersectsLine(line)) return true;
-			}
-		}
-		return false;
-	}
-
-	private Rectangle2D.Double toRectangle(NodeProperties properties) {
-		return new Rectangle2D.Double(properties.getX(), properties.getY(), properties.getWidth(), properties.getHeight());
-	}
-
-	private Rectangle2D.Double toRectangle(Bound bound) {
-		return new Rectangle2D.Double(bound.getX(), bound.getY(), bound.getWidth(), bound.getHeight());
-	}
-
-	private BufferedImage getLogo() {
-		final String filename = "images/reactome_logo_100pxW_50T.png";
-		final InputStream resource = Resources.class.getResourceAsStream(filename);
-		try {
-			return ImageIO.read(resource);
-		} catch (IOException e) {
-			LoggerFactory.getLogger("diagram-exporter").error("Logo not found in resources");
-		}
-		return new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
-	}
-
-	private void createBottomTextBox(double logoWidth, double logoHeight) {
+	public void createBottomTextBox(double logoWidth, double logoHeight) {
 		final Rectangle2D bounds = canvas.getBounds();
 		bottomTextBox = NodePropertiesFactory.get(bounds.getMinX(), bounds.getMaxY() - logoHeight, bounds.getWidth() - logoWidth, logoHeight);
 	}

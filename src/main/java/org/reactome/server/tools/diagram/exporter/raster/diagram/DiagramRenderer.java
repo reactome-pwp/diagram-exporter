@@ -15,6 +15,7 @@ import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
+import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
@@ -25,6 +26,7 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProp
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.LegendRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.LogoRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.gif.AnimatedGifEncoder;
 import org.reactome.server.tools.diagram.exporter.raster.itext.awt.PdfGraphics2D;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
@@ -189,6 +191,7 @@ public class DiagramRenderer implements RasterRenderer {
 
 	private double limitFactor(double maxSize) {
 		final Rectangle2D bounds = canvas.getBounds();
+		// TODO: 22/10/18 setting margin to 0 clips outer border
 		final double width = args.getFactor() * (args.getMargin() + bounds.getWidth());
 		final double height = args.getFactor() * (args.getMargin() + bounds.getHeight());
 		double size = width * height;
@@ -265,13 +268,15 @@ public class DiagramRenderer implements RasterRenderer {
 		if (index.getAnalysis().getType() == AnalysisType.EXPRESSION) {
 			// We add the legend first, so the logo is aligned to the right margin
 			legendRenderer.addLegend();
-			legendRenderer.addLogo(args, diagram);
+			final NodeProperties limits = LogoRenderer.addLogo(canvas, args, diagram);
+			legendRenderer.createBottomTextBox(limits.getWidth(), limits.getHeight());
 			if (args.getColumn() != null) {
 				legendRenderer.setCol(args.getColumn(), title);
 			} else if (!args.getFormat().equals("gif"))
 				legendRenderer.setCol(0, title);
 		} else {
-			legendRenderer.addLogo(args, diagram);
+			final NodeProperties limits = LogoRenderer.addLogo(canvas, args, diagram);
+			legendRenderer.createBottomTextBox(limits.getWidth(), limits.getHeight());
 			legendRenderer.infoText(title);
 		}
 	}
