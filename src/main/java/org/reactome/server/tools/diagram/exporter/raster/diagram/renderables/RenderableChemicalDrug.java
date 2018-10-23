@@ -4,7 +4,7 @@ import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
@@ -24,15 +24,15 @@ public class RenderableChemicalDrug extends RenderableChemical {
 	}
 
 	@Override
-	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
-		super.draw(canvas, colorProfiles, index, t);
-		chemicalBox(canvas, colorProfiles, index, t);
+	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, int t) {
+		super.draw(canvas, colorProfiles, data, t);
+		chemicalBox(canvas, colorProfiles, data, t);
 	}
 
-	private void chemicalBox(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
-		final Color fill = getFillColor(colorProfiles, index, t);
-		final Color border = getAttachmentStrokeColor(colorProfiles, index.getAnalysis().getType());
-		final Color text = getTextColor(colorProfiles, index.getAnalysis().getType());
+	private void chemicalBox(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, int t) {
+		final Color fill = getFillColor(colorProfiles, data, t);
+		final Color border = getAttachmentStrokeColor(colorProfiles, data.getAnalysis().getType());
+		final Color text = getTextColor(colorProfiles, data.getAnalysis().getType());
 		final Stroke stroke = StrokeStyle.SEGMENT.get(isDashed());
 		final FillDrawLayer fillDrawLayer = isFadeOut()
 				? canvas.getFadeOutAttachments()
@@ -55,7 +55,7 @@ public class RenderableChemicalDrug extends RenderableChemical {
 			canvas.getAttachmentSelection().add(shape, colorProfiles.getDiagramSheet().getProperties().getSelection(), StrokeStyle.SELECTION.get(isDashed()));
 	}
 
-	private Color getFillColor(ColorProfiles colorProfiles, DiagramIndex index, int t) {
+	private Color getFillColor(ColorProfiles colorProfiles, DiagramData index, int t) {
 		if (isFadeOut())
 			return getColorProfile(colorProfiles).getFadeOutFill();
 

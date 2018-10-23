@@ -2,7 +2,6 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram.common;
 
 import org.reactome.server.tools.diagram.data.graph.*;
 import org.reactome.server.tools.diagram.data.layout.Connector;
-import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.layout.Edge;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableEdge;
@@ -21,14 +20,13 @@ public class DiagramDecorator {
 	private final DiagramIndex index;
 	private final RasterArgs args;
 	private final Graph graph;
-	private final Diagram diagram;
+	// We need to keep a list of diagram ids of selected nodes for the legend
 	private Set<Long> selected = new TreeSet<>();
 
-	DiagramDecorator(DiagramIndex index, RasterArgs args, Graph graph, Diagram diagram) {
+	DiagramDecorator(DiagramIndex index, RasterArgs args, Graph graph) {
 		this.index = index;
 		this.args = args;
 		this.graph = graph;
-		this.diagram = diagram;
 		decorate();
 	}
 
@@ -62,7 +60,7 @@ public class DiagramDecorator {
 	private Collection<Long> getHitElements(Long id) {
 		final Set<Long> ids = new HashSet<>();
 		ids.add(id);
-		final GraphNode graphNode = index.getGraphIndex().get(id);
+		final GraphNode graphNode = index.getGraphNodesByReactomeId().get(id);
 		final EntityNode node = (EntityNode) graphNode;
 		if (node == null)
 			return ids;
@@ -72,9 +70,6 @@ public class DiagramDecorator {
 	}
 
 	/**
-	 *
-	 * @param string
-	 * @return
 	 * @deprecated once the exporter accepts only dbIds, this will not be needed
 	 */
 	@Deprecated
@@ -82,8 +77,8 @@ public class DiagramDecorator {
 		// dbId, this is faster because dbId is indexed
 		try {
 			final long dbId = Long.parseLong(string);
-			if (index.getGraphIndex().containsKey(dbId)
-					|| index.getSubPathwaysById().containsKey(dbId))
+			if (index.getGraphNodesByReactomeId().containsKey(dbId)
+					|| index.getSubPathwaysByReactomeId().containsKey(dbId))
 				return Collections.singletonList(dbId);
 		} catch (NumberFormatException ignored) {
 			// ignored, not a dbId
@@ -104,7 +99,7 @@ public class DiagramDecorator {
 			if (eventNode.getStId().equalsIgnoreCase(string))
 				return Collections.singletonList(eventNode.getDbId());
 		// Subpathways
-		for (SubpathwayNode subpathwayNode : index.getSubPathwaysById().values()) {
+		for (SubpathwayNode subpathwayNode : index.getSubPathwaysByReactomeId().values()) {
 			if (subpathwayNode.getStId().equals(string))
 				return subpathwayNode.getEvents();
 		}
@@ -115,14 +110,14 @@ public class DiagramDecorator {
 	private void decorateNodes(Collection<Long> selected, Collection<Long> flags) {
 		if (selected.isEmpty() && flags.isEmpty())
 			return;
-		for (RenderableNode node : index.getNodes()) {
+		for (RenderableNode node : index.getNodesById().values()) {
 			if (node.isFadeOut()) continue;
 			if (selected.contains(node.getNode().getReactomeId())) {
 				node.setSelected(true);
 				node.setHalo(true);
 				this.selected.add(node.getNode().getId());
 				for (Connector connector : node.getNode().getConnectors()) {
-					final RenderableEdge renderableEdge = (RenderableEdge) index.getDiagramObjectsById().get(connector.getEdgeId());
+					final RenderableEdge renderableEdge = index.getEdgesById().get(connector.getEdgeId());
 					final Edge reaction = renderableEdge.getEdge();
 					// When a node is selected, the nodes in the same reaction
 					// are haloed
@@ -137,7 +132,7 @@ public class DiagramDecorator {
 	}
 
 	private void decorateReactions(Collection<Long> selected, Collection<Long> flags) {
-		for (RenderableEdge edge : index.getReactions()) {
+		for (RenderableEdge edge : index.getEdgesById().values()) {
 			if (edge.isFadeOut()) continue;
 			if (selected.contains(edge.getEdge().getReactomeId())) {
 				edge.setSelected(true);
@@ -160,8 +155,7 @@ public class DiagramDecorator {
 				reaction.getInhibitors(), reaction.getInputs(), reaction.getOutputs())
 				.filter(Objects::nonNull)
 				.flatMap(Collection::stream)
-				.map(part -> index.getDiagramObjectsById().get(part.getId()))
-				.map(RenderableNode.class::cast)
+				.map(part -> index.getNodesById().get(part.getId()))
 				.filter(node -> !node.isFadeOut())
 				.forEach(node -> node.setHalo(true));
 	}

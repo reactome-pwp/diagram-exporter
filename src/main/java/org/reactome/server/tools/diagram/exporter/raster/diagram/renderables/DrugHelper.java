@@ -14,7 +14,7 @@ import java.awt.*;
  * Adds a method for drug classes to render the Rx text.
  * <p><b>Note:</b> Since all Renderable* classes already extend another class
  * (at least {@link RenderableDiagramObject}), we cannot create a RenderableDrug class with the
- * {@link RenderableDiagramObject#draw(DiagramCanvas, ColorProfiles, DiagramIndex, int)} overrided, that's why we
+ * {@link RenderableDiagramObject#draw(DiagramCanvas, ColorProfiles, org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData, int)} overrided, that's why we
  * implemented this helper class.
  */
 public class DrugHelper {

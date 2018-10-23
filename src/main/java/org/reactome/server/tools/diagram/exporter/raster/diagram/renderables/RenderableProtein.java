@@ -4,10 +4,7 @@ import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.*;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.FillDrawLayer;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.TextLayer;
@@ -34,9 +31,9 @@ public class RenderableProtein extends RenderableNode {
 	}
 
 	@Override
-	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
-		super.draw(canvas, colorProfiles, index, t);
-		attachments(canvas, colorProfiles, index, t);
+	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, int t) {
+		super.draw(canvas, colorProfiles, data, t);
+		attachments(canvas, colorProfiles, data, t);
 	}
 
 	private void attachments(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {

@@ -2,7 +2,7 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram.renderables;
 
 import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.tools.diagram.data.layout.DiagramObject;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.NodeColorSheet;
@@ -67,7 +67,7 @@ public abstract class RenderableDiagramObject<T extends DiagramObject> {
 	/** Get the proper NodeColorSheet for this Object */
 	public abstract NodeColorSheet getColorProfile(ColorProfiles colorProfiles);
 
-	public abstract void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t);
+	public abstract void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, int t);
 
 
 	Color getStrokeColor(ColorProfiles colorProfiles, AnalysisType type) {

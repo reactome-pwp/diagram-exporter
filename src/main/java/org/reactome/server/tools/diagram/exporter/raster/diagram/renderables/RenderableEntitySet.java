@@ -1,7 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.renderables;
 
 import org.reactome.server.tools.diagram.data.layout.Node;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
@@ -33,10 +33,10 @@ public class RenderableEntitySet extends RenderableNode {
 	}
 
 	@Override
-	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
-		super.draw(canvas, colorProfiles, index, t);
+	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, int t) {
+		super.draw(canvas, colorProfiles, data, t);
 		// Inner shape
-		final Color border = getStrokeColor(colorProfiles, index.getAnalysis().getType());
+		final Color border = getStrokeColor(colorProfiles, data.getAnalysis().getType());
 		final Shape shape = ShapeFactory.roundedRectangle(getNode().getProp(), SET_PADDING);
 		final Stroke stroke = StrokeStyle.BORDER.get(isDashed());
 		final DrawLayer layer = isFadeOut()
@@ -46,11 +46,11 @@ public class RenderableEntitySet extends RenderableNode {
 	}
 
 	@Override
-	protected void text(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, double textSplit) {
+	protected void text(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, double textSplit) {
 		final TextLayer layer = isFadeOut()
 				? canvas.getFadeOutText()
 				: canvas.getText();
-		final Color color = getTextColor(colorProfiles, index.getAnalysis().getType());
+		final Color color = getTextColor(colorProfiles, data.getAnalysis().getType());
 		layer.add(getNode().getDisplayName(),
 				color,
 				getNode().getProp(),

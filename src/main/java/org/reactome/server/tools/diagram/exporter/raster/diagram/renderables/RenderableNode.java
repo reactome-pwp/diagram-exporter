@@ -4,7 +4,7 @@ import org.reactome.server.analysis.core.result.model.FoundEntity;
 import org.reactome.server.analysis.core.result.model.IdentifierSummary;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
@@ -30,7 +30,7 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 	private List<FoundEntity> hitExpressions;
 	private Double enrichment;
 	private Integer totalExpressions;
-	private Double expressionValue;
+	private Double enrichmentValue;
 
 
 	RenderableNode(Node node) {
@@ -45,7 +45,7 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 		return enrichment;
 	}
 
-	public void setEnrichment(Double enrichment) {
+	public void setEnrichmentPercentage(Double enrichment) {
 		this.enrichment = enrichment;
 	}
 
@@ -62,12 +62,12 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 		this.totalExpressions = hitExpressions.size();
 	}
 
-	public Double getExpressionValue() {
-		return expressionValue;
+	public Double getEnrichmentValue() {
+		return enrichmentValue;
 	}
 
-	public void setExpressionValue(Double expressionValue) {
-		this.expressionValue = expressionValue;
+	public void setEnrichmentValue(Double enrichmentValue) {
+		this.enrichmentValue = enrichmentValue;
 	}
 
 	private Integer getTotalExpressions() {
@@ -86,12 +86,12 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 	}
 
 	@Override
-	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
+	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, int t) {
 		if (isFlag()) flag(canvas, colorProfiles);
 		if (isHalo()) halo(canvas, colorProfiles);
-		background(canvas, index, colorProfiles);
-		double textSplit = analysis(canvas, colorProfiles, index, t);
-		text(canvas, colorProfiles, index, textSplit);
+		background(canvas, data, colorProfiles);
+		double textSplit = analysis(canvas, colorProfiles, data, t);
+		text(canvas, colorProfiles, data, textSplit);
 		if (isCrossed()) cross(canvas, colorProfiles);
 	}
 
@@ -107,9 +107,9 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 				StrokeStyle.HALO.get(isDashed()));
 	}
 
-	void background(DiagramCanvas canvas, DiagramIndex index, ColorProfiles colorProfiles) {
-		final Color fill = getFillColor(colorProfiles, index.getAnalysis().getType());
-		final Color border = getStrokeColor(colorProfiles, index.getAnalysis().getType());
+	void background(DiagramCanvas canvas, DiagramData data, ColorProfiles colorProfiles) {
+		final Color fill = getFillColor(colorProfiles, data.getAnalysis().getType());
+		final Color border = getStrokeColor(colorProfiles, data.getAnalysis().getType());
 
 		if (isFadeOut()) {
 			canvas.getFadeOutNodeForeground().add(backgroundArea, fill);
@@ -120,14 +120,14 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 		}
 	}
 
-	public double analysis(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
-		if (isFadeOut() || index.getAnalysis().getType() == null) return 0.0;
-		switch (index.getAnalysis().getType()) {
+	public double analysis(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, int t) {
+		if (isFadeOut() || data.getAnalysis().getType() == null) return 0.0;
+		switch (data.getAnalysis().getType()) {
 			case SPECIES_COMPARISON:
 			case OVERREPRESENTATION:
 				return enrichment(canvas, colorProfiles);
 			case EXPRESSION:
-				return expression(canvas, index, colorProfiles, t);
+				return expression(canvas, data, colorProfiles, t);
 			default:
 				return 0.0;
 		}
@@ -158,7 +158,7 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 	 * this node. If 0, text will not be modified. If 1, all the text will be
 	 * white.
 	 */
-	double expression(DiagramCanvas canvas, DiagramIndex index, ColorProfiles colorProfiles, int t) {
+	double expression(DiagramCanvas canvas, DiagramData data, ColorProfiles colorProfiles, int t) {
 		final List<FoundEntity> expressions = getHitExpressions();
 		double textSplit = 0.0;
 		if (expressions != null) {
@@ -174,8 +174,8 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 			final double partSize = prop.getWidth() / size;
 			textSplit = (double) values.size() / size;
 
-			final double max = index.getAnalysis().getResult().getExpression().getMax();
-			final double min = index.getAnalysis().getResult().getExpression().getMin();
+			final double max = data.getAnalysis().getResult().getExpression().getMax();
+			final double min = data.getAnalysis().getResult().getExpression().getMin();
 			final double delta = 1 / (max - min);  // only one division
 			for (int i = 0; i < values.size(); i++) {
 				final double val = values.get(i);
@@ -203,11 +203,11 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 		cross.forEach(line -> canvas.getCross().add(line, color, stroke));
 	}
 
-	protected void text(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, double textSplit) {
+	protected void text(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, double textSplit) {
 		final TextLayer layer = isFadeOut()
 				? canvas.getFadeOutText()
 				: canvas.getText();
-		final Color color = getTextColor(colorProfiles, index.getAnalysis().getType());
+		final Color color = getTextColor(colorProfiles, data.getAnalysis().getType());
 		layer.add(getNode().getDisplayName(),
 				color,
 				getNode().getProp(),

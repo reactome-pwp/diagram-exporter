@@ -119,11 +119,16 @@ public class LogoRenderer {
 				}
 			}
 		}
-		// Edges
 		for (Edge edge : diagram.getEdges()) {
 			final double w = edge.getMaxX() - edge.getMinX();
 			final double h = edge.getMaxY() - edge.getMinY();
 			if (position.intersects(edge.getMinX(), edge.getMinY(), w, h)) return true;
+		}
+		for (Link link : diagram.getLinks()) {
+			for (Segment segment : link.getSegments()) {
+				final Line2D.Double line = toLine(segment);
+				if (position.intersectsLine(line)) return true;
+			}
 		}
 		// Compartments
 		for (Compartment compartment : diagram.getCompartments()) {
@@ -143,12 +148,6 @@ public class LogoRenderer {
 			final double tx = compartment.getTextPosition().getX() + RenderableCompartment.GWU_CORRECTION.getX();
 			final double ty = compartment.getTextPosition().getY() + RenderableCompartment.GWU_CORRECTION.getY();
 			if (position.intersects(tx, ty, tw, th)) return true;
-		}
-		for (Link link : diagram.getLinks()) {
-			for (Segment segment : link.getSegments()) {
-				final Line2D.Double line = toLine(segment);
-				if (position.intersectsLine(line)) return true;
-			}
 		}
 		return false;
 	}

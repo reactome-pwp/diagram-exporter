@@ -4,7 +4,7 @@ import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.tools.diagram.data.layout.*;
 import org.reactome.server.tools.diagram.data.layout.Shape;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
@@ -49,9 +49,9 @@ public abstract class RenderableEdgeCommon<T extends EdgeCommon> extends Rendera
 	}
 
 	@Override
-	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
-		final Color linesColor = getStrokeColor(colorProfiles, index.getAnalysis().getType());
-		final Color fillColor = getFillColor(colorProfiles, index.getAnalysis().getType());
+	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, int t) {
+		final Color linesColor = getStrokeColor(colorProfiles, data.getAnalysis().getType());
+		final Color fillColor = getFillColor(colorProfiles, data.getAnalysis().getType());
 		segments(linesColor, canvas, colorProfiles);
 		shapes(linesColor, fillColor, canvas, colorProfiles);
 	}

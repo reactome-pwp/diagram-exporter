@@ -3,7 +3,7 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram.renderables;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
@@ -37,9 +37,9 @@ public class RenderableGene extends RenderableNode {
 	}
 
 	@Override
-	public void background(DiagramCanvas canvas, DiagramIndex index, ColorProfiles colorProfiles) {
-		final Color fill = getFillColor(colorProfiles, index.getAnalysis().getType());
-		final Color border = getStrokeColor(colorProfiles, index.getAnalysis().getType());
+	public void background(DiagramCanvas canvas, DiagramData data, ColorProfiles colorProfiles) {
+		final Color fill = getFillColor(colorProfiles, data.getAnalysis().getType());
+		final Color border = getStrokeColor(colorProfiles, data.getAnalysis().getType());
 		// report: genes are not dashed in PathwayBrowser, although json file says needDashedBorder
 		final Stroke stroke = StrokeStyle.BORDER.get(false);
 		if (isFadeOut()) {
@@ -72,11 +72,11 @@ public class RenderableGene extends RenderableNode {
 	}
 
 	@Override
-	public void text(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, double textSplit) {
+	public void text(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, double textSplit) {
 		final TextLayer textLayer = isFadeOut()
 				? canvas.getFadeOutText()
 				: canvas.getText();
-		Color color = getTextColor(colorProfiles, index.getAnalysis().getType());
+		Color color = getTextColor(colorProfiles, data.getAnalysis().getType());
 		final Rectangle2D bounds = this.backgroundShape().getBounds2D();
 		// report: some diagrams have too small gene shape. It seems to be a problem with the json file
 		// in these cases we use node properties
