@@ -25,7 +25,7 @@ public class DiagramData {
 	 * @param result  analysis to overlay
 	 */
 	public DiagramData(Diagram diagram, Graph graph, RasterArgs args, AnalysisStoredResult result) {
-		this.index = new DiagramIndex(diagram, graph, args, result);
+		this.index = new DiagramIndex(diagram, graph);
 		this.decorator = new DiagramDecorator(index, args, graph);
 		this.analysis = new DiagramAnalysis(index, graph, args, result);
 	}

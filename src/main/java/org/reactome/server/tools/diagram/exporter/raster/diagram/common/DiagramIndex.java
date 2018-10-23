@@ -1,11 +1,9 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.common;
 
-import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.graph.GraphNode;
 import org.reactome.server.tools.diagram.data.graph.SubpathwayNode;
 import org.reactome.server.tools.diagram.data.layout.*;
-import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.*;
 
 import java.util.*;
@@ -51,64 +49,60 @@ public class DiagramIndex {
 	 * @param diagram diagram with nodes and reactions
 	 * @param graph   background graph
 	 */
-	public DiagramIndex(Diagram diagram, Graph graph, RasterArgs args, AnalysisStoredResult result) {
-		index(diagram, graph);
-	}
-
-	private void index(Diagram diagram, Graph graph) {
-		final Map<Long, Collection<RenderableEdge>> edgesByReactomeId = new HashMap<>();
-		final Map<Long, RenderableEdge> edgesById = new HashMap<>();
-		final Map<Long, Collection<RenderableNode>> nodesByReactomeId = new HashMap<>();
-		final Map<Long, RenderableNode> nodesById = new HashMap<>();
-		final Map<Long, Collection<RenderableProcessNode>> pathwaysByReactomeId = new HashMap<>();
-		final Map<Long, RenderableProcessNode> pathwaysById = new HashMap<>();
-		final Collection<RenderableCompartment> compartments = new ArrayList<>();
-		final Collection<RenderableLink> links = new ArrayList<>();
+	DiagramIndex(Diagram diagram, Graph graph) {
+		final Map<Long, Collection<RenderableEdge>> edgesByReactomeId1 = new HashMap<>();
+		final Map<Long, RenderableEdge> edgesById1 = new HashMap<>();
+		final Map<Long, Collection<RenderableNode>> nodesByReactomeId1 = new HashMap<>();
+		final Map<Long, RenderableNode> nodesById1 = new HashMap<>();
+		final Map<Long, Collection<RenderableProcessNode>> pathwaysByReactomeId1 = new HashMap<>();
+		final Map<Long, RenderableProcessNode> pathwaysById1 = new HashMap<>();
+		final Collection<RenderableCompartment> compartments1 = new ArrayList<>();
+		final Collection<RenderableLink> links1 = new ArrayList<>();
 
 		for (Edge edge : diagram.getEdges()) {
 			final RenderableEdge renderableEdge = (RenderableEdge) RenderableFactory.getRenderableObject(edge);
-			edgesById.put(edge.getId(), renderableEdge);
-			edgesByReactomeId.computeIfAbsent(edge.getReactomeId(), dbId -> new ArrayList<>()).add(renderableEdge);
+			edgesById1.put(edge.getId(), renderableEdge);
+			edgesByReactomeId1.computeIfAbsent(edge.getReactomeId(), dbId -> new ArrayList<>()).add(renderableEdge);
 		}
 		for (Compartment compartment : diagram.getCompartments()) {
 			final RenderableDiagramObject renderableObject = RenderableFactory.getRenderableObject(compartment);
-			compartments.add((RenderableCompartment) renderableObject);
+			compartments1.add((RenderableCompartment) renderableObject);
 		}
 		for (Link link : diagram.getLinks()) {
 			final RenderableDiagramObject renderableObject = RenderableFactory.getRenderableObject(link);
-			links.add((RenderableLink) renderableObject);
+			links1.add((RenderableLink) renderableObject);
 		}
 		for (Node node : diagram.getNodes()) {
 			final RenderableDiagramObject renderableObject = RenderableFactory.getRenderableObject(node);
 			if (renderableObject instanceof RenderableProcessNode) {
 				final RenderableProcessNode renderableProcessNode = (RenderableProcessNode) renderableObject;
-				pathwaysById.put(node.getId(), renderableProcessNode);
-				pathwaysByReactomeId.computeIfAbsent(node.getReactomeId(), dbId -> new ArrayList<>()).add(renderableProcessNode);
+				pathwaysById1.put(node.getId(), renderableProcessNode);
+				pathwaysByReactomeId1.computeIfAbsent(node.getReactomeId(), dbId -> new ArrayList<>()).add(renderableProcessNode);
 			} else {
 				final RenderableNode renderableNode = (RenderableNode) renderableObject;
-				nodesById.put(node.getId(), renderableNode);
-				nodesByReactomeId.computeIfAbsent(node.getReactomeId(), dbId -> new ArrayList<>()).add(renderableNode);
+				nodesById1.put(node.getId(), renderableNode);
+				nodesByReactomeId1.computeIfAbsent(node.getReactomeId(), dbId -> new ArrayList<>()).add(renderableNode);
 			}
 			for (Connector connector : node.getConnectors()) {
-				final RenderableEdge edge = edgesById.get(connector.getEdgeId());
+				final RenderableEdge edge = edgesById1.get(connector.getEdgeId());
 				edge.getConnectors().add(connector);
 			}
 		}
-		this.edgesById = Collections.unmodifiableMap(edgesById);
-		this.edgesByReactomeId = Collections.unmodifiableMap(edgesByReactomeId);
-		this.nodesById = Collections.unmodifiableMap(nodesById);
-		this.nodesByReactomeId = Collections.unmodifiableMap(nodesByReactomeId);
-		this.links = Collections.unmodifiableCollection(links);
-		this.compartments = Collections.unmodifiableCollection(compartments);
-		this.pathwaysById = Collections.unmodifiableMap(pathwaysById);
-		this.pathwaysByReactomeId = Collections.unmodifiableMap(pathwaysByReactomeId);
+		this.edgesById = Collections.unmodifiableMap(edgesById1);
+		this.edgesByReactomeId = Collections.unmodifiableMap(edgesByReactomeId1);
+		this.nodesById = Collections.unmodifiableMap(nodesById1);
+		this.nodesByReactomeId = Collections.unmodifiableMap(nodesByReactomeId1);
+		this.links = Collections.unmodifiableCollection(links1);
+		this.compartments = Collections.unmodifiableCollection(compartments1);
+		this.pathwaysById = Collections.unmodifiableMap(pathwaysById1);
+		this.pathwaysByReactomeId = Collections.unmodifiableMap(pathwaysByReactomeId1);
 
 		allNodes = new ArrayList<>();
-		allNodes.addAll(compartments);
-		allNodes.addAll(links);
-		allNodes.addAll(edgesById.values());
-		allNodes.addAll(nodesById.values());
-		allNodes.addAll(pathwaysById.values());
+		allNodes.addAll(compartments1);
+		allNodes.addAll(links1);
+		allNodes.addAll(edgesById1.values());
+		allNodes.addAll(nodesById1.values());
+		allNodes.addAll(pathwaysById1.values());
 
 		// These are here for flag compatibility
 		graphNodesByReactomeId = Collections.unmodifiableMap(
