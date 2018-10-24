@@ -198,8 +198,8 @@ public class LegendRenderer {
 	}
 
 	private void ticks(int col) {
-		if (data.getDecorator().getSelected() == null) return;
-		for (Long id : data.getDecorator().getSelected()) {
+		if (data.getDecorator().getSelectedDiagramId() == null) return;
+		for (Long id : data.getDecorator().getSelectedDiagramId()) {
 			final RenderableNode node = data.getIndex().getNodesById().get(id);
 			// ProcessNode
 			if (node.getEnrichment() != null
