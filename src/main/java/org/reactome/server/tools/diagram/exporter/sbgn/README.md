@@ -4,10 +4,6 @@
 
 Exports reactions and pathways to Systems Biology Graphical Notation ([SBGN](http://sbgn.github.io/sbgn/)).
 
-Diagrams are generated using the diagram source files, so you may notice small differences with Pathway Browser. With the raster exporter you can generate High Definition images up to 100 megapixels.
-When an EHLD source is available
-Images are generated from the EHLD if it is available.
-
 ## Exporting a Diagram object to SGBN
 
 This exporter assumes that an instance of the Diagram interface is provided with the layout of either a pathway or a reaction.
