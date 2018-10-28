@@ -8,6 +8,7 @@ This project includes methods for exporting a given diagram into an image (png, 
 
  * [Power point exporter](src/main/java/org/reactome/server/tools/diagram/exporter/pptx/README.md)
  * [Raster exporter](src/main/java/org/reactome/server/tools/diagram/exporter/raster/README.md)
+ * [SBGN exporter](src/main/java/org/reactome/server/tools/diagram/exporter/sbgn/README.md)
 
 
 ### Pre-requirements
