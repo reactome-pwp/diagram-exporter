@@ -4,10 +4,11 @@ Diagram Exporter
 =====================
 
 ### Introduction
-This project includes methods for exporting a given diagram into an image (png, jpeg or jpeg) or a PowerPoint file.
+This project includes methods for exporting a given diagram into an image (png, jpeg or jpeg), a PowerPoint file or to Systems Biology Graphical Notation ([SBGN](http://sbgn.github.io/sbgn/)).
 
  * [Power point exporter](src/main/java/org/reactome/server/tools/diagram/exporter/pptx/README.md)
  * [Raster exporter](src/main/java/org/reactome/server/tools/diagram/exporter/raster/README.md)
+ * [SBGN exporter](src/main/java/org/reactome/server/tools/diagram/exporter/sbgn/README.md)
 
 
 ### Pre-requirements
