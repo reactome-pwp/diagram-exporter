@@ -99,7 +99,7 @@ java -jar diagram-exporter-jar-with-dependencies.jar \
             -i /path/to/folder/with/diagram/json/files \
             -e /path/to/folder/containing/ehld/files \
             -s /path/to/svgsummary.txt \
-            -w neo4jPassord \
+            -w neo4jPasswrd \
             -v
 ```
 
@@ -111,7 +111,7 @@ java -jar diagram-exporter-jar-with-dependencies.jar \
             -f sbgn \
             -o /path/to/output \
             -i /path/to/folder/with/diagram/json/files \
-            -w neo4jPassord \
+            -w neo4jPassword \
             -v
 ```
 
