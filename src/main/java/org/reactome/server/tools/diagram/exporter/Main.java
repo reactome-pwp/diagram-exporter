@@ -42,6 +42,8 @@ public class Main {
 
     private enum Format {PPTX, SVG, PNG, JPEG, JPG, GIF, SBGN}
 
+    public static boolean verbose;
+
     public static void main(String[] args) throws JSAPException, DiagramProfileException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
         // Program Arguments -i, -p, -o, -j, -f and -s
         SimpleJSAP jsap = new SimpleJSAP(Main.class.getName(), "Export a given diagram to Power Point",
@@ -52,8 +54,8 @@ public class Main {
                         new FlaggedOption(  "input",    JSAP.STRING_PARSER, null,        JSAP.REQUIRED,    'i', "input",   "The input folder containing the diagram json files"),
 
                         //EHLD options
-                        new FlaggedOption(  "ehlds",    JSAP.STRING_PARSER, null,        JSAP.REQUIRED,    'e', "ehld",    "The folder containing the EHLD svg files"),
-                        new FlaggedOption(  "summary",  JSAP.STRING_PARSER, null,        JSAP.REQUIRED,    's', "summary", "The file containing the summary of pathways with EHLD assigned"),
+                        new FlaggedOption(  "ehlds",    JSAP.STRING_PARSER, null,        JSAP.NOT_REQUIRED,'e', "ehld",    "The folder containing the EHLD svg files"),
+                        new FlaggedOption(  "summary",  JSAP.STRING_PARSER, null,        JSAP.NOT_REQUIRED,'s', "summary", "The file containing the summary of pathways with EHLD assigned"),
 
                         //GRAPH-DB options
                         new FlaggedOption(  "host",     JSAP.STRING_PARSER, "localhost", JSAP.NOT_REQUIRED,'h', "host",    "The neo4j host"),
@@ -71,6 +73,7 @@ public class Main {
         JSAPResult config = jsap.parse(args);
         if (jsap.messagePrinted()) System.exit(1);
 
+        verbose = config.getBoolean("verbose");
 
         //Initialising ReactomeCore Neo4j configuration
         ReactomeGraphCore.initialise(
@@ -99,8 +102,6 @@ public class Main {
         //Checking for the specified input/output folders
         File input = getFinalInputFolder(config.getString("input"));
         File output = getFinalOutputFolder(config.getString("output"), format, profile);
-        File ehlds = getEhldsFolder(config.getString("ehlds"));
-        File ehldSummary =getEhldSummaryFile(config.getString("summary"));
 
         int counter = 0;
         Long start = System.currentTimeMillis();
@@ -114,6 +115,8 @@ public class Main {
             case JPEG:
             case JPG:
             case GIF:
+                File ehlds = getEhldsFolder(config.getString("ehlds"));
+                File ehldSummary =getEhldSummaryFile(config.getString("summary"));
                 counter = generateImage(targets, format, profile, input, output, ehlds, ehldSummary);
                 break;
             case SBGN:
@@ -123,7 +126,7 @@ public class Main {
                 System.err.println("WRONG!");
         }
         Long time = System.currentTimeMillis() - start;
-        System.out.println(String.format("%,d pathway(s) exported to '%s' in %s", counter, f, getTimeFormatted(time)));
+        println("Finished: %,d pathway(s) have been exported to '%s' in %s", counter, f, getTimeFormatted(time));
     }
 
     private static int generatePPTX(Collection<Pathway> target, File input, File output, String colourProfile, String lic) throws DiagramProfileException, DiagramJsonDeserializationException, DiagramJsonNotFoundException {
@@ -227,10 +230,11 @@ public class Main {
             }
         }
 
-        System.out.print("· Retrieving target pathways...");
+        print("· Retrieving target pathways...");
         Collection<Pathway> pathways = null;
         try {
             pathways = advancedDatabaseObjectService.getCustomQueryResults(Pathway.class, query, parametersMap);
+            println("\r· Targeting %,d pathways:\n", pathways.size());
         } catch (CustomQueryException e) {
             e.printStackTrace();
         }
@@ -302,5 +306,14 @@ public class Main {
         return String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
                 TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
                 TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1));
+    }
+
+    @SuppressWarnings("SameParameterValue")
+    private static void print(String msg, Object... params){
+        if(verbose) System.out.print(String.format(msg, params));
+    }
+
+    private static void println(String msg, Object... params){
+        if(verbose) System.out.println(String.format(msg, params));
     }
 }

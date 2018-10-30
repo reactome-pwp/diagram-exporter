@@ -1,5 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.utils;
 
+import org.reactome.server.tools.diagram.exporter.Main;
+
 /**
  * Custom progress bar
  *
@@ -15,6 +17,7 @@ public class ProgressBar {
      * @param done Number of entries added to the graph
      */
     public static void updateProgressBar(String current, int done, int total) {
+        if(!Main.verbose) return;
         current = (total == done) ? "" : " [current:" + current + "]";
 
         String format = "\r\t%3d%% %s %c%s";
@@ -30,6 +33,7 @@ public class ProgressBar {
     }
 
     public static void done(int total) {
+        if(!Main.verbose) return;
         updateProgressBar("", total, total);
         System.out.println("\n"); //Yes, two new lines :-)
     }
