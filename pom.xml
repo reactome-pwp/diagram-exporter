@@ -191,6 +191,8 @@
                 <version>${maven.jar.version}</version>
                 <configuration>
                     <excludes>
+                        <exclude>org/reactome/server/tools/diagram/exporter/Main.class</exclude>
+                        <exclude>org/reactome/server/tools/diagram/exporter/config/ReactomeNeo4jConfig.class</exclude>
                         <exclude>**/logback.xml</exclude>
                         <exclude>**/license/</exclude>
                     </excludes>
@@ -219,7 +221,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.reactome.server.tools.diagram.exporter.DiagramExporter</mainClass>
+                            <mainClass>org.reactome.server.tools.diagram.exporter.Main</mainClass>
                         </manifest>
                     </archive>
                     <finalName>diagram-exporter</finalName>
