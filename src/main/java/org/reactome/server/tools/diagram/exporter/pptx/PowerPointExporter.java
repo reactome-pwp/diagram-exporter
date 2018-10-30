@@ -14,7 +14,8 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 
 /**
- * @author Guilherme S Viteri <gviteri@ebi.ac.uk>
+ * @author Guilherme S Viteri (gviteri@ebi.ac.uk)
+ * @author Antonio Fabregat (fabregat@ebi.ac.uk)
  */
 public class PowerPointExporter {
 
@@ -28,6 +29,21 @@ public class PowerPointExporter {
         logger.info("Initialising the exporter to PowerPoint");
         logger.debug("Initialising the exporter to PowerPoint. Diagram [{}], Profile [{}] and Decorators [flg:{}, sel: {}]", stId, profileName, decorator.getFlags(), decorator.getSelected());
         Diagram diagram = ResourcesFactory.getDiagram(staticFolder, stId);
+        DiagramProfile profile = ResourcesFactory.getDiagramProfile(profileName.toLowerCase());
+
+        DiagramPresentation diagramPresentation = new DiagramPresentation(diagram, profile, decorator);
+        diagramPresentation.export();
+        return diagramPresentation.save(outputFolder, stId, license);
+    }
+
+    /**
+     * This method allows a powerpoint to be generated for those who are using the library and does not have
+     * software license. An evaluation version will be created and the program won't fail.
+     */
+    public static File export(Diagram diagram, String profileName, String outputFolder, Decorator decorator, String license) throws DiagramJsonDeserializationException, DiagramProfileException {
+        String stId = diagram.getStableId();
+        logger.info("Initialising the exporter to PowerPoint");
+        logger.debug("Initialising the exporter to PowerPoint. Diagram [{}], Profile [{}] and Decorators [flg:{}, sel: {}]", stId, profileName, decorator.getFlags(), decorator.getSelected());
         DiagramProfile profile = ResourcesFactory.getDiagramProfile(profileName.toLowerCase());
 
         DiagramPresentation diagramPresentation = new DiagramPresentation(diagram, profile, decorator);
