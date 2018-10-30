@@ -23,6 +23,98 @@ git clone https://github.com/reactome-pwp/diagram-exporter.git
 cd diagram-exporter
 mvn clean package
 ```
+
+### Usage as command line
+
+This is meant to be executed as a step of the release process to generate the SBGN and SVG files for all pathway diagrams.
+
+To find out the parameters, please use the "--help" option:
+
+```console
+$java -jar diagram-exporter-jar-with-dependencies.jar --help 
+
+Usage:
+  org.reactome.server.tools.diagram.exporter.Main [--help]
+  (-t|--target)[:target1,target2,...,targetN ] (-f|--format) <format>
+  (-o|--output) <output> (-i|--input) <input> (-e|--ehld) <ehlds> (-s|--summary)
+  <summary> [(-h|--host) <host>] [(-p|--port) <port>] [(-u|--user) <user>]
+  (-w|--password) <password> [(-c|--profile) <profile>] [(-l|--license) <license>]
+  [(-v|--verbose)[:<verbose>]]
+
+Export a given diagram to Power Point
+
+
+  [--help]
+        Prints this help message.
+
+  (-t|--target)[:target1,target2,...,targetN ]
+        Target pathways to convert. Use either comma separated IDs, pathways for
+        a given species (e.g. 'Homo sapiens') or 'all' for every pathway
+
+  (-f|--format) <format>
+        Format of the output files (svg, png, sbgn, pptx, gif, jpeg)
+
+  (-o|--output) <output>
+        The output folder
+
+  (-i|--input) <input>
+        The input folder containing the diagram json files
+
+  (-e|--ehld) <ehlds>
+        The folder containing the EHLD svg files
+
+  (-s|--summary) <summary>
+        The file containing the summary of pathways with EHLD assigned
+
+  [(-h|--host) <host>]
+        The neo4j host (default: localhost)
+
+  [(-p|--port) <port>]
+        The neo4j port (default: 7474)
+
+  [(-u|--user) <user>]
+        The neo4j user (default: neo4j)
+
+  (-w|--password) <password>
+        The neo4j password (default: neo4j)
+
+  [(-c|--profile) <profile>]
+        The colour diagram [Modern or Standard] (default: Modern)
+
+  [(-l|--license) <license>]
+        Software License file
+
+  [(-v|--verbose)[:<verbose>]]
+        Requests verbose output.
+
+```
+
+To generate the SVG files for 'Homo sapiens' the command line is like this:
+
+```console
+java -jar diagram-exporter-jar-with-dependencies.jar \
+            -t:"Homo sapiens" \  
+            -f svg \
+            -o /path/to/output \
+            -i /path/to/folder/with/diagram/json/files \
+            -e /path/to/folder/containing/ehld/files \
+            -s /path/to/svgsummary.txt \
+            -w neo4jPassord \
+            -v
+```
+
+To generate the SBGN files for 'Homo sapiens' the command line is like this:
+
+```console
+java -jar diagram-exporter-jar-with-dependencies.jar \
+            -t:"Homo sapiens" \  
+            -f sbgn \
+            -o /path/to/output \
+            -i /path/to/folder/with/diagram/json/files \
+            -w neo4jPassord \
+            -v
+```
+
 ### Adding Diagram Exporter in your project
 
 #### Maven Dependency
@@ -31,7 +123,7 @@ mvn clean package
 <dependency>
     <groupId>org.reactome.server.tools</groupId>
     <artifactId>diagram-exporter</artifactId>
-    <version>1.3.9</version>
+    <version>1.3.10</version>
 </dependency>
 ```
 
