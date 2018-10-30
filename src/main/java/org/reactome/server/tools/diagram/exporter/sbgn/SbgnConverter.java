@@ -226,7 +226,16 @@ public class SbgnConverter {
             port2.setX(s2.getTo().getX().floatValue());
             port2.setY(s2.getTo().getY().floatValue());
         } else {
-            Coordinate c = edge.getReactionShape().getC();
+            Coordinate c;
+            Shape shape = edge.getReactionShape();
+            switch (shape.getType()){
+                case "BOX":
+                    Coordinate delta = shape.getB().minus(shape.getA()).divide(2);
+                    c = edge.getReactionShape().getA().add(delta);
+                    break;
+                default:
+                    c = edge.getReactionShape().getC();
+            }
             port1.setX(c.getX().floatValue());
             port1.setY(c.getY().floatValue());
 
