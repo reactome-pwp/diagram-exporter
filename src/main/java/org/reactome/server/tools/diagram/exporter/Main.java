@@ -46,7 +46,7 @@ public class Main {
 
     public static void main(String[] args) throws JSAPException, DiagramProfileException, DiagramJsonNotFoundException, DiagramJsonDeserializationException {
         // Program Arguments -i, -p, -o, -j, -f and -s
-        SimpleJSAP jsap = new SimpleJSAP(Main.class.getName(), "Export a given diagram to Power Point",
+        SimpleJSAP jsap = new SimpleJSAP(Main.class.getName(), "Exports the requested pathway diagrams to different formats (svg, png, sbgn, pptx, gif, jpeg)",
                 new Parameter[]{
                         new QualifiedSwitch("target",   JSAP.STRING_PARSER, null,        JSAP.REQUIRED,    't', "target",  "Target pathways to convert. Use either comma separated IDs, pathways for a given species (e.g. 'Homo sapiens') or 'all' for every pathway").setList(true).setListSeparator(','),
                         new FlaggedOption(  "format",   JSAP.STRING_PARSER, null,        JSAP.REQUIRED,    'f', "format",  "Format of the output files (svg, png, sbgn, pptx, gif, jpeg)"),

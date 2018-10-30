@@ -26,7 +26,7 @@ mvn clean package
 
 ### Usage as command line
 
-This is meant to be executed as a step of the release process to generate the SBGN and SVG files for all pathway diagrams.
+This exporter is meant to be executed as a step of the release process to generate the SBGN and SVG files for the pathway diagrams in 'Homo sapiens'.
 
 To find out the parameters, please use the "--help" option:
 
@@ -41,7 +41,7 @@ Usage:
   (-w|--password) <password> [(-c|--profile) <profile>] [(-l|--license) <license>]
   [(-v|--verbose)[:<verbose>]]
 
-Export a given diagram to Power Point
+Exports the requested pathway diagrams to different formats (svg, png, sbgn, pptx, gif, jpeg)
 
 
   [--help]
