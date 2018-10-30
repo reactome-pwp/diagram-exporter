@@ -51,6 +51,11 @@ public class Main {
                         new FlaggedOption(  "output",   JSAP.STRING_PARSER, null,        JSAP.REQUIRED,    'o', "output",  "The output folder"),
                         new FlaggedOption(  "input",    JSAP.STRING_PARSER, null,        JSAP.REQUIRED,    'i', "input",   "The input folder containing the diagram json files"),
 
+                        //EHLD options
+                        new FlaggedOption(  "ehlds",    JSAP.STRING_PARSER, null,        JSAP.REQUIRED,    'e', "ehld",    "The folder containing the EHLD svg files"),
+                        new FlaggedOption(  "summary",  JSAP.STRING_PARSER, null,        JSAP.REQUIRED,    's', "summary", "The file containing the summary of pathways with EHLD assigned"),
+
+                        //GRAPH-DB options
                         new FlaggedOption(  "host",     JSAP.STRING_PARSER, "localhost", JSAP.NOT_REQUIRED,'h', "host",    "The neo4j host"),
                         new FlaggedOption(  "port",     JSAP.STRING_PARSER, "7474",      JSAP.NOT_REQUIRED,'p', "port",    "The neo4j port"),
                         new FlaggedOption(  "user",     JSAP.STRING_PARSER, "neo4j",     JSAP.NOT_REQUIRED,'u', "user",    "The neo4j user"),
@@ -94,6 +99,8 @@ public class Main {
         //Checking for the specified input/output folders
         File input = getFinalInputFolder(config.getString("input"));
         File output = getFinalOutputFolder(config.getString("output"), format, profile);
+        File ehlds = getEhldsFolder(config.getString("ehlds"));
+        File ehldSummary =getEhldSummaryFile(config.getString("summary"));
 
         int counter = 0;
         Long start = System.currentTimeMillis();
@@ -107,7 +114,7 @@ public class Main {
             case JPEG:
             case JPG:
             case GIF:
-                counter = generateImage(targets, format, profile, input, output);
+                counter = generateImage(targets, format, profile, input, output, ehlds, ehldSummary);
                 break;
             case SBGN:
                 counter = generateSBGN(targets, input, output);
@@ -132,8 +139,8 @@ public class Main {
         return counter;
     }
 
-    private static int generateImage(Collection<Pathway> target, Format format, String colourProfile, File input, File output) {
-        RasterExporter rasterExporter = new RasterExporter(input.getAbsolutePath(), null, null, null);
+    private static int generateImage(Collection<Pathway> target, Format format, String colourProfile, File input, File output, File ehlds, File ehldSummary) {
+        RasterExporter rasterExporter = new RasterExporter(input.getAbsolutePath(), ehlds.getAbsolutePath(), null, ehldSummary.getAbsolutePath());
 
         int total = target.size();
         int counter = 0;
@@ -271,6 +278,24 @@ public class Main {
             }
         }
         return output;
+    }
+
+    private static File getEhldsFolder(String ehlds){
+        File rtn = new File(ehlds);
+        if(!rtn.exists() || !rtn.isDirectory()) {
+            System.err.println(String.format("Cannot find the ehlds folder '%s'", rtn.getAbsolutePath()));
+            System.exit(1);
+        }
+        return rtn;
+    }
+
+    private static File getEhldSummaryFile(String fileName){
+        File file = new File(fileName);
+        if(!file.exists()) {
+            System.err.println(String.format("Cannot find the ehld summary file '%s'", file.getAbsolutePath()));
+            System.exit(1);
+        }
+        return file;
     }
 
     private static String getTimeFormatted(Long millis) {
