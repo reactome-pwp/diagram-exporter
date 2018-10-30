@@ -8,7 +8,7 @@ import org.reactome.server.tools.diagram.data.exception.DeserializationException
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
-import org.reactome.server.tools.diagram.exporter.DiagramExporter;
+import org.reactome.server.tools.diagram.exporter.Main;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
@@ -58,9 +58,9 @@ public class ResourcesFactory {
 		if (name == null) name = DEFAULT_DIAGRAM_PROFILE;
 		logger.trace("Getting Profile [{}]", name);
 		final String file = "/profiles/" + name.toLowerCase() + ".json";
-		InputStream resource = DiagramExporter.class.getResourceAsStream(file);
+		InputStream resource = Main.class.getResourceAsStream(file);
 		if (resource == null)
-			resource = DiagramExporter.class.getResourceAsStream("/profiles/" + DEFAULT_DIAGRAM_PROFILE + ".json");
+			resource = Main.class.getResourceAsStream("/profiles/" + DEFAULT_DIAGRAM_PROFILE + ".json");
 		try {
 			if (resource == null) {
 				logger.error("Could not read diagram color profile {}", name);
