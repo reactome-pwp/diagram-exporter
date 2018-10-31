@@ -25,6 +25,8 @@ import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.sbgn.SbgnConverter;
 import org.reactome.server.tools.diagram.exporter.utils.ProgressBar;
 import org.sbgn.SbgnUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
@@ -39,6 +41,8 @@ import java.util.concurrent.TimeUnit;
  * Main class for the diagram exporter project
  */
 public class Main {
+
+    private static final Logger logger = LoggerFactory.getLogger("diagram-exporter");
 
     private enum Format {PPTX, SVG, PNG, JPEG, JPG, GIF, SBGN}
 
@@ -84,9 +88,6 @@ public class Main {
                 ReactomeNeo4jConfig.class
         );
 
-
-        //Check if target pathways are specified
-        Collection<Pathway> targets = getTargets(config.getStringArray("target"));
         String profile = config.getString("profile");
 
         //Checking for the format
@@ -103,30 +104,42 @@ public class Main {
         File input = getFinalInputFolder(config.getString("input"));
         File output = getFinalOutputFolder(config.getString("output"), format, profile);
 
-        int counter = 0;
         Long start = System.currentTimeMillis();
-        switch (format) {
-            case PPTX:
-                String lic = config.getString("license");
-                counter = generatePPTX(targets, input, output, profile, lic);
-                break;
-            case SVG:
-            case PNG:
-            case JPEG:
-            case JPG:
-            case GIF:
-                File ehlds = getEhldsFolder(config.getString("ehlds"));
-                File ehldSummary =getEhldSummaryFile(config.getString("summary"));
-                counter = generateImage(targets, format, profile, input, output, ehlds, ehldSummary);
-                break;
-            case SBGN:
-                counter = generateSBGN(targets, input, output);
-                break;
-            default:
-                System.err.println("WRONG!");
+        print("· Retrieving target pathways...");
+        Collection<Pathway> targets = getTargets(config.getStringArray("target"));
+        final int total = targets.size();
+        if (total > 0) {
+            println("\r· Targeting %,d pathway%s to be converted to '%s':\n", total, total > 1 ? "s" : "", format.name());
+            int counter = 0;
+            switch (format) {
+                case PPTX:
+                    String lic = config.getString("license");
+                    counter = generatePPTX(targets, input, output, profile, lic);
+                    break;
+                case SVG:
+                case PNG:
+                case JPEG:
+                case JPG:
+                case GIF:
+                    File ehlds = getEhldsFolder(config.getString("ehlds"));
+                    File ehldSummary = getEhldSummaryFile(config.getString("summary"));
+                    counter = generateImage(targets, format, profile, input, output, ehlds, ehldSummary);
+                    break;
+                case SBGN:
+                    counter = generateSBGN(targets, input, output);
+                    break;
+                default:
+                    System.err.println("WRONG!");
+            }
+            Long time = System.currentTimeMillis() - start;
+            println("Finished: %,d pathway%s have been exported to '%s' in %s", counter, counter > 1 ? "s" : "", f, getTimeFormatted(time));
+            if (counter != total) {
+                int wrong = total - counter;
+                println("%,d pathway%s could not be converted. Please check log file for more info.", wrong, wrong > 1 ? "s" : "");
+            }
+        } else {
+            println("· No target pathways found based on '%s'", String.join(",", config.getStringArray("target")));
         }
-        Long time = System.currentTimeMillis() - start;
-        println("Finished: %,d pathway(s) have been exported to '%s' in %s", counter, f, getTimeFormatted(time));
     }
 
     private static int generatePPTX(Collection<Pathway> target, File input, File output, String colourProfile, String lic) throws DiagramProfileException, DiagramJsonDeserializationException, DiagramJsonNotFoundException {
@@ -136,7 +149,11 @@ public class Main {
             String name = pathway.getStId() + ".pptx";
             ProgressBar.updateProgressBar(name, counter, total);
             File finalPptx = PowerPointExporter.export(pathway.getStId(), input.getAbsolutePath(), colourProfile, output.getPath(), new Decorator(), lic);
-            if (finalPptx.exists()) counter++;
+            if (finalPptx.exists()) {
+                counter++;
+            } else {
+                logger.error("Cannot generate the PPTX file for " + pathway.getStId());
+            }
         }
         ProgressBar.done(total);
         return counter;
@@ -159,7 +176,7 @@ public class Main {
                 rasterExporter.export(args, new FileOutputStream(file));
                 if (file.exists()) counter++;
             } catch (EhldException | AnalysisException | DiagramJsonDeserializationException | DiagramJsonNotFoundException | IOException | TranscoderException e) {
-                e.printStackTrace();
+                logger.error("Cannot generate the " + format + " file for " + pathway.getStId(), e);
             }
         }
         ProgressBar.done(total);
@@ -172,14 +189,14 @@ public class Main {
         for (Pathway pathway : target) {
             String name = pathway.getStId() + ".sbgn";
             ProgressBar.updateProgressBar(name, counter, total);
-            //noinspection ConstantConditions
-            SbgnConverter converter = new SbgnConverter(getDiagram(pathway, input));
             try {
+                //noinspection ConstantConditions
+                SbgnConverter converter = new SbgnConverter(getDiagram(pathway, input));
                 File sbgn = new File(output.getAbsolutePath() + "/" + name);
                 SbgnUtil.writeToFile(converter.getSbgn(), sbgn);
                 counter++;
-            } catch (JAXBException e) {
-                e.printStackTrace();
+            } catch (JAXBException | NullPointerException e) {
+                logger.error("Cannot generate the SBGN file for " + pathway.getStId(), e);
             }
         }
         ProgressBar.done(total);
@@ -230,13 +247,11 @@ public class Main {
             }
         }
 
-        print("· Retrieving target pathways...");
-        Collection<Pathway> pathways = null;
+        Collection<Pathway> pathways = new ArrayList<>();
         try {
             pathways = advancedDatabaseObjectService.getCustomQueryResults(Pathway.class, query, parametersMap);
-            println("\r· Targeting %,d pathways:\n", pathways.size());
         } catch (CustomQueryException e) {
-            e.printStackTrace();
+            logger.error("Problem retrieving the target pathways", e);
         }
         return pathways;
     }
@@ -247,7 +262,7 @@ public class Main {
             String json = IOUtils.toString(new FileInputStream(aux), Charset.defaultCharset());
             return DiagramFactory.getDiagram(json);
         } catch (IOException | DeserializationException e) {
-            e.printStackTrace();
+            logger.error("Problem retrieving the diagram object for pathway " + pathway.getStId(), e);
             return null;
         }
     }
