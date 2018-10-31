@@ -3,7 +3,6 @@ package org.reactome.server.tools.diagram.exporter.pptx.parser;
 import com.aspose.slides.*;
 import org.reactome.server.tools.diagram.data.layout.*;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
-import org.reactome.server.tools.diagram.exporter.Main;
 import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.pptx.model.*;
 import org.slf4j.Logger;
@@ -216,7 +215,7 @@ public class DiagramPresentation {
      * Get Software License
      */
     private License getLicense(String licFilePath) {
-        InputStream is = Main.class.getResourceAsStream("/license/Aspose.Slides.lic");
+        InputStream is = getClass().getResourceAsStream("/license/Aspose.Slides.lic");
         if (licFilePath != null && !licFilePath.isEmpty()) {
             try {
                 is = new FileInputStream(new File(licFilePath));
