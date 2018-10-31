@@ -15,7 +15,7 @@ import java.io.IOException;
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class FontProperties {
-	private static final Logger logger = LoggerFactory.getLogger("infoLogger");
+	private static final Logger logger = LoggerFactory.getLogger("diagram-exporter");
 
 	public static final Font LEGEND_FONT;
 	public static final Font DEFAULT_FONT;

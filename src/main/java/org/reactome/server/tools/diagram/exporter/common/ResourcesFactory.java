@@ -34,7 +34,7 @@ import java.nio.file.Paths;
  */
 public class ResourcesFactory {
 
-	private static final Logger logger = LoggerFactory.getLogger("infoLogger");
+	private static final Logger logger = LoggerFactory.getLogger("diagram-exporter");
 
 	private static final String DEFAULT_DIAGRAM_PROFILE = "modern";
 	private static final SAXSVGDocumentFactory DOCUMENT_FACTORY = new SAXSVGDocumentFactory(XMLResourceDescriptor.getXMLParserClassName());

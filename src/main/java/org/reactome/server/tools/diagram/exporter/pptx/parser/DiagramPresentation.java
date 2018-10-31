@@ -25,7 +25,7 @@ import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.reo
  */
 public class DiagramPresentation {
 
-    private static final Logger logger = LoggerFactory.getLogger("infoLogger");
+    private static final Logger logger = LoggerFactory.getLogger("diagram-exporter");
 
     private Diagram diagram;
     private DiagramProfile profile;

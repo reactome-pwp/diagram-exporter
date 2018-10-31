@@ -19,7 +19,7 @@ import java.io.File;
  */
 public class PowerPointExporter {
 
-    private static final Logger logger = LoggerFactory.getLogger("infoLogger");
+    private static final Logger logger = LoggerFactory.getLogger("diagram-exporter");
 
     /**
      * This method allows a powerpoint to be generated for those who are using the library and does not have
