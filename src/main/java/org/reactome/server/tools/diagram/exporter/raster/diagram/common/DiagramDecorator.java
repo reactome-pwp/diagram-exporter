@@ -54,10 +54,11 @@ public class DiagramDecorator {
 		graphIndex = new HashMap<>();
 		graphIds = new HashSet<>();
 		graphMap = new HashMap<>();
-		for (SubpathwayNode subpathway : graph.getSubpathways()) {
-			graphIds.add(subpathway.getDbId());
-			graphMap.put(subpathway.getStId(), subpathway.getDbId());
-		}
+		if (graph.getSubpathways() != null)
+			for (SubpathwayNode subpathway : graph.getSubpathways()) {
+				graphIds.add(subpathway.getDbId());
+				graphMap.put(subpathway.getStId(), subpathway.getDbId());
+			}
 		for (EntityNode node : graph.getNodes()) {
 			graphIds.add(node.getDbId());
 			graphIndex.put(node.getDbId(), node);
