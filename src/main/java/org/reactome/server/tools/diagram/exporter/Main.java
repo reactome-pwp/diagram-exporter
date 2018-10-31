@@ -128,8 +128,6 @@ public class Main {
                 case SBGN:
                     counter = generateSBGN(targets, input, output);
                     break;
-                default:
-                    System.err.println("WRONG!");
             }
             Long time = System.currentTimeMillis() - start;
             println("Finished: %,d pathway%s have been exported to '%s' in %s", counter, counter > 1 ? "s" : "", f, getTimeFormatted(time));
