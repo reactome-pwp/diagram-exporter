@@ -15,16 +15,18 @@ import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
+import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.exporter.common.ResourcesFactory;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.RasterRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableDiagramObject;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.LegendRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.LogoRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.gif.AnimatedGifEncoder;
 import org.reactome.server.tools.diagram.exporter.raster.itext.awt.PdfGraphics2D;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
@@ -73,7 +75,7 @@ public class DiagramRenderer implements RasterRenderer {
 	private static final Set<String> NO_TRANSPARENT_FORMATS = new HashSet<>(Arrays.asList("jpg", "jpeg", "gif"));
 	private static final int T = 0;
 	private static final DOMImplementation SVG_IMPL = SVG12DOMImplementation.getDOMImplementation();
-	private final DiagramIndex index;
+	private final DiagramData data;
 	private final ColorProfiles colorProfiles;
 	private final RasterArgs args;
 	private final double factor;
@@ -93,14 +95,18 @@ public class DiagramRenderer implements RasterRenderer {
 	 * @throws DiagramJsonDeserializationException if diagram is malformed
 	 */
 	public DiagramRenderer(RasterArgs args, String diagramPath, AnalysisStoredResult result) throws DiagramJsonNotFoundException, DiagramJsonDeserializationException {
-		final Graph graph = ResourcesFactory.getGraph(diagramPath, args.getStId());
-		diagram = ResourcesFactory.getDiagram(diagramPath, args.getStId());
-		this.title = args.getWriteTitle() != null && args.getWriteTitle()
+		this(ResourcesFactory.getDiagram(diagramPath, args.getStId()), ResourcesFactory.getGraph(diagramPath, args.getStId()), args, result);
+	}
+
+	public DiagramRenderer(Diagram diagram, Graph graph, RasterArgs args, AnalysisStoredResult result) {
+		this.diagram = diagram;
+		this.title = args.getWriteTitle()
 				? diagram.getDisplayName()
 				: null;
 		this.args = args;
 		this.colorProfiles = args.getProfiles();
-		this.index = new DiagramIndex(diagram, graph, args, result);
+		// This will create the index, the decorations and the analysis data
+		this.data = new DiagramData(diagram, graph, args, result);
 		canvas = new DiagramCanvas();
 		layout();
 		factor = limitFactor(MAX_IMAGE_SIZE);
@@ -135,7 +141,7 @@ public class DiagramRenderer implements RasterRenderer {
 	 */
 	@Override
 	public void renderToAnimatedGif(OutputStream outputStream) {
-		if (index.getAnalysis().getType() != AnalysisType.EXPRESSION)
+		if (data.getAnalysis().getType() != AnalysisType.EXPRESSION)
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
 
 		final Rectangle2D bounds = graphicsBounds(factor);
@@ -145,7 +151,7 @@ public class DiagramRenderer implements RasterRenderer {
 		encoder.setRepeat(0);
 //		encoder.setQuality(1);
 		encoder.start(outputStream);
-		for (int t = 0; t < index.getAnalysis().getResult().getExpression().getColumnNames().size(); t++) {
+		for (int t = 0; t < data.getAnalysis().getResult().getExpression().getColumnNames().size(); t++) {
 			final BufferedImage image = frame(factor, (int) bounds.getWidth(), (int) bounds.getHeight(), (int) -bounds.getX(), (int) -bounds.getY(), t);
 			encoder.addFrame(image);
 		}
@@ -173,9 +179,7 @@ public class DiagramRenderer implements RasterRenderer {
 
 	private BufferedImage frame(double factor, int width, int height, int offsetX, int offsetY, int t) {
 		canvas.getNodeAnalysis().clear();
-		index.getDiagramObjectsById().values().stream()
-				.filter(RenderableNode.class::isInstance)
-				.forEach(renderableNode -> renderableNode.draw(canvas, colorProfiles, index, t));
+		data.getIndex().getNodesById().forEach((id, renderableNode) -> renderableNode.draw(canvas, colorProfiles, data, t));
 		// Update legend
 		legendRenderer.setCol(t, title);
 		final BufferedImage image = createImage(width, height, "gif");
@@ -186,6 +190,7 @@ public class DiagramRenderer implements RasterRenderer {
 
 	private double limitFactor(double maxSize) {
 		final Rectangle2D bounds = canvas.getBounds();
+		// TODO: 22/10/18 setting margin to 0 clips outer border
 		final double width = args.getFactor() * (args.getMargin() + bounds.getWidth());
 		final double height = args.getFactor() * (args.getMargin() + bounds.getHeight());
 		double size = width * height;
@@ -193,7 +198,7 @@ public class DiagramRenderer implements RasterRenderer {
 			final double newFactor = Math.sqrt(maxSize / ((args.getMargin() + bounds.getWidth()) * (args.getMargin() + bounds.getHeight())));
 			log.warning(String.format(
 					"Diagram %s is too large. Quality reduced from %.2f to %.2f -> (%d x %d)",
-					args.getStId(), args.getFactor(), newFactor, (int) (bounds.getWidth() * newFactor), (int) (bounds.getHeight() * newFactor)));
+					diagram.getStableId(), args.getFactor(), newFactor, (int) (bounds.getWidth() * newFactor), (int) (bounds.getHeight() * newFactor)));
 			return newFactor;
 		}
 		return args.getFactor();
@@ -252,23 +257,26 @@ public class DiagramRenderer implements RasterRenderer {
 	}
 
 	private void layout() {
-		index.getDiagramObjectsById().values().forEach(renderable ->
-				renderable.draw(canvas, colorProfiles, index, T));
+		for (RenderableDiagramObject renderableDiagramObject : data.getIndex().getAllObjects()) {
+			renderableDiagramObject.draw(canvas, colorProfiles, data, T);
+		}
 		legend();
 	}
 
 	private void legend() {
-		legendRenderer = new LegendRenderer(canvas, index, colorProfiles);
-		if (index.getAnalysis().getType() == AnalysisType.EXPRESSION) {
+		legendRenderer = new LegendRenderer(canvas, data, colorProfiles);
+		if (data.getAnalysis().getType() == AnalysisType.EXPRESSION) {
 			// We add the legend first, so the logo is aligned to the right margin
 			legendRenderer.addLegend();
-			legendRenderer.addLogo();
+			final NodeProperties limits = LogoRenderer.addLogo(canvas, args, diagram);
+			legendRenderer.createBottomTextBox(limits.getWidth(), limits.getHeight());
 			if (args.getColumn() != null) {
 				legendRenderer.setCol(args.getColumn(), title);
 			} else if (!args.getFormat().equals("gif"))
 				legendRenderer.setCol(0, title);
 		} else {
-			legendRenderer.addLogo();
+			final NodeProperties limits = LogoRenderer.addLogo(canvas, args, diagram);
+			legendRenderer.createBottomTextBox(limits.getWidth(), limits.getHeight());
 			legendRenderer.infoText(title);
 		}
 	}

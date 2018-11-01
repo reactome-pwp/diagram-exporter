@@ -2,7 +2,7 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram.renderables;
 
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.TextLayer;
@@ -14,7 +14,7 @@ import java.awt.*;
  * Adds a method for drug classes to render the Rx text.
  * <p><b>Note:</b> Since all Renderable* classes already extend another class
  * (at least {@link RenderableDiagramObject}), we cannot create a RenderableDrug class with the
- * {@link RenderableDiagramObject#draw(DiagramCanvas, ColorProfiles, DiagramIndex, int)} overrided, that's why we
+ * {@link RenderableDiagramObject#draw(DiagramCanvas, ColorProfiles, org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData, int)} overrided, that's why we
  * implemented this helper class.
  */
 public class DrugHelper {
@@ -43,16 +43,15 @@ public class DrugHelper {
 
 	/**
 	 * Adds a Rx text in the bottom right corner of the node.
-	 *
-	 * @param canvas        the canvas where the text will be added
+	 *  @param canvas        the canvas where the text will be added
 	 * @param node          the node where to place the text
 	 * @param colorProfiles current diagram profile
-	 * @param index         the diagram index
+	 * @param data         the diagram index
 	 * @param xOff          distance between the text and the right margin of the node
 	 * @param yOff          distance between the text and the bottom margin of the node
 	 */
-	static void addDrugText(DiagramCanvas canvas, RenderableNode node, ColorProfiles colorProfiles, DiagramIndex index, double xOff, double yOff) {
-		final Color text = node.getTextColor(colorProfiles, index.getAnalysis().getType());
+	static void addDrugText(DiagramCanvas canvas, RenderableNode node, ColorProfiles colorProfiles, DiagramData data, double xOff, double yOff) {
+		final Color text = node.getTextColor(colorProfiles, data.getAnalysis().getType());
 		final TextLayer textLayer = node.isFadeOut()
 				? canvas.getFadeOutText()
 				: canvas.getText();

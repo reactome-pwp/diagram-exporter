@@ -19,14 +19,18 @@ public class RasterArgs {
 	private Color background;
 	private Integer column;
 	private String resource;
-	private Boolean writeTitle;
+	private Boolean writeTitle = false;
 	private Integer quality = 5;
 	private Double factor = scale(quality);
 	private Integer margin = 15;
 	private boolean ehld = true;
 
-	public RasterArgs(String stId, String format) {
-		this.stId = stId;
+	public RasterArgs(String pwyStId, String format) {
+		this.stId = pwyStId;
+		setFormat(format);
+	}
+
+	public RasterArgs(String format) {
 		setFormat(format);
 	}
 
@@ -133,7 +137,7 @@ public class RasterArgs {
 	}
 
 	public RasterArgs setWriteTitle(Boolean writeTitle) {
-		this.writeTitle = writeTitle;
+		this.writeTitle = writeTitle != null && writeTitle;
 		return this;
 	}
 

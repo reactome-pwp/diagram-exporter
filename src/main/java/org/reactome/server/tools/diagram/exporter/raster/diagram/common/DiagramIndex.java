@@ -1,151 +1,125 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.common;
 
-import org.reactome.server.analysis.core.result.AnalysisStoredResult;
-import org.reactome.server.tools.diagram.data.graph.Graph;
-import org.reactome.server.tools.diagram.data.graph.GraphNode;
-import org.reactome.server.tools.diagram.data.graph.SubpathwayNode;
-import org.reactome.server.tools.diagram.data.layout.Diagram;
-import org.reactome.server.tools.diagram.data.layout.Node;
-import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableDiagramObject;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableEdge;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableFactory;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
+import org.reactome.server.tools.diagram.data.layout.*;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.*;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.*;
 
 /**
- * Creates a RenderableObject per Node in the diagram. Computes all the
- * information that modifies each node basic rendering: selection, flag, halo
- * and analysis (enrichments and expressions). This data is not in the Node
- * class.
+ * Encapsulates every node in a RenderableDiagramObject and stores a dual index on diagram/graph id.
  *
  * @author Lorente-Arencibia, Pascual (pasculorente@gmail.com)
  */
 public class DiagramIndex {
 
-	private final DiagramDecorator decorator;
-	private final DiagramAnalysis analysis;
-	private Map<Long, Set<RenderableDiagramObject>> diagramByReactomeId;
-	private Map<Long, RenderableDiagramObject> byId;
-	private Map<Long, GraphNode> graphNodesById;
-	private Map<String, GraphNode> graphByStId;
+	private Map<Long, Collection<RenderableEdge>> edgesByReactomeId;
+	private Map<Long, RenderableEdge> edgesById;
 
-	private Map<Long, SubpathwayNode> subPathwaysById;
-	private Map<String, SubpathwayNode> subPathwaysByStId;
-	/*
-	 * Diagram:
-	 *  - RenderableEdge
-	 *  - RenderableNode
-	 *  - k: reactomeId
-	 *  - k: id
-	 *
-	 * Graph:
-	 *  - GraphNode
-	 *  - SubpathwayNode
-	 *  - k: stId
-	 *  - k: dbId
-	 */
+	private Map<Long, Collection<RenderableNode>> nodesByReactomeId;
+	private Map<Long, RenderableNode> nodesById;
+
+	private Map<Long, Collection<RenderableProcessNode>> pathwaysByReactomeId;
+//	private Map<Long, RenderableProcessNode> pathwaysById;
+
+	private Collection<RenderableCompartment> compartments;
+	private Collection<RenderableLink> links;
+	private Collection<RenderableDiagramObject> allNodes;
 
 	/**
 	 * Creates a new DiagramIndex with the information for each node in maps.
 	 *
 	 * @param diagram diagram with nodes and reactions
-	 * @param graph   background graph
 	 */
-	public DiagramIndex(Diagram diagram, Graph graph, RasterArgs args, AnalysisStoredResult result) {
-		index(diagram, graph);
-		decorator = new DiagramDecorator(this, args, graph, diagram);
-		analysis = new DiagramAnalysis(result, this, args, graph, diagram);
+	DiagramIndex(Diagram diagram) {
+		final Map<Long, Collection<RenderableEdge>> edgesByReactomeId = new HashMap<>();
+		final Map<Long, RenderableEdge> edgesById = new HashMap<>();
+		final Map<Long, Collection<RenderableNode>> nodesByReactomeId = new HashMap<>();
+		final Map<Long, RenderableNode> nodesById = new HashMap<>();
+		final Map<Long, Collection<RenderableProcessNode>> pathwaysByReactomeId = new HashMap<>();
+		final Map<Long, RenderableProcessNode> pathwaysById = new HashMap<>();
+		final Collection<RenderableCompartment> compartments = new ArrayList<>();
+		final Collection<RenderableLink> links = new ArrayList<>();
+
+		for (Edge edge : diagram.getEdges()) {
+			final RenderableEdge renderableEdge = (RenderableEdge) RenderableFactory.getRenderableObject(edge);
+			edgesById.put(edge.getId(), renderableEdge);
+			edgesByReactomeId.computeIfAbsent(edge.getReactomeId(), dbId -> new ArrayList<>()).add(renderableEdge);
+		}
+		for (Compartment compartment : diagram.getCompartments()) {
+			final RenderableDiagramObject renderableObject = RenderableFactory.getRenderableObject(compartment);
+			compartments.add((RenderableCompartment) renderableObject);
+		}
+		for (Link link : diagram.getLinks()) {
+			final RenderableDiagramObject renderableObject = RenderableFactory.getRenderableObject(link);
+			links.add((RenderableLink) renderableObject);
+		}
+		for (Node node : diagram.getNodes()) {
+			final RenderableDiagramObject renderableObject = RenderableFactory.getRenderableObject(node);
+			if (renderableObject instanceof RenderableProcessNode) {
+				final RenderableProcessNode renderableProcessNode = (RenderableProcessNode) renderableObject;
+				pathwaysById.put(node.getId(), renderableProcessNode);
+				pathwaysByReactomeId.computeIfAbsent(node.getReactomeId(), dbId -> new ArrayList<>()).add(renderableProcessNode);
+			} else {
+				final RenderableNode renderableNode = (RenderableNode) renderableObject;
+				nodesById.put(node.getId(), renderableNode);
+				nodesByReactomeId.computeIfAbsent(node.getReactomeId(), dbId -> new ArrayList<>()).add(renderableNode);
+			}
+			for (Connector connector : node.getConnectors()) {
+				final RenderableEdge edge = edgesById.get(connector.getEdgeId());
+				edge.getConnectors().add(connector);
+			}
+		}
+		this.edgesById = Collections.unmodifiableMap(edgesById);
+		this.edgesByReactomeId = Collections.unmodifiableMap(edgesByReactomeId);
+		this.nodesById = Collections.unmodifiableMap(nodesById);
+		this.nodesByReactomeId = Collections.unmodifiableMap(nodesByReactomeId);
+		this.links = Collections.unmodifiableCollection(links);
+		this.compartments = Collections.unmodifiableCollection(compartments);
+//		this.pathwaysById = Collections.unmodifiableMap(pathwaysById);
+		this.pathwaysByReactomeId = Collections.unmodifiableMap(pathwaysByReactomeId);
+
+		allNodes = new ArrayList<>();
+		allNodes.addAll(compartments);
+		allNodes.addAll(links);
+		allNodes.addAll(edgesById.values());
+		allNodes.addAll(nodesById.values());
+		allNodes.addAll(pathwaysById.values());
+
 	}
 
-	private void index(Diagram diagram, Graph graph) {
-		byId = Collections.unmodifiableMap(Stream.of(diagram.getEdges(), diagram.getNodes(), diagram.getLinks(), diagram.getCompartments())
-				.flatMap(Collection::stream)
-				.map(RenderableFactory::getRenderableObject)
-				.collect(toMap(o -> o.getDiagramObject().getId(), Function.identity())));
-		diagramByReactomeId = Collections.unmodifiableMap(byId.values().stream()
-				.collect(groupingBy(o -> o.getDiagramObject().getId(), TreeMap::new, toSet())));
-		// Add connectors to reactions, so they can be rendered together
-		diagram.getNodes().stream()
-				.map(Node::getConnectors)
-				.flatMap(Collection::stream)
-				.forEach(connector -> {
-					final RenderableEdge edge = (RenderableEdge) getDiagramObjectsById().get(connector.getEdgeId());
-					edge.getConnectors().add(connector);
-				});
-
-		graphNodesById = Collections.unmodifiableMap(
-				Stream.of(graph.getEdges(), graph.getNodes())
-						.filter(Objects::nonNull)
-						.flatMap(Collection::stream)
-						.collect(toMap(GraphNode::getDbId, Function.identity(), (a, b) -> a)));
-
-		subPathwaysById = Collections.unmodifiableMap(
-				graph.getSubpathways() == null
-						? Collections.emptyMap()
-						: graph.getSubpathways().stream()
-						.collect(toMap(SubpathwayNode::getDbId, Function.identity(), (a, b) -> a)));
-
-		graphByStId = Collections.unmodifiableMap(Stream.of(graph.getEdges(), graph.getNodes())
-				.filter(Objects::nonNull)
-				.flatMap(Collection::stream)
-				.collect(toMap(GraphNode::getStId, Function.identity(), (a, b) -> a)));
-
-		subPathwaysByStId = Collections.unmodifiableMap(
-				graph.getSubpathways() == null
-						? Collections.emptyMap()
-						: graph.getSubpathways().stream()
-						.collect(toMap(SubpathwayNode::getStId, Function.identity(), (a, b) -> a)));
+	public Map<Long, Collection<RenderableEdge>> getEdgesByReactomeId() {
+		return edgesByReactomeId;
 	}
 
-	public Map<Long, GraphNode> getGraphIndex() {
-		return graphNodesById;
+	Map<Long, RenderableEdge> getEdgesById() {
+		return edgesById;
 	}
 
-	public Map<Long, SubpathwayNode> getSubPathwaysById() {
-		return subPathwaysById;
+	Map<Long, Collection<RenderableNode>> getNodesByReactomeId() {
+		return nodesByReactomeId;
 	}
 
-	public Map<Long, RenderableDiagramObject> getDiagramObjectsById() {
-		return byId;
+	public Map<Long, RenderableNode> getNodesById() {
+		return nodesById;
 	}
 
-	public Map<Long, Set<RenderableDiagramObject>> getDiagramObjectsByReactomeId() {
-		return diagramByReactomeId;
+	Map<Long, Collection<RenderableProcessNode>> getPathwaysByReactomeId() {
+		return pathwaysByReactomeId;
 	}
 
-	public Map<String, SubpathwayNode> getSubPathwaysByStId() {
-		return subPathwaysByStId;
+//	public Map<Long, RenderableProcessNode> getPathwaysById() {
+//		return pathwaysById;
+//	}
+
+	public Collection<RenderableCompartment> getCompartments() {
+		return compartments;
 	}
 
-	public Map<String, GraphNode> getGraphByStId() {
-		return graphByStId;
+	public Collection<RenderableLink> getLinks() {
+		return links;
 	}
 
-	public DiagramAnalysis getAnalysis() {
-		return analysis;
-	}
-
-	public DiagramDecorator getDecorator() {
-		return decorator;
-	}
-
-	public Collection<RenderableNode> getNodes() {
-		return byId.values().stream()
-				.filter(RenderableNode.class::isInstance)
-				.map(RenderableNode.class::cast)
-				.collect(toList());
-	}
-
-	public Collection<RenderableEdge> getReactions() {
-		return byId.values().stream()
-				.filter(RenderableEdge.class::isInstance)
-				.map(RenderableEdge.class::cast)
-				.collect(toList());
+	public Collection<RenderableDiagramObject> getAllObjects() {
+		return allNodes;
 	}
 }

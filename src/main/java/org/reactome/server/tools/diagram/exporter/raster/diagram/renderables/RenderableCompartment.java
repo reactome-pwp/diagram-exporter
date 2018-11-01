@@ -4,7 +4,7 @@ import org.reactome.server.tools.diagram.data.layout.Bound;
 import org.reactome.server.tools.diagram.data.layout.Compartment;
 import org.reactome.server.tools.diagram.data.layout.Coordinate;
 import org.reactome.server.tools.diagram.data.layout.impl.CoordinateFactory;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
@@ -18,7 +18,7 @@ import java.awt.geom.Area;
 
 public class RenderableCompartment extends RenderableNodeCommon<Compartment> {
 
-	private static final Coordinate GWU_CORRECTION = CoordinateFactory.get(14, 18);
+	public static final Coordinate GWU_CORRECTION = CoordinateFactory.get(14, 18);
 
 	RenderableCompartment(Compartment compartment) {super(compartment);}
 
@@ -40,11 +40,11 @@ public class RenderableCompartment extends RenderableNodeCommon<Compartment> {
 	}
 
 	@Override
-	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
+	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, int t) {
 		final Stroke stroke = StrokeStyle.BORDER.get(false);
-		final Color fill = getFillColor(colorProfiles, index.getAnalysis().getType());
-		final Color border = getStrokeColor(colorProfiles, index.getAnalysis().getType());
-		final Color text = getTextColor(colorProfiles, index.getAnalysis().getType());
+		final Color fill = getFillColor(colorProfiles, data.getAnalysis().getType());
+		final Color border = getStrokeColor(colorProfiles, data.getAnalysis().getType());
+		final Color text = getTextColor(colorProfiles, data.getAnalysis().getType());
 		// Inner color is the sum of the fill color with itself
 		final Color innerColor = ColorFactory.blend(fill, fill);
 		final Shape outer = outer();

@@ -8,6 +8,8 @@ import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.analysis.core.result.exception.ResourceGoneException;
 import org.reactome.server.analysis.core.result.exception.ResourceNotFoundException;
 import org.reactome.server.analysis.core.result.utils.TokenUtils;
+import org.reactome.server.tools.diagram.data.graph.Graph;
+import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
@@ -40,6 +42,17 @@ public class RasterExporter {
 	private final TokenUtils tokenUtils;
 
 	/**
+	 * Creates an empty RasterExporter. As no paths are configured, only
+	 * {@link RasterExporter#export(Diagram, Graph, RasterArgs, AnalysisStoredResult, OutputStream)} will be available.
+	 */
+	public RasterExporter() {
+		diagramPath = null;
+		ehldPath = null;
+		ehld = null;
+		tokenUtils = null;
+	}
+
+	/**
 	 * Configures a new RasterExporter setting the resources paths.
 	 *
 	 * @param diagramPath  path to standard diagrams
@@ -54,7 +67,7 @@ public class RasterExporter {
 		Set<String> ehld;
 		try {
 			ehld = new TreeSet<>(IOUtils.readLines(new FileReader(svgSummary)));
-		} catch (IOException e) {
+		} catch (Exception e) {
 			ehld = new HashSet<>();
 		}
 		this.ehld = ehld;
@@ -161,6 +174,31 @@ public class RasterExporter {
 		final AnalysisType type = result == null
 				? null
 				: AnalysisType.valueOf(result.getSummary().getType());
+		export(args, os, renderer, type);
+	}
+
+	/**
+	 * Exports diagram in the most appropriate format.
+	 *
+	 * @param diagram the diagram
+	 * @param graph   the associated graph
+	 * @param args    params to export
+	 * @param result  use a non null value to overlay analysis results
+	 * @param os      result will be written through the OutputStream
+	 * @throws IOException         for problems wit the outputStream
+	 * @throws TranscoderException for problems when rendering to SVG
+	 * @throws AnalysisException   for problems with the analysis
+	 */
+	public void export(Diagram diagram, Graph graph, RasterArgs args, AnalysisStoredResult result, OutputStream os) throws IOException, TranscoderException, AnalysisException {
+		result = getResult(args.getToken(), result);
+		final DiagramRenderer renderer = new DiagramRenderer(diagram, graph, args, result);
+		final AnalysisType type = result == null
+				? null
+				: AnalysisType.valueOf(result.getSummary().getType());
+		export(args, os, renderer, type);
+	}
+
+	private void export(RasterArgs args, OutputStream os, RasterRenderer renderer, AnalysisType type) throws IOException, TranscoderException {
 		if (args.getFormat().equalsIgnoreCase("gif")
 				&& args.getColumn() == null
 				&& type == AnalysisType.EXPRESSION)

@@ -4,7 +4,7 @@ import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
@@ -34,18 +34,17 @@ public class RenderableProtein extends RenderableNode {
 	}
 
 	@Override
-	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
-		super.draw(canvas, colorProfiles, index, t);
-		attachments(canvas, colorProfiles, index, t);
+	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, int t) {
+		super.draw(canvas, colorProfiles, data, t);
+		attachments(canvas, colorProfiles, data, t);
 	}
 
-	private void attachments(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
-		if (getNode().getNodeAttachments() == null
-				|| getNode().getNodeAttachments().isEmpty())
+	private void attachments(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, int t) {
+		if (getNode().getNodeAttachments() == null || getNode().getNodeAttachments().isEmpty())
 			return;
-		final Color fill = getFillColor(colorProfiles, index, t);
-		final Color border = getStrokeColor(colorProfiles, index.getAnalysis().getType());
-		final Color text = getTextColor(colorProfiles, index.getAnalysis().getType());
+		final Color fill = getFillColor(colorProfiles, data, t);
+		final Color border = getStrokeColor(colorProfiles, data.getAnalysis().getType());
+		final Color text = getTextColor(colorProfiles, data.getAnalysis().getType());
 		final Stroke stroke = StrokeStyle.BORDER.get(isDashed());
 		final FillDrawLayer fillDrawLayer = isFadeOut()
 				? canvas.getFadeOutAttachments()
@@ -67,7 +66,7 @@ public class RenderableProtein extends RenderableNode {
 		});
 	}
 
-	private Color getFillColor(ColorProfiles colorProfiles, DiagramIndex index, int t) {
+	private Color getFillColor(ColorProfiles colorProfiles, DiagramData index, int t) {
 		if (isFadeOut())
 			return getColorProfile(colorProfiles).getFadeOutFill();
 

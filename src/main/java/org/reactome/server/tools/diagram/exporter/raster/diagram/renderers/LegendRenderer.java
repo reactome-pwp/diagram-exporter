@@ -6,7 +6,7 @@ import org.reactome.server.analysis.core.result.model.FoundEntity;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramAnalysis;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
@@ -14,15 +14,12 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.Ren
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
 import org.reactome.server.tools.diagram.exporter.raster.resources.Resources;
-import org.slf4j.LoggerFactory;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.geom.RoundRectangle2D;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -37,7 +34,6 @@ import java.util.stream.Collectors;
  */
 public class LegendRenderer {
 
-	private static final double RELATIVE_LOGO_WIDTH = 0.1;
 	/**
 	 * space from diagram to legend
 	 */
@@ -60,7 +56,6 @@ public class LegendRenderer {
 	private static final double BACKGROUND_PADDING = 10;
 	private static final Color BACKGROUND_BORDER = new Color(175, 175, 175);
 	private static final Color BACKGROUND_FILL = new Color(220, 220, 220);
-	private static final double MIN_LOGO_WIDTH = 50;
 	private static final Map<Long, String> SPECIES = new TreeMap<>();
 
 	// FIXME: hardcoded the species name because it is not reported in AnalysisResult
@@ -79,14 +74,14 @@ public class LegendRenderer {
 	}
 
 	private final DiagramCanvas canvas;
-	private final DiagramIndex index;
+	private final DiagramData data;
 	private final ColorProfiles profiles;
 	private NodeProperties bottomTextBox;
 	private Rectangle2D.Double colorBar;
 
-	public LegendRenderer(DiagramCanvas canvas, DiagramIndex index, ColorProfiles profiles) {
+	public LegendRenderer(DiagramCanvas canvas, DiagramData data, ColorProfiles profiles) {
 		this.canvas = canvas;
-		this.index = index;
+		this.data = data;
 		this.profiles = profiles;
 	}
 
@@ -139,10 +134,10 @@ public class LegendRenderer {
 		// [analysis name] 1/5 sample
 		String text = String.format("%s [%s] %d/%d %s",
 				title,
-				index.getAnalysis().getAnalysisName(),
+				data.getAnalysis().getAnalysisName(),
 				(col + 1),
-				index.getAnalysis().getResult().getExpression().getColumnNames().size(),
-				index.getAnalysis().getResult().getExpression().getColumnNames().get(col));
+				data.getAnalysis().getResult().getExpression().getColumnNames().size(),
+				data.getAnalysis().getResult().getExpression().getColumnNames().get(col));
 		canvas.getLegendBottomText().clear();
 		canvas.getLegendBottomText().add(text, Color.BLACK, bottomTextBox, 0, 0, FontProperties.LEGEND_FONT);
 	}
@@ -153,13 +148,13 @@ public class LegendRenderer {
 	public void infoText(String title) {
 		if (title == null) return;
 		String text = title;
-		if (index.getAnalysis().getType() == AnalysisType.OVERREPRESENTATION) {
+		if (data.getAnalysis().getType() == AnalysisType.OVERREPRESENTATION) {
 			// title: analysis name
-			if (index.getAnalysis().getAnalysisName() != null)
-				text += ": " + index.getAnalysis().getAnalysisName();
-		} else if (index.getAnalysis().getType() == AnalysisType.SPECIES_COMPARISON) {
+			if (data.getAnalysis().getAnalysisName() != null)
+				text += ": " + data.getAnalysis().getAnalysisName();
+		} else if (data.getAnalysis().getType() == AnalysisType.SPECIES_COMPARISON) {
 			// title: species name
-			text += ": " + SPECIES.get(index.getAnalysis().getResult().getSummary().getSpecies());
+			text += ": " + SPECIES.get(data.getAnalysis().getResult().getSummary().getSpecies());
 		}
 		if (text.trim().isEmpty()) return;
 		canvas.getLegendBottomText().clear();
@@ -181,7 +176,7 @@ public class LegendRenderer {
 
 	private void addColorBar() {
 		final GradientSheet gradient;
-		gradient = index.getAnalysis().getType() == AnalysisType.EXPRESSION
+		gradient = data.getAnalysis().getType() == AnalysisType.EXPRESSION
 				? profiles.getAnalysisSheet().getExpression().getGradient()
 				: profiles.getAnalysisSheet().getEnrichment().getGradient();
 
@@ -203,14 +198,14 @@ public class LegendRenderer {
 	}
 
 	private void ticks(int col) {
-		if (index.getDecorator().getSelected() == null) return;
-		for (Long id : index.getDecorator().getSelected()) {
-			final RenderableNode node = (RenderableNode) index.getDiagramObjectsById().get(id);
+		if (data.getDecorator().getSelectedDiagramId() == null) return;
+		for (Long id : data.getDecorator().getSelectedDiagramId()) {
+			final RenderableNode node = data.getIndex().getNodesById().get(id);
 			// ProcessNode
 			if (node.getEnrichment() != null
 					&& node.getEnrichment() > 0
-					&& node.getExpressionValue() != null) {
-				double value = node.getExpressionValue();
+					&& node.getEnrichmentValue() != null) {
+				double value = node.getEnrichmentValue();
 				drawTick(value, StrokeStyle.SEGMENT.get(false), profiles.getDiagramSheet().getProperties().getSelection());
 			} else {
 				// The rest of the world
@@ -265,8 +260,8 @@ public class LegendRenderer {
 	private void drawTick(Double value, Stroke stroke, Color limitColor) {
 		if (value == null) return;
 		// Interpolate value in expression range
-		final double min = index.getAnalysis().getResult().getExpression().getMin();
-		final double max = index.getAnalysis().getResult().getExpression().getMax();
+		final double min = data.getAnalysis().getResult().getExpression().getMin();
+		final double max = data.getAnalysis().getResult().getExpression().getMax();
 		final double val = (value - min) / (max - min);
 		// Extrapolate to colorBar height
 		// In expression analysis, min is in the bottom
@@ -300,9 +295,9 @@ public class LegendRenderer {
 
 		final String topText;
 		final String bottomText;
-		if (index.getAnalysis().getType() == AnalysisType.EXPRESSION) {
-			topText = EXPRESSION_FORMAT.format(index.getAnalysis().getResult().getExpression().getMax());
-			bottomText = EXPRESSION_FORMAT.format(index.getAnalysis().getResult().getExpression().getMin());
+		if (data.getAnalysis().getType() == AnalysisType.EXPRESSION) {
+			topText = EXPRESSION_FORMAT.format(data.getAnalysis().getResult().getExpression().getMax());
+			bottomText = EXPRESSION_FORMAT.format(data.getAnalysis().getResult().getExpression().getMin());
 		} else {
 			topText = ENRICHMENT_FORMAT.format(0);
 			bottomText = ENRICHMENT_FORMAT.format(DiagramAnalysis.MIN_ENRICHMENT);
@@ -311,37 +306,7 @@ public class LegendRenderer {
 		canvas.getLegendText().add(bottomText, Color.BLACK, bottom, 0, 0, FontProperties.DEFAULT_FONT);
 	}
 
-	/**
-	 * Adds a logo in the bottom right corner of the canvas.
-	 */
-	public void addLogo() {
-		final Rectangle2D bounds = canvas.getBounds();
-		final BufferedImage logo = getLogo();
-		double logoWidth = bounds.getWidth() * RELATIVE_LOGO_WIDTH;
-		if (logoWidth > logo.getWidth()) logoWidth = logo.getWidth();
-		if (logoWidth < MIN_LOGO_WIDTH) logoWidth = MIN_LOGO_WIDTH;
-		final double logoHeight = logoWidth / logo.getWidth() * logo.getHeight();
-		final NodeProperties limits = NodePropertiesFactory.get(
-				bounds.getMaxX() - logoWidth,
-				bounds.getMaxY() + LEGEND_TO_DIAGRAM_SPACE,
-				logoWidth, logoHeight);
-		this.canvas.getLogoLayer().add(logo, limits);
-		// Now we can reserve the rest of space for the text
-		createBottomTextBox(logoWidth, logoHeight);
-	}
-
-	private BufferedImage getLogo() {
-		final String filename = "images/reactome_logo_100pxW_50T.png";
-		final InputStream resource = Resources.class.getResourceAsStream(filename);
-		try {
-			return ImageIO.read(resource);
-		} catch (IOException e) {
-			LoggerFactory.getLogger("diagram-exporter").error("Logo not found in resources");
-		}
-		return new BufferedImage(1,1, BufferedImage.TYPE_INT_ARGB);
-	}
-
-	private void createBottomTextBox(double logoWidth, double logoHeight) {
+	public void createBottomTextBox(double logoWidth, double logoHeight) {
 		final Rectangle2D bounds = canvas.getBounds();
 		bottomTextBox = NodePropertiesFactory.get(bounds.getMinX(), bounds.getMaxY() - logoHeight, bounds.getWidth() - logoWidth, logoHeight);
 	}

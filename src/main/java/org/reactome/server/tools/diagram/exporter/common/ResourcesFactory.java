@@ -8,7 +8,6 @@ import org.reactome.server.tools.diagram.data.exception.DeserializationException
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
-import org.reactome.server.tools.diagram.exporter.DiagramExporter;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
@@ -34,7 +33,7 @@ import java.nio.file.Paths;
  */
 public class ResourcesFactory {
 
-	private static final Logger logger = LoggerFactory.getLogger("infoLogger");
+	private static final Logger logger = LoggerFactory.getLogger("diagram-exporter");
 
 	private static final String DEFAULT_DIAGRAM_PROFILE = "modern";
 	private static final SAXSVGDocumentFactory DOCUMENT_FACTORY = new SAXSVGDocumentFactory(XMLResourceDescriptor.getXMLParserClassName());
@@ -58,9 +57,9 @@ public class ResourcesFactory {
 		if (name == null) name = DEFAULT_DIAGRAM_PROFILE;
 		logger.trace("Getting Profile [{}]", name);
 		final String file = "/profiles/" + name.toLowerCase() + ".json";
-		InputStream resource = DiagramExporter.class.getResourceAsStream(file);
+		InputStream resource = ResourcesFactory.class.getResourceAsStream(file);
 		if (resource == null)
-			resource = DiagramExporter.class.getResourceAsStream("/profiles/" + DEFAULT_DIAGRAM_PROFILE + ".json");
+			resource = ResourcesFactory.class.getResourceAsStream("/profiles/" + DEFAULT_DIAGRAM_PROFILE + ".json");
 		try {
 			if (resource == null) {
 				logger.error("Could not read diagram color profile {}", name);

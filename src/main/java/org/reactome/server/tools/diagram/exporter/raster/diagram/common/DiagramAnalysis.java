@@ -5,16 +5,13 @@ import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.analysis.core.result.model.*;
 import org.reactome.server.tools.diagram.data.graph.EntityNode;
 import org.reactome.server.tools.diagram.data.graph.Graph;
-import org.reactome.server.tools.diagram.data.graph.GraphNode;
-import org.reactome.server.tools.diagram.data.layout.Diagram;
-import org.reactome.server.tools.diagram.data.layout.DiagramObject;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableDiagramObject;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableProcessNode;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Computes the analysis data of the diagram. Adds to the DiagramIndex the
@@ -30,19 +27,23 @@ public class DiagramAnalysis {
 	private final DiagramIndex index;
 	private final RasterArgs args;
 	private final Graph graph;
-	private final Diagram diagram;
 	private final AnalysisType type;
-	private Map<Long, DiagramObject> diagramIndex;
 	private Map<Long, EntityNode> graphIndex;
 	private AnalysisStoredResult result;
 	private String resource;
 	private AnalysisResult summary;
 
-	DiagramAnalysis(AnalysisStoredResult result, DiagramIndex index, RasterArgs args, Graph graph, Diagram diagram) {
+	/**
+	 * Instantiates a DiagramAnalysis. It will calculate values for nodes in case there is an analysis.
+	 *  @param index   diagram index
+	 * @param graph   the underlying graph
+	 * @param args    raster arguments
+	 * @param result  analysis results
+	 */
+	DiagramAnalysis(DiagramIndex index, Graph graph, RasterArgs args, AnalysisStoredResult result) {
 		this.index = index;
 		this.args = args;
 		this.graph = graph;
-		this.diagram = diagram;
 		this.result = result;
 		this.type = result == null ? null : AnalysisType.getType(result.getSummary().getType());
 		this.resource = getResource();
@@ -71,16 +72,11 @@ public class DiagramAnalysis {
 	}
 
 	private void clearIndex() {
-		diagramIndex = null;
 		graphIndex = null;
 	}
 
 	private void index() {
-		// Indexes to map layout <-> graph
-		diagramIndex = new HashMap<>();
-		Stream.of(diagram.getEdges(), diagram.getNodes(), diagram.getLinks())
-				.flatMap(Collection::stream)
-				.forEach(item -> diagramIndex.put(item.getReactomeId(), item));
+		// Indexes to map layout <-> graph. They share dbId
 		graphIndex = new HashMap<>();
 		graph.getNodes().forEach(item -> graphIndex.put(item.getDbId(), item));
 	}
@@ -91,17 +87,22 @@ public class DiagramAnalysis {
 	private void addAnalysisData() {
 		this.summary = result.getResultSummary(resource);
 		// Get subpathways (green boxes) % of analysis area
-		subPathways();
-		foundElements();
+		addSubPathwaysData();
+		addNodesData();
 	}
 
-	private void foundElements() {
+	private void addNodesData() {
 		final FoundElements foundElements = result.getFoundElmentsForPathway(args.getStId(), resource);
 		if (foundElements == null) return;
-		if (type == AnalysisType.EXPRESSION) expression(foundElements);
-		else if (type == AnalysisType.OVERREPRESENTATION ||
-				type == AnalysisType.SPECIES_COMPARISON)
-			enrichment(foundElements);
+		switch (type) {
+			case SPECIES_COMPARISON:
+			case OVERREPRESENTATION:
+				addEnrichmentData(foundElements);
+				break;
+			case EXPRESSION:
+				addExpressionData(foundElements);
+				break;
+		}
 	}
 
 	/**
@@ -110,12 +111,13 @@ public class DiagramAnalysis {
 	 * entities.getFound() / entities.getTotal() to compute the percentage of
 	 * the fill area.
 	 */
-	private void subPathways() {
-		final Map<Long, List<RenderableProcessNode>> subPathways = index.getDiagramObjectsById().values().stream()
-				.filter(RenderableProcessNode.class::isInstance)
-				.map(RenderableProcessNode.class::cast)
-				.collect(Collectors.groupingBy(o -> o.getDiagramObject().getReactomeId()));
-		final List<PathwaySummary> summaries = result.filterByPathways(subPathways.keySet().stream().map(String::valueOf).collect(Collectors.toList()), resource);
+	private void addSubPathwaysData() {
+		// Just a reminder: the same subpathway can appear twice in the diagram
+		// filterByPathway needs ids as strings
+		final List<String> ids = new ArrayList<>();
+		for (Long dbId : index.getPathwaysByReactomeId().keySet()) ids.add(String.valueOf(dbId));
+		final List<PathwaySummary> summaries = result.filterByPathways(ids, resource);
+
 		for (PathwaySummary summary : summaries) {
 			final EntityStatistics entities = summary.getEntities();
 			if (entities == null) continue;
@@ -125,15 +127,15 @@ public class DiagramAnalysis {
 			if (percentage < MIN_VISIBLE_ENRICHMENT && percentage > 0) {
 				percentage = MIN_VISIBLE_ENRICHMENT;
 			}
-			final Double median = getMedian(entities.getExp());
-			for (RenderableProcessNode node : subPathways.get(summary.getDbId())) {
-				node.setEnrichment(percentage);
-				node.setExpressionValue(median);  // TODO: 19/07/18 how subpathways behave in expression
+			final Double median = computeMedian(entities.getExp());
+			for (RenderableProcessNode node : index.getPathwaysByReactomeId().get(summary.getDbId())) {
+				node.setEnrichmentPercentage(percentage);
+				node.setEnrichmentValue(median);  // TODO: 19/07/18 how subpathways behave in expression
 			}
 		}
 	}
 
-	private Double getMedian(List<Double> exp) {
+	private Double computeMedian(List<Double> exp) {
 		if (exp.isEmpty()) return null;
 		if (exp.size() == 1) return exp.get(0);
 		// Avoid modifying original list
@@ -149,54 +151,59 @@ public class DiagramAnalysis {
 	 * Computes the list of expressions of components. For each diagram object,
 	 * except ProcessNodes, you get a list of lists of doubles
 	 */
-	private void expression(FoundElements foundElements) {
+	private void addExpressionData(FoundElements foundElements) {
+		// There is no direct mapping diagram <-> analysis, so we map through graph
 		// analysis -> graph: analysis.mapsTo.id.contains(graph.identifier)
 		// graph -> layout:   layout.reactomeId == graph.dbId
 		// Index analysis nodes via mapsTo
 		final Map<String, FoundEntity> analysisIndex = new HashMap<>();
-		foundElements.getEntities().forEach(analysisNode ->
-				analysisNode.getMapsTo().stream()
-						.map(IdentifierMap::getIds)
-						.flatMap(Collection::stream)
-						.forEach(id -> analysisIndex.put(id, analysisNode)));
-		diagram.getNodes().forEach(diagramNode -> {
-			final EntityNode graphNode = graphIndex.get(diagramNode.getReactomeId());
+		for (FoundEntity analysisNode : foundElements.getEntities()) {
+			for (IdentifierMap identifierMap : analysisNode.getMapsTo()) {
+				for (String id : identifierMap.getIds()) {
+					analysisIndex.put(id, analysisNode);
+				}
+			}
+		}
+		index.getNodesByReactomeId().forEach((id, objects) -> {
+			final EntityNode graphNode = graphIndex.get(id);
 			if (graphNode == null) return;
-			final List<FoundEntity> leaves = getLeaves(graphNode).stream()
-					.map(leafId -> analysisIndex.get(graphIndex.get(leafId).getIdentifier()))
-					.collect(Collectors.toList());
-			final RenderableNode renderableNode = (RenderableNode) index.getDiagramObjectsById().get(diagramNode.getId());
-			renderableNode.setHitExpressions(leaves);
+			final List<FoundEntity> leaves = new ArrayList<>();
+			for (Long leafId : getLeaves(graphNode)) {
+				leaves.add(analysisIndex.get(graphIndex.get(leafId).getIdentifier()));
+			}
+			for (RenderableDiagramObject object : objects) {
+				final RenderableNode renderableNode = (RenderableNode) object;
+				renderableNode.setHitExpressions(leaves);
+			}
 		});
 	}
 
-	/** Computes only the relation of hit found components and found component */
-	private void enrichment(FoundElements foundElements) {
+	/**
+	 * Computes only the relation of hit found components and found component
+	 */
+	private void addEnrichmentData(FoundElements foundElements) {
 		// analysis -> graph: analysis.mapsTo.ids.contains(graph.identifier)
 		final Set<String> identifiers = foundElements.getEntities().stream()
-				.map(FoundEntity::getMapsTo)
-				.flatMap(Collection::stream)
-				.map(IdentifierMap::getIds)
-				.flatMap(Collection::stream)
+				.flatMap(foundEntity -> foundEntity.getMapsTo().stream())
+				.flatMap(identifierMap -> identifierMap.getIds().stream())
 				.collect(Collectors.toSet());
 		// graphNode.getIdentifier() -> graphNode.getDbId()
-		final Set<Long> graphNodeHit = graph.getNodes().stream()
-				.filter(entityNode -> identifiers.contains(entityNode.getIdentifier()))
-				.map(GraphNode::getDbId)
-				.collect(Collectors.toSet());
+		final Set<Long> graphNodeHit = new HashSet<>();
+		for (EntityNode entityNode : graph.getNodes())
+			if (identifiers.contains(entityNode.getIdentifier()))
+				graphNodeHit.add(entityNode.getDbId());
 		// run through the diagram nodes and compute the enrichment level for
 		// its associated graph node.
-		diagram.getNodes().stream()
-				.filter(node -> !node.getRenderableClass().equals("ProcessNode"))
-				.filter(node -> !node.getRenderableClass().equals("EncapsulatedNode"))
-				.forEach(diagramNode -> {
-					final EntityNode graphNode = graphIndex.get(diagramNode.getReactomeId());
-					if (graphNode != null) {
-						double percentage = getPercentage(graphNodeHit, graphNode);
-						final RenderableNode renderableNode = (RenderableNode) index.getDiagramObjectsById().get(diagramNode.getId());
-						renderableNode.setEnrichment(percentage);
-					}
-				});
+		index.getNodesByReactomeId().forEach((id, objects) -> {
+			final EntityNode graphNode = graphIndex.get(id);
+			if (graphNode != null) {
+				double percentage = getPercentage(graphNodeHit, graphNode);
+				for (RenderableDiagramObject object : objects) {
+					final RenderableNode renderableNode = (RenderableNode) object;
+					renderableNode.setEnrichmentPercentage(percentage);
+				}
+			}
+		});
 	}
 
 	private double getPercentage(Set<Long> hitIds, EntityNode graphNode) {
@@ -210,15 +217,16 @@ public class DiagramAnalysis {
 	}
 
 	private Set<Long> getLeaves(EntityNode node) {
-		if (node.getChildren() == null) {
+		if (node.getChildren() == null || node.getChildren().isEmpty()) {
 			return Collections.singleton(node.getDbId());
 		} else {
-			return node.getChildren().stream()
-					.map(graphIndex::get)
-					.filter(Objects::nonNull)
-					.map(this::getLeaves)
-					.flatMap(Collection::stream)
-					.collect(Collectors.toSet());
+			final Set<Long> set = new HashSet<>();
+			for (Long dbId : node.getChildren()) {
+				final EntityNode entityNode = graphIndex.get(dbId);
+				if (entityNode != null)
+					set.addAll(getLeaves(entityNode));
+			}
+			return set;
 		}
 	}
 

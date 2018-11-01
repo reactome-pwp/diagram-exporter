@@ -3,7 +3,7 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram.renderables;
 import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramIndex;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.ShapeFactory;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
@@ -43,13 +43,13 @@ public class RenderableProcessNode extends RenderableNode {
 	}
 
 	@Override
-	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, int t) {
-		super.draw(canvas, colorProfiles, index, t);
+	public void draw(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, int t) {
+		super.draw(canvas, colorProfiles, data, t);
 		final Shape rectangle = innerShape();
-		final Color fill = index.getAnalysis().getType() == null
+		final Color fill = data.getAnalysis().getType() == null
 				? INNER_COLOR
 				: ANALYSIS_INNER_COLOR;
-		final Color innerBorder = getInnerStrokeColor(colorProfiles, index.getAnalysis().getType());
+		final Color innerBorder = getInnerStrokeColor(colorProfiles, data.getAnalysis().getType());
 		final Stroke stroke = StrokeStyle.BORDER.get(isDashed());
 		if (isFadeOut()) {
 			canvas.getFadeOutNodeForeground().add(rectangle, fill);
@@ -72,7 +72,7 @@ public class RenderableProcessNode extends RenderableNode {
 	}
 
 	@Override
-	public double expression(DiagramCanvas canvas, DiagramIndex index, ColorProfiles colorProfiles, int t) {
+	public double expression(DiagramCanvas canvas, DiagramData data, ColorProfiles colorProfiles, int t) {
 		final Double percentage = getEnrichment();
 		if (percentage != null && percentage > 0) {
 			final NodeProperties prop = getNode().getProp();
@@ -92,11 +92,11 @@ public class RenderableProcessNode extends RenderableNode {
 	}
 
 	@Override
-	public void text(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramIndex index, double textSplit) {
+	public void text(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, double textSplit) {
 		final TextLayer layer = isFadeOut()
 				? canvas.getFadeOutText()
 				: canvas.getText();
-		final Color color = getTextColor(colorProfiles, index.getAnalysis().getType());
+		final Color color = getTextColor(colorProfiles, data.getAnalysis().getType());
 		// Shrink textSplit
 		// textSplit / width = newTextSplit / nWidth
 		final double width = getNode().getProp().getWidth();
