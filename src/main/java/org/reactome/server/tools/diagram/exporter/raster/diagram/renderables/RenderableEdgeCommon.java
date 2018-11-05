@@ -96,8 +96,8 @@ public abstract class RenderableEdgeCommon<T extends EdgeCommon> extends Rendera
 			if (isFlag()) flag(canvas, colorProfiles, awtShape);
 			if (isHalo()) halo(canvas, colorProfiles, awtShape);
 			final Color color = shape.getEmpty() != null && shape.getEmpty()
-					? fillColor
-					: linesColor;
+					? Color.WHITE
+					: fillColor;
 			layer.add(awtShape, color, linesColor, stroke);
 			if (shape.getType().equals("DOUBLE_CIRCLE"))
 				layer.add(ShapeFactory.innerCircle(shape), color, linesColor, stroke);
