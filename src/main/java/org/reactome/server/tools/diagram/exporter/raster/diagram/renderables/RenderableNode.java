@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 
-	static final double NODE_TEXT_PADDING = 10;
+	static final double NODE_TEXT_PADDING = 5;
 	private final Area backgroundArea;
 	private final Shape backgroundShape;
 	private List<FoundEntity> hitExpressions;
