@@ -134,10 +134,10 @@ public abstract class RenderableEdgeCommon<T extends EdgeCommon> extends Rendera
 	private void createSegments() {
 		segments = new LinkedList<>();
 		for (Segment segment : getEdge().getSegments())
-			segments.add(ShapeFactory.line(segment.getFrom(), segment.getTo()));
+			segments.add(ShapeFactory.createLine(segment.getFrom(), segment.getTo()));
 		for (Connector connector : connectors)
 			for (Segment segment : connector.getSegments())
-				segments.add(ShapeFactory.line(segment.getFrom(), segment.getTo()));
+				segments.add(ShapeFactory.createLine(segment.getFrom(), segment.getTo()));
 	}
 
 	public List<Shape> getShapes() {

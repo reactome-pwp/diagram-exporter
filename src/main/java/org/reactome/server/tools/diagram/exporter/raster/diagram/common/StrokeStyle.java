@@ -18,15 +18,23 @@ public enum StrokeStyle {
 	SEGMENT (1),
 	BORDER (2);
 
-	private final Stroke NORMAL;
-	private final Stroke DASHED;
+	private final Stroke normal;
+	private final Stroke dashed;
 
 	StrokeStyle(float width) {
-		NORMAL = new BasicStroke(width, CAP_BUTT, JOIN_MITER);
-		DASHED = new BasicStroke(width, CAP_BUTT, JOIN_MITER, 5f, new float[]{5f, 5f}, 5f);
+		normal = new BasicStroke(width, CAP_BUTT, JOIN_MITER);
+		dashed = new BasicStroke(width, CAP_BUTT, JOIN_MITER, 5f, new float[]{5f, 5f}, 5f);
 	}
 
 	public final Stroke get(boolean dashed) {
-		return dashed ? this.DASHED : NORMAL;
+		return dashed ? this.dashed : normal;
+	}
+
+	public Stroke getDashed() {
+		return dashed;
+	}
+
+	public Stroke getNormal() {
+		return normal;
 	}
 }

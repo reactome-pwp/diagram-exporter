@@ -2,6 +2,7 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram.common;
 
 import org.reactome.server.tools.diagram.data.layout.Coordinate;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
+import org.reactome.server.tools.diagram.data.layout.Segment;
 
 import java.awt.*;
 import java.awt.geom.*;
@@ -225,7 +226,7 @@ public class ShapeFactory {
 		);
 	}
 
-	public static Shape line(Coordinate from, Coordinate to) {
+	public static Shape createLine(Coordinate from, Coordinate to) {
 		return new Line2D.Double(from.getX(), from.getY(), to.getX(), to.getY());
 	}
 
@@ -307,5 +308,9 @@ public class ShapeFactory {
 		path2D.lineTo(x1, maxY);
 		path2D.closePath();
 		return path2D;
+	}
+
+	public static Shape createLine(Segment segment) {
+		return createLine(segment.getFrom(), segment.getTo());
 	}
 }
