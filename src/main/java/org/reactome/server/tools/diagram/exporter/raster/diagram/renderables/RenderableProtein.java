@@ -45,7 +45,7 @@ public class RenderableProtein extends RenderableNode {
 		final Color fill = getFillColor(colorProfiles, data, t);
 		final Color border = getStrokeColor(colorProfiles, data.getAnalysis().getType());
 		final Color text = getTextColor(colorProfiles, data.getAnalysis().getType());
-		final Stroke stroke = StrokeStyle.BORDER.get(isDashed());
+		final Stroke stroke = StrokeStyle.BORDER.getNormal();
 		final FillDrawLayer fillDrawLayer = isFadeOut()
 				? canvas.getFadeOutAttachments()
 				: canvas.getAttachments();
