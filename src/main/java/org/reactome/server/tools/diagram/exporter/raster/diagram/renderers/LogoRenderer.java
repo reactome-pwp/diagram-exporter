@@ -81,22 +81,22 @@ public class LogoRenderer {
 		final double cy = bounds.getCenterY() - 0.5 * height;
 		final List<Rectangle2D> positions = Arrays.asList(
 				new Rectangle2D.Double(mx, my, width, height),
-				new Rectangle2D.Double(mx - COMPARTMENT_PADDING, my - COMPARTMENT_PADDING, width, height),
 				new Rectangle2D.Double(x, my, width, height),
-				new Rectangle2D.Double(x + COMPARTMENT_PADDING, my - COMPARTMENT_PADDING, width, height),
 				new Rectangle2D.Double(mx, y, width, height),
-				new Rectangle2D.Double(mx - COMPARTMENT_PADDING, y + COMPARTMENT_PADDING, width, height),
 				new Rectangle2D.Double(x, y, width, height),
-				new Rectangle2D.Double(x+ COMPARTMENT_PADDING, y + COMPARTMENT_PADDING, width, height),
 				new Rectangle2D.Double(cx, my, width, height),
-				new Rectangle2D.Double(cx - COMPARTMENT_PADDING, my - COMPARTMENT_PADDING, width, height),
 				new Rectangle2D.Double(cx, y, width, height),
-				new Rectangle2D.Double(cx - COMPARTMENT_PADDING, y + COMPARTMENT_PADDING, width, height),
 				new Rectangle2D.Double(mx, cy, width, height),
-				new Rectangle2D.Double(mx - COMPARTMENT_PADDING, cy, width, height),
 				new Rectangle2D.Double(x, cy, width, height),
-				new Rectangle2D.Double(x + COMPARTMENT_PADDING, cy, width, height),
 				new Rectangle2D.Double(mx, cy, width, height),
+				new Rectangle2D.Double(mx - COMPARTMENT_PADDING, my - COMPARTMENT_PADDING, width, height),
+				new Rectangle2D.Double(x + COMPARTMENT_PADDING, my - COMPARTMENT_PADDING, width, height),
+				new Rectangle2D.Double(mx - COMPARTMENT_PADDING, y + COMPARTMENT_PADDING, width, height),
+				new Rectangle2D.Double(x+ COMPARTMENT_PADDING, y + COMPARTMENT_PADDING, width, height),
+				new Rectangle2D.Double(cx - COMPARTMENT_PADDING, my - COMPARTMENT_PADDING, width, height),
+				new Rectangle2D.Double(cx - COMPARTMENT_PADDING, y + COMPARTMENT_PADDING, width, height),
+				new Rectangle2D.Double(mx - COMPARTMENT_PADDING, cy, width, height),
+				new Rectangle2D.Double(x + COMPARTMENT_PADDING, cy, width, height),
 				new Rectangle2D.Double(mx - COMPARTMENT_PADDING, cy, width, height));
 		for (Rectangle2D position : positions) {
 			if (!anyInside(diagram, position)) {

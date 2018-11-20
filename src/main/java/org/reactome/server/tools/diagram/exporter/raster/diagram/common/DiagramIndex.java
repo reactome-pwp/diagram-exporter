@@ -64,10 +64,6 @@ public class DiagramIndex {
 				nodesById.put(node.getId(), renderableNode);
 				nodesByReactomeId.computeIfAbsent(node.getReactomeId(), dbId -> new ArrayList<>()).add(renderableNode);
 			}
-			for (Connector connector : node.getConnectors()) {
-				final RenderableEdge edge = edgesById.get(connector.getEdgeId());
-				edge.getConnectors().add(connector);
-			}
 		}
 		this.edgesById = Collections.unmodifiableMap(edgesById);
 		this.edgesByReactomeId = Collections.unmodifiableMap(edgesByReactomeId);

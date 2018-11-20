@@ -16,7 +16,7 @@ import java.awt.*;
 public class RenderableEntitySet extends RenderableNode {
 
 
-	private static double SET_PADDING = 4;
+	private static final double SET_PADDING = 4;
 
 	RenderableEntitySet(Node node) {
 		super(node);

@@ -170,7 +170,8 @@ public class DiagramRendererTest {
 		final ColorProfiles profiles = new ColorProfiles("modern", "copper plus", "teal");
 		final RasterArgs args = new RasterArgs("R-HSA-109606", "gif");
 		args.setSelected(Collections.singletonList("R-HSA-114255"));
-		args.setToken(TestUtils.TOKEN_EXPRESSION_2);
+		// takes too long for the HPA analysis
+		args.setToken(TestUtils.TOKEN_EXPRESSION_1);
 		args.setProfiles(profiles);
 		TestUtils.render(args, null);
 	}

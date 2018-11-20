@@ -23,11 +23,11 @@ import java.io.IOException;
  */
 public class TestUtils {
 
-	public static final String TOKEN_OVER_1 = "MjAxODAyMTIxMTI5MzdfMQ==";
-	public static final String TOKEN_OVER_2 = "MjAxODAyMTIxMTMwMTRfMg==";
-	public static final String TOKEN_EXPRESSION_1 = "MjAxODAyMTIxMTMwNDhfMw==";
-	public static final String TOKEN_EXPRESSION_2 = "MjAxODAyMTIxMTMxMTZfNA==";
-	public static final String TOKEN_SPECIES = "MjAxODAyMTIxMTMyMzdfNQ==";
+	public static final String TOKEN_OVER_1 = "MjAxODExMDEwNzI3NDNfOA%253D%253D"; // uniprot (GBM Uniprot)
+	public static final String TOKEN_OVER_2 = "MjAxODExMDEwNzMyMDdfOQ%253D%253D"; // Gene NCBI (12 tumors)
+	public static final String TOKEN_EXPRESSION_1 = "MjAxODExMDEwNzMyMjJfMTA%253D";  // microarray (probeset)
+	public static final String TOKEN_EXPRESSION_2 = "MjAxODEwMzAxMDIzMDBfNQ%253D%253D";  // HPA (GeneName)
+	public static final String TOKEN_SPECIES = "MjAxODExMDEwNzMzMTRfMTE%253D"; // canis
 
 	private static final String TODAYS_SERVER = "https://reactomedev.oicr.on.ca";
 
