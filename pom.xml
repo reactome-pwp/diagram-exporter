@@ -241,7 +241,7 @@
                 <executions>
                     <execution>
                         <id>make-assembly</id>
-                        <phase>package</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
@@ -260,6 +260,11 @@
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/license/</exclude>
+                            </excludes>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
