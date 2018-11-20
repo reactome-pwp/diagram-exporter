@@ -38,6 +38,7 @@
     </developers>
 
     <properties>
+        <graph.core>1.1.16-SNAPSHOT</graph.core>
         <diagram.reader.version>1.1.5</diagram.reader.version>
         <batik.version>1.10</batik.version>
         <aspose.version>17.7</aspose.version>
@@ -65,6 +66,11 @@
     <dependencies>
 
         <!-- Reactome dependencies -->
+        <dependency>
+            <groupId>org.reactome.server.graph</groupId>
+            <artifactId>graph-core</artifactId>
+            <version>${graph.core}</version>
+        </dependency>
         <dependency>
             <groupId>org.reactome.server.tools</groupId>
             <artifactId>diagram-reader</artifactId>

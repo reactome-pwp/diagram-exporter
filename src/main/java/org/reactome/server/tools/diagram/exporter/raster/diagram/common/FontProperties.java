@@ -21,24 +21,19 @@ public class FontProperties {
 	public static final Font DEFAULT_FONT;
 
 	public static PdfFont REGULAR;
-	private static PdfFont BOLD;
 
 	static {
-		final GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		try {
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, Resources.class.getResourceAsStream("fonts/arial.ttf")));
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, Resources.class.getResourceAsStream("fonts/arialbd.ttf")));
+			DEFAULT_FONT = Font.createFont(Font.TRUETYPE_FONT, Resources.class.getResourceAsStream("fonts/arialbd.ttf")).deriveFont(8f);
+			LEGEND_FONT = DEFAULT_FONT.deriveFont(16f);
 			byte[] bytes;
 			bytes = IOUtils.toByteArray(Resources.class.getResourceAsStream("fonts/arial.ttf"));
 			REGULAR = PdfFontFactory.createFont(bytes, PdfEncodings.UTF8, true, true);
-			bytes = IOUtils.toByteArray(Resources.class.getResourceAsStream("fonts/arialbd.ttf"));
-			BOLD = PdfFontFactory.createFont(bytes, PdfEncodings.UTF8, true, true);
 		} catch (FontFormatException | IOException e) {
 			// resources shouldn't throw exceptions
 			logger.error("Couldn't load font", e);
+			throw new RuntimeException("Couldn't load fonts", e);
 		}
-		LEGEND_FONT = new Font("arial", Font.BOLD, 16);
-		DEFAULT_FONT = new Font("arial", Font.BOLD, 8);
 	}
 
 

@@ -96,8 +96,11 @@ public abstract class RenderableEdgeCommon<T extends EdgeCommon> extends Rendera
 			if (isFlag()) flag(canvas, colorProfiles, awtShape);
 			if (isHalo()) halo(canvas, colorProfiles, awtShape);
 			final Color color = shape.getEmpty() != null && shape.getEmpty()
-					? fillColor
+					? Color.WHITE
 					: linesColor;
+			// shapes use border color for filling
+			// https://github.com/reactome-pwp/diagram/blob/dev/src/main/java/org/reactome/web/diagram/renderers/layout/abs/ShapeAbstractRenderer.java#L87
+			// ctx.setFillStyle(ctx.getStrokeStyle());
 			layer.add(awtShape, color, linesColor, stroke);
 			if (shape.getType().equals("DOUBLE_CIRCLE"))
 				layer.add(ShapeFactory.innerCircle(shape), color, linesColor, stroke);
@@ -131,10 +134,10 @@ public abstract class RenderableEdgeCommon<T extends EdgeCommon> extends Rendera
 	private void createSegments() {
 		segments = new LinkedList<>();
 		for (Segment segment : getEdge().getSegments())
-			segments.add(ShapeFactory.line(segment.getFrom(), segment.getTo()));
+			segments.add(ShapeFactory.createLine(segment.getFrom(), segment.getTo()));
 		for (Connector connector : connectors)
 			for (Segment segment : connector.getSegments())
-				segments.add(ShapeFactory.line(segment.getFrom(), segment.getTo()));
+				segments.add(ShapeFactory.createLine(segment.getFrom(), segment.getTo()));
 	}
 
 	public List<Shape> getShapes() {
