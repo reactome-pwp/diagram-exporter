@@ -117,7 +117,7 @@ public class PPTXReaction {
             stylesheet.setLineColor(stylesheet.getFadeOutStroke());
             stylesheet.setFillColor(stylesheet.getFadeOutFill());
         }
-        if (edge.getIsDisease() != null) {
+        if (edge.getIsDisease() != null && edge.getIsDisease()) {
             stylesheet.setLineColor(stylesheet.getDiseaseColor());
             stylesheet.setFillColor(stylesheet.getDiseaseColor());
             stylesheet.setTextColor(stylesheet.getDiseaseColor());
@@ -332,7 +332,7 @@ public class PPTXReaction {
             stylesheet.setLineColor(stylesheet.getFadeOutStroke());
         }
         // disease has to be set after the fadeOut, then we make sure the red line is on top of the fadeOut
-        if (connector.getIsDisease() != null) {
+        if (connector.getIsDisease() != null && connector.getIsDisease()) {
             stylesheet.setLineColor(Color.RED);
             stylesheet.setFillColor(Color.RED);
             stylesheet.setTextColor(Color.RED);
