@@ -323,7 +323,7 @@ public class PPTXShape {
      */
     public static void drawCatalyst(Map<Connector, IAutoShape> shapeMap, IGroupShape groupShape, Connector connector, Stylesheet s, Adjustment adjustment) {
         Color auxShapeFillColor = Color.BLACK;
-        if (connector.getIsDisease() != null) {
+        if (connector.getIsDisease() != null && connector.getIsDisease()) {
             s.setLineColor(Color.RED);
             auxShapeFillColor = Color.RED;
         }
@@ -337,7 +337,7 @@ public class PPTXShape {
     }
 
     public static void drawActivator(IShapeCollection shapes, Map<Connector, IAutoShape> shapeMap, IGroupShape groupShape, Connector connector, Stylesheet stylesheet, Adjustment adjustment) {
-        if (connector.getIsDisease() != null) {
+        if (connector.getIsDisease() != null && connector.getIsDisease()) {
             stylesheet.setLineColor(Color.RED);
         }
         Shape shape = connector.getEndShape();
@@ -352,7 +352,7 @@ public class PPTXShape {
      * ShapeMap holds the shape where the connector (in this case type Inhibitor) will attach.
      */
     public static void drawInhibitor(IShapeCollection shapes, Map<Connector, IAutoShape> shapeMap, IGroupShape groupShape, Connector connector, Stylesheet stylesheet, Adjustment adjustment) {
-        if (connector.getIsDisease() != null) {
+        if (connector.getIsDisease() != null && connector.getIsDisease()) {
             stylesheet.setLineColor(Color.RED);
         }
         Shape shape = connector.getEndShape();
