@@ -19,7 +19,7 @@ public class DiagramIndex {
 	private Map<Long, RenderableNode> nodesById;
 
 	private Map<Long, Collection<RenderableProcessNode>> pathwaysByReactomeId;
-//	private Map<Long, RenderableProcessNode> pathwaysById;
+	private Map<Long, RenderableProcessNode> pathwaysById;
 
 	private Collection<RenderableCompartment> compartments;
 	private Collection<RenderableLink> links;
@@ -71,7 +71,7 @@ public class DiagramIndex {
 		this.nodesByReactomeId = Collections.unmodifiableMap(nodesByReactomeId);
 		this.links = Collections.unmodifiableCollection(links);
 		this.compartments = Collections.unmodifiableCollection(compartments);
-//		this.pathwaysById = Collections.unmodifiableMap(pathwaysById);
+		this.pathwaysById = Collections.unmodifiableMap(pathwaysById);
 		this.pathwaysByReactomeId = Collections.unmodifiableMap(pathwaysByReactomeId);
 
 		allNodes = new ArrayList<>();
@@ -91,7 +91,7 @@ public class DiagramIndex {
 		return edgesById;
 	}
 
-	Map<Long, Collection<RenderableNode>> getNodesByReactomeId() {
+	public Map<Long, Collection<RenderableNode>> getNodesByReactomeId() {
 		return nodesByReactomeId;
 	}
 
@@ -99,13 +99,13 @@ public class DiagramIndex {
 		return nodesById;
 	}
 
-	Map<Long, Collection<RenderableProcessNode>> getPathwaysByReactomeId() {
+	public Map<Long, Collection<RenderableProcessNode>> getPathwaysByReactomeId() {
 		return pathwaysByReactomeId;
 	}
 
-//	public Map<Long, RenderableProcessNode> getPathwaysById() {
-//		return pathwaysById;
-//	}
+	public Map<Long, RenderableProcessNode> getPathwaysById() {
+		return pathwaysById;
+	}
 
 	public Collection<RenderableCompartment> getCompartments() {
 		return compartments;

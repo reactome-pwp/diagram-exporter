@@ -45,7 +45,7 @@ public abstract class RenderableEdgeCommon<T extends EdgeCommon> extends Rendera
 		final Color linesColor = getStrokeColor(colorProfiles, data.getAnalysis().getType());
 		final Color fillColor = getFillColor(colorProfiles, data.getAnalysis().getType());
 		segments(linesColor, canvas, colorProfiles);
-		shapes(linesColor, fillColor, canvas, colorProfiles);
+		shapes(linesColor, canvas, colorProfiles);
 	}
 
 	@Override
@@ -77,35 +77,38 @@ public abstract class RenderableEdgeCommon<T extends EdgeCommon> extends Rendera
 		segments.forEach(shape -> layer.add(shape, linesColor, stroke));
 	}
 
-	private void shapes(Color linesColor, Color fillColor, DiagramCanvas canvas, ColorProfiles colorProfiles) {
+	private void shapes(Color linesColor, DiagramCanvas canvas, ColorProfiles colorProfiles) {
 		final FillDrawLayer layer = isFadeOut()
 				? canvas.getFadeOutEdgeShapes()
 				: canvas.getEdgeShapes();
 		final TextLayer textLayer = isFadeOut()
 				? canvas.getFadeOutText()
 				: canvas.getText();
-		final Stroke stroke = StrokeStyle.SEGMENT.get(isDashed());
-		getShapes().forEach(shape -> {
-			final java.awt.Shape awtShape = ShapeFactory.getShape(shape);
-			if (isFlag()) flag(canvas, colorProfiles, awtShape);
-			if (isHalo()) halo(canvas, colorProfiles, awtShape);
-			final Color color = shape.getEmpty() != null && shape.getEmpty()
-					? Color.WHITE
-					: linesColor;
-			// shapes use border color for filling
-			// https://github.com/reactome-pwp/diagram/blob/dev/src/main/java/org/reactome/web/diagram/renderers/layout/abs/ShapeAbstractRenderer.java#L87
-			// ctx.setFillStyle(ctx.getStrokeStyle());
-			layer.add(awtShape, color, linesColor, stroke);
-			if (shape.getType().equals("DOUBLE_CIRCLE"))
-				layer.add(ShapeFactory.innerCircle(shape), color, linesColor, stroke);
-			if (shape.getS() != null && !shape.getS().isEmpty()) {
-				final NodeProperties limits = NodePropertiesFactory.get(
-						shape.getA().getX(), shape.getA().getY(),
-						shape.getB().getX() - shape.getA().getX(),
-						shape.getB().getY() - shape.getA().getY());
-				textLayer.add(shape.getS(), linesColor, limits, 1, 0, FontProperties.DEFAULT_FONT);
-			}
-		});
+		final Stroke stroke = StrokeStyle.SEGMENT.getNormal(); // shapes not dashed
+		getRenderableShapes().forEach(shape -> drawShape(linesColor, canvas, colorProfiles, layer, textLayer, stroke, shape));
+	}
+
+	private void drawShape(Color linesColor, DiagramCanvas canvas, ColorProfiles colorProfiles, FillDrawLayer layer, TextLayer textLayer, Stroke stroke, Shape shape) {
+		if (shape == null) return;
+		final java.awt.Shape awtShape = ShapeFactory.getShape(shape);
+		if (isFlag()) flag(canvas, colorProfiles, awtShape);
+		if (isHalo()) halo(canvas, colorProfiles, awtShape);
+		final Color color = shape.getEmpty() != null && shape.getEmpty()
+				? Color.WHITE
+				: linesColor;
+		// shapes use border color for filling
+		// https://github.com/reactome-pwp/diagram/blob/dev/src/main/java/org/reactome/web/diagram/renderers/layout/abs/ShapeAbstractRenderer.java#L87
+		// ctx.setFillStyle(ctx.getStrokeStyle());
+		layer.add(awtShape, color, linesColor, stroke);
+		if (shape.getType().equals("DOUBLE_CIRCLE"))
+			layer.add(ShapeFactory.innerCircle(shape), color, linesColor, stroke);
+		if (shape.getS() != null && !shape.getS().isEmpty()) {
+			final NodeProperties limits = NodePropertiesFactory.get(
+					shape.getA().getX(), shape.getA().getY(),
+					shape.getB().getX() - shape.getA().getX(),
+					shape.getB().getY() - shape.getA().getY());
+			textLayer.add(shape.getS(), linesColor, limits, 1, 0, FontProperties.DEFAULT_FONT);
+		}
 	}
 
 	private void flag(DiagramCanvas canvas, ColorProfiles colorProfiles, java.awt.Shape awtShape) {
@@ -127,11 +130,24 @@ public abstract class RenderableEdgeCommon<T extends EdgeCommon> extends Rendera
 		return segments;
 	}
 
-	public List<Shape> getShapes() {
+	public List<Shape> getRenderableShapes() {
 		final List<Shape> shapes = new ArrayList<>();
 		if (getEdge().getEndShape() != null) shapes.add(getEdge().getEndShape());
 		if (getEdge().getReactionShape() != null) shapes.add(getEdge().getReactionShape());
 		return shapes;
+	}
+
+	@Override
+	Color getStrokeColor(ColorProfiles colorProfiles, AnalysisType type) {
+		// Note edges lines do not use analysis color (lighterStroke)
+		// selection -> disease -> fadeout -> normal
+		if (isSelected())
+			return colorProfiles.getDiagramSheet().getProperties().getSelection();
+		if (isDisease())
+			return colorProfiles.getDiagramSheet().getProperties().getDisease();
+		if (isFadeOut())
+			return getColorProfile(colorProfiles).getFadeOutStroke();
+		return getColorProfile(colorProfiles).getStroke();
 	}
 
 }

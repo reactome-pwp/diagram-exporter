@@ -19,7 +19,8 @@ public class RenderableLink extends RenderableEdgeCommon<Link> {
 		return colorProfiles.getDiagramSheet().getLink();
 	}
 
-	protected List<Shape> getRenderableShapes() {
+	@Override
+	public List<Shape> getRenderableShapes() {
 		// report: links have reaction shape
 		return Collections.singletonList(getEdge().getEndShape());
 	}

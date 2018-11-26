@@ -14,7 +14,6 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramRenderer
 import org.reactome.server.tools.diagram.exporter.raster.ehld.EhldRendererTest;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldException;
 
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 /**
@@ -57,7 +56,7 @@ public class TestUtils {
 
 	public static void render(RasterArgs args, AnalysisStoredResult result) {
 		try {
-			final BufferedImage image = EXPORTER.exportToImage(args);
+//			final BufferedImage image = EXPORTER.exportToImage(args);
 			EXPORTER.export(args, new NullOutputStream(), result);
 		} catch (EhldException | AnalysisException | DiagramJsonDeserializationException | DiagramJsonNotFoundException | TranscoderException | IOException e) {
 			e.printStackTrace();

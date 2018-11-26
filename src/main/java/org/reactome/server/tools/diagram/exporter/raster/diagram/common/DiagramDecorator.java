@@ -6,6 +6,7 @@ import org.reactome.server.tools.diagram.data.layout.Edge;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableEdge;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableProcessNode;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -120,15 +121,22 @@ public class DiagramDecorator {
 		for (Long id : selected) {
 			final Collection<RenderableNode> nodes = index.getNodesByReactomeId().get(id);
 			if (nodes != null) {
-				for (RenderableNode node : nodes)
-					if (!node.isFadeOut())
-						selectNode(node);
-			} else {
-				final Collection<RenderableEdge> edges = index.getEdgesByReactomeId().get(id);
-				if (edges != null) {
-					for (RenderableEdge edge : edges)
-						if (!edge.isFadeOut())
-							selectEdge(edge);
+				for (RenderableNode node : nodes) {
+					if (!node.isFadeOut()) selectNode(node);
+				}
+				continue;
+			}
+			final Collection<RenderableProcessNode> pathways = index.getPathwaysByReactomeId().get(id);
+			if (pathways != null) {
+				for (RenderableProcessNode pathway : pathways) {
+					if (!pathway.isFadeOut()) selectPathway(pathway);
+				}
+				continue;
+			}
+			final Collection<RenderableEdge> edges = index.getEdgesByReactomeId().get(id);
+			if (edges != null) {
+				for (RenderableEdge edge : edges) {
+					if (!edge.isFadeOut()) selectEdge(edge);
 				}
 			}
 		}
@@ -138,16 +146,23 @@ public class DiagramDecorator {
 		for (Long id : flags) {
 			final Collection<RenderableNode> nodes = index.getNodesByReactomeId().get(id);
 			if (nodes != null) {
-				for (RenderableNode node : nodes)
-					if (!node.isFadeOut())
-						node.setFlag(true);
-			} else {
-				final Collection<RenderableEdge> edges = index.getEdgesByReactomeId().get(id);
-				if (edges != null)
-					for (RenderableEdge edge : edges)
-						if (!edge.isFadeOut())
-							edge.setFlag(true);
+				for (RenderableNode node : nodes) {
+					if (!node.isFadeOut()) node.setFlag(true);
+				}
+				continue;
 			}
+			final Collection<RenderableProcessNode> pathways = index.getPathwaysByReactomeId().get(id);
+			if (pathways != null) {
+				for (RenderableProcessNode pathway : pathways) {
+					if (!pathway.isFadeOut()) pathway.setFlag(true);
+				}
+				continue;
+			}
+			final Collection<RenderableEdge> edges = index.getEdgesByReactomeId().get(id);
+			if (edges != null)
+				for (RenderableEdge edge : edges) {
+					if (!edge.isFadeOut()) edge.setFlag(true);
+				}
 		}
 	}
 
@@ -168,6 +183,11 @@ public class DiagramDecorator {
 		edge.setSelected(true);
 		edge.setHalo(true);
 		haloEdgeParticipants(edge.getEdge());
+	}
+
+	private void selectPathway(RenderableProcessNode pathway) {
+		pathway.setSelected(true);
+		this.selected.add(pathway.getNode().getId());
 	}
 
 	/**

@@ -11,6 +11,7 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProp
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableProcessNode;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
 import org.reactome.server.tools.diagram.exporter.raster.resources.Resources;
@@ -200,14 +201,18 @@ public class LegendRenderer {
 	private void ticks(int col) {
 		if (data.getDecorator().getSelectedDiagramId() == null) return;
 		for (Long id : data.getDecorator().getSelectedDiagramId()) {
-			final RenderableNode node = data.getIndex().getNodesById().get(id);
 			// ProcessNode
-			if (node.getEnrichment() != null
-					&& node.getEnrichment() > 0
-					&& node.getEnrichmentValue() != null) {
-				double value = node.getEnrichmentValue();
-				drawTick(value, StrokeStyle.SEGMENT.get(false), profiles.getDiagramSheet().getProperties().getSelection());
-			} else {
+			final RenderableProcessNode pathway = data.getIndex().getPathwaysById().get(id);
+			if (pathway != null) {
+				if (pathway.getEnrichment() != null
+						&& pathway.getEnrichment() > 0
+						&& pathway.getEnrichmentValue() != null) {
+					double value = pathway.getEnrichmentValue();
+					drawTick(value, StrokeStyle.SEGMENT.get(false), profiles.getDiagramSheet().getProperties().getSelection());
+				}
+			}
+			final RenderableNode node = data.getIndex().getNodesById().get(id);
+			if (node != null) {
 				// The rest of the world
 				final List<FoundEntity> expressions = node.getHitExpressions();
 				if (expressions == null || expressions.isEmpty()) continue;

@@ -236,10 +236,7 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 			else if (edge.isSelected()) stroke = StrokeStyle.SELECTION.getNormal();
 			else stroke = StrokeStyle.SEGMENT.getNormal();
 			for (Segment segment : connector.getSegments()) {
-				final Shape line = ShapeFactory.createLine(segment);
-				segmentsLayer.add(line, lineColor, stroke);
-				if (edge.isSelected() || isSelected())
-					canvas.getHalo().add(line, colorProfiles.getDiagramSheet().getProperties().getHalo(), StrokeStyle.HALO.getNormal());
+				drawSegment(canvas, colorProfiles, edge, lineColor, segmentsLayer, stroke, segment);
 			}
 			if (connector.getEndShape() != null) {
 				drawShape(connector.getEndShape(), lineColor, connector.getEndShape().getS(), shapeLayer, shapeTextLayer, canvas, colorProfiles, edge);
@@ -250,11 +247,18 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 		}
 	}
 
+	private void drawSegment(DiagramCanvas canvas, ColorProfiles colorProfiles, RenderableEdge edge, Color lineColor, DrawLayer segmentsLayer, Stroke stroke, Segment segment) {
+		final Shape line = ShapeFactory.createLine(segment);
+		segmentsLayer.add(line, lineColor, stroke);
+		if (!isDashed() && !isFadeOut() && (isSelected() || edge.isSelected() || edge.isHalo()))
+			canvas.getHalo().add(line, colorProfiles.getDiagramSheet().getProperties().getHalo(), StrokeStyle.HALO.getNormal());
+	}
+
 	private void drawShape(org.reactome.server.tools.diagram.data.layout.Shape rShape, Color lineColor, String s, FillDrawLayer shapeLayer, TextLayer textLayer, DiagramCanvas canvas, ColorProfiles colorProfiles, RenderableEdge edge) {
 		final Shape shape = ShapeFactory.getShape(rShape);
 		final Color fillColor = rShape.getEmpty() != null && rShape.getEmpty() ? Color.WHITE : lineColor;
 		shapeLayer.add(shape, fillColor, lineColor, StrokeStyle.SEGMENT.get(false));
-		if (edge.isSelected() || isSelected())
+		if (!isDashed() && !isFadeOut() && (isSelected() || edge.isSelected() || edge.isHalo()))
 			canvas.getHalo().add(shape, colorProfiles.getDiagramSheet().getProperties().getHalo(), StrokeStyle.HALO.getNormal());
 		if (s != null && !s.isEmpty()) {
 			final NodeProperties limits = NodePropertiesFactory.get(
