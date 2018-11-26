@@ -165,6 +165,7 @@ public class DiagramRenderer implements RasterRenderer {
 		ctx.setExtensionHandler(new GradientHandler());
 		final SVGGraphics2D graphics2D = new SVGGraphics2D(ctx, true);
 		graphics2D.setFont(FontProperties.DEFAULT_FONT);
+		graphics2D.scale(args.getFactor(), args.getFactor());
 		canvas.render(graphics2D);
 		// TODO: Do not know how to extract SVG doc from SVGGraphics2D, so I take the root and append to my document as root
 		document.removeChild(document.getRootElement());
@@ -172,7 +173,7 @@ public class DiagramRenderer implements RasterRenderer {
 
 		final Rectangle2D bounds = graphicsBounds(1);
 
-		final String viewBox = String.format("%.0f %.0f %.0f %.0f", bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight());
+		final String viewBox = String.format("%.0f %.0f %.0f %.0f", bounds.getX(), bounds.getY(), args.getFactor() * bounds.getWidth(), args.getFactor() * bounds.getHeight());
 		document.getRootElement().setAttribute(SVGConstants.SVG_VIEW_BOX_ATTRIBUTE, viewBox);
 		return document;
 	}

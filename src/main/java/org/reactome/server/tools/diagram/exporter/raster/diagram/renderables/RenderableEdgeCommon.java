@@ -1,7 +1,9 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.renderables;
 
 import org.reactome.server.analysis.core.model.AnalysisType;
-import org.reactome.server.tools.diagram.data.layout.*;
+import org.reactome.server.tools.diagram.data.layout.EdgeCommon;
+import org.reactome.server.tools.diagram.data.layout.NodeProperties;
+import org.reactome.server.tools.diagram.data.layout.Segment;
 import org.reactome.server.tools.diagram.data.layout.Shape;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData;
@@ -14,9 +16,8 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.FillDraw
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.TextLayer;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
-import java.awt.Color;
 import java.awt.*;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,17 +28,8 @@ import java.util.List;
  */
 public abstract class RenderableEdgeCommon<T extends EdgeCommon> extends RenderableDiagramObject<T> {
 
-	private List<Connector> connectors = new LinkedList<>();
-	// Lazy loading, as connectors are populated after creation
-	private List<Shape> shapes;
-	private Collection<java.awt.Shape> segments;
-
 	RenderableEdgeCommon(T edge) {
 		super(edge);
-	}
-
-	public List<Connector> getConnectors() {
-		return connectors;
 	}
 
 	public T getEdge() {
@@ -69,18 +61,20 @@ public abstract class RenderableEdgeCommon<T extends EdgeCommon> extends Rendera
 	}
 
 	private void segments(Color linesColor, DiagramCanvas canvas, ColorProfiles colorProfiles) {
-		if (isHalo())
-			getSegments().forEach(shape -> canvas.getHalo().add(shape,
+		final Collection<java.awt.Shape> segments = createSegments();
+		if (isHalo()) {
+			segments.forEach(shape -> canvas.getHalo().add(shape,
 					colorProfiles.getDiagramSheet().getProperties().getHalo(),
 					StrokeStyle.HALO.get(isDashed())
 			));
+		}
 		final DrawLayer layer = isFadeOut()
 				? canvas.getFadeOutSegments()
 				: canvas.getSegments();
 		final Stroke stroke = isSelected()
 				? StrokeStyle.SELECTION.get(isDashed())
 				: StrokeStyle.SEGMENT.get(isDashed());
-		getSegments().forEach(shape -> layer.add(shape, linesColor, stroke));
+		segments.forEach(shape -> layer.add(shape, linesColor, stroke));
 	}
 
 	private void shapes(Color linesColor, Color fillColor, DiagramCanvas canvas, ColorProfiles colorProfiles) {
@@ -126,38 +120,18 @@ public abstract class RenderableEdgeCommon<T extends EdgeCommon> extends Rendera
 				StrokeStyle.HALO.get(isDashed()));
 	}
 
-	public Collection<java.awt.Shape> getSegments() {
-		if (segments == null) createSegments();
+	private Collection<java.awt.Shape> createSegments() {
+		final Collection<java.awt.Shape> segments = new LinkedList<>();
+		for (Segment segment : getEdge().getSegments())
+			segments.add(ShapeFactory.createLine(segment.getFrom(), segment.getTo()));
 		return segments;
 	}
 
-	private void createSegments() {
-		segments = new LinkedList<>();
-		for (Segment segment : getEdge().getSegments())
-			segments.add(ShapeFactory.createLine(segment.getFrom(), segment.getTo()));
-		for (Connector connector : connectors)
-			for (Segment segment : connector.getSegments())
-				segments.add(ShapeFactory.createLine(segment.getFrom(), segment.getTo()));
-	}
-
 	public List<Shape> getShapes() {
-		if (shapes == null) createShapes();
+		final List<Shape> shapes = new ArrayList<>();
+		if (getEdge().getEndShape() != null) shapes.add(getEdge().getEndShape());
+		if (getEdge().getReactionShape() != null) shapes.add(getEdge().getReactionShape());
 		return shapes;
 	}
 
-	private void createShapes() {
-		shapes = new LinkedList<>();
-		for (Shape shape : getRenderableShapes())
-			if (shape != null) shapes.add(shape);
-		for (Connector connector : connectors)
-			if (connector.getEndShape() != null)
-				shapes.add(connector.getEndShape());
-		for (Connector connector : connectors)
-			if (connector.getStoichiometry().getShape() != null)
-				shapes.add(connector.getStoichiometry().getShape());
-	}
-
-	protected List<Shape> getRenderableShapes() {
-		return Arrays.asList(getEdge().getReactionShape(), getEdge().getEndShape());
-	}
 }

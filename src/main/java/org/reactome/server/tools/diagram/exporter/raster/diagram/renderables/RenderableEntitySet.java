@@ -54,7 +54,7 @@ public class RenderableEntitySet extends RenderableNode {
 		layer.add(getNode().getDisplayName(),
 				color,
 				getNode().getProp(),
-				SET_PADDING,
+				SET_PADDING + 2,
 				textSplit,
 				FontProperties.DEFAULT_FONT);
 	}

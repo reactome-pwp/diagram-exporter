@@ -56,6 +56,7 @@ public class RenderableProtein extends RenderableNode {
 			final org.reactome.server.tools.diagram.data.layout.Shape shape = nodeAttachment.getShape();
 			final Shape awtShape = ShapeFactory.getShape(shape);
 			fillDrawLayer.add(awtShape, fill, border, stroke);
+			if (isFlag()) canvas.getFlags().add(awtShape, colorProfiles.getDiagramSheet().getProperties().getFlag(), StrokeStyle.HALO.getNormal());
 			if (shape.getS() != null && !shape.getS().isEmpty()) {
 				final NodeProperties limits = NodePropertiesFactory.get(
 						shape.getA().getX(), shape.getA().getY(),

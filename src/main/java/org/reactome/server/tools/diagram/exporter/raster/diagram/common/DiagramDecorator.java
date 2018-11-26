@@ -85,7 +85,7 @@ public class DiagramDecorator {
 			return Collections.emptySet();
 		return args.getSelected().stream()
 				.map(this::getDiagramObjectId)
-				.flatMap(Collection::stream)
+				.filter(Objects::nonNull)
 				.collect(Collectors.toSet());
 	}
 
@@ -98,57 +98,22 @@ public class DiagramDecorator {
 			return Collections.emptySet();
 		return args.getFlags().stream()
 				.map(this::getDiagramObjectId)
-				.flatMap(Collection::stream)
-				.map(this::getHitElements)
-				.flatMap(Collection::stream)
+				.filter(Objects::nonNull)
 				.collect(Collectors.toSet());
 	}
 
-	/**
-	 * Returns a list containing <em>id</em> and all the ancestors containing the graph node represented by id.
-	 *
-	 * @param id id of an element to flag
-	 * @return the list of elements containing the graph node id, including the node itself
-	 */
-	private Collection<Long> getHitElements(Long id) {
-		final Set<Long> ids = new HashSet<>();
-		ids.add(id);
-		final GraphNode graphNode = graphIndex.get(id);
-		if (graphNode == null) return ids;
-		final EntityNode node = (EntityNode) graphNode;
-		if (node.getParents() != null)
-			node.getParents().forEach(parentId -> ids.addAll(getHitElements(parentId)));
-		return ids;
-	}
-
-	/**
-	 * @deprecated once the exporter accepts only dbIds, this will not be needed
-	 */
-	@Deprecated
-	private List<Long> getDiagramObjectId(String string) {
-		// dbId, this is faster because dbId is indexed
+	private Long getDiagramObjectId(String string) {
+		// stId
+		final Long id = graphMap.get(string);
+		if (id != null) return id;
+		// dbId
 		try {
 			final long dbId = Long.parseLong(string);
-			if (graphIds.contains(dbId)) return Collections.singletonList(dbId);
+			if (graphIds.contains(dbId)) return dbId;
 		} catch (NumberFormatException ignored) {
 			// ignored, not a dbId
 		}
-		// stId
-		final Long id = graphMap.get(string);
-		if (id != null) return Collections.singletonList(id);
-		// TODO: 24/10/18 these part of the conde won't be needed if we only accept dbIds and stIds
-		// TODO: would it be faster if index of identifier and geneNames?
-		// Pros: avoid iterating through the list of nodes
-		// Cons: index the list of nodes just for a few selected or flag items
-		// Nodes
-		for (EntityNode node : graph.getNodes()) {
-			// stId
-			if (string.equalsIgnoreCase(node.getIdentifier())
-					|| (node.getGeneNames() != null && node.getGeneNames().contains(string)))
-				return Collections.singletonList(node.getDbId());
-		}
-		// Bad luck, not found
-		return Collections.emptyList();
+		return null;
 	}
 
 	private void selectElements(Collection<Long> selected) {

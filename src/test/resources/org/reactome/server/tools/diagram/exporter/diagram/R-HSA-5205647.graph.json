@@ -1,0 +1,793 @@
+{
+  "dbId" : 5205647,
+  "stId" : "R-HSA-5205647",
+  "speciesName" : "Homo sapiens",
+  "nodes" : [ {
+    "dbId" : 8934922,
+    "stId" : "R-HSA-8934922",
+    "displayName" : "FUNDC1 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 392 ],
+    "identifier" : "Q8IVP5",
+    "geneNames" : [ "FUNDC1" ]
+  }, {
+    "dbId" : 1252240,
+    "stId" : "R-HSA-1252240",
+    "displayName" : "TOMM40 Complex [mitochondrial outer membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 353 ],
+    "children" : [ 1252125, 1252079, 1252171, 1252091, 1252180, 1252129, 1252082 ]
+  }, {
+    "dbId" : 1267988,
+    "stId" : "R-HSA-1267988",
+    "displayName" : "VDAC1 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 367 ],
+    "identifier" : "P21796",
+    "geneNames" : [ "VDAC1", "VDAC" ]
+  }, {
+    "dbId" : 8934915,
+    "stId" : "R-HSA-8934915",
+    "displayName" : "p-S13,Y18-FUNDC1 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 396 ],
+    "identifier" : "Q8IVP5",
+    "geneNames" : [ "FUNDC1" ]
+  }, {
+    "dbId" : 1252125,
+    "stId" : "R-HSA-1252125",
+    "displayName" : "TOMM5 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8N4H5",
+    "geneNames" : [ "TOMM5", "C9orf105", "TOM5" ],
+    "parents" : [ 1252240 ]
+  }, {
+    "dbId" : 939164,
+    "stId" : "R-HSA-939164",
+    "displayName" : "UBC(77-152) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG48",
+    "geneNames" : [ "UBC" ],
+    "parents" : [ 6793517 ]
+  }, {
+    "dbId" : 193937,
+    "stId" : "R-HSA-193937",
+    "displayName" : "SQSTM1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 380 ],
+    "identifier" : "Q13501",
+    "geneNames" : [ "SQSTM1", "ORCA", "OSIL" ],
+    "parents" : [ 5205659 ]
+  }, {
+    "dbId" : 939165,
+    "stId" : "R-HSA-939165",
+    "displayName" : "UBC(609-684) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG48",
+    "geneNames" : [ "UBC" ],
+    "parents" : [ 6793517 ]
+  }, {
+    "dbId" : 8948140,
+    "stId" : "R-HSA-8948140",
+    "displayName" : "p-S17-FUNDC1 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 404 ],
+    "identifier" : "Q8IVP5",
+    "geneNames" : [ "FUNDC1" ],
+    "parents" : [ 8959568 ]
+  }, {
+    "dbId" : 5083624,
+    "stId" : "R-HSA-5083624",
+    "displayName" : "CSNK2(A1:A1/A1:A2/A2:A2) [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "parents" : [ 201711 ],
+    "children" : [ 5083623, 5083620, 5083621 ]
+  }, {
+    "dbId" : 5083621,
+    "stId" : "R-HSA-5083621",
+    "displayName" : "CSNK2A1 dimer [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 5083624 ],
+    "children" : [ 201713 ]
+  }, {
+    "dbId" : 5083620,
+    "stId" : "R-HSA-5083620",
+    "displayName" : "CSNK2A2 dimer [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 5083624 ],
+    "children" : [ 201721 ]
+  }, {
+    "dbId" : 5083623,
+    "stId" : "R-HSA-5083623",
+    "displayName" : "CSNK2A1:CSNK2A2 [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 5083624 ],
+    "children" : [ 201721, 201713 ]
+  }, {
+    "dbId" : 5205630,
+    "stId" : "R-HSA-5205630",
+    "displayName" : "K48polyUb-MTERFD1 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 373 ],
+    "identifier" : "Q96E29",
+    "geneNames" : [ "MTERF3", "MTERFD1", "CGI-12" ],
+    "parents" : [ 5205659 ]
+  }, {
+    "dbId" : 1252129,
+    "stId" : "R-HSA-1252129",
+    "displayName" : "TOMM70A [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O94826",
+    "geneNames" : [ "TOMM70", "KIAA0719", "TOM70", "TOMM70A" ],
+    "parents" : [ 1252240 ]
+  }, {
+    "dbId" : 5205628,
+    "stId" : "R-HSA-5205628",
+    "displayName" : "PINK1(111-581) [mitochondrial intermembrane space]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 355 ],
+    "identifier" : "Q9BXM7",
+    "geneNames" : [ "PINK1" ]
+  }, {
+    "dbId" : 5357797,
+    "stId" : "R-HSA-5357797",
+    "displayName" : "PGAM5-S [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 399 ],
+    "identifier" : "Q96HS1-2",
+    "geneNames" : [ "PGAM5" ]
+  }, {
+    "dbId" : 939192,
+    "stId" : "R-HSA-939192",
+    "displayName" : "UBC(229-304) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG48",
+    "geneNames" : [ "UBC" ],
+    "parents" : [ 6793517 ]
+  }, {
+    "dbId" : 5205625,
+    "stId" : "R-HSA-5205625",
+    "displayName" : "ATG12 [phagocytic vesicle membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O94817",
+    "geneNames" : [ "ATG12", "APG12", "APG12L" ],
+    "parents" : [ 5205638 ]
+  }, {
+    "dbId" : 5205624,
+    "stId" : "R-HSA-5205624",
+    "displayName" : "K48polyUb-VDAC1 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 371 ],
+    "identifier" : "P21796",
+    "geneNames" : [ "VDAC1", "VDAC" ],
+    "parents" : [ 5205659 ]
+  }, {
+    "dbId" : 8948145,
+    "stId" : "R-HSA-8948145",
+    "displayName" : "ULK1 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 402 ],
+    "identifier" : "O75385",
+    "geneNames" : [ "ULK1", "KIAA0722" ]
+  }, {
+    "dbId" : 939191,
+    "stId" : "R-HSA-939191",
+    "displayName" : "UBC(381-456) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG48",
+    "geneNames" : [ "UBC" ],
+    "parents" : [ 6793517 ]
+  }, {
+    "dbId" : 113592,
+    "stId" : "R-ALL-113592",
+    "displayName" : "ATP [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 455, 458, 460 ],
+    "identifier" : "15422"
+  }, {
+    "dbId" : 939188,
+    "stId" : "R-HSA-939188",
+    "displayName" : "UBC(1-76) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG48",
+    "geneNames" : [ "UBC" ],
+    "parents" : [ 6793517 ]
+  }, {
+    "dbId" : 29370,
+    "stId" : "R-ALL-29370",
+    "displayName" : "ADP [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 456, 459, 461 ],
+    "identifier" : "16761"
+  }, {
+    "dbId" : 939184,
+    "stId" : "R-HSA-939184",
+    "displayName" : "UBC(457-532) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG48",
+    "geneNames" : [ "UBC" ],
+    "parents" : [ 6793517 ]
+  }, {
+    "dbId" : 939214,
+    "stId" : "R-HSA-939214",
+    "displayName" : "UBB(1-76) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG47",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 6793517 ]
+  }, {
+    "dbId" : 939213,
+    "stId" : "R-HSA-939213",
+    "displayName" : "UBB(77-152) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG47",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 6793517 ]
+  }, {
+    "dbId" : 992714,
+    "stId" : "R-HSA-992714",
+    "displayName" : "MFN2 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 370 ],
+    "identifier" : "O95140",
+    "geneNames" : [ "MFN2", "CPRP1", "KIAA0214" ]
+  }, {
+    "dbId" : 1252180,
+    "stId" : "R-HSA-1252180",
+    "displayName" : "TOMM22 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9NS69",
+    "geneNames" : [ "TOMM22", "TOM22" ],
+    "parents" : [ 1252240 ]
+  }, {
+    "dbId" : 5205638,
+    "stId" : "R-HSA-5205638",
+    "displayName" : "ATG5:ATG12 [phagocytic vesicle membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 387 ],
+    "parents" : [ 8959570, 5205648 ],
+    "children" : [ 5205636, 5205625 ]
+  }, {
+    "dbId" : 5205637,
+    "stId" : "R-HSA-5205637",
+    "displayName" : "PINK1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 351 ],
+    "identifier" : "Q9BXM7",
+    "geneNames" : [ "PINK1" ]
+  }, {
+    "dbId" : 6793517,
+    "stId" : "R-HSA-6793517",
+    "displayName" : "Ub [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "diagramIds" : [ 390 ],
+    "children" : [ 939214, 939213, 939239, 939205, 939203, 939232, 939230, 939164, 939165, 939258, 939192, 939191, 939188, 939184 ]
+  }, {
+    "dbId" : 939205,
+    "stId" : "R-HSA-939205",
+    "displayName" : "RPS27A(1-76) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P62979",
+    "geneNames" : [ "RPS27A", "UBA80", "UBCEP1" ],
+    "parents" : [ 6793517 ]
+  }, {
+    "dbId" : 5205636,
+    "stId" : "R-HSA-5205636",
+    "displayName" : "ATG5 [phagocytic vesicle membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9H1Y0",
+    "geneNames" : [ "ATG5", "APG5L", "ASP" ],
+    "parents" : [ 5205638 ]
+  }, {
+    "dbId" : 939203,
+    "stId" : "R-HSA-939203",
+    "displayName" : "UBA52(1-76) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P62987",
+    "geneNames" : [ "UBA52", "UBCEP2" ],
+    "parents" : [ 6793517 ]
+  }, {
+    "dbId" : 939230,
+    "stId" : "R-HSA-939230",
+    "displayName" : "UBB(153-228) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG47",
+    "geneNames" : [ "UBB" ],
+    "parents" : [ 6793517 ]
+  }, {
+    "dbId" : 5205659,
+    "stId" : "R-HSA-5205659",
+    "displayName" : "K48polyUB Mitophagy Substrates:SQSTM1 [mitochondrial outer membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 381 ],
+    "parents" : [ 5205670 ],
+    "children" : [ 5205668, 5205624, 193937, 5205630, 5205679 ]
+  }, {
+    "dbId" : 5205658,
+    "stId" : "R-HSA-5205658",
+    "displayName" : "LC3 [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "diagramIds" : [ 446, 383 ],
+    "parents" : [ 8959568, 5205670 ],
+    "children" : [ 5205651, 5205676 ]
+  }, {
+    "dbId" : 1632847,
+    "stId" : "R-HSA-1632847",
+    "displayName" : "ULK1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 401 ],
+    "identifier" : "O75385",
+    "geneNames" : [ "ULK1", "KIAA0722" ]
+  }, {
+    "dbId" : 8959568,
+    "stId" : "R-HSA-8959568",
+    "displayName" : "p-S17-FUNDC1:LC3 [mitochondrial outer membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 444 ],
+    "parents" : [ 8959570 ],
+    "children" : [ 5205658, 8948140 ]
+  }, {
+    "dbId" : 1252171,
+    "stId" : "R-HSA-1252171",
+    "displayName" : "TOMM6 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96B49",
+    "geneNames" : [ "TOMM6", "OBTP", "TOM6" ],
+    "parents" : [ 1252240 ]
+  }, {
+    "dbId" : 5205653,
+    "stId" : "R-HSA-5205653",
+    "displayName" : "PINK1 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 359 ],
+    "identifier" : "Q9BXM7",
+    "geneNames" : [ "PINK1" ],
+    "parents" : [ 5205683 ]
+  }, {
+    "dbId" : 8959570,
+    "stId" : "R-HSA-8959570",
+    "displayName" : "p-S17-FUNDC1:LC3:ATG5:ATG12 [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 448 ],
+    "children" : [ 5205638, 8959568 ]
+  }, {
+    "dbId" : 5205651,
+    "stId" : "R-HSA-5205651",
+    "displayName" : "MAP1LC3B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9GZQ8",
+    "geneNames" : [ "MAP1LC3B", "MAP1ALC3" ],
+    "parents" : [ 5205658 ]
+  }, {
+    "dbId" : 201693,
+    "stId" : "R-HSA-201693",
+    "displayName" : "CSNK2B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P67870",
+    "geneNames" : [ "CSNK2B", "CK2N", "G5A" ],
+    "parents" : [ 201711 ]
+  }, {
+    "dbId" : 5205648,
+    "stId" : "R-HSA-5205648",
+    "displayName" : "ATG5:ATG12:LC3:K48polyUB Mitophagy Substrates:SQSTM1 [phagocytic vesicle]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 388 ],
+    "children" : [ 5205670, 5205638 ]
+  }, {
+    "dbId" : 5205679,
+    "stId" : "R-HSA-5205679",
+    "displayName" : "K48polyUb-MFN1 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 374 ],
+    "identifier" : "Q8IWA4",
+    "geneNames" : [ "MFN1" ],
+    "parents" : [ 5205659 ]
+  }, {
+    "dbId" : 1252082,
+    "stId" : "R-HSA-1252082",
+    "displayName" : "TOMM40 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O96008",
+    "geneNames" : [ "TOMM40", "C19orf1", "PEREC1", "TOM40" ],
+    "parents" : [ 1252240 ]
+  }, {
+    "dbId" : 5205676,
+    "stId" : "R-HSA-5205676",
+    "displayName" : "MAP1LC3A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9H492",
+    "geneNames" : [ "MAP1LC3A" ],
+    "parents" : [ 5205658 ]
+  }, {
+    "dbId" : 992745,
+    "stId" : "R-HSA-992745",
+    "displayName" : "MFN1 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 369 ],
+    "identifier" : "Q8IWA4",
+    "geneNames" : [ "MFN1" ]
+  }, {
+    "dbId" : 5205671,
+    "stId" : "R-HSA-5205671",
+    "displayName" : "PINK1 [mitochondrial intermembrane space]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 352 ],
+    "identifier" : "Q9BXM7",
+    "geneNames" : [ "PINK1" ]
+  }, {
+    "dbId" : 201579,
+    "stId" : "R-HSA-201579",
+    "displayName" : "PARK2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 362 ],
+    "identifier" : "O60260",
+    "geneNames" : [ "PARK2", "PRKN" ],
+    "parents" : [ 5205683 ]
+  }, {
+    "dbId" : 1252091,
+    "stId" : "R-HSA-1252091",
+    "displayName" : "TOMM20 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q15388",
+    "geneNames" : [ "TOMM20", "KIAA0016" ],
+    "parents" : [ 1252240 ]
+  }, {
+    "dbId" : 939239,
+    "stId" : "R-HSA-939239",
+    "displayName" : "UBC(533-608) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG48",
+    "geneNames" : [ "UBC" ],
+    "parents" : [ 6793517 ]
+  }, {
+    "dbId" : 5205670,
+    "stId" : "R-HSA-5205670",
+    "displayName" : "LC3:K48polyUB Mitophagy Substrates:SQSTM1 [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 384 ],
+    "parents" : [ 5205648 ],
+    "children" : [ 5205658, 5205659 ]
+  }, {
+    "dbId" : 5205668,
+    "stId" : "R-HSA-5205668",
+    "displayName" : "K48polyUb-MFN2 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 372 ],
+    "identifier" : "O95140",
+    "geneNames" : [ "MFN2", "CPRP1", "KIAA0214" ],
+    "parents" : [ 5205659 ]
+  }, {
+    "dbId" : 201711,
+    "stId" : "R-HSA-201711",
+    "displayName" : "Casein kinase II [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 394 ],
+    "children" : [ 201693, 5083624 ]
+  }, {
+    "dbId" : 354153,
+    "stId" : "R-HSA-354153",
+    "displayName" : "SRC-1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 397 ],
+    "identifier" : "P12931-1",
+    "geneNames" : [ "SRC", "SRC1" ]
+  }, {
+    "dbId" : 939232,
+    "stId" : "R-HSA-939232",
+    "displayName" : "UBC(305-380) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG48",
+    "geneNames" : [ "UBC" ],
+    "parents" : [ 6793517 ]
+  }, {
+    "dbId" : 201713,
+    "stId" : "R-HSA-201713",
+    "displayName" : "CSNK2A1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P68400",
+    "geneNames" : [ "CSNK2A1", "CK2A1" ],
+    "parents" : [ 5083623, 5083621 ]
+  }, {
+    "dbId" : 939258,
+    "stId" : "R-HSA-939258",
+    "displayName" : "UBC(153-228) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0CG48",
+    "geneNames" : [ "UBC" ],
+    "parents" : [ 6793517 ]
+  }, {
+    "dbId" : 8934910,
+    "stId" : "R-HSA-8934910",
+    "displayName" : "p-S13-FUNDC1 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 393 ],
+    "identifier" : "Q8IVP5",
+    "geneNames" : [ "FUNDC1" ]
+  }, {
+    "dbId" : 5205688,
+    "stId" : "R-HSA-5205688",
+    "displayName" : "MTERFD1 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 368 ],
+    "identifier" : "Q96E29",
+    "geneNames" : [ "MTERF3", "MTERFD1", "CGI-12" ]
+  }, {
+    "dbId" : 201721,
+    "stId" : "R-HSA-201721",
+    "displayName" : "CSNK2A2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P19784",
+    "geneNames" : [ "CSNK2A2", "CK2A2" ],
+    "parents" : [ 5083623, 5083620 ]
+  }, {
+    "dbId" : 5205683,
+    "stId" : "R-HSA-5205683",
+    "displayName" : "PARK2:PINK1 [mitochondrial outer membrane]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 363 ],
+    "children" : [ 5205653, 201579 ]
+  }, {
+    "dbId" : 1252079,
+    "stId" : "R-HSA-1252079",
+    "displayName" : "TOMM7 [mitochondrial outer membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9P0U1",
+    "geneNames" : [ "TOMM7", "TOM7", "TOMM07", "AD-014" ],
+    "parents" : [ 1252240 ]
+  } ],
+  "edges" : [ {
+    "dbId" : 8948136,
+    "stId" : "R-HSA-8948136",
+    "displayName" : "ULK1 Translocates to the mitochondria",
+    "schemaClass" : "Reaction",
+    "following" : [ 8948146 ],
+    "inputs" : [ 1632847 ],
+    "outputs" : [ 8948145 ],
+    "efs" : [ ],
+    "diagramIds" : [ 400 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 8948139,
+    "stId" : "R-HSA-8948139",
+    "displayName" : "p-S13-FUNDC1 is dephosphorylated by PGAM5",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 8948039 ],
+    "inputs" : [ 8934910 ],
+    "outputs" : [ 8934922 ],
+    "catalysts" : [ 5357797 ],
+    "efs" : [ ],
+    "diagramIds" : [ 398 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 5205673,
+    "stId" : "R-HSA-5205673",
+    "displayName" : "p62 binds ubiquitinated mitochondrial substrates",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 5205682 ],
+    "following" : [ 5205649 ],
+    "inputs" : [ 5205668, 5205624, 193937, 5205630, 5205679 ],
+    "outputs" : [ 5205659 ],
+    "efs" : [ ],
+    "diagramIds" : [ 379 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 5205672,
+    "stId" : "R-HSA-5205672",
+    "displayName" : "Uncleaved Pink1 accumulates in damaged mitochondria",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 5205661 ],
+    "following" : [ 5205652 ],
+    "inputs" : [ 5205671 ],
+    "outputs" : [ 5205653 ],
+    "efs" : [ ],
+    "diagramIds" : [ 358 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 8948143,
+    "stId" : "R-HSA-8948143",
+    "displayName" : "p-S13, FUNDC1 is phosphorylated by CK2 at Tyr18",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 8948039 ],
+    "inputs" : [ 113592, 8934910 ],
+    "outputs" : [ 8934915, 29370 ],
+    "catalysts" : [ 354153 ],
+    "efs" : [ ],
+    "diagramIds" : [ 395 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 8948039,
+    "stId" : "R-HSA-8948039",
+    "displayName" : "FUNDC1 is phosphorylated by CK2",
+    "schemaClass" : "Reaction",
+    "following" : [ 8948143, 8948139 ],
+    "inputs" : [ 113592, 8934922 ],
+    "outputs" : [ 29370, 8934910 ],
+    "catalysts" : [ 201711 ],
+    "efs" : [ ],
+    "diagramIds" : [ 391 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 5205663,
+    "stId" : "R-HSA-5205663",
+    "displayName" : "LC3 binds the autophagosome membrane Atg5-Atg12 complex",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 5205649 ],
+    "inputs" : [ 5205670, 5205638 ],
+    "outputs" : [ 5205648 ],
+    "efs" : [ ],
+    "diagramIds" : [ 386 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 5205661,
+    "stId" : "R-HSA-5205661",
+    "displayName" : "Pink1 is recruited from the cytoplasm to the mitochondria",
+    "schemaClass" : "Reaction",
+    "following" : [ 5205681, 5205672 ],
+    "inputs" : [ 5205637 ],
+    "outputs" : [ 5205671 ],
+    "catalysts" : [ 1252240 ],
+    "efs" : [ ],
+    "diagramIds" : [ 350 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 8948146,
+    "stId" : "R-HSA-8948146",
+    "displayName" : "FUNDC1 is phosphorylated by ULK1 at Ser17",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 8948136 ],
+    "following" : [ 8959573 ],
+    "inputs" : [ 113592, 8934922 ],
+    "outputs" : [ 29370, 8948140 ],
+    "catalysts" : [ 8948145 ],
+    "efs" : [ ],
+    "diagramIds" : [ 403 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 5205652,
+    "stId" : "R-HSA-5205652",
+    "displayName" : "Pink1 recruits Parkin to the outer mitochondrial membrane.",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 5205672 ],
+    "following" : [ 5205682 ],
+    "inputs" : [ 5205653, 201579 ],
+    "outputs" : [ 5205683 ],
+    "efs" : [ ],
+    "diagramIds" : [ 361 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 8959571,
+    "stId" : "R-HSA-8959571",
+    "displayName" : "LC3 binds the autophagosome membrane Atg5-Atg12 complex",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 8959573 ],
+    "inputs" : [ 5205638, 8959568 ],
+    "outputs" : [ 8959570 ],
+    "efs" : [ ],
+    "diagramIds" : [ 447 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 8959573,
+    "stId" : "R-HSA-8959573",
+    "displayName" : "Phosphorylated FUNDC1 links damaged mitochondria to LC3",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 8948146 ],
+    "following" : [ 8959571 ],
+    "inputs" : [ 5205658, 8948140 ],
+    "outputs" : [ 8959568 ],
+    "efs" : [ ],
+    "diagramIds" : [ 443 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 5205682,
+    "stId" : "R-HSA-5205682",
+    "displayName" : "Parkin promotes the ubiquitination of mitochondrial substrates",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 5205652 ],
+    "following" : [ 5205673 ],
+    "inputs" : [ 6793517, 5205688, 1267988, 992745, 992714 ],
+    "outputs" : [ 5205668, 5205624, 5205630, 5205679 ],
+    "catalysts" : [ 5205683 ],
+    "efs" : [ ],
+    "diagramIds" : [ 366 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 5205649,
+    "stId" : "R-HSA-5205649",
+    "displayName" : "p62 links damaged mitochondria to LC3",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 5205673 ],
+    "following" : [ 5205663 ],
+    "inputs" : [ 5205658, 5205659 ],
+    "outputs" : [ 5205670 ],
+    "efs" : [ ],
+    "diagramIds" : [ 382 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 5205681,
+    "stId" : "R-HSA-5205681",
+    "displayName" : "Pink1 is cleaved on healthy mitochondria",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 5205661 ],
+    "inputs" : [ 5205671 ],
+    "outputs" : [ 5205628 ],
+    "efs" : [ ],
+    "diagramIds" : [ 354 ],
+    "entityFunctionalStatus" : [ ]
+  } ],
+  "subpathways" : [ {
+    "dbId" : 8934903,
+    "stId" : "R-HSA-8934903",
+    "displayName" : "Receptor Mediated Mitophagy",
+    "events" : [ 8948136, 8948139, 8948143, 8948146, 8959571, 8959573, 8948039 ]
+  }, {
+    "dbId" : 5205685,
+    "stId" : "R-HSA-5205685",
+    "displayName" : "Pink/Parkin Mediated Mitophagy",
+    "events" : [ 5205663, 5205661, 5205673, 5205672, 5205652, 5205682, 5205681, 5205649 ]
+  } ]
+}

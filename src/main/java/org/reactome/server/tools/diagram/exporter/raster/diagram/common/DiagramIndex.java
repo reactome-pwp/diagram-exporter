@@ -87,7 +87,7 @@ public class DiagramIndex {
 		return edgesByReactomeId;
 	}
 
-	Map<Long, RenderableEdge> getEdgesById() {
+	public Map<Long, RenderableEdge> getEdgesById() {
 		return edgesById;
 	}
 

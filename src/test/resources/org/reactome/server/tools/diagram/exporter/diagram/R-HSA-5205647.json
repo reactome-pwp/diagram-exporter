@@ -1,0 +1,4442 @@
+{
+  "dbId" : 5205647,
+  "stableId" : "R-HSA-5205647",
+  "displayName" : "Mitophagy",
+  "nodes" : [ {
+    "id" : 448,
+    "reactomeId" : 8959570,
+    "displayName" : "p-S17-FUNDC1:LC3:ATG5:ATG12",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 767,
+      "y" : 634
+    },
+    "minX" : 705,
+    "maxX" : 829,
+    "minY" : 616,
+    "maxY" : 652,
+    "prop" : {
+      "x" : 705,
+      "y" : 616,
+      "width" : 124,
+      "height" : 36
+    },
+    "textPosition" : {
+      "x" : 711,
+      "y" : 617
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 447,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 384,
+    "reactomeId" : 5205670,
+    "displayName" : "LC3:K48polyUB Mitophagy Substrates:SQSTM1",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 1320,
+      "y" : 526
+    },
+    "minX" : 1168,
+    "maxX" : 1379,
+    "minY" : 492,
+    "maxY" : 560,
+    "prop" : {
+      "x" : 1261,
+      "y" : 492,
+      "width" : 118,
+      "height" : 68
+    },
+    "textPosition" : {
+      "x" : 1269,
+      "y" : 497
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 386,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1258,
+          "y" : 525
+        },
+        "to" : {
+          "x" : 1168,
+          "y" : 525
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 382,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 387,
+    "reactomeId" : 5205638,
+    "displayName" : "ATG5:ATG12",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 972,
+      "y" : 628
+    },
+    "minX" : 769,
+    "maxX" : 1168,
+    "minY" : 525,
+    "maxY" : 653,
+    "prop" : {
+      "x" : 905,
+      "y" : 603,
+      "width" : 134,
+      "height" : 50
+    },
+    "textPosition" : {
+      "x" : 929,
+      "y" : 632
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 386,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1019,
+          "y" : 600
+        },
+        "to" : {
+          "x" : 1168,
+          "y" : 525
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 447,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 918,
+          "y" : 600
+        },
+        "to" : {
+          "x" : 769,
+          "y" : 533
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 388,
+    "reactomeId" : 5205648,
+    "displayName" : "ATG5:ATG12:LC3:K48polyUB Mitophagy Substrates:SQSTM1",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 1167,
+      "y" : 628
+    },
+    "minX" : 1114,
+    "maxX" : 1220,
+    "minY" : 586,
+    "maxY" : 670,
+    "prop" : {
+      "x" : 1114,
+      "y" : 586,
+      "width" : 106,
+      "height" : 84
+    },
+    "textPosition" : {
+      "x" : 1116,
+      "y" : 593
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 386,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 390,
+    "reactomeId" : 6793517,
+    "displayName" : "Ub",
+    "schemaClass" : "DefinedSet",
+    "renderableClass" : "EntitySet",
+    "position" : {
+      "x" : 1269,
+      "y" : 88
+    },
+    "minX" : 1240,
+    "maxX" : 1394,
+    "minY" : 77,
+    "maxY" : 122,
+    "prop" : {
+      "x" : 1240,
+      "y" : 77,
+      "width" : 59,
+      "height" : 22
+    },
+    "textPosition" : {
+      "x" : 1257,
+      "y" : 77
+    },
+    "connectors" : [ {
+      "edgeId" : 366,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1305,
+          "y" : 96
+        },
+        "to" : {
+          "x" : 1394,
+          "y" : 122
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 12,
+        "shape" : {
+          "a" : {
+            "x" : 1343,
+            "y" : 103
+          },
+          "b" : {
+            "x" : 1355,
+            "y" : 115
+          },
+          "type" : "BOX",
+          "empty" : true,
+          "centre" : {
+            "x" : 1349,
+            "y" : 109
+          }
+        }
+      }
+    } ]
+  }, {
+    "id" : 455,
+    "reactomeId" : 113592,
+    "displayName" : "ATP",
+    "schemaClass" : "SimpleEntity",
+    "renderableClass" : "Chemical",
+    "position" : {
+      "x" : 43,
+      "y" : 466
+    },
+    "minX" : 23,
+    "maxX" : 151,
+    "minY" : 448,
+    "maxY" : 481,
+    "prop" : {
+      "x" : 23,
+      "y" : 451,
+      "width" : 40,
+      "height" : 30
+    },
+    "textPosition" : {
+      "x" : 27,
+      "y" : 455
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 58,
+          "y" : 456
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 58,
+          "y" : 456
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 395,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 66,
+          "y" : 462
+        },
+        "to" : {
+          "x" : 151,
+          "y" : 448
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ],
+    "trivial" : true
+  }, {
+    "id" : 392,
+    "reactomeId" : 8934922,
+    "displayName" : "FUNDC1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 386,
+      "y" : 514
+    },
+    "minX" : 252,
+    "maxX" : 431,
+    "minY" : 493,
+    "maxY" : 542,
+    "prop" : {
+      "x" : 354,
+      "y" : 499,
+      "width" : 65,
+      "height" : 30
+    },
+    "textPosition" : {
+      "x" : 358,
+      "y" : 503
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 419,
+          "y" : 499
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 419,
+          "y" : 499
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 391,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 351,
+          "y" : 514
+        },
+        "to" : {
+          "x" : 252,
+          "y" : 515
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 398,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 403,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 410,
+          "y" : 532
+        },
+        "to" : {
+          "x" : 431,
+          "y" : 542
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 456,
+    "reactomeId" : 29370,
+    "displayName" : "ADP",
+    "schemaClass" : "SimpleEntity",
+    "renderableClass" : "Chemical",
+    "position" : {
+      "x" : 40,
+      "y" : 406
+    },
+    "minX" : 20,
+    "maxX" : 151,
+    "minY" : 390,
+    "maxY" : 421,
+    "prop" : {
+      "x" : 20,
+      "y" : 391,
+      "width" : 41,
+      "height" : 30
+    },
+    "textPosition" : {
+      "x" : 24,
+      "y" : 395
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 56,
+          "y" : 396
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 56,
+          "y" : 396
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 395,
+      "type" : "OUTPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 64,
+          "y" : 407
+        },
+        "to" : {
+          "x" : 151,
+          "y" : 416
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 71,
+          "y" : 404
+        },
+        "b" : {
+          "x" : 64,
+          "y" : 407
+        },
+        "c" : {
+          "x" : 70,
+          "y" : 412
+        },
+        "type" : "ARROW",
+        "centre" : {
+          "x" : 70,
+          "y" : 412
+        }
+      }
+    } ],
+    "trivial" : true
+  }, {
+    "id" : 393,
+    "reactomeId" : 8934910,
+    "displayName" : "p-S13-FUNDC1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 155,
+      "y" : 475
+    },
+    "minX" : 117,
+    "maxX" : 199,
+    "minY" : 448,
+    "maxY" : 516,
+    "prop" : {
+      "x" : 117,
+      "y" : 458,
+      "width" : 76,
+      "height" : 35
+    },
+    "innerProp" : {
+      "x" : 117,
+      "y" : 464,
+      "width" : 76,
+      "height" : 29
+    },
+    "textPosition" : {
+      "x" : 127,
+      "y" : 458
+    },
+    "nodeAttachments" : [ {
+      "reactomeId" : 8934924,
+      "label" : "P",
+      "description" : "O-phospho-L-serine at 13",
+      "shape" : {
+        "a" : {
+          "x" : 139,
+          "y" : 452
+        },
+        "b" : {
+          "x" : 151,
+          "y" : 464
+        },
+        "s" : "P",
+        "type" : "BOX",
+        "empty" : true,
+        "centre" : {
+          "x" : 145,
+          "y" : 458
+        }
+      }
+    } ],
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 193,
+          "y" : 458
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 193,
+          "y" : 458
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 391,
+      "type" : "OUTPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 166,
+          "y" : 496
+        },
+        "to" : {
+          "x" : 182,
+          "y" : 516
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 173,
+          "y" : 499
+        },
+        "b" : {
+          "x" : 166,
+          "y" : 496
+        },
+        "c" : {
+          "x" : 167,
+          "y" : 504
+        },
+        "type" : "ARROW",
+        "centre" : {
+          "x" : 167,
+          "y" : 504
+        }
+      }
+    }, {
+      "edgeId" : 395,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 152,
+          "y" : 455
+        },
+        "to" : {
+          "x" : 151,
+          "y" : 448
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 398,
+      "type" : "INPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 394,
+    "reactomeId" : 201711,
+    "displayName" : "Casein kinase II",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 205,
+      "y" : 589
+    },
+    "minX" : 152,
+    "maxX" : 258,
+    "minY" : 523,
+    "maxY" : 601,
+    "prop" : {
+      "x" : 152,
+      "y" : 578,
+      "width" : 106,
+      "height" : 23
+    },
+    "textPosition" : {
+      "x" : 156,
+      "y" : 580
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 391,
+      "type" : "CATALYST",
+      "segments" : [ {
+        "from" : {
+          "x" : 205,
+          "y" : 575
+        },
+        "to" : {
+          "x" : 206,
+          "y" : 531
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "c" : {
+          "x" : 207,
+          "y" : 527
+        },
+        "r" : 4,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 207,
+          "y" : 527
+        }
+      }
+    } ]
+  }, {
+    "id" : 458,
+    "reactomeId" : 113592,
+    "displayName" : "ATP",
+    "schemaClass" : "SimpleEntity",
+    "renderableClass" : "Chemical",
+    "position" : {
+      "x" : 293,
+      "y" : 546
+    },
+    "minX" : 252,
+    "maxX" : 314,
+    "minY" : 515,
+    "maxY" : 561,
+    "prop" : {
+      "x" : 273,
+      "y" : 531,
+      "width" : 40,
+      "height" : 30
+    },
+    "textPosition" : {
+      "x" : 277,
+      "y" : 535
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 308,
+          "y" : 536
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 308,
+          "y" : 536
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 391,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 273,
+          "y" : 528
+        },
+        "to" : {
+          "x" : 252,
+          "y" : 515
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ],
+    "trivial" : true
+  }, {
+    "id" : 459,
+    "reactomeId" : 29370,
+    "displayName" : "ADP",
+    "schemaClass" : "SimpleEntity",
+    "renderableClass" : "Chemical",
+    "position" : {
+      "x" : 121,
+      "y" : 538
+    },
+    "minX" : 101,
+    "maxX" : 182,
+    "minY" : 516,
+    "maxY" : 553,
+    "prop" : {
+      "x" : 101,
+      "y" : 523,
+      "width" : 41,
+      "height" : 30
+    },
+    "textPosition" : {
+      "x" : 105,
+      "y" : 527
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 137,
+          "y" : 528
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 137,
+          "y" : 528
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 391,
+      "type" : "OUTPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 145,
+          "y" : 530
+        },
+        "to" : {
+          "x" : 182,
+          "y" : 516
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 150,
+          "y" : 524
+        },
+        "b" : {
+          "x" : 145,
+          "y" : 530
+        },
+        "c" : {
+          "x" : 153,
+          "y" : 531
+        },
+        "type" : "ARROW",
+        "centre" : {
+          "x" : 153,
+          "y" : 531
+        }
+      }
+    } ],
+    "trivial" : true
+  }, {
+    "id" : 396,
+    "reactomeId" : 8934915,
+    "displayName" : "p-S13,Y18-FUNDC1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 153,
+      "y" : 377
+    },
+    "minX" : 93,
+    "maxX" : 213,
+    "minY" : 354,
+    "maxY" : 416,
+    "prop" : {
+      "x" : 99,
+      "y" : 360,
+      "width" : 108,
+      "height" : 34
+    },
+    "innerProp" : {
+      "x" : 105,
+      "y" : 360,
+      "width" : 102,
+      "height" : 34
+    },
+    "textPosition" : {
+      "x" : 113,
+      "y" : 360
+    },
+    "nodeAttachments" : [ {
+      "reactomeId" : 8934924,
+      "label" : "P",
+      "description" : "O-phospho-L-serine at 13",
+      "shape" : {
+        "a" : {
+          "x" : 93,
+          "y" : 386
+        },
+        "b" : {
+          "x" : 105,
+          "y" : 398
+        },
+        "s" : "P",
+        "type" : "BOX",
+        "empty" : true,
+        "centre" : {
+          "x" : 99,
+          "y" : 392
+        }
+      }
+    }, {
+      "reactomeId" : 8934926,
+      "label" : "P",
+      "description" : "O4'-phospho-L-tyrosine at 18",
+      "shape" : {
+        "a" : {
+          "x" : 93,
+          "y" : 367
+        },
+        "b" : {
+          "x" : 105,
+          "y" : 379
+        },
+        "s" : "P",
+        "type" : "BOX",
+        "empty" : true,
+        "centre" : {
+          "x" : 99,
+          "y" : 373
+        }
+      }
+    } ],
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 207,
+          "y" : 360
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 207,
+          "y" : 360
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 395,
+      "type" : "OUTPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 152,
+          "y" : 397
+        },
+        "to" : {
+          "x" : 151,
+          "y" : 416
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 156,
+          "y" : 404
+        },
+        "b" : {
+          "x" : 152,
+          "y" : 397
+        },
+        "c" : {
+          "x" : 148,
+          "y" : 404
+        },
+        "type" : "ARROW",
+        "centre" : {
+          "x" : 148,
+          "y" : 404
+        }
+      }
+    } ]
+  }, {
+    "id" : 460,
+    "reactomeId" : 113592,
+    "displayName" : "ATP",
+    "schemaClass" : "SimpleEntity",
+    "renderableClass" : "Chemical",
+    "position" : {
+      "x" : 392,
+      "y" : 571
+    },
+    "minX" : 372,
+    "maxX" : 431,
+    "minY" : 542,
+    "maxY" : 586,
+    "prop" : {
+      "x" : 372,
+      "y" : 556,
+      "width" : 40,
+      "height" : 30
+    },
+    "textPosition" : {
+      "x" : 376,
+      "y" : 560
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 407,
+          "y" : 561
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 407,
+          "y" : 561
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 403,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 415,
+          "y" : 556
+        },
+        "to" : {
+          "x" : 431,
+          "y" : 542
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ],
+    "trivial" : true
+  }, {
+    "id" : 397,
+    "reactomeId" : 354153,
+    "displayName" : "SRC-1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 87,
+      "y" : 435
+    },
+    "minX" : 64,
+    "maxX" : 142,
+    "minY" : 415,
+    "maxY" : 449,
+    "prop" : {
+      "x" : 64,
+      "y" : 421,
+      "width" : 46,
+      "height" : 28
+    },
+    "textPosition" : {
+      "x" : 64,
+      "y" : 424
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 110,
+          "y" : 421
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 110,
+          "y" : 421
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 395,
+      "type" : "CATALYST",
+      "segments" : [ {
+        "from" : {
+          "x" : 113,
+          "y" : 434
+        },
+        "to" : {
+          "x" : 134,
+          "y" : 433
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "c" : {
+          "x" : 138,
+          "y" : 433
+        },
+        "r" : 4,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 138,
+          "y" : 433
+        }
+      }
+    } ]
+  }, {
+    "id" : 461,
+    "reactomeId" : 29370,
+    "displayName" : "ADP",
+    "schemaClass" : "SimpleEntity",
+    "renderableClass" : "Chemical",
+    "position" : {
+      "x" : 519,
+      "y" : 567
+    },
+    "minX" : 477,
+    "maxX" : 541,
+    "minY" : 544,
+    "maxY" : 582,
+    "prop" : {
+      "x" : 499,
+      "y" : 552,
+      "width" : 41,
+      "height" : 30
+    },
+    "textPosition" : {
+      "x" : 503,
+      "y" : 556
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 535,
+          "y" : 557
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 535,
+          "y" : 557
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 403,
+      "type" : "OUTPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 496,
+          "y" : 555
+        },
+        "to" : {
+          "x" : 477,
+          "y" : 544
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 488,
+          "y" : 555
+        },
+        "b" : {
+          "x" : 496,
+          "y" : 555
+        },
+        "c" : {
+          "x" : 492,
+          "y" : 548
+        },
+        "type" : "ARROW",
+        "centre" : {
+          "x" : 492,
+          "y" : 548
+        }
+      }
+    } ],
+    "trivial" : true
+  }, {
+    "id" : 399,
+    "reactomeId" : 5357797,
+    "displayName" : "PGAM5-S",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 272,
+      "y" : 488
+    },
+    "minX" : 239,
+    "maxX" : 311,
+    "minY" : 451,
+    "maxY" : 502,
+    "prop" : {
+      "x" : 239,
+      "y" : 475,
+      "width" : 66,
+      "height" : 27
+    },
+    "textPosition" : {
+      "x" : 240,
+      "y" : 478
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 305,
+          "y" : 475
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 305,
+          "y" : 475
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 398,
+      "type" : "CATALYST",
+      "segments" : [ {
+        "from" : {
+          "x" : 271,
+          "y" : 472
+        },
+        "to" : {
+          "x" : 271,
+          "y" : 459
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "c" : {
+          "x" : 271,
+          "y" : 455
+        },
+        "r" : 4,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 271,
+          "y" : 455
+        }
+      }
+    } ]
+  }, {
+    "id" : 401,
+    "reactomeId" : 1632847,
+    "displayName" : "ULK1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 88,
+      "y" : 343
+    },
+    "minX" : 67,
+    "maxX" : 116,
+    "minY" : 326,
+    "maxY" : 354,
+    "prop" : {
+      "x" : 67,
+      "y" : 332,
+      "width" : 43,
+      "height" : 22
+    },
+    "textPosition" : {
+      "x" : 69,
+      "y" : 332
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 110,
+          "y" : 332
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 110,
+          "y" : 332
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 400,
+      "type" : "INPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 402,
+    "reactomeId" : 8948145,
+    "displayName" : "ULK1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 460,
+      "y" : 486
+    },
+    "minX" : 438,
+    "maxX" : 488,
+    "minY" : 468,
+    "maxY" : 535,
+    "prop" : {
+      "x" : 438,
+      "y" : 474,
+      "width" : 44,
+      "height" : 24
+    },
+    "textPosition" : {
+      "x" : 441,
+      "y" : 475
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 482,
+          "y" : 474
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 482,
+          "y" : 474
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 400,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 403,
+      "type" : "CATALYST",
+      "segments" : [ {
+        "from" : {
+          "x" : 459,
+          "y" : 501
+        },
+        "to" : {
+          "x" : 459,
+          "y" : 527
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "c" : {
+          "x" : 459,
+          "y" : 531
+        },
+        "r" : 4,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 459,
+          "y" : 531
+        }
+      }
+    } ]
+  }, {
+    "id" : 404,
+    "reactomeId" : 8948140,
+    "displayName" : "p-S17-FUNDC1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 537,
+      "y" : 515
+    },
+    "minX" : 477,
+    "maxX" : 609,
+    "minY" : 491,
+    "maxY" : 544,
+    "prop" : {
+      "x" : 497,
+      "y" : 497,
+      "width" : 81,
+      "height" : 36
+    },
+    "innerProp" : {
+      "x" : 497,
+      "y" : 497,
+      "width" : 81,
+      "height" : 30
+    },
+    "textPosition" : {
+      "x" : 509,
+      "y" : 497
+    },
+    "nodeAttachments" : [ {
+      "reactomeId" : 8948142,
+      "label" : "P",
+      "description" : "O-phospho-L-serine at 17",
+      "shape" : {
+        "a" : {
+          "x" : 525,
+          "y" : 527
+        },
+        "b" : {
+          "x" : 537,
+          "y" : 539
+        },
+        "s" : "P",
+        "type" : "BOX",
+        "empty" : true,
+        "centre" : {
+          "x" : 531,
+          "y" : 533
+        }
+      }
+    } ],
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 578,
+          "y" : 497
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 578,
+          "y" : 497
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 403,
+      "type" : "OUTPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 499,
+          "y" : 536
+        },
+        "to" : {
+          "x" : 477,
+          "y" : 544
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 494,
+          "y" : 542
+        },
+        "b" : {
+          "x" : 499,
+          "y" : 536
+        },
+        "c" : {
+          "x" : 491,
+          "y" : 535
+        },
+        "type" : "ARROW",
+        "centre" : {
+          "x" : 491,
+          "y" : 535
+        }
+      }
+    }, {
+      "edgeId" : 443,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 581,
+          "y" : 530
+        },
+        "to" : {
+          "x" : 609,
+          "y" : 543
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 351,
+    "reactomeId" : 5205637,
+    "displayName" : "PINK1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 540,
+      "y" : 111
+    },
+    "minX" : 493,
+    "maxX" : 594,
+    "minY" : 94,
+    "maxY" : 122,
+    "prop" : {
+      "x" : 493,
+      "y" : 100,
+      "width" : 95,
+      "height" : 22
+    },
+    "textPosition" : {
+      "x" : 519,
+      "y" : 100
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 588,
+          "y" : 100
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 588,
+          "y" : 100
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 350,
+      "type" : "INPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 352,
+    "reactomeId" : 5205671,
+    "displayName" : "PINK1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 533,
+      "y" : 223
+    },
+    "minX" : 466,
+    "maxX" : 606,
+    "minY" : 192,
+    "maxY" : 248,
+    "prop" : {
+      "x" : 466,
+      "y" : 198,
+      "width" : 134,
+      "height" : 50
+    },
+    "textPosition" : {
+      "x" : 511,
+      "y" : 212
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 600,
+          "y" : 198
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 600,
+          "y" : 198
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 354,
+      "type" : "INPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 358,
+      "type" : "INPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 350,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 353,
+    "reactomeId" : 1252240,
+    "displayName" : "TOMM40 Complex",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 421,
+      "y" : 161
+    },
+    "minX" : 357,
+    "maxX" : 530,
+    "minY" : 136,
+    "maxY" : 186,
+    "prop" : {
+      "x" : 357,
+      "y" : 136,
+      "width" : 129,
+      "height" : 50
+    },
+    "textPosition" : {
+      "x" : 363,
+      "y" : 165
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 350,
+      "type" : "CATALYST",
+      "segments" : [ {
+        "from" : {
+          "x" : 489,
+          "y" : 163
+        },
+        "to" : {
+          "x" : 522,
+          "y" : 164
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "c" : {
+          "x" : 526,
+          "y" : 165
+        },
+        "r" : 4,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 526,
+          "y" : 165
+        }
+      }
+    } ]
+  }, {
+    "id" : 355,
+    "reactomeId" : 5205628,
+    "displayName" : "PINK1(111-581)",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 272,
+      "y" : 223
+    },
+    "minX" : 205,
+    "maxX" : 345,
+    "minY" : 192,
+    "maxY" : 248,
+    "prop" : {
+      "x" : 205,
+      "y" : 198,
+      "width" : 134,
+      "height" : 50
+    },
+    "textPosition" : {
+      "x" : 219,
+      "y" : 212
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 339,
+          "y" : 198
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 339,
+          "y" : 198
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 354,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 359,
+    "reactomeId" : 5205653,
+    "displayName" : "PINK1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 703,
+      "y" : 163
+    },
+    "minX" : 644,
+    "maxX" : 785,
+    "minY" : 132,
+    "maxY" : 188,
+    "prop" : {
+      "x" : 644,
+      "y" : 138,
+      "width" : 119,
+      "height" : 50
+    },
+    "textPosition" : {
+      "x" : 682,
+      "y" : 152
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 763,
+          "y" : 138
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 763,
+          "y" : 138
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 358,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 361,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 766,
+          "y" : 160
+        },
+        "to" : {
+          "x" : 785,
+          "y" : 159
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 362,
+    "reactomeId" : 201579,
+    "displayName" : "PARK2",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 787,
+      "y" : 97
+    },
+    "minX" : 734,
+    "maxX" : 846,
+    "minY" : 80,
+    "maxY" : 159,
+    "prop" : {
+      "x" : 734,
+      "y" : 86,
+      "width" : 106,
+      "height" : 22
+    },
+    "textPosition" : {
+      "x" : 763,
+      "y" : 86
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 840,
+          "y" : 86
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 840,
+          "y" : 86
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 361,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 786,
+          "y" : 111
+        },
+        "to" : {
+          "x" : 785,
+          "y" : 159
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 363,
+    "reactomeId" : 5205683,
+    "displayName" : "PARK2:PINK1",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 909,
+      "y" : 163
+    },
+    "minX" : 850,
+    "maxX" : 1605,
+    "minY" : 65,
+    "maxY" : 188,
+    "prop" : {
+      "x" : 850,
+      "y" : 138,
+      "width" : 119,
+      "height" : 50
+    },
+    "textPosition" : {
+      "x" : 866,
+      "y" : 167
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 361,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 366,
+      "type" : "CATALYST",
+      "segments" : [ {
+        "from" : {
+          "x" : 908,
+          "y" : 135
+        },
+        "to" : {
+          "x" : 907,
+          "y" : 65
+        }
+      }, {
+        "from" : {
+          "x" : 907,
+          "y" : 65
+        },
+        "to" : {
+          "x" : 1603,
+          "y" : 66
+        }
+      }, {
+        "from" : {
+          "x" : 1603,
+          "y" : 66
+        },
+        "to" : {
+          "x" : 1602,
+          "y" : 112
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "c" : {
+          "x" : 1601,
+          "y" : 116
+        },
+        "r" : 4,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 1601,
+          "y" : 116
+        }
+      }
+    } ]
+  }, {
+    "id" : 367,
+    "reactomeId" : 1267988,
+    "displayName" : "VDAC1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 1325,
+      "y" : 171
+    },
+    "minX" : 1298,
+    "maxX" : 1394,
+    "minY" : 122,
+    "maxY" : 196,
+    "prop" : {
+      "x" : 1298,
+      "y" : 147,
+      "width" : 55,
+      "height" : 49
+    },
+    "textPosition" : {
+      "x" : 1301,
+      "y" : 161
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 1353,
+          "y" : 147
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 1353,
+          "y" : 147
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 366,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1356,
+          "y" : 151
+        },
+        "to" : {
+          "x" : 1394,
+          "y" : 122
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 368,
+    "reactomeId" : 5205688,
+    "displayName" : "MTERFD1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 1138,
+      "y" : 172
+    },
+    "minX" : 1100,
+    "maxX" : 1394,
+    "minY" : 122,
+    "maxY" : 195,
+    "prop" : {
+      "x" : 1100,
+      "y" : 150,
+      "width" : 76,
+      "height" : 45
+    },
+    "textPosition" : {
+      "x" : 1106,
+      "y" : 162
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 1176,
+          "y" : 150
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 1176,
+          "y" : 150
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 366,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1141,
+          "y" : 147
+        },
+        "to" : {
+          "x" : 1145,
+          "y" : 131
+        }
+      }, {
+        "from" : {
+          "x" : 1145,
+          "y" : 131
+        },
+        "to" : {
+          "x" : 1394,
+          "y" : 122
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 369,
+    "reactomeId" : 992745,
+    "displayName" : "MFN1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 1044,
+      "y" : 172
+    },
+    "minX" : 1006,
+    "maxX" : 1394,
+    "minY" : 119,
+    "maxY" : 194,
+    "prop" : {
+      "x" : 1006,
+      "y" : 150,
+      "width" : 76,
+      "height" : 44
+    },
+    "textPosition" : {
+      "x" : 1023,
+      "y" : 161
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 1082,
+          "y" : 150
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 1082,
+          "y" : 150
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 366,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1047,
+          "y" : 147
+        },
+        "to" : {
+          "x" : 1052,
+          "y" : 119
+        }
+      }, {
+        "from" : {
+          "x" : 1052,
+          "y" : 119
+        },
+        "to" : {
+          "x" : 1394,
+          "y" : 122
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 370,
+    "reactomeId" : 992714,
+    "displayName" : "MFN2",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 1228,
+      "y" : 171
+    },
+    "minX" : 1199,
+    "maxX" : 1394,
+    "minY" : 122,
+    "maxY" : 192,
+    "prop" : {
+      "x" : 1199,
+      "y" : 151,
+      "width" : 58,
+      "height" : 41
+    },
+    "textPosition" : {
+      "x" : 1207,
+      "y" : 161
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 1257,
+          "y" : 151
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 1257,
+          "y" : 151
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 366,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1260,
+          "y" : 154
+        },
+        "to" : {
+          "x" : 1296,
+          "y" : 133
+        }
+      }, {
+        "from" : {
+          "x" : 1296,
+          "y" : 133
+        },
+        "to" : {
+          "x" : 1394,
+          "y" : 122
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 371,
+    "reactomeId" : 5205624,
+    "displayName" : "K48polyUb-VDAC1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 1488,
+      "y" : 361
+    },
+    "minX" : 1390,
+    "maxX" : 1599,
+    "minY" : 226,
+    "maxY" : 401,
+    "prop" : {
+      "x" : 1426,
+      "y" : 342,
+      "width" : 124,
+      "height" : 38
+    },
+    "innerProp" : {
+      "x" : 1426,
+      "y" : 348,
+      "width" : 124,
+      "height" : 32
+    },
+    "textPosition" : {
+      "x" : 1428,
+      "y" : 350
+    },
+    "nodeAttachments" : [ {
+      "reactomeId" : 5205665,
+      "description" : "ubiquitinylated lysine (K48-linked polyubiquitin chain [cytosol]) at unknown position",
+      "shape" : {
+        "a" : {
+          "x" : 1436,
+          "y" : 336
+        },
+        "b" : {
+          "x" : 1448,
+          "y" : 348
+        },
+        "type" : "BOX",
+        "empty" : true,
+        "centre" : {
+          "x" : 1442,
+          "y" : 342
+        }
+      }
+    } ],
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 1550,
+          "y" : 342
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 1550,
+          "y" : 342
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 366,
+      "type" : "OUTPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1553,
+          "y" : 361
+        },
+        "to" : {
+          "x" : 1586,
+          "y" : 362
+        }
+      }, {
+        "from" : {
+          "x" : 1586,
+          "y" : 362
+        },
+        "to" : {
+          "x" : 1599,
+          "y" : 226
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 1560,
+          "y" : 357
+        },
+        "b" : {
+          "x" : 1553,
+          "y" : 361
+        },
+        "c" : {
+          "x" : 1560,
+          "y" : 365
+        },
+        "type" : "ARROW",
+        "centre" : {
+          "x" : 1560,
+          "y" : 365
+        }
+      }
+    }, {
+      "edgeId" : 379,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1466,
+          "y" : 383
+        },
+        "to" : {
+          "x" : 1445,
+          "y" : 399
+        }
+      }, {
+        "from" : {
+          "x" : 1445,
+          "y" : 399
+        },
+        "to" : {
+          "x" : 1390,
+          "y" : 401
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 372,
+    "reactomeId" : 5205668,
+    "displayName" : "K48polyUb-MFN2",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 1480,
+      "y" : 295
+    },
+    "minX" : 1390,
+    "maxX" : 1599,
+    "minY" : 226,
+    "maxY" : 401,
+    "prop" : {
+      "x" : 1422,
+      "y" : 275,
+      "width" : 116,
+      "height" : 40
+    },
+    "innerProp" : {
+      "x" : 1422,
+      "y" : 281,
+      "width" : 116,
+      "height" : 34
+    },
+    "textPosition" : {
+      "x" : 1424,
+      "y" : 284
+    },
+    "nodeAttachments" : [ {
+      "reactomeId" : 5205650,
+      "description" : "ubiquitinylated lysine (K48-linked polyubiquitin chain [cytosol]) at unknown position",
+      "shape" : {
+        "a" : {
+          "x" : 1432,
+          "y" : 269
+        },
+        "b" : {
+          "x" : 1444,
+          "y" : 281
+        },
+        "type" : "BOX",
+        "empty" : true,
+        "centre" : {
+          "x" : 1438,
+          "y" : 275
+        }
+      }
+    } ],
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 1538,
+          "y" : 275
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 1538,
+          "y" : 275
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 366,
+      "type" : "OUTPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1541,
+          "y" : 297
+        },
+        "to" : {
+          "x" : 1570,
+          "y" : 299
+        }
+      }, {
+        "from" : {
+          "x" : 1570,
+          "y" : 299
+        },
+        "to" : {
+          "x" : 1599,
+          "y" : 226
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 1548,
+          "y" : 293
+        },
+        "b" : {
+          "x" : 1541,
+          "y" : 297
+        },
+        "c" : {
+          "x" : 1548,
+          "y" : 301
+        },
+        "type" : "ARROW",
+        "centre" : {
+          "x" : 1548,
+          "y" : 301
+        }
+      }
+    }, {
+      "edgeId" : 379,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1419,
+          "y" : 302
+        },
+        "to" : {
+          "x" : 1411,
+          "y" : 304
+        }
+      }, {
+        "from" : {
+          "x" : 1411,
+          "y" : 304
+        },
+        "to" : {
+          "x" : 1390,
+          "y" : 401
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 373,
+    "reactomeId" : 5205630,
+    "displayName" : "K48polyUb-MTERFD1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 1469,
+      "y" : 225
+    },
+    "minX" : 1390,
+    "maxX" : 1599,
+    "minY" : 197,
+    "maxY" : 401,
+    "prop" : {
+      "x" : 1422,
+      "y" : 203,
+      "width" : 95,
+      "height" : 44
+    },
+    "innerProp" : {
+      "x" : 1422,
+      "y" : 209,
+      "width" : 95,
+      "height" : 38
+    },
+    "textPosition" : {
+      "x" : 1430,
+      "y" : 207
+    },
+    "nodeAttachments" : [ {
+      "reactomeId" : 5205675,
+      "description" : "ubiquitinylated lysine (K48-linked polyubiquitin chain [cytosol]) at unknown position",
+      "shape" : {
+        "a" : {
+          "x" : 1429,
+          "y" : 197
+        },
+        "b" : {
+          "x" : 1441,
+          "y" : 209
+        },
+        "type" : "BOX",
+        "empty" : true,
+        "centre" : {
+          "x" : 1435,
+          "y" : 203
+        }
+      }
+    } ],
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 1517,
+          "y" : 203
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 1517,
+          "y" : 203
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 366,
+      "type" : "OUTPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1520,
+          "y" : 226
+        },
+        "to" : {
+          "x" : 1560,
+          "y" : 228
+        }
+      }, {
+        "from" : {
+          "x" : 1560,
+          "y" : 228
+        },
+        "to" : {
+          "x" : 1599,
+          "y" : 226
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 1527,
+          "y" : 222
+        },
+        "b" : {
+          "x" : 1520,
+          "y" : 226
+        },
+        "c" : {
+          "x" : 1527,
+          "y" : 230
+        },
+        "type" : "ARROW",
+        "centre" : {
+          "x" : 1527,
+          "y" : 230
+        }
+      }
+    }, {
+      "edgeId" : 379,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1419,
+          "y" : 223
+        },
+        "to" : {
+          "x" : 1401,
+          "y" : 223
+        }
+      }, {
+        "from" : {
+          "x" : 1401,
+          "y" : 223
+        },
+        "to" : {
+          "x" : 1390,
+          "y" : 401
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 374,
+    "reactomeId" : 5205679,
+    "displayName" : "K48polyUb-MFN1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 1448,
+      "y" : 158
+    },
+    "minX" : 1388,
+    "maxX" : 1599,
+    "minY" : 133,
+    "maxY" : 401,
+    "prop" : {
+      "x" : 1395,
+      "y" : 139,
+      "width" : 106,
+      "height" : 38
+    },
+    "innerProp" : {
+      "x" : 1395,
+      "y" : 145,
+      "width" : 106,
+      "height" : 32
+    },
+    "textPosition" : {
+      "x" : 1408,
+      "y" : 140
+    },
+    "nodeAttachments" : [ {
+      "reactomeId" : 5205686,
+      "description" : "ubiquitinylated lysine (K48-linked polyubiquitin chain [cytosol]) at unknown position",
+      "shape" : {
+        "a" : {
+          "x" : 1403,
+          "y" : 133
+        },
+        "b" : {
+          "x" : 1415,
+          "y" : 145
+        },
+        "type" : "BOX",
+        "empty" : true,
+        "centre" : {
+          "x" : 1409,
+          "y" : 139
+        }
+      }
+    } ],
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 1501,
+          "y" : 139
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 1501,
+          "y" : 139
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 366,
+      "type" : "OUTPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1504,
+          "y" : 158
+        },
+        "to" : {
+          "x" : 1559,
+          "y" : 160
+        }
+      }, {
+        "from" : {
+          "x" : 1559,
+          "y" : 160
+        },
+        "to" : {
+          "x" : 1599,
+          "y" : 226
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 1511,
+          "y" : 154
+        },
+        "b" : {
+          "x" : 1504,
+          "y" : 158
+        },
+        "c" : {
+          "x" : 1511,
+          "y" : 162
+        },
+        "type" : "ARROW",
+        "centre" : {
+          "x" : 1511,
+          "y" : 162
+        }
+      }
+    }, {
+      "edgeId" : 379,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1428,
+          "y" : 180
+        },
+        "to" : {
+          "x" : 1388,
+          "y" : 216
+        }
+      }, {
+        "from" : {
+          "x" : 1388,
+          "y" : 216
+        },
+        "to" : {
+          "x" : 1390,
+          "y" : 401
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 380,
+    "reactomeId" : 193937,
+    "displayName" : "SQSTM1",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 1575,
+      "y" : 413
+    },
+    "minX" : 1390,
+    "maxX" : 1641,
+    "minY" : 396,
+    "maxY" : 424,
+    "prop" : {
+      "x" : 1516,
+      "y" : 402,
+      "width" : 119,
+      "height" : 22
+    },
+    "textPosition" : {
+      "x" : 1548,
+      "y" : 402
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 1635,
+          "y" : 402
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 1635,
+          "y" : 402
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 379,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1513,
+          "y" : 413
+        },
+        "to" : {
+          "x" : 1445,
+          "y" : 413
+        }
+      }, {
+        "from" : {
+          "x" : 1445,
+          "y" : 413
+        },
+        "to" : {
+          "x" : 1390,
+          "y" : 401
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 444,
+    "reactomeId" : 8959568,
+    "displayName" : "p-S17-FUNDC1:LC3",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 700,
+      "y" : 499
+    },
+    "minX" : 629,
+    "maxX" : 771,
+    "minY" : 489,
+    "maxY" : 533,
+    "prop" : {
+      "x" : 629,
+      "y" : 489,
+      "width" : 142,
+      "height" : 21
+    },
+    "textPosition" : {
+      "x" : 637,
+      "y" : 489
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 443,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 447,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 721,
+          "y" : 513
+        },
+        "to" : {
+          "x" : 769,
+          "y" : 533
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 381,
+    "reactomeId" : 5205659,
+    "displayName" : "K48polyUB Mitophagy Substrates:SQSTM1",
+    "schemaClass" : "Complex",
+    "renderableClass" : "Complex",
+    "position" : {
+      "x" : 1495,
+      "y" : 483
+    },
+    "minX" : 1406,
+    "maxX" : 1547,
+    "minY" : 451,
+    "maxY" : 515,
+    "prop" : {
+      "x" : 1444,
+      "y" : 451,
+      "width" : 103,
+      "height" : 64
+    },
+    "textPosition" : {
+      "x" : 1458,
+      "y" : 452
+    },
+    "bgColor" : {
+      "r" : 204,
+      "g" : 255,
+      "b" : 255
+    },
+    "connectors" : [ {
+      "edgeId" : 379,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 382,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1441,
+          "y" : 476
+        },
+        "to" : {
+          "x" : 1406,
+          "y" : 471
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 446,
+    "reactomeId" : 5205658,
+    "displayName" : "LC3",
+    "schemaClass" : "DefinedSet",
+    "renderableClass" : "EntitySet",
+    "position" : {
+      "x" : 582,
+      "y" : 601
+    },
+    "minX" : 537,
+    "maxX" : 628,
+    "minY" : 543,
+    "maxY" : 612,
+    "prop" : {
+      "x" : 537,
+      "y" : 590,
+      "width" : 91,
+      "height" : 22
+    },
+    "textPosition" : {
+      "x" : 567,
+      "y" : 590
+    },
+    "connectors" : [ {
+      "edgeId" : 443,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 587,
+          "y" : 584
+        },
+        "to" : {
+          "x" : 609,
+          "y" : 543
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 383,
+    "reactomeId" : 5205658,
+    "displayName" : "LC3",
+    "schemaClass" : "DefinedSet",
+    "renderableClass" : "EntitySet",
+    "position" : {
+      "x" : 1468,
+      "y" : 563
+    },
+    "minX" : 1406,
+    "maxX" : 1516,
+    "minY" : 471,
+    "maxY" : 575,
+    "prop" : {
+      "x" : 1421,
+      "y" : 552,
+      "width" : 95,
+      "height" : 23
+    },
+    "textPosition" : {
+      "x" : 1453,
+      "y" : 553
+    },
+    "connectors" : [ {
+      "edgeId" : 382,
+      "type" : "INPUT",
+      "segments" : [ {
+        "from" : {
+          "x" : 1460,
+          "y" : 546
+        },
+        "to" : {
+          "x" : 1406,
+          "y" : 471
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  } ],
+  "edges" : [ {
+    "id" : 386,
+    "reactomeId" : 5205663,
+    "displayName" : "LC3 binds the autophagosome membrane Atg5-Atg12 complex",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 1167,
+      "y" : 546
+    },
+    "minX" : 1161,
+    "maxX" : 1173,
+    "minY" : 525,
+    "maxY" : 583,
+    "segments" : [ {
+      "from" : {
+        "x" : 1168,
+        "y" : 525
+      },
+      "to" : {
+        "x" : 1167,
+        "y" : 546
+      }
+    }, {
+      "from" : {
+        "x" : 1167,
+        "y" : 546
+      },
+      "to" : {
+        "x" : 1167,
+        "y" : 583
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 1163,
+        "y" : 576
+      },
+      "b" : {
+        "x" : 1167,
+        "y" : 583
+      },
+      "c" : {
+        "x" : 1171,
+        "y" : 576
+      },
+      "type" : "ARROW",
+      "centre" : {
+        "x" : 1171,
+        "y" : 576
+      }
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 1161,
+        "y" : 540
+      },
+      "b" : {
+        "x" : 1173,
+        "y" : 552
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 1167,
+        "y" : 546
+      }
+    },
+    "inputs" : [ {
+      "id" : 384,
+      "points" : [ {
+        "x" : 1258,
+        "y" : 525
+      } ]
+    }, {
+      "id" : 387,
+      "points" : [ {
+        "x" : 1019,
+        "y" : 600
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 388
+    } ]
+  }, {
+    "id" : 354,
+    "reactomeId" : 5205681,
+    "displayName" : "Pink1 is cleaved on healthy mitochondria",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 397,
+      "y" : 221
+    },
+    "minX" : 342,
+    "maxX" : 463,
+    "minY" : 215,
+    "maxY" : 227,
+    "segments" : [ {
+      "from" : {
+        "x" : 463,
+        "y" : 222
+      },
+      "to" : {
+        "x" : 397,
+        "y" : 221
+      }
+    }, {
+      "from" : {
+        "x" : 397,
+        "y" : 221
+      },
+      "to" : {
+        "x" : 342,
+        "y" : 221
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 349,
+        "y" : 217
+      },
+      "b" : {
+        "x" : 342,
+        "y" : 221
+      },
+      "c" : {
+        "x" : 349,
+        "y" : 225
+      },
+      "type" : "ARROW",
+      "centre" : {
+        "x" : 349,
+        "y" : 225
+      }
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 391,
+        "y" : 215
+      },
+      "b" : {
+        "x" : 403,
+        "y" : 227
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 397,
+        "y" : 221
+      }
+    },
+    "inputs" : [ {
+      "id" : 352
+    } ],
+    "outputs" : [ {
+      "id" : 355
+    } ]
+  }, {
+    "id" : 358,
+    "reactomeId" : 5205672,
+    "displayName" : "Uncleaved Pink1 accumulates in damaged mitochondria",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 582,
+      "y" : 179
+    },
+    "minX" : 560,
+    "maxX" : 641,
+    "minY" : 170,
+    "maxY" : 195,
+    "segments" : [ {
+      "from" : {
+        "x" : 560,
+        "y" : 195
+      },
+      "to" : {
+        "x" : 582,
+        "y" : 179
+      }
+    }, {
+      "from" : {
+        "x" : 582,
+        "y" : 179
+      },
+      "to" : {
+        "x" : 641,
+        "y" : 170
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 635,
+        "y" : 175
+      },
+      "b" : {
+        "x" : 641,
+        "y" : 170
+      },
+      "c" : {
+        "x" : 634,
+        "y" : 167
+      },
+      "type" : "ARROW",
+      "centre" : {
+        "x" : 634,
+        "y" : 167
+      }
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 576,
+        "y" : 173
+      },
+      "b" : {
+        "x" : 588,
+        "y" : 185
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 582,
+        "y" : 179
+      }
+    },
+    "inputs" : [ {
+      "id" : 352
+    } ],
+    "outputs" : [ {
+      "id" : 359
+    } ]
+  }, {
+    "id" : 391,
+    "reactomeId" : 8948039,
+    "displayName" : "FUNDC1 is phosphorylated by CK2",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 207,
+      "y" : 515
+    },
+    "minX" : 182,
+    "maxX" : 252,
+    "minY" : 509,
+    "maxY" : 521,
+    "segments" : [ {
+      "from" : {
+        "x" : 252,
+        "y" : 515
+      },
+      "to" : {
+        "x" : 207,
+        "y" : 515
+      }
+    }, {
+      "from" : {
+        "x" : 207,
+        "y" : 515
+      },
+      "to" : {
+        "x" : 182,
+        "y" : 516
+      }
+    } ],
+    "reactionShape" : {
+      "a" : {
+        "x" : 201,
+        "y" : 509
+      },
+      "b" : {
+        "x" : 213,
+        "y" : 521
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 207,
+        "y" : 515
+      }
+    },
+    "inputs" : [ {
+      "id" : 392,
+      "points" : [ {
+        "x" : 351,
+        "y" : 514
+      } ]
+    }, {
+      "id" : 458,
+      "points" : [ {
+        "x" : 273,
+        "y" : 528
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 459,
+      "points" : [ {
+        "x" : 145,
+        "y" : 530
+      } ]
+    }, {
+      "id" : 393,
+      "points" : [ {
+        "x" : 166,
+        "y" : 496
+      } ]
+    } ],
+    "catalysts" : [ {
+      "id" : 394,
+      "points" : [ {
+        "x" : 205,
+        "y" : 575
+      } ]
+    } ]
+  }, {
+    "id" : 361,
+    "reactomeId" : 5205652,
+    "displayName" : "Pink1 recruits Parkin to the outer mitochondrial membrane.",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 810,
+      "y" : 159
+    },
+    "minX" : 785,
+    "maxX" : 847,
+    "minY" : 153,
+    "maxY" : 165,
+    "segments" : [ {
+      "from" : {
+        "x" : 785,
+        "y" : 159
+      },
+      "to" : {
+        "x" : 810,
+        "y" : 159
+      }
+    }, {
+      "from" : {
+        "x" : 810,
+        "y" : 159
+      },
+      "to" : {
+        "x" : 847,
+        "y" : 160
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 840,
+        "y" : 164
+      },
+      "b" : {
+        "x" : 847,
+        "y" : 160
+      },
+      "c" : {
+        "x" : 840,
+        "y" : 156
+      },
+      "type" : "ARROW",
+      "centre" : {
+        "x" : 840,
+        "y" : 156
+      }
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 804,
+        "y" : 153
+      },
+      "b" : {
+        "x" : 816,
+        "y" : 165
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 810,
+        "y" : 159
+      }
+    },
+    "inputs" : [ {
+      "id" : 359,
+      "points" : [ {
+        "x" : 766,
+        "y" : 160
+      } ]
+    }, {
+      "id" : 362,
+      "points" : [ {
+        "x" : 786,
+        "y" : 111
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 363
+    } ]
+  }, {
+    "id" : 395,
+    "reactomeId" : 8948143,
+    "displayName" : "p-S13, FUNDC1 is phosphorylated by CK2 at Tyr18",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 150,
+      "y" : 433
+    },
+    "minX" : 144,
+    "maxX" : 156,
+    "minY" : 416,
+    "maxY" : 448,
+    "segments" : [ {
+      "from" : {
+        "x" : 151,
+        "y" : 448
+      },
+      "to" : {
+        "x" : 150,
+        "y" : 433
+      }
+    }, {
+      "from" : {
+        "x" : 150,
+        "y" : 433
+      },
+      "to" : {
+        "x" : 151,
+        "y" : 416
+      }
+    } ],
+    "reactionShape" : {
+      "a" : {
+        "x" : 144,
+        "y" : 427
+      },
+      "b" : {
+        "x" : 156,
+        "y" : 439
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 150,
+        "y" : 433
+      }
+    },
+    "inputs" : [ {
+      "id" : 393,
+      "points" : [ {
+        "x" : 152,
+        "y" : 455
+      } ]
+    }, {
+      "id" : 455,
+      "points" : [ {
+        "x" : 66,
+        "y" : 462
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 456,
+      "points" : [ {
+        "x" : 64,
+        "y" : 407
+      } ]
+    }, {
+      "id" : 396,
+      "points" : [ {
+        "x" : 152,
+        "y" : 397
+      } ]
+    } ],
+    "catalysts" : [ {
+      "id" : 397,
+      "points" : [ {
+        "x" : 113,
+        "y" : 434
+      } ]
+    } ]
+  }, {
+    "id" : 398,
+    "reactomeId" : 8948139,
+    "displayName" : "p-S13-FUNDC1 is dephosphorylated by PGAM5",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 271,
+      "y" : 443
+    },
+    "minX" : 196,
+    "maxX" : 361,
+    "minY" : 437,
+    "maxY" : 496,
+    "segments" : [ {
+      "from" : {
+        "x" : 196,
+        "y" : 464
+      },
+      "to" : {
+        "x" : 271,
+        "y" : 443
+      }
+    }, {
+      "from" : {
+        "x" : 271,
+        "y" : 443
+      },
+      "to" : {
+        "x" : 361,
+        "y" : 496
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 353,
+        "y" : 496
+      },
+      "b" : {
+        "x" : 361,
+        "y" : 496
+      },
+      "c" : {
+        "x" : 357,
+        "y" : 489
+      },
+      "type" : "ARROW",
+      "centre" : {
+        "x" : 357,
+        "y" : 489
+      }
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 265,
+        "y" : 437
+      },
+      "b" : {
+        "x" : 277,
+        "y" : 449
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 271,
+        "y" : 443
+      }
+    },
+    "inputs" : [ {
+      "id" : 393
+    } ],
+    "outputs" : [ {
+      "id" : 392
+    } ],
+    "catalysts" : [ {
+      "id" : 399,
+      "points" : [ {
+        "x" : 271,
+        "y" : 472
+      } ]
+    } ]
+  }, {
+    "id" : 366,
+    "reactomeId" : 5205682,
+    "displayName" : "Parkin promotes the ubiquitination of mitochondrial substrates",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 1601,
+      "y" : 128
+    },
+    "minX" : 1394,
+    "maxX" : 1607,
+    "minY" : 122,
+    "maxY" : 226,
+    "segments" : [ {
+      "from" : {
+        "x" : 1394,
+        "y" : 122
+      },
+      "to" : {
+        "x" : 1601,
+        "y" : 128
+      }
+    }, {
+      "from" : {
+        "x" : 1601,
+        "y" : 128
+      },
+      "to" : {
+        "x" : 1599,
+        "y" : 226
+      }
+    } ],
+    "reactionShape" : {
+      "a" : {
+        "x" : 1595,
+        "y" : 122
+      },
+      "b" : {
+        "x" : 1607,
+        "y" : 134
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 1601,
+        "y" : 128
+      }
+    },
+    "inputs" : [ {
+      "id" : 390,
+      "points" : [ {
+        "x" : 1305,
+        "y" : 96
+      } ],
+      "stoichiometry" : 12
+    }, {
+      "id" : 369,
+      "points" : [ {
+        "x" : 1047,
+        "y" : 147
+      }, {
+        "x" : 1052,
+        "y" : 119
+      } ]
+    }, {
+      "id" : 370,
+      "points" : [ {
+        "x" : 1260,
+        "y" : 154
+      }, {
+        "x" : 1296,
+        "y" : 133
+      } ]
+    }, {
+      "id" : 368,
+      "points" : [ {
+        "x" : 1141,
+        "y" : 147
+      }, {
+        "x" : 1145,
+        "y" : 131
+      } ]
+    }, {
+      "id" : 367,
+      "points" : [ {
+        "x" : 1356,
+        "y" : 151
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 371,
+      "points" : [ {
+        "x" : 1553,
+        "y" : 361
+      }, {
+        "x" : 1586,
+        "y" : 362
+      } ]
+    }, {
+      "id" : 372,
+      "points" : [ {
+        "x" : 1541,
+        "y" : 297
+      }, {
+        "x" : 1570,
+        "y" : 299
+      } ]
+    }, {
+      "id" : 373,
+      "points" : [ {
+        "x" : 1520,
+        "y" : 226
+      }, {
+        "x" : 1560,
+        "y" : 228
+      } ]
+    }, {
+      "id" : 374,
+      "points" : [ {
+        "x" : 1504,
+        "y" : 158
+      }, {
+        "x" : 1559,
+        "y" : 160
+      } ]
+    } ],
+    "catalysts" : [ {
+      "id" : 363,
+      "points" : [ {
+        "x" : 908,
+        "y" : 135
+      }, {
+        "x" : 907,
+        "y" : 65
+      }, {
+        "x" : 1603,
+        "y" : 66
+      } ]
+    } ]
+  }, {
+    "id" : 400,
+    "reactomeId" : 8948136,
+    "displayName" : "ULK1 Translocates to the mitochondria",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 461,
+      "y" : 423
+    },
+    "minX" : 113,
+    "maxX" : 467,
+    "minY" : 343,
+    "maxY" : 471,
+    "segments" : [ {
+      "from" : {
+        "x" : 113,
+        "y" : 343
+      },
+      "to" : {
+        "x" : 243,
+        "y" : 343
+      }
+    }, {
+      "from" : {
+        "x" : 243,
+        "y" : 343
+      },
+      "to" : {
+        "x" : 243,
+        "y" : 423
+      }
+    }, {
+      "from" : {
+        "x" : 243,
+        "y" : 423
+      },
+      "to" : {
+        "x" : 461,
+        "y" : 423
+      }
+    }, {
+      "from" : {
+        "x" : 461,
+        "y" : 423
+      },
+      "to" : {
+        "x" : 460,
+        "y" : 471
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 456,
+        "y" : 464
+      },
+      "b" : {
+        "x" : 460,
+        "y" : 471
+      },
+      "c" : {
+        "x" : 464,
+        "y" : 464
+      },
+      "type" : "ARROW",
+      "centre" : {
+        "x" : 464,
+        "y" : 464
+      }
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 455,
+        "y" : 417
+      },
+      "b" : {
+        "x" : 467,
+        "y" : 429
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 461,
+        "y" : 423
+      }
+    },
+    "inputs" : [ {
+      "id" : 401
+    } ],
+    "outputs" : [ {
+      "id" : 402
+    } ]
+  }, {
+    "id" : 403,
+    "reactomeId" : 8948146,
+    "displayName" : "FUNDC1 is phosphorylated by ULK1 at Ser17",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 459,
+      "y" : 543
+    },
+    "minX" : 431,
+    "maxX" : 477,
+    "minY" : 537,
+    "maxY" : 549,
+    "segments" : [ {
+      "from" : {
+        "x" : 431,
+        "y" : 542
+      },
+      "to" : {
+        "x" : 459,
+        "y" : 543
+      }
+    }, {
+      "from" : {
+        "x" : 459,
+        "y" : 543
+      },
+      "to" : {
+        "x" : 477,
+        "y" : 544
+      }
+    } ],
+    "reactionShape" : {
+      "a" : {
+        "x" : 453,
+        "y" : 537
+      },
+      "b" : {
+        "x" : 465,
+        "y" : 549
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 459,
+        "y" : 543
+      }
+    },
+    "inputs" : [ {
+      "id" : 392,
+      "points" : [ {
+        "x" : 410,
+        "y" : 532
+      } ]
+    }, {
+      "id" : 460,
+      "points" : [ {
+        "x" : 415,
+        "y" : 556
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 461,
+      "points" : [ {
+        "x" : 496,
+        "y" : 555
+      } ]
+    }, {
+      "id" : 404,
+      "points" : [ {
+        "x" : 499,
+        "y" : 536
+      } ]
+    } ],
+    "catalysts" : [ {
+      "id" : 402,
+      "points" : [ {
+        "x" : 459,
+        "y" : 501
+      } ]
+    } ]
+  }, {
+    "id" : 379,
+    "reactomeId" : 5205673,
+    "displayName" : "p62 binds ubiquitinated mitochondrial substrates",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 1390,
+      "y" : 439
+    },
+    "minX" : 1384,
+    "maxX" : 1441,
+    "minY" : 401,
+    "maxY" : 461,
+    "segments" : [ {
+      "from" : {
+        "x" : 1390,
+        "y" : 401
+      },
+      "to" : {
+        "x" : 1390,
+        "y" : 439
+      }
+    }, {
+      "from" : {
+        "x" : 1390,
+        "y" : 439
+      },
+      "to" : {
+        "x" : 1441,
+        "y" : 461
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 1433,
+        "y" : 462
+      },
+      "b" : {
+        "x" : 1441,
+        "y" : 461
+      },
+      "c" : {
+        "x" : 1436,
+        "y" : 455
+      },
+      "type" : "ARROW",
+      "centre" : {
+        "x" : 1436,
+        "y" : 455
+      }
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 1384,
+        "y" : 433
+      },
+      "b" : {
+        "x" : 1396,
+        "y" : 445
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 1390,
+        "y" : 439
+      }
+    },
+    "inputs" : [ {
+      "id" : 371,
+      "points" : [ {
+        "x" : 1466,
+        "y" : 383
+      }, {
+        "x" : 1445,
+        "y" : 399
+      } ]
+    }, {
+      "id" : 372,
+      "points" : [ {
+        "x" : 1419,
+        "y" : 302
+      }, {
+        "x" : 1411,
+        "y" : 304
+      } ]
+    }, {
+      "id" : 380,
+      "points" : [ {
+        "x" : 1513,
+        "y" : 413
+      }, {
+        "x" : 1445,
+        "y" : 413
+      } ]
+    }, {
+      "id" : 373,
+      "points" : [ {
+        "x" : 1419,
+        "y" : 223
+      }, {
+        "x" : 1401,
+        "y" : 223
+      } ]
+    }, {
+      "id" : 374,
+      "points" : [ {
+        "x" : 1428,
+        "y" : 180
+      }, {
+        "x" : 1388,
+        "y" : 216
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 381
+    } ]
+  }, {
+    "id" : 443,
+    "reactomeId" : 8959573,
+    "displayName" : "Phosphorylated FUNDC1 links damaged mitochondria to LC3",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 661,
+      "y" : 544
+    },
+    "minX" : 609,
+    "maxX" : 690,
+    "minY" : 513,
+    "maxY" : 550,
+    "segments" : [ {
+      "from" : {
+        "x" : 609,
+        "y" : 543
+      },
+      "to" : {
+        "x" : 661,
+        "y" : 544
+      }
+    }, {
+      "from" : {
+        "x" : 661,
+        "y" : 544
+      },
+      "to" : {
+        "x" : 690,
+        "y" : 513
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 688,
+        "y" : 521
+      },
+      "b" : {
+        "x" : 690,
+        "y" : 513
+      },
+      "c" : {
+        "x" : 682,
+        "y" : 515
+      },
+      "type" : "ARROW",
+      "centre" : {
+        "x" : 682,
+        "y" : 515
+      }
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 655,
+        "y" : 538
+      },
+      "b" : {
+        "x" : 667,
+        "y" : 550
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 661,
+        "y" : 544
+      }
+    },
+    "inputs" : [ {
+      "id" : 404,
+      "points" : [ {
+        "x" : 581,
+        "y" : 530
+      } ]
+    }, {
+      "id" : 446,
+      "points" : [ {
+        "x" : 587,
+        "y" : 584
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 444
+    } ]
+  }, {
+    "id" : 350,
+    "reactomeId" : 5205661,
+    "displayName" : "Pink1 is recruited from the cytoplasm to the mitochondria",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 538,
+      "y" : 165
+    },
+    "minX" : 532,
+    "maxX" : 544,
+    "minY" : 125,
+    "maxY" : 195,
+    "segments" : [ {
+      "from" : {
+        "x" : 539,
+        "y" : 125
+      },
+      "to" : {
+        "x" : 538,
+        "y" : 165
+      }
+    }, {
+      "from" : {
+        "x" : 538,
+        "y" : 165
+      },
+      "to" : {
+        "x" : 535,
+        "y" : 195
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 532,
+        "y" : 188
+      },
+      "b" : {
+        "x" : 535,
+        "y" : 195
+      },
+      "c" : {
+        "x" : 540,
+        "y" : 189
+      },
+      "type" : "ARROW",
+      "centre" : {
+        "x" : 540,
+        "y" : 189
+      }
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 532,
+        "y" : 159
+      },
+      "b" : {
+        "x" : 544,
+        "y" : 171
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 538,
+        "y" : 165
+      }
+    },
+    "inputs" : [ {
+      "id" : 351
+    } ],
+    "outputs" : [ {
+      "id" : 352
+    } ],
+    "catalysts" : [ {
+      "id" : 353,
+      "points" : [ {
+        "x" : 489,
+        "y" : 163
+      } ]
+    } ]
+  }, {
+    "id" : 382,
+    "reactomeId" : 5205649,
+    "displayName" : "p62 links damaged mitochondria to LC3",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 1347,
+      "y" : 471
+    },
+    "minX" : 1336,
+    "maxX" : 1406,
+    "minY" : 465,
+    "maxY" : 489,
+    "segments" : [ {
+      "from" : {
+        "x" : 1406,
+        "y" : 471
+      },
+      "to" : {
+        "x" : 1347,
+        "y" : 471
+      }
+    }, {
+      "from" : {
+        "x" : 1347,
+        "y" : 471
+      },
+      "to" : {
+        "x" : 1336,
+        "y" : 489
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 1336,
+        "y" : 481
+      },
+      "b" : {
+        "x" : 1336,
+        "y" : 489
+      },
+      "c" : {
+        "x" : 1343,
+        "y" : 485
+      },
+      "type" : "ARROW",
+      "centre" : {
+        "x" : 1343,
+        "y" : 485
+      }
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 1341,
+        "y" : 465
+      },
+      "b" : {
+        "x" : 1353,
+        "y" : 477
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 1347,
+        "y" : 471
+      }
+    },
+    "inputs" : [ {
+      "id" : 383,
+      "points" : [ {
+        "x" : 1460,
+        "y" : 546
+      } ]
+    }, {
+      "id" : 381,
+      "points" : [ {
+        "x" : 1441,
+        "y" : 476
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 384
+    } ]
+  }, {
+    "id" : 447,
+    "reactomeId" : 8959571,
+    "displayName" : "LC3 binds the autophagosome membrane Atg5-Atg12 complex",
+    "schemaClass" : "Reaction",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 769,
+      "y" : 567
+    },
+    "minX" : 763,
+    "maxX" : 775,
+    "minY" : 533,
+    "maxY" : 613,
+    "segments" : [ {
+      "from" : {
+        "x" : 769,
+        "y" : 533
+      },
+      "to" : {
+        "x" : 769,
+        "y" : 567
+      }
+    }, {
+      "from" : {
+        "x" : 769,
+        "y" : 567
+      },
+      "to" : {
+        "x" : 767,
+        "y" : 613
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 763,
+        "y" : 606
+      },
+      "b" : {
+        "x" : 767,
+        "y" : 613
+      },
+      "c" : {
+        "x" : 771,
+        "y" : 606
+      },
+      "type" : "ARROW",
+      "centre" : {
+        "x" : 771,
+        "y" : 606
+      }
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 763,
+        "y" : 561
+      },
+      "b" : {
+        "x" : 775,
+        "y" : 573
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 769,
+        "y" : 567
+      }
+    },
+    "inputs" : [ {
+      "id" : 444,
+      "points" : [ {
+        "x" : 721,
+        "y" : 513
+      } ]
+    }, {
+      "id" : 387,
+      "points" : [ {
+        "x" : 918,
+        "y" : 600
+      } ]
+    } ],
+    "outputs" : [ {
+      "id" : 448
+    } ]
+  } ],
+  "compartments" : [ {
+    "id" : 356,
+    "reactomeId" : 17906,
+    "displayName" : "mitochondrial outer membrane",
+    "schemaClass" : "Compartment",
+    "renderableClass" : "Compartment",
+    "position" : {
+      "x" : 812,
+      "y" : 331
+    },
+    "minX" : 152,
+    "maxX" : 1473,
+    "minY" : 165,
+    "maxY" : 498,
+    "prop" : {
+      "x" : 152,
+      "y" : 165,
+      "width" : 1321,
+      "height" : 333
+    },
+    "textPosition" : {
+      "x" : 155,
+      "y" : 168
+    },
+    "bgColor" : {
+      "r" : 250,
+      "g" : 240,
+      "b" : 240
+    },
+    "componentIds" : [ 353, 357, 352, 354, 355, 358, 359, 350, 363, 369, 368, 370, 367, 374, 373, 372, 371, 379, 381, 382, 384, 393, 396, 398, 399, 404, 402, 400, 444 ]
+  }, {
+    "id" : 357,
+    "reactomeId" : 70616,
+    "displayName" : "mitochondrial inner membrane",
+    "schemaClass" : "Compartment",
+    "renderableClass" : "Compartment",
+    "position" : {
+      "x" : 823,
+      "y" : 331
+    },
+    "minX" : 272,
+    "maxX" : 1375,
+    "minY" : 265,
+    "maxY" : 398,
+    "prop" : {
+      "x" : 272,
+      "y" : 265,
+      "width" : 1103,
+      "height" : 133
+    },
+    "textPosition" : {
+      "x" : 724,
+      "y" : 315
+    },
+    "bgColor" : {
+      "r" : 250,
+      "g" : 240,
+      "b" : 240
+    }
+  }, {
+    "id" : 389,
+    "reactomeId" : 21994,
+    "displayName" : "phagocytic vesicle",
+    "schemaClass" : "Compartment",
+    "renderableClass" : "Compartment",
+    "position" : {
+      "x" : 873,
+      "y" : 681
+    },
+    "minX" : 157,
+    "maxX" : 1590,
+    "minY" : 644,
+    "maxY" : 718,
+    "prop" : {
+      "x" : 157,
+      "y" : 644,
+      "width" : 1433,
+      "height" : 74
+    },
+    "textPosition" : {
+      "x" : 848,
+      "y" : 674
+    },
+    "insets" : {
+      "x" : 164,
+      "y" : 650,
+      "width" : 1420,
+      "height" : 62
+    },
+    "bgColor" : {
+      "r" : 250,
+      "g" : 240,
+      "b" : 240
+    },
+    "componentIds" : [ 387, 388, 448 ]
+  }, {
+    "id" : 360,
+    "reactomeId" : 70101,
+    "displayName" : "cytosol",
+    "schemaClass" : "Compartment",
+    "renderableClass" : "Compartment",
+    "position" : {
+      "x" : 848,
+      "y" : 400
+    },
+    "minX" : 0,
+    "maxX" : 1697,
+    "minY" : 0,
+    "maxY" : 800,
+    "prop" : {
+      "x" : 0,
+      "y" : 0,
+      "width" : 1697,
+      "height" : 800
+    },
+    "textPosition" : {
+      "x" : 53,
+      "y" : 23
+    },
+    "insets" : {
+      "x" : 15,
+      "y" : 13,
+      "width" : 1672,
+      "height" : 776
+    },
+    "bgColor" : {
+      "r" : 250,
+      "g" : 240,
+      "b" : 240
+    },
+    "componentIds" : [ 351, 356, 361, 362, 366, 380, 389, 383, 386, 390, 391, 394, 397, 401, 403, 392, 443, 446, 447, 455, 456, 395, 458, 459, 460, 461 ]
+  } ],
+  "notes" : [ ],
+  "links" : [ ],
+  "shadows" : [ {
+    "id" : 462,
+    "reactomeId" : 5205685,
+    "displayName" : "Pink/Parkin Mediated Mitophagy",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "Shadow",
+    "position" : {
+      "x" : 920,
+      "y" : 373
+    },
+    "minX" : 195,
+    "maxX" : 1645,
+    "minY" : 67,
+    "maxY" : 680,
+    "prop" : {
+      "x" : 195,
+      "y" : 67,
+      "width" : 1450,
+      "height" : 255
+    },
+    "points" : [ {
+      "x" : 195,
+      "y" : 67
+    }, {
+      "x" : 1645,
+      "y" : 67
+    }, {
+      "x" : 1645,
+      "y" : 680
+    }, {
+      "x" : 195,
+      "y" : 680
+    } ],
+    "colour" : "#4684ee"
+  }, {
+    "id" : 463,
+    "reactomeId" : 8934903,
+    "displayName" : "Receptor Mediated Mitophagy",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "Shadow",
+    "position" : {
+      "x" : 529,
+      "y" : 492
+    },
+    "minX" : 10,
+    "maxX" : 1049,
+    "minY" : 322,
+    "maxY" : 663,
+    "prop" : {
+      "x" : 10,
+      "y" : 322,
+      "width" : 185,
+      "height" : 341
+    },
+    "points" : [ {
+      "x" : 10,
+      "y" : 322
+    }, {
+      "x" : 1049,
+      "y" : 322
+    }, {
+      "x" : 1049,
+      "y" : 663
+    }, {
+      "x" : 10,
+      "y" : 663
+    } ],
+    "colour" : "#dc3912"
+  } ],
+  "minX" : 0,
+  "maxX" : 1697,
+  "minY" : 0,
+  "maxY" : 800,
+  "disease" : false
+}
