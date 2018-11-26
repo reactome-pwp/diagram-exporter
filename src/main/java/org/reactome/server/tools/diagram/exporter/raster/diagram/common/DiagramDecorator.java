@@ -100,6 +100,8 @@ public class DiagramDecorator {
 		return args.getFlags().stream()
 				.map(this::getDiagramObjectId)
 				.filter(Objects::nonNull)
+				.map(this::getHitElements)
+				.flatMap(Collection::stream)
 				.collect(Collectors.toSet());
 	}
 
@@ -115,6 +117,23 @@ public class DiagramDecorator {
 			// ignored, not a dbId
 		}
 		return null;
+	}
+
+	/**
+	 * Returns a list containing <em>id</em> and all the ancestors containing the graph node represented by id.
+	 *
+	 * @param id id of an element to flag
+	 * @return the list of elements containing the graph node id, including the node itself
+	 */
+	private Collection<Long> getHitElements(Long id) {
+		final Set<Long> ids = new HashSet<>();
+		ids.add(id);
+		final GraphNode graphNode = graphIndex.get(id);
+		if (graphNode == null) return ids;
+		final EntityNode node = (EntityNode) graphNode;
+		if (node.getParents() != null)
+			node.getParents().forEach(parentId -> ids.addAll(getHitElements(parentId)));
+		return ids;
 	}
 
 	private void selectElements(Collection<Long> selected) {
@@ -197,6 +216,7 @@ public class DiagramDecorator {
 	 * @param reaction reaction to halo
 	 */
 	private void haloEdgeParticipants(Edge reaction) {
+		final Collection<RenderableEdge> reactions = index.getEdgesByReactomeId().get(reaction.getReactomeId());
 		Stream.of(reaction.getActivators(), reaction.getCatalysts(),
 				reaction.getInhibitors(), reaction.getInputs(), reaction.getOutputs())
 				.filter(Objects::nonNull)
