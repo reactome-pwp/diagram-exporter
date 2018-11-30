@@ -252,6 +252,9 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 		segmentsLayer.add(line, lineColor, stroke);
 		if (!isDashed() && !isFadeOut() && (isSelected() || edge.isSelected() || edge.isHalo()))
 			canvas.getHalo().add(line, colorProfiles.getDiagramSheet().getProperties().getHalo(), StrokeStyle.HALO.getNormal());
+		if (!isFadeOut() && edge.isFlag()) {
+			canvas.getFlags().add(line, colorProfiles.getDiagramSheet().getProperties().getFlag(), StrokeStyle.FLAG.getNormal());
+		}
 	}
 
 	private void drawShape(org.reactome.server.tools.diagram.data.layout.Shape rShape, Color lineColor, String s, FillDrawLayer shapeLayer, TextLayer textLayer, DiagramCanvas canvas, ColorProfiles colorProfiles, RenderableEdge edge) {
@@ -260,6 +263,9 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 		shapeLayer.add(shape, fillColor, lineColor, StrokeStyle.SEGMENT.get(false));
 		if (!isDashed() && !isFadeOut() && (isSelected() || edge.isSelected() || edge.isHalo()))
 			canvas.getHalo().add(shape, colorProfiles.getDiagramSheet().getProperties().getHalo(), StrokeStyle.HALO.getNormal());
+		if (!isFadeOut() && edge.isFlag()) {
+			canvas.getFlags().add(shape, colorProfiles.getDiagramSheet().getProperties().getFlag(), StrokeStyle.FLAG.getNormal());
+		}
 		if (s != null && !s.isEmpty()) {
 			final NodeProperties limits = NodePropertiesFactory.get(
 					rShape.getA().getX(), rShape.getA().getY(),

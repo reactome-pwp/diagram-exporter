@@ -68,6 +68,12 @@ public abstract class RenderableEdgeCommon<T extends EdgeCommon> extends Rendera
 					StrokeStyle.HALO.get(isDashed())
 			));
 		}
+		if (isFlag()) {
+			segments.forEach(shape -> canvas.getFlags().add(shape,
+					colorProfiles.getDiagramSheet().getProperties().getFlag(),
+					StrokeStyle.FLAG.get(isDashed())
+			));
+		}
 		final DrawLayer layer = isFadeOut()
 				? canvas.getFadeOutSegments()
 				: canvas.getSegments();
