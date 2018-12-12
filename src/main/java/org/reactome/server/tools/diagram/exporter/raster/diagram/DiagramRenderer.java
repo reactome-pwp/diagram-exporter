@@ -244,7 +244,7 @@ public class DiagramRenderer implements RasterRenderer {
 		final Rectangle2D bounds = graphicsBounds(1);
 		final PdfPage page = document.getPdfDocument().addNewPage(new PageSize((float) bounds.getWidth(), (float) bounds.getHeight()));
 		final PdfCanvas pdfCanvas = new PdfCanvas(page);
-		final PdfGraphics2D graphics = new PdfGraphics2D(pdfCanvas, 0, 0, (float) bounds.getWidth(), (float) bounds.getHeight());
+		final PdfGraphics2D graphics = new PdfGraphics2D(pdfCanvas, 0, 0, (float) bounds.getWidth(), (float) bounds.getHeight(), true);
 		graphics.translate(-bounds.getX(), -bounds.getY());
 		graphics.setFont(FontProperties.DEFAULT_FONT);
 		graphics.setRenderingHint(

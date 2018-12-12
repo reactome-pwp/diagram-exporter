@@ -27,7 +27,7 @@ public class FontProperties {
 			DEFAULT_FONT = Font.createFont(Font.TRUETYPE_FONT, Resources.class.getResourceAsStream("fonts/arialbd.ttf")).deriveFont(8f);
 			LEGEND_FONT = DEFAULT_FONT.deriveFont(16f);
 			byte[] bytes;
-			bytes = IOUtils.toByteArray(Resources.class.getResourceAsStream("fonts/arial.ttf"));
+			bytes = IOUtils.toByteArray(Resources.class.getResourceAsStream("fonts/arialbd.ttf"));
 			REGULAR = PdfFontFactory.createFont(bytes, PdfEncodings.UTF8, true, true);
 		} catch (FontFormatException | IOException e) {
 			// resources shouldn't throw exceptions
