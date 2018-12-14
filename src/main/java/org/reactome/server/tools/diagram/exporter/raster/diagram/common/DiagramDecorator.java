@@ -6,6 +6,7 @@ import org.reactome.server.tools.diagram.data.layout.Edge;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableEdge;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableProcessNode;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -85,7 +86,7 @@ public class DiagramDecorator {
 			return Collections.emptySet();
 		return args.getSelected().stream()
 				.map(this::getDiagramObjectId)
-				.flatMap(Collection::stream)
+				.filter(Objects::nonNull)
 				.collect(Collectors.toSet());
 	}
 
@@ -98,10 +99,24 @@ public class DiagramDecorator {
 			return Collections.emptySet();
 		return args.getFlags().stream()
 				.map(this::getDiagramObjectId)
-				.flatMap(Collection::stream)
+				.filter(Objects::nonNull)
 				.map(this::getHitElements)
 				.flatMap(Collection::stream)
 				.collect(Collectors.toSet());
+	}
+
+	private Long getDiagramObjectId(String string) {
+		// stId
+		final Long id = graphMap.get(string);
+		if (id != null) return id;
+		// dbId
+		try {
+			final long dbId = Long.parseLong(string);
+			if (graphIds.contains(dbId)) return dbId;
+		} catch (NumberFormatException ignored) {
+			// ignored, not a dbId
+		}
+		return null;
 	}
 
 	/**
@@ -121,49 +136,26 @@ public class DiagramDecorator {
 		return ids;
 	}
 
-	/**
-	 * @deprecated once the exporter accepts only dbIds, this will not be needed
-	 */
-	@Deprecated
-	private List<Long> getDiagramObjectId(String string) {
-		// dbId, this is faster because dbId is indexed
-		try {
-			final long dbId = Long.parseLong(string);
-			if (graphIds.contains(dbId)) return Collections.singletonList(dbId);
-		} catch (NumberFormatException ignored) {
-			// ignored, not a dbId
-		}
-		// stId
-		final Long id = graphMap.get(string);
-		if (id != null) return Collections.singletonList(id);
-		// TODO: 24/10/18 these part of the conde won't be needed if we only accept dbIds and stIds
-		// TODO: would it be faster if index of identifier and geneNames?
-		// Pros: avoid iterating through the list of nodes
-		// Cons: index the list of nodes just for a few selected or flag items
-		// Nodes
-		for (EntityNode node : graph.getNodes()) {
-			// stId
-			if (string.equalsIgnoreCase(node.getIdentifier())
-					|| (node.getGeneNames() != null && node.getGeneNames().contains(string)))
-				return Collections.singletonList(node.getDbId());
-		}
-		// Bad luck, not found
-		return Collections.emptyList();
-	}
-
 	private void selectElements(Collection<Long> selected) {
 		for (Long id : selected) {
 			final Collection<RenderableNode> nodes = index.getNodesByReactomeId().get(id);
 			if (nodes != null) {
-				for (RenderableNode node : nodes)
-					if (!node.isFadeOut())
-						selectNode(node);
-			} else {
-				final Collection<RenderableEdge> edges = index.getEdgesByReactomeId().get(id);
-				if (edges != null) {
-					for (RenderableEdge edge : edges)
-						if (!edge.isFadeOut())
-							selectEdge(edge);
+				for (RenderableNode node : nodes) {
+					if (!node.isFadeOut()) selectNode(node);
+				}
+				continue;
+			}
+			final Collection<RenderableProcessNode> pathways = index.getPathwaysByReactomeId().get(id);
+			if (pathways != null) {
+				for (RenderableProcessNode pathway : pathways) {
+					if (!pathway.isFadeOut()) selectPathway(pathway);
+				}
+				continue;
+			}
+			final Collection<RenderableEdge> edges = index.getEdgesByReactomeId().get(id);
+			if (edges != null) {
+				for (RenderableEdge edge : edges) {
+					if (!edge.isFadeOut()) selectEdge(edge);
 				}
 			}
 		}
@@ -173,16 +165,23 @@ public class DiagramDecorator {
 		for (Long id : flags) {
 			final Collection<RenderableNode> nodes = index.getNodesByReactomeId().get(id);
 			if (nodes != null) {
-				for (RenderableNode node : nodes)
-					if (!node.isFadeOut())
-						node.setFlag(true);
-			} else {
-				final Collection<RenderableEdge> edges = index.getEdgesByReactomeId().get(id);
-				if (edges != null)
-					for (RenderableEdge edge : edges)
-						if (!edge.isFadeOut())
-							edge.setFlag(true);
+				for (RenderableNode node : nodes) {
+					if (!node.isFadeOut()) node.setFlag(true);
+				}
+				continue;
 			}
+			final Collection<RenderableProcessNode> pathways = index.getPathwaysByReactomeId().get(id);
+			if (pathways != null) {
+				for (RenderableProcessNode pathway : pathways) {
+					if (!pathway.isFadeOut()) pathway.setFlag(true);
+				}
+				continue;
+			}
+			final Collection<RenderableEdge> edges = index.getEdgesByReactomeId().get(id);
+			if (edges != null)
+				for (RenderableEdge edge : edges) {
+					if (!edge.isFadeOut()) edge.setFlag(true);
+				}
 		}
 	}
 
@@ -205,6 +204,11 @@ public class DiagramDecorator {
 		haloEdgeParticipants(edge.getEdge());
 	}
 
+	private void selectPathway(RenderableProcessNode pathway) {
+		pathway.setSelected(true);
+		this.selected.add(pathway.getNode().getId());
+	}
+
 	/**
 	 * Adds the reaction to the haloReaction set, participating nodes to
 	 * haloNodes and participating connectors to haloConnectors
@@ -212,6 +216,7 @@ public class DiagramDecorator {
 	 * @param reaction reaction to halo
 	 */
 	private void haloEdgeParticipants(Edge reaction) {
+		final Collection<RenderableEdge> reactions = index.getEdgesByReactomeId().get(reaction.getReactomeId());
 		Stream.of(reaction.getActivators(), reaction.getCatalysts(),
 				reaction.getInhibitors(), reaction.getInputs(), reaction.getOutputs())
 				.filter(Objects::nonNull)

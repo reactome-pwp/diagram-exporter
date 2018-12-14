@@ -153,6 +153,16 @@ public class RasterExporter {
 		return renderer.renderToPdf();
 	}
 
+	public Document exportToPdf(Diagram diagram, Graph graph, RasterArgs args, AnalysisStoredResult result) throws AnalysisException, IOException {
+		result = getResult(args.getToken(), result);
+		final DiagramRenderer renderer = new DiagramRenderer(diagram, graph, args, result);
+		final AnalysisType type = result == null
+				? null
+				: AnalysisType.valueOf(result.getSummary().getType());
+		return renderer.renderToPdf();
+	}
+
+
 	/**
 	 * Exports the diagram defined by args in the most appropriate way,
 	 * depending on the args, and using os to export the result. This is a

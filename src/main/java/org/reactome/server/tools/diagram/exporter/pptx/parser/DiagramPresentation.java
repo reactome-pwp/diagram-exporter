@@ -87,7 +87,7 @@ public class DiagramPresentation {
         for (Edge edge : diagram.getEdges()) {
             boolean selected = decorator != null && decorator.getSelected().contains(edge.getReactomeId());
             // We don't process among all the edges later. This is done to make sure disease annotation is always on top.
-            if (edge.getIsDisease() != null) {
+            if (edge.getIsDisease() != null && edge.getIsDisease()) {
                 diseaseEdges.add(edge);
             } else {
                 PPTXReaction pptxReaction = new PPTXReaction(edge, nodesMap, profile, adjustment, selected);

@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.analysis.core.result.utils.TokenUtils;
 import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisException;
-import org.reactome.server.tools.diagram.exporter.common.content.ContentServiceClient;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
@@ -29,8 +28,6 @@ public class TestUtils {
 	public static final String TOKEN_EXPRESSION_2 = "MjAxODEwMzAxMDIzMDBfNQ%253D%253D";  // HPA (GeneName)
 	public static final String TOKEN_SPECIES = "MjAxODExMDEwNzMzMTRfMTE%253D"; // canis
 
-	private static final String TODAYS_SERVER = "https://reactomedev.oicr.on.ca";
-
 	private static final String ANALYSIS_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/analysis";
 	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/diagram";
 	private static final String EHLD_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/ehld";
@@ -41,9 +38,6 @@ public class TestUtils {
 
 	static {
 		EXPORTER = new RasterExporter(DIAGRAM_PATH, EHLD_PATH, ANALYSIS_PATH, SVG_SUMMARY);
-		ContentServiceClient.setHost(TODAYS_SERVER);
-		ContentServiceClient.setService("/ContentService");
-
 	}
 
 	public static AnalysisStoredResult getResult(String token) {
@@ -56,6 +50,7 @@ public class TestUtils {
 
 	public static void render(RasterArgs args, AnalysisStoredResult result) {
 		try {
+//			final BufferedImage image = EXPORTER.exportToImage(args);
 			EXPORTER.export(args, new NullOutputStream(), result);
 		} catch (EhldException | AnalysisException | DiagramJsonDeserializationException | DiagramJsonNotFoundException | TranscoderException | IOException e) {
 			e.printStackTrace();

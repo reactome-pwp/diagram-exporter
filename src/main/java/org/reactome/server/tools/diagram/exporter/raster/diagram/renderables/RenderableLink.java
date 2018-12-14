@@ -20,7 +20,7 @@ public class RenderableLink extends RenderableEdgeCommon<Link> {
 	}
 
 	@Override
-	protected List<Shape> getRenderableShapes() {
+	public List<Shape> getRenderableShapes() {
 		// report: links have reaction shape
 		return Collections.singletonList(getEdge().getEndShape());
 	}

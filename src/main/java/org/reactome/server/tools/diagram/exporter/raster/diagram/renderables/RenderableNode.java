@@ -98,7 +98,7 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 		double textSplit = analysis(canvas, colorProfiles, data, t);
 		text(canvas, colorProfiles, data, textSplit);
 		if (isCrossed()) cross(canvas, colorProfiles);
-		connectors(canvas, colorProfiles);
+		connectors(canvas, colorProfiles, data);
 	}
 
 	void flag(DiagramCanvas canvas, ColorProfiles colorProfiles) {
@@ -222,33 +222,50 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 				FontProperties.DEFAULT_FONT);
 	}
 
-	private void connectors(DiagramCanvas canvas, ColorProfiles colorProfiles) {
+	private void connectors(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data) {
 		if (getNode().getConnectors() == null) return;
 		for (Connector connector : getNode().getConnectors()) {
 			final boolean fadeOut = connector.getIsFadeOut() != null && connector.getIsFadeOut();
-			final Color lineColor = getConnectorColor(colorProfiles, connector);
+			final RenderableEdge edge = data.getIndex().getEdgesById().get(connector.getEdgeId());
+			final Color lineColor = getConnectorColor(colorProfiles, connector, edge);
 			final DrawLayer segmentsLayer = fadeOut ? canvas.getFadeOutSegments() : canvas.getSegments();
 			final FillDrawLayer shapeLayer = fadeOut ? canvas.getFadeOutEdgeShapes() : canvas.getEdgeShapes();
 			final TextLayer shapeTextLayer = fadeOut ? canvas.getFadeOutText() : canvas.getText();
+			final Stroke stroke;
+			if (fadeOut) stroke = StrokeStyle.SEGMENT.getNormal();
+			else if (edge.isSelected()) stroke = StrokeStyle.SELECTION.getNormal();
+			else stroke = StrokeStyle.SEGMENT.getNormal();
 			for (Segment segment : connector.getSegments()) {
-				final Shape line = ShapeFactory.createLine(segment);
-				segmentsLayer.add(line, lineColor, StrokeStyle.SEGMENT.get(false));
-				if (!fadeOut) decorate(canvas, colorProfiles, line);
+				drawSegment(canvas, colorProfiles, edge, lineColor, segmentsLayer, stroke, segment);
 			}
 			if (connector.getEndShape() != null) {
-				addShape(connector.getEndShape(), lineColor, connector.getEndShape().getS(), shapeLayer, shapeTextLayer, fadeOut, canvas, colorProfiles);
+				drawShape(connector.getEndShape(), lineColor, connector.getEndShape().getS(), shapeLayer, shapeTextLayer, canvas, colorProfiles, edge);
 			}
 			if (connector.getStoichiometry() != null && connector.getStoichiometry().getValue() > 1) {
-				addShape(connector.getStoichiometry().getShape(), lineColor, connector.getStoichiometry().getValue().toString(), shapeLayer, shapeTextLayer, fadeOut, canvas, colorProfiles);
+				drawShape(connector.getStoichiometry().getShape(), lineColor, connector.getStoichiometry().getValue().toString(), shapeLayer, shapeTextLayer, canvas, colorProfiles, edge);
 			}
 		}
 	}
 
-	private void addShape(org.reactome.server.tools.diagram.data.layout.Shape rShape, Color lineColor, String s, FillDrawLayer shapeLayer, TextLayer textLayer, boolean fadeOut, DiagramCanvas canvas, ColorProfiles colorProfiles) {
+	private void drawSegment(DiagramCanvas canvas, ColorProfiles colorProfiles, RenderableEdge edge, Color lineColor, DrawLayer segmentsLayer, Stroke stroke, Segment segment) {
+		final Shape line = ShapeFactory.createLine(segment);
+		segmentsLayer.add(line, lineColor, stroke);
+		if (!isDashed() && !isFadeOut() && (isSelected() || edge.isSelected() || edge.isHalo()))
+			canvas.getHalo().add(line, colorProfiles.getDiagramSheet().getProperties().getHalo(), StrokeStyle.HALO.getNormal());
+		if (!isFadeOut() && edge.isFlag()) {
+			canvas.getFlags().add(line, colorProfiles.getDiagramSheet().getProperties().getFlag(), StrokeStyle.FLAG.getNormal());
+		}
+	}
+
+	private void drawShape(org.reactome.server.tools.diagram.data.layout.Shape rShape, Color lineColor, String s, FillDrawLayer shapeLayer, TextLayer textLayer, DiagramCanvas canvas, ColorProfiles colorProfiles, RenderableEdge edge) {
 		final Shape shape = ShapeFactory.getShape(rShape);
 		final Color fillColor = rShape.getEmpty() != null && rShape.getEmpty() ? Color.WHITE : lineColor;
 		shapeLayer.add(shape, fillColor, lineColor, StrokeStyle.SEGMENT.get(false));
-		if (!fadeOut) decorate(canvas, colorProfiles, shape);
+		if (!isDashed() && !isFadeOut() && (isSelected() || edge.isSelected() || edge.isHalo()))
+			canvas.getHalo().add(shape, colorProfiles.getDiagramSheet().getProperties().getHalo(), StrokeStyle.HALO.getNormal());
+		if (!isFadeOut() && edge.isFlag()) {
+			canvas.getFlags().add(shape, colorProfiles.getDiagramSheet().getProperties().getFlag(), StrokeStyle.FLAG.getNormal());
+		}
 		if (s != null && !s.isEmpty()) {
 			final NodeProperties limits = NodePropertiesFactory.get(
 					rShape.getA().getX(), rShape.getA().getY(),
@@ -258,16 +275,11 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 		}
 	}
 
-	private void decorate(DiagramCanvas canvas, ColorProfiles colorProfiles, Shape shape) {
-		if (isFlag())
-			canvas.getFlags().add(shape, colorProfiles.getDiagramSheet().getProperties().getFlag(), StrokeStyle.FLAG.getNormal());
-		if (isHalo())
-			canvas.getHalo().add(shape, colorProfiles.getDiagramSheet().getProperties().getHalo(), StrokeStyle.HALO.getNormal());
-	}
-
-	private Color getConnectorColor(ColorProfiles colorProfiles, Connector connector) {
+	private Color getConnectorColor(ColorProfiles colorProfiles, Connector connector, RenderableEdge edge) {
 		if (connector.getIsFadeOut() != null && connector.getIsFadeOut())
 			return colorProfiles.getDiagramSheet().getReaction().getFadeOutStroke();
+		if (edge.isSelected())
+			return colorProfiles.getDiagramSheet().getProperties().getSelection();
 		if (connector.getIsDisease() != null && connector.getIsDisease())
 			return colorProfiles.getDiagramSheet().getProperties().getDisease();
 		return colorProfiles.getDiagramSheet().getReaction().getStroke();

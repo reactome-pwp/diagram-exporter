@@ -307,4 +307,13 @@ public class DiagramRendererTest {
 			e.printStackTrace();
 		}
 	}
+
+	@Test
+	public void testSelectionAndFlagging() {
+		// R-HSA-5205682.svg?sel=R-HSA-1267988,992745&flg=MFN2
+		final RasterArgs args = new RasterArgs("R-HSA-5205647", "png")
+				.setSelected(Arrays.asList("R-HSA-1267988", "992745", "R-HSA-5205682"))
+				.setFlags(Arrays.asList(" R-HSA-201579", "R-HSA-992714", "R-HSA-5205668", "R-HSA-5205659", "R-HSA-5205670", "R-HSA-5205648"));
+		TestUtils.render(args);
+	}
 }
