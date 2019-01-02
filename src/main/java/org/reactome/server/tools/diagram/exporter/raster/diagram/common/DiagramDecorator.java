@@ -1,6 +1,9 @@
 package org.reactome.server.tools.diagram.exporter.raster.diagram.common;
 
-import org.reactome.server.tools.diagram.data.graph.*;
+import org.reactome.server.tools.diagram.data.graph.EntityNode;
+import org.reactome.server.tools.diagram.data.graph.EventNode;
+import org.reactome.server.tools.diagram.data.graph.Graph;
+import org.reactome.server.tools.diagram.data.graph.SubpathwayNode;
 import org.reactome.server.tools.diagram.data.layout.Connector;
 import org.reactome.server.tools.diagram.data.layout.Edge;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
@@ -9,7 +12,6 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.Ren
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableProcessNode;
 
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -23,12 +25,7 @@ public class DiagramDecorator {
 	private final Graph graph;
 	// We need to keep a list of diagram ids of selected nodes for the legend
 	private Set<Long> selected = new HashSet<>();
-	// This would be the only necessary array if a list of dbId is passed through flag and selection
-	private Set<Long> graphIds;
-	// Index of graph nodes only, for a faster parent/children access
-	private Map<Long, GraphNode> graphIndex;
-	// Map from stId to dbId
-	private Map<String, Long> graphMap;
+	private GraphIndex graphIndex;
 
 	DiagramDecorator(DiagramIndex index, RasterArgs args, Graph graph) {
 		this.index = index;
@@ -39,41 +36,13 @@ public class DiagramDecorator {
 
 	private void decorate() {
 		// To improve performance, we only index when flag or selected have elements
-		if (args.getFlags() != null && !args.getFlags().isEmpty()
-				|| args.getSelected() != null && !args.getSelected().isEmpty()) {
-			indexGraph();
-			// TODO: 24/10/18 if some day args.getSel and args.getFlag are only dbids, these methods are not needed
-			final Collection<Long> sel = getSelectedReactomeIds();
-			final Collection<Long> flg = getFlaggedReactomeIds();
-			selectElements(sel);
-			flagElements(flg);
-			clearIndex();
-		}
-	}
-
-	private void indexGraph() {
-		graphIndex = new HashMap<>();
-		graphIds = new HashSet<>();
-		graphMap = new HashMap<>();
-		if (graph.getSubpathways() != null)
-			for (SubpathwayNode subpathway : graph.getSubpathways()) {
-				graphIds.add(subpathway.getDbId());
-				graphMap.put(subpathway.getStId(), subpathway.getDbId());
-			}
-		for (EntityNode node : graph.getNodes()) {
-			graphIds.add(node.getDbId());
-			graphIndex.put(node.getDbId(), node);
-			graphMap.put(node.getStId(), node.getDbId());
-		}
-		for (EventNode edge : graph.getEdges()) {
-			graphIds.add(edge.getDbId());
-			graphMap.put(edge.getStId(), edge.getDbId());
-		}
-
-	}
-
-	private void clearIndex() {
-		graphIds = null;
+		if (args.getFlags().isEmpty() && args.getSelected().isEmpty()) return;
+		graphIndex = new GraphIndex(graph);
+		// TODO: 24/10/18 if some day args.getSel and args.getFlag are only dbids, these methods are not needed
+		final Collection<Long> sel = getSelectedReactomeIds();
+		final Collection<Long> flg = getFlaggedReactomeIds();
+		selectElements(sel);
+		flagElements(flg);
 		graphIndex = null;
 	}
 
@@ -84,10 +53,14 @@ public class DiagramDecorator {
 	private Collection<Long> getSelectedReactomeIds() {
 		if (args.getSelected() == null)
 			return Collections.emptySet();
-		return args.getSelected().stream()
-				.map(this::getDiagramObjectId)
-				.filter(Objects::nonNull)
-				.collect(Collectors.toSet());
+		final Set<Long> ids = new HashSet<>();
+		for (String string : args.getSelected()) {
+			final Long id = getReactomeId(string);
+			if (id != null) {
+				ids.addAll(includeSubEvents(id));
+			}
+		}
+		return ids;
 	}
 
 	/**
@@ -97,26 +70,49 @@ public class DiagramDecorator {
 	private Collection<Long> getFlaggedReactomeIds() {
 		if (args.getFlags() == null)
 			return Collections.emptySet();
-		return args.getFlags().stream()
-				.map(this::getDiagramObjectId)
-				.filter(Objects::nonNull)
-				.map(this::getHitElements)
-				.flatMap(Collection::stream)
-				.collect(Collectors.toSet());
+		final Set<Long> ids = new HashSet<>();
+		for (String string : args.getFlags()) {
+			final Long id = getReactomeId(string);
+			if (id != null) {
+				ids.addAll(includeSubEvents(id));
+				ids.addAll(includeSuperNodes(id));
+			}
+		}
+		return ids;
 	}
 
-	private Long getDiagramObjectId(String string) {
+	private Long getReactomeId(String string) {
 		// stId
-		final Long id = graphMap.get(string);
-		if (id != null) return id;
+		final EventNode event = graphIndex.getEventsByStId().get(string);
+		if (event != null) return event.getDbId();
+		final EntityNode entity = graphIndex.getNodesByStId().get(string);
+		if (entity != null) return entity.getDbId();
+		final SubpathwayNode pathway = graphIndex.getPathwaysByStId().get(string);
+		if (pathway != null) return pathway.getDbId();
 		// dbId
 		try {
-			final long dbId = Long.parseLong(string);
-			if (graphIds.contains(dbId)) return dbId;
+			return Long.parseLong(string);
 		} catch (NumberFormatException ignored) {
 			// ignored, not a dbId
 		}
 		return null;
+	}
+
+	/**
+	 * If the id corresponds to a pathway, add all of its events
+	 */
+	private Collection<Long> includeSubEvents(Long id) {
+		final Set<Long> ids = new HashSet<>();
+		ids.add(id);
+		final SubpathwayNode pathway = graphIndex.getPathwaysByDbId().get(id);
+		if (pathway != null) {
+			if (pathway.getEvents() != null) {
+				for (Long event : pathway.getEvents())
+					ids.addAll(includeSubEvents(event));
+			}
+		}
+		return ids;
+
 	}
 
 	/**
@@ -125,14 +121,16 @@ public class DiagramDecorator {
 	 * @param id id of an element to flag
 	 * @return the list of elements containing the graph node id, including the node itself
 	 */
-	private Collection<Long> getHitElements(Long id) {
+	private Collection<Long> includeSuperNodes(Long id) {
 		final Set<Long> ids = new HashSet<>();
 		ids.add(id);
-		final GraphNode graphNode = graphIndex.get(id);
-		if (graphNode == null) return ids;
-		final EntityNode node = (EntityNode) graphNode;
-		if (node.getParents() != null)
-			node.getParents().forEach(parentId -> ids.addAll(getHitElements(parentId)));
+		final EntityNode entity = graphIndex.getNodesByDbId().get(id);
+		if (entity != null) {
+			if (entity.getParents() != null) {
+				for (Long aLong : entity.getParents())
+					ids.addAll(includeSuperNodes(aLong));
+			}
+		}
 		return ids;
 	}
 
@@ -216,7 +214,6 @@ public class DiagramDecorator {
 	 * @param reaction reaction to halo
 	 */
 	private void haloEdgeParticipants(Edge reaction) {
-		final Collection<RenderableEdge> reactions = index.getEdgesByReactomeId().get(reaction.getReactomeId());
 		Stream.of(reaction.getActivators(), reaction.getCatalysts(),
 				reaction.getInhibitors(), reaction.getInputs(), reaction.getOutputs())
 				.filter(Objects::nonNull)
