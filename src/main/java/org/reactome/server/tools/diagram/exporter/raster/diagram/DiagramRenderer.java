@@ -27,6 +27,7 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramC
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableDiagramObject;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.LegendRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.LogoRenderer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.renderers.TextRenderer;
 import org.reactome.server.tools.diagram.exporter.raster.gif.AnimatedGifEncoder;
 import org.reactome.server.tools.diagram.exporter.raster.itext.awt.PdfGraphics2D;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
@@ -127,6 +128,7 @@ public class DiagramRenderer implements RasterRenderer {
 	 */
 	@Override
 	public BufferedImage render() {
+		TextRenderer.setIsSvg(false);
 		final Rectangle2D bounds = graphicsBounds(factor);
 		final String ext = args.getFormat();
 		final BufferedImage image = createImage((int) bounds.getWidth(), (int) bounds.getHeight(), ext);
@@ -141,6 +143,7 @@ public class DiagramRenderer implements RasterRenderer {
 	 */
 	@Override
 	public void renderToAnimatedGif(OutputStream outputStream) {
+		TextRenderer.setIsSvg(false);
 		if (data.getAnalysis().getType() != AnalysisType.EXPRESSION)
 			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
 
@@ -160,6 +163,7 @@ public class DiagramRenderer implements RasterRenderer {
 
 	@Override
 	public SVGDocument renderToSvg() {
+		TextRenderer.setIsSvg(true);
 		final SVGDocument document = (SVGDocument) SVG_IMPL.createDocument(SVGConstants.SVG_NAMESPACE_URI, "svg", null);
 		final SVGGeneratorContext ctx = SVGGeneratorContext.createDefault(document);
 		ctx.setExtensionHandler(new GradientHandler());
@@ -238,6 +242,7 @@ public class DiagramRenderer implements RasterRenderer {
 
 	@Override
 	public Document renderToPdf() throws IOException {
+		TextRenderer.setIsSvg(false);
 		final ByteArrayOutputStream os = new ByteArrayOutputStream();
 		final Document document = new Document(new PdfDocument(new PdfWriter(os)));
 		document.setMargins(0, 0, 0, 0);

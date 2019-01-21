@@ -28,6 +28,16 @@ public class TextRenderer {
 	private static final Color ANALYSIS_TEXT_COLOR = Color.WHITE;
 
 	/**
+	 * This is a correction for a library specific issue. Batik SVG renderer uses a BufferedImage to measure text width,
+	 * this usually generates a bigger text that do not fit the box, although the measure is correct.
+	 */
+	private static double widthCorrection;
+
+	public static void setIsSvg(boolean isSvg) {
+		widthCorrection = isSvg ? 1.1 : 1;
+	}
+
+	/**
 	 * Displays text in the assigned space. If the text does not fit in one
 	 * line, it is split in several lines. If the font size is very large, it is
 	 * lower until the text fits. Each line is centered to the box and the whole
@@ -157,12 +167,12 @@ public class TextRenderer {
 		return lines * graphics.getFontMetrics(font).getHeight();
 	}
 
-	private static int computeWidth(String text, Font font, Graphics2D graphics) {
-		return graphics.getFontMetrics(font).stringWidth(text);
+	private static int computeWidth(String text, Graphics2D graphics) {
+		return computeWidth(text, graphics.getFont(), graphics);
 	}
 
-	private static int computeWidth(String text, Graphics2D graphics) {
-		return graphics.getFontMetrics().stringWidth(text);
+	private static int computeWidth(String text, Font font, Graphics2D graphics) {
+		return (int) (widthCorrection * graphics.getFontMetrics(font).stringWidth(text));
 	}
 
 	/**
