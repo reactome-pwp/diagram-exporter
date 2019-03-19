@@ -38,7 +38,7 @@
     </developers>
 
     <properties>
-        <graph.core>1.1.17</graph.core>
+        <graph.core>1.1.19</graph.core>
         <diagram.reader.version>1.1.5</diagram.reader.version>
         <batik.version>1.10</batik.version>
         <aspose.version>17.7</aspose.version>
