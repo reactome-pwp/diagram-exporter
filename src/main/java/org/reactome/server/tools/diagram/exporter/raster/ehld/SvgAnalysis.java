@@ -10,6 +10,7 @@ import org.reactome.server.analysis.core.result.model.*;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorFactory;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -258,7 +259,7 @@ public class SvgAnalysis {
 		//  - texts
 		final Element overlay = document.getElementById(OVERLAY_ + stId);
 		if (overlay == null) {
-			System.err.println(stId + " has no overlay");
+			LoggerFactory.getLogger("diagram-exporter").warn(stId + " has no overlay");
 			return;
 		}
 
