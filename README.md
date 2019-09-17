@@ -15,6 +15,14 @@ This project includes methods for exporting a given diagram into an image (png, 
 * Maven 3.x.x
 * Java 8
 
+### Nexus / Maven Repo deploy (only when needed)
+
+This particular project has the PowerPoint license ($$$) and it shouldn't be uploaded to Nexus/Maven repo. That changes the way the project is packaged before Maven uploads it.
+The pom.xml has a specific profile that tweak few properties and deploy. Note: ```mvn deploy``` simply will be skipped.
+
+```console
+mvn -Psafe-deploy deploy
+```
 
 ### Clone and install
 
@@ -123,7 +131,7 @@ java -jar diagram-exporter-jar-with-dependencies.jar \
 <dependency>
     <groupId>org.reactome.server.tools</groupId>
     <artifactId>diagram-exporter</artifactId>
-    <version>1.3.10</version>
+    <version>1.3.12</version>
 </dependency>
 ```
 

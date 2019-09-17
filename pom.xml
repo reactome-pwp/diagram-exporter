@@ -59,6 +59,13 @@
         <maven.jar.version>3.0.2</maven.jar.version>
         <maven.source.version>2.4</maven.source.version>
 
+        <!-- maven assembly plugin configuration -->
+        <!-- CAREFUL: when deploying to Nexus or any public repo make the "jar-with-dependencies" isn't uploaded -->
+        <!--          PowerPoint paid license is part of the project and shouldn't be available to the public -->
+        <!-- to deploy in nexus: mvn -Psafe-deploy deploy -->
+        <maven.assembly.custom.phase>package</maven.assembly.custom.phase>
+        <maven.skip.deploy>true</maven.skip.deploy>
+
         <!-- true: saves all images in the project root folder for manually check -->
         <test.save>false</test.save>
     </properties>
@@ -154,6 +161,20 @@
 
     </dependencies>
 
+    <profiles>
+        <profile>
+
+            <!-- CAREFUL: when deploying to Nexus or any public repo make the "jar-with-dependencies" isn't uploaded -->
+            <!--          PowerPoint paid license is part of the project and shouldn't be available to the public -->
+            <!-- to deploy in nexus: mvn -Psafe-deploy deploy -->
+            <id>safe-deploy</id>
+            <properties>
+                <custom.phase>deploy</custom.phase>
+                <skip.deploy>false</skip.deploy>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <finalName>${project.name}</finalName>
         <!-- Add this if you are having problems with the fonts resources -->
@@ -213,26 +234,11 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20.1</version>
-                <configuration>
-                    <useSystemClassLoader>true</useSystemClassLoader>
-                    <forkMode>always</forkMode>
-                    <test>*Test.java</test>
-
-                    <!-- Configure the Neo4j database for testcase -->
-                    <systemPropertyVariables>
-                        <test.save>${test.save}</test.save>
-                    </systemPropertyVariables>
-                </configuration>
-            </plugin>
 
             <!-- Generate jar with dependencies -->
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.1.1</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -248,12 +254,37 @@
                 <executions>
                     <execution>
                         <id>make-assembly</id>
-                        <phase>deploy</phase>
+                        <phase>${maven.assembly.custom.phase}</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- CAREFUL: when deploying to Nexus or any public repo make the "jar-with-dependencies" isn't uploaded. -->
+            <!--          PowerPoint paid license is part of the project and shouldn't be available to the public -->
+            <!-- to deploy in nexus: mvn -Psafe-deploy deploy -->
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>${maven.skip.deploy}</skip>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20.1</version>
+                <configuration>
+                    <useSystemClassLoader>true</useSystemClassLoader>
+                    <forkMode>always</forkMode>
+                    <test>*Test.java</test>
+                    <!-- Configure the Neo4j database for testcase -->
+                    <systemPropertyVariables>
+                        <test.save>${test.save}</test.save>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
 
             <plugin>
