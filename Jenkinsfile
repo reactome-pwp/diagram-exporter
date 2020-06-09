@@ -58,7 +58,7 @@ pipeline{
 					def sbgnArchive = "homo_sapiens.sbgn.tar.gz"
 					sh "cd svg/Modern/; tar -zcvf ${svgArchive} *.svg; mv ${svgArchive} ../../"
 					sh "cd png/Modern/; tar -zcvf ${pngArchive} *.png; mv ${pngArchive} ../../"
-					sh "cd sbgn/; tar -zcvf ${sbgnArchive} *.sbgn; mv ${svgnArchive} ../"
+					sh "cd sbgn/; tar -zcvf ${sbgnArchive} *.sbgn; mv ${sbgnArchive} ../"
 					sh "gzip logs/*"
 					sh "aws s3 --no-progress --recursive cp logs/ $s3Path/logs/"
 					sh "aws s3 --no-progress cp ${svgArchive} $s3Path/"
