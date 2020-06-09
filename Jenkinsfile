@@ -24,7 +24,6 @@ pipeline{
 				}
 			}
 		}
-		/*
 		// This stage builds the jar file using maven.
 		stage('Setup: Build jar file'){
 			steps{
@@ -33,7 +32,7 @@ pipeline{
 				}
 			}
 		}
-		// Execute the jar file, producing data-export files.
+		// Execute the jar file, producing svg, png ang sbgn diagram files.
 		stage('Main: Run Data-Export'){
 			steps{
 				script{
@@ -47,8 +46,7 @@ pipeline{
 				}
 			}
 		}
-		*/
-		// Archive everything on S3, and move the 'diagram' folder to the download/vXX folder.
+		// Move output contents to the download/XX folder, and archive everything on S3.
 		stage('Post: Archive Outputs'){
 			steps{
 				script{
