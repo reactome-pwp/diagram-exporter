@@ -24,6 +24,7 @@ pipeline{
 				}
 			}
 		}
+		/*
 		// This stage builds the jar file using maven.
 		stage('Setup: Build jar file'){
 			steps{
@@ -46,22 +47,27 @@ pipeline{
 				}
 			}
 		}
-		/*
+		*/
 		// Archive everything on S3, and move the 'diagram' folder to the download/vXX folder.
 		stage('Post: Archive Outputs'){
 			steps{
 				script{
-					def s3Path = "${env.S3_RELEASE_DIRECTORY_URL}/${currentRelease}/data_export"
-					def archive = "export-v${currentRelease}.tgz"
-					sh "tar -zcvf ${archive} ${folder}"
-					sh "mv ${folder}/* ${env.ABS_DOWNLOAD_PATH}/${currentRelease}/" 
+					def s3Path = "${env.S3_RELEASE_DIRECTORY_URL}/${currentRelease}/diagram_exporter"
+					def svgArchive = "diagrams.svg.tgz"
+					def pngArchive = "diagrams.png.tgz"
+					def sbgnArchive = "homo_sapiens.sbgn.tar.gz"
+					sh "cd svg/Modern/; tar -zcvf ${svgArchive} *.svg; mv ${svgArchive} ../../"
+					sh "cd png/Modern/; tar -zcvf ${pngArchive} *.png; mv ${pngArchive} ../../"
+					sh "cd sbgn/; tar -zcvf ${sbgnArchive} *.sbgn; mv ${svgnArchive} ../"
 					sh "gzip logs/*"
 					sh "aws s3 --no-progress --recursive cp logs/ $s3Path/logs/"
-					sh "aws s3 --no-progress cp ${archive} $s3Path/"
-					sh "rm -r logs/ ${folder} ${archive}"
+					sh "aws s3 --no-progress cp ${svgArchive} $s3Path/"
+					sh "aws s3 --no-progress cp ${pngArchive} $s3Path/"
+					sh "aws s3 --no-progress cp ${sbgnArchive} $s3Path/"
+					sh "mv *gz ${env.ABS_DOWNLOAD_PATH}/${currentRelease}/"
+					sh "rm -r logs/ svg png sbgn"
 				}
 			}
 		}
-		*/
 	}
 }
