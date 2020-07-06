@@ -51,4 +51,18 @@ public class PowerPointExporter {
         return diagramPresentation.save(outputFolder, stId, license);
     }
 
+    /**
+     *  This method generates a powerpoint which uses the stId of the reaction as file name
+     *
+     */
+    public static File export(String stId, Diagram diagram, String profileName, String outputFolder, Decorator decorator, String license) throws DiagramJsonDeserializationException, DiagramProfileException {
+        logger.info("Initialising the exporter to PowerPoint");
+        logger.debug("Initialising the exporter to PowerPoint. Diagram [{}], Profile [{}] and Decorators [flg:{}, sel: {}]", stId, profileName, decorator.getFlags(), decorator.getSelected());
+        DiagramProfile profile = ResourcesFactory.getDiagramProfile(profileName.toLowerCase());
+
+        DiagramPresentation diagramPresentation = new DiagramPresentation(diagram, profile, decorator);
+        diagramPresentation.export();
+        return diagramPresentation.save(outputFolder, stId, license);
+    }
+
 }
