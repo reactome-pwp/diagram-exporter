@@ -38,6 +38,7 @@ public class DiagramCanvas {
 	private FillDrawLayer fadeOutAttachments = new FillDrawLayer();
 	private FillDrawLayer legendBackground = new FillDrawLayer();
 	private TextLayer legendText = new TextLayer();
+	private TextLayer legendLabels = new TextLayer();
 	private FillLayer legendBar = new FillLayer();
 	private DrawLayer legendTicks = new DrawLayer();
 	private FillLayer legendTickArrows = new FillLayer();
@@ -80,6 +81,7 @@ public class DiagramCanvas {
 			legendTickArrows,
 			legendText,
 			legendBottomText,
+			legendLabels,
 
 			logoLayer
 	);
@@ -206,6 +208,10 @@ public class DiagramCanvas {
 
 	public TextLayer getLegendBottomText() {
 		return legendBottomText;
+	}
+
+	public TextLayer getLegendLabels() {
+		return legendLabels;
 	}
 
 	public ImageLayer getLogoLayer() {

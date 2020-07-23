@@ -92,6 +92,11 @@ public class RenderableProcessNode extends RenderableNode {
 	}
 
 	@Override
+	public double gsa(DiagramCanvas canvas, DiagramData data, ColorProfiles colorProfiles, int t) {
+		return expression(canvas, data, colorProfiles, t);
+	}
+
+	@Override
 	public void text(DiagramCanvas canvas, ColorProfiles colorProfiles, DiagramData data, double textSplit) {
 		final TextLayer layer = isFadeOut()
 				? canvas.getFadeOutText()

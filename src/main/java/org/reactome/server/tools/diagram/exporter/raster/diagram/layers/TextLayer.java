@@ -25,6 +25,12 @@ public class TextLayer extends CommonLayer {
 		objects.add(new RenderableText(text, position, color, font));
 	}
 
+	public void add(TextLayer textLayer) {
+		if (textLayer.objects.size() > 0) {
+			objects.addAll(textLayer.objects);
+		}
+	}
+
 	@Override
 	public void render(Graphics2D graphics) {
 		objects.forEach(text -> {

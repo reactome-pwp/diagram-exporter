@@ -1,0 +1,3223 @@
+{
+  "dbId" : 68877,
+  "stId" : "R-HSA-68877",
+  "speciesName" : "Homo sapiens",
+  "nodes" : [ {
+    "dbId" : 375301,
+    "stId" : "R-HSA-375301",
+    "displayName" : "CENPO [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BU64",
+    "geneNames" : [ "CENPO", "ICEN36", "MCM21R" ],
+    "parents" : [ 377886 ]
+  }, {
+    "dbId" : 375300,
+    "stId" : "R-HSA-375300",
+    "displayName" : "NUF2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BZD4",
+    "geneNames" : [ "NUF2", "CDCA1", "NUF2R" ],
+    "parents" : [ 375444 ]
+  }, {
+    "dbId" : 375303,
+    "stId" : "R-HSA-375303",
+    "displayName" : "Microtubule-bound kinetochore [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 21 ],
+    "parents" : [ 2500242, 1638796, 2468282, 9648124 ],
+    "children" : [ 375305, 190599 ]
+  }, {
+    "dbId" : 375297,
+    "stId" : "R-HSA-375297",
+    "displayName" : "SPC24 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8NBT2",
+    "geneNames" : [ "SPC24", "SPBC24" ],
+    "parents" : [ 375444 ]
+  }, {
+    "dbId" : 375296,
+    "stId" : "R-HSA-375296",
+    "displayName" : "CENPK [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BS16",
+    "geneNames" : [ "CENPK", "ICEN37", "FKSG14" ],
+    "parents" : [ 377884 ]
+  }, {
+    "dbId" : 157703,
+    "stId" : "R-HSA-157703",
+    "displayName" : "RANBP2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P49792",
+    "geneNames" : [ "RANBP2", "NUP358" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 375299,
+    "stId" : "R-HSA-375299",
+    "displayName" : "CENPP [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q6IPU0",
+    "geneNames" : [ "CENPP" ],
+    "parents" : [ 377886 ]
+  }, {
+    "dbId" : 375298,
+    "stId" : "R-HSA-375298",
+    "displayName" : "CENPQ [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q7L2Z9",
+    "geneNames" : [ "CENPQ", "C6orf139" ],
+    "parents" : [ 377886 ]
+  }, {
+    "dbId" : 375309,
+    "stId" : "R-HSA-375309",
+    "displayName" : "NSL1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96IY1",
+    "geneNames" : [ "NSL1", "C1orf48", "DC31", "DC8", "MIS14" ],
+    "parents" : [ 375441 ]
+  }, {
+    "dbId" : 375308,
+    "stId" : "R-HSA-375308",
+    "displayName" : "DSN1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9H410",
+    "geneNames" : [ "DSN1", "C20orf172", "MIS13" ],
+    "parents" : [ 375441 ]
+  }, {
+    "dbId" : 375311,
+    "stId" : "R-HSA-375311",
+    "displayName" : "INCENP [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9NQS7",
+    "geneNames" : [ "INCENP" ],
+    "parents" : [ 377879, 375305 ]
+  }, {
+    "dbId" : 375310,
+    "stId" : "R-HSA-375310",
+    "displayName" : "APITD1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8N2Z9",
+    "geneNames" : [ "APITD1", "CENPS", "FAAP16", "MHF1" ],
+    "parents" : [ 377738 ]
+  }, {
+    "dbId" : 375305,
+    "stId" : "R-HSA-375305",
+    "displayName" : "Kinetochore [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 20 ],
+    "parents" : [ 2484816, 375303 ],
+    "children" : [ 377733, 377732, 376257, 377729, 376256, 157703, 376259, 377731, 376258, 2029145, 375311, 377736, 377738, 375317, 377879, 377745, 377885, 377883, 377882, 376229, 376228, 165539, 376231, 376230, 377888, 376227, 141412, 72361, 376239, 196206, 376232, 376235, 376245, 376244, 163443, 376240, 376242, 376252, 164603, 376255, 376254, 141433, 376249, 376248, 376250 ]
+  }, {
+    "dbId" : 375307,
+    "stId" : "R-HSA-375307",
+    "displayName" : "SPC25 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9HBM1",
+    "geneNames" : [ "SPC25", "SPBC25", "AD024" ],
+    "parents" : [ 375444 ]
+  }, {
+    "dbId" : 375306,
+    "stId" : "R-HSA-375306",
+    "displayName" : "CENPN [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96H22",
+    "geneNames" : [ "CENPN", "C16orf60", "ICEN32", "BM-309" ],
+    "parents" : [ 377738 ]
+  }, {
+    "dbId" : 375317,
+    "stId" : "R-HSA-375317",
+    "displayName" : "CENPA [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P49450",
+    "geneNames" : [ "CENPA" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 2545206,
+    "stId" : "R-HSA-2545206",
+    "displayName" : "HDAC8-1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BY41-1",
+    "geneNames" : [ "HDAC8", "HDACL1", "CDA07" ],
+    "parents" : [ 2545205 ]
+  }, {
+    "dbId" : 375316,
+    "stId" : "R-HSA-375316",
+    "displayName" : "CENPT [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96BT3",
+    "geneNames" : [ "CENPT", "C16orf56", "ICEN22" ],
+    "parents" : [ 377738 ]
+  }, {
+    "dbId" : 377879,
+    "stId" : "R-HSA-377879",
+    "displayName" : "Chromosome passenger complex [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 375305 ],
+    "children" : [ 375288, 375311, 174231, 50851 ]
+  }, {
+    "dbId" : 9647745,
+    "stId" : "R-HSA-9647745",
+    "displayName" : "EML4 homotrimer [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3965 ],
+    "parents" : [ 9648124, 9648023 ],
+    "children" : [ 9647741 ]
+  }, {
+    "dbId" : 2545205,
+    "stId" : "R-HSA-2545205",
+    "displayName" : "HDAC8 [cytosol]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3804 ],
+    "children" : [ 2545206 ]
+  }, {
+    "dbId" : 375313,
+    "stId" : "R-HSA-375313",
+    "displayName" : "MIS12 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9H081",
+    "geneNames" : [ "MIS12" ],
+    "parents" : [ 375441 ]
+  }, {
+    "dbId" : 375315,
+    "stId" : "R-HSA-375315",
+    "displayName" : "MLF1IP [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q71F23",
+    "geneNames" : [ "CENPU", "ICEN24", "KLIP1", "MLF1IP", "PBIP1" ],
+    "parents" : [ 377886 ]
+  }, {
+    "dbId" : 375314,
+    "stId" : "R-HSA-375314",
+    "displayName" : "NDC80 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O14777",
+    "geneNames" : [ "NDC80", "HEC", "HEC1", "KNTC2" ],
+    "parents" : [ 375444 ]
+  }, {
+    "dbId" : 377885,
+    "stId" : "R-HSA-377885",
+    "displayName" : "RZZ complex [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 375305 ],
+    "children" : [ 376234, 377880, 376233 ]
+  }, {
+    "dbId" : 8855199,
+    "stId" : "R-HSA-8855199",
+    "displayName" : "HAUS1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96CS2",
+    "geneNames" : [ "HAUS1", "CCDC5", "HEIC" ],
+    "parents" : [ 8855211 ]
+  }, {
+    "dbId" : 377884,
+    "stId" : "R-HSA-377884",
+    "displayName" : "CENP-(H,I, K) complex [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 377738 ],
+    "children" : [ 375294, 375293, 375296 ]
+  }, {
+    "dbId" : 8855198,
+    "stId" : "R-HSA-8855198",
+    "displayName" : "HAUS8 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BT25",
+    "geneNames" : [ "HAUS8", "HICE1" ],
+    "parents" : [ 8855211 ]
+  }, {
+    "dbId" : 2484796,
+    "stId" : "R-HSA-2484796",
+    "displayName" : "PDS5 [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "parents" : [ 2545249, 2484812 ],
+    "children" : [ 2484799, 2484800 ]
+  }, {
+    "dbId" : 380447,
+    "stId" : "R-HSA-380447",
+    "displayName" : "gamma-TuSC [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 379277 ],
+    "children" : [ 379275, 379272, 379276, 379269 ]
+  }, {
+    "dbId" : 8855197,
+    "stId" : "R-HSA-8855197",
+    "displayName" : "HAUS5 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O94927",
+    "geneNames" : [ "HAUS5", "KIAA0841" ],
+    "parents" : [ 8855211 ]
+  }, {
+    "dbId" : 2484799,
+    "stId" : "R-HSA-2484799",
+    "displayName" : "PDS5A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q29RF7",
+    "geneNames" : [ "PDS5A", "KIAA0648", "PDS5", "PIG54" ],
+    "parents" : [ 2484796 ]
+  }, {
+    "dbId" : 377886,
+    "stId" : "R-HSA-377886",
+    "displayName" : "CENP-O complex [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 377738 ],
+    "children" : [ 3006405, 375298, 375315, 375299, 375301 ]
+  }, {
+    "dbId" : 8855196,
+    "stId" : "R-HSA-8855196",
+    "displayName" : "HAUS6 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q7Z4H7",
+    "geneNames" : [ "HAUS6", "DGT6", "FAM29A", "KIAA1574" ],
+    "parents" : [ 8855211 ]
+  }, {
+    "dbId" : 2484798,
+    "stId" : "R-HSA-2484798",
+    "displayName" : "SMC1A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q14683",
+    "geneNames" : [ "SMC1A", "DXS423E", "KIAA0178", "SB1.8", "SMC1", "SMC1L1" ],
+    "parents" : [ 2545252, 2484807 ]
+  }, {
+    "dbId" : 2466361,
+    "stId" : "R-HSA-2466361",
+    "displayName" : "PDS5B [chromosome]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9NTI5",
+    "geneNames" : [ "PDS5B", "APRIN", "AS3", "KIAA0979" ],
+    "parents" : [ 2468151 ]
+  }, {
+    "dbId" : 2484793,
+    "stId" : "R-HSA-2484793",
+    "displayName" : "STAG1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8WVM7",
+    "geneNames" : [ "STAG1", "SA1", "SCC3" ],
+    "parents" : [ 2545252, 2484807 ]
+  }, {
+    "dbId" : 156702,
+    "stId" : "R-HSA-156702",
+    "displayName" : "p-S274,S326-NUDC [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 4137 ],
+    "identifier" : "Q9Y266",
+    "geneNames" : [ "NUDC" ]
+  }, {
+    "dbId" : 377880,
+    "stId" : "R-HSA-377880",
+    "displayName" : "ZW10 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O43264",
+    "geneNames" : [ "ZW10" ],
+    "parents" : [ 377885 ]
+  }, {
+    "dbId" : 375320,
+    "stId" : "R-HSA-375320",
+    "displayName" : "PMF1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q6P1K2",
+    "geneNames" : [ "PMF1" ],
+    "parents" : [ 375441 ]
+  }, {
+    "dbId" : 380440,
+    "stId" : "R-HSA-380440",
+    "displayName" : "Mature centrosomes enriched in gamma-TURC complexes [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3887 ],
+    "parents" : [ 379273, 380503 ],
+    "children" : [ 380268, 379277 ]
+  }, {
+    "dbId" : 2466360,
+    "stId" : "R-HSA-2466360",
+    "displayName" : "PDS5A [chromosome]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q29RF7",
+    "geneNames" : [ "PDS5A", "KIAA0648", "PDS5", "PIG54" ],
+    "parents" : [ 2468151 ]
+  }, {
+    "dbId" : 2484792,
+    "stId" : "R-HSA-2484792",
+    "displayName" : "2xAcK-SMC3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9UQE7",
+    "geneNames" : [ "SMC3", "BAM", "BMH", "CSPG6", "SMC3L1" ],
+    "parents" : [ 2484807 ]
+  }, {
+    "dbId" : 377883,
+    "stId" : "R-HSA-377883",
+    "displayName" : "Nup107-160 complex [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 375305 ],
+    "children" : [ 203981, 376251, 376238, 376237, 376253, 376243, 376241, 376246, 376247 ]
+  }, {
+    "dbId" : 377882,
+    "stId" : "R-HSA-377882",
+    "displayName" : "Mitotic checkpoint complex [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 375305 ],
+    "children" : [ 141436, 141416, 141400, 141412 ]
+  }, {
+    "dbId" : 375322,
+    "stId" : "R-HSA-375322",
+    "displayName" : "CASC5 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8NG31",
+    "geneNames" : [ "KNL1", "CASC5", "KIAA1570" ],
+    "parents" : [ 377745 ]
+  }, {
+    "dbId" : 2029119,
+    "stId" : "R-HSA-2029119",
+    "displayName" : "DICs [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "parents" : [ 2029145 ],
+    "children" : [ 201578, 201607 ]
+  }, {
+    "dbId" : 2555396,
+    "stId" : "R-HSA-2555396",
+    "displayName" : "Mitotic Metaphase and Anaphase",
+    "schemaClass" : "Pathway",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3859 ]
+  }, {
+    "dbId" : 190502,
+    "stId" : "R-HSA-190502",
+    "displayName" : "beta-tubulin [cytosol]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 48887,
+    "parents" : [ 190512 ],
+    "children" : [ 6805240, 190588, 6805243, 191705, 190532, 191703, 191702, 191699, 191698 ]
+  }, {
+    "dbId" : 387105,
+    "stId" : "R-HSA-387105",
+    "displayName" : "DYNLL1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P63167",
+    "geneNames" : [ "DYNLL1", "DLC1", "DNCL1", "DNCLC1", "HDLC1" ],
+    "parents" : [ 380268, 2029105 ]
+  }, {
+    "dbId" : 377888,
+    "stId" : "R-HSA-377888",
+    "displayName" : "BUB1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O43683",
+    "geneNames" : [ "BUB1", "BUB1L" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 8855202,
+    "stId" : "R-HSA-8855202",
+    "displayName" : "HAUS4 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9H6D7",
+    "geneNames" : [ "HAUS4", "C14orf94" ],
+    "parents" : [ 8855211 ]
+  }, {
+    "dbId" : 8855201,
+    "stId" : "R-HSA-8855201",
+    "displayName" : "HAUS3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q68CZ6",
+    "geneNames" : [ "HAUS3", "C4orf15" ],
+    "parents" : [ 8855211 ]
+  }, {
+    "dbId" : 8955055,
+    "stId" : "R-HSA-8955055",
+    "displayName" : "MZT1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q08AG7",
+    "geneNames" : [ "MZT1", "C13orf37", "MOZART1" ],
+    "parents" : [ 379277 ]
+  }, {
+    "dbId" : 8855200,
+    "stId" : "R-HSA-8855200",
+    "displayName" : "HAUS7 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q99871",
+    "geneNames" : [ "HAUS7", "UCHL5IP", "UIP1" ],
+    "parents" : [ 8855211 ]
+  }, {
+    "dbId" : 8855211,
+    "stId" : "R-HSA-8855211",
+    "displayName" : "HAUS complex [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 380268 ],
+    "children" : [ 8855196, 8855197, 8855198, 8855199, 8855200, 380274, 8855201, 8855202 ]
+  }, {
+    "dbId" : 156716,
+    "stId" : "R-HSA-156716",
+    "displayName" : "NUDC [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 4136 ],
+    "identifier" : "Q9Y266",
+    "geneNames" : [ "NUDC" ]
+  }, {
+    "dbId" : 190509,
+    "stId" : "R-HSA-190509",
+    "displayName" : "alpha-tubulin:GTP [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 190570 ],
+    "children" : [ 29438, 190587 ]
+  }, {
+    "dbId" : 2029105,
+    "stId" : "R-HSA-2029105",
+    "displayName" : "DLCs [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "parents" : [ 2029145 ],
+    "children" : [ 2029024, 387105 ]
+  }, {
+    "dbId" : 190512,
+    "stId" : "R-HSA-190512",
+    "displayName" : "beta-tubulin:GDP [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 190570 ],
+    "children" : [ 29420, 190502 ]
+  }, {
+    "dbId" : 205877,
+    "stId" : "R-HSA-205877",
+    "displayName" : "CSNK1E [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P49674",
+    "geneNames" : [ "CSNK1E" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 8955056,
+    "stId" : "R-HSA-8955056",
+    "displayName" : "MZT2A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q6P582",
+    "geneNames" : [ "MZT2A", "FAM128A", "MOZART2A" ],
+    "parents" : [ 379277 ]
+  }, {
+    "dbId" : 8955057,
+    "stId" : "R-HSA-8955057",
+    "displayName" : "MZT2B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q6NZ67",
+    "geneNames" : [ "MZT2B", "FAM128B", "MOZART2B" ],
+    "parents" : [ 379277 ]
+  }, {
+    "dbId" : 380484,
+    "stId" : "R-HSA-380484",
+    "displayName" : "p-NUMA1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q14980",
+    "geneNames" : [ "NUMA1", "NMP22", "NUMA" ],
+    "parents" : [ 380486 ]
+  }, {
+    "dbId" : 2545252,
+    "stId" : "R-HSA-2545252",
+    "displayName" : "p-Cohesin [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 2545249 ],
+    "children" : [ 2484793, 2484798, 2484806, 2545223, 2500310 ]
+  }, {
+    "dbId" : 380486,
+    "stId" : "R-HSA-380486",
+    "displayName" : "p-T2055-NUMA1 homodimer [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3882 ],
+    "parents" : [ 380495, 380503 ],
+    "children" : [ 380484 ]
+  }, {
+    "dbId" : 190532,
+    "stId" : "R-HSA-190532",
+    "displayName" : "TUBB3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q13509",
+    "geneNames" : [ "TUBB3", "TUBB4" ],
+    "parents" : [ 190502 ]
+  }, {
+    "dbId" : 2029144,
+    "stId" : "R-HSA-2029144",
+    "displayName" : "DHC dimer [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 2029145 ],
+    "children" : [ 380285 ]
+  }, {
+    "dbId" : 2029145,
+    "stId" : "R-HSA-2029145",
+    "displayName" : "Dynein complex [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 375305 ],
+    "children" : [ 2029105, 2029122, 2029144, 2029119 ]
+  }, {
+    "dbId" : 2545249,
+    "stId" : "R-HSA-2545249",
+    "displayName" : "p-Cohesin:PDS5:WAPAL [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3802 ],
+    "children" : [ 2484796, 2484802, 2545252 ]
+  }, {
+    "dbId" : 380495,
+    "stId" : "R-HSA-380495",
+    "displayName" : "p-T2055-NUMA1 homodimer:Mature centrosome:nucleated microtubules [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3886 ],
+    "children" : [ 379273, 380486 ]
+  }, {
+    "dbId" : 9617118,
+    "stId" : "R-HSA-9617118",
+    "displayName" : "TUBA3C/3D [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "parents" : [ 190587 ],
+    "children" : [ 9617117, 9617120 ]
+  }, {
+    "dbId" : 9617117,
+    "stId" : "R-HSA-9617117",
+    "displayName" : "TUBA3D [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0DPH8",
+    "geneNames" : [ "TUBA3D" ],
+    "parents" : [ 9617118 ]
+  }, {
+    "dbId" : 165971,
+    "stId" : "R-HSA-165971",
+    "displayName" : "PPP2CA [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P67775",
+    "geneNames" : [ "PPP2CA" ],
+    "parents" : [ 165977 ]
+  }, {
+    "dbId" : 380503,
+    "stId" : "R-HSA-380503",
+    "displayName" : "Mature centrosome enriched in gamma-TURC:p-T2055-NUMA1 homodimer [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3884 ],
+    "children" : [ 380440, 380486 ]
+  }, {
+    "dbId" : 170075,
+    "stId" : "R-HSA-170075",
+    "displayName" : "CDK1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P06493",
+    "geneNames" : [ "CDK1", "CDC2", "CDC28A", "CDKN1", "P34CDC2" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 141400,
+    "stId" : "R-HSA-141400",
+    "displayName" : "MAD2L1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q13257",
+    "geneNames" : [ "MAD2L1", "MAD2" ],
+    "parents" : [ 377882 ]
+  }, {
+    "dbId" : 165977,
+    "stId" : "R-HSA-165977",
+    "displayName" : "PP2A-catalytic subunit C [cytosol]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 48887,
+    "parents" : [ 196206 ],
+    "children" : [ 165987, 165971 ]
+  }, {
+    "dbId" : 165982,
+    "stId" : "R-HSA-165982",
+    "displayName" : "PPP2R1A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P30153",
+    "geneNames" : [ "PPP2R1A" ],
+    "parents" : [ 380268, 165990 ]
+  }, {
+    "dbId" : 2029122,
+    "stId" : "R-HSA-2029122",
+    "displayName" : "DLIs [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "parents" : [ 2029145 ],
+    "children" : [ 2029025, 8943213 ]
+  }, {
+    "dbId" : 165980,
+    "stId" : "R-HSA-165980",
+    "displayName" : "PPP2R1B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P30154",
+    "geneNames" : [ "PPP2R1B" ],
+    "parents" : [ 165990 ]
+  }, {
+    "dbId" : 165987,
+    "stId" : "R-HSA-165987",
+    "displayName" : "PPP2CB [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P62714",
+    "geneNames" : [ "PPP2CB" ],
+    "parents" : [ 165977 ]
+  }, {
+    "dbId" : 2545223,
+    "stId" : "R-HSA-2545223",
+    "displayName" : "SMC3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9UQE7",
+    "geneNames" : [ "SMC3", "BAM", "BMH", "CSPG6", "SMC3L1" ],
+    "parents" : [ 2545252 ]
+  }, {
+    "dbId" : 2484804,
+    "stId" : "R-HSA-2484804",
+    "displayName" : "p-S21,S75,T159-CDCA5 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 2349 ],
+    "identifier" : "Q96FF9",
+    "geneNames" : [ "CDCA5" ]
+  }, {
+    "dbId" : 2484807,
+    "stId" : "R-HSA-2484807",
+    "displayName" : "p-Ac-Cohesin [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 2484812 ],
+    "children" : [ 2484792, 2484793, 2484798, 2484806, 2500310 ]
+  }, {
+    "dbId" : 2484806,
+    "stId" : "R-HSA-2484806",
+    "displayName" : "p-STAG2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8N3U4",
+    "geneNames" : [ "STAG2", "SA2" ],
+    "parents" : [ 2545252, 2484807 ]
+  }, {
+    "dbId" : 165990,
+    "stId" : "R-HSA-165990",
+    "displayName" : "PP2A-subunit A [cytosol]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 48887,
+    "parents" : [ 196206 ],
+    "children" : [ 165980, 165982 ]
+  }, {
+    "dbId" : 2484800,
+    "stId" : "R-HSA-2484800",
+    "displayName" : "PDS5B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9NTI5",
+    "geneNames" : [ "PDS5B", "APRIN", "AS3", "KIAA0979" ],
+    "parents" : [ 2484796 ]
+  }, {
+    "dbId" : 141412,
+    "stId" : "R-HSA-141412",
+    "displayName" : "CDC20 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q12834",
+    "geneNames" : [ "CDC20" ],
+    "parents" : [ 375305, 377882 ]
+  }, {
+    "dbId" : 2484802,
+    "stId" : "R-HSA-2484802",
+    "displayName" : "WAPAL [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q7Z5K2",
+    "geneNames" : [ "WAPL", "FOE", "KIAA0261", "WAPAL" ],
+    "parents" : [ 2545249, 2484812 ]
+  }, {
+    "dbId" : 190570,
+    "stId" : "R-HSA-190570",
+    "displayName" : "alpha-beta tubulin dimer [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 8982424 ],
+    "children" : [ 190509, 190512 ]
+  }, {
+    "dbId" : 2484812,
+    "stId" : "R-HSA-2484812",
+    "displayName" : "p-Ac-Cohesin:PDS5:WAPAL [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 2336 ],
+    "children" : [ 2484796, 2484802, 2484807 ]
+  }, {
+    "dbId" : 141416,
+    "stId" : "R-HSA-141416",
+    "displayName" : "BUB3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O43684",
+    "geneNames" : [ "BUB3" ],
+    "parents" : [ 377882 ]
+  }, {
+    "dbId" : 2484814,
+    "stId" : "R-HSA-2484814",
+    "displayName" : "p-STAG2,RAD21-Ac-Cohesin:PDS5:p-CDCA5:WAPAL [chromosome]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 1638805 ],
+    "children" : [ 2468266, 2577090, 1638794, 2468151 ]
+  }, {
+    "dbId" : 196206,
+    "stId" : "R-HSA-196206",
+    "displayName" : "PP2A [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 375305 ],
+    "children" : [ 165977, 196216, 165990 ]
+  }, {
+    "dbId" : 2484809,
+    "stId" : "R-HSA-2484809",
+    "displayName" : "p-STAG2,RAD21-Ac-Cohesin [chromosome, centromeric region]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 1638796 ],
+    "children" : [ 2485163, 2466015, 2466013, 2466017, 2468148 ]
+  }, {
+    "dbId" : 163443,
+    "stId" : "R-HSA-163443",
+    "displayName" : "PPP1CC [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P36873",
+    "geneNames" : [ "PPP1CC" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 9617120,
+    "stId" : "R-HSA-9617120",
+    "displayName" : "TUBA3C [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P0DPH7",
+    "geneNames" : [ "TUBA3C", "TUBA2" ],
+    "parents" : [ 9617118 ]
+  }, {
+    "dbId" : 2484817,
+    "stId" : "R-HSA-2484817",
+    "displayName" : "Ac-Cohesin:PDS5:WAPAL:Centromere:Kinetochore [chromosome, centromeric region]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 2484819 ],
+    "children" : [ 2574847, 2484816 ]
+  }, {
+    "dbId" : 2484816,
+    "stId" : "R-HSA-2484816",
+    "displayName" : "Sister Centromere:Kinetochore [chromosome, centromeric region]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 2484819, 2484817 ],
+    "children" : [ 375305, 1638792 ]
+  }, {
+    "dbId" : 2484819,
+    "stId" : "R-HSA-2484819",
+    "displayName" : "Ac-Cohesin:PDS5:CDCA5:WAPAL:Sister Centromeres:Kinetochores:Microtubules [chromosome, centromeric region]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 2474 ],
+    "children" : [ 190599, 2484816, 2484817 ]
+  }, {
+    "dbId" : 190587,
+    "stId" : "R-HSA-190587",
+    "displayName" : "alpha-tubulin [cytosol]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 48887,
+    "parents" : [ 190509 ],
+    "children" : [ 191694, 9617118, 190590, 191689, 191691, 6805233, 6805234, 6805236, 6805238 ]
+  }, {
+    "dbId" : 196216,
+    "stId" : "R-HSA-196216",
+    "displayName" : "PP2A regulatory subunit B56 [cytosol]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 48887,
+    "parents" : [ 196206 ],
+    "children" : [ 1638770, 3008950, 196235, 3008954, 535469 ]
+  }, {
+    "dbId" : 69242,
+    "stId" : "R-HSA-69242",
+    "displayName" : "S Phase",
+    "schemaClass" : "Pathway",
+    "speciesId" : 48887,
+    "diagramIds" : [ 1646 ]
+  }, {
+    "dbId" : 141433,
+    "stId" : "R-HSA-141433",
+    "displayName" : "MAD1L1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9Y6D9",
+    "geneNames" : [ "MAD1L1", "MAD1", "TXBP181" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 190590,
+    "stId" : "R-HSA-190590",
+    "displayName" : "TUBA1C [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BQE3",
+    "geneNames" : [ "TUBA1C", "TUBA6" ],
+    "parents" : [ 190587 ]
+  }, {
+    "dbId" : 190588,
+    "stId" : "R-HSA-190588",
+    "displayName" : "TUBB4A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P04350",
+    "geneNames" : [ "TUBB4A", "TUBB4", "TUBB5" ],
+    "parents" : [ 380268, 190502 ]
+  }, {
+    "dbId" : 141436,
+    "stId" : "R-HSA-141436",
+    "displayName" : "BUB1B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O60566",
+    "geneNames" : [ "BUB1B", "BUBR1", "MAD3L", "SSK1" ],
+    "parents" : [ 377882 ]
+  }, {
+    "dbId" : 190599,
+    "stId" : "R-HSA-190599",
+    "displayName" : "Microtubule [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3944 ],
+    "parents" : [ 9648023, 375303, 2484819, 379273 ],
+    "children" : [ 8982424 ]
+  }, {
+    "dbId" : 196235,
+    "stId" : "R-HSA-196235",
+    "displayName" : "PPP2R5A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q15172",
+    "geneNames" : [ "PPP2R5A" ],
+    "parents" : [ 196216 ]
+  }, {
+    "dbId" : 6805238,
+    "stId" : "R-HSA-6805238",
+    "displayName" : "TUBA8 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9NY65",
+    "geneNames" : [ "TUBA8", "TUBAL2" ],
+    "parents" : [ 190587 ]
+  }, {
+    "dbId" : 375444,
+    "stId" : "R-HSA-375444",
+    "displayName" : "NDC80 complex [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 377745 ],
+    "children" : [ 375307, 375314, 375297, 375300 ]
+  }, {
+    "dbId" : 6805236,
+    "stId" : "R-HSA-6805236",
+    "displayName" : "TUBA4B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9H853",
+    "geneNames" : [ "TUBA4B", "TUBA4" ],
+    "parents" : [ 190587 ]
+  }, {
+    "dbId" : 375441,
+    "stId" : "R-HSA-375441",
+    "displayName" : "Mis12 complex [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 377745 ],
+    "children" : [ 375320, 375308, 375309, 375313 ]
+  }, {
+    "dbId" : 6805234,
+    "stId" : "R-HSA-6805234",
+    "displayName" : "TUBAL3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "A6NHL2",
+    "geneNames" : [ "TUBAL3" ],
+    "parents" : [ 190587 ]
+  }, {
+    "dbId" : 174231,
+    "stId" : "R-HSA-174231",
+    "displayName" : "AURKB [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96GD4",
+    "geneNames" : [ "AURKB", "AIK2", "AIM1", "AIRK2", "ARK2", "STK1", "STK12", "STK5" ],
+    "parents" : [ 377879 ]
+  }, {
+    "dbId" : 6805233,
+    "stId" : "R-HSA-6805233",
+    "displayName" : "TUBA3E [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q6PEY2",
+    "geneNames" : [ "TUBA3E" ],
+    "parents" : [ 190587 ]
+  }, {
+    "dbId" : 2473148,
+    "stId" : "R-HSA-2473148",
+    "displayName" : "Centromere:Ac-Cohesin:PDS5:CDCA5:WAPAL [chromosome, centromeric region]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 1638799 ],
+    "children" : [ 2574847, 1638792 ]
+  }, {
+    "dbId" : 6805243,
+    "stId" : "R-HSA-6805243",
+    "displayName" : "TUBB8 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q3ZCM7",
+    "geneNames" : [ "TUBB8" ],
+    "parents" : [ 190502 ]
+  }, {
+    "dbId" : 6805240,
+    "stId" : "R-HSA-6805240",
+    "displayName" : "Tubulin beta-8 chain-like protein [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "A6NNZ2",
+    "geneNames" : [ "TUBB8B" ],
+    "parents" : [ 190502 ]
+  }, {
+    "dbId" : 165539,
+    "stId" : "R-HSA-165539",
+    "displayName" : "XPO1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O14980",
+    "geneNames" : [ "XPO1", "CRM1" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 50851,
+    "stId" : "R-HSA-50851",
+    "displayName" : "BIRC5 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O15392",
+    "geneNames" : [ "BIRC5", "API4", "IAP4" ],
+    "parents" : [ 377879 ]
+  }, {
+    "dbId" : 72361,
+    "stId" : "R-HSA-72361",
+    "displayName" : "RPS27 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P42677",
+    "geneNames" : [ "RPS27", "MPS1" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 29356,
+    "stId" : "R-ALL-29356",
+    "displayName" : "H2O [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 3634, 659 ],
+    "identifier" : "15377"
+  }, {
+    "dbId" : 177329,
+    "stId" : "R-HSA-177329",
+    "displayName" : "NEK2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P51955",
+    "geneNames" : [ "NEK2", "NEK2A", "NLK1" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 2500242,
+    "stId" : "R-HSA-2500242",
+    "displayName" : "p-RAD21-Ac-Cohesin:PDS5:p-CDCA5:WAPAL:Sister Centromeres:Kinetochores:Microtubules [chromosome, centromeric region]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 2872 ],
+    "children" : [ 2500251, 2468269, 2577088, 375303, 1638792, 2468261 ]
+  }, {
+    "dbId" : 29370,
+    "stId" : "R-ALL-29370",
+    "displayName" : "ADP [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 1616, 3666, 4085, 1591, 2071, 3271, 4138, 2125 ],
+    "identifier" : "456216"
+  }, {
+    "dbId" : 29372,
+    "stId" : "R-ALL-29372",
+    "displayName" : "Pi [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 661, 3637 ],
+    "identifier" : "18367"
+  }, {
+    "dbId" : 2500251,
+    "stId" : "R-HSA-2500251",
+    "displayName" : "p-RAD21-Ac-Cohesin [chromosome, centromeric region]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 2500242 ],
+    "children" : [ 2485163, 2466015, 2466018, 2466017, 2468148 ]
+  }, {
+    "dbId" : 2311324,
+    "stId" : "R-HSA-2311324",
+    "displayName" : "CCNB1,CCNB2:p-T161-CDK1 [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "diagramIds" : [ 2072 ],
+    "children" : [ 68898, 157456 ]
+  }, {
+    "dbId" : 2466017,
+    "stId" : "R-HSA-2466017",
+    "displayName" : "STAG1 [chromosome, centromeric region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8WVM7",
+    "geneNames" : [ "STAG1", "SA1", "SCC3" ],
+    "parents" : [ 2500251, 2484809, 2466014 ]
+  }, {
+    "dbId" : 2466018,
+    "stId" : "R-HSA-2466018",
+    "displayName" : "STAG2 [chromosome, centromeric region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8N3U4",
+    "geneNames" : [ "STAG2", "SA2" ],
+    "parents" : [ 2500251, 2466014 ]
+  }, {
+    "dbId" : 2529006,
+    "stId" : "R-ALL-2529006",
+    "displayName" : "Unknown Phosphatase [cytosol]",
+    "schemaClass" : "OtherEntity",
+    "diagramIds" : [ 3635 ]
+  }, {
+    "dbId" : 191691,
+    "stId" : "R-HSA-191691",
+    "displayName" : "TUBA1B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P68363",
+    "geneNames" : [ "TUBA1B" ],
+    "parents" : [ 190587 ]
+  }, {
+    "dbId" : 2529007,
+    "stId" : "R-HSA-2529007",
+    "displayName" : "p-S-NCAPG [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BPX3",
+    "geneNames" : [ "NCAPG", "CAPG", "NYMEL3" ],
+    "parents" : [ 2529014 ]
+  }, {
+    "dbId" : 191689,
+    "stId" : "R-HSA-191689",
+    "displayName" : "TUBA1A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q71U36",
+    "geneNames" : [ "TUBA1A", "TUBA3" ],
+    "parents" : [ 380268, 190587 ]
+  }, {
+    "dbId" : 191694,
+    "stId" : "R-HSA-191694",
+    "displayName" : "TUBA4A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P68366",
+    "geneNames" : [ "TUBA4A", "TUBA1" ],
+    "parents" : [ 380268, 190587 ]
+  }, {
+    "dbId" : 203981,
+    "stId" : "R-HSA-203981",
+    "displayName" : "SEC13 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P55735",
+    "geneNames" : [ "SEC13", "D3S1231E", "SEC13A", "SEC13L1", "SEC13R" ],
+    "parents" : [ 377883 ]
+  }, {
+    "dbId" : 191698,
+    "stId" : "R-HSA-191698",
+    "displayName" : "TUBB6 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BUF5",
+    "geneNames" : [ "TUBB6" ],
+    "parents" : [ 190502 ]
+  }, {
+    "dbId" : 2529014,
+    "stId" : "R-HSA-2529014",
+    "displayName" : "CK2 Phosphorylated Condensin I [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3633 ],
+    "children" : [ 2529017, 2529018, 2529007, 2517875, 2529011 ]
+  }, {
+    "dbId" : 191699,
+    "stId" : "R-HSA-191699",
+    "displayName" : "TUBB2A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q13885",
+    "geneNames" : [ "TUBB2A", "TUBB2" ],
+    "parents" : [ 190502 ]
+  }, {
+    "dbId" : 191702,
+    "stId" : "R-HSA-191702",
+    "displayName" : "TUBB4B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P68371",
+    "geneNames" : [ "TUBB4B", "TUBB2C" ],
+    "parents" : [ 380268, 190502 ]
+  }, {
+    "dbId" : 191703,
+    "stId" : "R-HSA-191703",
+    "displayName" : "TUBB1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9H4B7",
+    "geneNames" : [ "TUBB1" ],
+    "parents" : [ 190502 ]
+  }, {
+    "dbId" : 2529011,
+    "stId" : "R-HSA-2529011",
+    "displayName" : "p-S-NCAPD2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q15021",
+    "geneNames" : [ "NCAPD2", "CAPD2", "CNAP1", "KIAA0159" ],
+    "parents" : [ 2529014 ]
+  }, {
+    "dbId" : 191705,
+    "stId" : "R-HSA-191705",
+    "displayName" : "TUBB2B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BVA1",
+    "geneNames" : [ "TUBB2B" ],
+    "parents" : [ 190502 ]
+  }, {
+    "dbId" : 2529018,
+    "stId" : "R-HSA-2529018",
+    "displayName" : "p-S-SMC4 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9NTJ3",
+    "geneNames" : [ "SMC4", "CAPC", "SMC4L1" ],
+    "parents" : [ 2529014 ]
+  }, {
+    "dbId" : 2529017,
+    "stId" : "R-HSA-2529017",
+    "displayName" : "p-S570-NCAPH [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q15003",
+    "geneNames" : [ "NCAPH", "BRRN", "BRRN1", "CAPH", "KIAA0074" ],
+    "parents" : [ 2529014 ]
+  }, {
+    "dbId" : 1638136,
+    "stId" : "R-HSA-1638136",
+    "displayName" : "NCAPG [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BPX3",
+    "geneNames" : [ "NCAPG", "CAPG", "NYMEL3" ],
+    "parents" : [ 1638143 ]
+  }, {
+    "dbId" : 1638139,
+    "stId" : "R-HSA-1638139",
+    "displayName" : "NCAPH [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q15003",
+    "geneNames" : [ "NCAPH", "BRRN", "BRRN1", "CAPH", "KIAA0074" ],
+    "parents" : [ 1638143 ]
+  }, {
+    "dbId" : 1638140,
+    "stId" : "R-HSA-1638140",
+    "displayName" : "NCAPD2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q15021",
+    "geneNames" : [ "NCAPD2", "CAPD2", "CNAP1", "KIAA0159" ],
+    "parents" : [ 1638143 ]
+  }, {
+    "dbId" : 8943213,
+    "stId" : "R-HSA-8943213",
+    "displayName" : "DYNC1LI1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9Y6G9",
+    "geneNames" : [ "DYNC1LI1", "DNCLI1" ],
+    "parents" : [ 2029122 ]
+  }, {
+    "dbId" : 157415,
+    "stId" : "R-HSA-157415",
+    "displayName" : "p-T161-CDK1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P06493",
+    "geneNames" : [ "CDK1", "CDC2", "CDC28A", "CDKN1", "P34CDC2" ],
+    "parents" : [ 68898, 157456 ]
+  }, {
+    "dbId" : 2577090,
+    "stId" : "R-HSA-2577090",
+    "displayName" : "WAPAL [chromosome]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q7Z5K2",
+    "geneNames" : [ "WAPL", "FOE", "KIAA0261", "WAPAL" ],
+    "parents" : [ 2484814, 2468272, 2468165 ]
+  }, {
+    "dbId" : 1638143,
+    "stId" : "R-HSA-1638143",
+    "displayName" : "Condensin I [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3140 ],
+    "children" : [ 2517875, 1638140, 1638139, 2517876, 1638136 ]
+  }, {
+    "dbId" : 2577088,
+    "stId" : "R-HSA-2577088",
+    "displayName" : "WAPAL [chromosome, centromeric region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q7Z5K2",
+    "geneNames" : [ "WAPL", "FOE", "KIAA0261", "WAPAL" ],
+    "parents" : [ 2500242, 1638796, 2468282, 2574847 ]
+  }, {
+    "dbId" : 29420,
+    "stId" : "R-ALL-29420",
+    "displayName" : "GDP [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "identifier" : "17552",
+    "parents" : [ 190512 ]
+  }, {
+    "dbId" : 9647741,
+    "stId" : "R-HSA-9647741",
+    "displayName" : "EML4 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3964 ],
+    "identifier" : "Q9HC35",
+    "geneNames" : [ "EML4", "C2orf2", "EMAPL4" ],
+    "parents" : [ 9647745 ]
+  }, {
+    "dbId" : 2500310,
+    "stId" : "R-HSA-2500310",
+    "displayName" : "p-S454-RAD21 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O60216",
+    "geneNames" : [ "RAD21", "HR21", "KIAA0078", "NXP1", "SCC1" ],
+    "parents" : [ 2545252, 2484807 ]
+  }, {
+    "dbId" : 2466013,
+    "stId" : "R-HSA-2466013",
+    "displayName" : "p-STAG2 [chromosome, centromeric region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8N3U4",
+    "geneNames" : [ "STAG2", "SA2" ],
+    "parents" : [ 2484809 ]
+  }, {
+    "dbId" : 164603,
+    "stId" : "R-HSA-164603",
+    "displayName" : "PLK1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3880 ],
+    "identifier" : "P53350",
+    "geneNames" : [ "PLK1", "PLK" ],
+    "parents" : [ 380268, 375305 ]
+  }, {
+    "dbId" : 2466012,
+    "stId" : "R-HSA-2466012",
+    "displayName" : "RAD21 [chromosome, centromeric region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O60216",
+    "geneNames" : [ "RAD21", "HR21", "KIAA0078", "NXP1", "SCC1" ],
+    "parents" : [ 2466014 ]
+  }, {
+    "dbId" : 2466015,
+    "stId" : "R-HSA-2466015",
+    "displayName" : "SMC1A [chromosome, centromeric region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q14683",
+    "geneNames" : [ "SMC1A", "DXS423E", "KIAA0178", "SB1.8", "SMC1", "SMC1L1" ],
+    "parents" : [ 2500251, 2484809, 2466014 ]
+  }, {
+    "dbId" : 2466014,
+    "stId" : "R-HSA-2466014",
+    "displayName" : "Ac-Cohesin Complex [chromosome, centromeric region]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 2468282, 2574847 ],
+    "children" : [ 2466015, 2466012, 2466018, 2466017, 2468148 ]
+  }, {
+    "dbId" : 29438,
+    "stId" : "R-ALL-29438",
+    "displayName" : "GTP [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "identifier" : "15996",
+    "parents" : [ 190509 ]
+  }, {
+    "dbId" : 9648023,
+    "stId" : "R-HSA-9648023",
+    "displayName" : "EML4 homotrimer:Microtubule [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3967 ],
+    "children" : [ 190599, 9647745 ]
+  }, {
+    "dbId" : 6806880,
+    "stId" : "R-HSA-6806880",
+    "displayName" : "NME7 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9Y5B8",
+    "geneNames" : [ "NME7" ],
+    "parents" : [ 379277 ]
+  }, {
+    "dbId" : 157451,
+    "stId" : "R-HSA-157451",
+    "displayName" : "CCNB1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P14635",
+    "geneNames" : [ "CCNB1", "CCNB" ],
+    "parents" : [ 157456 ]
+  }, {
+    "dbId" : 68875,
+    "stId" : "R-HSA-68875",
+    "displayName" : "Mitotic Prophase",
+    "schemaClass" : "Pathway",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3904 ]
+  }, {
+    "dbId" : 2984225,
+    "stId" : "R-HSA-2984225",
+    "displayName" : "p-S29,T210,T333,S750,S869-NEK9 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8TD19",
+    "geneNames" : [ "NEK9", "KIAA1995", "NEK8", "NERCC" ],
+    "parents" : [ 2984227 ]
+  }, {
+    "dbId" : 2984227,
+    "stId" : "R-HSA-2984227",
+    "displayName" : "p-3S,2T-NEK9 [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 2984255 ],
+    "children" : [ 2984225 ]
+  }, {
+    "dbId" : 2468149,
+    "stId" : "R-HSA-2468149",
+    "displayName" : "CDCA5 [chromosome]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96FF9",
+    "geneNames" : [ "CDCA5" ],
+    "parents" : [ 2468165 ]
+  }, {
+    "dbId" : 2984253,
+    "stId" : "R-HSA-2984253",
+    "displayName" : "p-S206-NEK6 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9HC98",
+    "geneNames" : [ "NEK6" ],
+    "parents" : [ 2984248 ]
+  }, {
+    "dbId" : 8982424,
+    "stId" : "R-HSA-8982424",
+    "displayName" : "Microtubule protofilament [cytosol]",
+    "schemaClass" : "Polymer",
+    "speciesId" : 48887,
+    "parents" : [ 190599 ],
+    "children" : [ 190570 ]
+  }, {
+    "dbId" : 2468148,
+    "stId" : "R-HSA-2468148",
+    "displayName" : "2xAcK-SMC3 [chromosome, centromeric region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9UQE7",
+    "geneNames" : [ "SMC3", "BAM", "BMH", "CSPG6", "SMC3L1" ],
+    "parents" : [ 2500251, 2484809, 2466014 ]
+  }, {
+    "dbId" : 157456,
+    "stId" : "R-HSA-157456",
+    "displayName" : "CCNB1:p-T161-CDK1 [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 2311324 ],
+    "children" : [ 157451, 157415 ]
+  }, {
+    "dbId" : 2520884,
+    "stId" : "R-ALL-2520884",
+    "displayName" : "Condensed prometaphase chromosomes [cytosol]",
+    "schemaClass" : "OtherEntity",
+    "diagramIds" : [ 3193 ]
+  }, {
+    "dbId" : 2468151,
+    "stId" : "R-HSA-2468151",
+    "displayName" : "PDS5 [chromosome]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "parents" : [ 2484814, 2468272, 2468165 ],
+    "children" : [ 2466360, 2466361 ]
+  }, {
+    "dbId" : 2984255,
+    "stId" : "R-HSA-2984255",
+    "displayName" : "p-3S,2T-NEK9: p-S206-NEK6/ p-S195-NEK7 [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 4179 ],
+    "children" : [ 2984227, 2984248 ]
+  }, {
+    "dbId" : 2520882,
+    "stId" : "R-ALL-2520882",
+    "displayName" : "Condensed prophase chromosomes [cytosol]",
+    "schemaClass" : "OtherEntity",
+    "diagramIds" : [ 3192 ]
+  }, {
+    "dbId" : 2984248,
+    "stId" : "R-HSA-2984248",
+    "displayName" : "p-S206-NEK6/p-S195-NEK7 [cytosol]",
+    "schemaClass" : "CandidateSet",
+    "speciesId" : 48887,
+    "parents" : [ 2984255 ],
+    "children" : [ 2984253, 2984246 ]
+  }, {
+    "dbId" : 2468146,
+    "stId" : "R-HSA-2468146",
+    "displayName" : "2xAcK-SMC3 [chromosome]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9UQE7",
+    "geneNames" : [ "SMC3", "BAM", "BMH", "CSPG6", "SMC3L1" ],
+    "parents" : [ 1638794, 1638788 ]
+  }, {
+    "dbId" : 2984246,
+    "stId" : "R-HSA-2984246",
+    "displayName" : "p-S195-NEK7 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8TDX7",
+    "geneNames" : [ "NEK7" ],
+    "parents" : [ 2984248 ]
+  }, {
+    "dbId" : 68897,
+    "stId" : "R-HSA-68897",
+    "displayName" : "CCNB2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O95067",
+    "geneNames" : [ "CCNB2" ],
+    "parents" : [ 68898 ]
+  }, {
+    "dbId" : 68898,
+    "stId" : "R-HSA-68898",
+    "displayName" : "CCNB2:p-T161-CDK1 [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 2311324 ],
+    "children" : [ 157415, 68897 ]
+  }, {
+    "dbId" : 380706,
+    "stId" : "R-HSA-380706",
+    "displayName" : "NINL [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9Y2I6",
+    "geneNames" : [ "NINL", "KIAA0980", "NLP" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 2520845,
+    "stId" : "R-HSA-2520845",
+    "displayName" : "CDK1 Phosphorylated Condensin I [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3142 ],
+    "children" : [ 2517883, 2517885, 2517887, 2517875, 2517876 ]
+  }, {
+    "dbId" : 194368,
+    "stId" : "R-HSA-194368",
+    "displayName" : "YWHAE [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P62258",
+    "geneNames" : [ "YWHAE" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 9648091,
+    "stId" : "R-HSA-9648091",
+    "displayName" : "p-S,T-EML4 homotrimer [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 4084 ],
+    "children" : [ 9648096 ]
+  }, {
+    "dbId" : 2517876,
+    "stId" : "R-HSA-2517876",
+    "displayName" : "SMC4 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9NTJ3",
+    "geneNames" : [ "SMC4", "CAPC", "SMC4L1" ],
+    "parents" : [ 2520845, 1638143 ]
+  }, {
+    "dbId" : 2517875,
+    "stId" : "R-HSA-2517875",
+    "displayName" : "SMC2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O95347",
+    "geneNames" : [ "SMC2", "CAPE", "SMC2L1", "PRO0324" ],
+    "parents" : [ 2520845, 2529014, 1638143 ]
+  }, {
+    "dbId" : 2517887,
+    "stId" : "R-HSA-2517887",
+    "displayName" : "p-T1339,T1384,T1389-NCAPD2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q15021",
+    "geneNames" : [ "NCAPD2", "CAPD2", "CNAP1", "KIAA0159" ],
+    "parents" : [ 2520845 ]
+  }, {
+    "dbId" : 380255,
+    "stId" : "R-HSA-380255",
+    "displayName" : "SSNA1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O43805",
+    "geneNames" : [ "SSNA1", "NA14" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 2517885,
+    "stId" : "R-HSA-2517885",
+    "displayName" : "p-T-NCAPH [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q15003",
+    "geneNames" : [ "NCAPH", "BRRN", "BRRN1", "CAPH", "KIAA0074" ],
+    "parents" : [ 2520845 ]
+  }, {
+    "dbId" : 2517883,
+    "stId" : "R-HSA-2517883",
+    "displayName" : "p-T308,T332-NCAPG [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BPX3",
+    "geneNames" : [ "NCAPG", "CAPG", "NYMEL3" ],
+    "parents" : [ 2520845 ]
+  }, {
+    "dbId" : 380261,
+    "stId" : "R-HSA-380261",
+    "displayName" : "CCP110 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O43303",
+    "geneNames" : [ "CCP110", "CEP110", "CP110", "KIAA0419" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 2468165,
+    "stId" : "R-HSA-2468165",
+    "displayName" : "Ac-Cohesin:PDS5:CDCA5:WAPAL [chromosome]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 1638802 ],
+    "children" : [ 1638788, 2577090, 2468151, 2468149 ]
+  }, {
+    "dbId" : 1638777,
+    "stId" : "R-HSA-1638777",
+    "displayName" : "STAG2 [chromosome]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8N3U4",
+    "geneNames" : [ "STAG2", "SA2" ],
+    "parents" : [ 1638788 ]
+  }, {
+    "dbId" : 380260,
+    "stId" : "R-HSA-380260",
+    "displayName" : "AKAP9 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q99996",
+    "geneNames" : [ "AKAP9", "AKAP350", "AKAP450", "KIAA0803" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 380263,
+    "stId" : "R-HSA-380263",
+    "displayName" : "CEP250 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BV73",
+    "geneNames" : [ "CEP250", "CEP2", "CNAP1" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 192864,
+    "stId" : "R-HSA-192864",
+    "displayName" : "HSP90AA1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P07900",
+    "geneNames" : [ "HSP90AA1", "HSP90A", "HSPC1", "HSPCA" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 380257,
+    "stId" : "R-HSA-380257",
+    "displayName" : "CEP70 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8NHQ1",
+    "geneNames" : [ "CEP70", "BITE" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 380256,
+    "stId" : "R-HSA-380256",
+    "displayName" : "CNTRL [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q7Z7A1",
+    "geneNames" : [ "CNTRL", "CEP1", "CEP110" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 380258,
+    "stId" : "R-HSA-380258",
+    "displayName" : "ACTR1A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P61163",
+    "geneNames" : [ "ACTR1A", "CTRN1" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 380269,
+    "stId" : "R-HSA-380269",
+    "displayName" : "CEP41 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BYV8",
+    "geneNames" : [ "CEP41", "TSGA14" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 201578,
+    "stId" : "R-HSA-201578",
+    "displayName" : "DYNC1I1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O14576",
+    "geneNames" : [ "DYNC1I1", "DNCI1", "DNCIC1" ],
+    "parents" : [ 2029119 ]
+  }, {
+    "dbId" : 380268,
+    "stId" : "R-HSA-380268",
+    "displayName" : "centrosome [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 380440 ],
+    "children" : [ 380282, 190588, 380281, 380286, 164603, 380285, 380275, 380273, 57844, 57842, 380277, 380266, 379269, 380293, 380295, 377729, 201607, 380289, 379267, 380291, 380290, 380301, 380302, 380298, 380309, 380308, 380305, 380304, 380317, 380319, 380318, 380312, 380315, 376230, 380321, 387105, 380706, 8855211, 177329, 376240, 205877, 376249, 194368, 376257, 191689, 191694, 191702, 170075, 380255, 165982, 380261, 380260, 192864, 380263, 380257, 380256, 380258, 380269, 380271, 380265, 380264, 380267 ]
+  }, {
+    "dbId" : 380271,
+    "stId" : "R-HSA-380271",
+    "displayName" : "CEP57 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q86XR8",
+    "geneNames" : [ "CEP57", "KIAA0092", "TSP57" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 1638770,
+    "stId" : "R-HSA-1638770",
+    "displayName" : "PPP2R5E [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q16537",
+    "geneNames" : [ "PPP2R5E" ],
+    "parents" : [ 196216 ]
+  }, {
+    "dbId" : 380265,
+    "stId" : "R-HSA-380265",
+    "displayName" : "SFI1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "A8K8P3",
+    "geneNames" : [ "SFI1", "KIAA0542" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 1638773,
+    "stId" : "R-HSA-1638773",
+    "displayName" : "STAG1 [chromosome]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8WVM7",
+    "geneNames" : [ "STAG1", "SA1", "SCC3" ],
+    "parents" : [ 1638794, 1638788 ]
+  }, {
+    "dbId" : 380264,
+    "stId" : "R-HSA-380264",
+    "displayName" : "DCTN3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O75935",
+    "geneNames" : [ "DCTN3", "DCTN22" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 380267,
+    "stId" : "R-HSA-380267",
+    "displayName" : "CEP63 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96MT8",
+    "geneNames" : [ "CEP63" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 1638775,
+    "stId" : "R-HSA-1638775",
+    "displayName" : "RAD21 [chromosome]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O60216",
+    "geneNames" : [ "RAD21", "HR21", "KIAA0078", "NXP1", "SCC1" ],
+    "parents" : [ 1638788 ]
+  }, {
+    "dbId" : 9648125,
+    "stId" : "R-HSA-9648125",
+    "displayName" : "p-S274,S326-NUDC [spindle]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9Y266",
+    "geneNames" : [ "NUDC" ],
+    "parents" : [ 9648124 ]
+  }, {
+    "dbId" : 380266,
+    "stId" : "R-HSA-380266",
+    "displayName" : "CEP135 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q66GS9",
+    "geneNames" : [ "CEP135", "CEP4", "KIAA0635" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 1638774,
+    "stId" : "R-HSA-1638774",
+    "displayName" : "SMC1A [chromosome]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q14683",
+    "geneNames" : [ "SMC1A", "DXS423E", "KIAA0178", "SB1.8", "SMC1", "SMC1L1" ],
+    "parents" : [ 1638794, 1638788 ]
+  }, {
+    "dbId" : 9648124,
+    "stId" : "R-HSA-9648124",
+    "displayName" : "p-S274,S326-NUDC:EML4 homotrimer:Microtubule-bound kinetochore [spindle]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 4178 ],
+    "children" : [ 9648125, 375303, 9647745 ]
+  }, {
+    "dbId" : 380277,
+    "stId" : "R-HSA-380277",
+    "displayName" : "CEP152 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O94986",
+    "geneNames" : [ "CEP152", "KIAA0912" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 9648096,
+    "stId" : "R-HSA-9648096",
+    "displayName" : "p-S,T-EML4 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9HC35",
+    "geneNames" : [ "EML4", "C2orf2", "EMAPL4" ],
+    "parents" : [ 9648091 ]
+  }, {
+    "dbId" : 380273,
+    "stId" : "R-HSA-380273",
+    "displayName" : "SDCCAG8 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q86SQ7",
+    "geneNames" : [ "SDCCAG8", "CCCAP", "NPHP10", "HSPC085" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 380275,
+    "stId" : "R-HSA-380275",
+    "displayName" : "CEP290 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O15078",
+    "geneNames" : [ "CEP290", "BBS14", "KIAA0373", "NPHP6" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 380274,
+    "stId" : "R-HSA-380274",
+    "displayName" : "HAUS2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9NVX0",
+    "geneNames" : [ "HAUS2", "C15orf25", "CEP27" ],
+    "parents" : [ 8855211 ]
+  }, {
+    "dbId" : 380285,
+    "stId" : "R-HSA-380285",
+    "displayName" : "DYNC1H1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q14204",
+    "geneNames" : [ "DYNC1H1", "DHC1", "DNCH1", "DNCL", "DNECL", "DYHC", "KIAA0325" ],
+    "parents" : [ 380268, 2029144 ]
+  }, {
+    "dbId" : 380286,
+    "stId" : "R-HSA-380286",
+    "displayName" : "PLK4 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O00444",
+    "geneNames" : [ "PLK4", "SAK", "STK18" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 380281,
+    "stId" : "R-HSA-380281",
+    "displayName" : "CEP76 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8TAP6",
+    "geneNames" : [ "CEP76", "C18orf9" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 380282,
+    "stId" : "R-HSA-380282",
+    "displayName" : "CDK5RAP2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96SN8",
+    "geneNames" : [ "CDK5RAP2", "CEP215", "KIAA1633" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 377733,
+    "stId" : "R-HSA-377733",
+    "displayName" : "SPDL1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96EA4",
+    "geneNames" : [ "SPDL1", "CCDC99" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 379269,
+    "stId" : "R-HSA-379269",
+    "displayName" : "TUBG1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P23258",
+    "geneNames" : [ "TUBG1", "TUBG" ],
+    "parents" : [ 380447, 380268 ]
+  }, {
+    "dbId" : 380293,
+    "stId" : "R-HSA-380293",
+    "displayName" : "ODF2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q5BJF6",
+    "geneNames" : [ "ODF2" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 2468261,
+    "stId" : "R-HSA-2468261",
+    "displayName" : "PDS5 [chromosome, centromeric region]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "parents" : [ 2500242, 1638796, 2468282, 2574847 ],
+    "children" : [ 2468259, 2468263 ]
+  }, {
+    "dbId" : 377732,
+    "stId" : "R-HSA-377732",
+    "displayName" : "CLIP1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P30622",
+    "geneNames" : [ "CLIP1", "CYLN1", "RSN" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 379268,
+    "stId" : "R-HSA-379268",
+    "displayName" : "TUBGCP4 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9UGJ1",
+    "geneNames" : [ "TUBGCP4", "76P", "GCP4" ],
+    "parents" : [ 379277 ]
+  }, {
+    "dbId" : 2468260,
+    "stId" : "R-HSA-2468260",
+    "displayName" : "CDCA5 [chromosome, centromeric region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96FF9",
+    "geneNames" : [ "CDCA5" ],
+    "parents" : [ 2574847 ]
+  }, {
+    "dbId" : 379271,
+    "stId" : "R-HSA-379271",
+    "displayName" : "TUBGCP5 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96RT8",
+    "geneNames" : [ "TUBGCP5", "GCP5", "KIAA1899" ],
+    "parents" : [ 379277 ]
+  }, {
+    "dbId" : 380295,
+    "stId" : "R-HSA-380295",
+    "displayName" : "AZI1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9UPN4",
+    "geneNames" : [ "CEP131", "AZI1", "KIAA1118" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 2468263,
+    "stId" : "R-HSA-2468263",
+    "displayName" : "PDS5B [chromosome, centromeric region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9NTI5",
+    "geneNames" : [ "PDS5B", "APRIN", "AS3", "KIAA0979" ],
+    "parents" : [ 2468261 ]
+  }, {
+    "dbId" : 201607,
+    "stId" : "R-HSA-201607",
+    "displayName" : "DYNC1I2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q13409",
+    "geneNames" : [ "DYNC1I2", "DNCI2", "DNCIC2" ],
+    "parents" : [ 380268, 2029119 ]
+  }, {
+    "dbId" : 377729,
+    "stId" : "R-HSA-377729",
+    "displayName" : "CKAP5 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q14008",
+    "geneNames" : [ "CKAP5", "KIAA0097" ],
+    "parents" : [ 380268, 375305 ]
+  }, {
+    "dbId" : 380289,
+    "stId" : "R-HSA-380289",
+    "displayName" : "ALMS1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8TCU4",
+    "geneNames" : [ "ALMS1", "KIAA0328" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 377731,
+    "stId" : "R-HSA-377731",
+    "displayName" : "NUDC [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9Y266",
+    "geneNames" : [ "NUDC" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 379267,
+    "stId" : "R-HSA-379267",
+    "displayName" : "NEDD1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8NHV4",
+    "geneNames" : [ "NEDD1" ],
+    "parents" : [ 379277, 380268 ]
+  }, {
+    "dbId" : 380291,
+    "stId" : "R-HSA-380291",
+    "displayName" : "CENPJ [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9HC77",
+    "geneNames" : [ "CENPJ", "CPAP", "LAP", "LIP1" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 2468259,
+    "stId" : "R-HSA-2468259",
+    "displayName" : "PDS5A [chromosome, centromeric region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q29RF7",
+    "geneNames" : [ "PDS5A", "KIAA0648", "PDS5", "PIG54" ],
+    "parents" : [ 2468261 ]
+  }, {
+    "dbId" : 380290,
+    "stId" : "R-HSA-380290",
+    "displayName" : "PCNT [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O95613",
+    "geneNames" : [ "PCNT", "KIAA0402", "PCNT2" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 379277,
+    "stId" : "R-HSA-379277",
+    "displayName" : "gamma-tubulin complex [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 380440 ],
+    "children" : [ 379274, 380447, 8955057, 8955056, 6806880, 8955055, 379267, 379271, 379268 ]
+  }, {
+    "dbId" : 380301,
+    "stId" : "R-HSA-380301",
+    "displayName" : "DCTN1-2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q14203-2",
+    "geneNames" : [ "DCTN1" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 2468269,
+    "stId" : "R-HSA-2468269",
+    "displayName" : "p-S21,S75,T159-CDCA5 [chromosome, centromeric region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96FF9",
+    "geneNames" : [ "CDCA5" ],
+    "parents" : [ 2500242, 1638796, 2468282 ]
+  }, {
+    "dbId" : 379276,
+    "stId" : "R-HSA-379276",
+    "displayName" : "TUBGCP3 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96CW5",
+    "geneNames" : [ "TUBGCP3", "GCP3" ],
+    "parents" : [ 380447 ]
+  }, {
+    "dbId" : 2485164,
+    "stId" : "R-HSA-2485164",
+    "displayName" : "p-S454-RAD21 [chromosome]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O60216",
+    "geneNames" : [ "RAD21", "HR21", "KIAA0078", "NXP1", "SCC1" ],
+    "parents" : [ 1638794 ]
+  }, {
+    "dbId" : 380302,
+    "stId" : "R-HSA-380302",
+    "displayName" : "DCTN2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q13561",
+    "geneNames" : [ "DCTN2", "DCTN50" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 1638802,
+    "stId" : "R-HSA-1638802",
+    "displayName" : "Sister Chromosomal Arms:Ac-Cohesin:PDS5:CDCA5:WAPAL [chromosome]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 619 ],
+    "children" : [ 1638790, 2468165 ]
+  }, {
+    "dbId" : 379273,
+    "stId" : "R-HSA-379273",
+    "displayName" : "Mature centrosome:nucleated microtubules [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 380495 ],
+    "children" : [ 380440, 190599 ]
+  }, {
+    "dbId" : 1638805,
+    "stId" : "R-HSA-1638805",
+    "displayName" : "Sister Chromosomal Arms:p-STAG2,RAD21-Ac-Cohesin:PDS5:p-CDCA5:WAPAL [chromosome]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 624 ],
+    "children" : [ 1638790, 2484814 ]
+  }, {
+    "dbId" : 377736,
+    "stId" : "R-HSA-377736",
+    "displayName" : "B9D2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BPU9",
+    "geneNames" : [ "B9D2", "MKSR2" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 379272,
+    "stId" : "R-HSA-379272",
+    "displayName" : "TUBG2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9NRH3",
+    "geneNames" : [ "TUBG2" ],
+    "parents" : [ 380447 ]
+  }, {
+    "dbId" : 379275,
+    "stId" : "R-HSA-379275",
+    "displayName" : "TUBGCP2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BSJ2",
+    "geneNames" : [ "TUBGCP2", "GCP2" ],
+    "parents" : [ 380447 ]
+  }, {
+    "dbId" : 2485163,
+    "stId" : "R-HSA-2485163",
+    "displayName" : "p-S454-RAD21 [chromosome, centromeric region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O60216",
+    "geneNames" : [ "RAD21", "HR21", "KIAA0078", "NXP1", "SCC1" ],
+    "parents" : [ 2500251, 2484809 ]
+  }, {
+    "dbId" : 377738,
+    "stId" : "R-HSA-377738",
+    "displayName" : "CCAN network [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 375305 ],
+    "children" : [ 375306, 375290, 377886, 375310, 375295, 377884, 375292, 375316 ]
+  }, {
+    "dbId" : 379274,
+    "stId" : "R-HSA-379274",
+    "displayName" : "TUBGCP6 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96RT7",
+    "geneNames" : [ "TUBGCP6", "GCP6", "KIAA1669" ],
+    "parents" : [ 379277 ]
+  }, {
+    "dbId" : 380298,
+    "stId" : "R-HSA-380298",
+    "displayName" : "CETN2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P41208",
+    "geneNames" : [ "CETN2", "CALT", "CEN2" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 2468266,
+    "stId" : "R-HSA-2468266",
+    "displayName" : "p-S21,S75,T159-CDCA5 [chromosome]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96FF9",
+    "geneNames" : [ "CDCA5" ],
+    "parents" : [ 2484814, 2468272 ]
+  }, {
+    "dbId" : 380309,
+    "stId" : "R-HSA-380309",
+    "displayName" : "FGFR1OP [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O95684",
+    "geneNames" : [ "FGFR1OP", "FOP" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 1638793,
+    "stId" : "R-HSA-1638793",
+    "displayName" : "p-STAG2 [chromosome]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8N3U4",
+    "geneNames" : [ "STAG2", "SA2" ],
+    "parents" : [ 1638794 ]
+  }, {
+    "dbId" : 380308,
+    "stId" : "R-HSA-380308",
+    "displayName" : "PCM1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q15154",
+    "geneNames" : [ "PCM1" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 1638792,
+    "stId" : "R-ALL-1638792",
+    "displayName" : "Sister Centromere [chromosome]",
+    "schemaClass" : "OtherEntity",
+    "parents" : [ 2500242, 2484816, 1638796, 2468282, 2473148, 1638799 ]
+  }, {
+    "dbId" : 1638794,
+    "stId" : "R-HSA-1638794",
+    "displayName" : "p-STAG2,RAD21-Ac-Cohesin [chromosome]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 2484814 ],
+    "children" : [ 1638774, 1638773, 2485164, 2468146, 1638793 ]
+  }, {
+    "dbId" : 377745,
+    "stId" : "R-HSA-377745",
+    "displayName" : "KMN network [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 375305 ],
+    "children" : [ 375322, 375441, 375444 ]
+  }, {
+    "dbId" : 380305,
+    "stId" : "R-HSA-380305",
+    "displayName" : "CEP164 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9UPV0",
+    "geneNames" : [ "CEP164", "KIAA1052", "NPHP15" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 380304,
+    "stId" : "R-HSA-380304",
+    "displayName" : "CEP78 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q5JTW2",
+    "geneNames" : [ "CEP78", "C9orf81" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 2468272,
+    "stId" : "R-HSA-2468272",
+    "displayName" : "Ac-Cohesin:PDS5:p-CDCA5:WAPAL [chromosome]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 2468274 ],
+    "children" : [ 2468266, 1638788, 2577090, 2468151 ]
+  }, {
+    "dbId" : 1638796,
+    "stId" : "R-HSA-1638796",
+    "displayName" : "p-STAG2,RAD21-Ac-Cohesin:PDS5:p-CDCA5:WAPAL:Sister Centromeres:Kinetochores:Microtubules [chromosome, centromeric region]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 622 ],
+    "children" : [ 2484809, 2468269, 2577088, 375303, 1638792, 2468261 ]
+  }, {
+    "dbId" : 76183,
+    "stId" : "R-ALL-76183",
+    "displayName" : "Ac-CoA [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 3803 ],
+    "identifier" : "15351"
+  }, {
+    "dbId" : 1638799,
+    "stId" : "R-HSA-1638799",
+    "displayName" : "Sister Centromeres:Ac-Cohesin:PDS5:CDCA5:WAPAL [chromosome, centromeric region]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 2123 ],
+    "children" : [ 2473148, 1638792 ]
+  }, {
+    "dbId" : 3008954,
+    "stId" : "R-HSA-3008954",
+    "displayName" : "PPP2R5C [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q13362",
+    "geneNames" : [ "PPP2R5C", "KIAA0044" ],
+    "parents" : [ 196216 ]
+  }, {
+    "dbId" : 2468274,
+    "stId" : "R-HSA-2468274",
+    "displayName" : "Sister Chromosomal Arms:Ac-Cohesin:PDS5:p-CDCA5:WAPAL [chromosome]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 2028 ],
+    "children" : [ 1638790, 2468272 ]
+  }, {
+    "dbId" : 380317,
+    "stId" : "R-HSA-380317",
+    "displayName" : "TUBB [extracellular region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P07437",
+    "geneNames" : [ "TUBB", "TUBB5", "OK/SW-cl.56" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 380319,
+    "stId" : "R-HSA-380319",
+    "displayName" : "CEP192 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8TEP8",
+    "geneNames" : [ "CEP192", "KIAA1569", "PP8407" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 3008950,
+    "stId" : "R-HSA-3008950",
+    "displayName" : "PPP2R5D [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q14738",
+    "geneNames" : [ "PPP2R5D" ],
+    "parents" : [ 196216 ]
+  }, {
+    "dbId" : 380318,
+    "stId" : "R-HSA-380318",
+    "displayName" : "OFD1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O75665",
+    "geneNames" : [ "OFD1", "CXorf5" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 380312,
+    "stId" : "R-HSA-380312",
+    "displayName" : "YWHAG [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P61981",
+    "geneNames" : [ "YWHAG" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 1638788,
+    "stId" : "R-HSA-1638788",
+    "displayName" : "Ac-Cohesin Complex [chromosome]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 2468272, 2468165 ],
+    "children" : [ 1638774, 1638775, 1638773, 2468146, 1638777 ]
+  }, {
+    "dbId" : 380315,
+    "stId" : "R-HSA-380315",
+    "displayName" : "CSNK1D [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P48730",
+    "geneNames" : [ "CSNK1D", "HCKID" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 1638790,
+    "stId" : "R-ALL-1638790",
+    "displayName" : "Sister Chromosomal Arm [chromosome]",
+    "schemaClass" : "OtherEntity",
+    "diagramIds" : [ 1619 ],
+    "parents" : [ 1638805, 2468274, 1638802 ]
+  }, {
+    "dbId" : 2468282,
+    "stId" : "R-HSA-2468282",
+    "displayName" : "Ac-Cohesin:PDS5:p-CDCA5:WAPAL:Sister Centromeres:Kinetochores:Microtubules [chromosome, centromeric region]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 2031 ],
+    "children" : [ 2466014, 2468269, 2577088, 375303, 1638792, 2468261 ]
+  }, {
+    "dbId" : 376229,
+    "stId" : "R-HSA-376229",
+    "displayName" : "CENPF [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P49454",
+    "geneNames" : [ "CENPF" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 376228,
+    "stId" : "R-HSA-376228",
+    "displayName" : "SKA1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96BD8",
+    "geneNames" : [ "SKA1", "C18orf24" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 376231,
+    "stId" : "R-HSA-376231",
+    "displayName" : "SKA2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8WVK7",
+    "geneNames" : [ "SKA2", "FAM33A" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 376230,
+    "stId" : "R-HSA-376230",
+    "displayName" : "CLASP1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q7Z460",
+    "geneNames" : [ "CLASP1", "KIAA0622", "MAST1" ],
+    "parents" : [ 380268, 375305 ]
+  }, {
+    "dbId" : 76194,
+    "stId" : "R-ALL-76194",
+    "displayName" : "CoA-SH [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 3801 ],
+    "identifier" : "15346"
+  }, {
+    "dbId" : 380321,
+    "stId" : "R-HSA-380321",
+    "displayName" : "CEP72 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9P209",
+    "geneNames" : [ "CEP72", "KIAA1519" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 535469,
+    "stId" : "R-HSA-535469",
+    "displayName" : "PPP2R5B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q15173",
+    "geneNames" : [ "PPP2R5B" ],
+    "parents" : [ 196216 ]
+  }, {
+    "dbId" : 5083624,
+    "stId" : "R-HSA-5083624",
+    "displayName" : "CSNK2(A1:A1/A1:A2/A2:A2) [cytosol]",
+    "schemaClass" : "DefinedSet",
+    "speciesId" : 48887,
+    "parents" : [ 201711 ],
+    "children" : [ 5083623, 5083620, 5083621 ]
+  }, {
+    "dbId" : 376227,
+    "stId" : "R-HSA-376227",
+    "displayName" : "SGOL1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q5FBB7",
+    "geneNames" : [ "SGO1", "SGOL1" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 376237,
+    "stId" : "R-HSA-376237",
+    "displayName" : "NUP37 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8NFH4",
+    "geneNames" : [ "NUP37" ],
+    "parents" : [ 377883 ]
+  }, {
+    "dbId" : 5083621,
+    "stId" : "R-HSA-5083621",
+    "displayName" : "CSNK2A1 dimer [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 5083624 ],
+    "children" : [ 201713 ]
+  }, {
+    "dbId" : 5083620,
+    "stId" : "R-HSA-5083620",
+    "displayName" : "CSNK2A2 dimer [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 5083624 ],
+    "children" : [ 201721 ]
+  }, {
+    "dbId" : 376239,
+    "stId" : "R-HSA-376239",
+    "displayName" : "KIF18A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8NI77",
+    "geneNames" : [ "KIF18A", "OK/SW-cl.108" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 5083623,
+    "stId" : "R-HSA-5083623",
+    "displayName" : "CSNK2A1:CSNK2A2 [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 5083624 ],
+    "children" : [ 201721, 201713 ]
+  }, {
+    "dbId" : 376238,
+    "stId" : "R-HSA-376238",
+    "displayName" : "NUP85 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BW27",
+    "geneNames" : [ "NUP85", "NUP75", "PCNT1" ],
+    "parents" : [ 377883 ]
+  }, {
+    "dbId" : 376233,
+    "stId" : "R-HSA-376233",
+    "displayName" : "KNTC1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P50748",
+    "geneNames" : [ "KNTC1", "KIAA0166" ],
+    "parents" : [ 377885 ]
+  }, {
+    "dbId" : 376232,
+    "stId" : "R-HSA-376232",
+    "displayName" : "KIF2A [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O00139",
+    "geneNames" : [ "KIF2A", "KIF2", "KNS2" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 376235,
+    "stId" : "R-HSA-376235",
+    "displayName" : "RCC2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9P258",
+    "geneNames" : [ "RCC2", "KIAA1470", "TD60" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 376234,
+    "stId" : "R-HSA-376234",
+    "displayName" : "ZWILCH [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9H900",
+    "geneNames" : [ "ZWILCH" ],
+    "parents" : [ 377885 ]
+  }, {
+    "dbId" : 376245,
+    "stId" : "R-HSA-376245",
+    "displayName" : "CENPE [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q02224",
+    "geneNames" : [ "CENPE" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 376244,
+    "stId" : "R-HSA-376244",
+    "displayName" : "AHCTF1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8WYP5",
+    "geneNames" : [ "AHCTF1", "ELYS", "TMBS62", "MSTP108" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 376247,
+    "stId" : "R-HSA-376247",
+    "displayName" : "NUP98-5 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P52948-5",
+    "geneNames" : [ "NUP98", "ADAR2" ],
+    "parents" : [ 377883 ]
+  }, {
+    "dbId" : 376246,
+    "stId" : "R-HSA-376246",
+    "displayName" : "SEH1L-1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96EE3-1",
+    "geneNames" : [ "SEH1L", "SEC13L", "SEH1" ],
+    "parents" : [ 377883 ]
+  }, {
+    "dbId" : 376241,
+    "stId" : "R-HSA-376241",
+    "displayName" : "NUP107 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P57740",
+    "geneNames" : [ "NUP107" ],
+    "parents" : [ 377883 ]
+  }, {
+    "dbId" : 376240,
+    "stId" : "R-HSA-376240",
+    "displayName" : "MAPRE1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q15691",
+    "geneNames" : [ "MAPRE1" ],
+    "parents" : [ 380268, 375305 ]
+  }, {
+    "dbId" : 376243,
+    "stId" : "R-HSA-376243",
+    "displayName" : "NUP43 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8NFH3",
+    "geneNames" : [ "NUP43" ],
+    "parents" : [ 377883 ]
+  }, {
+    "dbId" : 376242,
+    "stId" : "R-HSA-376242",
+    "displayName" : "SGOL2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q562F6",
+    "geneNames" : [ "SGO2", "SGOL2" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 376253,
+    "stId" : "R-HSA-376253",
+    "displayName" : "NUP160 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q12769",
+    "geneNames" : [ "NUP160", "KIAA0197", "NUP120" ],
+    "parents" : [ 377883 ]
+  }, {
+    "dbId" : 376252,
+    "stId" : "R-HSA-376252",
+    "displayName" : "CLASP2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O75122",
+    "geneNames" : [ "CLASP2", "KIAA0627" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 113592,
+    "stId" : "R-ALL-113592",
+    "displayName" : "ATP [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "diagramIds" : [ 2032, 3665, 4083, 2070, 2502, 4135, 3258, 2029 ],
+    "identifier" : "30616"
+  }, {
+    "dbId" : 376255,
+    "stId" : "R-HSA-376255",
+    "displayName" : "RANGAP1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P46060",
+    "geneNames" : [ "RANGAP1", "KIAA1835", "SD" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 376254,
+    "stId" : "R-HSA-376254",
+    "displayName" : "ZWINT [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O95229",
+    "geneNames" : [ "ZWINT" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 376249,
+    "stId" : "R-HSA-376249",
+    "displayName" : "PAFAH1B1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P43034",
+    "geneNames" : [ "PAFAH1B1", "LIS1", "MDCR", "MDS", "PAFAHA" ],
+    "parents" : [ 380268, 375305 ]
+  }, {
+    "dbId" : 376248,
+    "stId" : "R-HSA-376248",
+    "displayName" : "TAOK1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q7L7X3",
+    "geneNames" : [ "TAOK1", "KIAA1361", "MAP3K16", "MARKK" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 376251,
+    "stId" : "R-HSA-376251",
+    "displayName" : "NUP133 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8WUM0",
+    "geneNames" : [ "NUP133" ],
+    "parents" : [ 377883 ]
+  }, {
+    "dbId" : 376250,
+    "stId" : "R-HSA-376250",
+    "displayName" : "ERCC6L [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q2NKX8",
+    "geneNames" : [ "ERCC6L", "PICH" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 376257,
+    "stId" : "R-HSA-376257",
+    "displayName" : "NDE1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9NXR1",
+    "geneNames" : [ "NDE1", "NUDE" ],
+    "parents" : [ 380268, 375305 ]
+  }, {
+    "dbId" : 376256,
+    "stId" : "R-HSA-376256",
+    "displayName" : "KIF2C [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q99661",
+    "geneNames" : [ "KIF2C", "KNSL6" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 376259,
+    "stId" : "R-HSA-376259",
+    "displayName" : "KIF2B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8N4N8",
+    "geneNames" : [ "KIF2B" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 376258,
+    "stId" : "R-HSA-376258",
+    "displayName" : "NDEL1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9GZM8",
+    "geneNames" : [ "NDEL1", "EOPA", "MITAP1", "NUDEL" ],
+    "parents" : [ 375305 ]
+  }, {
+    "dbId" : 3000318,
+    "stId" : "R-HSA-3000318",
+    "displayName" : "p-T210-PLK1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 4139 ],
+    "identifier" : "P53350",
+    "geneNames" : [ "PLK1", "PLK" ]
+  }, {
+    "dbId" : 2574847,
+    "stId" : "R-HSA-2574847",
+    "displayName" : "Ac-Cohesin:PDS5:CDCA5:WAPAL [chromosome, centromeric region]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 2484817, 2473148 ],
+    "children" : [ 2466014, 2577088, 2468260, 2468261 ]
+  }, {
+    "dbId" : 201693,
+    "stId" : "R-HSA-201693",
+    "displayName" : "CSNK2B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P67870",
+    "geneNames" : [ "CSNK2B", "CK2N", "G5A" ],
+    "parents" : [ 201711 ]
+  }, {
+    "dbId" : 3006405,
+    "stId" : "R-HSA-3006405",
+    "displayName" : "ITGB3BP [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q13352",
+    "geneNames" : [ "ITGB3BP", "CENPR", "NRIF3" ],
+    "parents" : [ 377886 ]
+  }, {
+    "dbId" : 201711,
+    "stId" : "R-HSA-201711",
+    "displayName" : "Casein kinase II [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "diagramIds" : [ 3667 ],
+    "children" : [ 201693, 5083624 ]
+  }, {
+    "dbId" : 201713,
+    "stId" : "R-HSA-201713",
+    "displayName" : "CSNK2A1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P68400",
+    "geneNames" : [ "CSNK2A1", "CK2A1" ],
+    "parents" : [ 5083623, 5083621 ]
+  }, {
+    "dbId" : 57842,
+    "stId" : "R-HSA-57842",
+    "displayName" : "PRKAR2B [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P31323",
+    "geneNames" : [ "PRKAR2B" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 57844,
+    "stId" : "R-HSA-57844",
+    "displayName" : "PRKACA [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P17612",
+    "geneNames" : [ "PRKACA", "PKACA" ],
+    "parents" : [ 380268 ]
+  }, {
+    "dbId" : 375293,
+    "stId" : "R-HSA-375293",
+    "displayName" : "CENPI [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q92674",
+    "geneNames" : [ "CENPI", "FSHPRH1", "ICEN19", "LRPR1" ],
+    "parents" : [ 377884 ]
+  }, {
+    "dbId" : 375292,
+    "stId" : "R-HSA-375292",
+    "displayName" : "CENPC1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q03188",
+    "geneNames" : [ "CENPC", "CENPC1", "ICEN7" ],
+    "parents" : [ 377738 ]
+  }, {
+    "dbId" : 375295,
+    "stId" : "R-HSA-375295",
+    "displayName" : "CENPL [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8N0S6",
+    "geneNames" : [ "CENPL", "C1orf155", "ICEN33" ],
+    "parents" : [ 377738 ]
+  }, {
+    "dbId" : 201721,
+    "stId" : "R-HSA-201721",
+    "displayName" : "CSNK2A2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P19784",
+    "geneNames" : [ "CSNK2A2", "CK2A2" ],
+    "parents" : [ 5083623, 5083620 ]
+  }, {
+    "dbId" : 375294,
+    "stId" : "R-HSA-375294",
+    "displayName" : "CENPH [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9H3R5",
+    "geneNames" : [ "CENPH", "ICEN35" ],
+    "parents" : [ 377884 ]
+  }, {
+    "dbId" : 375288,
+    "stId" : "R-HSA-375288",
+    "displayName" : "CDCA8 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q53HL2",
+    "geneNames" : [ "CDCA8", "PESCRG3" ],
+    "parents" : [ 377879 ]
+  }, {
+    "dbId" : 2029024,
+    "stId" : "R-HSA-2029024",
+    "displayName" : "DYNLL2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96FJ2",
+    "geneNames" : [ "DYNLL2", "DLC2" ],
+    "parents" : [ 2029105 ]
+  }, {
+    "dbId" : 375290,
+    "stId" : "R-HSA-375290",
+    "displayName" : "CENPM [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9NSP4",
+    "geneNames" : [ "CENPM", "C22orf18", "ICEN39", "PANE1" ],
+    "parents" : [ 377738 ]
+  }, {
+    "dbId" : 2029025,
+    "stId" : "R-HSA-2029025",
+    "displayName" : "DYNC1LI2 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O43237",
+    "geneNames" : [ "DYNC1LI2", "DNCLI2", "LIC2" ],
+    "parents" : [ 2029122 ]
+  } ],
+  "edges" : [ {
+    "dbId" : 2514854,
+    "stId" : "R-HSA-2514854",
+    "displayName" : "CDK1 phosphorylates condensin I",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 2529015 ],
+    "following" : [ 2520883 ],
+    "inputs" : [ 113592, 1638143 ],
+    "outputs" : [ 2520845, 29370 ],
+    "catalysts" : [ 2311324 ],
+    "efs" : [ ],
+    "diagramIds" : [ 3138 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 2468293,
+    "stId" : "R-HSA-2468293",
+    "displayName" : "CDK1 phosphorylates CDCA5 (Sororin) at chromosomal arms",
+    "schemaClass" : "Reaction",
+    "following" : [ 2466068 ],
+    "inputs" : [ 1638802, 113592 ],
+    "outputs" : [ 29370, 2468274 ],
+    "catalysts" : [ 2311324 ],
+    "efs" : [ ],
+    "diagramIds" : [ 2069 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 9648114,
+    "stId" : "R-HSA-9648114",
+    "displayName" : "EML4 recruits NUDC to mitotic spindle",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 156682 ],
+    "inputs" : [ 156702, 375303, 9647745 ],
+    "outputs" : [ 9648124 ],
+    "efs" : [ ],
+    "diagramIds" : [ 4177 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 9648017,
+    "stId" : "R-HSA-9648017",
+    "displayName" : "EML4 binds to microtubules",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 9647746 ],
+    "inputs" : [ 190599, 9647745 ],
+    "outputs" : [ 9648023 ],
+    "efs" : [ ],
+    "inhibitors" : [ 2984255 ],
+    "diagramIds" : [ 3966 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 375302,
+    "stId" : "R-HSA-375302",
+    "displayName" : "Kinetochore capture of astral microtubules",
+    "schemaClass" : "Reaction",
+    "following" : [ 2484822 ],
+    "inputs" : [ 375305, 190599 ],
+    "outputs" : [ 375303 ],
+    "efs" : [ ],
+    "diagramIds" : [ 3945 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 2545253,
+    "stId" : "R-HSA-2545253",
+    "displayName" : "Deacetylation of cohesin",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 2467794 ],
+    "inputs" : [ 2484812, 76194 ],
+    "outputs" : [ 2545249, 76183 ],
+    "catalysts" : [ 2545205 ],
+    "efs" : [ ],
+    "diagramIds" : [ 3800 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 156682,
+    "stId" : "R-HSA-156682",
+    "displayName" : "PLK1 phosphorylates NUDC",
+    "schemaClass" : "Reaction",
+    "following" : [ 9648114 ],
+    "inputs" : [ 156716, 113592 ],
+    "outputs" : [ 156702, 29370 ],
+    "catalysts" : [ 3000318 ],
+    "efs" : [ ],
+    "diagramIds" : [ 4134 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 1638803,
+    "stId" : "R-HSA-1638803",
+    "displayName" : "Phosphorylation of cohesin by PLK1 at centromeres",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 2468287 ],
+    "following" : [ 1638821 ],
+    "inputs" : [ 2468282, 113592 ],
+    "outputs" : [ 29370, 1638796 ],
+    "catalysts" : [ 164603 ],
+    "efs" : [ ],
+    "diagramIds" : [ 618 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 9648089,
+    "stId" : "R-HSA-9648089",
+    "displayName" : "NEK6 and NEK7 phosphorylate EML4",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 9647746 ],
+    "inputs" : [ 113592, 9647745 ],
+    "outputs" : [ 29370, 9648091 ],
+    "catalysts" : [ 2984255 ],
+    "efs" : [ ],
+    "diagramIds" : [ 4082 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 2529015,
+    "stId" : "R-HSA-2529015",
+    "displayName" : "Dephosphorylation of CK2-modified condensin I",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 2529020 ],
+    "following" : [ 2514854 ],
+    "inputs" : [ 29356, 2529014 ],
+    "outputs" : [ 29372, 1638143 ],
+    "catalysts" : [ 2529006 ],
+    "efs" : [ ],
+    "diagramIds" : [ 3632 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 2466068,
+    "stId" : "R-HSA-2466068",
+    "displayName" : "Phosphorylation of cohesin by PLK1 at chromosomal arms",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 2468293 ],
+    "following" : [ 2467794 ],
+    "inputs" : [ 113592, 2468274 ],
+    "outputs" : [ 1638805, 29370 ],
+    "catalysts" : [ 164603 ],
+    "efs" : [ ],
+    "diagramIds" : [ 1614 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 9647746,
+    "stId" : "R-HSA-9647746",
+    "displayName" : "EML4 trimerizes",
+    "schemaClass" : "Reaction",
+    "following" : [ 9648089, 9648017 ],
+    "inputs" : [ 9647741 ],
+    "outputs" : [ 9647745 ],
+    "efs" : [ ],
+    "diagramIds" : [ 3963 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 2484822,
+    "stId" : "R-HSA-2484822",
+    "displayName" : "Kinetochore assembly",
+    "schemaClass" : "BlackBoxEvent",
+    "preceding" : [ 375302 ],
+    "following" : [ 2468287 ],
+    "inputs" : [ 1638799, 375303 ],
+    "outputs" : [ 2484819 ],
+    "efs" : [ ],
+    "diagramIds" : [ 2473 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 2520883,
+    "stId" : "R-HSA-2520883",
+    "displayName" : "Phosphorylated condensin I promotes condensation of prometaphase chromosomes",
+    "schemaClass" : "BlackBoxEvent",
+    "preceding" : [ 2514854 ],
+    "inputs" : [ 2520882 ],
+    "outputs" : [ 2520884 ],
+    "efs" : [ ],
+    "activators" : [ 2520845 ],
+    "diagramIds" : [ 3191 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 2467794,
+    "stId" : "R-HSA-2467794",
+    "displayName" : "Resolution of sister chromatids",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 2466068 ],
+    "following" : [ 2545253 ],
+    "inputs" : [ 1638805 ],
+    "outputs" : [ 1638790, 2484812, 2484804 ],
+    "efs" : [ ],
+    "diagramIds" : [ 1617 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 380508,
+    "stId" : "R-HSA-380508",
+    "displayName" : "Translocation of NuMA to the centrosomes",
+    "schemaClass" : "Reaction",
+    "inputs" : [ 380440, 380486 ],
+    "outputs" : [ 380503 ],
+    "efs" : [ ],
+    "diagramIds" : [ 3881 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 380316,
+    "stId" : "R-HSA-380316",
+    "displayName" : "Association of NuMA with microtubules",
+    "schemaClass" : "Reaction",
+    "inputs" : [ 190599, 380503 ],
+    "outputs" : [ 380495 ],
+    "efs" : [ ],
+    "diagramIds" : [ 3943 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 2529020,
+    "stId" : "R-HSA-2529020",
+    "displayName" : "CK2 phosphorylates condensin I subunits",
+    "schemaClass" : "Reaction",
+    "following" : [ 2529015 ],
+    "inputs" : [ 113592, 1638143 ],
+    "outputs" : [ 29370, 2529014 ],
+    "catalysts" : [ 201711 ],
+    "efs" : [ ],
+    "diagramIds" : [ 3664 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 2468287,
+    "stId" : "R-HSA-2468287",
+    "displayName" : "CDK1 phosphorylates CDCA5 (Sororin) at centromeres",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 2484822 ],
+    "following" : [ 1638803 ],
+    "inputs" : [ 113592, 2484819 ],
+    "outputs" : [ 2468282, 29370 ],
+    "catalysts" : [ 2311324 ],
+    "efs" : [ ],
+    "diagramIds" : [ 2122 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 1638821,
+    "stId" : "R-HSA-1638821",
+    "displayName" : "PP2A-B56 dephosphorylates centromeric cohesin",
+    "schemaClass" : "Reaction",
+    "preceding" : [ 1638803 ],
+    "inputs" : [ 29356, 1638796 ],
+    "outputs" : [ 29372, 2500242 ],
+    "catalysts" : [ 1638796 ],
+    "efs" : [ ],
+    "diagramIds" : [ 658 ],
+    "entityFunctionalStatus" : [ ]
+  } ],
+  "subpathways" : [ {
+    "dbId" : 380320,
+    "stId" : "R-HSA-380320",
+    "displayName" : "Recruitment of NuMA to mitotic centrosomes",
+    "events" : [ 380508, 380316 ]
+  }, {
+    "dbId" : 9648025,
+    "stId" : "R-HSA-9648025",
+    "displayName" : "EML4 and NUDC in mitotic spindle formation",
+    "events" : [ 9647746, 9648114, 9648017, 156682, 9648089 ]
+  }, {
+    "dbId" : 2500257,
+    "stId" : "R-HSA-2500257",
+    "displayName" : "Resolution of Sister Chromatid Cohesion",
+    "events" : [ 2468293, 2466068, 2545253, 2484822, 2467794, 2468287, 1638803, 1638821 ]
+  }, {
+    "dbId" : 2514853,
+    "stId" : "R-HSA-2514853",
+    "displayName" : "Condensation of Prometaphase Chromosomes",
+    "events" : [ 2514854, 2529015, 2520883, 2529020 ]
+  } ]
+}

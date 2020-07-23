@@ -75,7 +75,10 @@ class SvgLegendRenderer {
 
 		final double centerX = width + 2 * BG_PADDING + 0.5 * LEGEND_WIDTH;
 
-		final DecimalFormat formatter = analysisType == AnalysisType.EXPRESSION
+		final DecimalFormat formatter = (analysisType == AnalysisType.EXPRESSION
+											|| analysisType == AnalysisType.GSA_REGULATION
+											|| analysisType == AnalysisType.GSA_STATISTICS
+											|| analysisType == AnalysisType.GSVA)
 				? EXPRESSION_FORMAT
 				: ENRICHMENT_FORMAT;
 		final Element topText = document.createElementNS(SVG_NAMESPACE_URI, SVG_TEXT_TAG);

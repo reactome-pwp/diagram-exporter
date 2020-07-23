@@ -211,7 +211,7 @@ public class RasterExporter {
 	private void export(RasterArgs args, OutputStream os, RasterRenderer renderer, AnalysisType type) throws IOException, TranscoderException {
 		if (args.getFormat().equalsIgnoreCase("gif")
 				&& args.getColumn() == null
-				&& type == AnalysisType.EXPRESSION)
+				&& allowAnimatedGif(type))
 			renderer.renderToAnimatedGif(os);
 		else if (args.getFormat().equalsIgnoreCase("svg"))
 			RasterOutput.save(renderer.renderToSvg(), os);
@@ -240,5 +240,9 @@ public class RasterExporter {
 		} catch (ResourceNotFoundException e) {
 			throw new AnalysisException("Token not valid: " + token, e);
 		}
+	}
+
+	private boolean allowAnimatedGif(AnalysisType type) {
+		return type == AnalysisType.EXPRESSION || type == AnalysisType.GSA_REGULATION || type == AnalysisType.GSA_STATISTICS || type == AnalysisType.GSVA;
 	}
 }

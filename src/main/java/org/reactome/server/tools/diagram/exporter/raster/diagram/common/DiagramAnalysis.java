@@ -100,6 +100,9 @@ public class DiagramAnalysis {
 				addEnrichmentData(foundElements);
 				break;
 			case EXPRESSION:
+			case GSA_STATISTICS:
+			case GSVA:
+			case GSA_REGULATION:
 				addExpressionData(foundElements);
 				break;
 		}

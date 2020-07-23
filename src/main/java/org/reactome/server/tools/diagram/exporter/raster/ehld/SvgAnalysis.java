@@ -122,6 +122,10 @@ public class SvgAnalysis {
 				break;
 			case EXPRESSION:
 				expression();
+			case GSA_REGULATION:
+			case GSA_STATISTICS:
+			case GSVA:
+				gsa();
 				break;
 		}
 	}
@@ -165,6 +169,26 @@ public class SvgAnalysis {
 		});
 	}
 
+	private void gsa() {
+		SvgUtil.addInlineStyle(document, OVERLAY_TEXT_CLASS, OVERLAY_TEXT_STYLE);
+		SvgUtil.addInlineStyle(document, ANALYSIS_INFO_CLASS, ANALYSIS_INFO_STYLE);
+
+		final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getExpression().getGradient();
+		SvgLegendRenderer.legend(document, gradient, summary.getExpression().getMax(), summary.getExpression().getMin(), AnalysisType.GSA_REGULATION);
+		addBottomTextGroup();
+
+		// Analysis info text is centered to ANALINFO group. To get the
+		// center of each ANALINFO group we must build the whole document.
+		cloned = (Document) document.cloneNode(true);
+		builder.build(context, cloned);
+
+		pathways.forEach(stId -> {
+			final EntityStatistics stats = entityStats.getOrDefault(stId, null);
+			overlayGSA(stId, stats, summary.getExpression());
+			analysisInfo(stId, stats);
+		});
+	}
+
 	private List<String> getRegions() {
 		final NodeList groups = document.getRootElement().getElementsByTagNameNS(SVG_NAMESPACE_URI, SVG_G_TAG);
 		return IntStream.range(0, groups.getLength())
@@ -204,6 +228,38 @@ public class SvgAnalysis {
 	}
 
 	private void overlayExpression(String stId, EntityStatistics stats, ExpressionSummary expression) {
+		double percentage;
+		double value;
+		double pValue = Double.MAX_VALUE;
+		if (stats == null) {
+			percentage = 0.0;
+			value = 0.0;
+		} else {
+			int found = stats.getFound();
+			int total = stats.getTotal();
+			percentage = (double) found / total;
+			final int column = args.getColumn() == null ? 0 : args.getColumn();
+			value = stats.getExp().get(column);
+			pValue = stats.getpValue();
+		}
+		createClip(stId, percentage);
+
+		final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getExpression().getGradient();
+		Color expressionColor = DEFAULT_OVERLAY_COLOR;
+		if (pValue <= MAX_P_VALUE && value >= expression.getMin() && value <= expression.getMax()) {
+			double val = 1 - (value - expression.getMin()) / (expression.getMax() - expression.getMin());
+			expressionColor = ColorFactory.interpolate(gradient, val);
+			if (args.getSelected() != null && args.getSelected().contains(stId)) {
+				final Color selection = args.getProfiles().getDiagramSheet().getProperties().getSelection();
+				SvgLegendRenderer.tick(document, val, selection);
+			}
+		}
+
+		createOverlayNodes(expressionColor, stId);
+
+	}
+
+	private void overlayGSA(String stId, EntityStatistics stats, ExpressionSummary expression) {
 		double percentage;
 		double value;
 		double pValue = Double.MAX_VALUE;

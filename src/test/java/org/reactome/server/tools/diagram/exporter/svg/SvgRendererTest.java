@@ -5,6 +5,7 @@ import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
+import java.util.Collection;
 import java.util.Collections;
 
 public class SvgRendererTest {
@@ -15,6 +16,18 @@ public class SvgRendererTest {
 		args.setToken(TestUtils.TOKEN_OVER_2);
 		TestUtils.render(args, null);
 	}
+
+
+	@Test
+	public void testDiagramWithGSAAnalysis() {
+		final RasterArgs args = new RasterArgs("R-HSA-68877", "svg");
+		final ColorProfiles profiles = new ColorProfiles("standard", "standard", "teal");
+		args.setProfiles(profiles);
+		args.setSelected(Collections.singletonList("R-HSA-1638802"));
+		args.setToken(TestUtils.TOKEN_GSA);
+		TestUtils.render(args, null);
+	}
+
 
 	@Test
 	public void testEhld() {

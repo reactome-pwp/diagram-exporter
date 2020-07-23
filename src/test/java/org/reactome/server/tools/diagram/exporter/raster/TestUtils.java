@@ -13,6 +13,8 @@ import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramRenderer
 import org.reactome.server.tools.diagram.exporter.raster.ehld.EhldRendererTest;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldException;
 
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
@@ -27,6 +29,8 @@ public class TestUtils {
 	public static final String TOKEN_EXPRESSION_1 = "MjAxODExMDEwNzMyMjJfMTA%253D";  // microarray (probeset)
 	public static final String TOKEN_EXPRESSION_2 = "MjAxODEwMzAxMDIzMDBfNQ%253D%253D";  // HPA (GeneName)
 	public static final String TOKEN_SPECIES = "MjAxODExMDEwNzMzMTRfMTE%253D"; // canis
+
+	public static final String TOKEN_GSA = "MjAyMDA3MTYxMjA5MTNfNw%253D%253D";
 
 	private static final String ANALYSIS_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/analysis";
 	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/diagram";
@@ -50,8 +54,10 @@ public class TestUtils {
 
 	public static void render(RasterArgs args, AnalysisStoredResult result) {
 		try {
+			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("/Users/gviteri/doc.svg"));
 //			final BufferedImage image = EXPORTER.exportToImage(args);
-			EXPORTER.export(args, new NullOutputStream(), result);
+			EXPORTER.export(args, bos, result);
+//			EXPORTER.exportToSvg(args, result);
 		} catch (EhldException | AnalysisException | DiagramJsonDeserializationException | DiagramJsonNotFoundException | TranscoderException | IOException e) {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());

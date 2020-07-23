@@ -80,7 +80,7 @@ public class ColorFactory {
 			return interpolate(gradient.getStop(), gradient.getMax(), (value - 0.5) * 2);
 	}
 
-	private static Color interpolate(Color a, Color b, double value) {
+	public static Color interpolate(Color a, Color b, double value) {
 		if (value <= 0.0) return a;
 		if (value >= 1.0) return b;
 		return new Color(

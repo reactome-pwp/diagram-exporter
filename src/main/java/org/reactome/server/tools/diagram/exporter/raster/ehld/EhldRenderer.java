@@ -187,8 +187,11 @@ public class EhldRenderer implements RasterRenderer {
 
 	@Override
 	public void renderToAnimatedGif(OutputStream os) {
-		if (svgAnalysis.getAnalysisType() != AnalysisType.EXPRESSION)
-			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
+		if (svgAnalysis.getAnalysisType() != AnalysisType.EXPRESSION
+				|| svgAnalysis.getAnalysisType() != AnalysisType.GSA_REGULATION
+				|| svgAnalysis.getAnalysisType() != AnalysisType.GSA_STATISTICS
+				|| svgAnalysis.getAnalysisType() != AnalysisType.GSVA)
+			throw new IllegalStateException("Only EXPRESSION and GENE SET (GSA) analysis can be rendered into animated GIFs");
 
 		disableMasks();
 		final AnimatedGifEncoder encoder = new AnimatedGifEncoder();

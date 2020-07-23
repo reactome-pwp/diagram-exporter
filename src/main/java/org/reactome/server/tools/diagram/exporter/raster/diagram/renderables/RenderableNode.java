@@ -134,6 +134,10 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 				return enrichment(canvas, colorProfiles);
 			case EXPRESSION:
 				return expression(canvas, data, colorProfiles, t);
+			case GSA_REGULATION:
+			case GSVA:
+			case GSA_STATISTICS:
+				return gsa(canvas, data, colorProfiles, t);
 			default:
 				return 0.0;
 		}
@@ -200,6 +204,10 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 			return textSplit;
 		// report: if proteins have expression values their text should change to white
 		return 0.0;
+	}
+
+	double gsa(DiagramCanvas canvas, DiagramData data, ColorProfiles colorProfiles, int t) {
+		return expression(canvas,data,colorProfiles,t);
 	}
 
 	private void cross(DiagramCanvas canvas, ColorProfiles colorProfiles) {

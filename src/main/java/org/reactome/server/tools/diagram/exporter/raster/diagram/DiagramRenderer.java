@@ -141,8 +141,11 @@ public class DiagramRenderer implements RasterRenderer {
 	 */
 	@Override
 	public void renderToAnimatedGif(OutputStream outputStream) {
-		if (data.getAnalysis().getType() != AnalysisType.EXPRESSION)
-			throw new IllegalStateException("Only EXPRESSION analysis can be rendered into animated GIFs");
+		if (data.getAnalysis().getType() != AnalysisType.EXPRESSION
+				|| data.getAnalysis().getType() != AnalysisType.GSVA
+				|| data.getAnalysis().getType() != AnalysisType.GSA_STATISTICS
+				|| data.getAnalysis().getType() != AnalysisType.GSA_REGULATION)
+			throw new IllegalStateException("Only EXPRESSION / GSA analysis can be rendered into animated GIFs");
 
 		final Rectangle2D bounds = graphicsBounds(factor);
 
@@ -266,7 +269,10 @@ public class DiagramRenderer implements RasterRenderer {
 
 	private void legend() {
 		legendRenderer = new LegendRenderer(canvas, data, colorProfiles);
-		if (data.getAnalysis().getType() == AnalysisType.EXPRESSION) {
+		if (data.getAnalysis().getType() == AnalysisType.EXPRESSION
+			|| data.getAnalysis().getType() == AnalysisType.GSA_REGULATION
+			|| data.getAnalysis().getType() == AnalysisType.GSA_STATISTICS
+			|| data.getAnalysis().getType() == AnalysisType.GSVA) {
 			// We add the legend first, so the logo is aligned to the right margin
 			legendRenderer.addLegend();
 			final NodeProperties limits = LogoRenderer.addLogo(canvas, args, diagram);

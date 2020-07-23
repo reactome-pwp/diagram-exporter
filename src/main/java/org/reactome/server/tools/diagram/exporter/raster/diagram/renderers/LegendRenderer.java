@@ -4,16 +4,18 @@ import org.apache.commons.io.IOUtils;
 import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.analysis.core.result.model.FoundEntity;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
+import org.reactome.server.tools.diagram.data.layout.impl.CoordinateFactory;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramAnalysis;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.FillDrawLayer;
+import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.FillLayer;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableProcessNode;
-import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
-import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.*;
 import org.reactome.server.tools.diagram.exporter.raster.resources.Resources;
 
 import java.awt.*;
@@ -58,6 +60,11 @@ public class LegendRenderer {
 	private static final Color BACKGROUND_BORDER = new Color(175, 175, 175);
 	private static final Color BACKGROUND_FILL = new Color(220, 220, 220);
 	private static final Map<Long, String> SPECIES = new TreeMap<>();
+
+	/**
+	 * Only for GSA. Special requirements in the colour bar
+	 */
+	private RegulationBar regulationBars;
 
 	// FIXME: hardcoded the species name because it is not reported in AnalysisResult
 	static {
@@ -177,25 +184,40 @@ public class LegendRenderer {
 
 	private void addColorBar() {
 		final GradientSheet gradient;
-		gradient = data.getAnalysis().getType() == AnalysisType.EXPRESSION
+		gradient = (data.getAnalysis().getType() == AnalysisType.EXPRESSION ||
+				data.getAnalysis().getType() == AnalysisType.GSA_REGULATION ||
+				data.getAnalysis().getType() == AnalysisType.GSA_STATISTICS ||
+				data.getAnalysis().getType() == AnalysisType.GSVA)
 				? profiles.getAnalysisSheet().getExpression().getGradient()
 				: profiles.getAnalysisSheet().getEnrichment().getGradient();
 
-		final Paint paint;
-		if (gradient.getStop() == null)
-			paint = new GradientPaint(
-					(float) colorBar.getX(), (float) colorBar.getMaxY(), gradient.getMax(),
-					(float) colorBar.getX(), (float) colorBar.getY(), gradient.getMin());
-		else {
-			paint = new LinearGradientPaint(
-					(float) colorBar.getX(), (float) colorBar.getMaxY(),
-					(float) colorBar.getX(), (float) colorBar.getY(),
-					new float[]{0, 0.5f, 1},
-					new Color[]{gradient.getMax(),
-							gradient.getStop(),
-							gradient.getMin()});
+		if (data.getAnalysis().getType() == AnalysisType.GSA_REGULATION
+				|| data.getAnalysis().getType() == AnalysisType.GSA_STATISTICS
+				|| data.getAnalysis().getType() == AnalysisType.GSVA) {
+
+				regulationBars = new RegulationBar(gradient, colorBar.getX(), colorBar.getY(), colorBar.getWidth(), colorBar.getHeight());
+				regulationBars.getShapes().forEach((k,v) -> {
+					canvas.getLegendBar().add(v, regulationBars.getColorMap().get(k));
+				});
+			canvas.getLegendLabels().add(regulationBars.getSymbols());
+
+		} else {
+			final Paint paint;
+			if (gradient.getStop() == null)
+				paint = new GradientPaint(
+						(float) colorBar.getX(), (float) colorBar.getMaxY(), gradient.getMax(),
+						(float) colorBar.getX(), (float) colorBar.getY(), gradient.getMin());
+			else {
+				paint = new LinearGradientPaint(
+						(float) colorBar.getX(), (float) colorBar.getMaxY(),
+						(float) colorBar.getX(), (float) colorBar.getY(),
+						new float[]{0, 0.5f, 1},
+						new Color[]{gradient.getMax(),
+								gradient.getStop(),
+								gradient.getMin()});
+			}
+			canvas.getLegendBar().add(colorBar, paint);
 		}
-		canvas.getLegendBar().add(colorBar, paint);
 	}
 
 	private void ticks(int col) {
@@ -245,6 +267,7 @@ public class LegendRenderer {
 				drawTick(nValue, stroke, valueColor);
 				drawTick(nMax, stroke, limitColor);
 				drawTick(nMin, stroke, limitColor);
+				if(data.getAnalysis().getType() == AnalysisType.GSA_REGULATION) drawTick(0d, stroke, limitColor);
 			}
 		}
 	}
@@ -264,18 +287,29 @@ public class LegendRenderer {
 
 	private void drawTick(Double value, Stroke stroke, Color limitColor) {
 		if (value == null) return;
-		// Interpolate value in expression range
-		final double min = data.getAnalysis().getResult().getExpression().getMin();
-		final double max = data.getAnalysis().getResult().getExpression().getMax();
-		final double val = (value - min) / (max - min);
-		// Extrapolate to colorBar height
-		// In expression analysis, min is in the bottom
-		final double y1 = colorBar.getMaxY() - colorBar.getHeight() * val;
-		final Shape line = new Line2D.Double(colorBar.getX(), y1, colorBar.getMaxX(), y1);
-		canvas.getLegendTicks().add(line, limitColor, stroke);
-		// Notice the -1. It puts the arrow over the line
-		final Shape arrow = arrow(colorBar.getMaxX() - 1, y1);
-		canvas.getLegendTickArrows().add(arrow, limitColor);
+
+		if (data.getAnalysis().getType() == AnalysisType.GSA_REGULATION) {
+			Shape box = regulationBars.getShapes().get(value.intValue());
+			final Shape line = new Line2D.Double(colorBar.getX(), box.getBounds2D().getCenterY(), colorBar.getMaxX(), box.getBounds2D().getCenterY());
+//			canvas.getLegendTicks().add(line, limitColor, stroke);
+			// Notice the -1. It puts the arrow over the line
+			final Shape arrow = arrow(colorBar.getMaxX() - 1, box.getBounds2D().getCenterY());
+			canvas.getLegendTickArrows().add(arrow, limitColor);
+			canvas.getLegendTicks().add(line, limitColor, stroke);
+		} else {
+			// Interpolate value in expression range
+			final double min = data.getAnalysis().getResult().getExpression().getMin();
+			final double max = data.getAnalysis().getResult().getExpression().getMax();
+			final double val = (value - min) / (max - min);
+			// Extrapolate to colorBar height
+			// In expression analysis, min is in the bottom
+			final double y1 = colorBar.getMaxY() - colorBar.getHeight() * val;
+			final Shape line = new Line2D.Double(colorBar.getX(), y1, colorBar.getMaxX(), y1);
+			canvas.getLegendTicks().add(line, limitColor, stroke);
+			// Notice the -1. It puts the arrow over the line
+			final Shape arrow = arrow(colorBar.getMaxX() - 1, y1);
+			canvas.getLegendTickArrows().add(arrow, limitColor);
+		}
 	}
 
 	private Shape arrow(double x, double y) {
@@ -303,6 +337,11 @@ public class LegendRenderer {
 		if (data.getAnalysis().getType() == AnalysisType.EXPRESSION) {
 			topText = EXPRESSION_FORMAT.format(data.getAnalysis().getResult().getExpression().getMax());
 			bottomText = EXPRESSION_FORMAT.format(data.getAnalysis().getResult().getExpression().getMin());
+		} else if (	data.getAnalysis().getType() == AnalysisType.GSA_REGULATION
+					|| data.getAnalysis().getType() == AnalysisType.GSA_STATISTICS
+					|| data.getAnalysis().getType() == AnalysisType.GSVA){
+			topText = "Up-regulated";
+			bottomText = "Down-regulated";
 		} else {
 			topText = ENRICHMENT_FORMAT.format(0);
 			bottomText = ENRICHMENT_FORMAT.format(DiagramAnalysis.MIN_ENRICHMENT);
