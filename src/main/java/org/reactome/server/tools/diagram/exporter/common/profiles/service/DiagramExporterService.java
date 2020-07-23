@@ -105,4 +105,50 @@ public class DiagramExporterService {
 		return PowerPointExporter.export(diagram, profileName.toLowerCase(), outputFolder, decorator, licenseFilePath);
 	}
 
+	/**
+	 * Service layer that provides access to the pptx exporter This method
+	 * assumes a software is embedded in the project, otherwise evaluation will
+	 * be generated
+	 *
+	 * @param stId              stable identifier of the diagram
+	 * @param diagram			an existing diagram object to be exported
+	 * @param profileName       Color diagram getName
+	 * @param outputFolder      output folder, the given folder + the color
+	 *                          diagram as a folder.
+	 * @param decorator         class that holds the flagged and the selected
+	 *                          elements into two different lists.
+	 *
+	 * @return the pptx file
+	 *
+	 * @throws DiagramJsonDeserializationException, DiagramProfileException,
+	 *                                              DiagramJsonNotFoundException
+	 */
+	public File exportToPPTX(String stId, Diagram diagram, String profileName, String outputFolder, Decorator decorator) throws DiagramJsonDeserializationException, DiagramProfileException {
+		return PowerPointExporter.export(stId, diagram, profileName.toLowerCase(), outputFolder, decorator, "");
+	}
+
+
+	/**
+	 * Service layer that provides access to the pptx exporter This method
+	 * assumes a valid software is provided, otherwise evaluation will be
+	 * generated
+	 *
+	 * @param stId              stable identifier of the diagram
+	 * @param diagram			an existing diagram object to be exported
+	 * @param profileName       Color diagram getName
+	 * @param outputFolder      output folder, the given folder + the color
+	 *                          diagram as a folder.
+	 * @param decorator         class that holds the flagged and the selected
+	 *                          elements into two different lists.
+	 * @param licenseFilePath   a valid Aspose Software License.
+	 *
+	 * @return the pptx file
+	 *
+	 * @throws DiagramJsonDeserializationException, DiagramProfileException,
+	 *                                              DiagramJsonNotFoundException
+	 */
+	public File exportToPPTX(String stId, Diagram diagram, String profileName, String outputFolder, Decorator decorator, String licenseFilePath) throws DiagramJsonDeserializationException, DiagramProfileException {
+		return PowerPointExporter.export(stId, diagram, profileName.toLowerCase(), outputFolder, decorator, licenseFilePath);
+	}
+
 }
