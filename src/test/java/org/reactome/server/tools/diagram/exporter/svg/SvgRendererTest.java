@@ -5,7 +5,6 @@ import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
 
-import java.util.Collection;
 import java.util.Collections;
 
 public class SvgRendererTest {
@@ -13,7 +12,7 @@ public class SvgRendererTest {
 	@Test
 	public void testDiagram() {
 		final RasterArgs args = new RasterArgs("R-HSA-109606", "svg");
-		args.setToken(TestUtils.TOKEN_OVER_2);
+		args.setToken(TestUtils.TOKEN_OVER_1);
 		TestUtils.render(args, null);
 	}
 

@@ -26,14 +26,9 @@
         <developer>
             <id>plorente</id>
             <name>Pascual Lorente</name>
-            <email>plorente@ebi.ac.uk</email>
-            <organization>http://www.ebi.ac.uk/</organization>
         </developer>
         <developer>
-            <id>fabregat</id>
-            <name>Antonio Fabregat Mundo</name>
-            <email>fabregat@ebi.ac.uk</email>
-            <organization>http://www.ebi.ac.uk/</organization>
+            <id>amundo</id>
         </developer>
     </developers>
 
@@ -404,7 +399,7 @@
         <repository>
             <id>biopax-repo</id>
             <name>BioPAX repository</name>
-            <url>https://www.biopax.org/m2repo/releases</url>
+            <url>http://www.biopax.org/m2repo/releases</url>
         </repository>
     </repositories>
 

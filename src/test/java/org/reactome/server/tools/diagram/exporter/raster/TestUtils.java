@@ -17,12 +17,10 @@ import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldExce
  * staff, like performing the analysis or creating and deleting the images dir.
  */
 public class TestUtils {
-
-	public static final String TOKEN_OVER_1 = "MjAxODExMDEwNzI3NDNfOA%253D%253D"; // uniprot (GBM Uniprot)
-	public static final String TOKEN_OVER_2 = "MjAxODExMDEwNzMyMDdfOQ%253D%253D"; // Gene NCBI (12 tumors)
-	public static final String TOKEN_EXPRESSION_1 = "MjAxODExMDEwNzMyMjJfMTA%253D";  // microarray (probeset)
-	public static final String TOKEN_EXPRESSION_2 = "MjAxODEwMzAxMDIzMDBfNQ%253D%253D";  // HPA (GeneName)
-	public static final String TOKEN_SPECIES = "MjAxODExMDEwNzMzMTRfMTE%253D"; // canis
+	public static final String TOKEN_OVER_1 = "MjAyMDA4MTExNTU2NDBfMzg%253D"; // uniprot (GBM Uniprot)
+	public static final String TOKEN_EXPRESSION_1 = "MjAyMDA4MTExNTU3MTZfMzk%253D";  // microarray (probeset)
+	public static final String TOKEN_EXPRESSION_2 = "MjAyMDA4MTExNTU3NTNfNDA%253D";  // HPA (GeneName)
+	public static final String TOKEN_SPECIES = "MjAyMDA4MTExNTU4MjBfNDE%253D"; // canis
 
 	public static final String TOKEN_GSA = "MjAyMDA3MTYxMjA5MTNfNw%253D%253D";
 
