@@ -31,8 +31,8 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -188,9 +188,9 @@ public class EhldRenderer implements RasterRenderer {
 	@Override
 	public void renderToAnimatedGif(OutputStream os) {
 		if (svgAnalysis.getAnalysisType() != AnalysisType.EXPRESSION
-				|| svgAnalysis.getAnalysisType() != AnalysisType.GSA_REGULATION
-				|| svgAnalysis.getAnalysisType() != AnalysisType.GSA_STATISTICS
-				|| svgAnalysis.getAnalysisType() != AnalysisType.GSVA)
+				&& svgAnalysis.getAnalysisType() != AnalysisType.GSA_REGULATION
+				&& svgAnalysis.getAnalysisType() != AnalysisType.GSA_STATISTICS
+				&& svgAnalysis.getAnalysisType() != AnalysisType.GSVA)
 			throw new IllegalStateException("Only EXPRESSION and GENE SET (GSA) analysis can be rendered into animated GIFs");
 
 		disableMasks();

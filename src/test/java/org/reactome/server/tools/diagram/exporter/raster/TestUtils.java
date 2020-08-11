@@ -1,7 +1,5 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
-import org.apache.batik.transcoder.TranscoderException;
-import org.apache.commons.io.output.NullOutputStream;
 import org.junit.Assert;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.analysis.core.result.utils.TokenUtils;
@@ -12,10 +10,6 @@ import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramRendererTest;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.EhldRendererTest;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldException;
-
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * Supporting methods for testing diagram renderering. It is used both in {@link
@@ -54,11 +48,9 @@ public class TestUtils {
 
 	public static void render(RasterArgs args, AnalysisStoredResult result) {
 		try {
-			BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream("/Users/gviteri/doc.svg"));
 //			final BufferedImage image = EXPORTER.exportToImage(args);
-			EXPORTER.export(args, bos, result);
-//			EXPORTER.exportToSvg(args, result);
-		} catch (EhldException | AnalysisException | DiagramJsonDeserializationException | DiagramJsonNotFoundException | TranscoderException | IOException e) {
+			EXPORTER.exportToSvg(args, result);
+		} catch (EhldException | AnalysisException | DiagramJsonDeserializationException | DiagramJsonNotFoundException e) {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());
 		}

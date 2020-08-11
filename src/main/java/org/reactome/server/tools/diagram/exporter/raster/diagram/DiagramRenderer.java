@@ -73,7 +73,6 @@ public class DiagramRenderer implements RasterRenderer {
 	private static final double MAX_GIF_SIZE = 1e7; // 10Mpixels
 	private static final Set<String> TRANSPARENT_FORMATS = new HashSet<>(Collections.singletonList("png"));
 	private static final Set<String> NO_TRANSPARENT_FORMATS = new HashSet<>(Arrays.asList("jpg", "jpeg", "gif"));
-	private static final int T = 0;
 	private static final DOMImplementation SVG_IMPL = SVG12DOMImplementation.getDOMImplementation();
 	private final DiagramData data;
 	private final ColorProfiles colorProfiles;
@@ -142,9 +141,9 @@ public class DiagramRenderer implements RasterRenderer {
 	@Override
 	public void renderToAnimatedGif(OutputStream outputStream) {
 		if (data.getAnalysis().getType() != AnalysisType.EXPRESSION
-				|| data.getAnalysis().getType() != AnalysisType.GSVA
-				|| data.getAnalysis().getType() != AnalysisType.GSA_STATISTICS
-				|| data.getAnalysis().getType() != AnalysisType.GSA_REGULATION)
+				&& data.getAnalysis().getType() != AnalysisType.GSVA
+				&& data.getAnalysis().getType() != AnalysisType.GSA_STATISTICS
+				&& data.getAnalysis().getType() != AnalysisType.GSA_REGULATION)
 			throw new IllegalStateException("Only EXPRESSION / GSA analysis can be rendered into animated GIFs");
 
 		final Rectangle2D bounds = graphicsBounds(factor);
@@ -261,8 +260,9 @@ public class DiagramRenderer implements RasterRenderer {
 	}
 
 	private void layout() {
+		int col = args.getColumn() == null ? 0 : args.getColumn();
 		for (RenderableDiagramObject renderableDiagramObject : data.getIndex().getAllObjects()) {
-			renderableDiagramObject.draw(canvas, colorProfiles, data, T);
+			renderableDiagramObject.draw(canvas, colorProfiles, data, col);
 		}
 		legend();
 	}

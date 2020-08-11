@@ -4,18 +4,17 @@ import org.apache.commons.io.IOUtils;
 import org.reactome.server.analysis.core.model.AnalysisType;
 import org.reactome.server.analysis.core.result.model.FoundEntity;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
-import org.reactome.server.tools.diagram.data.layout.impl.CoordinateFactory;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramAnalysis;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.StrokeStyle;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.DiagramCanvas;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.FillDrawLayer;
-import org.reactome.server.tools.diagram.exporter.raster.diagram.layers.FillLayer;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableNode;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.renderables.RenderableProcessNode;
-import org.reactome.server.tools.diagram.exporter.raster.profiles.*;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.GradientSheet;
+import org.reactome.server.tools.diagram.exporter.raster.profiles.RegulationBar;
 import org.reactome.server.tools.diagram.exporter.raster.resources.Resources;
 
 import java.awt.*;
@@ -28,8 +27,8 @@ import java.io.InputStream;
 import java.nio.charset.Charset;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -267,7 +266,6 @@ public class LegendRenderer {
 				drawTick(nValue, stroke, valueColor);
 				drawTick(nMax, stroke, limitColor);
 				drawTick(nMin, stroke, limitColor);
-				if(data.getAnalysis().getType() == AnalysisType.GSA_REGULATION) drawTick(0d, stroke, limitColor);
 			}
 		}
 	}
