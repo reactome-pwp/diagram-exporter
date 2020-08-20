@@ -33,7 +33,7 @@ pipeline{
 			}
 		}
 		// Execute the jar file, producing svg, png ang sbgn diagram files.
-		stage('Main: Run Data-Export'){
+		stage('Main: Run Diagram-Exporter'){
 			steps{
 				script{
 					def diagramFolderPath = "${env.ABS_DOWNLOAD_PATH}/${currentRelease}/diagram/"
