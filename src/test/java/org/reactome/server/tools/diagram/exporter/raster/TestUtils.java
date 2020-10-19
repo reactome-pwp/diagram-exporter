@@ -23,6 +23,7 @@ public class TestUtils {
 	public static final String TOKEN_SPECIES = "MjAyMDA4MTExNTU4MjBfNDE%253D"; // canis
 
 	public static final String TOKEN_GSA = "MjAyMDA3MTYxMjA5MTNfNw%253D%253D";
+	public static final String TOKEN_GSVA = "MjAyMDA5MjQwNTAzMzBfMzM%253D";
 
 	private static final String ANALYSIS_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/analysis";
 	private static final String DIAGRAM_PATH = "src/test/resources/org/reactome/server/tools/diagram/exporter/diagram";
@@ -48,6 +49,7 @@ public class TestUtils {
 		try {
 //			final BufferedImage image = EXPORTER.exportToImage(args);
 			EXPORTER.exportToSvg(args, result);
+			//ImageIO.write(EXPORTER.exportToImage(args, result), "jpeg", new File("/Users/reactome/test.jpeg"));
 		} catch (EhldException | AnalysisException | DiagramJsonDeserializationException | DiagramJsonNotFoundException e) {
 			e.printStackTrace();
 			Assert.fail(e.getMessage());

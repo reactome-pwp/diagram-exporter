@@ -27,6 +27,16 @@ public class SvgRendererTest {
 		TestUtils.render(args, null);
 	}
 
+	@Test
+	public void testDiagramWithGSVAAnalysis() {
+		final RasterArgs args = new RasterArgs("R-HSA-68877", "svg");
+		final ColorProfiles profiles = new ColorProfiles("standard", "standard", "teal");
+		args.setProfiles(profiles);
+		args.setSelected(Collections.singletonList("R-HSA-1638802"));
+		args.setToken(TestUtils.TOKEN_GSVA);
+		TestUtils.render(args, null);
+	}
+
 
 	@Test
 	public void testEhld() {

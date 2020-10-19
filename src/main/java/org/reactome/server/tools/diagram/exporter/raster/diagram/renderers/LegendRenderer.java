@@ -190,10 +190,7 @@ public class LegendRenderer {
 				? profiles.getAnalysisSheet().getExpression().getGradient()
 				: profiles.getAnalysisSheet().getEnrichment().getGradient();
 
-		if (data.getAnalysis().getType() == AnalysisType.GSA_REGULATION
-				|| data.getAnalysis().getType() == AnalysisType.GSA_STATISTICS
-				|| data.getAnalysis().getType() == AnalysisType.GSVA) {
-
+		if (data.getAnalysis().getType() == AnalysisType.GSA_REGULATION) {
 				regulationBars = new RegulationBar(gradient, colorBar.getX(), colorBar.getY(), colorBar.getWidth(), colorBar.getHeight());
 				regulationBars.getShapes().forEach((k,v) -> {
 					canvas.getLegendBar().add(v, regulationBars.getColorMap().get(k));
@@ -332,12 +329,12 @@ public class LegendRenderer {
 
 		final String topText;
 		final String bottomText;
-		if (data.getAnalysis().getType() == AnalysisType.EXPRESSION) {
+		if (data.getAnalysis().getType() == AnalysisType.EXPRESSION
+				|| data.getAnalysis().getType() == AnalysisType.GSA_STATISTICS
+				|| data.getAnalysis().getType() == AnalysisType.GSVA) {
 			topText = EXPRESSION_FORMAT.format(data.getAnalysis().getResult().getExpression().getMax());
 			bottomText = EXPRESSION_FORMAT.format(data.getAnalysis().getResult().getExpression().getMin());
-		} else if (	data.getAnalysis().getType() == AnalysisType.GSA_REGULATION
-					|| data.getAnalysis().getType() == AnalysisType.GSA_STATISTICS
-					|| data.getAnalysis().getType() == AnalysisType.GSVA){
+		} else if (	data.getAnalysis().getType() == AnalysisType.GSA_REGULATION){
 			topText = "Up-regulated";
 			bottomText = "Down-regulated";
 		} else {

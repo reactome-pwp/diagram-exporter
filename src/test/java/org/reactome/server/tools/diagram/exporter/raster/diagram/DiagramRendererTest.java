@@ -166,6 +166,15 @@ public class DiagramRendererTest {
 	}
 
 	@Test
+	public void testGSVA() {
+		// My favourite diagram had to be here
+		final RasterArgs args = new RasterArgs("R-HSA-8935690", "jpeg");
+		args.setToken(TestUtils.TOKEN_GSVA);
+		args.setSelected(Collections.singletonList("R-HSA-8953390"));
+		TestUtils.render(args, null);
+	}
+
+	@Test
 	public void testAnimatedGif() {
 		final ColorProfiles profiles = new ColorProfiles("modern", "copper plus", "teal");
 		final RasterArgs args = new RasterArgs("R-HSA-109606", "gif");
