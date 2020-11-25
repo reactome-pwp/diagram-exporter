@@ -39,23 +39,23 @@ pipeline{
 					}
 				}
 			}
-	
+		}
 		stage('Post: Generate DiagramExporter archives and move them to the downloads folder') {
 		    steps{
 		        script{
-		            def releaseVersion = utils.getReleaseVersion()
-		            def svgArchive = "diagrams.svg.tgz"
-					def pngArchive = "diagrams.png.tgz"
-					def sbgnArchive = "homo_sapiens.sbgn.tar.gz"
-					def downloadPath = "${env.ABS_DOWNLOAD_PATH}/${releaseVersion}"
-					
-		  			sh "cd svg/Modern/; tar -zcf ${svgArchive} *.svg; mv ${svgArchive} ../../"
-					sh "cd png/Modern/; tar -zcf ${pngArchive} *.png; mv ${pngArchive} ../../"
-					sh "cd sbgn/; tar -zcf ${sbgnArchive} *.sbgn; mv ${sbgnArchive} ../"
-					
-					sh "cp ${svgArchive} ${downloadPath}/"
-					sh "cp ${pngArchive} ${downloadPath}/"
-					sh "cp ${sbgnArchive} ${downloadPath}/"
+				def releaseVersion = utils.getReleaseVersion()
+				def svgArchive = "diagrams.svg.tgz"
+				def pngArchive = "diagrams.png.tgz"
+				def sbgnArchive = "homo_sapiens.sbgn.tar.gz"
+				def downloadPath = "${env.ABS_DOWNLOAD_PATH}/${releaseVersion}"
+
+				sh "cd svg/Modern/; tar -zcf ${svgArchive} *.svg; mv ${svgArchive} ../../"
+				sh "cd png/Modern/; tar -zcf ${pngArchive} *.png; mv ${pngArchive} ../../"
+				sh "cd sbgn/; tar -zcf ${sbgnArchive} *.sbgn; mv ${sbgnArchive} ../"
+
+				sh "cp ${svgArchive} ${downloadPath}/"
+				sh "cp ${pngArchive} ${downloadPath}/"
+				sh "cp ${sbgnArchive} ${downloadPath}/"
 		        }
 		    }
 		}
@@ -63,8 +63,8 @@ pipeline{
 		stage('Post: Archive Outputs'){
 			steps{
 				script{
-				    def releaseVersion = utils.getReleaseVersion()
-				    def dataFiles = ["diagrams.svg.tgz", "diagrams.png.tgz", "homo_sapiens.sbgn.tar.gz"]
+					def releaseVersion = utils.getReleaseVersion()
+					def dataFiles = ["diagrams.svg.tgz", "diagrams.png.tgz", "homo_sapiens.sbgn.tar.gz"]
 					def logFiles = []
 					def foldersToDelete = ["svg", "png", "sbgn"]
 					utils.cleanUpAndArchiveBuildFiles("diagram_exporter", dataFiles, logFiles, foldersToDelete)
