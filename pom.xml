@@ -40,7 +40,7 @@
         <logback.version>1.1.10</logback.version>
         <commons.io.version>2.5</commons.io.version>
         <jasp.version>2.1</jasp.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <analysis.core.version>3.3.2</analysis.core.version>
         <sbgn.version>0.2</sbgn.version>
 
