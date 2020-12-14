@@ -1,7 +1,10 @@
-import groovy.json.JsonSlurper
 // This Jenkinsfile is used by Jenkins to run the DiagramExporter step of Reactome's release.
 // It requires that the DiagramConverter step has been run successfully before it can be run.
-def currentRelease
+
+import org.reactome.release.jenkins.utilities.Utilities
+
+// Shared library maintained at 'release-jenkins-utils' repository.
+def utils = new Utilities()
 pipeline{
 	agent any
 
@@ -10,17 +13,7 @@ pipeline{
 		stage('Check DiagramConverter build succeeded'){
 			steps{
 				script{
-					currentRelease = (pwd() =~ /Releases\/(\d+)\//)[0][1];
-					// This queries the Jenkins API to confirm that the most recent build of DiagramConverter was successful.
-					def diagramUrl = httpRequest authentication: 'jenkinsKey', validResponseCodes: "${env.VALID_RESPONSE_CODES}", url: "${env.JENKINS_JOB_URL}/job/${currentRelease}/job/File-Generation/job/DiagramConverter/lastBuild/api/json"
-					if (diagramUrl.getStatus() == 404) {
-						error("DiagramConverter has not yet been run. Please complete a successful build.")
-					} else {
-						def diagramJson = new JsonSlurper().parseText(diagramUrl.getContent())
-						if (diagramJson['result'] != "SUCCESS"){
-							error("Most recent DiagramConverter build status: " + diagramJson['result'] + ". Please complete a successful build.")
-						}
-					}
+                    utils.checkUpstreamBuildsSucceeded("File-Generation/job/DiagramConverter/")
 				}
 			}
 		}
@@ -36,8 +29,9 @@ pipeline{
 		stage('Main: Run Diagram-Exporter'){
 			steps{
 				script{
-					def diagramFolderPath = "${env.ABS_DOWNLOAD_PATH}/${currentRelease}/diagram/"
-					def ehldFolderPath = "${env.ABS_DOWNLOAD_PATH}/${currentRelease}/ehld/"
+				    def releaseVersion = utils.getReleaseVersion()
+					def diagramFolderPath = "${env.ABS_DOWNLOAD_PATH}/${releaseVersion}/diagram/"
+					def ehldFolderPath = "${env.ABS_DOWNLOAD_PATH}/${releaseVersion}/ehld/"
 					withCredentials([usernamePassword(credentialsId: 'neo4jUsernamePassword', passwordVariable: 'pass', usernameVariable: 'user')]){
 						sh "java -Xmx${env.JAVA_MEM_MAX}m -jar target/diagram-exporter-jar-with-dependencies.jar --user $user --password $pass --format svg --input ${diagramFolderPath} --ehld ${ehldFolderPath} --summary ${ehldFolderPath}/svgsummary.txt --target:\"Homo sapiens\" --output ./ --verbose"
 						sh "java -Xmx${env.JAVA_MEM_MAX}m -jar target/diagram-exporter-jar-with-dependencies.jar --user $user --password $pass --format png --input ${diagramFolderPath} --ehld ${ehldFolderPath} --summary ${ehldFolderPath}/svgsummary.txt --target:\"Homo sapiens\" --output ./ --verbose"
@@ -46,24 +40,34 @@ pipeline{
 				}
 			}
 		}
+		stage('Post: Generate DiagramExporter archives and move them to the downloads folder') {
+		    steps{
+		        script{
+				def releaseVersion = utils.getReleaseVersion()
+				def svgArchive = "diagrams.svg.tgz"
+				def pngArchive = "diagrams.png.tgz"
+				def sbgnArchive = "homo_sapiens.sbgn.tar.gz"
+				def downloadPath = "${env.ABS_DOWNLOAD_PATH}/${releaseVersion}"
+
+				sh "cd svg/Modern/; tar -zcf ${svgArchive} *.svg; mv ${svgArchive} ../../"
+				sh "cd png/Modern/; tar -zcf ${pngArchive} *.png; mv ${pngArchive} ../../"
+				sh "cd sbgn/; tar -zcf ${sbgnArchive} *.sbgn; mv ${sbgnArchive} ../"
+
+				sh "cp ${svgArchive} ${downloadPath}/"
+				sh "cp ${pngArchive} ${downloadPath}/"
+				sh "cp ${sbgnArchive} ${downloadPath}/"
+		        }
+		    }
+		}
 		// Move output contents to the download/XX folder, and archive everything on S3.
 		stage('Post: Archive Outputs'){
 			steps{
 				script{
-					def s3Path = "${env.S3_RELEASE_DIRECTORY_URL}/${currentRelease}/diagram_exporter"
-					def svgArchive = "diagrams.svg.tgz"
-					def pngArchive = "diagrams.png.tgz"
-					def sbgnArchive = "homo_sapiens.sbgn.tar.gz"
-					sh "cd svg/Modern/; tar -zcvf ${svgArchive} *.svg; mv ${svgArchive} ../../"
-					sh "cd png/Modern/; tar -zcvf ${pngArchive} *.png; mv ${pngArchive} ../../"
-					sh "cd sbgn/; tar -zcvf ${sbgnArchive} *.sbgn; mv ${sbgnArchive} ../"
-					sh "gzip logs/*"
-					sh "aws s3 --no-progress --recursive cp logs/ $s3Path/logs/"
-					sh "aws s3 --no-progress cp ${svgArchive} $s3Path/"
-					sh "aws s3 --no-progress cp ${pngArchive} $s3Path/"
-					sh "aws s3 --no-progress cp ${sbgnArchive} $s3Path/"
-					sh "mv *gz ${env.ABS_DOWNLOAD_PATH}/${currentRelease}/"
-					sh "rm -r logs/ svg png sbgn"
+					def releaseVersion = utils.getReleaseVersion()
+					def dataFiles = ["diagrams.svg.tgz", "diagrams.png.tgz", "homo_sapiens.sbgn.tar.gz"]
+					def logFiles = []
+					def foldersToDelete = ["svg", "png", "sbgn"]
+					utils.cleanUpAndArchiveBuildFiles("diagram_exporter", dataFiles, logFiles, foldersToDelete)
 				}
 			}
 		}
