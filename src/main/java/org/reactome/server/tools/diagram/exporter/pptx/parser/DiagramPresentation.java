@@ -8,13 +8,11 @@ import org.reactome.server.tools.diagram.exporter.pptx.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.*;
-import java.util.List;
 
 import static org.reactome.server.tools.diagram.exporter.pptx.util.PPTXShape.reorder;
 
@@ -46,8 +44,7 @@ public class DiagramPresentation {
         Adjustment adjustment = new Adjustment(diagram);
 
         // Set slide size.
-        Dimension pageSize = new Dimension(adjustment.getSlideWidth(), adjustment.getSlideHeight());
-        presentation.getSlideSize().setSize(pageSize);
+        presentation.getSlideSize().setSize((float)adjustment.getSlideWidth(), (float)adjustment.getSlideHeight(), SlideSizeScaleType.DoNotScale);
 
         // Render Compartments
         logger.debug("Exporting compartments");
