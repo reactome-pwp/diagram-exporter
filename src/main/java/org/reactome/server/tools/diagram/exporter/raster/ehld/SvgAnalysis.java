@@ -122,6 +122,7 @@ public class SvgAnalysis {
 				break;
 			case EXPRESSION:
 				expression();
+				break;
 			case GSA_REGULATION:
 			case GSA_STATISTICS:
 			case GSVA:
@@ -175,6 +176,8 @@ public class SvgAnalysis {
 
 		final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getExpression().getGradient();
 		SvgLegendRenderer.legend(document, gradient, summary.getExpression().getMax(), summary.getExpression().getMin(), AnalysisType.GSA_REGULATION);
+		//SvgLegendRenderer.regulationLegend(document, gradient, AnalysisType.GSA_REGULATION);
+
 		addBottomTextGroup();
 
 		// Analysis info text is centered to ANALINFO group. To get the
@@ -279,7 +282,14 @@ public class SvgAnalysis {
 		final GradientSheet gradient = args.getProfiles().getAnalysisSheet().getExpression().getGradient();
 		Color expressionColor = DEFAULT_OVERLAY_COLOR;
 		if (pValue <= MAX_P_VALUE && value >= expression.getMin() && value <= expression.getMax()) {
-			double val = 1 - (value - expression.getMin()) / (expression.getMax() - expression.getMin());
+			// value - val
+			// 2  - 0.1
+			// 1  - 0.3
+			// 0  - 0.5
+			// -1 - 0.7
+			// -2 - 0.9
+ 			//there are 5 rectangles in the regulation legend, place the tick at the middle of each rectangle by the value of val(0.1, 0.3, 0.5, 0.7, 0.9)
+			double val =  ((value - expression.getMax()) * (0.90 - 0.10) / (expression.getMin() - expression.getMax())) + 0.10;
 			expressionColor = ColorFactory.interpolate(gradient, val);
 			if (args.getSelected() != null && args.getSelected().contains(stId)) {
 				final Color selection = args.getProfiles().getDiagramSheet().getProperties().getSelection();
@@ -291,7 +301,7 @@ public class SvgAnalysis {
 
 	}
 
-	private void createClip(String stId, double percentage) {
+	private void  createClip(String stId, double percentage) {
 		if (percentage > 0 && percentage < MIN_OVERLAY_CLIP)
 			percentage = MIN_OVERLAY_CLIP;
 		final Element rect = document.createElementNS(SVG_NAMESPACE_URI, SVG_RECT_TAG);
