@@ -41,7 +41,7 @@
         <commons.io.version>2.5</commons.io.version>
         <jasp.version>2.1</jasp.version>
         <junit.version>4.12</junit.version>
-        <analysis.core.version>3.3.2</analysis.core.version>
+        <analysis.core.version>3.3.7-SNAPSHOT</analysis.core.version>
         <sbgn.version>0.2</sbgn.version>
 
         <!--build-->
