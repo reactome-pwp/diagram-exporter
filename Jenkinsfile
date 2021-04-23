@@ -32,6 +32,16 @@ pipeline{
 				    def releaseVersion = utils.getReleaseVersion()
 					def diagramFolderPath = "${env.ABS_DOWNLOAD_PATH}/${releaseVersion}/diagram/"
 					def ehldFolderPath = "${env.ABS_DOWNLOAD_PATH}/${releaseVersion}/ehld/"
+					dir(${env.ABS_DOWNLOAD_PATH}/${releaseVersion})
+					{
+						// The ehld folder needs to be set up manually. Exit with an error message if the folder is not availabe for the current release.
+						if (!fileExists("ehld"))
+						{
+							error "The directory ${ehldFolderPath} doesn't seem to exist. This needs to be set up manually before this step can continue. Please speak to someone at EBI about setting up the ehld folder for this release."
+						}
+						    
+					}
+					
 					withCredentials([usernamePassword(credentialsId: 'neo4jUsernamePassword', passwordVariable: 'pass', usernameVariable: 'user')]){
 						sh "java -Xmx${env.JAVA_MEM_MAX}m -jar target/diagram-exporter-jar-with-dependencies.jar --user $user --password $pass --format svg --input ${diagramFolderPath} --ehld ${ehldFolderPath} --summary ${ehldFolderPath}/svgsummary.txt --target:\"Homo sapiens\" --output ./ --verbose"
 						sh "java -Xmx${env.JAVA_MEM_MAX}m -jar target/diagram-exporter-jar-with-dependencies.jar --user $user --password $pass --format png --input ${diagramFolderPath} --ehld ${ehldFolderPath} --summary ${ehldFolderPath}/svgsummary.txt --target:\"Homo sapiens\" --output ./ --verbose"
