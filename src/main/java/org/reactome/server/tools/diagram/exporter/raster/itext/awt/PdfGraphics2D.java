@@ -1487,7 +1487,7 @@ public class PdfGraphics2D extends Graphics2D {
 					canvas.eoClip();
 				else
 					canvas.clip();
-				canvas.newPath();
+				canvas.endPath();
 		}
 	}
 
@@ -1542,7 +1542,7 @@ public class PdfGraphics2D extends Graphics2D {
 			if (mask != null) {
 				ImageDataFactory.create(mask, null, true);
 			}
-			canvas.addImage(image, (float) mx[0], (float) mx[1], (float) mx[2], (float) mx[3], (float) mx[4], (float) mx[5]);
+			canvas.addImageWithTransformationMatrix(image, (float) mx[0], (float) mx[1], (float) mx[2], (float) mx[3], (float) mx[4], (float) mx[5]);
 		} catch (Exception ex) {
 			throw new IllegalArgumentException(ex);
 		}

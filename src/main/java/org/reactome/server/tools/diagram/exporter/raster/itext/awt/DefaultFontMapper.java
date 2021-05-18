@@ -70,9 +70,9 @@ public class DefaultFontMapper {
 		byte[] bytes;
 		try {
 			bytes = IOUtils.toByteArray(Resources.class.getResourceAsStream("fonts/arial.ttf"));
-			REGULAR = PdfFontFactory.createFont(bytes, PdfEncodings.UTF8, true, true);
+			REGULAR = PdfFontFactory.createFont(bytes, PdfEncodings.UTF8, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED, true);
 			bytes = IOUtils.toByteArray(Resources.class.getResourceAsStream("fonts/arialbd.ttf"));
-			BOLD = PdfFontFactory.createFont(bytes, PdfEncodings.UTF8, true, true);
+			BOLD = PdfFontFactory.createFont(bytes, PdfEncodings.UTF8, PdfFontFactory.EmbeddingStrategy.FORCE_EMBEDDED, true);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
