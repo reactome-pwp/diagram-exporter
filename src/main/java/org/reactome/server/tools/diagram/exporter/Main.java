@@ -16,7 +16,6 @@ import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisExcept
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
-import org.reactome.server.tools.diagram.exporter.config.ReactomeNeo4jConfig;
 import org.reactome.server.tools.diagram.exporter.pptx.PowerPointExporter;
 import org.reactome.server.tools.diagram.exporter.raster.RasterExporter;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
@@ -27,6 +26,7 @@ import org.reactome.server.tools.diagram.exporter.utils.ProgressBar;
 import org.sbgn.SbgnUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
@@ -40,6 +40,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Main class for the diagram exporter project
  */
+@SpringBootApplication
 public class Main {
 
     private static final Logger logger = LoggerFactory.getLogger("diagram-exporter");
@@ -62,7 +63,7 @@ public class Main {
                         new FlaggedOption(  "summary",  JSAP.STRING_PARSER, null,        JSAP.NOT_REQUIRED,'s', "summary", "The file containing the summary of pathways with EHLD assigned"),
 
                         //GRAPH-DB options
-                        new FlaggedOption(  "host",     JSAP.STRING_PARSER, "localhost", JSAP.NOT_REQUIRED,'h', "host",    "The neo4j host"),
+                        new FlaggedOption(  "host",     JSAP.STRING_PARSER, "bolt://localhost:7687", JSAP.NOT_REQUIRED,'h', "host",    "The neo4j host"),
                         new FlaggedOption(  "port",     JSAP.STRING_PARSER, "7474",      JSAP.NOT_REQUIRED,'p', "port",    "The neo4j port"),
                         new FlaggedOption(  "user",     JSAP.STRING_PARSER, "neo4j",     JSAP.NOT_REQUIRED,'u', "user",    "The neo4j user"),
                         new FlaggedOption(  "password", JSAP.STRING_PARSER, "neo4j",     JSAP.REQUIRED,    'w', "password","The neo4j password"),
@@ -80,13 +81,7 @@ public class Main {
         verbose = config.getBoolean("verbose");
 
         //Initialising ReactomeCore Neo4j configuration
-        ReactomeGraphCore.initialise(
-                config.getString("host"),
-                config.getString("port"),
-                config.getString("user"),
-                config.getString("password"),
-                ReactomeNeo4jConfig.class
-        );
+        ReactomeGraphCore.initialise(config.getString("host"), config.getString("user"), config.getString("password"));
 
         String profile = config.getString("profile");
 
@@ -96,7 +91,7 @@ public class Main {
         try {
             format = Format.valueOf(f);
         } catch (IllegalArgumentException e) {
-            System.err.println(String.format("'%s' is not a valid format. Please specify one of the supported formats %s", f, Arrays.toString(Format.values())));
+            System.err.printf("'%s' is not a valid format. Please specify one of the supported formats %s%n", f, Arrays.toString(Format.values()));
             System.exit(1);
         }
 
@@ -104,7 +99,7 @@ public class Main {
         File input = getFinalInputFolder(config.getString("input"));
         File output = getFinalOutputFolder(config.getString("output"), format, profile);
 
-        Long start = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
         print("· Retrieving target pathways...");
         Collection<Pathway> targets = getTargets(config.getStringArray("target"));
         final int total = targets.size();
@@ -138,6 +133,8 @@ public class Main {
         } else {
             println("· No target pathways found based on '%s'", String.join(",", config.getStringArray("target")));
         }
+
+        System.exit(0);
     }
 
     private static int generatePPTX(Collection<Pathway> target, File input, File output, String colourProfile, String lic) throws DiagramProfileException, DiagramJsonDeserializationException, DiagramJsonNotFoundException {
@@ -207,7 +204,7 @@ public class Main {
         Map<String, Object> parametersMap = new HashMap<>();
         if (target.length > 1) {
             query = "MATCH (p:Pathway{hasDiagram:True}) " +
-                    "WHERE p.dbId IN {dbIds} OR p.stId IN {stIds} " +
+                    "WHERE p.dbId IN $dbIds OR p.stId IN $stIds " +
                     "WITH DISTINCT p " +
                     "RETURN p " +
                     "ORDER BY p.dbId";
@@ -231,13 +228,13 @@ public class Main {
                         "RETURN p " +
                         "ORDER BY s.dbId, p.dbId";
             } else if (DatabaseObjectUtils.isStId(aux)) {
-                query = "MATCH (p:Pathway{hasDiagram:True, stId:{stId}}) RETURN DISTINCT p";
+                query = "MATCH (p:Pathway{hasDiagram:True, stId:$stId}) RETURN DISTINCT p";
                 parametersMap.put("stId", DatabaseObjectUtils.getIdentifier(aux));
             } else if (DatabaseObjectUtils.isDbId(aux)) {
-                query = "MATCH (p:Pathway{hasDiagram:True, dbId:{dbId}}) RETURN DISTINCT p";
+                query = "MATCH (p:Pathway{hasDiagram:True, dbId:$dbId}) RETURN DISTINCT p";
                 parametersMap.put("dbId", DatabaseObjectUtils.getIdentifier(aux));
             } else {
-                query = "MATCH (p:Pathway{hasDiagram:True, speciesName:{speciesName}}) " +
+                query = "MATCH (p:Pathway{hasDiagram:True, speciesName:$speciesName}) " +
                         "WITH DISTINCT p " +
                         "RETURN p " +
                         "ORDER BY p.dbId";
@@ -269,7 +266,7 @@ public class Main {
         //Checking for the specified input/output folders
         File input = new File(inputFolder);
         if (!input.exists() || !input.isDirectory()) {
-            System.err.println(String.format("Cannot find the input folder '%s'", input.getAbsolutePath()));
+            System.err.printf("Cannot find the input folder '%s'%n", input.getAbsolutePath());
             System.exit(1);
         }
         return input;
@@ -278,12 +275,12 @@ public class Main {
     private static File getFinalOutputFolder(String outputFolder, Format format, String profile) {
         File output = new File(outputFolder);
         if (!output.exists() || !output.isDirectory()) {
-            System.err.println(String.format("Cannot find the output folder '%s'", output.getAbsolutePath()));
+            System.err.printf("Cannot find the output folder '%s'%n", output.getAbsolutePath());
             System.exit(1);
         } else {
             output = new File(output.getAbsolutePath() + "/" + format.name().toLowerCase());
             if (!output.exists() && !output.mkdir()) {
-                System.err.println(String.format("Cannot create '%s'", output.getAbsolutePath()));
+                System.err.printf("Cannot create '%s'%n", output.getAbsolutePath());
                 System.exit(1);
             }
             if(!format.equals(Format.SBGN)) {
@@ -300,7 +297,7 @@ public class Main {
     private static File getEhldsFolder(String ehlds){
         File rtn = new File(ehlds);
         if(!rtn.exists() || !rtn.isDirectory()) {
-            System.err.println(String.format("Cannot find the ehlds folder '%s'", rtn.getAbsolutePath()));
+            System.err.printf("Cannot find the ehlds folder '%s'%n", rtn.getAbsolutePath());
             System.exit(1);
         }
         return rtn;
@@ -309,7 +306,7 @@ public class Main {
     private static File getEhldSummaryFile(String fileName){
         File file = new File(fileName);
         if(!file.exists()) {
-            System.err.println(String.format("Cannot find the ehld summary file '%s'", file.getAbsolutePath()));
+            System.err.printf("Cannot find the ehld summary file '%s'%n", file.getAbsolutePath());
             System.exit(1);
         }
         return file;
@@ -323,10 +320,10 @@ public class Main {
 
     @SuppressWarnings("SameParameterValue")
     private static void print(String msg, Object... params){
-        if(verbose) System.out.print(String.format(msg, params));
+        if(verbose) System.out.printf(msg, params);
     }
 
     private static void println(String msg, Object... params){
-        if(verbose) System.out.println(String.format(msg, params));
+        if(verbose) System.out.printf((msg) + "%n", params);
     }
 }

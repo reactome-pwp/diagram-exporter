@@ -1,6 +1,5 @@
 package org.reactome.server.tools.diagram.exporter.sbgn;
 
-import com.google.common.collect.ImmutableList;
 import org.reactome.server.tools.diagram.data.layout.*;
 import org.sbgn.bindings.Arc;
 import org.sbgn.bindings.Bbox;
@@ -96,7 +95,9 @@ class Participant {
                     }
                     break;
                 case "OUTPUT":
-                    for (Segment segment : ImmutableList.copyOf(edge.getSegments()).reverse()) {
+                    List<Segment> segs = edge.getSegments().subList(0, edge.getSegments().size());
+                    Collections.reverse(segs);
+                    for (Segment segment : segs) {
                         ShapeWrapper shape = new ShapeWrapper(edge.getReactionShape());
                         if (!shape.touches(segment)) {
                             Arc.Next next = new Arc.Next();
