@@ -38,7 +38,7 @@
         <diagram.reader.version>1.1.6</diagram.reader.version>
         <batik.version>1.14</batik.version>
         <aspose.version>20.12</aspose.version>
-        <logback.version>1.1.10</logback.version>
+        <logback.version>1.2.0</logback.version>
         <commons.io.version>2.5</commons.io.version>
         <jasp.version>2.1</jasp.version>
         <junit.version>4.12</junit.version>
