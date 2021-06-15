@@ -4,7 +4,7 @@
 
     <groupId>org.reactome.server.tools</groupId>
     <artifactId>diagram-exporter</artifactId>
-    <version>1.3.18</version>
+    <version>1.3.19-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Diagram Exporter</name>
@@ -33,7 +33,7 @@
     </developers>
 
     <properties>
-        <graph.core>1.1.24</graph.core>
+        <graph.core>1.1.26-SNAPSHOT</graph.core>
         <analysis.core.version>3.3.7</analysis.core.version>
         <diagram.reader.version>1.1.6</diagram.reader.version>
         <batik.version>1.14</batik.version>
