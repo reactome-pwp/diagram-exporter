@@ -26,7 +26,6 @@ import org.reactome.server.tools.diagram.exporter.utils.ProgressBar;
 import org.sbgn.SbgnUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
@@ -40,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Main class for the diagram exporter project
  */
-@SpringBootApplication
+//@SpringBootApplication
 public class Main {
 
     private static final Logger logger = LoggerFactory.getLogger("diagram-exporter");
@@ -64,7 +63,6 @@ public class Main {
 
                         //GRAPH-DB options
                         new FlaggedOption(  "host",     JSAP.STRING_PARSER, "bolt://localhost:7687", JSAP.NOT_REQUIRED,'h', "host",    "The neo4j host"),
-                        new FlaggedOption(  "port",     JSAP.STRING_PARSER, "7474",      JSAP.NOT_REQUIRED,'p', "port",    "The neo4j port"),
                         new FlaggedOption(  "user",     JSAP.STRING_PARSER, "neo4j",     JSAP.NOT_REQUIRED,'u', "user",    "The neo4j user"),
                         new FlaggedOption(  "password", JSAP.STRING_PARSER, "neo4j",     JSAP.REQUIRED,    'w', "password","The neo4j password"),
 
