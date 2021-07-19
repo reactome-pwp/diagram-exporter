@@ -17,8 +17,8 @@ When exporting to PowerPoint this code relies on the Diagram JSON (static files 
 
 Usage:
 ```console
-java -jar ./target/diagram-exporter-jar-with-dependencies.jar
-     -i <stId> Stable Identifier of the diagram
+java -jar ./target/diagram-exporter-exec.jar
+     -t <stId> Stable Identifiers of the diagrams
      -p <colourProfile> The colour profile [Modern or Standard]
      -o <output> The output folder
      -j <static> The static json's folder
@@ -29,8 +29,8 @@ java -jar ./target/diagram-exporter-jar-with-dependencies.jar
 
 Example:
 ```console
-java -jar ./target/diagram-exporter-jar-with-dependencies.jar \
-     -i R-HSA-69620 \
+java -jar ./target/diagram-exporter-exec.jar \
+     -t R-HSA-69620 \
      -p Modern \
      -o /Users/reactome/Reactome/diagram/exporter \
      -j /Users/reactome/Reactome/diagram/static \
