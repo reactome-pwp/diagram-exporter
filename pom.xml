@@ -56,11 +56,12 @@
         <main.class>org.reactome.server.tools.diagram.exporter.Main</main.class>
 
         <!--maven build and plugins-->
+        <spring.boot.version>2.5.2</spring.boot.version>
         <maven.compiler.version>3.8.1</maven.compiler.version>
         <maven.jar.version>3.2.0</maven.jar.version>
         <maven.source.version>3.2.1</maven.source.version>
         <maven.surefire.version>3.0.0-M5</maven.surefire.version>
-        <spring-boot-maven-plugin.version>2.5.2</spring-boot-maven-plugin.version>
+        <maven.deploy.version>3.0.0-M1</maven.deploy.version>
 
         <!-- maven assembly plugin configuration -->
         <!-- CAREFUL: when deploying to Nexus or any public repo make the "jar-with-dependencies" isn't uploaded -->
@@ -218,9 +219,41 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.version}</version>
+                <executions>
+                    <execution>
+                        <id>default-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>org/reactome/server/tools/diagram/exporter/Main.class</exclude>
+                                <exclude>org/reactome/server/tools/diagram/exporter/config/ReactomeNeo4jConfig.class
+                                </exclude>
+                                <exclude>**/logback.xml</exclude>
+                                <exclude>**/license/</exclude>
+                            </excludes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>exec-jar</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>exec</classifier>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring-boot-maven-plugin.version}</version>
+                <version>${spring.boot.version}</version>
                 <configuration>
                     <classifier>exec</classifier>
                     <mainClass>${main.class}</mainClass>
