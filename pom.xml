@@ -58,8 +58,8 @@
         <!-- CAREFUL: when deploying to Nexus or any public repo make the "jar-with-dependencies" isn't uploaded -->
         <!--          PowerPoint paid license is part of the project and shouldn't be available to the public -->
         <!-- to deploy in nexus: mvn -Psafe-deploy deploy -->
-        <maven.assembly.custom.phase>package</maven.assembly.custom.phase>
-        <maven.skip.deploy>true</maven.skip.deploy>
+        <custom.phase>package</custom.phase>
+        <skip.deploy>true</skip.deploy>
 
         <!-- true: saves all images in the project root folder for manually check -->
         <test.save>false</test.save>
@@ -249,7 +249,7 @@
                 <executions>
                     <execution>
                         <id>make-assembly</id>
-                        <phase>${maven.assembly.custom.phase}</phase>
+                        <phase>${custom.phase}</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
@@ -263,7 +263,7 @@
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <configuration>
-                    <skip>${maven.skip.deploy}</skip>
+                    <skip>${skip.deploy}</skip>
                 </configuration>
             </plugin>
 
