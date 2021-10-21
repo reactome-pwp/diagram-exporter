@@ -32,6 +32,20 @@ pipeline{
 				    def releaseVersion = utils.getReleaseVersion()
 					def diagramFolderPath = "${env.ABS_DOWNLOAD_PATH}/${releaseVersion}/diagram/"
 					def ehldFolderPath = "${env.ABS_DOWNLOAD_PATH}/${releaseVersion}/ehld/"
+					dir("${env.ABS_DOWNLOAD_PATH}/${releaseVersion}/")
+				    	{
+						// It looks like there's some external process to create and set up these directories.
+						// We should check that they exist before proceeding.
+						if(!fileExists("diagram"))
+						{
+							error ("${diagramFolderPath} doesn't seem to exist. Please ensure that this directory exists before continuing.")
+						}
+
+						if(!fileExists("ehld"))
+						{
+							error ("${ehldFolderPath} doesn't seem to exist. Please ensure that this directory exists before continuing.")
+						}
+					}
 					withCredentials([usernamePassword(credentialsId: 'neo4jUsernamePassword', passwordVariable: 'pass', usernameVariable: 'user')]){
 						sh "java -Xmx${env.JAVA_MEM_MAX}m -jar target/diagram-exporter-exec.jar --user $user --password $pass --format svg --input ${diagramFolderPath} --ehld ${ehldFolderPath} --summary ${ehldFolderPath}/svgsummary.txt --target:\"Homo sapiens\" --output ./ --verbose"
 						sh "java -Xmx${env.JAVA_MEM_MAX}m -jar target/diagram-exporter-exec.jar --user $user --password $pass --format png --input ${diagramFolderPath} --ehld ${ehldFolderPath} --summary ${ehldFolderPath}/svgsummary.txt --target:\"Homo sapiens\" --output ./ --verbose"
