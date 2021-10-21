@@ -1,6 +1,7 @@
 package org.reactome.server.tools.diagram.exporter.raster.ehld;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
@@ -105,6 +106,4 @@ public class EhldRendererTest {
 		final RasterArgs args = new RasterArgs("R-HSA-74160", "pdf");
 		TestUtils.render(args, result);
 	}
-
-
 }

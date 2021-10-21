@@ -39,7 +39,7 @@ This exporter is meant to be executed as a step of the release process to genera
 To find out the parameters, please use the "--help" option:
 
 ```console
-$java -jar diagram-exporter-jar-with-dependencies.jar --help 
+$java -jar diagram-exporter-exec.jar --help 
 
 Usage:
   org.reactome.server.tools.diagram.exporter.Main [--help]
@@ -100,7 +100,7 @@ Exports the requested pathway diagrams to different formats (svg, png, sbgn, ppt
 To generate the SVG files for 'Homo sapiens' the command line is like this:
 
 ```console
-java -jar diagram-exporter-jar-with-dependencies.jar \
+java -jar diagram-exporter-exec.jar \
             -t:"Homo sapiens" \  
             -f svg \
             -o /path/to/output \
@@ -114,7 +114,7 @@ java -jar diagram-exporter-jar-with-dependencies.jar \
 To generate the SBGN files for 'Homo sapiens' the command line is like this:
 
 ```console
-java -jar diagram-exporter-jar-with-dependencies.jar \
+java -jar diagram-exporter-exec.jar \
             -t:"Homo sapiens" \  
             -f sbgn \
             -o /path/to/output \

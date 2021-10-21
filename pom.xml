@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.reactome.server.tools</groupId>
     <artifactId>diagram-exporter</artifactId>
-    <version>1.3.20</version>
+    <version>2.0.0</version>
     <packaging>jar</packaging>
 
     <name>Diagram Exporter</name>
@@ -33,33 +34,42 @@
     </developers>
 
     <properties>
-        <graph.core>1.1.27</graph.core>
-        <analysis.core.version>3.3.8</analysis.core.version>
-        <diagram.reader.version>1.1.6</diagram.reader.version>
+        <graph.core>2.0.0</graph.core>
+        <analysis.core.version>3.4.0</analysis.core.version>
+        <diagram.reader.version>1.2.0</diagram.reader.version>
+
         <batik.version>1.14</batik.version>
-        <aspose.version>20.12</aspose.version>
-        <logback.version>1.1.10</logback.version>
-        <commons.io.version>2.5</commons.io.version>
+        <aspose.version>21.4</aspose.version>
+        <logback.version>1.3.0-alpha5</logback.version>
+        <commons.io.version>2.8.0</commons.io.version>
         <jasp.version>2.1</jasp.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>5.8.0-M1</junit.version>
         <sbgn.version>0.2</sbgn.version>
+        <kernel.version>7.1.15</kernel.version>
+        <layout.version>7.1.15</layout.version>
+        <log4j.version>2.14.1</log4j.version>
 
         <!--build-->
-        <jdk.version>1.8</jdk.version>
+        <jdk.version>11</jdk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <dependency.locations.enabled>false</dependency.locations.enabled>
+        <main.class>org.reactome.server.tools.diagram.exporter.Main</main.class>
 
         <!--maven build and plugins-->
-        <maven.compiler.version>3.5.1</maven.compiler.version>
-        <maven.jar.version>3.0.2</maven.jar.version>
-        <maven.source.version>2.4</maven.source.version>
+        <spring.boot.version>2.5.3</spring.boot.version>
+        <maven.compiler.version>3.8.1</maven.compiler.version>
+        <maven.jar.version>3.2.0</maven.jar.version>
+        <maven.source.version>3.2.1</maven.source.version>
+        <maven.surefire.version>3.0.0-M5</maven.surefire.version>
+        <maven.deploy.version>3.0.0-M1</maven.deploy.version>
 
         <!-- maven assembly plugin configuration -->
         <!-- CAREFUL: when deploying to Nexus or any public repo make the "jar-with-dependencies" isn't uploaded -->
         <!--          PowerPoint paid license is part of the project and shouldn't be available to the public -->
         <!-- to deploy in nexus: mvn -Psafe-deploy deploy -->
-        <custom.phase>package</custom.phase>
         <skip.deploy>true</skip.deploy>
+        <skip.repackage>false</skip.repackage>
+
 
         <!-- true: saves all images in the project root folder for manually check -->
         <test.save>false</test.save>
@@ -111,8 +121,8 @@
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
@@ -122,12 +132,6 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
-        </dependency>
-        <!-- Necessary to load org.apache.log4j.Category in Base64 -->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
         </dependency>
 
         <dependency>
@@ -146,12 +150,19 @@
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>layout</artifactId>
-            <version>7.1.1</version>
+            <version>${layout.version}</version>
         </dependency>
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>kernel</artifactId>
-            <version>7.1.1</version>
+            <version>${kernel.version}</version>
+        </dependency>
+
+        <!-- Help to load JAXBException-->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.4.0-b180830.0359</version>
         </dependency>
 
     </dependencies>
@@ -164,14 +175,14 @@
             <!-- to deploy in nexus: mvn -Psafe-deploy deploy -->
             <id>safe-deploy</id>
             <properties>
-                <custom.phase>deploy</custom.phase>
                 <skip.deploy>false</skip.deploy>
+                <skip.repackage>true</skip.repackage>
             </properties>
         </profile>
     </profiles>
 
     <build>
-        <finalName>${project.name}</finalName>
+        <finalName>diagram-exporter</finalName>
         <!-- Add this if you are having problems with the fonts resources -->
         <resources>
             <resource>
@@ -209,49 +220,51 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>${maven.jar.version}</version>
                 <executions>
                     <execution>
                         <id>default-jar</id>
-                        <phase>install</phase>
+                        <phase>package</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
                         <configuration>
                             <excludes>
                                 <exclude>org/reactome/server/tools/diagram/exporter/Main.class</exclude>
-                                <exclude>org/reactome/server/tools/diagram/exporter/config/ReactomeNeo4jConfig.class</exclude>
+                                <exclude>org/reactome/server/tools/diagram/exporter/config/ReactomeNeo4jConfig.class
+                                </exclude>
                                 <exclude>**/logback.xml</exclude>
                                 <exclude>**/license/</exclude>
                             </excludes>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>exec-jar</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>exec</classifier>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
-
-            <!-- Generate jar with dependencies -->
             <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.1.1</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.boot.version}</version>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>org.reactome.server.tools.diagram.exporter.Main</mainClass>
-                        </manifest>
-                    </archive>
-                    <finalName>diagram-exporter</finalName>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
+                    <attach>false</attach>
+                    <classifier>exec</classifier>
+                    <mainClass>${main.class}</mainClass>
+                    <skip>${skip.repackage}</skip>
                 </configuration>
-                <!-- Excluding jar-with-dependencies from NEXUS -->
                 <executions>
                     <execution>
-                        <id>make-assembly</id>
-                        <phase>${custom.phase}</phase>
                         <goals>
-                            <goal>single</goal>
+                            <goal>repackage</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -261,16 +274,54 @@
             <!--          PowerPoint paid license is part of the project and shouldn't be available to the public -->
             <!-- to deploy in nexus: mvn -Psafe-deploy deploy -->
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
-                <configuration>
-                    <skip>${skip.deploy}</skip>
-                </configuration>
+                <version>${maven.deploy.version}</version>
+                <executions>
+                    <execution>
+                        <id>default-deploy</id>
+                        <goals>
+                            <goal>deploy</goal>
+                        </goals>
+                        <configuration>
+                            <skip>${skip.deploy}</skip>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.0.0-M1</version>
+                <executions>
+                    <execution>
+                        <id>default-install</id>
+                        <goals>
+                            <goal>install</goal>
+                        </goals>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>install-jar</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>target/${project.build.finalName}.jar</file>
+                            <pomFile>pom.xml</pomFile>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.20.1</version>
+                <version>${maven.surefire.version}</version>
                 <configuration>
                     <useSystemClassLoader>true</useSystemClassLoader>
                     <forkMode>always</forkMode>
@@ -285,7 +336,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.1.2</version>
+                <version>${maven.source.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -343,10 +394,10 @@
                 <enabled>false</enabled>
             </snapshots>
         </repository>
-            <repository>
-                <id>jitpack.io</id>
-                <url>https://jitpack.io</url>
-            </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
         <!-- EBI repo -->
         <repository>
             <id>nexus-ebi-repo</id>

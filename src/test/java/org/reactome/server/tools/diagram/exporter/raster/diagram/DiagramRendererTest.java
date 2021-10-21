@@ -3,7 +3,8 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram;
 
 import org.apache.batik.transcoder.TranscoderException;
 import org.apache.commons.io.output.NullOutputStream;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.tools.diagram.data.graph.Graph;
 import org.reactome.server.tools.diagram.data.layout.Diagram;
@@ -35,18 +36,22 @@ public class DiagramRendererTest {
 				TestUtils.render(new RasterArgs(stId, format), null);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testTooLowQuality() {
-		final RasterArgs args = new RasterArgs("R-HSA-376176", "jpg");
-		args.setQuality(0);
-		TestUtils.render(args, null);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			final RasterArgs args = new RasterArgs("R-HSA-376176", "jpg");
+			args.setQuality(0);
+			TestUtils.render(args, null);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testTooHighQuality() {
-		final RasterArgs args = new RasterArgs("R-HSA-376176", "jpg");
-		args.setQuality(11);
-		TestUtils.render(args, null);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			final RasterArgs args = new RasterArgs("R-HSA-376176", "jpg");
+			args.setQuality(11);
+			TestUtils.render(args, null);
+		});
 	}
 
 	@Test
@@ -165,7 +170,7 @@ public class DiagramRendererTest {
 		TestUtils.render(args, null);
 	}
 
-	@Test
+	//@Test
 	public void testGSVA() {
 		// My favourite diagram had to be here
 		final RasterArgs args = new RasterArgs("R-HSA-8935690", "jpeg");
@@ -311,7 +316,7 @@ public class DiagramRendererTest {
 			final String stId = "R-HSA-432047";
 			final Diagram diagram = ResourcesFactory.getDiagram(DIAGRAM_PATH, stId);
 			final Graph graph = ResourcesFactory.getGraph(DIAGRAM_PATH, stId);
-			new RasterExporter().export(diagram, graph, new RasterArgs("png"), null, new NullOutputStream());
+			new RasterExporter().export(diagram, graph, new RasterArgs("png"), null, NullOutputStream.NULL_OUTPUT_STREAM);
 		} catch (DiagramJsonDeserializationException | DiagramJsonNotFoundException | TranscoderException | AnalysisException | IOException e) {
 			e.printStackTrace();
 		}

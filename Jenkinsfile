@@ -47,9 +47,9 @@ pipeline{
 						}
 					}
 					withCredentials([usernamePassword(credentialsId: 'neo4jUsernamePassword', passwordVariable: 'pass', usernameVariable: 'user')]){
-						sh "java -Xmx${env.JAVA_MEM_MAX}m -jar target/diagram-exporter-jar-with-dependencies.jar --user $user --password $pass --format svg --input ${diagramFolderPath} --ehld ${ehldFolderPath} --summary ${ehldFolderPath}/svgsummary.txt --target:\"Homo sapiens\" --output ./ --verbose"
-						sh "java -Xmx${env.JAVA_MEM_MAX}m -jar target/diagram-exporter-jar-with-dependencies.jar --user $user --password $pass --format png --input ${diagramFolderPath} --ehld ${ehldFolderPath} --summary ${ehldFolderPath}/svgsummary.txt --target:\"Homo sapiens\" --output ./ --verbose"
-						sh "java -Xmx${env.JAVA_MEM_MAX}m -jar target/diagram-exporter-jar-with-dependencies.jar --user $user --password $pass --format sbgn --input ${diagramFolderPath} --target:\"Homo sapiens\" --output ./ --verbose"
+						sh "java -Xmx${env.JAVA_MEM_MAX}m -jar target/diagram-exporter-exec.jar --user $user --password $pass --format svg --input ${diagramFolderPath} --ehld ${ehldFolderPath} --summary ${ehldFolderPath}/svgsummary.txt --target:\"Homo sapiens\" --output ./ --verbose"
+						sh "java -Xmx${env.JAVA_MEM_MAX}m -jar target/diagram-exporter-exec.jar --user $user --password $pass --format png --input ${diagramFolderPath} --ehld ${ehldFolderPath} --summary ${ehldFolderPath}/svgsummary.txt --target:\"Homo sapiens\" --output ./ --verbose"
+						sh "java -Xmx${env.JAVA_MEM_MAX}m -jar target/diagram-exporter-exec.jar --user $user --password $pass --format sbgn --input ${diagramFolderPath} --target:\"Homo sapiens\" --output ./ --verbose"
 					}
 				}
 			}
