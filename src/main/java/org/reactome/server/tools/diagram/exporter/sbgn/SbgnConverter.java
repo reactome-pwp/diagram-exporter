@@ -1,15 +1,16 @@
 package org.reactome.server.tools.diagram.exporter.sbgn;
 
+
 import org.reactome.server.tools.diagram.data.layout.*;
 import org.reactome.server.tools.diagram.data.layout.Shape;
 import org.sbgn.bindings.*;
 import org.sbgn.bindings.Label;
 import org.sbgn.bindings.Map;
-import sun.font.FontDesignMetrics;
 
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+
 
 /**
  * Generates the SBGN of a given Diagram
@@ -23,7 +24,7 @@ public class SbgnConverter {
     private static final String REACTION_PREFIX = "reactionVertex_";
     private static final String COMPARTMENT_PREFIX = "compartmentVertex_";
 
-    private static final FontMetrics FONT_DESIGN_METRICS = FontDesignMetrics.getMetrics(new Font("Arial", Font.PLAIN, 16));
+    private static final FontMetrics FONT_DESIGN_METRICS = new Canvas().getFontMetrics((new Font("Arial", Font.PLAIN, 16)));
 
     private Diagram diagram;
     private Set<Participant> participants = new HashSet<>();
@@ -34,7 +35,7 @@ public class SbgnConverter {
 
     public SbgnConverter(Diagram diagram) {
         this.diagram = diagram;
-        if(diagram.getEdges()!=null) diagram.getEdges().forEach(e -> edgeMap.put(e.getId(), e));
+        if (diagram.getEdges() != null) diagram.getEdges().forEach(e -> edgeMap.put(e.getId(), e));
     }
 
     public Sbgn getSbgn() {
@@ -47,7 +48,7 @@ public class SbgnConverter {
         }
 
         for (Node node : diagram.getNodes()) {
-            if (node.getIsFadeOut() == null && node.getIsCrossed() == null){
+            if (node.getIsFadeOut() == null && node.getIsCrossed() == null) {
                 glyphMap.put(node, getNodeGlyph(node));
             }
         }
@@ -81,7 +82,7 @@ public class SbgnConverter {
         if (node.getRenderableClass().startsWith("Complex")) glyph.setClazz("complex");
         else if (node.getRenderableClass().startsWith("Protein")) glyph.setClazz("macromolecule");
         else if (node.getRenderableClass().startsWith("Chemical")) glyph.setClazz("simple chemical");
-        //Green boxes to "process"
+            //Green boxes to "process"
         else if (node.getRenderableClass().startsWith("Process")) glyph.setClazz("submap");
         else if (node.getRenderableClass().startsWith("EncapsulatedNode")) glyph.setClazz("submap");
 
@@ -168,10 +169,16 @@ public class SbgnConverter {
             if (Objects.equals(s, "?")) glyph.setClazz("uncertain process");
             else glyph.setClazz("omitted process");
         } else {
-            switch (edge.getReactionShape().getType()){
-                case "CIRCLE":          glyph.setClazz("association");      break;
-                case "DOUBLE_CIRCLE":   glyph.setClazz("dissociation");     break;
-                default:                glyph.setClazz("process");          break;
+            switch (edge.getReactionShape().getType()) {
+                case "CIRCLE":
+                    glyph.setClazz("association");
+                    break;
+                case "DOUBLE_CIRCLE":
+                    glyph.setClazz("dissociation");
+                    break;
+                default:
+                    glyph.setClazz("process");
+                    break;
             }
         }
 
@@ -215,7 +222,7 @@ public class SbgnConverter {
             List<Segment> portCandidates = new ArrayList<>();
             for (Segment segment : edge.getSegments()) {
                 ShapeWrapper shape = new ShapeWrapper(edge.getReactionShape());
-                if(shape.touches(segment)) portCandidates.add(segment);
+                if (shape.touches(segment)) portCandidates.add(segment);
             }
 
             Segment s1 = portCandidates.get(0);
@@ -228,7 +235,7 @@ public class SbgnConverter {
         } else {
             Coordinate c;
             Shape shape = edge.getReactionShape();
-            switch (shape.getType()){
+            switch (shape.getType()) {
                 case "BOX":
                     Coordinate delta = shape.getB().minus(shape.getA()).divide(2);
                     c = edge.getReactionShape().getA().add(delta);
@@ -246,7 +253,7 @@ public class SbgnConverter {
         return glyph;
     }
 
-    private Arc getArc(Participant p){
+    private Arc getArc(Participant p) {
         Arc arc = new Arc();
         arc.setId("arc_" + p.node.getId() + "_" + p.getType().toLowerCase() + "_" + p.edge.getId());
 
@@ -256,7 +263,7 @@ public class SbgnConverter {
 
         arc.setSource(nodeGlyph);
         arc.setTarget(edgeGlyph);
-        switch (p.getType()){
+        switch (p.getType()) {
             case "INPUT":
                 arc.setTarget(ports.get(0));
                 arc.setClazz("consumption");
@@ -266,9 +273,15 @@ public class SbgnConverter {
                 arc.setTarget(nodeGlyph);
                 arc.setClazz("production");
                 break;
-            case "CATALYST":      arc.setClazz("catalysis");      break;
-            case "INHIBITOR":     arc.setClazz("inhibition");     break;
-            case "ACTIVATOR":     arc.setClazz("stimulation");    break;
+            case "CATALYST":
+                arc.setClazz("catalysis");
+                break;
+            case "INHIBITOR":
+                arc.setClazz("inhibition");
+                break;
+            case "ACTIVATOR":
+                arc.setClazz("stimulation");
+                break;
         }
 
         List<Segment> segments = p.getSegments();
@@ -289,7 +302,7 @@ public class SbgnConverter {
         }
 
         Glyph stoichiometry = p.getStoichiometry();
-        if(stoichiometry!=null) arc.getGlyph().add(stoichiometry);
+        if (stoichiometry != null) arc.getGlyph().add(stoichiometry);
 
         return arc;
     }

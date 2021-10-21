@@ -44,7 +44,7 @@ public class DiagramPresentation {
         Adjustment adjustment = new Adjustment(diagram);
 
         // Set slide size.
-        presentation.getSlideSize().setSize((float)adjustment.getSlideWidth(), (float)adjustment.getSlideHeight(), SlideSizeScaleType.DoNotScale);
+        presentation.getSlideSize().setSize((float) adjustment.getSlideWidth(), (float) adjustment.getSlideHeight(), SlideSizeScaleType.DoNotScale);
 
         // Render Compartments
         logger.debug("Exporting compartments");
@@ -122,10 +122,8 @@ public class DiagramPresentation {
      * @return the pptx file
      */
     public File save(String outputFolder, String stId, String license) {
-        License lic = getLicense(license);
-        if (!lic.isLicensed()) {
-            logger.warn("3rd party library does not have a valid license. Evaluation version will be created.");
-        }
+
+        checkLicenseStatus(license);
 
         // setting some document properties
         IDocumentProperties dp = presentation.getDocumentProperties();
@@ -211,7 +209,7 @@ public class DiagramPresentation {
     /**
      * Get Software License
      */
-    private License getLicense(String licFilePath) {
+    private void checkLicenseStatus(String licFilePath) {
         InputStream is = getClass().getResourceAsStream("/license/Aspose.Slides.lic");
         if (licFilePath != null && !licFilePath.isEmpty()) {
             try {
@@ -222,7 +220,10 @@ public class DiagramPresentation {
         }
 
         License license = new License();
-        license.setLicense(is);
-        return license;
+        try {
+            license.setLicense(is);
+        } catch (IllegalStateException ex) {
+            logger.warn("3rd party library does not have a valid license. Evaluation version will be created.");
+        }
     }
 }

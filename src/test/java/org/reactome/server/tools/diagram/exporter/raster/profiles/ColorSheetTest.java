@@ -3,8 +3,9 @@ package org.reactome.server.tools.diagram.exporter.raster.profiles;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 
 import java.awt.*;
 import java.io.IOException;
@@ -30,18 +31,18 @@ public class ColorSheetTest {
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			final NodeColorSheet sheet = mapper.readValue(nodeSheet, NodeColorSheet.class);
-			Assert.assertEquals(new Color(235, 178, 121, 127), sheet.getFill());
-			Assert.assertEquals(new Color(242, 203, 165, 127), sheet.getFadeOutFill());
-			Assert.assertEquals(new Color(242, 203, 165, 127), sheet.getLighterFill());
-			Assert.assertEquals(new Color(255, 134, 55), sheet.getStroke());
-			Assert.assertEquals(new Color(255, 134, 55), sheet.getFadeOutStroke());
-			Assert.assertEquals(new Color(255, 134, 55), sheet.getLighterStroke());
-			Assert.assertEquals(new Color(0, 0, 255), sheet.getText());
-			Assert.assertEquals(new Color(0, 0, 0), sheet.getFadeOutText());
-			Assert.assertEquals(new Color(0, 0, 0), sheet.getLighterText());
-			Assert.assertEquals(1e-2, 0.5, sheet.getLineWidth());
+			Assertions.assertEquals(new Color(235, 178, 121, 127), sheet.getFill());
+			Assertions.assertEquals(new Color(242, 203, 165, 127), sheet.getFadeOutFill());
+			Assertions.assertEquals(new Color(242, 203, 165, 127), sheet.getLighterFill());
+			Assertions.assertEquals(new Color(255, 134, 55), sheet.getStroke());
+			Assertions.assertEquals(new Color(255, 134, 55), sheet.getFadeOutStroke());
+			Assertions.assertEquals(new Color(255, 134, 55), sheet.getLighterStroke());
+			Assertions.assertEquals(new Color(0, 0, 255), sheet.getText());
+			Assertions.assertEquals(new Color(0, 0, 0), sheet.getFadeOutText());
+			Assertions.assertEquals(new Color(0, 0, 0), sheet.getLighterText());
+			Assertions.assertEquals(1e-2, 0.5, sheet.getLineWidth());
 		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+			Assertions.fail(e.getMessage());
 		}
 	}
 
@@ -57,13 +58,13 @@ public class ColorSheetTest {
 		final ObjectMapper mapper = new ObjectMapper();
 		try {
 			final ThumbnailColorSheet thumbnailSheet = mapper.readValue(sheet, ThumbnailColorSheet.class);
-			Assert.assertEquals(new Color(255, 119, 0), thumbnailSheet.getNode());
-			Assert.assertEquals(new Color(255, 255, 255), thumbnailSheet.getEdge());
-			Assert.assertEquals(new Color(0, 0, 17), thumbnailSheet.getHovering());
-			Assert.assertEquals(new Color(255, 119, 0), thumbnailSheet.getHighlight());
-			Assert.assertEquals(new Color(255, 90, 0), thumbnailSheet.getSelection());
+			Assertions.assertEquals(new Color(255, 119, 0), thumbnailSheet.getNode());
+			Assertions.assertEquals(new Color(255, 255, 255), thumbnailSheet.getEdge());
+			Assertions.assertEquals(new Color(0, 0, 17), thumbnailSheet.getHovering());
+			Assertions.assertEquals(new Color(255, 119, 0), thumbnailSheet.getHighlight());
+			Assertions.assertEquals(new Color(255, 90, 0), thumbnailSheet.getSelection());
 		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+			Assertions.fail(e.getMessage());
 		}
 	}
 
@@ -83,17 +84,17 @@ public class ColorSheetTest {
 		final ObjectMapper mapper = new ObjectMapper();
 		try {
 			final PropertiesColorSheet propertiesSheet = mapper.readValue(json, PropertiesColorSheet.class);
-			Assert.assertEquals(new Color(223, 223, 0), propertiesSheet.getHovering());
-			Assert.assertEquals(new Color(223, 223, 0), propertiesSheet.getHighlight());
-			Assert.assertEquals(new Color(77, 77, 255), propertiesSheet.getSelection());
-			Assert.assertEquals(new Color(226, 176, 102), propertiesSheet.getHalo());
-			Assert.assertEquals(new Color(255, 0, 255), propertiesSheet.getFlag());
-			Assert.assertEquals(new Color(102, 102, 255), propertiesSheet.getTrigger());
-			Assert.assertEquals(new Color(0, 0, 0), propertiesSheet.getText());
-			Assert.assertEquals(new Color(0, 255, 0), propertiesSheet.getButton());
-			Assert.assertEquals(new Color(255, 0, 0), propertiesSheet.getDisease());
+			Assertions.assertEquals(new Color(223, 223, 0), propertiesSheet.getHovering());
+			Assertions.assertEquals(new Color(223, 223, 0), propertiesSheet.getHighlight());
+			Assertions.assertEquals(new Color(77, 77, 255), propertiesSheet.getSelection());
+			Assertions.assertEquals(new Color(226, 176, 102), propertiesSheet.getHalo());
+			Assertions.assertEquals(new Color(255, 0, 255), propertiesSheet.getFlag());
+			Assertions.assertEquals(new Color(102, 102, 255), propertiesSheet.getTrigger());
+			Assertions.assertEquals(new Color(0, 0, 0), propertiesSheet.getText());
+			Assertions.assertEquals(new Color(0, 255, 0), propertiesSheet.getButton());
+			Assertions.assertEquals(new Color(255, 0, 0), propertiesSheet.getDisease());
 		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+			Assertions.fail(e.getMessage());
 		}
 	}
 
@@ -105,28 +106,28 @@ public class ColorSheetTest {
 			final ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
 			final DiagramSheet diagramSheet = mapper.readValue(json, DiagramSheet.class);
-			Assert.assertEquals("Modern", diagramSheet.getName());
-			Assert.assertNotNull(diagramSheet.getProperties());
-			Assert.assertNotNull(diagramSheet.getAttachment());
-			Assert.assertNotNull(diagramSheet.getChemical());
-			Assert.assertNotNull(diagramSheet.getCompartment());
-			Assert.assertNotNull(diagramSheet.getComplex());
-			Assert.assertNotNull(diagramSheet.getEntity());
-			Assert.assertNotNull(diagramSheet.getEntitySet());
-			Assert.assertNotNull(diagramSheet.getFlowLine());
-			Assert.assertNotNull(diagramSheet.getGene());
-			Assert.assertNotNull(diagramSheet.getInteractor());
-			Assert.assertNotNull(diagramSheet.getLink());
-			Assert.assertNotNull(diagramSheet.getNote());
-			Assert.assertNotNull(diagramSheet.getOtherEntity());
-			Assert.assertNotNull(diagramSheet.getProcessNode());
-			Assert.assertNotNull(diagramSheet.getProtein());
-			Assert.assertNotNull(diagramSheet.getReaction());
-			Assert.assertNotNull(diagramSheet.getRna());
-			Assert.assertNotNull(diagramSheet.getStoichiometry());
-			Assert.assertNotNull(diagramSheet.getThumbnail());
+			Assertions.assertEquals("Modern", diagramSheet.getName());
+			Assertions.assertNotNull(diagramSheet.getProperties());
+			Assertions.assertNotNull(diagramSheet.getAttachment());
+			Assertions.assertNotNull(diagramSheet.getChemical());
+			Assertions.assertNotNull(diagramSheet.getCompartment());
+			Assertions.assertNotNull(diagramSheet.getComplex());
+			Assertions.assertNotNull(diagramSheet.getEntity());
+			Assertions.assertNotNull(diagramSheet.getEntitySet());
+			Assertions.assertNotNull(diagramSheet.getFlowLine());
+			Assertions.assertNotNull(diagramSheet.getGene());
+			Assertions.assertNotNull(diagramSheet.getInteractor());
+			Assertions.assertNotNull(diagramSheet.getLink());
+			Assertions.assertNotNull(diagramSheet.getNote());
+			Assertions.assertNotNull(diagramSheet.getOtherEntity());
+			Assertions.assertNotNull(diagramSheet.getProcessNode());
+			Assertions.assertNotNull(diagramSheet.getProtein());
+			Assertions.assertNotNull(diagramSheet.getReaction());
+			Assertions.assertNotNull(diagramSheet.getRna());
+			Assertions.assertNotNull(diagramSheet.getStoichiometry());
+			Assertions.assertNotNull(diagramSheet.getThumbnail());
 		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+			Assertions.fail(e.getMessage());
 		}
 	}
 
@@ -140,11 +141,11 @@ public class ColorSheetTest {
 		final ObjectMapper mapper = new ObjectMapper();
 		try {
 			final GradientSheet gradientSheet = mapper.readValue(json, GradientSheet.class);
-			Assert.assertEquals(new Color(255, 255, 202), gradientSheet.getMin());
-			Assert.assertNull(gradientSheet.getStop());
-			Assert.assertEquals(new Color(255, 255, 80), gradientSheet.getMax());
+			Assertions.assertEquals(new Color(255, 255, 202), gradientSheet.getMin());
+			Assertions.assertNull(gradientSheet.getStop());
+			Assertions.assertEquals(new Color(255, 255, 80), gradientSheet.getMax());
 		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+			Assertions.fail(e.getMessage());
 		}
 	}
 
@@ -161,10 +162,10 @@ public class ColorSheetTest {
 		final ObjectMapper mapper = new ObjectMapper();
 		try {
 			final EnrichmentSheet enrichmentSheet = mapper.readValue(json, EnrichmentSheet.class);
-			Assert.assertEquals(new Color(0, 0, 0), enrichmentSheet.getText());
-			Assert.assertNotNull(enrichmentSheet.getGradient());
+			Assertions.assertEquals(new Color(0, 0, 0), enrichmentSheet.getText());
+			Assertions.assertNotNull(enrichmentSheet.getGradient());
 		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+			Assertions.fail(e.getMessage());
 		}
 	}
 
@@ -177,10 +178,10 @@ public class ColorSheetTest {
 		final ObjectMapper mapper = new ObjectMapper();
 		try {
 			final LegendSheet legendSheet = mapper.readValue(json, LegendSheet.class);
-			Assert.assertEquals(new Color(0, 0, 0), legendSheet.getMedian());
-			Assert.assertEquals(new Color(255, 0, 0), legendSheet.getHover());
+			Assertions.assertEquals(new Color(0, 0, 0), legendSheet.getMedian());
+			Assertions.assertEquals(new Color(255, 0, 0), legendSheet.getHover());
 		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+			Assertions.fail(e.getMessage());
 		}
 	}
 
@@ -201,11 +202,11 @@ public class ColorSheetTest {
 		final ObjectMapper mapper = new ObjectMapper();
 		try {
 			final ExpressionSheet expressionSheet = mapper.readValue(json, ExpressionSheet.class);
-			Assert.assertEquals(new Color(255, 255, 255), expressionSheet.getText());
-			Assert.assertNotNull(expressionSheet.getGradient());
-			Assert.assertNotNull(expressionSheet.getLegend());
+			Assertions.assertEquals(new Color(255, 255, 255), expressionSheet.getText());
+			Assertions.assertNotNull(expressionSheet.getGradient());
+			Assertions.assertNotNull(expressionSheet.getLegend());
 		} catch (IOException e) {
-			Assert.fail(e.getMessage());
+			Assertions.fail(e.getMessage());
 		}
 	}
 
@@ -215,13 +216,13 @@ public class ColorSheetTest {
 			final InputStream resource = getClass().getResourceAsStream("analysis.json");
 			final String json = IOUtils.toString(resource, Charset.defaultCharset());
 			AnalysisSheet analysisSheet = new ObjectMapper().readValue(json, AnalysisSheet.class);
-			Assert.assertEquals("Copper Plus", analysisSheet.getName());
-			Assert.assertEquals(new Color(251, 140, 0), analysisSheet.getRibbon());
-			Assert.assertNotNull(analysisSheet.getEnrichment());
-			Assert.assertNotNull(analysisSheet.getExpression());
+			Assertions.assertEquals("Copper Plus", analysisSheet.getName());
+			Assertions.assertEquals(new Color(251, 140, 0), analysisSheet.getRibbon());
+			Assertions.assertNotNull(analysisSheet.getEnrichment());
+			Assertions.assertNotNull(analysisSheet.getExpression());
 		} catch (IOException e) {
 //			e.printStackTrace();
-			Assert.fail(e.getMessage());
+			Assertions.fail(e.getMessage());
 		}
 	}
 
@@ -231,12 +232,12 @@ public class ColorSheetTest {
 			final InputStream resource = getClass().getResourceAsStream("interactors.json");
 			final String json = IOUtils.toString(resource, Charset.defaultCharset());
 			InteractorsSheet interactorsSheet = new ObjectMapper().readValue(json, InteractorsSheet.class);
-			Assert.assertEquals("Cyan", interactorsSheet.getName());
-			Assert.assertNotNull(interactorsSheet.getChemical());
-			Assert.assertNotNull(interactorsSheet.getProtein());
+			Assertions.assertEquals("Cyan", interactorsSheet.getName());
+			Assertions.assertNotNull(interactorsSheet.getChemical());
+			Assertions.assertNotNull(interactorsSheet.getProtein());
 		} catch (IOException e) {
 //			e.printStackTrace();
-			Assert.fail(e.getMessage());
+			Assertions.fail(e.getMessage());
 		}
 	}
 

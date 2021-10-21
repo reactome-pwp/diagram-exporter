@@ -1,6 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.svg;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
@@ -63,5 +63,4 @@ public class SvgRendererTest {
 		args.setToken(TestUtils.TOKEN_OVER_1);
 		TestUtils.render(args, null);
 	}
-
 }

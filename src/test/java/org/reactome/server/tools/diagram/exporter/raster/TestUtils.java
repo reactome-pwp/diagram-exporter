@@ -1,6 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.analysis.core.result.utils.TokenUtils;
 import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisException;
@@ -52,8 +52,7 @@ public class TestUtils {
 			//ImageIO.write(EXPORTER.exportToImage(args, result), "jpeg", new File("/Users/reactome/test.jpeg"));
 		} catch (EhldException | AnalysisException | DiagramJsonDeserializationException | DiagramJsonNotFoundException e) {
 			e.printStackTrace();
-			Assert.fail(e.getMessage());
+			Assertions.fail(e.getMessage());
 		}
 	}
-
 }
