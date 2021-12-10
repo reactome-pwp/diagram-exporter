@@ -21,7 +21,7 @@ pipeline{
 		stage('Setup: Build jar file'){
 			steps{
 				script{
-					sh "mvn clean compile assembly:single"
+					sh "mvn clean package -DskipTests"
 				}
 			}
 		}

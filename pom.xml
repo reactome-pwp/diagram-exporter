@@ -62,6 +62,7 @@
         <maven.source.version>3.2.1</maven.source.version>
         <maven.surefire.version>3.0.0-M5</maven.surefire.version>
         <maven.deploy.version>3.0.0-M1</maven.deploy.version>
+        <maven.install.version>3.0.0-M1</maven.install.version>
 
         <!-- maven assembly plugin configuration -->
         <!-- CAREFUL: when deploying to Nexus or any public repo make the "jar-with-dependencies" isn't uploaded -->
@@ -293,7 +294,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
-                <version>3.0.0-M1</version>
+                <version>${maven.install.version}</version>
                 <executions>
                     <execution>
                         <id>default-install</id>
