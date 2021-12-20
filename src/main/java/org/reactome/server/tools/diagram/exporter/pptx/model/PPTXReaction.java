@@ -134,7 +134,9 @@ public class PPTXReaction {
                 PPTXNode catalyst = nodesMap.get(reactionPart.getId());
                 for (Connector connector : catalyst.getConnectors()) {
                     if (!isType(connector, "CATALYST")) continue;
-                    drawCatalyst(shapeMap, groupShape, connector, stylesheet, adjustment);
+                    if (connector.getEndShape() != null) {
+                        drawCatalyst(shapeMap, groupShape, connector, stylesheet, adjustment);
+                    }
                 }
             }
         }
@@ -250,7 +252,9 @@ public class PPTXReaction {
             IAutoShape last = catalyst.getiAutoShape();
             for (Connector connector : catalyst.getConnectors()) {
                 if (!isType(connector, "CATALYST")) continue;
-                createReactionAttributes(shapes, connector, catalyst, last, shapeMap.get(connector), stylesheet);
+                if (connector.getEndShape() != null) {
+                    createReactionAttributes(shapes, connector, catalyst, last, shapeMap.get(connector), stylesheet);
+                }
             }
         }
     }
