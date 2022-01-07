@@ -42,12 +42,12 @@
         <aspose.version>21.9</aspose.version>
         <logback.version>1.3.0-alpha5</logback.version>
         <commons.io.version>2.8.0</commons.io.version>
-        <jasp.version>2.1</jasp.version>
+        <jsap.version>2.1</jsap.version>
         <junit.version>5.8.0-M1</junit.version>
         <sbgn.version>0.2</sbgn.version>
         <kernel.version>7.1.15</kernel.version>
         <layout.version>7.1.15</layout.version>
-        <log4j.version>2.14.1</log4j.version>
+        <log4j.version>2.17.1</log4j.version>
 
         <!--build-->
         <jdk.version>11</jdk.version>
@@ -56,7 +56,7 @@
         <main.class>org.reactome.server.tools.diagram.exporter.Main</main.class>
 
         <!--maven build and plugins-->
-        <spring.boot.version>2.5.3</spring.boot.version>
+        <spring.boot.version>2.6.2</spring.boot.version>
         <maven.compiler.version>3.8.1</maven.compiler.version>
         <maven.jar.version>3.2.0</maven.jar.version>
         <maven.source.version>3.2.1</maven.source.version>
@@ -144,7 +144,7 @@
         <dependency>
             <groupId>com.martiansoftware</groupId>
             <artifactId>jsap</artifactId>
-            <version>${jasp.version}</version>
+            <version>${jsap.version}</version>
         </dependency>
 
         <dependency>
