@@ -47,7 +47,7 @@
         <sbgn.version>0.2</sbgn.version>
         <kernel.version>7.1.15</kernel.version>
         <layout.version>7.1.15</layout.version>
-        <log4j.version>2.14.1</log4j.version>
+
 
         <!--build-->
         <jdk.version>11</jdk.version>
