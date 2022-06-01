@@ -99,13 +99,15 @@ public class EntityCompartment {
 
     public void renderText(IShapeCollection shapes) {
         float width = (float) (displayName.length() * CHAR_WIDTH * adjustment.getFactor());
-        NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(textPosition.getX().floatValue(), textPosition.getY().floatValue(), width, TEXT_HEIGHT * adjustment.getFactor()), adjustment.getFactor(), adjustment.getPanning());
+        NodeProperties np = NodePropertiesFactory.transform(NodePropertiesFactory.get(textPosition.getX().floatValue() + adjustment.getPanning().getX(), textPosition.getY().floatValue() + adjustment.getPanning().getY(), width, TEXT_HEIGHT * adjustment.getFactor()), adjustment.getFactor(), adjustment.getPanning());
         IAutoShape textBox = shapes.addAutoShape(ShapeType.Rectangle, np.getX().floatValue(), np.getY().floatValue(), np.getWidth().floatValue(), np.getHeight().floatValue());
         textBox.setName("TextBox");
         textBox.getLineFormat().getFillFormat().setFillType(FillType.NoFill);
         textBox.getFillFormat().setFillType(FillType.NoFill);
         textBox.addTextFrame(" ");
         IParagraph iParagraph = textBox.getTextFrame().getParagraphs().get_Item(0);
+        //Left alignment in textBox
+        iParagraph.getParagraphFormat().setAlignment(0);
         IPortion portion = iParagraph.getPortions().get_Item(0);
         portion.getPortionFormat().getFillFormat().setFillType(FillType.Solid);
         portion.getPortionFormat().getFillFormat().getSolidFillColor().setColor(stylesheet.getTextColor());
