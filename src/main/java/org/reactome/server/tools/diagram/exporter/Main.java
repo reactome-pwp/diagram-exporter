@@ -127,6 +127,7 @@ public class Main {
             if (counter != total) {
                 int wrong = total - counter;
                 println("%,d pathway%s could not be converted. Please check log file for more info.", wrong, wrong > 1 ? "s" : "");
+                System.exit(1);
             }
         } else {
             println("· No target pathways found based on '%s'", String.join(",", config.getStringArray("target")));
