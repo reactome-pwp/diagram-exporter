@@ -74,6 +74,8 @@
 
         <!-- true: saves all images in the project root folder for manually check -->
         <test.save>false</test.save>
+        <jaxb.version>2.3.1</jaxb.version>
+        <activation.version>1.1</activation.version>
     </properties>
 
     <dependencies>
@@ -164,21 +166,21 @@
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-            <version>2.3.1</version>
+            <version>${jaxb.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/javax.activation/activation -->
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
-            <version>1.1</version>
+            <version>${activation.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime -->
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <version>2.3.1</version>
+            <version>${jaxb.version}</version>
         </dependency>
 
     </dependencies>
