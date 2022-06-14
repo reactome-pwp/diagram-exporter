@@ -226,12 +226,19 @@ public class SbgnConverter {
             }
 
             Segment s1 = portCandidates.get(0);
-            port1.setX(s1.getFrom().getX().floatValue());
-            port1.setY(s1.getFrom().getY().floatValue());
-
             Segment s2 = portCandidates.size() == 1 ? s1 : portCandidates.get(1);
-            port2.setX(s2.getTo().getX().floatValue());
-            port2.setY(s2.getTo().getY().floatValue());
+
+            if (Math.abs(s1.getFrom().getX() - s2.getTo().getX()) > cBox.getW()) {
+                port1.setX(cBox.getX() - cBox.getW() / 3);
+                port1.setY(s1.getFrom().getY().floatValue());
+                port2.setX(cBox.getX() + (4 * cBox.getW() / 3));
+                port2.setY(s2.getTo().getY().floatValue());
+            } else {
+                port1.setX(s1.getFrom().getX().floatValue());
+                port1.setY(cBox.getY() + (4 * cBox.getH() / 3));
+                port2.setX(s2.getTo().getX().floatValue());
+                port2.setY(cBox.getY() - cBox.getH() / 3);
+            }
         } else {
             Coordinate c;
             Shape shape = edge.getReactionShape();
