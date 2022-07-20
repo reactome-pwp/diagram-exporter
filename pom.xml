@@ -74,8 +74,7 @@
 
         <!-- true: saves all images in the project root folder for manually check -->
         <test.save>false</test.save>
-        <jaxb.version>4.0.0</jaxb.version>
-        <jaxb.api.version>2.4.0-b180830.0359</jaxb.api.version>
+        <jaxb.version>2.3.1</jaxb.version>
         <activation.version>1.1.1</activation.version>
     </properties>
 
@@ -167,7 +166,7 @@
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-            <version>${jaxb.api.version}</version>
+            <version>${jaxb.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/javax.activation/activation -->
