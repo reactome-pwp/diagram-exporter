@@ -52,7 +52,7 @@ public class Main {
         // Program Arguments -i, -p, -o, -j, -f and -s
         SimpleJSAP jsap = new SimpleJSAP(Main.class.getName(), "Exports the requested pathway diagrams to different formats (svg, png, sbgn, pptx, gif, jpeg)",
                 new Parameter[]{
-                        new QualifiedSwitch("target",   JSAP.STRING_PARSER, null,        JSAP.REQUIRED,    't', "target",  "Target pathways to convert. Use either comma separated IDs, pathways for a given species (e.g. 'Homo sapiens') or 'all' for every pathway").setList(true).setListSeparator(','),
+                        new FlaggedOption("target",   JSAP.STRING_PARSER, null,        JSAP.REQUIRED,    't', "target",  "Target pathways to convert. Use either comma separated IDs, pathways for a given species (e.g. 'Homo sapiens') or 'all' for every pathway").setList(true).setListSeparator(','),
                         new FlaggedOption(  "format",   JSAP.STRING_PARSER, null,        JSAP.REQUIRED,    'f', "format",  "Format of the output files (svg, png, sbgn, pptx, gif, jpeg)"),
                         new FlaggedOption(  "output",   JSAP.STRING_PARSER, null,        JSAP.REQUIRED,    'o', "output",  "The output folder"),
                         new FlaggedOption(  "input",    JSAP.STRING_PARSER, null,        JSAP.REQUIRED,    'i', "input",   "The input folder containing the diagram json files"),
