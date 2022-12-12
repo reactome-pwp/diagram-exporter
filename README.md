@@ -13,7 +13,7 @@ This project includes methods for exporting a given diagram into an image (png, 
 
 ### Pre-requirements
 * Maven 3.x.x
-* Java 8
+* Java 11
 
 ### Nexus / Maven Repo deploy (only when needed)
 
@@ -101,7 +101,7 @@ To generate the SVG files for 'Homo sapiens' the command line is like this:
 
 ```console
 java -jar diagram-exporter-exec.jar \
-            -t:"Homo sapiens" \  
+            -t "Homo sapiens" \  
             -f svg \
             -o /path/to/output \
             -i /path/to/folder/with/diagram/json/files \
@@ -115,7 +115,7 @@ To generate the SBGN files for 'Homo sapiens' the command line is like this:
 
 ```console
 java -jar diagram-exporter-exec.jar \
-            -t:"Homo sapiens" \  
+            -t "Homo sapiens" \  
             -f sbgn \
             -o /path/to/output \
             -i /path/to/folder/with/diagram/json/files \
@@ -131,7 +131,7 @@ java -jar diagram-exporter-exec.jar \
 <dependency>
     <groupId>org.reactome.server.tools</groupId>
     <artifactId>diagram-exporter</artifactId>
-    <version>1.3.12</version>
+    <version>2.0.6</version>
 </dependency>
 ```
 
@@ -140,6 +140,6 @@ java -jar diagram-exporter-exec.jar \
 <repository>
     <id>pst-release</id>
     <name>EBI Nexus Repository</name>
-    <url>http://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-release</url>
+    <url>https://www.ebi.ac.uk/Tools/maven/repos/content/repositories/pst-release</url>
 </repository>
 ```
