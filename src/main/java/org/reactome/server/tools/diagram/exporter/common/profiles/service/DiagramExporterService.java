@@ -6,6 +6,7 @@ import org.reactome.server.tools.diagram.exporter.common.profiles.factory.Diagra
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
 import org.reactome.server.tools.diagram.exporter.pptx.PowerPointExporter;
+import org.reactome.server.tools.diagram.exporter.raster.ehld.EhldRenderer;
 
 import java.io.File;
 
@@ -16,6 +17,14 @@ import java.io.File;
 
 @SuppressWarnings("unused")
 public class DiagramExporterService {
+	/**
+	 * Configure the EHLD renderer to inform it of where the fonts files are located.
+	 * Not required when running from a maven environment as it default to src/main/resource/fonts, but necessary to set in war environment
+	 * @param fontPath Path to folder containing fonts used in EHLD
+	 */
+	public static void configureFontPath(String fontPath) {
+		EhldRenderer.setFontFolder(fontPath);
+	}
 
 	/**
 	 * Service layer that provides access to the pptx exporter This method

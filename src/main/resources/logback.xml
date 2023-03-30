@@ -39,9 +39,11 @@
     <logger name="trace" level="TRACE" additivity="false">
         <appender-ref ref="TRACE"/>
     </logger>
+    <!--  Silencing EHLD SVG to PDF export Xref issue -->
+    <logger name="com.itextpdf.kernel.pdf.PdfReader" level="off"/>
 
     <root level="ERROR">
-        <appender-ref ref="STDOUT" />
+        <appender-ref ref="STDOUT"/>
     </root>
 
 </configuration>

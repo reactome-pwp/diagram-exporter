@@ -1,0 +1,35 @@
+{
+  "dbId" : 112316,
+  "stId" : "R-HSA-112316",
+  "speciesName" : "Homo sapiens",
+  "nodes" : [ {
+    "dbId" : 112307,
+    "stId" : "R-HSA-112307",
+    "displayName" : "Transmission across Electrical Synapses ",
+    "schemaClass" : "Pathway",
+    "speciesId" : 48887,
+    "diagramIds" : [ 4 ]
+  }, {
+    "dbId" : 1296071,
+    "stId" : "R-HSA-1296071",
+    "displayName" : "Potassium Channels",
+    "schemaClass" : "Pathway",
+    "speciesId" : 48887,
+    "diagramIds" : [ 6 ]
+  }, {
+    "dbId" : 112315,
+    "stId" : "R-HSA-112315",
+    "displayName" : "Transmission across Chemical Synapses",
+    "schemaClass" : "Pathway",
+    "speciesId" : 48887,
+    "diagramIds" : [ 5 ]
+  }, {
+    "dbId" : 6794362,
+    "stId" : "R-HSA-6794362",
+    "displayName" : "Protein-protein interactions at synapses",
+    "schemaClass" : "Pathway",
+    "speciesId" : 48887,
+    "diagramIds" : [ 9 ]
+  } ],
+  "edges" : [ ]
+}

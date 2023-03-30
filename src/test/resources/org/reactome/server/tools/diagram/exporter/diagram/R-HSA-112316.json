@@ -1,0 +1,188 @@
+{
+  "dbId" : 112316,
+  "stableId" : "R-HSA-112316",
+  "displayName" : "Neuronal System",
+  "nodes" : [ {
+    "id" : 4,
+    "reactomeId" : 112307,
+    "displayName" : "Transmission across Electrical Synapses",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "ProcessNode",
+    "position" : {
+      "x" : 244,
+      "y" : 127
+    },
+    "minX" : 167,
+    "maxX" : 322,
+    "minY" : 96,
+    "maxY" : 159,
+    "prop" : {
+      "x" : 167,
+      "y" : 96,
+      "width" : 155,
+      "height" : 63
+    },
+    "textPosition" : {
+      "x" : 170,
+      "y" : 106
+    },
+    "connectors" : [ ]
+  }, {
+    "id" : 5,
+    "reactomeId" : 112315,
+    "displayName" : "Transmission across Chemical Synapses",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "ProcessNode",
+    "position" : {
+      "x" : 246,
+      "y" : 207
+    },
+    "minX" : 168,
+    "maxX" : 325,
+    "minY" : 178,
+    "maxY" : 237,
+    "prop" : {
+      "x" : 168,
+      "y" : 178,
+      "width" : 157,
+      "height" : 59
+    },
+    "textPosition" : {
+      "x" : 172,
+      "y" : 186
+    },
+    "connectors" : [ ]
+  }, {
+    "id" : 6,
+    "reactomeId" : 1296071,
+    "displayName" : "Potassium Channels",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "ProcessNode",
+    "position" : {
+      "x" : 196,
+      "y" : 61
+    },
+    "minX" : 122,
+    "maxX" : 271,
+    "minY" : 42,
+    "maxY" : 81,
+    "prop" : {
+      "x" : 122,
+      "y" : 42,
+      "width" : 149,
+      "height" : 39
+    },
+    "textPosition" : {
+      "x" : 125,
+      "y" : 47
+    },
+    "connectors" : [ ]
+  }, {
+    "id" : 9,
+    "reactomeId" : 6794362,
+    "displayName" : "Protein-protein interactions at synapses",
+    "schemaClass" : "Pathway",
+    "renderableClass" : "ProcessNode",
+    "position" : {
+      "x" : 242,
+      "y" : 303
+    },
+    "minX" : 156,
+    "maxX" : 328,
+    "minY" : 267,
+    "maxY" : 339,
+    "prop" : {
+      "x" : 156,
+      "y" : 267,
+      "width" : 172,
+      "height" : 72
+    },
+    "textPosition" : {
+      "x" : 156,
+      "y" : 281
+    },
+    "connectors" : [ ]
+  } ],
+  "edges" : [ ],
+  "compartments" : [ {
+    "id" : 7,
+    "reactomeId" : 70101,
+    "displayName" : "cytosol",
+    "schemaClass" : "Compartment",
+    "renderableClass" : "Compartment",
+    "position" : {
+      "x" : 102,
+      "y" : 185
+    },
+    "minX" : 0,
+    "maxX" : 204,
+    "minY" : 0,
+    "maxY" : 370,
+    "prop" : {
+      "x" : 0,
+      "y" : 0,
+      "width" : 204,
+      "height" : 370
+    },
+    "textPosition" : {
+      "x" : 72,
+      "y" : 148
+    },
+    "insets" : {
+      "x" : 10,
+      "y" : 10,
+      "width" : 184,
+      "height" : 349
+    },
+    "bgColor" : {
+      "r" : 250,
+      "g" : 240,
+      "b" : 240
+    },
+    "componentIds" : [ 6 ]
+  }, {
+    "id" : 8,
+    "reactomeId" : 70101,
+    "displayName" : "cytosol",
+    "schemaClass" : "Compartment",
+    "renderableClass" : "Compartment",
+    "position" : {
+      "x" : 386,
+      "y" : 189
+    },
+    "minX" : 289,
+    "maxX" : 483,
+    "minY" : 0,
+    "maxY" : 378,
+    "prop" : {
+      "x" : 289,
+      "y" : 0,
+      "width" : 194,
+      "height" : 378
+    },
+    "textPosition" : {
+      "x" : 355,
+      "y" : 149
+    },
+    "insets" : {
+      "x" : 296,
+      "y" : 11,
+      "width" : 176,
+      "height" : 355
+    },
+    "bgColor" : {
+      "r" : 250,
+      "g" : 240,
+      "b" : 240
+    },
+    "componentIds" : [ 4, 5, 9 ]
+  } ],
+  "notes" : [ ],
+  "links" : [ ],
+  "shadows" : [ ],
+  "minX" : 0,
+  "maxX" : 483,
+  "minY" : 0,
+  "maxY" : 378,
+  "disease" : false
+}
