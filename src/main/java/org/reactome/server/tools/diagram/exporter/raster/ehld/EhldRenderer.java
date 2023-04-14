@@ -8,8 +8,8 @@ import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.ImageTranscoder;
 import org.apache.fop.activity.ContainerUtil;
+import org.apache.fop.configuration.Configuration;
 import org.apache.fop.configuration.ConfigurationException;
-import org.apache.fop.configuration.DefaultConfiguration;
 import org.apache.fop.configuration.DefaultConfigurationBuilder;
 import org.apache.fop.svg.PDFTranscoder;
 import org.reactome.server.analysis.core.model.AnalysisType;
@@ -54,10 +54,9 @@ public class EhldRenderer implements RasterRenderer {
     private SvgAnalysis svgAnalysis;
     private AnalysisStoredResult result;
 
-    private static PDFTranscoder pdfTranscoder;
+    private static Configuration configuration;
 
     static {
-        pdfTranscoder = new PDFTranscoder();
         File file = Path.of("src/main/resources/fonts").toFile();
         if (file.exists() && file.isDirectory())
             setFontFolder("src/main/resources/fonts");
@@ -93,8 +92,8 @@ public class EhldRenderer implements RasterRenderer {
 
             DefaultConfigurationBuilder cfgBuilder = new DefaultConfigurationBuilder();
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(confString.getBytes(StandardCharsets.UTF_8));
-            DefaultConfiguration configuration = cfgBuilder.build(byteArrayInputStream);
-            ContainerUtil.configure(pdfTranscoder, configuration);
+            configuration = cfgBuilder.build(byteArrayInputStream);
+//            ContainerUtil.configure(pdfTranscoder, configuration);
         } catch (ConfigurationException e) {
             throw new RuntimeException(e);
         }
@@ -277,6 +276,8 @@ public class EhldRenderer implements RasterRenderer {
         try {
             TranscoderInput input = new TranscoderInput(this.document);
             TranscoderOutput output = new TranscoderOutput(os);
+            PDFTranscoder pdfTranscoder = new PDFTranscoder();
+            ContainerUtil.configure(pdfTranscoder, configuration);
             pdfTranscoder.transcode(input, output);
         } catch (TranscoderException e) {
             throw new RuntimeException(e);
