@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.reactome.server.tools.diagram.exporter.BaseTest;
 
 
 import java.awt.*;
@@ -12,7 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
-public class ColorSheetTest {
+public class ColorSheetTest extends BaseTest {
 
 	@Test
 	public void testNodeColorSheet() {

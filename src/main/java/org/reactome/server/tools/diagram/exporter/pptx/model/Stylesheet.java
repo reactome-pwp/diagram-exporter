@@ -73,7 +73,7 @@ public class Stylesheet {
     }
 
     public Stylesheet(DiagramProfile profile, String type, byte shapeFillType, byte lineFillType, byte lineStyle) {
-        this(profile, type,shapeFillType,lineFillType,lineStyle,10);
+        this(profile, type, shapeFillType, lineFillType, lineStyle, 10);
     }
 
     public Stylesheet(DiagramProfile profile, String type) {
@@ -277,10 +277,14 @@ public class Stylesheet {
         this.fontHeight = fontHeight;
     }
 
-    private DiagramProfileNode getProfileNode(DiagramProfile profile, String type){
-        switch (type.toLowerCase()){
+    private DiagramProfileNode getProfileNode(DiagramProfile profile, String type) {
+        switch (type.toLowerCase()) {
             case "attachment":
                 return profile.getAttachment();
+            case "cell":
+                return profile.getCell();
+            case "cell-nucleus":
+                return profile.getCellNucleus();
             case "chemical":
                 return profile.getChemical();
             case "compartment":

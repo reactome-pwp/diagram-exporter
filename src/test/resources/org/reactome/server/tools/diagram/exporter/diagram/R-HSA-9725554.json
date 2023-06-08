@@ -1,0 +1,769 @@
+{
+  "dbId" : 9725554,
+  "stableId" : "R-HSA-9725554",
+  "displayName" : "Development of keratinocytes in interfollicular skin epidermis",
+  "nodes" : [ {
+    "id" : 6,
+    "reactomeId" : 9727357,
+    "displayName" : "keratinocyte of granulosum layer of epidermis",
+    "schemaClass" : "Cell",
+    "renderableClass" : "Cell",
+    "position" : {
+      "x" : 744,
+      "y" : 154
+    },
+    "minX" : 681,
+    "maxX" : 808,
+    "minY" : 101,
+    "maxY" : 207,
+    "prop" : {
+      "x" : 681,
+      "y" : 101,
+      "width" : 127,
+      "height" : 106
+    },
+    "textPosition" : {
+      "x" : 680,
+      "y" : 153
+    },
+    "bgColor" : {
+      "r" : 248,
+      "g" : 203,
+      "b" : 173
+    },
+    "connectors" : [ {
+      "edgeId" : 16,
+      "type" : "INPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 5,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 8,
+    "reactomeId" : 9727360,
+    "displayName" : "keratinocyte of spinosum layer of epidermis",
+    "schemaClass" : "Cell",
+    "renderableClass" : "Cell",
+    "position" : {
+      "x" : 508,
+      "y" : 163
+    },
+    "minX" : 451,
+    "maxX" : 565,
+    "minY" : 111,
+    "maxY" : 216,
+    "prop" : {
+      "x" : 451,
+      "y" : 111,
+      "width" : 114,
+      "height" : 105
+    },
+    "textPosition" : {
+      "x" : 450,
+      "y" : 162
+    },
+    "bgColor" : {
+      "r" : 248,
+      "g" : 203,
+      "b" : 173
+    },
+    "connectors" : [ {
+      "edgeId" : 5,
+      "type" : "INPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 7,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 9,
+    "reactomeId" : 9725625,
+    "displayName" : "transit-amplifying cell of epidermis basal layer",
+    "schemaClass" : "Cell",
+    "renderableClass" : "Cell",
+    "position" : {
+      "x" : 307,
+      "y" : 153
+    },
+    "minX" : 245,
+    "maxX" : 369,
+    "minY" : 100,
+    "maxY" : 206,
+    "prop" : {
+      "x" : 245,
+      "y" : 100,
+      "width" : 124,
+      "height" : 106
+    },
+    "textPosition" : {
+      "x" : 248,
+      "y" : 152
+    },
+    "bgColor" : {
+      "r" : 248,
+      "g" : 203,
+      "b" : 173
+    },
+    "connectors" : [ {
+      "edgeId" : 7,
+      "type" : "INPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    }, {
+      "edgeId" : 14,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 10,
+    "reactomeId" : 179863,
+    "displayName" : "EGF",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "renderableClass" : "Protein",
+    "position" : {
+      "x" : 195,
+      "y" : 21
+    },
+    "minX" : 135,
+    "maxX" : 262,
+    "minY" : 0,
+    "maxY" : 142,
+    "prop" : {
+      "x" : 135,
+      "y" : 6,
+      "width" : 121,
+      "height" : 31
+    },
+    "textPosition" : {
+      "x" : 181,
+      "y" : 10
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 256,
+          "y" : 6
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 256,
+          "y" : 6
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 14,
+      "type" : "ACTIVATOR",
+      "segments" : [ {
+        "from" : {
+          "x" : 194,
+          "y" : 40
+        },
+        "to" : {
+          "x" : 194,
+          "y" : 142
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 190,
+          "y" : 135
+        },
+        "b" : {
+          "x" : 194,
+          "y" : 142
+        },
+        "c" : {
+          "x" : 198,
+          "y" : 135
+        },
+        "type" : "ARROW",
+        "empty" : true,
+        "centre" : {
+          "x" : 198,
+          "y" : 135
+        }
+      }
+    } ]
+  }, {
+    "id" : 11,
+    "reactomeId" : 9727363,
+    "displayName" : "corneocyte of corneum layer of epidermis",
+    "schemaClass" : "Cell",
+    "renderableClass" : "Cell",
+    "position" : {
+      "x" : 933,
+      "y" : 155
+    },
+    "minX" : 879,
+    "maxX" : 987,
+    "minY" : 103,
+    "maxY" : 208,
+    "prop" : {
+      "x" : 879,
+      "y" : 103,
+      "width" : 108,
+      "height" : 105
+    },
+    "textPosition" : {
+      "x" : 877,
+      "y" : 154
+    },
+    "bgColor" : {
+      "r" : 248,
+      "g" : 203,
+      "b" : 173
+    },
+    "connectors" : [ {
+      "edgeId" : 16,
+      "type" : "OUTPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 12,
+    "reactomeId" : 9725559,
+    "displayName" : "keratinogenic stem cell of skin epidermis basal layer",
+    "schemaClass" : "Cell",
+    "renderableClass" : "Cell",
+    "position" : {
+      "x" : 68,
+      "y" : 155
+    },
+    "minX" : 0,
+    "maxX" : 137,
+    "minY" : 102,
+    "maxY" : 209,
+    "prop" : {
+      "x" : 0,
+      "y" : 102,
+      "width" : 137,
+      "height" : 107
+    },
+    "textPosition" : {
+      "x" : 0,
+      "y" : 154
+    },
+    "bgColor" : {
+      "r" : 248,
+      "g" : 203,
+      "b" : 173
+    },
+    "connectors" : [ {
+      "edgeId" : 14,
+      "type" : "INPUT",
+      "segments" : [ ],
+      "stoichiometry" : {
+        "value" : 1
+      }
+    } ]
+  }, {
+    "id" : 13,
+    "reactomeId" : 74016,
+    "displayName" : "Ca2+",
+    "schemaClass" : "SimpleEntity",
+    "renderableClass" : "Chemical",
+    "position" : {
+      "x" : 573,
+      "y" : 31
+    },
+    "minX" : 524,
+    "maxX" : 625,
+    "minY" : 15,
+    "maxY" : 139,
+    "prop" : {
+      "x" : 524,
+      "y" : 16,
+      "width" : 98,
+      "height" : 30
+    },
+    "textPosition" : {
+      "x" : 553,
+      "y" : 20
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 617,
+          "y" : 21
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 617,
+          "y" : 21
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 5,
+      "type" : "ACTIVATOR",
+      "segments" : [ {
+        "from" : {
+          "x" : 580,
+          "y" : 49
+        },
+        "to" : {
+          "x" : 625,
+          "y" : 139
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 618,
+          "y" : 135
+        },
+        "b" : {
+          "x" : 625,
+          "y" : 139
+        },
+        "c" : {
+          "x" : 625,
+          "y" : 131
+        },
+        "type" : "ARROW",
+        "empty" : true,
+        "centre" : {
+          "x" : 625,
+          "y" : 131
+        }
+      }
+    } ]
+  }, {
+    "id" : 15,
+    "reactomeId" : 5336173,
+    "displayName" : "RA",
+    "schemaClass" : "SimpleEntity",
+    "renderableClass" : "Chemical",
+    "position" : {
+      "x" : 696,
+      "y" : 25
+    },
+    "minX" : 630,
+    "maxX" : 739,
+    "minY" : 9,
+    "maxY" : 141,
+    "prop" : {
+      "x" : 655,
+      "y" : 10,
+      "width" : 83,
+      "height" : 30
+    },
+    "textPosition" : {
+      "x" : 685,
+      "y" : 14
+    },
+    "interactorsSummary" : {
+      "type" : "TR",
+      "shape" : {
+        "c" : {
+          "x" : 733,
+          "y" : 15
+        },
+        "r" : 6,
+        "type" : "CIRCLE",
+        "empty" : true,
+        "centre" : {
+          "x" : 733,
+          "y" : 15
+        }
+      }
+    },
+    "connectors" : [ {
+      "edgeId" : 5,
+      "type" : "INHIBITOR",
+      "segments" : [ {
+        "from" : {
+          "x" : 687,
+          "y" : 43
+        },
+        "to" : {
+          "x" : 633,
+          "y" : 139
+        }
+      } ],
+      "stoichiometry" : {
+        "value" : 1
+      },
+      "endShape" : {
+        "a" : {
+          "x" : 630,
+          "y" : 137
+        },
+        "b" : {
+          "x" : 636,
+          "y" : 141
+        },
+        "c" : {
+          "x" : 633,
+          "y" : 139
+        },
+        "type" : "STOP",
+        "centre" : {
+          "x" : 633,
+          "y" : 139
+        }
+      }
+    } ]
+  } ],
+  "edges" : [ {
+    "id" : 16,
+    "reactomeId" : 9727355,
+    "displayName" : "Keratinocyte of granulosum layer produces corneocyte of corneum layer in skin epidermis",
+    "schemaClass" : "CellDevelopmentStep",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 837,
+      "y" : 151
+    },
+    "minX" : 811,
+    "maxX" : 876,
+    "minY" : 145,
+    "maxY" : 157,
+    "segments" : [ {
+      "from" : {
+        "x" : 811,
+        "y" : 151
+      },
+      "to" : {
+        "x" : 837,
+        "y" : 151
+      }
+    }, {
+      "from" : {
+        "x" : 837,
+        "y" : 151
+      },
+      "to" : {
+        "x" : 876,
+        "y" : 152
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 869,
+        "y" : 156
+      },
+      "b" : {
+        "x" : 876,
+        "y" : 152
+      },
+      "c" : {
+        "x" : 869,
+        "y" : 148
+      },
+      "type" : "ARROW",
+      "centre" : {
+        "x" : 869,
+        "y" : 148
+      }
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 831,
+        "y" : 145
+      },
+      "b" : {
+        "x" : 843,
+        "y" : 157
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 837,
+        "y" : 151
+      }
+    },
+    "inputs" : [ {
+      "id" : 6
+    } ],
+    "outputs" : [ {
+      "id" : 11
+    } ]
+  }, {
+    "id" : 5,
+    "reactomeId" : 9727359,
+    "displayName" : "Keratinocyte of spinosum layer produces keratinocyte of granulosum layer in skin epidermis",
+    "schemaClass" : "CellDevelopmentStep",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 629,
+      "y" : 147
+    },
+    "minX" : 568,
+    "maxX" : 678,
+    "minY" : 141,
+    "maxY" : 155,
+    "segments" : [ {
+      "from" : {
+        "x" : 568,
+        "y" : 155
+      },
+      "to" : {
+        "x" : 629,
+        "y" : 147
+      }
+    }, {
+      "from" : {
+        "x" : 629,
+        "y" : 147
+      },
+      "to" : {
+        "x" : 678,
+        "y" : 150
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 671,
+        "y" : 154
+      },
+      "b" : {
+        "x" : 678,
+        "y" : 150
+      },
+      "c" : {
+        "x" : 671,
+        "y" : 146
+      },
+      "type" : "ARROW",
+      "centre" : {
+        "x" : 671,
+        "y" : 146
+      }
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 623,
+        "y" : 141
+      },
+      "b" : {
+        "x" : 635,
+        "y" : 153
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 629,
+        "y" : 147
+      }
+    },
+    "inputs" : [ {
+      "id" : 8
+    } ],
+    "outputs" : [ {
+      "id" : 6
+    } ],
+    "inhibitors" : [ {
+      "id" : 15,
+      "points" : [ {
+        "x" : 687,
+        "y" : 43
+      } ]
+    } ],
+    "activators" : [ {
+      "id" : 13,
+      "points" : [ {
+        "x" : 580,
+        "y" : 49
+      } ]
+    } ]
+  }, {
+    "id" : 7,
+    "reactomeId" : 9727354,
+    "displayName" : "Transit-amplifying cell of basal layer produces keratinocyte of spinosum layer in skin epidermis",
+    "schemaClass" : "CellDevelopmentStep",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 414,
+      "y" : 150
+    },
+    "minX" : 372,
+    "maxX" : 448,
+    "minY" : 144,
+    "maxY" : 156,
+    "segments" : [ {
+      "from" : {
+        "x" : 372,
+        "y" : 151
+      },
+      "to" : {
+        "x" : 414,
+        "y" : 150
+      }
+    }, {
+      "from" : {
+        "x" : 414,
+        "y" : 150
+      },
+      "to" : {
+        "x" : 448,
+        "y" : 155
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 441,
+        "y" : 158
+      },
+      "b" : {
+        "x" : 448,
+        "y" : 155
+      },
+      "c" : {
+        "x" : 442,
+        "y" : 150
+      },
+      "type" : "ARROW",
+      "centre" : {
+        "x" : 442,
+        "y" : 150
+      }
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 408,
+        "y" : 144
+      },
+      "b" : {
+        "x" : 420,
+        "y" : 156
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 414,
+        "y" : 150
+      }
+    },
+    "inputs" : [ {
+      "id" : 9
+    } ],
+    "outputs" : [ {
+      "id" : 8
+    } ]
+  }, {
+    "id" : 14,
+    "reactomeId" : 9725621,
+    "displayName" : "Keratinogenic stem cell produces transit amplifying cell in the basal layer of skin epidermis",
+    "schemaClass" : "CellDevelopmentStep",
+    "renderableClass" : "Reaction",
+    "position" : {
+      "x" : 194,
+      "y" : 151
+    },
+    "minX" : 140,
+    "maxX" : 242,
+    "minY" : 145,
+    "maxY" : 157,
+    "segments" : [ {
+      "from" : {
+        "x" : 140,
+        "y" : 152
+      },
+      "to" : {
+        "x" : 194,
+        "y" : 151
+      }
+    }, {
+      "from" : {
+        "x" : 194,
+        "y" : 151
+      },
+      "to" : {
+        "x" : 242,
+        "y" : 151
+      }
+    } ],
+    "endShape" : {
+      "a" : {
+        "x" : 235,
+        "y" : 155
+      },
+      "b" : {
+        "x" : 242,
+        "y" : 151
+      },
+      "c" : {
+        "x" : 235,
+        "y" : 147
+      },
+      "type" : "ARROW",
+      "centre" : {
+        "x" : 235,
+        "y" : 147
+      }
+    },
+    "reactionShape" : {
+      "a" : {
+        "x" : 188,
+        "y" : 145
+      },
+      "b" : {
+        "x" : 200,
+        "y" : 157
+      },
+      "type" : "BOX",
+      "empty" : true,
+      "centre" : {
+        "x" : 194,
+        "y" : 151
+      }
+    },
+    "inputs" : [ {
+      "id" : 12
+    } ],
+    "outputs" : [ {
+      "id" : 9
+    } ],
+    "activators" : [ {
+      "id" : 10,
+      "points" : [ {
+        "x" : 194,
+        "y" : 40
+      } ]
+    } ]
+  } ],
+  "compartments" : [ ],
+  "notes" : [ ],
+  "links" : [ ],
+  "shadows" : [ ],
+  "minX" : 0,
+  "maxX" : 987,
+  "minY" : 0,
+  "maxY" : 216,
+  "disease" : false
+}

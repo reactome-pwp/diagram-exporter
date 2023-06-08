@@ -1,0 +1,136 @@
+{
+  "dbId" : 9725554,
+  "stId" : "R-HSA-9725554",
+  "speciesName" : "Homo sapiens",
+  "nodes" : [ {
+    "dbId" : 74016,
+    "stId" : "R-ALL-74016",
+    "displayName" : "Ca2+ [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "speciesId" : 0,
+    "diagramIds" : [ 13 ],
+    "identifier" : "29108",
+    "parents" : [ ],
+    "children" : [ ]
+  }, {
+    "dbId" : 9725559,
+    "stId" : "R-HSA-9725559",
+    "displayName" : "keratinogenic stem cell of skin epidermis basal layer",
+    "schemaClass" : "Cell",
+    "speciesId" : 48887,
+    "diagramIds" : [ 12 ],
+    "parents" : [ ],
+    "children" : [ ]
+  }, {
+    "dbId" : 9727360,
+    "stId" : "R-HSA-9727360",
+    "displayName" : "keratinocyte of spinosum layer of epidermis",
+    "schemaClass" : "Cell",
+    "speciesId" : 48887,
+    "diagramIds" : [ 8 ],
+    "parents" : [ ],
+    "children" : [ ]
+  }, {
+    "dbId" : 179863,
+    "stId" : "R-HSA-179863",
+    "displayName" : "EGF [extracellular region]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "diagramIds" : [ 10 ],
+    "identifier" : "P01133",
+    "geneNames" : [ "EGF" ],
+    "parents" : [ ],
+    "children" : [ ]
+  }, {
+    "dbId" : 9727363,
+    "stId" : "R-HSA-9727363",
+    "displayName" : "corneocyte of corneum layer of epidermis",
+    "schemaClass" : "Cell",
+    "speciesId" : 48887,
+    "diagramIds" : [ 11 ],
+    "parents" : [ ],
+    "children" : [ ]
+  }, {
+    "dbId" : 9727357,
+    "stId" : "R-HSA-9727357",
+    "displayName" : "keratinocyte of granulosum layer of epidermis",
+    "schemaClass" : "Cell",
+    "speciesId" : 48887,
+    "diagramIds" : [ 6 ],
+    "parents" : [ ],
+    "children" : [ ]
+  }, {
+    "dbId" : 5336173,
+    "stId" : "R-ALL-5336173",
+    "displayName" : "RA [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "speciesId" : 0,
+    "diagramIds" : [ 15 ],
+    "identifier" : "15367",
+    "parents" : [ ],
+    "children" : [ ]
+  }, {
+    "dbId" : 9725625,
+    "stId" : "R-HSA-9725625",
+    "displayName" : "transit-amplifying cell of epidermis basal layer",
+    "schemaClass" : "Cell",
+    "speciesId" : 48887,
+    "diagramIds" : [ 9 ],
+    "parents" : [ ],
+    "children" : [ ]
+  } ],
+  "edges" : [ {
+    "dbId" : 9725621,
+    "stId" : "R-HSA-9725621",
+    "displayName" : "Keratinogenic stem cell produces transit amplifying cell in the basal layer of skin epidermis",
+    "schemaClass" : "CellDevelopmentStep",
+    "speciesId" : 0,
+    "following" : [ 9727354 ],
+    "inputs" : [ 9725559 ],
+    "outputs" : [ 9725625 ],
+    "efs" : [ ],
+    "activators" : [ 179863 ],
+    "diagramIds" : [ 14 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 9727359,
+    "stId" : "R-HSA-9727359",
+    "displayName" : "Keratinocyte of spinosum layer produces keratinocyte of granulosum layer in skin epidermis",
+    "schemaClass" : "CellDevelopmentStep",
+    "speciesId" : 0,
+    "preceding" : [ 9727354 ],
+    "following" : [ 9727355 ],
+    "inputs" : [ 9727360 ],
+    "outputs" : [ 9727357 ],
+    "efs" : [ ],
+    "inhibitors" : [ 5336173 ],
+    "activators" : [ 74016 ],
+    "diagramIds" : [ 5 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 9727354,
+    "stId" : "R-HSA-9727354",
+    "displayName" : "Transit-amplifying cell of basal layer produces keratinocyte of spinosum layer in skin epidermis",
+    "schemaClass" : "CellDevelopmentStep",
+    "speciesId" : 0,
+    "preceding" : [ 9725621 ],
+    "following" : [ 9727359 ],
+    "inputs" : [ 9725625 ],
+    "outputs" : [ 9727360 ],
+    "efs" : [ ],
+    "diagramIds" : [ 7 ],
+    "entityFunctionalStatus" : [ ]
+  }, {
+    "dbId" : 9727355,
+    "stId" : "R-HSA-9727355",
+    "displayName" : "Keratinocyte of granulosum layer produces corneocyte of corneum layer in skin epidermis",
+    "schemaClass" : "CellDevelopmentStep",
+    "speciesId" : 0,
+    "preceding" : [ 9727359 ],
+    "inputs" : [ 9727357 ],
+    "outputs" : [ 9727363 ],
+    "efs" : [ ],
+    "diagramIds" : [ 16 ],
+    "entityFunctionalStatus" : [ ]
+  } ]
+}

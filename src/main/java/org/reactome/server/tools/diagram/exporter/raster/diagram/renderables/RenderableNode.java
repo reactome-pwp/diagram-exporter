@@ -38,6 +38,7 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 	private Double enrichmentValue;
 
 
+
 	RenderableNode(Node node) {
 		super(node);
 		this.backgroundShape = backgroundShape();
@@ -45,6 +46,11 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 	}
 
 	abstract Shape backgroundShape();
+
+	StrokeStyle getBorderStroke() {
+		return StrokeStyle.BORDER;
+	}
+
 
 	public Double getEnrichment() {
 		return enrichment;
@@ -119,10 +125,10 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 
 		if (isFadeOut()) {
 			canvas.getFadeOutNodeForeground().add(backgroundArea, fill);
-			canvas.getFadeOutNodeBorder().add(backgroundShape, border, StrokeStyle.BORDER.get(isDashed()));
+			canvas.getFadeOutNodeBorder().add(backgroundShape, border, getBorderStroke().get(isDashed()));
 		} else {
 			canvas.getNodeBackground().add(backgroundArea, fill);
-			canvas.getNodeBorder().add(backgroundShape, border, StrokeStyle.BORDER.get(isDashed()));
+			canvas.getNodeBorder().add(backgroundShape, border, getBorderStroke().get(isDashed()));
 		}
 	}
 

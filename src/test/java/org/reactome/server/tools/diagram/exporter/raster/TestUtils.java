@@ -1,7 +1,6 @@
 package org.reactome.server.tools.diagram.exporter.raster;
 
 import com.itextpdf.kernel.geom.PageSize;
-import com.itextpdf.kernel.geom.Rectangle;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfPage;
 import com.itextpdf.kernel.pdf.PdfWriter;
@@ -10,24 +9,32 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.properties.HorizontalAlignment;
 import org.apache.batik.svggen.SVGGraphics2D;
+import org.apache.batik.transcoder.TranscoderException;
 import org.junit.jupiter.api.Assertions;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
 import org.reactome.server.analysis.core.result.utils.TokenUtils;
+import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.common.analysis.AnalysisException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonDeserializationException;
 import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramJsonNotFoundException;
+import org.reactome.server.tools.diagram.exporter.common.profiles.factory.DiagramProfileException;
+import org.reactome.server.tools.diagram.exporter.pptx.PowerPointExporter;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.DiagramRendererTest;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.EhldRendererTest;
 import org.reactome.server.tools.diagram.exporter.raster.ehld.exception.EhldException;
+import org.reactome.server.tools.diagram.exporter.sbgn.SbgnConverter;
+import org.sbgn.SbgnUtil;
 
 import javax.imageio.ImageIO;
-import java.io.*;
+import javax.xml.bind.JAXBException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.nio.file.Path;
-import java.time.Instant;
-import java.util.Date;
+
+import static org.reactome.server.tools.diagram.exporter.common.ResourcesFactory.getDiagram;
 
 /**
  * Supporting methods for testing diagram renderering. It is used both in {@link
@@ -66,15 +73,14 @@ public class TestUtils {
     public static void render(RasterArgs args, AnalysisStoredResult result) {
         try {
             String format = args.getFormat().toLowerCase();
-            Path path = Path.of("test/output/" + args.getStId() + "." + format);
+            File folder = Path.of("target/output").toFile();
+            if (!folder.exists()) folder.mkdir();
+            Path path = Path.of("target/output/" + args.getStId() + "." + format);
             for (int i = 1; Files.exists(path); i++)
-                path = Path.of("test/output/" + args.getStId() + "-" + i + "." + format);
+                path = Path.of("target/output/" + args.getStId() + "-" + i + "." + format);
             File output = path.toFile();
+
             switch (format) {
-                default:
-                case "png":
-                    ImageIO.write(EXPORTER.exportToImage(args, result), format, output);
-                    break;
                 case "pdf":
                     Document imagePdf = EXPORTER.exportToPdf(args, result);
                     Document document = new Document(new PdfDocument(new PdfWriter(output)));
@@ -91,12 +97,23 @@ public class TestUtils {
                     document.close();
                     break;
                 case "svg":
-                    boolean useCSS = true; // we want to use CSS style attributes
-                    new SVGGraphics2D(EXPORTER.exportToSvg(args, result)).stream(new FileWriter(output), useCSS);
+                    RasterOutput.save(EXPORTER.exportToSvg(args, result), output);
+                    break;
+                case "pptx":
+                    PowerPointExporter.export(args.getStId(), DIAGRAM_PATH, args.getProfiles().getDiagramSheet().getName(), "target/output/", new Decorator(args), "src/test/resources/license/Aspose.Slides.lic");
+                    break;
+                case "sbgn":
+                    SbgnConverter converter = new SbgnConverter(getDiagram(DIAGRAM_PATH, args.getStId()));
+                    SbgnUtil.writeToFile(converter.getSbgn(), output);
+                    break;
+                default:
+                case "png":
+                    ImageIO.write(EXPORTER.exportToImage(args, result), format, output);
                     break;
             }
         } catch (EhldException | AnalysisException | DiagramJsonDeserializationException |
-                 DiagramJsonNotFoundException | IOException e) {
+                 DiagramJsonNotFoundException | IOException | DiagramProfileException | JAXBException |
+                 TranscoderException e) {
             e.printStackTrace();
             Assertions.fail(e.getMessage());
         }

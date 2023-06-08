@@ -2,12 +2,13 @@ package org.reactome.server.tools.diagram.exporter.raster;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.reactome.server.tools.diagram.exporter.BaseTest;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
-public class FormatTest {
+public class FormatTest extends BaseTest {
 	@Test
 	public void testExpressionFormat() {
 		final DecimalFormat LEGEND_FORMAT = new DecimalFormat("#.##E0", DecimalFormatSymbols.getInstance(Locale.UK));

@@ -232,9 +232,8 @@ public class DiagramRenderer implements RasterRenderer {
 		graphics.scale(factor, factor);
 
 		graphics.setFont(FontProperties.DEFAULT_FONT);
-		graphics.setRenderingHint(
-				RenderingHints.KEY_TEXT_ANTIALIASING,
-				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
 		return graphics;
 	}
 
@@ -252,6 +251,7 @@ public class DiagramRenderer implements RasterRenderer {
 		graphics.setRenderingHint(
 				RenderingHints.KEY_TEXT_ANTIALIASING,
 				RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
+		graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		this.canvas.render(graphics);
 		pdfCanvas.release();
 		document.close();

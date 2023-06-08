@@ -139,14 +139,29 @@ public class ShapeFactory {
 				prop.getWidth(), prop.getHeight(), padding);
 	}
 
+	public static Shape roundedRectangle(NodeProperties prop, double padding, double arc) {
+		return roundedRectangle(prop.getX(), prop.getY(),
+				prop.getWidth(), prop.getHeight(), padding, arc);
+	}
+
 	private static Shape roundedRectangle(double x, double y, double width, double height, double padding) {
 		return new RoundRectangle2D.Double(
 				x + padding,
 				y + padding,
 				width - 2 * padding,
 				height - 2 * padding,
-				ROUND_RECT_ARC_WIDTH,
-				ROUND_RECT_ARC_WIDTH);
+				ROUND_RECT_ARC_WIDTH - padding,
+				ROUND_RECT_ARC_WIDTH - padding);
+	}
+
+	private static Shape roundedRectangle(double x, double y, double width, double height, double padding, double arc) {
+		return new RoundRectangle2D.Double(
+				x + padding,
+				y + padding,
+				width - 2 * padding,
+				height - 2 * padding,
+				arc - padding,
+				arc - padding);
 	}
 
 	/**

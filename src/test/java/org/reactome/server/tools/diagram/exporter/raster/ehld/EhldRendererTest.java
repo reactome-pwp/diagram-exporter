@@ -3,6 +3,7 @@ package org.reactome.server.tools.diagram.exporter.raster.ehld;
 
 import org.junit.jupiter.api.Test;
 import org.reactome.server.analysis.core.result.AnalysisStoredResult;
+import org.reactome.server.tools.diagram.exporter.BaseTest;
 import org.reactome.server.tools.diagram.exporter.raster.TestUtils;
 import org.reactome.server.tools.diagram.exporter.raster.api.RasterArgs;
 import org.reactome.server.tools.diagram.exporter.raster.profiles.ColorProfiles;
@@ -14,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
 
-public class EhldRendererTest {
+public class EhldRendererTest extends BaseTest {
 
     Logger log = LoggerFactory.getLogger("diagram-exporter");
 

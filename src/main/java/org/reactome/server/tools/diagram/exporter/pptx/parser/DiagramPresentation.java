@@ -5,6 +5,7 @@ import org.reactome.server.tools.diagram.data.layout.*;
 import org.reactome.server.tools.diagram.data.profile.diagram.DiagramProfile;
 import org.reactome.server.tools.diagram.exporter.common.Decorator;
 import org.reactome.server.tools.diagram.exporter.pptx.model.*;
+import org.reactome.server.tools.diagram.exporter.pptx.model.Cell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -160,6 +161,9 @@ public class DiagramPresentation {
                 break;
             case "complexdrug":
                 pptxNode = new ComplexDrug(node, adjustment, flag, selected);
+                break;
+            case "cell":
+                pptxNode = new Cell(node, adjustment, flag, selected);
                 break;
             case "entityset":
                 pptxNode = new EntitySet(node, adjustment, flag, selected);
