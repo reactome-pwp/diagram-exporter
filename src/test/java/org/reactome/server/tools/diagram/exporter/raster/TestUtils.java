@@ -71,13 +71,18 @@ public class TestUtils {
     }
 
     public static void render(RasterArgs args, AnalysisStoredResult result) {
+        render(args, result, false);
+    }
+
+    public static void render(RasterArgs args, AnalysisStoredResult result, boolean overwriteOutput) {
         try {
             String format = args.getFormat().toLowerCase();
             File folder = Path.of("target/output").toFile();
             if (!folder.exists()) folder.mkdir();
             Path path = Path.of("target/output/" + args.getStId() + "." + format);
-            for (int i = 1; Files.exists(path); i++)
-                path = Path.of("target/output/" + args.getStId() + "-" + i + "." + format);
+            if (!overwriteOutput)
+                for (int i = 1; Files.exists(path); i++)
+                    path = Path.of("target/output/" + args.getStId() + "-" + i + "." + format);
             File output = path.toFile();
 
             switch (format) {

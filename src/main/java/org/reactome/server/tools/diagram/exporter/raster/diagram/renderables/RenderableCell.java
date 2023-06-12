@@ -89,7 +89,7 @@ public class RenderableCell extends RenderableNode {
         layer.add(getNode().getDisplayName(),
                 color,
                 prop,
-                PADDING + 2,
+                4 * PADDING,
                 textSplit,
                 FontProperties.DEFAULT_FONT);
     }

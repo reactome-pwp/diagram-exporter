@@ -126,7 +126,7 @@ public class LogoRenderer {
         final double mx = nodeProperties.getX();
         final double my = nodeProperties.getY();
         final List<Rectangle2D> positions = Arrays.asList(
-                new Rectangle2D.Double(mx - LOGO_PADDING - width,my, width, height),
+                new Rectangle2D.Double(mx - LOGO_PADDING - width, my, width, height),
                 new Rectangle2D.Double(mx, my - LOGO_PADDING - height, width, height),
                 new Rectangle2D.Double(mx + LOGO_PADDING + width, my, width, height),
                 new Rectangle2D.Double(mx, my + LOGO_PADDING + height, width, height));
@@ -159,31 +159,35 @@ public class LogoRenderer {
             final double h = edge.getMaxY() - edge.getMinY();
             if (position.intersects(edge.getMinX(), edge.getMinY(), w, h)) return true;
         }
-        for (Link link : diagram.getLinks()) {
-            for (Segment segment : link.getSegments()) {
-                final Line2D.Double line = toLine(segment);
-                if (position.intersectsLine(line)) return true;
+
+        if (diagram.getLinks() != null)
+            for (Link link : diagram.getLinks()) {
+                for (Segment segment : link.getSegments()) {
+                    final Line2D.Double line = toLine(segment);
+                    if (position.intersectsLine(line)) return true;
+                }
             }
-        }
         // Compartments
-        for (Compartment compartment : diagram.getCompartments()) {
-            final Rectangle2D.Double outer = toRectangle(compartment.getProp());
-            Rectangle2D intersection = position.createIntersection(outer);
-            double intersectionArea = intersection.getWidth() * intersection.getHeight();
-            if (!intersection.isEmpty() && intersectionArea > 0 && intersectionArea < area) return true;
-            if (compartment.getInsets() != null) {
-                final Rectangle2D.Double inner = toRectangle(compartment.getInsets());
-                intersection = position.createIntersection(inner);
-                intersectionArea = intersection.getWidth() * intersection.getHeight();
+
+        if (diagram.getCompartments() != null)
+            for (Compartment compartment : diagram.getCompartments()) {
+                final Rectangle2D.Double outer = toRectangle(compartment.getProp());
+                Rectangle2D intersection = position.createIntersection(outer);
+                double intersectionArea = intersection.getWidth() * intersection.getHeight();
                 if (!intersection.isEmpty() && intersectionArea > 0 && intersectionArea < area) return true;
+                if (compartment.getInsets() != null) {
+                    final Rectangle2D.Double inner = toRectangle(compartment.getInsets());
+                    intersection = position.createIntersection(inner);
+                    intersectionArea = intersection.getWidth() * intersection.getHeight();
+                    if (!intersection.isEmpty() && intersectionArea > 0 && intersectionArea < area) return true;
+                }
+                // And we also check for text
+                final double tw = FONT_METRICS.stringWidth(compartment.getDisplayName());
+                final double th = FONT_METRICS.getHeight();
+                final double tx = compartment.getTextPosition().getX() + RenderableCompartment.GWU_CORRECTION.getX();
+                final double ty = compartment.getTextPosition().getY() + RenderableCompartment.GWU_CORRECTION.getY();
+                if (position.intersects(tx, ty, tw, th)) return true;
             }
-            // And we also check for text
-            final double tw = FONT_METRICS.stringWidth(compartment.getDisplayName());
-            final double th = FONT_METRICS.getHeight();
-            final double tx = compartment.getTextPosition().getX() + RenderableCompartment.GWU_CORRECTION.getX();
-            final double ty = compartment.getTextPosition().getY() + RenderableCompartment.GWU_CORRECTION.getY();
-            if (position.intersects(tx, ty, tw, th)) return true;
-        }
         return false;
     }
 
