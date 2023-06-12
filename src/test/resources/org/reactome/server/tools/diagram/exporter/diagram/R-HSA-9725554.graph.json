@@ -3,23 +3,102 @@
   "stId" : "R-HSA-9725554",
   "speciesName" : "Homo sapiens",
   "nodes" : [ {
-    "dbId" : 74016,
-    "stId" : "R-ALL-74016",
-    "displayName" : "Ca2+ [cytosol]",
-    "schemaClass" : "SimpleEntity",
-    "speciesId" : 0,
-    "diagramIds" : [ 13 ],
-    "identifier" : "29108",
-    "parents" : [ ],
+    "dbId" : 8847687,
+    "stId" : "R-HSA-8847687",
+    "displayName" : "CASP14(153-242) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P31944",
+    "geneNames" : [ "CASP14" ],
+    "parents" : [ 8847680 ],
     "children" : [ ]
   }, {
-    "dbId" : 9725559,
-    "stId" : "R-HSA-9725559",
-    "displayName" : "keratinogenic stem cell of skin epidermis basal layer",
-    "schemaClass" : "Cell",
+    "dbId" : 9734933,
+    "stId" : "R-HSA-9734933",
+    "displayName" : "CSPG4 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
     "speciesId" : 48887,
-    "diagramIds" : [ 12 ],
-    "parents" : [ ],
+    "identifier" : "Q6UVK1",
+    "geneNames" : [ "CSPG4", "MCSP" ],
+    "parents" : [ 9725559 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 8847680,
+    "stId" : "R-HSA-8847680",
+    "displayName" : "CASP14 [cytosol]",
+    "schemaClass" : "Complex",
+    "speciesId" : 48887,
+    "parents" : [ 9727363 ],
+    "children" : [ 8847667, 8847687 ]
+  }, {
+    "dbId" : 6810848,
+    "stId" : "R-HSA-6810848",
+    "displayName" : "LORICRIN [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P23490",
+    "geneNames" : [ "LORICRIN", "LOR", "LRN" ],
+    "parents" : [ 9727357 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 215947,
+    "stId" : "R-HSA-215947",
+    "displayName" : "ITGB4 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P16144",
+    "geneNames" : [ "ITGB4" ],
+    "parents" : [ 9725559 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 8934850,
+    "stId" : "R-HSA-8934850",
+    "displayName" : "SPRR2A [cornified envelope]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P35326",
+    "geneNames" : [ "SPRR2A" ],
+    "parents" : [ 9727357 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 6810859,
+    "stId" : "R-HSA-6810859",
+    "displayName" : "FLG(?-?) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P20930",
+    "geneNames" : [ "FLG" ],
+    "parents" : [ 9727363, 9727357 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 446091,
+    "stId" : "R-HSA-446091",
+    "displayName" : "KRT14 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P02533",
+    "geneNames" : [ "KRT14" ],
+    "parents" : [ 9725625 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 443595,
+    "stId" : "R-HSA-443595",
+    "displayName" : "NUMB [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P49757",
+    "geneNames" : [ "NUMB", "C14orf41" ],
+    "parents" : [ 9725559 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 6809589,
+    "stId" : "R-HSA-6809589",
+    "displayName" : "KRT15 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P19012",
+    "geneNames" : [ "KRT15", "KRTB" ],
+    "parents" : [ 9725625 ],
     "children" : [ ]
   }, {
     "dbId" : 9727360,
@@ -29,6 +108,16 @@
     "speciesId" : 48887,
     "diagramIds" : [ 8 ],
     "parents" : [ ],
+    "children" : [ 5216081, 6809649, 6809604, 6809606 ]
+  }, {
+    "dbId" : 204439,
+    "stId" : "R-HSA-204439",
+    "displayName" : "ITGA6(24-1130) [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P23229",
+    "geneNames" : [ "ITGA6" ],
+    "parents" : [ 9725559 ],
     "children" : [ ]
   }, {
     "dbId" : 179863,
@@ -42,6 +131,26 @@
     "parents" : [ ],
     "children" : [ ]
   }, {
+    "dbId" : 9728002,
+    "stId" : "R-HSA-9728002",
+    "displayName" : "HOPX [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9BPY8",
+    "geneNames" : [ "HOPX", "HOD", "HOP", "LAGY", "NECC1", "OB1" ],
+    "parents" : [ 9727357 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 6809649,
+    "stId" : "R-HSA-6809649",
+    "displayName" : "KRT1 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P04264",
+    "geneNames" : [ "KRT1", "KRTA" ],
+    "parents" : [ 9727357, 9727360 ],
+    "children" : [ ]
+  }, {
     "dbId" : 9727363,
     "stId" : "R-HSA-9727363",
     "displayName" : "corneocyte of corneum layer of epidermis",
@@ -49,6 +158,95 @@
     "speciesId" : 48887,
     "diagramIds" : [ 11 ],
     "parents" : [ ],
+    "children" : [ 6810859, 8847680, 9727975, 8934778 ]
+  }, {
+    "dbId" : 6800432,
+    "stId" : "R-HSA-6800432",
+    "displayName" : "PRSS3 [tertiary granule lumen]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P35030",
+    "geneNames" : [ "PRSS3", "PRSS4", "TRY3", "TRY4" ],
+    "parents" : [ 9727357 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 5216081,
+    "stId" : "R-HSA-5216081",
+    "displayName" : "FABP5 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q01469",
+    "geneNames" : [ "FABP5" ],
+    "parents" : [ 9727357, 9727360 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 6809606,
+    "stId" : "R-HSA-6809606",
+    "displayName" : "KRT24 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q2M2I5",
+    "geneNames" : [ "KRT24", "KA24" ],
+    "parents" : [ 9727360 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 74016,
+    "stId" : "R-ALL-74016",
+    "displayName" : "Ca2+ [cytosol]",
+    "schemaClass" : "SimpleEntity",
+    "speciesId" : 0,
+    "diagramIds" : [ 13 ],
+    "identifier" : "29108",
+    "parents" : [ ],
+    "children" : [ ]
+  }, {
+    "dbId" : 6809604,
+    "stId" : "R-HSA-6809604",
+    "displayName" : "KRT10 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P13645",
+    "geneNames" : [ "KRT10", "KPP" ],
+    "parents" : [ 9727357, 9727360 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 9725559,
+    "stId" : "R-HSA-9725559",
+    "displayName" : "keratinogenic stem cell of skin epidermis basal layer",
+    "schemaClass" : "Cell",
+    "speciesId" : 48887,
+    "diagramIds" : [ 12 ],
+    "parents" : [ ],
+    "children" : [ 9734933, 197745, 157089, 204439, 6809617, 917929, 215947, 57596, 2997585, 443595 ]
+  }, {
+    "dbId" : 157089,
+    "stId" : "R-HSA-157089",
+    "displayName" : "DLL1 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "O00548",
+    "geneNames" : [ "DLL1", "UNQ146/PRO172" ],
+    "parents" : [ 9725559 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 9727987,
+    "stId" : "R-HSA-9727987",
+    "displayName" : "SPINK5 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9NQ38",
+    "geneNames" : [ "SPINK5" ],
+    "parents" : [ 9727357 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 917929,
+    "stId" : "R-HSA-917929",
+    "displayName" : "HC-ABCG2 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9UNQ0",
+    "geneNames" : [ "ABCG2", "ABCP", "BCRP", "BCRP1", "MXR" ],
+    "parents" : [ 9725559 ],
     "children" : [ ]
   }, {
     "dbId" : 9727357,
@@ -58,6 +256,95 @@
     "speciesId" : 48887,
     "diagramIds" : [ 6 ],
     "parents" : [ ],
+    "children" : [ 5216081, 6810859, 8934850, 6800432, 9727987, 6810848, 9728002, 6809649, 9727975, 6809604, 8934778, 6810837 ]
+  }, {
+    "dbId" : 9725625,
+    "stId" : "R-HSA-9725625",
+    "displayName" : "transit-amplifying cell of epidermis basal layer",
+    "schemaClass" : "Cell",
+    "speciesId" : 48887,
+    "diagramIds" : [ 9 ],
+    "parents" : [ ],
+    "children" : [ 446091, 446074, 6809631, 6809589 ]
+  }, {
+    "dbId" : 8934778,
+    "stId" : "R-HSA-8934778",
+    "displayName" : "KLK5 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9Y337",
+    "geneNames" : [ "KLK5", "SCTE", "UNQ570/PRO1132" ],
+    "parents" : [ 9727363, 9727357 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 6810837,
+    "stId" : "R-HSA-6810837",
+    "displayName" : "IVL [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P07476",
+    "geneNames" : [ "IVL" ],
+    "parents" : [ 9727357 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 197745,
+    "stId" : "R-HSA-197745",
+    "displayName" : "LRIG1 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q96JA1",
+    "geneNames" : [ "LRIG1", "LIG1" ],
+    "parents" : [ 9725559 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 9727975,
+    "stId" : "R-HSA-9727975",
+    "displayName" : "KLK7 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P49862",
+    "geneNames" : [ "KLK7", "PRSS6", "SCCE" ],
+    "parents" : [ 9727363, 9727357 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 8847667,
+    "stId" : "R-HSA-8847667",
+    "displayName" : "CASP14(6-146) [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P31944",
+    "geneNames" : [ "CASP14" ],
+    "parents" : [ 8847680 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 6809617,
+    "stId" : "R-HSA-6809617",
+    "displayName" : "KRT19 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P08727",
+    "geneNames" : [ "KRT19" ],
+    "parents" : [ 9725559 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 6809631,
+    "stId" : "R-HSA-6809631",
+    "displayName" : "KRT78 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q8N1N4",
+    "geneNames" : [ "KRT78", "K5B", "KB40" ],
+    "parents" : [ 9725625 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 446074,
+    "stId" : "R-HSA-446074",
+    "displayName" : "KRT5 [cytosol]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "P13647",
+    "geneNames" : [ "KRT5" ],
+    "parents" : [ 9725625 ],
     "children" : [ ]
   }, {
     "dbId" : 5336173,
@@ -70,13 +357,24 @@
     "parents" : [ ],
     "children" : [ ]
   }, {
-    "dbId" : 9725625,
-    "stId" : "R-HSA-9725625",
-    "displayName" : "transit-amplifying cell of epidermis basal layer",
-    "schemaClass" : "Cell",
+    "dbId" : 57596,
+    "stId" : "R-HSA-57596",
+    "displayName" : "ITGB1 [plasma membrane]",
+    "schemaClass" : "EntityWithAccessionedSequence",
     "speciesId" : 48887,
-    "diagramIds" : [ 9 ],
-    "parents" : [ ],
+    "identifier" : "P05556",
+    "geneNames" : [ "ITGB1", "FNRB", "MDF2", "MSK12" ],
+    "parents" : [ 9725559 ],
+    "children" : [ ]
+  }, {
+    "dbId" : 2997585,
+    "stId" : "R-HSA-2997585",
+    "displayName" : "TP63 [nucleoplasm]",
+    "schemaClass" : "EntityWithAccessionedSequence",
+    "speciesId" : 48887,
+    "identifier" : "Q9H3D4",
+    "geneNames" : [ "TP63", "KET", "P63", "P73H", "P73L", "TP73L" ],
+    "parents" : [ 9725559 ],
     "children" : [ ]
   } ],
   "edges" : [ {

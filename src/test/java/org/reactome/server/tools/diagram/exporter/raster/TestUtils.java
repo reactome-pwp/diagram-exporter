@@ -45,6 +45,7 @@ public class TestUtils {
     public static final String TOKEN_OVER_1 = "MjAyMTEyMTcxNDQyNDBfMg%253D%253D"; // uniprot (GBM Uniprot)
     public static final String TOKEN_EXPRESSION_1 = "MjAyMTEyMTcxNDU4MDhfNQ%253D%253D";  // microarray (probeset)
     public static final String TOKEN_EXPRESSION_2 = "MjAyMTEyMTcxNDU1NDZfNA%253D%253D";  // HPA (GeneName)
+    public static final String TOKEN_CELL = "MjAyMzA2MTIxNDU1MzlfOA%3D%3D";  // HPA (GeneName)
     public static final String TOKEN_SPECIES = "MjAyMTEyMTcxNTE1MDBfNg%253D%253D"; // canis
 
     public static final String TOKEN_GSA = "MjAyMTEyMTcxNTI2MzJfOA%253D%253D";
@@ -70,6 +71,11 @@ public class TestUtils {
         render(args, null);
     }
 
+    public static void render(RasterArgs args, boolean overwriteOutput) {
+        render(args, null, overwriteOutput);
+    }
+
+
     public static void render(RasterArgs args, AnalysisStoredResult result) {
         render(args, result, false);
     }
@@ -87,19 +93,7 @@ public class TestUtils {
 
             switch (format) {
                 case "pdf":
-                    Document imagePdf = EXPORTER.exportToPdf(args, result);
-                    Document document = new Document(new PdfDocument(new PdfWriter(output)));
-                    document.setMargins(50, 50, 50, 50);
-
-                    PdfPage firstPage = imagePdf.getPdfDocument().getFirstPage();
-                    PageSize pageSize = new PageSize(firstPage.getPageSize());
-                    document.getPdfDocument().addNewPage(pageSize);
-                    final PdfFormXObject object = firstPage.copyAsFormXObject(document.getPdfDocument());
-                    final float wi = pageSize.getWidth() - 100 - 0.1f;  // avoid image too large
-                    final float he = pageSize.getHeight() - 100 - 0.1f;
-                    document.add(new Image(object).scaleToFit(wi, he).setHorizontalAlignment(HorizontalAlignment.CENTER));
-                    document.flush();
-                    document.close();
+                    RasterOutput.save(EXPORTER.exportToPdf(args, result), new PdfWriter(output));
                     break;
                 case "svg":
                     RasterOutput.save(EXPORTER.exportToSvg(args, result), output);

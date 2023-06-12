@@ -337,19 +337,20 @@ public class DiagramRendererTest extends BaseTest {
     @Test
     public void testCell() {
         List.of(
-//                "png"
-                "svg"
-//                "jpg",
-//                "gif",
-//                "pdf",
-//                "pptx"
-//                "sbgn"
+                "png",
+                "svg",
+                "jpg",
+                "gif",
+                "pdf",
+                "pptx",
+                "sbgn"
         ).forEach(format -> {
             final RasterArgs args = new RasterArgs("R-HSA-9725554", format)
-                .setQuality(10)
-                .setSelected(Arrays.asList("R-HSA-9727360"))
-                .setFlags(Arrays.asList("R-HSA-9725559"));
-            TestUtils.render(args);
+                    .setToken(TestUtils.TOKEN_CELL)
+                    .setQuality(10)
+                    .setSelected(List.of("R-HSA-9727360"))
+                    .setFlags(List.of("R-HSA-9725559"));
+            TestUtils.render(args, true);
         });
 
     }

@@ -2,6 +2,7 @@ package org.reactome.server.tools.diagram.exporter.raster.diagram.renderables;
 
 import org.reactome.server.tools.diagram.data.layout.Node;
 import org.reactome.server.tools.diagram.data.layout.NodeProperties;
+import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesFactory;
 import org.reactome.server.tools.diagram.data.layout.impl.NodePropertiesImpl;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.DiagramData;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
@@ -36,6 +37,13 @@ public class RenderableCell extends RenderableNode {
     @Override
     Shape backgroundShape() {
         return ShapeFactory.roundedRectangle(getNode().getProp(), 0, CELL_ARC);
+    }
+
+    @Override
+    Shape analysisShape() {
+        NodeProperties prop = getNode().getProp();
+        prop = new NodePropertiesImpl(prop.getX(), prop.getY(), prop.getWidth(), prop.getHeight() / 2 + 3 * PADDING);
+        return ShapeFactory.roundedRectangle(prop, 4 * PADDING, CELL_ARC);
     }
 
     @Override

@@ -32,6 +32,9 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 	static final double NODE_TEXT_PADDING = 5;
 	private final Area backgroundArea;
 	private final Shape backgroundShape;
+
+	private final Area analysisArea;
+	private final Shape analysisShape;
 	private List<FoundEntity> hitExpressions;
 	private Double enrichment;
 	private Integer totalExpressions;
@@ -42,10 +45,16 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 	RenderableNode(Node node) {
 		super(node);
 		this.backgroundShape = backgroundShape();
-		this.backgroundArea = new Area(backgroundShape());
+		this.backgroundArea = new Area(this.backgroundShape);
+		this.analysisShape = analysisShape();
+		this.analysisArea  = new Area(this.analysisShape);
 	}
 
 	abstract Shape backgroundShape();
+
+	Shape analysisShape() {
+		return backgroundShape();
+	}
 
 	StrokeStyle getBorderStroke() {
 		return StrokeStyle.BORDER;
@@ -151,17 +160,18 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 
 	private double enrichment(DiagramCanvas canvas, ColorProfiles colorProfiles) {
 		final Double percentage = getEnrichment();
-		final NodeProperties prop = getNode().getProp();
+//		final NodeProperties prop = getNode().getProp();
+		Rectangle2D bounds = analysisShape.getBounds2D();
 		if (percentage != null && percentage > 0) {
 			final Color color = colorProfiles.getAnalysisSheet().getEnrichment().getGradient().getMax();
-			final Area enrichmentArea = new Area(backgroundShape);
+			final Area enrichmentArea = new Area(analysisShape);
 			final Rectangle2D clip = new Rectangle2D.Double(
-					prop.getX(),
-					prop.getY(),
-					prop.getWidth() * percentage,
-					prop.getHeight());
+					bounds.getX(),
+					bounds.getY(),
+					bounds.getWidth() * percentage,
+					bounds.getHeight());
 			enrichmentArea.intersect(new Area(clip));
-			backgroundArea.subtract(enrichmentArea);
+			analysisArea.subtract(enrichmentArea);
 			canvas.getNodeAnalysis().add(enrichmentArea, color);
 		}
 		return 0.0;
@@ -183,11 +193,11 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 					.collect(Collectors.toList());
 			final int size = getTotalExpressions();
 
-			final NodeProperties prop = getNode().getProp();
-			final double x = prop.getX();
-			final double y = prop.getY();
-			final double height = prop.getHeight();
-			final double partSize = prop.getWidth() / size;
+			Rectangle bounds = analysisShape.getBounds();
+			final double x = bounds.x;
+			final double y = bounds.y;
+			final double height = bounds.height;
+			final double partSize = bounds.width / size;
 			textSplit = (double) values.size() / size;
 
 			final double max = data.getAnalysis().getResult().getExpression().getMax();
@@ -201,9 +211,9 @@ public abstract class RenderableNode extends RenderableNodeCommon<Node> {
 				final Rectangle2D rect = new Rectangle2D.Double(
 						x + i * partSize, y, partSize, height);
 				final Area expressionArea = new Area(rect);
-				expressionArea.intersect(new Area(backgroundShape));
+				expressionArea.intersect(new Area(analysisArea));
 				canvas.getNodeAnalysis().add(expressionArea, color);
-				backgroundArea.subtract(expressionArea);
+				analysisArea.subtract(expressionArea);
 			}
 		}
 		if (this instanceof RenderableEntitySet || this instanceof RenderableComplex)
