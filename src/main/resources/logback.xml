@@ -33,7 +33,7 @@
         </encoder>
     </appender>
 
-    <logger name="diagram-exporter" level="TRACE" additivity="false">
+    <logger name="diagram-exporter" level="ERROR" additivity="false">
         <appender-ref ref="FILE"/>
     </logger>
     <logger name="trace" level="TRACE" additivity="false">
