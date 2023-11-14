@@ -95,7 +95,7 @@ public class SvgAnalysis {
 		if (result == null) return;
 		this.resource = getResource();
 		analysisType = AnalysisType.getType(result.getSummary().getType());
-		summary = result.getResultSummary(resource);
+		summary = result.getResultSummary(resource, args.isImportableOnly());
 		final List<String> regions = getRegions();
 		if (regions.isEmpty()) return;
 		pathways = regions.stream()
@@ -106,7 +106,7 @@ public class SvgAnalysis {
 	}
 
 	private Map<String, EntityStatistics> getStats() {
-		final List<PathwaySummary> pathwaysSummary = result.filterByPathways(pathways, resource);
+		final List<PathwaySummary> pathwaysSummary = result.filterByPathways(pathways, resource, args.isImportableOnly());
 		final Map<String, EntityStatistics> stats = new HashMap<>();
 		for (PathwaySummary summary : pathwaysSummary)
 			stats.put(summary.getStId(), summary.getEntities());
