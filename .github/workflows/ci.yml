@@ -78,15 +78,12 @@ jobs:
     
             - id: login-ecr
               uses: aws-actions/amazon-ecr-login@v2
-              with:
-                registry-type: public
 
             - env:
                 AWS_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-                AWS_REGISTRY_ALIAS: k2y5k6e2
                 AWS_REPO: diagram-exporter
                 IMG_TAG: ${{ steps.get-hash.outputs.SHORT_SHA }}
               run: |
                 docker load --input /tmp/image.tar
-                docker image tag tmp-tag $AWS_REGISTRY/$AWS_REGISTRY_ALIAS/$AWS_REPO:$IMG_TAG
-                docker push $AWS_REGISTRY/$AWS_REGISTRY_ALIAS/$AWS_REPO:$IMG_TAG
+                docker image tag tmp-tag $AWS_REGISTRY/$AWS_REPO:$IMG_TAG
+                docker push $AWS_REGISTRY/$AWS_REPO:$IMG_TAG
