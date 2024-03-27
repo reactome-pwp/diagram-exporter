@@ -50,14 +50,14 @@ jobs:
                 file: Dockerfile
                 tags: tmp-tag
             
+            # below is process to push to ECR
+            # private ECR registry is used due to license
             - if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
               id: get-hash
               run: |
                 FULL_SHA=${{ github.sha }}
                 echo "SHORT_SHA=${FULL_SHA:0:7}" >> $GITHUB_OUTPUT
             
-            # below is process to push to ECR
-            # private ECR registry is used due to license
             - if: ${{ steps.get-hash.conclusion != 'skipped' }}
               env:
                 AWS_REGION: us-east-1
