@@ -3,6 +3,7 @@ package org.reactome.server.tools.diagram.exporter.raster.profiles;
 
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.apache.commons.io.IOUtils;
 import org.reactome.server.tools.diagram.exporter.raster.resources.Resources;
 
@@ -61,9 +62,11 @@ public class ColorProfiles {
 		InputStream resource = Resources.class.getResourceAsStream("profiles/" + filename);
 		try {
 			final String json = IOUtils.toString(resource, Charset.defaultCharset());
-			final ObjectMapper mapper = new ObjectMapper();
-			mapper.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true);
-			return mapper.readValue(json, clazz);
+			return JsonMapper.builder()
+					.configure(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES, true)
+					.build()
+					.readValue(json, clazz);
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
