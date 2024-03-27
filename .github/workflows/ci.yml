@@ -49,6 +49,7 @@ jobs:
                 context: .
                 file: Dockerfile
                 tags: tmp-tag
+                load: true
             
             # below is process to push to ECR
             # private ECR registry is used due to license
