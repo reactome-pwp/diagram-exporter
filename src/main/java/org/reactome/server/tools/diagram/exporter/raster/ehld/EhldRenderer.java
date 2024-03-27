@@ -64,12 +64,13 @@ public class EhldRenderer implements RasterRenderer {
 
     /**
      * Setting font folder.
-     *
+     * <p>
      * The folder need to be a proper one, thus when resources are packaged in a jar or a war, we need to provide a stable folder path.<br>
      * For JAR or maven runners, usually the default src/main/resources/fonts is enough, but it needs to be placed on every package that is using Diagram exporter.<br>
-     *
+     * <p>
      * For war files, we should include the font folder inside webapp so that it is expanded when deployed in Tomcat.<br>
      * To configure inside SpringBoot, use a config class like ExporterConfif in ContentService<br>
+     *
      * @param fontFolderPath
      */
     public static void setFontFolder(String fontFolderPath) {
@@ -93,8 +94,20 @@ public class EhldRenderer implements RasterRenderer {
             DefaultConfigurationBuilder cfgBuilder = new DefaultConfigurationBuilder();
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(confString.getBytes(StandardCharsets.UTF_8));
             configuration = cfgBuilder.build(byteArrayInputStream);
-//            ContainerUtil.configure(pdfTranscoder, configuration);
-        } catch (ConfigurationException e) {
+
+            // Required so that the font gets correctly loaded and is not bigger than it is supposed when using batik
+            File[] fontFiles = file.listFiles((dir, name) -> name.endsWith("ttf") || name.endsWith("otf"));
+            if (fontFiles == null) {
+                log.warn("Configured Font path " + fontFolderPath + " does not contain any TrueType font file (.ttf or .otf)");
+                return;
+            }
+            for (File fontFile : fontFiles) {
+                Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);
+                GraphicsEnvironment.getLocalGraphicsEnvironment().registerFont(font);
+                log.debug("{} font registered", font.getFontName());
+            }
+
+        } catch (ConfigurationException | FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -111,36 +124,7 @@ public class EhldRenderer implements RasterRenderer {
         SvgDecoratorRenderer.selectAndFlag(document, args);
         svgAnalysis = new SvgAnalysis(document, args, result);
         svgAnalysis.analysis();
-        fixFont();
         updateDocumentDimensions();
-    }
-
-
-    /**
-     * Defensive programming rule #324: Illustrator exports custom fonts.
-     * Instead of <pre><code>
-     * h1 {
-     *  font-family: Arial;
-     *  font-weight: 700;
-     * }
-     * </code></pre>
-     * it exports like this:
-     * <pre><code>
-     * h1 {
-     *  font-family: Arial-BoldMT, Arial;
-     *  font-weight: 700;
-     * }
-     * </code></pre>
-     * what, in some cases, applies Bold twice.
-     */
-    private void fixFont() {
-        final String arialBoldMT = "Arial-BoldMT,";
-        final NodeList styleList = document.getRootElement().getElementsByTagNameNS(SVG_NAMESPACE_URI, SVG_STYLE_ATTRIBUTE);
-        final Node style = styleList.getLength() > 0 ? styleList.item(0) : null;
-        if (style != null) {
-            String replace = style.getTextContent().replace(arialBoldMT, "");
-            style.setTextContent(replace);
-        }
     }
 
     @Override
@@ -310,16 +294,23 @@ public class EhldRenderer implements RasterRenderer {
 
         @Override
         public BufferedImage createImage(int w, int h) {
+            BufferedImage image;
+            Graphics2D graphics;
             if (TRANSPARENT_FORMATS.contains(format)) {
-                return new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+                image = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+                graphics = image.createGraphics();
             } else if (NO_TRANSPARENT_FORMATS.contains(format)) {
-                final BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
-                final Graphics2D graphics = image.createGraphics();
+                image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+                graphics = image.createGraphics();
                 graphics.setBackground(background);
                 graphics.clearRect(0, 0, image.getWidth(), image.getHeight());
-                return image;
             } else
                 throw new IllegalArgumentException("Unsupported file extension " + format);
+
+            graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
+
+            return image;
         }
 
         @Override
