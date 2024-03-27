@@ -8,7 +8,7 @@ on:
             - synchronize
     push:
         branches:
-            - main
+            - master
 
 permissions:
     id-token: write
@@ -34,8 +34,10 @@ jobs:
                 docker cp lint-container:"$REPO_DIR"/lint.log .
                 while IFS= read -r LINT_MSG; do echo "::warning::${LINT_MSG}"; done < lint.log
                 exit 1
-
-    docker-build:
+    
+    # diagram-exporter contains PowerPoint paid license
+    # no intermediate image caching due to license
+    docker-build-push:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -47,43 +49,32 @@ jobs:
                 context: .
                 file: Dockerfile
                 tags: tmp-tag
-                outputs: type=docker,dest=/tmp/image.tar
-
-            - uses: actions/upload-artifact@v4
-              with:
-                name: image-artifact
-                path: /tmp/image.tar
-
-    docker-push:
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-        needs: docker-build
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/download-artifact@v4
-              with:
-                name: image-artifact
-                path: /tmp
-
-            - id: get-hash
+            
+            - if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+              id: get-hash
               run: |
                 FULL_SHA=${{ github.sha }}
                 echo "SHORT_SHA=${FULL_SHA:0:7}" >> $GITHUB_OUTPUT
             
-            - env:
+            # below is process to push to ECR
+            # private ECR registry is used due to license
+            - if: ${{ steps.get-hash.conclusion != 'skipped' }}
+              env:
                 AWS_REGION: us-east-1
               uses: aws-actions/configure-aws-credentials@v4
               with:
                 role-to-assume: ${{ vars.AWS_ROLE }}
                 aws-region: ${{ env.AWS_REGION }}
-    
-            - id: login-ecr
+                
+            - if: ${{ steps.get-hash.conclusion != 'skipped' }}
+              id: login-ecr
               uses: aws-actions/amazon-ecr-login@v2
 
-            - env:
+            - if: ${{ steps.get-hash.conclusion != 'skipped' }}
+              env:
                 AWS_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
                 AWS_REPO: diagram-exporter
                 IMG_TAG: ${{ steps.get-hash.outputs.SHORT_SHA }}
               run: |
-                docker load --input /tmp/image.tar
                 docker image tag tmp-tag $AWS_REGISTRY/$AWS_REPO:$IMG_TAG
                 docker push $AWS_REGISTRY/$AWS_REPO:$IMG_TAG
