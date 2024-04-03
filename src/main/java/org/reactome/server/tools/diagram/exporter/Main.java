@@ -63,6 +63,7 @@ public class Main {
 
                         //GRAPH-DB options
                         new FlaggedOption(  "host",     JSAP.STRING_PARSER, "bolt://localhost:7687", JSAP.NOT_REQUIRED,'h', "host",    "The neo4j host"),
+                        new FlaggedOption(  "name",     JSAP.STRING_PARSER, "graph.db",  JSAP.NOT_REQUIRED,'n', "name",    "The neo4j database name"),
                         new FlaggedOption(  "user",     JSAP.STRING_PARSER, "neo4j",     JSAP.NOT_REQUIRED,'u', "user",    "The neo4j user"),
                         new FlaggedOption(  "password", JSAP.STRING_PARSER, "neo4j",     JSAP.REQUIRED,    'w', "password","The neo4j password"),
 
@@ -79,7 +80,7 @@ public class Main {
         verbose = config.getBoolean("verbose");
 
         //Initialising ReactomeCore Neo4j configuration
-        ReactomeGraphCore.initialise(config.getString("host"), config.getString("user"), config.getString("password"));
+        ReactomeGraphCore.initialise(config.getString("host"), config.getString("user"), config.getString("password"), config.getString("name"));
 
         String profile = config.getString("profile");
 

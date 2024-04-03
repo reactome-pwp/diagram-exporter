@@ -56,7 +56,7 @@ import com.itextpdf.kernel.pdf.colorspace.PdfColorSpace;
 import com.itextpdf.kernel.pdf.colorspace.PdfPattern;
 import com.itextpdf.kernel.pdf.colorspace.PdfShading;
 import com.itextpdf.kernel.pdf.extgstate.PdfExtGState;
-import com.itextpdf.kernel.pdf.function.PdfFunction;
+import com.itextpdf.kernel.pdf.function.PdfType2Function;
 import org.reactome.server.tools.diagram.exporter.raster.diagram.common.FontProperties;
 import org.reactome.server.tools.diagram.exporter.raster.itext.awt.geom.PolylineShape;
 
@@ -70,8 +70,8 @@ import java.awt.geom.*;
 import java.awt.image.*;
 import java.awt.image.renderable.RenderableImage;
 import java.text.AttributedCharacterIterator;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 public class PdfGraphics2D extends Graphics2D {
 
@@ -1596,13 +1596,14 @@ public class PdfGraphics2D extends Graphics2D {
 			super(new PdfDictionary(), 2, cs);
 			getPdfObject().put(PdfName.Coords, new PdfArray(new float[]{x0, y0, x1, y1}));
 			final List<PdfObject> functions = new ArrayList<>(colors.length - 1);
-			final PdfNumber n = new PdfNumber(2);
+			final double n = 2;
 			final float[] encode = new float[2 * (colors.length - 1)];
 			for (int i = 0; i < colors.length - 1; i++) {
-				final PdfArray domain = new PdfArray(new float[]{0, 1});
-				final PdfArray c0 = new PdfArray(colors[i]);
-				final PdfArray c1 = new PdfArray(colors[i + 1]);
-				functions.add(new PdfFunction.Type2(domain, null, c0, c1, n).getPdfObject());
+				final float[] domain = new float[]{0, 1};
+				final float[] c0 = colors[i];
+				final float[] c1 = colors[i + 1];
+
+				functions.add(new PdfType2Function(domain, null, c0, c1, n).getPdfObject());
 				encode[2 * i] = 0;
 				encode[2 * i + 1] = 1;
 			}

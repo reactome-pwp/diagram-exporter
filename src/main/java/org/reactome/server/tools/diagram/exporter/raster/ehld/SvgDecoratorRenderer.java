@@ -26,12 +26,12 @@ class SvgDecoratorRenderer {
 			return;
 		addFilters(document, args);
 
-		final Set<String> selected = args.getSelected() == null
-				? Collections.EMPTY_SET
-				: new HashSet<>(args.getSelected());
-		final Set<String> flags = args.getFlags() == null
-				? Collections.EMPTY_SET
-				: new HashSet<>(args.getFlags());
+		final Set<String> selected = new HashSet<>(args.getSelected() == null
+                ? Set.of()
+                : args.getSelected());
+		final Set<String> flags = new HashSet<>(args.getFlags() == null
+                ? Set.of()
+                : args.getFlags());
 
 		final Set<String> selAndFlag = new HashSet<>(selected);
 		selAndFlag.retainAll(flags);
