@@ -19,6 +19,7 @@ public class RasterArgs {
 	private Color background;
 	private Integer column;
 	private String resource;
+	private boolean importableOnly = false;
 	private Boolean writeTitle = false;
 	private Integer quality = 5;
 	private Double factor = scale(quality);
@@ -129,6 +130,15 @@ public class RasterArgs {
 
 	public RasterArgs setResource(String resource) {
 		this.resource = resource;
+		return this;
+	}
+
+	public boolean isImportableOnly() {
+		return importableOnly;
+	}
+
+	public RasterArgs setImportableOnly(boolean importableOnly) {
+		this.importableOnly = importableOnly;
 		return this;
 	}
 

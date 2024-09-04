@@ -85,7 +85,7 @@ public class DiagramAnalysis {
 	 * Extracts analysis information and attaches it to each diagram node.
 	 */
 	private void addAnalysisData() {
-		this.summary = result.getResultSummary(resource);
+		this.summary = result.getResultSummary(resource, args.isImportableOnly());
 		// Get subpathways (green boxes) % of analysis area
 		addSubPathwaysData();
 		addNodesData();
@@ -119,7 +119,7 @@ public class DiagramAnalysis {
 		// filterByPathway needs ids as strings
 		final List<String> ids = new ArrayList<>();
 		for (Long dbId : index.getPathwaysByReactomeId().keySet()) ids.add(String.valueOf(dbId));
-		final List<PathwaySummary> summaries = result.filterByPathways(ids, resource);
+		final List<PathwaySummary> summaries = result.filterByPathways(ids, resource, args.isImportableOnly());
 
 		for (PathwaySummary summary : summaries) {
 			final EntityStatistics entities = summary.getEntities();
