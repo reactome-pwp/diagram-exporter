@@ -79,7 +79,7 @@ pipeline{
 					sh "sudo rm -rf logs/svg/* logs/png/* logs/sbgn/*"
 					
 					try {
-						sh "sudo service tomcat9 stop"
+						sh "sudo service tomcat stop"
 						withCredentials([usernamePassword(credentialsId: 'neo4jUsernamePassword', passwordVariable: 'pass', usernameVariable: 'user')]){
 							sh """
 								docker run \\
@@ -118,7 +118,7 @@ pipeline{
 							   """
 						}
 					} finally {
-						sh "sudo service tomcat9 start"
+						sh "sudo service tomcat start"
 					}
 				}
 			}
